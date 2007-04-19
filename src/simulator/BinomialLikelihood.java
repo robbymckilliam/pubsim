@@ -44,23 +44,25 @@ public class BinomialLikelihood extends ShatErrorTesterLLS implements PRIEstimat
                 dist2 += diff * diff;
             }
             double sum = 0;
-            for(int i = 0; i < u.length; i++){
-                sum += u[n] - f0*y[i];
+            boolean possibleu = true; 
+            for(int i = 0; i < u.length-1; i++){
+                if(u[i] == u[i+1]) possibleu = false;
             }
-            double sn = u[n] - u[0]; // - Math.round(sum/u.length);
-            double alpha = n/(sn+1);
-            double L = n*Math.log(alpha) + (sn+1-n)*Math.log(1-alpha) - dist2;
-            if (L > bestL) {
-                System.out.println("alpha = " + alpha + "sn = " + sn + " sum/len = " + sum/u.length + " bin = " + (n*Math.log(alpha) + (sn+1-n)*Math.log(1-alpha)) + " dist = " + -dist2/(f0*f0) + " f = " + f0);
+            double sn = f0*y[n]; // - Math.round(sum/u.length);
+            double alpha = (n+1)/(sn+1);
+            double L = (n+1)*Math.log(alpha) + (sn+1-(n+1))*Math.log(1-alpha) - dist2;
+            if (L > bestL && possibleu) {
+                System.out.println("y.length = " + y.length + " alpha = " + alpha + " sn = " + sn + " sum/len = " + sum/u.length + " bin = " + (n*Math.log(alpha) + (sn+1-n)*Math.log(1-alpha)) + " dist = " + -dist2/(f0*f0) + " f = " + f0);
                 //System.out.println(" fzeta[n] = " + fzeta[n] + " sn = " + (u[n] - u[0]));
                 for (int i = 0; i< u.length; i++){
-                    //System.out.print(", " + y[i]);
+                    //System.out.print(", " + f0*y[i]);
                 }
                 //System.out.println(")");
                 bestL = L;
                 fhat = f0;
                 bestU = u.clone();
             }
+            possibleu = true;
         }
         likelihood = bestL;
         return fhat;
