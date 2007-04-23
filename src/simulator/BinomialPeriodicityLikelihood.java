@@ -130,7 +130,7 @@ public class BinomialPeriodicityLikelihood extends ShatErrorTesterLLS implements
 
                 if (L > bestL) {
                     bestL = L;
-                    //System.out.println(" dist = " + dist + " f = " + f0 + " ps = " +  Math.log(1.0/Math.pow( Math.abs(val - 6.5)/1.3, 2 )));
+                    //System.out.println("val = " + val + " dist = " + dist + " f = " + f0 + " ps = " +  Math.log(1.0/Math.pow( Math.abs(val - 6.5)/1.3, 2 )));
                     fhat = f0;
                     likelihood = L;
                 }
