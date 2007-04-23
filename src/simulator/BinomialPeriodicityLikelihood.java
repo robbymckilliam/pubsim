@@ -121,8 +121,9 @@ public class BinomialPeriodicityLikelihood extends ShatErrorTesterLLS implements
                 for(int i = 0; i < u.length; i++)
                     deltasig[(int)(u[i]-u[0])] += 1.0;
 
-                double[] absfft = abs2FT(deltasig);
-                double val = max(absfft)/mean(absfft);
+               double[] absft2 = abs2FT(deltasig);
+                
+               double val = max(absft2)/mean(absft2);
 
                 //uses a precalculated mean of 6.5 and std dev of 1.3 and
                 //approximated the probability of s using Chebyshev's inequality
@@ -130,7 +131,7 @@ public class BinomialPeriodicityLikelihood extends ShatErrorTesterLLS implements
 
                 if (L > bestL) {
                     bestL = L;
-                    //System.out.println("val = " + val + " dist = " + dist + " f = " + f0 + " ps = " +  Math.log(1.0/Math.pow( Math.abs(val - 6.5)/1.3, 2 )));
+                    //System.out.println("mean(absfft) = " + mean(absft2) + " val = " + val + " dist = " + dist + " f = " + f0 + " ps = " +  Math.log(1.0/Math.pow( Math.abs(val - 6.5)/1.3, 2 )));
                     fhat = f0;
                     likelihood = L;
                 }
