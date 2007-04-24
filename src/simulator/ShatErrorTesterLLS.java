@@ -15,7 +15,7 @@ import java.lang.ArrayIndexOutOfBoundsException;
  */
 public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimator {
     
-    public ShatErrorTesterLLS(){ NUM_SAMPLES = 100; }
+    public ShatErrorTesterLLS(){ NUM_SAMPLES = 5000; }
     
     protected double[] bestU;
     /** 
@@ -119,7 +119,8 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
 	    for (int i = 0; i <= n; i++) {
-		double diff = zeta[i] - (v[i] / f0);
+		//double diff = zeta[i] - (v[i] / f0);
+                double diff = fzeta[i] - v[i];
 		L += diff * diff;
 	    }
             //even and odd check
@@ -133,6 +134,7 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
             }
 	    if (L < bestL && found_even && found_odd) {
 		bestL = L;
+                //System.out.println(bestL);
 		fhat = f0;
                 bestU = u.clone();
                 likelihood = -L;

@@ -18,7 +18,7 @@ import javax.vecmath.GVector;
  * Reworked as an extension of Anstar with PRIEstimator interface, 15-Jun-05.
  * Added setSize method, 16-Jun-05.
  */
-public class BresenhamEstimator extends Anstar implements PRIEstimator {
+    public class BresenhamEstimator extends Anstar implements PRIEstimator {
 
     double f, nextf;
     double[] z, sumz, sumv, kappa;
