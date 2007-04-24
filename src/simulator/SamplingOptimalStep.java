@@ -44,6 +44,7 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
 	    if (L < bestL) {
 		bestL = L;
 		fhat = f0;
+                likelihood = -L;
                 //System.out.println(bestL);
 	    }
 	}
