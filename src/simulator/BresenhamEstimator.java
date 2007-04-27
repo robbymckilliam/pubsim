@@ -192,6 +192,12 @@ import javax.vecmath.GVector;
 	}
 	return true;
     }
+    
+    public int numRegions;
+    /**
+     * Return the number of regions entered by the estimator
+     */
+    public int regionsEntered() { return numRegions; }
 
     // Pre: fmin > 0
 
@@ -209,6 +215,7 @@ import javax.vecmath.GVector;
 	deltabf.scale(fhat);
 	deltabf.sub(vbf);
 	double bestScore = deltabf.normSquared() / (fhat * fhat);
+        numRegions = 0;
 	while (f < fmax) {
 	    // check();
 	    if (nextCrossedPermutahedronBoundary()) {
@@ -222,6 +229,7 @@ import javax.vecmath.GVector;
 		    bestScore = score;
 		    fhat = f;
 		}
+                numRegions++;
 	    }
 	}
 	return fhat;

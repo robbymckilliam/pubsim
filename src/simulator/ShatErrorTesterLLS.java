@@ -15,7 +15,7 @@ import java.lang.ArrayIndexOutOfBoundsException;
  */
 public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimator {
     
-    public ShatErrorTesterLLS(){ NUM_SAMPLES = 5000; }
+    public ShatErrorTesterLLS(){ NUM_SAMPLES = 3; }
     
     protected double[] bestU;
     /** 
