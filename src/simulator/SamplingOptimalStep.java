@@ -22,6 +22,12 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
         return out;
     }
     
+    private int num_Steps = 0;
+    /**
+     * Return the number of steps used by the estimator
+     */
+    public int numSteps() { return num_Steps; }
+    
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length-1)
 	    setSize(y.length);
@@ -41,17 +47,13 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
         for (int i = 0; i <= n; i++)
             sdiff[i] = sdiff[i] - u[i];
         
-        double sdiffmin = min(sdiff);
-        for (int i = 0; i <= n; i++)
-            sdiff[i] = sdiff[i] - sdiffmin;
-        
         double num_steps = 0.0;
         for (int i = 0; i <= n; i++)
-            num_steps += Math.ceil(sdiff[i]);
+            num_steps += Math.ceil(Math.abs(sdiff[i]));
 	
         double fstep = (fmax - fmin) / num_steps;
-        
-        System.out.println(num_steps);
+        num_Steps = (int)num_steps;
+       //System.out.println(num_steps);
         
 	for (double f = fmin; f <= fmax; f += fstep) {
 	    for (int i = 0; i <= n; i++)

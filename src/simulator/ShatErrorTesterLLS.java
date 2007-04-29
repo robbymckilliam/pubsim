@@ -73,19 +73,6 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
     }
     
     /**
-     * Test function for nearest point algorithm
-     */
-    public void testNearestPoint(){
-        double[] k = new double[] {-6.915608256854315E-4, 1.0002731621680379, 2.0001913402074765, 5.002465489440774, 9.001801943603496, 10.999956892138684};
-        nearestPoint(k);
-        
-        for (int i = 0; i < u.length; i++)
-            System.out.print(u[i] + ", ");
-        System.out.println(")");
-        
-    }
-    
-    /**
      * Reimplemented setSize to also set the size of bestU array
      */
     public void setSize(int N) {
