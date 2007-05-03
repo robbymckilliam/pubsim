@@ -109,7 +109,7 @@ public class BasisScrambleEstimator extends Anstar implements PRIEstimator {
              */
             
             //make v the next lattice point along the line
-            if(!negbasis){
+            /*if(!negbasis){
                 for(int i = 0; i < N; i++)
                     v[i] -= 1.0/N;
                 v[besti] += 1.0;
@@ -118,7 +118,7 @@ public class BasisScrambleEstimator extends Anstar implements PRIEstimator {
                 for(int i = 0; i < N; i++)
                     v[i] += 1.0/N;
                 v[besti] -= 1.0;
-            }
+            }*/
             
             //System.out.println("1 " + L + "\t" + bestL + "\t" + f + "\t" + fhat);
             

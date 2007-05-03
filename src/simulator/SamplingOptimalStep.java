@@ -35,26 +35,15 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
         
+        double lineStep = Math.ceil(Math.sqrt(y.length));
+        double lineLength = 0.0;
         for (int i = 0; i <= n; i++)
-		fzeta[i] = fmax * zeta[i];
-        nearestPoint(fzeta);
-        double[] sdiff = u.clone();
+            lineLength += Math.pow((fmax - fmin)*zeta[i],2);
+        lineLength = Math.sqrt(lineLength);
         
-        for (int i = 0; i <= n; i++)
-		fzeta[i] = fmin * zeta[i];
-        nearestPoint(fzeta);
+        num_Steps = (int)lineStep;
         
-        for (int i = 0; i <= n; i++)
-            sdiff[i] = sdiff[i] - u[i];
-        
-        double num_steps = 0.0;
-        for (int i = 0; i <= n; i++)
-            num_steps += Math.ceil(Math.abs(sdiff[i]));
-	
-        double fstep = (fmax - fmin) / num_steps;
-        num_Steps = (int)num_steps;
-       //System.out.println(num_steps);
-        
+	double fstep = lineLength / lineStep;
 	for (double f = fmin; f <= fmax; f += fstep) {
 	    for (int i = 0; i <= n; i++)
 		fzeta[i] = f * zeta[i];
