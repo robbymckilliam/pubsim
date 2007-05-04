@@ -53,13 +53,37 @@ public class VectorFunctions {
     }
     
     /**
+     * Return the sum of a vector
+     */
+    public static double sum(double[] x){
+        double out = 0.0;
+        for(int i = 0; i < x.length; i++)
+            out += x[i]; 
+        return out;
+    }
+    
+    /**
+     * Return the sum of a vector
+     */
+    public static double sum2(double[] x){
+        double out = 0.0;
+        for(int i = 0; i < x.length; i++)
+            out += x[i]*x[i]; 
+        return out;
+    }
+    
+    /**
      * Return the mean value of a vector
      */
     public static double mean(double[] x){
-        double out = 0;
-        for(int i = 0; i < x.length; i++)
-            out += x[i]; 
-        return out/x.length;
+        return sum(x)/x.length;
+    }
+    
+    /**
+     * Return the mean value of a vector
+     */
+    public static double magnitude(double[] x){
+        return Math.sqrt(sum2(x));
     }
     
     /**
@@ -90,5 +114,25 @@ public class VectorFunctions {
             st = st.concat(" " + x[i]);
         }
         return st;
+    }
+    
+    /**
+     * Vector dot/inner product
+     */
+    public double dot(double[] x, double[] y){
+        double sum = 0.0;
+        for(int i = 0; i < x.length; i++)
+            sum += x[i]*y[i];
+        return sum;
+    }
+    
+    /**
+     * Return the min value of a vector
+     */
+    protected double min(double[] x){
+        double out = 0.0;
+        for(int i = 0; i < x.length; i++)
+            if(x[i]<out) out = x[i]; 
+        return out;
     }
 }
