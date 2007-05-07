@@ -20,10 +20,14 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
     private double[] transmittedSignal;
     private NoiseGenerator noise;
+    private double T;
     
     public void setTransmittedSignal(double[] transmitted){
         transmittedSignal = transmitted;
     }
+    
+    public void setPeriod(double T){  this.T = T; }
+    public double getPeriod(){ return T; }
     
     /**
      * Generate a binomial sequence typical of a transmitted
@@ -33,9 +37,12 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
         Random rand = new Random();
         double[] trans = new double[length];
         double count = 0.0;
-        for(int i = 0; i < length; i++){
-            if(rand.nextBoolean())
-                trans[i] = count;
+        int added = 0;
+        while(added < length){
+            if(rand.nextBoolean()){
+                trans[added] = count;
+                added++;
+            }
             count++;
         }
         return trans;
@@ -49,7 +56,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
           
           double[] gensig = new double[transmittedSignal.length];
           for(int i = 0; i< transmittedSignal.length; i++){
-              gensig[i] = transmittedSignal[i] + noise.getNoise();
+              gensig[i] = T * transmittedSignal[i] + noise.getNoise();
           }
           
           return gensig;
