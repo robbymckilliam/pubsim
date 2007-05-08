@@ -60,7 +60,8 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
         }
         cosa = cosa / VectorFunctions.magnitude(z);
 
-        return 0.5*bestblength/cosa * 0.99;
+        //return 0.5*bestblength/cosa * 0.99;
+        return 0.5*bestblength/cosa;
         
     }
     

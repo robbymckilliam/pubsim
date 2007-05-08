@@ -44,6 +44,10 @@ public class UniformNoise implements NoiseGenerator {
         stdDeviation = Math.sqrt(variance);
     }
     
+    public void setSeed(long seed){
+        random.setSeed(seed);
+    }
+    
     /** Returns a uniformly distributed value */
     public double getNoise(){
         return mean + range * (random.nextDouble() - 0.5);

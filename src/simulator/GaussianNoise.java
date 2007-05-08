@@ -43,6 +43,10 @@ public class GaussianNoise implements NoiseGenerator {
         stdDeviation = Math.sqrt(variance);
     }
     
+    public void setSeed(long seed){
+        random.setSeed(seed);
+    }
+    
     /** Returns an instance of gaussian noise */
     public double getNoise(){
         return stdDeviation * random.nextGaussian() + mean;

@@ -48,6 +48,30 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
         return trans;
     }
     
+     /**
+     * Generate a binomial sequence typical of a transmitted
+     * sparse signal.  Seed the random generator so that well always get
+     * the same answer.
+     */
+    public double[] generateTransmittedSignal(int length, long seed){
+        Random rand = new Random(seed);
+        double[] trans = new double[length];
+        double count = 0.0;
+        int added = 0;
+        while(added < length){
+            if(rand.nextBoolean()){
+                trans[added] = count;
+                added++;
+            }
+            count++;
+        }
+        return trans;
+    }
+    
+    /**
+     * Generate a binomial sequence typical of a transmitted
+     * sparse signal.
+     */
     public double[] generateReceivedSignal(){
           if(transmittedSignal == null)
               throw new Error("No transmitted signal has been specified");

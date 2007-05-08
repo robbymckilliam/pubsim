@@ -18,6 +18,9 @@ public interface NoiseGenerator {
     public void setMean(double mean);
     public void setVariance(double mean);
     
+    /** Set the current seed the random generator */
+    public void setSeed(long seed);
+    
     /**
      * Returns a random variable from the noise
      * distribution.
