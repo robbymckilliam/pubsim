@@ -30,16 +30,9 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
      * @return The optimal step length. <p>
      */
     protected double calcOptimalStep(double[] z){
-        double one_dot_z = VectorFunctions.sum(z)/n;
-        double [] dots = new double[z.length];
         
-        //could do some presorting as we calculate
-        //the dot products to make the sort faster.
-        //Keeping it simple for now.
-        //int posc = 0, negc = 0;
-        for (int i = 0; i <= n;  i++){
-           dots[i] =  z[i] - one_dot_z;
-        }
+        double [] dots = z.clone();
+        
         Arrays.sort(dots);
         
         int m = 0;
@@ -49,19 +42,19 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
                 blength, 
                 bestblength = 0.0;
         for (int i = n; i >= 0; i--){
-            m = n - i + 1;
+            m = n + 1 - i;
             sumdots += dots[i];
-            blength = Math.sqrt(m*n*n + (n+1-m)*m*m)/(n+1);
+            blength = Math.sqrt(m*(n-m+1)*(n-m+1) + (n+1-m)*m*m)/(n+1);
             cosa = sumdots/blength;
             if(cosa > bestcosa){
                 bestcosa = cosa;
                 bestblength = blength;
             } else break;
         }
-        cosa = cosa / VectorFunctions.magnitude(z);
-
-        //return 0.5*bestblength/cosa * 0.99;
-        return 0.5*bestblength/cosa;
+        cosa = bestcosa / VectorFunctions.magnitude(z);
+        
+        return 0.5*bestblength/cosa * 0.99;
+        //return 0.5*bestblength/cosa;
         
     }
     
@@ -95,8 +88,8 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
 	    for (int i = 0; i <= n; i++) {
-		//double diff = zeta[i] - (v[i] / f0);
-                double diff = fzeta[i] - v[i];
+		double diff = zeta[i] - (v[i] / f0);
+                //double diff = fzeta[i] - v[i];
 		L += diff * diff;
 	    }
 	    if (L < bestL) {

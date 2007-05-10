@@ -111,8 +111,8 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
 	    for (int i = 0; i <= n; i++) {
-		//double diff = zeta[i] - (v[i] / f0);
-                double diff = fzeta[i] - v[i];
+		double diff = zeta[i] - (v[i] / f0);
+                //double diff = fzeta[i] - v[i];
 		L += diff * diff;
 	    }
 

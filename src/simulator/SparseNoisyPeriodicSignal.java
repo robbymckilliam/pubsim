@@ -19,8 +19,16 @@ import java.util.Random;
 public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
     private double[] transmittedSignal;
+    private double[] recievedSignal;
     private NoiseGenerator noise;
+    private Random rand;
     private double T;
+    
+    public SparseNoisyPeriodicSignal(){
+            rand = new Random();
+            transmittedSignal = new double[0];
+            recievedSignal = new double[0];
+    }
     
     public void setTransmittedSignal(double[] transmitted){
         transmittedSignal = transmitted;
@@ -34,18 +42,19 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * sparse signal.
      */
     public double[] generateTransmittedSignal(int length){
-        Random rand = new Random();
-        double[] trans = new double[length];
+        if( transmittedSignal.length != length )
+            transmittedSignal = new double[length];
+            
         double count = 0.0;
         int added = 0;
         while(added < length){
             if(rand.nextBoolean()){
-                trans[added] = count;
+                transmittedSignal[added] = count;
                 added++;
             }
             count++;
         }
-        return trans;
+        return transmittedSignal;
     }
     
      /**
@@ -54,18 +63,21 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * the same answer.
      */
     public double[] generateTransmittedSignal(int length, long seed){
-        Random rand = new Random(seed);
-        double[] trans = new double[length];
+        rand.setSeed(seed);
+        
+        if( transmittedSignal.length != length )
+            transmittedSignal = new double[length];
+            
         double count = 0.0;
         int added = 0;
         while(added < length){
             if(rand.nextBoolean()){
-                trans[added] = count;
+                transmittedSignal[added] = count;
                 added++;
             }
             count++;
         }
-        return trans;
+        return transmittedSignal;
     }
     
     /**
@@ -77,15 +89,18 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
               throw new Error("No transmitted signal has been specified");
           if(noise == null)
               throw new Error("No noise generator has been specified");
+
+          if( transmittedSignal.length != recievedSignal.length )
+                recievedSignal = new double[transmittedSignal.length];
           
-          double[] gensig = new double[transmittedSignal.length];
           for(int i = 0; i< transmittedSignal.length; i++){
-              gensig[i] = T * transmittedSignal[i] + noise.getNoise();
+              recievedSignal[i] = T * transmittedSignal[i] + noise.getNoise();
           }
           
-          return gensig;
+          return recievedSignal;
     }
     
+    /** Set the noise type for the signal */
     public void setNoise(NoiseGenerator noise){
         this.noise = noise;
     }

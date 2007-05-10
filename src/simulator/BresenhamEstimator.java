@@ -224,8 +224,8 @@ import javax.vecmath.GVector;
 		deltabf.set(zbf);
 		deltabf.scale(f);
 		deltabf.sub(vbf);
-		//double score = deltabf.normSquared() / (f*f);
-                double score = deltabf.normSquared();
+		double score = deltabf.normSquared() / (f*f);
+                //double score = deltabf.normSquared();
 		if (score < bestScore) {
 		    bestScore = score;
 		    fhat = f;
