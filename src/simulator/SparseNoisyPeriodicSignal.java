@@ -53,7 +53,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
                 added++;
             }
             count++;
-        }
+        }  
         return transmittedSignal;
     }
     

@@ -71,7 +71,8 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
             lineLength += Math.pow((fmax - fmin)*zeta[i],2);
         lineLength = Math.sqrt(lineLength);
         
-        //System.out.println(lineStep + "\t" + lineLength);
+        if (lineStep == 0.0)
+            throw new Error("Step Length is 0.0!\n zeta = " + VectorFunctions.print(zeta));
         
         num_Steps = (int) ( lineLength / lineStep);
         
@@ -96,7 +97,7 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
 		bestL = L;
 		fhat = f0;
                 likelihood = -L;
-                bestU = u.clone();
+                //bestU = u.clone();
                 //System.out.println(bestL);
 	    }
 	}
