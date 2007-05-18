@@ -52,6 +52,33 @@ public class VectorFunctions {
         return out;
     }
     
+     /**
+     * Euclidean distance between two vectors
+     */
+    public static double distance_between(double[] x, double[] s){
+        double out = 0.0;
+        for(int i = 0; i < x.length; i++)
+            out += Math.pow(x[i] - s[i], 2.0); 
+        return Math.sqrt(out);
+    }
+    
+    /**
+     * angle between two vectors
+     */
+    public static double angle_between(double[] x, double[] y){
+        return Math.acos(dot(x,y)/(magnitude(x)*magnitude(y)));
+    }
+    
+    /**
+     * vector subtraction
+     */
+    public static double[] subtract(double[] x, double[] y){
+        double[] out = new double[x.length];
+        for(int i = 0; i < x.length; i++)
+            out[i] += x[i] - y[i]; 
+        return out;
+    }
+    
     /**
      * Return the sum of a vector
      */
@@ -119,7 +146,7 @@ public class VectorFunctions {
     /**
      * Vector dot/inner product
      */
-    public double dot(double[] x, double[] y){
+    public static double dot(double[] x, double[] y){
         double sum = 0.0;
         for(int i = 0; i < x.length; i++)
             sum += x[i]*y[i];
@@ -129,7 +156,7 @@ public class VectorFunctions {
     /**
      * Return the min value of a vector
      */
-    protected double min(double[] x){
+    public static  double min(double[] x){
         double out = 0.0;
         for(int i = 0; i < x.length; i++)
             if(x[i]<out) out = x[i]; 
