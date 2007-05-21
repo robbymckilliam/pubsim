@@ -25,7 +25,12 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
      * through the origin specified by vector z.
      * This computes in o(nlog(n)) time but should take
      * only a small fraction of the time used for the
-     * remainder of the search.
+     * remainder of the search. <p>
+     * Major modification added on 20/5/07.  This fixes
+     * the calculation so that it actually calculated the
+     * next permutahedron boundary crossing and not just
+     * the relavant vector of closest angle.  The actual
+     * computation is very similar for both.
      * @param z  A vector specifying the search line.
      * @return The optimal step length. <p>
      */
@@ -35,26 +40,20 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
         
         Arrays.sort(dots);
         
-        int m = 0;
-        double bestcosa = Double.NEGATIVE_INFINITY, 
-                cosa = 0.0, 
-                sumdots = 0.0,
-                blength, 
-                bestblength = 0.0;
-        for (int i = n; i >= 0; i--){
+        int m;
+        double bestk = Double.POSITIVE_INFINITY, 
+                k, 
+                sumdots = 0.0;
+        for (int i = n; i > 0; i--){
             m = n + 1 - i;
             sumdots += dots[i];
-            blength = Math.sqrt(m*(n-m+1)*(n-m+1) + (n+1-m)*m*m)/(n+1);
-            cosa = sumdots/blength;
-            if(cosa > bestcosa){
-                bestcosa = cosa;
-                bestblength = blength;
+            k = (((double)(m*(n-m+1)))/(n+1))/sumdots;
+            if(k < bestk){
+                bestk = k;
             } else break;
         }
-        cosa = bestcosa / VectorFunctions.magnitude(z);
         
-        return 0.5*bestblength/cosa * 0.99;
-        //return 0.5*bestblength/cosa;
+        return 0.5 * bestk * VectorFunctions.magnitude(z) * 0.99;
         
     }
     
