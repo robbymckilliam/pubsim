@@ -96,7 +96,7 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
 		bestL = L;
 		fhat = f0;
                 likelihood = -L;
-                bestU = u.clone();
+                //bestU = u.clone();
                 //System.out.println(bestL);
 	    }
 	}
