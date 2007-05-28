@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 public class SamplingOptimalStep extends ShatErrorTesterLLS {
     
-    private int num_Steps = 0;
+    protected int num_Steps = 0;
     /**
      * Return the number of steps used by the estimator
      */
