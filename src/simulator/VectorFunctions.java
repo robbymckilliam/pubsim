@@ -156,10 +156,19 @@ public class VectorFunctions {
     /**
      * Return the min value of a vector
      */
-    public static  double min(double[] x){
+    public static double min(double[] x){
         double out = 0.0;
         for(int i = 0; i < x.length; i++)
             if(x[i]<out) out = x[i]; 
         return out;
+    }
+    
+    /**
+     * Return the distance between the two elements in
+     * x that are the farest apart.
+     */
+    public static double max_distance(double[] x)
+    {
+     return max(x) - min(x);   
     }
 }
