@@ -16,8 +16,12 @@ package simulator;
  */
 public class NewBresenhamEstimator extends Anstar implements PRIEstimator{
     
-     public double estimateFreq(double[] y, double fmin, double fmax) {
-
+    public void setSize(int N) {
+        //what memory do I need?
+    }
+    
+    public double estimateFreq(double[] y, double fmin, double fmax) {
+        return 0.0;
     }
 
     public double varianceBound(double sigma, double[] k) {
