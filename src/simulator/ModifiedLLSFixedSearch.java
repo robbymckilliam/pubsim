@@ -6,6 +6,8 @@
 
 package simulator;
 
+import java.util.Random;
+
 /**
  * Allows specification of the frequencies to search
  * @author Robby McKilliam
@@ -15,8 +17,19 @@ public class ModifiedLLSFixedSearch extends ShatErrorTesterLLS implements PRIEst
     protected double[] fsearch;
     
     /** Creates a new instance of ModifiedLLSFixedSearch */
-    public ModifiedLLSFixedSearch() {
-        fsearch = new double[] {3.0/100, 3.0/4, 1.0, 2.0 };
+    public ModifiedLLSFixedSearch(int type) {
+        if(type == 1)
+            fsearch = new double[] {3.0/4, 1.0 };
+        else if(type == 5)
+            fsearch = new double[] {3.0/4, 4./5.0, 1.0, 5.0/4.0, 4.0/3.0 };
+        else {
+            fsearch = new double[200];
+            Random rand = new Random();
+            for(int i=0; i < fsearch.length-1; i++){
+                fsearch[i] = 1.0 + 7.0/12.0*(rand.nextDouble()-0.5);
+            }
+            fsearch[199] = 1.0;
+        }
     }
     
     public double estimateFreq(double[] y, double fmin, double fmax) {
