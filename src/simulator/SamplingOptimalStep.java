@@ -53,7 +53,7 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
             } else break;
         }
         
-        return 0.5 * bestk * VectorFunctions.magnitude(z) * 0.99;
+        return 0.5 * bestk * VectorFunctions.magnitude(z);
         
     }
     
