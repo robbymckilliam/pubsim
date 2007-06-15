@@ -62,4 +62,32 @@ public class ConsistentSamplingOptimalStep extends SamplingOptimalStep{
 	return fhat;
     }
     
+    /**Return the likelihood of a particular frequency*/
+    public double calculateLikelihood(double[] y, double f) {
+	if (n != y.length-1)
+	    setSize(y.length);
+	project(y, zeta);
+        
+        for (int i = 0; i <= n; i++)
+            fzeta[i] = f * zeta[i];
+        nearestPoint(fzeta);
+        double sumv2 = 0, sumvz = 0;
+        for (int i = 0; i <= n; i++) {
+            sumv2 += v[i] * v[i];
+            //sumv2 += zeta[i] * zeta[i];
+            sumvz += v[i] * zeta[i];
+        }
+        double f0 = sumv2 / sumvz;
+        //double f0 = sumvz / sumv2;
+        double L = 0;
+        for (int i = 0; i <= n; i++) {
+            double diff = zeta[i] - (v[i] / f0);
+            //double diff = fzeta[i] - v[i];
+            L += diff * diff * f0 * f0;   //modification for consistency
+        }
+        likelihood = -L;
+        //bestU = u.clone();
+	return -L;
+    }
+    
 }
