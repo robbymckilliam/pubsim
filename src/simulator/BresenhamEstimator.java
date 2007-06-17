@@ -3,6 +3,8 @@ package simulator;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.vecmath.GVector;
 
@@ -276,6 +278,50 @@ import javax.vecmath.GVector;
 
 	    bi.check();
 	    bi.nextCrossedPermutahedronBoundary();
+	}
+    }
+    
+    protected Vector fs, Ls;
+    public Object[] getfs() { return fs.toArray(); }
+    public Object[] getLs() { return Ls.toArray(); }
+    /** 
+     * Return all the frequencies closest to a lattice point and the liklihood
+     * of these frequencies.
+     */
+    public void calculateLikelihood(double[] y, double fmin, double fmax) {
+	initialise(y, fmin);
+	GVector zbf = new GVector(z);
+	GVector vbf = new GVector(v);
+        fs = new Vector();
+        Ls = new Vector();
+	double fhat;
+	if (vbf.normSquared() == 0)
+	    fhat = fmin;
+	else
+	    fhat = Math.max(fmin, Math.min(fmax,
+					   vbf.normSquared() / vbf.dot(zbf)));
+	GVector deltabf = new GVector(z);
+	deltabf.scale(fhat);
+	deltabf.sub(vbf);
+	double bestScore = deltabf.normSquared() / (fhat * fhat);
+	while (f < fmax) {
+	    // check();
+	    if (nextCrossedPermutahedronBoundary()) {
+		vbf.set(v);
+		double f = Math.min(fmax, vbf.normSquared() / vbf.dot(zbf));
+		deltabf.set(zbf);
+		deltabf.scale(f);
+		deltabf.sub(vbf);
+		//double score = deltabf.normSquared() / (f*f);
+                double score = deltabf.normSquared();
+		if (score < bestScore) {
+		    bestScore = score;
+		    fhat = f;
+		}
+                //fill up the array of values
+                fs.add(f);
+                Ls.add(-score);                
+	    }
 	}
     }
 }
