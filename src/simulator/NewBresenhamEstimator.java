@@ -106,7 +106,7 @@ public class NewBresenhamEstimator extends Anstar implements PRIEstimator{
 
             
             u[besti] += bestpn;
-            ubar = (ubar*(n+1) + bestpn)/(n+1);
+            ubar += bestpn/(n+1);
             
             T = T - bestDel;    
             
@@ -118,7 +118,7 @@ public class NewBresenhamEstimator extends Anstar implements PRIEstimator{
                 zi[i] = y[i] - u[i]*T - theta;
                 double roundT = Math.round(zi[i]/T);
                 u[i] += Math.round(zi[i]/T);
-                ubar += Math.round(zi[i]/T);
+                ubar += Math.round(zi[i]/T)/(n+1);
             }
                 
                            
@@ -134,7 +134,7 @@ public class NewBresenhamEstimator extends Anstar implements PRIEstimator{
             }
             T = utz/utu;
             
-            System.out.println(T);
+            //System.out.println(T);
             
         }
             
