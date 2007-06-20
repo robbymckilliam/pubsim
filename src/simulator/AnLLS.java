@@ -63,36 +63,35 @@ public class AnLLS implements PRIEstimator {
                 
                 for(int j = 0; j <= n; j++){
                     if(y[j]>0.0)
-                        v[j] = pround(f*y[j] + g[j]);
+                        v[j] = pround(f*y[j] - g[j]) + g[j];
                     else
-                        v[j] = nround(f*y[j] + g[j]);
+                        v[j] = nround(f*y[j] - g[j]) + g[j];
                 }
                 System.out.println(VectorFunctions.print(v));
-                
-                //using the lattice point update f
-                //theoretically this should only be
-                //necessary when we sum(v)=0 (ie this
-                //is a point in An) but to avoid
-                //numerically error with round we have
-                //to do it at every point in Zn.
-                double ytv = 0.0, yty = 0.0;
-                for(int j = 0; j <= n; j++){
-                    ytv += y[j]*v[j];
-                    yty += y[j]*y[j];
-                }
-                double f0 = ytv/yty;
-                f = Math.max(fmin, f0);
                 
                 //if sum(v) is zero this is a lattice point
                 //in An so calculate its distance from the 
                 //line y
                 if(VectorFunctions.sum(v) == 0.0){
+                    //using the lattice point update f
+                    //theoretically this should only be
+                    //necessary when we sum(v)=0 (ie this
+                    //is a point in An) but to avoid
+                    //numerically error with round we have
+                    //to do it at every point in Zn.
+                    double ytv = 0.0, yty = 0.0;
+                    for(int j = 0; j <= n; j++){
+                        ytv += y[j]*v[j];
+                        yty += y[j]*y[j];
+                    }
+                    double f0 = ytv/yty;
+                    System.out.println("f0 = " + f0);
                     double dist2 = 0.0;
                     for(int j = 0; j <= n; j++){
-                        double diff = f*y[j] - v[j];
+                        double diff = f0*y[j] - v[j];
                         dist2 = diff*diff;
                     }
-                    if( dist2 < bestdist2 ){
+                    if( dist2 < bestdist2 && f0 > fmin && f0 < fmax ){
                         bestdist2 = dist2;
                         bestf = f0;
                     }      
@@ -104,16 +103,16 @@ public class AnLLS implements PRIEstimator {
                 for(int j = 0; j <= n; j++){
                     double del = Double.POSITIVE_INFINITY;
                     if( y[j] > 0.0 )
-                        del = (0.5 + pround(f*y[j] + g[j]) - g[j])/y[j] - f;
+                        del = (0.5 + pround(f*y[j] - g[j]) + g[j])/y[j] - f;
                     else if(y[j] < 0.0)
-                        del = (-0.5 + nround(f*y[j] + g[j]) - g[j])/y[j] - f;
+                        del = (-0.5 + nround(f*y[j] - g[j]) + g[j])/y[j] - f;
                     else del = Double.POSITIVE_INFINITY;
                     
                     System.out.println(del);
                     
                     mindel = Math.min(mindel, del);         
                 }
-                System.out.println("f0 = " + f0);
+                //System.out.println("f0 = " + f0);
                 System.out.println("f = " + f);
                 if( mindel <= 0.0 )
                     throw new Error( "mindel <= zero!\n" + mindel + "\n" + f + "\n" + VectorFunctions.print(y) + "\n" + VectorFunctions.print(g) + "\n" + VectorFunctions.print(v) );
