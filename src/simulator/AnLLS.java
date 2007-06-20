@@ -122,7 +122,7 @@ public class AnLLS implements PRIEstimator {
                 System.out.println("f = " + f); 
                 System.out.println();
              
-                if(count++ > 500)
+                if(count++ > 100)
                     throw new Error( "too many loops" );
                 
             }
