@@ -75,7 +75,17 @@ public class VectorFunctions {
     public static double[] subtract(double[] x, double[] y){
         double[] out = new double[x.length];
         for(int i = 0; i < x.length; i++)
-            out[i] += x[i] - y[i]; 
+            out[i] = x[i] - y[i]; 
+        return out;
+    }
+    
+    /**
+     * vector addition
+     */
+    public static double[] add(double[] x, double[] y){
+        double[] out = new double[x.length];
+        for(int i = 0; i < x.length; i++)
+            out[i] = x[i] + y[i]; 
         return out;
     }
     
