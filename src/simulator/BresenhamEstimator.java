@@ -237,6 +237,44 @@ import javax.vecmath.GVector;
 	}
 	return fhat;
     }
+    
+    /** Return the lattice point that gave least error rather than f*/
+    public double[] bestLatticePoint(double[] y, double fmin, double fmax){
+	initialise(y, fmin);
+        double[] bestv = new double[y.length]; 
+	GVector zbf = new GVector(z);
+	GVector vbf = new GVector(v);
+	double fhat;
+	if (vbf.normSquared() == 0)
+	    fhat = fmin;
+	else
+	    fhat = Math.max(fmin, Math.min(fmax,
+					   vbf.normSquared() / vbf.dot(zbf)));
+	GVector deltabf = new GVector(z);
+	deltabf.scale(fhat);
+	deltabf.sub(vbf);
+	double bestScore = deltabf.normSquared() / (fhat * fhat);
+        numRegions = 0;
+	while (f < fmax) {
+	    // check();
+	    if (nextCrossedPermutahedronBoundary()) {
+		vbf.set(v);
+		double f = Math.min(fmax, vbf.normSquared() / vbf.dot(zbf));
+		deltabf.set(zbf);
+		deltabf.scale(f);
+		deltabf.sub(vbf);
+		//double score = deltabf.normSquared() / (f*f);
+                double score = deltabf.normSquared();
+		if (score < bestScore) {
+		    bestScore = score;
+		    fhat = f;
+                    bestv= v.clone();
+		}
+                numRegions++;
+	    }
+	}
+	return bestv;
+    }
 
     public double varianceBound(double sigma, double[] k) {
 	Anstar.project(k, kappa);
