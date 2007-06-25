@@ -115,15 +115,14 @@ public class AnLLSTest extends TestCase {
     public void testEstimateFreq() {
         System.out.println("estimateFreq");
         
-        double[] y = {1.0,2.0,3.0,4.0,5.0};
+        double[] y = {1.0,2.0,3.0,4.0};
         double fmin = 0.5;
         double fmax = 1.5;
-        int n = 20;
+        int n = 30;
         double T = 1.0;
         AnLLS instance = new AnLLS();
         
-        
-        GaussianNoise noise = new simulator.GaussianNoise(0.0,0.005*0.005);
+        GaussianNoise noise = new simulator.GaussianNoise(0.0,0.01*0.01);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);
@@ -135,7 +134,7 @@ public class AnLLSTest extends TestCase {
         
         System.out.println(VectorFunctions.print(trans));
         
-        double expResult = 1.0;
+        double expResult = T;
         double result = instance.estimateFreq(y, fmin, fmax);
         assertEquals(expResult, result);
 
