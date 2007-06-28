@@ -76,13 +76,114 @@ public class AnLLS implements PRIEstimator {
                 //line y.  Note that the sum will be 1 or more
                 //if it is not in An.  We use < 0.5 to avoid
                 //numerical errors.
-                if( Math.abs(VectorFunctions.sum(v)) < 0.5 ){
+                if( Math.abs(VectorFunctions.sum(v)) < 0.1 ){
                     /*(double ytv = 0.0, yty = 0.0;
                     for(int j = 0; j <= n; j++){
                         ytv += y[j]*v[j];
                         yty += y[j]*y[j];
                     }
                     double f0 = ytv/yty; */
+                    double vtv = 0.0, ytv = 0.0;
+                    for(int j = 0; j <= n; j++){
+                        ytv += y[j]*v[j];
+                        vtv += v[j]*v[j];
+                    }
+                    double f0 = vtv/ytv;
+                    //double f0 = VectorFunctions.sum2(v)/VectorFunctions.dot(y,v);
+                    double dist2 = 0.0;
+                    for(int j = 0; j <= n; j++){
+                        double diff = f0*y[j] - v[j];
+                        dist2 += diff*diff;
+                    }
+                    if( dist2 < bestdist2 && f0 > fmin && f0 < fmax ){
+                        bestdist2 = dist2;
+                        bestf = f0;
+                        //System.out.println("f0 = " + f0 + " bestdist = " + bestdist2);
+                    }      
+                }
+                //System.out.println();
+                
+                //calculate the next f that moves into another
+                //voronoi region in Zn
+                double mindel = Double.POSITIVE_INFINITY;
+                double mindel2 = Double.POSITIVE_INFINITY;
+                int bestj = 0;
+                for(int j = 0; j <= n; j++){
+                    double del = Double.POSITIVE_INFINITY, pn = 0.0;
+                    if( y[j] > 0.0 )
+                        del = (0.5 + pround(f*y[j] - g[j]) + g[j])/y[j] - f;
+                    else if(y[j] < 0.0)
+                        del = (-0.5 + nround(f*y[j] - g[j]) + g[j])/y[j] - f;
+                    else del = Double.POSITIVE_INFINITY;
+                    
+                    if( del < mindel ){
+                        mindel2 = mindel;
+                        mindel = del;
+                        bestj = j;
+                    }else if (del != mindel && del < mindel2){
+                        mindel2 = del;
+                    }
+                    //System.out.println("del = " + del);
+                }
+                //System.out.println("mindel = " + mindel + ", mindel2 = " + mindel2 );
+                //if( mindel < 0.0 )
+                //    throw new Error( "mindel <= zero!\n" + mindel + "\n" + f + "\n" + VectorFunctions.print(y) + "\n" + VectorFunctions.print(g) + "\n" + VectorFunctions.print(v) );
+                
+                f += (mindel + mindel2)/2.0;
+                //System.out.println("f = " + f); 
+                //count++;
+                //if(count++ > 100)
+                //    throw new Error( "too many loops" );
+                
+            }
+            //System.out.println("finished glue" + i + " with bestf so far = " + bestf);
+            //System.out.println("count = " + count);
+            //count = 0;
+        }
+        return bestf;
+    }
+    
+    /** Returns the maximum liklihood value */
+    public double likelihood(double[] y, double fmin, double fmax){
+        if (n != y.length-1)
+	    setSize(y.length);
+        
+        Anstar.project(y, y);
+        //System.out.println(VectorFunctions.print(y));
+        
+        double bestf = 0.0;
+        double bestdist2 = Double.POSITIVE_INFINITY;
+        double f;
+        
+        for(int i = 0; i <= n; i++){
+            glueVector(i);
+            f = fmin;
+            
+                    //int count = 0;
+                    
+            while(f < fmax){
+                //System.out.println(VectorFunctions.print(v));
+                
+                for(int j = 0; j <= n; j++){
+                    if(y[j] < 0)
+                        v[j] = nround(f*y[j] - g[j]) + g[j];
+                    else
+                        v[j] = pround(f*y[j] - g[j]) + g[j];
+                }
+                //System.out.println(VectorFunctions.print(v));
+                
+                //if sum(v) is zero this is a lattice point
+                //in An so calculate its distance from the 
+                //line y.  Note that the sum will be 1 or more
+                //if it is not in An.  We use < 0.1 to avoid
+                //numerical errors.
+                if( Math.abs(VectorFunctions.sum(v)) < 0.1 ){
+                    /*double ytv = 0.0, yty = 0.0;
+                    for(int j = 0; j <= n; j++){
+                        ytv += y[j]*v[j];
+                        yty += y[j]*y[j];
+                    }
+                    double f0 = ytv/yty;*/ 
                     double vtv = 0.0, ytv = 0.0;
                     for(int k = 0; k <= n; k++){
                         ytv += y[k]*v[k];
@@ -139,7 +240,7 @@ public class AnLLS implements PRIEstimator {
             //System.out.println("count = " + count);
             //count = 0;
         }
-        return bestf;
+        return bestdist2;
     }
     
     /** Return the lattice point that gave least error rather than f*/
