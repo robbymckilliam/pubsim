@@ -8,7 +8,7 @@ package simulator;
 
 public class PeriodogramEstimator implements PRIEstimator {
 
-    static final int NUM_SAMPLES = 600;
+    static final int NUM_SAMPLES = 50;
     static final int MAX_ITER = 10;
     static final double EPSILON = 1e-10;
 
