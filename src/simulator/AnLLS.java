@@ -54,11 +54,11 @@ public class AnLLS implements PRIEstimator {
         double bestdist2 = Double.POSITIVE_INFINITY;
         double f;
         
+        int count = 0;
+        
         for(int i = 0; i <= n; i++){
             glueVector(i);
             f = fmin;
-            
-                    //int count = 0;
                     
             while(f < fmax){
                 //System.out.println(VectorFunctions.print(v));
@@ -131,7 +131,7 @@ public class AnLLS implements PRIEstimator {
                 
                 f += (mindel + mindel2)/2.0;
                 //System.out.println("f = " + f); 
-                //count++;
+                count++;
                 //if(count++ > 100)
                 //    throw new Error( "too many loops" );
                 
@@ -140,8 +140,12 @@ public class AnLLS implements PRIEstimator {
             //System.out.println("count = " + count);
             //count = 0;
         }
+        num_regions = count;
         return bestf;
     }
+    
+    protected int num_regions;
+    public int regionsEntered(){ return num_regions; }
     
     /** Returns the maximum liklihood value */
     public double likelihood(double[] y, double fmin, double fmax){

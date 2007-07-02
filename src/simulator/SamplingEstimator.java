@@ -8,7 +8,7 @@ package simulator;
  */
 public class SamplingEstimator extends Anstar implements PRIEstimator {
 
-    static int NUM_SAMPLES = 50000;
+    static int NUM_SAMPLES = 600;
 
     double[] zeta, fzeta, kappa;
 
