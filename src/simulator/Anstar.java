@@ -121,4 +121,9 @@ public class Anstar {
 	for (int i = 0; i < x.length; i++)
 	    y[i] = x[i] - xbar;
     }
+    
+    /**Getter for the nearest point.  This is for testing */
+    public double[] getv() {return v;}
+    /**Getter for the interger index.  This is for testing */
+    public double[] getu() {return u;}
 }

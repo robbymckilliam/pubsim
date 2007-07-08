@@ -11,18 +11,16 @@ package simulator;
  * it uses relationships Zn->An->An* to search
  * each point.  This should be slower than the
  * bresenham estimator, expected to require atmost
- * O(n^2 sqrt(n)) steps with each step requiring O(n) 
- * calculations.  Total O(n^3 sqrt(n)).
+ * O(n^3) steps with each step requiring O(n) 
+ * calculations.  Total O(n^4). <br>
+ * This is depreciated in favour of ZnLLS which only
+ * needs O(log(n)) calculations per step.
  * @author Robby McKilliam
  */
 public class AnLLS implements PRIEstimator {
     
     protected double[] kappa, v, g;
     protected double n;
-    
-    /** Creates a new instance of AnLLS */
-    public AnLLS() {
-    }
     
     /** 
      * Sets protected variable g to the glue
