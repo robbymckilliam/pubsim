@@ -6,6 +6,8 @@
 
 package simulator;
 
+import java.util.TreeMap;
+
 /**
  * Zn->An->An* line search.  Uses the sorted
  * Zn search proposed by Dan and Vaughan.  This should
@@ -15,10 +17,9 @@ package simulator;
  */
 public class ZnLLS implements PRIEstimator {
     
-    Double[] p;
-    Integer[] ip;
-    double[] g;
+    double[] g, z, v;
     double n;
+    TreeMap map;
      
     /** 
      * Sets protected variable g to the glue
@@ -35,16 +36,62 @@ public class ZnLLS implements PRIEstimator {
     public void setSize(int N) 
     {
         this.n = N-1;
-        p = new Double[N];
-        ip = new Integer[N];
-        for(int i = 0; i <= n; i++){
-            ip[i] = new Integer(i);
-        }
         g = new double[N];
+        z = new double[N];
+        v = new double[N];
+        map = new TreeMap();
     }
     
     public double estimateFreq(double[] y, double fmin, double fmax){
-        return 0;
+        if (n != y.length-1)
+	    setSize(y.length);
+        
+        Anstar.project(y, z);
+        
+        double bestf = 0.0;
+        double mindist = Double.POSITIVE_INFINITY;
+        
+        for(int i = 0; i <= n; i++){
+            map.clear();
+            glueVector(i);
+            
+            //setup map and variables for this glue vector
+            double ztz = 0.0, ztv = 0.0, vtv = 0.0;
+            for(int j=0; j<=n; j++){
+                v[j] = Math.round(fmin*z[j] - g[j]) + g[j];
+                map.put(new Double((Math.signum(z[j])*0.5 + v[j])/z[j]), new Integer(j));
+                ztz += z[j]*z[j];
+                ztv += z[j]*v[j];
+                vtv += v[j]*v[j];
+            }
+            
+            double f = ztv/ztz;
+            //line search loop
+            while(f < fmax){
+                
+                double dist = f*f*ztz - 2*f*ztv + vtv;
+                
+                if(dist < mindist && f > fmin && f < fmax){
+                    mindist = dist;
+                    bestf = f;
+                }
+                       
+                Double key = ((Double) map.firstKey());
+                int k = ((Integer)map.get(key)).intValue();
+                double d = Math.signum(z[k]);
+                v[k] += d;
+                map.remove(key);
+                map.put(new Double((d*0.5 + v[k])/z[k]), new Integer(k));
+                
+                ztv += d*z[k];
+                vtv += 2*d*(v[k]-d) + 1;
+                
+                //update f
+                f = ztv/ztz;
+                           
+            }  
+        }
+        return bestf;
     }
     
     /** Not implemented here. */
