@@ -30,9 +30,89 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
         fy = new double[N];
     }    
     
-     public double estimateFreq(double[] y, double fmin, double fmax){
+    public double estimateFreq(double[] y, double fmin, double fmax){
         if (n != y.length-1)
             setSize(y.length);
+
+        double bestdist2 = Double.POSITIVE_INFINITY;
+        double bestf = 0.0;
+
+        //put y in the zero mean plane
+        Anstar.project(y,y);
+
+        double maxy = 0;
+        int maxi = 0;   //position of the maximum value of y[i]
+        for(int i = 0; i <= n; i++){
+            if(maxy < Math.abs(y[i])){
+                maxy = Math.abs(y[i]);
+                maxi = i;
+            }
+        }
+
+        //calculate the error term to be added each iteration
+        for(int i = 0; i <= n; i++)
+            d[i] = y[i]/maxy;
+        
+        //System.out.println(iters);
+        
+        for(int i = 0; i <= n; i++){
+            glueVector(i);
+
+            //go to the first point at fmin
+            double ifmin = (Math.round(fmin*y[maxi] - g[maxi]) + g[maxi])/y[maxi];
+            for(int j = 0; j <=n ; j++)
+                fy[j] = ifmin*y[j] - g[j] - d[j];
+            
+            //calculate the number of iterations needed
+            int iters = (int) (Math.ceil(Math.abs(fmax*y[maxi] - g[maxi])) - Math.floor(Math.abs(fmin*y[maxi] - g[maxi])));
+          
+            //System.out.println();
+            //System.out.println("glue " + i);
+            
+            //iterate over Zn
+            for(int j = 0; j < iters; j++){
+
+                //move the the next lattice point
+                for(int k = 0; k <=n ; k++){
+                    fy[k] += d[k];
+                    v[k] = Math.round(fy[k]);
+                    v[k] += g[k];   
+                }
+
+                Anstar.project(v,v);
+                //if(Math.abs(VectorFunctions.sum(v)) < 0.2 ){
+                
+                    double ytv = 0.0, yty = 0.0;
+                    for(int k = 0; k <= n; k++){
+                        ytv += y[k]*v[k];
+                        yty += y[k]*y[k];
+                    }
+                    double f = ytv/yty;
+                    double dist2 = 0.0;
+                    for(int k = 0; k <= n; k++){
+                        double diff = f*y[k] - v[k];
+                        dist2 += diff*diff;
+                    }
+                    if( dist2 < bestdist2 && f >= fmin && f <= fmax ){
+                        //System.out.print("* ");
+                        bestdist2 = dist2;
+                        bestf = f;
+                    } 
+                    //System.out.println("v = " + VectorFunctions.print(v) + ", f = " + f + ", dist = " + dist2 + ", bestf = " + bestf + ", " + (dist2 <= bestdist2) + ", " + (f >= fmin) + ", " + (f <= fmax));
+                //}
+
+            }
+
+        }
+
+        return bestf;
+     }
+     
+    public double[] bestLatticePoint(double[] y, double fmin, double fmax){
+        if (n != y.length-1)
+            setSize(y.length);
+        
+         double[] bestv = new double[y.length];
 
         double bestdist2 = Double.POSITIVE_INFINITY;
         double bestf = 0.0;
@@ -63,7 +143,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
             fmin = (Math.round(fmin*y[maxi] - g[maxi]) + g[maxi])/y[maxi];
             for(int j = 0; j <=n ; j++)
                 fy[j] = fmin*y[j] - g[j];
-          
+            
             //iterate over Zn
             for(int j = 0; j < iters; j++){
 
@@ -74,29 +154,31 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
                     v[k] += g[k];   
                 }
 
-                Anstar.project(v,v);
+                //Anstar.project(v,v);
+                if(Math.abs(VectorFunctions.sum(v)) < 0.2 ){
                 
-                double ytv = 0.0, yty = 0.0;
-                for(int k = 0; k <= n; k++){
-                    ytv += y[k]*v[k];
-                    yty += y[k]*y[k];
+                    double ytv = 0.0, yty = 0.0;
+                    for(int k = 0; k <= n; k++){
+                        ytv += y[k]*v[k];
+                        yty += y[k]*y[k];
+                    }
+                    double f = ytv/yty;
+                    double dist2 = 0.0;
+                    for(int k = 0; k <= n; k++){
+                        double diff = f*y[k] - v[k];
+                        dist2 += diff*diff;
+                    }
+                    if( dist2 < bestdist2 && f > fmin && f < fmax ){
+                        bestdist2 = dist2;
+                        bestf = f;
+                        bestv = v.clone();
+                    } 
                 }
-                double f = ytv/yty;
-                double dist2 = 0.0;
-                for(int k = 0; k <= n; k++){
-                    double diff = f*y[k] - v[k];
-                    dist2 += diff*diff;
-                }
-                if( dist2 < bestdist2 && f > fmin && f < fmax ){
-                    bestdist2 = dist2;
-                    bestf = f;
-                } 
 
             }
 
         }
 
-        return bestf;
+        return bestv;
      }
-     
 }

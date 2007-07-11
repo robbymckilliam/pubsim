@@ -114,7 +114,7 @@ public class Anstar {
      * Pre: y.length >= x.length
      */
     public static void project(double[] x, double[] y) {
-	double xbar = 0;
+	double xbar = 0.0;
 	for (int i = 0; i < x.length; i++)
 	    xbar += x[i];
 	xbar /= x.length;

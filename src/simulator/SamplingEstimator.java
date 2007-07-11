@@ -8,7 +8,7 @@ package simulator;
  */
 public class SamplingEstimator extends Anstar implements PRIEstimator {
 
-    static int NUM_SAMPLES = 150;
+    static int NUM_SAMPLES = 60;
 
     double[] zeta, fzeta, kappa;
 
@@ -93,6 +93,40 @@ public class SamplingEstimator extends Anstar implements PRIEstimator {
 	    }
 	}
 	return bestL;
+    }
+    
+        /** Return the likilhood of the best result */ 
+    public double[] bestLatticePoint(double[] y, double fmin, double fmax) {
+	if (n != y.length-1)
+	    setSize(y.length);
+        double[] bestv = new double[y.length];
+	project(y, zeta);
+	double bestL = Double.POSITIVE_INFINITY;
+	double fhat = fmin;
+	double fstep = (fmax - fmin) / NUM_SAMPLES;
+	for (double f = fmin; f <= fmax; f += fstep) {
+	    for (int i = 0; i <= n; i++)
+		fzeta[i] = f * zeta[i];
+	    nearestPoint(fzeta);
+	    double sumv2 = 0, sumvz = 0;
+	    for (int i = 0; i <= n; i++) {
+		sumv2 += v[i] * v[i];
+		sumvz += v[i] * zeta[i];
+	    }
+	    double f0 = sumv2 / sumvz;
+	    double L = 0;
+	    for (int i = 0; i <= n; i++) {
+		//double diff = zeta[i] - (v[i] / f0);
+                double diff = f0*zeta[i] - v[i];
+		L += diff * diff;
+	    }
+	    if (L < bestL) {
+		bestL = L;
+		fhat = f0;
+                bestv = v.clone();
+	    }
+	}
+	return bestv;
     }
 
     public double varianceBound(double sigma, double[] k) {
