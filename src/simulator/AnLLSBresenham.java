@@ -64,13 +64,15 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
                 fy[j] = ifmin*y[j] - g[j] - d[j];
             
             //calculate the number of iterations needed
-            int iters = (int) (Math.ceil(Math.abs(fmax*y[maxi] - g[maxi])) - Math.floor(Math.abs(fmin*y[maxi] - g[maxi])));
+            //int iters = (int) (Math.ceil(Math.abs(fmax*y[maxi] - g[maxi])) - Math.floor(Math.abs(fmin*y[maxi] - g[maxi])));
           
             //System.out.println();
             //System.out.println("glue " + i);
             
             //iterate over Zn
-            for(int j = 0; j < iters; j++){
+            //for(int j = 0; j < iters; j++){
+            double f = fmin;
+            while(f < fmax){
 
                 //move the the next lattice point
                 for(int k = 0; k <=n ; k++){
@@ -87,12 +89,13 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
                         ytv += y[k]*v[k];
                         yty += y[k]*y[k];
                     }
-                    double f = ytv/yty;
+                    f = ytv/yty;
                     double dist2 = 0.0;
                     for(int k = 0; k <= n; k++){
                         double diff = f*y[k] - v[k];
                         dist2 += diff*diff;
                     }
+                    //dist2 /= (f*f);   //uncomment to make this maximum liklihood
                     if( dist2 < bestdist2 && f >= fmin && f <= fmax ){
                         //System.out.print("* ");
                         bestdist2 = dist2;

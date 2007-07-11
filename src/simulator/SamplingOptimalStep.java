@@ -89,7 +89,7 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
 	    double L = 0;
 	    for (int i = 0; i <= n; i++) {
 		double diff = zeta[i] - (v[i] / f0);
-                //double diff = fzeta[i] - v[i];
+                //double diff = f0*zeta[i] - v[i];
 		L += diff * diff;
 	    }
 	    if (L < bestL) {
