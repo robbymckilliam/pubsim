@@ -15,10 +15,12 @@ package simulator;
  * @author Robby McKilliam
  */
 public class AnstarOn extends Anstar{
+   
     
     /** Overided the standard nearest point algorithm */
     void nearestPoint(double[] y) {
         
+        /*
         project(y, x);
         //x = y.clone();
         
@@ -44,6 +46,35 @@ public class AnstarOn extends Anstar{
         
         //calculate Qu, the nearest lattice point
         project(u,v);
+         */
+        
+        //check this point
+        for(int i = 0; i <= n; i++)
+            u[i] = Math.round(y[i]);
+        project(u,v);
+        project(y,x);
+        double dist = VectorFunctions.distance_between(v,x);
+        
+        System.out.println("v1 = " + VectorFunctions.print(v) + ", dist1 = " + dist);
+        
+        //check this point +0.5
+        for(int i = 0; i <= n; i++){
+            y[i] +=  0.5;
+            u[i] = Math.round(y[i]);
+        }
+        project(u,v);
+        project(y,x); 
+        double dist2 = VectorFunctions.distance_between(v,x);
+        
+        System.out.println("v1 = " + VectorFunctions.print(v) + ", dist2 = " + dist2);
+        
+        if( dist < dist2){
+            for(int i = 0; i <= n; i++){
+                y[i] -= 0.5;
+                u[i] = Math.round(y[i]);
+            }
+            project(u,v);  
+        }
         
     }
     

@@ -26,7 +26,7 @@ public class AnstarOnTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 4;
+        int n = 2;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;
@@ -53,10 +53,8 @@ public class AnstarOnTest extends TestCase {
             System.out.println("u_t = " + VectorFunctions.print(tester.getu()));
             System.out.println("v_i dist = " + VectorFunctions.distance_between(x, v_instance));
             System.out.println("v_t dist = " + VectorFunctions.distance_between(x, v_tester));
-            System.out.println();
-            for(int k = 0; k < n; k++){
-             assertEquals(v_instance[k], v_tester[k]);
-            }
+            System.out.println();  
+            assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.01, true);
         }
         
     }
