@@ -28,19 +28,19 @@ public class AnLLSBresenhamTest extends TestCase {
         double[] y = {1.0,2.0,3.0,4.0,5.0};
         double fmin = 0.7;
         double fmax = 1.3;
-        int n = 10;
-        double f = 1.29;
+        int n = 30;
+        double f = 1.0;
         double T = 1/f;
         AnLLSBresenham instance = new AnLLSBresenham();
         
-        
-        GaussianNoise noise = new simulator.GaussianNoise(0.0,0.03*0.03*0.03*0.03);
+        double noisestd = Math.pow(10, (0.0 + 0.05*5));
+        GaussianNoise noise = new simulator.GaussianNoise(0.0,noisestd*noisestd);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);
         sig.setNoise(noise);
           
-        long seed = 106;
+        long seed = 133;
         noise.setSeed(seed);
         sig.generateTransmittedSignal(n, seed);
         double[] trans = sig.generateTransmittedSignal(n);

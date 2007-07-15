@@ -26,7 +26,7 @@ public class AnstarOnTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 2;
+        int n = 10;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;

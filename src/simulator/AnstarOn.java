@@ -48,6 +48,7 @@ public class AnstarOn extends Anstar{
         project(u,v);
          */
         
+        /*
         //check this point
         for(int i = 0; i <= n; i++)
             u[i] = Math.round(y[i]);
@@ -75,6 +76,18 @@ public class AnstarOn extends Anstar{
             }
             project(u,v);  
         }
+        */
+        
+        //absurdly simple idea from Tim.  It makes some
+        //sense geometrically, vbutit doesn't work.  There might
+        //however be a way of adjusting this so that it does work
+        for(int i = 0; i <= n; i++){
+            u[i] = Math.round(y[i]);
+            x[i] = y[i] - u[i];
+            v[i] = u[i] + Math.round(-x[0] + x[i]);
+        }
+        
+        project(v,v);
         
     }
     

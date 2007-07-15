@@ -51,7 +51,7 @@ public class ZnLLS implements PRIEstimator {
         double bestf = 0.0;
         double mindist = Double.POSITIVE_INFINITY;
         
-        for(int i = 0; i <= n; i++){
+        for(int i = 0; i <=n ; i++){
             map.clear();
             glueVector(i);
             
@@ -78,7 +78,14 @@ public class ZnLLS implements PRIEstimator {
                 if(dist < mindist && f > fmin && f < fmax){
                     mindist = dist;
                     bestf = f;
+                    //System.out.print("****** ");
                 }
+                
+                   /* if( i == 10 && f > 0.8 && f < 0.9 ){
+                       System.out.println("f = " + f + ", dist = " + dist);
+                       System.out.println("v = " + VectorFunctions.print(v));
+                       System.out.println("sum v = " + VectorFunctions.sum(v));
+                    }*/
                        
                 Double key = ((Double) map.firstKey());
                 int k = ((Integer)map.get(key)).intValue();
@@ -92,8 +99,6 @@ public class ZnLLS implements PRIEstimator {
                 
                 //update f
                 f = ztv/ztz;
-                           
-                //System.out.println("v = " + VectorFunctions.print(v) + ", f = " + f + ", dist = " + (f*f*ztz - 2*f*ztv + vtv));
                 
             }  
         }
