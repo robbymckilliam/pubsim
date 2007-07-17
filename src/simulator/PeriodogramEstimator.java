@@ -8,13 +8,19 @@ package simulator;
 
 public class PeriodogramEstimator implements PRIEstimator {
 
-    static final int NUM_SAMPLES = 100;
+    protected int NUM_SAMPLES = 100;
     static final int MAX_ITER = 10;
     static final double EPSILON = 1e-10;
 
     int n;
     double[] kappa;
 
+    public PeriodogramEstimator(){}
+    
+    public PeriodogramEstimator(int samples){
+        NUM_SAMPLES = samples;
+    }
+    
     public void setSize(int n) {
 	this.n = n;
 	kappa = new double[n];

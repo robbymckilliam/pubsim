@@ -7,7 +7,9 @@
 package simulator;
 
 /**
- *
+ * Modification to remove the effect of harmonics in the
+ * liklihood function.  Using the modified likelihood function
+ * is likely to have this effect anyway
  * @author Robby McKilliam
  */
 public class BinomialPeriodicityLikelihood extends ShatErrorTesterLLS implements PRIEstimator{

@@ -8,7 +8,14 @@ package simulator;
  */
 public class SamplingEstimator extends Anstar implements PRIEstimator {
 
-    static int NUM_SAMPLES = 70;
+    protected int NUM_SAMPLES = 100;
+    
+    public SamplingEstimator(){
+    }
+    
+    public SamplingEstimator(int samples){
+        NUM_SAMPLES = samples;
+    }
 
     double[] zeta, fzeta, kappa;
 
@@ -45,16 +52,16 @@ public class SamplingEstimator extends Anstar implements PRIEstimator {
 	    nearestPoint(fzeta);
 	    double sumv2 = 0, sumvz = 0;
 	    for (int i = 0; i <= n; i++) {
-		//sumv2 += v[i] * v[i];
-		//sumvz += v[i] * zeta[i];
-                sumv2 += v[i] * zeta[i];
-		sumvz += zeta[i] * zeta[i];
+		sumv2 += v[i] * v[i];
+		sumvz += v[i] * zeta[i];
+                //sumv2 += v[i] * zeta[i];
+		//sumvz += zeta[i] * zeta[i];
 	    }
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
 	    for (int i = 0; i <= n; i++) {
-		//double diff = zeta[i] - (v[i] / f0);
-                double diff = f0*zeta[i] - v[i];
+		double diff = zeta[i] - (v[i] / f0);
+                //double diff = f0*zeta[i] - v[i];
 		L += diff * diff;
 	    }
 	    if (L < bestL) {
@@ -85,8 +92,8 @@ public class SamplingEstimator extends Anstar implements PRIEstimator {
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
 	    for (int i = 0; i <= n; i++) {
-		//double diff = zeta[i] - (v[i] / f0);
-                double diff = f0*zeta[i] - v[i];
+		double diff = zeta[i] - (v[i] / f0);
+                //double diff = f0*zeta[i] - v[i];
 		L += diff * diff;
 	    }
 	    if (L < bestL) {

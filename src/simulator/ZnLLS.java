@@ -73,7 +73,7 @@ public class ZnLLS implements PRIEstimator {
             //line search loop
             while(f < fmax){
                 
-                double dist = f*f*ztz - 2*f*ztv + vtv;
+                double dist = ztz - 2*ztv/f + vtv/(f*f);
                 
                 if(dist < mindist && f > fmin && f < fmax){
                     mindist = dist;
