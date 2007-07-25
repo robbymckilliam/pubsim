@@ -8,11 +8,18 @@ package simulator;
  */
 public class SLS2all implements PRIEstimator {
 
-    static final int NUM_SAMPLES = 100;
+    protected int NUM_SAMPLES = 100;
 
     int n = 0, m;
     double[] d, kappa;
     int[] u;
+    
+    public SLS2all(){
+    }
+    
+    public SLS2all(int samples){
+        NUM_SAMPLES = samples;
+    }
 
     public void setSize(int n) {
 	this.n = n;

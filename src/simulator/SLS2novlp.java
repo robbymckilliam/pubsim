@@ -7,11 +7,19 @@ package simulator;
  * Added setSize method, 16-Jun-05.
  */
 public class SLS2novlp implements PRIEstimator {
-    static final int NUM_SAMPLES = 100;
+    protected int NUM_SAMPLES = 100;
 
     int n = 0, m;
     double[] d;
     int[] u;
+    
+    public SLS2novlp(){
+    }
+    
+    public SLS2novlp(int samples){
+        NUM_SAMPLES = samples;
+    }
+
 
     public void setSize(int n) {
 	m = n / 2;
