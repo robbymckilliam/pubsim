@@ -14,14 +14,7 @@ public class VectorFunctions {
     
     /**
      * A slow Fourier Tranform.  It will work on
-     * vectors of any length.  Assuming that this
-     * estimator performs well, then it would be
-     * necessary to write an FFT here so that the
-     * estimator runs in o(nlog(n)) and not o(n^2).
-     * <p>
-     * Given that the input vector @param x is
-     * gauranteed to only contain 0's and 1's it may
-     * be possible to write and very fast fourier transform.
+     * vectors of any length.
      */
     public static void slowFT(double[] x, double[] Xi, double[] Xr){
         
@@ -100,7 +93,7 @@ public class VectorFunctions {
     }
     
     /**
-     * Return the sum of a vector
+     * Return the squared sum of a vector
      */
     public static double sum2(double[] x){
         double out = 0.0;
@@ -117,7 +110,7 @@ public class VectorFunctions {
     }
     
     /**
-     * Return the mean value of a vector
+     * Return the magnitude of the vector
      */
     public static double magnitude(double[] x){
         return Math.sqrt(sum2(x));
@@ -175,7 +168,7 @@ public class VectorFunctions {
     
     /**
      * Return the distance between the two elements in
-     * x that are the farest apart.
+     * x that are the fathest apart.
      */
     public static double max_distance(double[] x)
     {

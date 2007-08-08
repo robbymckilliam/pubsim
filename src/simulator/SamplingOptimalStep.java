@@ -9,7 +9,8 @@ package simulator;
 import java.util.Arrays;
 
 /**
- *
+ * Sampling estimator that calculates a pseudo-optimal
+ * step length.
  * @author Robby McKilliam
  */
 public class SamplingOptimalStep extends ShatErrorTesterLLS {
@@ -21,7 +22,7 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
     public int numSteps() { return num_Steps; }
     
     /**
-     * Calculates the optimal step length for a line
+     * Calculates a psuedo-optimal step length for a line
      * through the origin specified by vector z.
      * This computes in o(nlog(n)) time but should take
      * only a small fraction of the time used for the

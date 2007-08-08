@@ -10,8 +10,8 @@ import java.util.TreeMap;
 
 /**
  * Zn->An->An* line search.  Uses the sorted
- * Zn search proposed by Dan and Vaughan.  This should
- * run in O(n^3log(n)) which is the same as the An*
+ * Zn search proposed by Dan and Vaughan.  This
+ * runs O(n^3log(n)) which is the same as the An*
  * Bresenham line search.
  * @author Robby McKilliam
  */
@@ -55,10 +55,6 @@ public class ZnLLS implements PRIEstimator {
             map.clear();
             glueVector(i);
             
-            
-            //System.out.println();
-            //System.out.println("glue " + i);
-            
             //setup map and variables for this glue vector
             double ztz = 0.0, ztv = 0.0, vtv = 0.0;
             for(int j=0; j<=n; j++){
@@ -78,14 +74,7 @@ public class ZnLLS implements PRIEstimator {
                 if(dist < mindist && f > fmin && f < fmax){
                     mindist = dist;
                     bestf = f;
-                    //System.out.print("****** ");
                 }
-                
-                   /* if( i == 10 && f > 0.8 && f < 0.9 ){
-                       System.out.println("f = " + f + ", dist = " + dist);
-                       System.out.println("v = " + VectorFunctions.print(v));
-                       System.out.println("sum v = " + VectorFunctions.sum(v));
-                    }*/
                        
                 Double key = ((Double) map.firstKey());
                 int k = ((Integer)map.get(key)).intValue();

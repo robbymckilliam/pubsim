@@ -90,7 +90,7 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
     
     /**
      * Reimplemented estimate frequency so that the best u gets saved for later
-     * copmarison
+     * comparison
      */
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length-1)

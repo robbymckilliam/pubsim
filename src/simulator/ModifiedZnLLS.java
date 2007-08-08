@@ -7,7 +7,8 @@
 package simulator;
 
 /**
- *
+ * ZnLLS with the unormalised log-likelihood function, ie. it finds the
+ * closest point to the line rather than the point of minimal angle.
  * @author Robby
  */
 public class ModifiedZnLLS extends ZnLLS implements PRIEstimator {

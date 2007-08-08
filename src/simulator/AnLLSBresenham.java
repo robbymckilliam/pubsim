@@ -9,11 +9,12 @@ package simulator;
 /**
  * This is the bresenham version of AnLLS.  It should be fast and
  * I think that it is reasonably easy to prove that it will always
- * work even though it does miss som voronoi regions.  Essentially
+ * work even though it does miss some voronoi regions.  Essentially
  * it picks the next 'atleast corner connected' box in Zn that is
  * closest to the line.  This should run in O(n^3) which is probably
  * faster than the An* bresenham estimator.  Certainly it is faster
  * in simulation.
+ * THIS DOES NOT ACTUALLY WORK!  CAN MISS THE CLOSEST BOX!
  * @author Robby
  */
 public class AnLLSBresenham extends AnLLS implements PRIEstimator {

@@ -7,11 +7,10 @@
 package simulator;
 
 /**
- * This is an AnStar nearestPoint implementation that runs
- * in o(n).  Testing at the moment, I only believe strongly
- * that it will work, but I not certain.
- * This does not work, there is a difference between teh vector
- * an the least squares (in angle) estimate!
+ * This is just a template for testing other ways of 
+ * solving the An* nearest point problem.  A test 
+ * interface already exists for this class to make
+ * things easy.
  * @author Robby McKilliam
  */
 public class AnstarOn extends Anstar{
@@ -78,8 +77,8 @@ public class AnstarOn extends Anstar{
         }
         */
         
-        //absurdly simple idea from Tim.  It makes some
-        //sense geometrically, vbutit doesn't work.  There might
+        //absurdly simple idea from Tim Veitch.  It makes some
+        //sense geometrically, but it doesn't work.  There might
         //however be a way of adjusting this so that it does work
         for(int i = 0; i <= n; i++){
             u[i] = Math.round(y[i]);
