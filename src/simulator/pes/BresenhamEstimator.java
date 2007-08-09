@@ -1,4 +1,4 @@
-package simulator;
+package simulator.pes;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.vecmath.GVector;
+import simulator.*;
 
 /**
  * A class that iterates along the Bresenham set for a line z in A_n^* 

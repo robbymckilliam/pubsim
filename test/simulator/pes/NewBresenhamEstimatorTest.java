@@ -5,9 +5,10 @@
  * Created on 12 June 2007, 11:01
  */
 
-package simulator;
+package simulator.pes;
 
 import junit.framework.*;
+import simulator.*;
 
 /**
  *
@@ -41,14 +42,14 @@ public class NewBresenhamEstimatorTest extends TestCase {
         sig.setNoise(noise);
           
         noise.setSeed(200);
-        sig.generateTransmittedSignal(n,200);
+        sig.generateSparseSignal(n,200);
         
         for(int i=0; i < 228; i++){
-            sig.generateTransmittedSignal(n);
+            sig.generateSparseSignal(n);
             sig.generateReceivedSignal();
         }
                        
-        System.out.println("real u = " + VectorFunctions.print(sig.generateTransmittedSignal(n)) + "\n");
+        System.out.println("real u = " + VectorFunctions.print(sig.generateSparseSignal(n)) + "\n");
         
         double fmin = 0.6;
         double fmax = 1.4;

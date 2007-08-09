@@ -4,7 +4,9 @@
  * Created on 17 July 2007, 07:44
  */
 
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * ZnLLS with the unormalised log-likelihood function, ie. it finds the

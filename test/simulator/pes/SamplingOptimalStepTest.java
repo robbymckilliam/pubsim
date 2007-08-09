@@ -5,10 +5,11 @@
  * Created on 10 May 2007, 11:18
  */
 
-package simulator;
+package simulator.pes;
 
 import junit.framework.*;
 import java.util.Arrays;
+import simulator.*;
 
 /**
  *

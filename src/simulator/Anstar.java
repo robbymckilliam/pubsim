@@ -6,12 +6,12 @@ package simulator;
  */
 public class Anstar {
 
-    int n = 0, m;
-    int[] s, tmps;
-    double[] u, v, x;
-    Double[] delta;
+    protected int n = 0, m;
+    protected int[] s, tmps;
+    protected double[] u, v, x;
+    protected Double[] delta;
 
-    void setDimension(int n) {
+    protected void setDimension(int n) {
 	this.n = n;
 	// Allocate some space for arrays
 
@@ -23,7 +23,7 @@ public class Anstar {
 	delta = new Double[n+1];
     }
     
-    void nearestPoint(double[] y) {
+    protected void nearestPoint(double[] y) {
 	if (n != y.length-1)
 	    setDimension(y.length-1);
 
@@ -92,7 +92,7 @@ public class Anstar {
         
     }
 
-    void rotate(int r) {
+    protected void rotate(int r) {
 	// Update u and v
 
 	for (int i = r+1; i <= n; i++)

@@ -1,4 +1,6 @@
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * Interface that describes the functions of a PRI estimator.

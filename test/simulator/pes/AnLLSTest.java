@@ -5,9 +5,10 @@
  * Created on 20 June 2007, 14:03
  */
 
-package simulator;
+package simulator.pes;
 
 import junit.framework.*;
+import simulator.*;
 
 /**
  *
@@ -129,7 +130,7 @@ public class AnLLSTest extends TestCase {
         sig.setNoise(noise);
           
         //noise.setSeed(200);
-        double[] trans = sig.generateTransmittedSignal(n);
+        double[] trans = sig.generateSparseSignal(n);
         y = sig.generateReceivedSignal();
         
         System.out.println(VectorFunctions.print(trans));

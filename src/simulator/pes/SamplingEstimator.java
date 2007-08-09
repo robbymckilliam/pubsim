@@ -1,4 +1,6 @@
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * A modification of the Bresenham estimator which samples the line

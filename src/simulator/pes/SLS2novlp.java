@@ -1,41 +1,39 @@
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
- * Implementation of Sidiropoulos et al.'s SLS2-ALL algorithm for PRI
+ * Implementation of Sidiropoulos et al.'s SLS2-NOVLP algorithm for PRI
  * estimation.
- * @author Vaughan Clarkson, 16-Jun-05.
- * Stupid bug fix, 17-Jun-05.
+ * @author Vaughan Clarkson, 15-Jun-05.
+ * Added setSize method, 16-Jun-05.
  */
-public class SLS2all implements PRIEstimator {
-
+public class SLS2novlp implements PRIEstimator {
     protected int NUM_SAMPLES = 100;
 
     int n = 0, m;
-    double[] d, kappa;
+    double[] d;
     int[] u;
     
-    public SLS2all(){
+    public SLS2novlp(){
     }
     
-    public SLS2all(int samples){
+    public SLS2novlp(int samples){
         NUM_SAMPLES = samples;
     }
 
+
     public void setSize(int n) {
-	this.n = n;
-	m = n * (n-1) / 2;
+	m = n / 2;
 	d = new double[m];
 	u = new int[m];
-	kappa = new double[n];
     }
 
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length)
 	    setSize(y.length);
-	int k = 0;
-	for (int i = 0; i < n-1; i++)
-	    for (int j = i+1; j < n; j++)
-		d[k++] = y[j] - y[i];
+	for (int i = 0; i < m; i++)
+	    d[i] = y[(2 * i) + 1] - y[2 * i];
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
@@ -61,15 +59,14 @@ public class SLS2all implements PRIEstimator {
 	return fhat;
     }
 
-    // This bound is just the 'clairvoyant' CRLB.  There is no reason
-    // to assume that SLS2-ALL will achieve this bound, although it is
-    // reported that it does in simulations by Sidiropoulos et al.
-
     public double varianceBound(double sigma, double[] k) {
-	Anstar.project(k, kappa);
-	double sk = 0;
-	for (int i = 0; i < k.length; i++)
-	    sk += kappa[i] * kappa[i];
-	return sigma * sigma / sk;
+	if (n != k.length)
+	    setSize(k.length);
+	int sumu2 = 0;
+	for (int i = 0; i < m; i++) {
+	    u[i] = (int) (k[(2 * i) + 1] - k[2 * i]);
+	    sumu2 += u[i] * u[i];
+	}
+	return 2 * sigma * sigma / sumu2;
     }
 }

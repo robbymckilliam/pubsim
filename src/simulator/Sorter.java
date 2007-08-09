@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author Vaughan Clarkson, 24-Feb-05.
  * Changed sortIndices so that it doesn't do its own memory alloc, 16-Jun-05.
  */
-class Sorter {
+public class Sorter {
 
     // Pre: result.length >= x.length
 

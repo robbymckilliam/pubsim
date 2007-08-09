@@ -34,7 +34,7 @@ public class UniformNoise implements NoiseGenerator {
         mean = 0.0;
         variance = 1.0;
         stdDeviation = 1.0;
-        range = 2.0 * Math.sqrt( 3.0 * variance );
+        range = Math.pow(3*variance/2.0, 1.0/3);
         random = new Random();
     }
     
@@ -42,6 +42,7 @@ public class UniformNoise implements NoiseGenerator {
     public void setVariance(double variance){
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
+        range = Math.pow(3*variance/2.0, 1.0/3);
     }
     
     public void setSeed(long seed){

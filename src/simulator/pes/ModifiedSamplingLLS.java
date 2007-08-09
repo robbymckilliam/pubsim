@@ -4,7 +4,9 @@
  * Created on 16 July 2007, 21:57
  */
 
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * Version of the SamplingEstimator that uses the modified liklihood

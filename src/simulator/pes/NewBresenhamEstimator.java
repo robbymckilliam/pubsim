@@ -4,7 +4,9 @@
  * Created on 11 June 2007, 23:12
  */
 
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * This using a O(n) algorithm to get the the next

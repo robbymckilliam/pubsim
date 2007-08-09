@@ -4,7 +4,9 @@
  * Created on 20 June 2007, 13:39
  */
 
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * This is similar to the bresenham estimator but

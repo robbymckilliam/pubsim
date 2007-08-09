@@ -4,9 +4,10 @@
  * Created on 15 April 2007, 09:30
  */
 
-package simulator;
+package simulator.pes;
 
 import java.lang.ArrayIndexOutOfBoundsException;
+import simulator.*;
 
 /**
  * Extends the SamplingEstimator and provides a getter for shat so that it may

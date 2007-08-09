@@ -5,10 +5,11 @@
  * Created on 7 May 2007, 12:35
  */
 
-package simulator;
+package simulator.pes;
 
 import junit.framework.*;
 import java.util.Random;
+import simulator.*;
 
 /**
  *
@@ -34,7 +35,7 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         
         SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal();
         
-        double[] sig = instance.generateTransmittedSignal(20);
+        double[] sig = instance.generateSparseSignal(20);
         boolean result = false;
         result = VectorFunctions.increasing(sig);
         for(int i = 0; i < sig.length; i++){
@@ -45,7 +46,7 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
     }
     
     /**
-     * Test of generateTransmittedSignal method, of class simulator.SparseNoisyPeriodicSignal.
+     * Test of generateSparseSignal method, of class simulator.SparseNoisyPeriodicSignal.
      */
     public void testGenerateRecievedSignal() {
         System.out.println("generateTransmittedSignal");
@@ -56,8 +57,8 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         
         simulator.NoiseGenerator noise = new simulator.UniformNoise(0.0, 1.0/3.0);
         instance.setNoise(noise);   
-        double[] rec_sig = instance.generateTransmittedSignal(length);
-        instance.setTransmittedSignal(rec_sig);
+        double[] rec_sig = instance.generateSparseSignal(length);
+        instance.setSparseSignal(rec_sig);
         instance.setPeriod(T);
        
         double[] sig = instance.generateReceivedSignal();

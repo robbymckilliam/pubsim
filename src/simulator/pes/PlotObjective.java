@@ -1,4 +1,4 @@
-package simulator;
+package simulator.pes;
 
 // A little programme to plot the objective functions.
 
@@ -7,6 +7,7 @@ package simulator;
 import java.util.Random;
 
 import javax.vecmath.GVector;
+import simulator.*;
 
 class PlotObjective {
 
@@ -61,8 +62,8 @@ class PlotObjective {
 	    estimator.calculateObjective(y, f);
 	    double sumv2 = 0, sumvz = 0;
 	    for (int i = 0; i < N; i++) {
-		sumv2 += estimator.v[i] * estimator.v[i];
-		sumvz += estimator.v[i] * estimator.zeta[i];
+		sumv2 += estimator.getv()[i] * estimator.getv()[i];
+		sumvz += estimator.getv()[i] * estimator.zeta[i];
 	    }
 	    double f0 = sumv2 / sumvz;
 	    System.out.println("" + f0 + " "

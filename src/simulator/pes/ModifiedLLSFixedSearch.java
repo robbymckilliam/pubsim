@@ -4,9 +4,10 @@
  * Created on 6 June 2007, 17:39
  */
 
-package simulator;
+package simulator.pes;
 
 import java.util.Random;
+import simulator.*;
 
 /**
  * Allows specification of the frequencies to search

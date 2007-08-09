@@ -5,10 +5,11 @@
  * Created on 9 July 2007, 12:24
  */
 
-package simulator;
+package simulator.pes;
 
 import junit.framework.*;
 import java.util.TreeMap;
+import simulator.*;
 
 /**
  *
@@ -49,8 +50,8 @@ public class ZnLLSTest extends TestCase {
           
         long seed = 133;
         noise.setSeed(seed);
-        sig.generateTransmittedSignal(n, seed);
-        double[] trans = sig.generateTransmittedSignal(n);
+        sig.generateSparseSignal(n, seed);
+        double[] trans = sig.generateSparseSignal(n);
         y = sig.generateReceivedSignal();
         
         System.out.println(VectorFunctions.print(trans));

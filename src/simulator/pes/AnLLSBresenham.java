@@ -4,7 +4,9 @@
  * Created on 21 June 2007, 10:43
  */
 
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * This is the bresenham version of AnLLS.  It should be fast and

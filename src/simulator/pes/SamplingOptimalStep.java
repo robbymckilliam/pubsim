@@ -4,9 +4,10 @@
  * Created on 24 April 2007, 13:14
  */
 
-package simulator;
+package simulator.pes;
 
 import java.util.Arrays;
+import simulator.*;
 
 /**
  * Sampling estimator that calculates a pseudo-optimal

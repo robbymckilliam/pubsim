@@ -4,7 +4,9 @@
  * Created on 6 June 2007, 21:58
  */
 
-package simulator;
+package simulator.pes;
+
+import simulator.*;
 
 /**
  * Periodogram estimator that allows selection of the search

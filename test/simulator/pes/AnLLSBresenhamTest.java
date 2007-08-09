@@ -5,9 +5,10 @@
  * Created on 21 June 2007, 12:41
  */
 
-package simulator;
+package simulator.pes;
 
 import junit.framework.*;
+import simulator.*;
 
 /**
  *
@@ -42,8 +43,8 @@ public class AnLLSBresenhamTest extends TestCase {
           
         long seed = 133;
         noise.setSeed(seed);
-        sig.generateTransmittedSignal(n, seed);
-        double[] trans = sig.generateTransmittedSignal(n);
+        sig.generateSparseSignal(n, seed);
+        double[] trans = sig.generateSparseSignal(n);
         y = sig.generateReceivedSignal();
         
         System.out.println("trans = " + VectorFunctions.print(trans));

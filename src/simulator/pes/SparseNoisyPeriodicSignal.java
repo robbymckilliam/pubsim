@@ -4,16 +4,18 @@
  * Created on 13 April 2007, 14:55
  */
 
-package simulator;
+package simulator.pes;
 
 import java.util.Random;
+import simulator.*;
 
 /**
  * Generates a set of recieved times that are sparse and
  * noisy versions of the recieved signal.
  * <p>
  * The specific sparse pulses that will be transmitted can
- * be specefied by @func setTransmittedSignal.
+ * be specefied by @func setSparseSignal.
+ * 
  * @author Robby
  */
 public class SparseNoisyPeriodicSignal implements SignalGenerator {
@@ -30,7 +32,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
             recievedSignal = new double[0];
     }
     
-    public void setTransmittedSignal(double[] transmitted){
+    public void setSparseSignal(double[] transmitted){
         transmittedSignal = transmitted;
     }
     
@@ -41,7 +43,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * Generate a binomial sequence typical of a transmitted
      * sparse signal.
      */
-    public double[] generateTransmittedSignal(int length){
+    public double[] generateSparseSignal(int length){
         if( transmittedSignal.length != length )
             transmittedSignal = new double[length];
             
@@ -62,7 +64,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * sparse signal.  Seed the random generator so that well always get
      * the same answer.
      */
-    public double[] generateTransmittedSignal(int length, long seed){
+    public double[] generateSparseSignal(int length, long seed){
         rand.setSeed(seed);
         
         if( transmittedSignal.length != length )

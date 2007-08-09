@@ -1,31 +1,40 @@
-package simulator;
+package simulator.pes;
 
-// A modifed periodogram estimator, designed to behave more like the MLE.
+import simulator.*;
 
-// Written by Vaughan Clarkson, 11-Jan-07 (fork from PeriodogramEstimator).
+// Implementation of Fogel & Gavish's periodogram estimator.
 
-public class ModifiedPeriodogram implements PRIEstimator {
+// Written by Vaughan Clarkson, 05-Jan-07.
+// New method calculatePeriodogram and fixed the Newton iteration
+// steps, 08-Jan-07.
 
-    static final int NUM_SAMPLES = 100;
+public class PeriodogramEstimator implements PRIEstimator {
+
+    protected int NUM_SAMPLES = 100;
     static final int MAX_ITER = 10;
     static final double EPSILON = 1e-10;
 
     int n;
     double[] kappa;
 
+    public PeriodogramEstimator(){}
+    
+    public PeriodogramEstimator(int samples){
+        NUM_SAMPLES = samples;
+    }
+    
     public void setSize(int n) {
 	this.n = n;
 	kappa = new double[n];
     }
 
-    static double calculateObjective(double[] y, double f) {
+    static double calculatePeriodogram(double[] y, double f) {
 	double sumur = 0, sumui = 0;
-	int N = y.length;
 	for (int i = 0; i < y.length; i++) {
 	    sumur += Math.cos(2 * Math.PI * f * y[i]);
 	    sumui += Math.sin(2 * Math.PI * f * y[i]);
 	}
-	return (N * N - sumur * sumur - sumui * sumui) / (f * f);
+	return sumur * sumur + sumui * sumui;
     }
 
     public double estimateFreq(double[] y, double fmin, double fmax) {
@@ -34,13 +43,13 @@ public class ModifiedPeriodogram implements PRIEstimator {
 
 	// Coarse search
 
-	double minp = Double.POSITIVE_INFINITY;
+	double maxp = 0;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
 	for (double f = fmin; f <= fmax; f += fstep) {
-	    double p = calculateObjective(y, f);
-	    if (p < minp) {
-		minp = p;
+	    double p = calculatePeriodogram(y, f);
+	    if (p > maxp) {
+		maxp = p;
 		fhat = f;
 	    }
 	}
@@ -48,11 +57,10 @@ public class ModifiedPeriodogram implements PRIEstimator {
 	// Modified Newton step
 	
 	int numIter = 0;
-	double f = fhat, lastf = f - 2 * EPSILON, 
-	    lastp = Double.POSITIVE_INFINITY;
-	while (Math.abs(f - lastf) > EPSILON && numIter++ < MAX_ITER
+	double f = fhat, lastf = f - 2 * EPSILON, lastp = 0;
+	while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER
 	       && f >= fmin && f <= fmax) {
-	    double p = 0, pd = 0, pdd = 0, pd2 = 0, pdd2 = 0;
+	    double p = 0, pd = 0, pdd = 0;
 	    double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
 	    sumwr = 0, sumwi = 0;
 	    for (int i = 0; i < n; i++) {
@@ -69,24 +77,23 @@ public class ModifiedPeriodogram implements PRIEstimator {
 		sumwr += wr;
 		sumwi += wi;
 	    }
-	    p = (n * n - sumur * sumur - sumui * sumui) / (f * f);
+	    p = sumur * sumur + sumui * sumui;
 	    // System.err.println("f = " + f + " p = " + p);
-	    if (p > lastp)
+	    if (p < lastp)
 		f = (f + lastf) / 2;
 	    else {
 		lastf = f;
 		lastp = p;
-		if (p < minp) {
-		    minp = p;
+		if (p > maxp) {
+		    maxp = p;
 		    fhat = f;
 		}
-		pd = 2 * (sumvr * sumur + sumvi * sumui) / (f * f);
+		pd = 2 * (sumvr * sumur + sumvi * sumui);
 		pdd = 2 * (sumvr * sumvr + sumwr * sumur
-			   + sumvi * sumvi + sumwi * sumui) / (f * f);
-		pd2 = -pd - (2 * p / f);
-		pdd2 = -pdd + (4 * pd / f) + (6 * p / (f*f));
-		f -= pd2 / Math.abs(pdd2);
+			   + sumvi * sumvi + sumwi * sumui);
+		f += pd / Math.abs(pdd);
 	    }
+	    numIter++;
 	}
 
 	return fhat;

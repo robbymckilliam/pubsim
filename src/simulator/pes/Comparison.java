@@ -1,7 +1,8 @@
-package simulator;
+package simulator.pes;
 
 import java.util.Random;
 import javax.vecmath.GVector;
+import simulator.*;
 
 /**
  * Investigate the failure mode observed in the periodogram estimator for N=30.

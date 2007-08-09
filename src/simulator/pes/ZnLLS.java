@@ -4,9 +4,10 @@
  * Created on 8 July 2007, 08:55
  */
 
-package simulator;
+package simulator.pes;
 
 import java.util.TreeMap;
+import simulator.*;
 
 /**
  * Zn->An->An* line search.  Uses the sorted
