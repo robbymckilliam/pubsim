@@ -69,7 +69,7 @@ public class NoisyComplexSinusoid implements SignalGenerator{
         this.p = p;
     }
     
-    /** Set the rate at which this sinusiod will is sampled in Hz
+    /** Set the rate at which this sinusiod is sampled in Hz
      * Should set the rate at or above the nyquist rate ie,
      * 2f.  However, this is not strictly required by the code.
      */
