@@ -37,20 +37,20 @@ public class AnstarOnTest extends TestCase {
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);
-        for(int i=0; i<=1000; i++){
+        for(int i=0; i<=10; i++){
             for(int k = 0; k < n; k++){
                 y[k] = ( rand.nextGaussian() - 0.5 )*10.0;
             }
             instance.nearestPoint(y);
             tester.nearestPoint(y);
-            v_instance = instance.getv();
-            v_tester = tester.getv();
+            v_instance = instance.getLatticePoint();
+            v_tester = tester.getLatticePoint();
             Anstar.project(y,x);
             System.out.println("y = " + VectorFunctions.print(y));
             System.out.println("v_i = " + VectorFunctions.print(v_instance));
             System.out.println("v_t = " + VectorFunctions.print(v_tester));
-            System.out.println("u_i = " + VectorFunctions.print(instance.getu()));
-            System.out.println("u_t = " + VectorFunctions.print(tester.getu()));
+            System.out.println("u_i = " + VectorFunctions.print(instance.getIndex()));
+            System.out.println("u_t = " + VectorFunctions.print(tester.getIndex()));
             System.out.println("v_i dist = " + VectorFunctions.distance_between(x, v_instance));
             System.out.println("v_t dist = " + VectorFunctions.distance_between(x, v_tester));
             System.out.println();  

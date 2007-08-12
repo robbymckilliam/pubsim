@@ -44,7 +44,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
         Anstar.project(y,y);
 
         //System.out.println(iters);
-        System.out.println("y = " + VectorFunctions.print(y));
+        //System.out.println("y = " + VectorFunctions.print(y));
         
         double maxy = 0;
         int maxi = 0;   //position of the maximum value of y[i]
@@ -60,7 +60,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
             d[i] = y[i]/maxy;
         
         //System.out.println(iters);
-        System.out.println("d = " + VectorFunctions.print(d));
+        //System.out.println("d = " + VectorFunctions.print(d));
         
         for(int i = 0; i <= n; i++){
             glueVector(i);
@@ -73,12 +73,12 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
             //calculate the number of iterations needed
             //int iters = (int) (Math.ceil(Math.abs(fmax*y[maxi] - g[maxi])) - Math.floor(Math.abs(fmin*y[maxi] - g[maxi])));
           
-            System.out.println();
-            System.out.println("glue " + i);
-            System.out.println("glue i = " + VectorFunctions.print(g));
+            //System.out.println();
+            //System.out.println("glue " + i);
+            //System.out.println("glue i = " + VectorFunctions.print(g));
             
-            System.out.println("start ifmin val = " + (ifmin*y[maxi] - g[maxi] - d[maxi]));
-            System.out.println("fy = " + VectorFunctions.print(fy));
+            //System.out.println("start ifmin val = " + (ifmin*y[maxi] - g[maxi] - d[maxi]));
+            //System.out.println("fy = " + VectorFunctions.print(fy));
             
             //iterate over Zn
             //for(int j = 0; j < iters; j++){
@@ -93,7 +93,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
                 }
 
                 if( i == 10 ){
-                   System.out.println("sum v =" + VectorFunctions.sum(v));
+                   //System.out.println("sum v =" + VectorFunctions.sum(v));
                 }
                 
                 //Anstar.project(v,v);
@@ -112,16 +112,10 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
                     }
                     //dist2 /= (f*f);   //uncomment to make this maximum liklihood
                     if( dist2 < bestdist2 && f >= fmin && f <= fmax ){
-                        System.out.print("**** ");
                         bestdist2 = dist2;
                         bestf = f;
                     }
-                    if( i == 10 && f > 0.8 && f < 0.9){
-                       System.out.println("f = " + f + ", dist = " + dist2);
-                       System.out.println("v = " + VectorFunctions.print(v));
-                       System.out.println("fy =" + VectorFunctions.print(fy));
-                       System.out.println();
-                    }
+
                 //}
 
             }

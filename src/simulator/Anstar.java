@@ -4,14 +4,14 @@ package simulator;
  * Class for methods associated with the lattice A_n^*.
  * @author Vaughan Clarkson, 15-Jun-05.
  */
-public class Anstar {
+public class Anstar implements LatticeNearestPointAlgorithm{
 
     protected int n = 0, m;
     protected int[] s, tmps;
     protected double[] u, v, x;
     protected Double[] delta;
 
-    protected void setDimension(int n) {
+    public void setDimension(int n) {
 	this.n = n;
 	// Allocate some space for arrays
 
@@ -23,7 +23,7 @@ public class Anstar {
 	delta = new Double[n+1];
     }
     
-    protected void nearestPoint(double[] y) {
+    public void nearestPoint(double[] y) {
 	if (n != y.length-1)
 	    setDimension(y.length-1);
 
@@ -122,8 +122,8 @@ public class Anstar {
 	    y[i] = x[i] - xbar;
     }
     
-    /**Getter for the nearest point.  This is for testing */
-    public double[] getv() {return v;}
-    /**Getter for the interger index.  This is for testing */
-    public double[] getu() {return u;}
+    /**Getter for the nearest point. */
+    public double[] getLatticePoint() {return v;}
+    /**Getter for the interger vector. */
+    public double[] getIndex() {return u;}
 }

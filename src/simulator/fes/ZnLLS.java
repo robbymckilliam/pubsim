@@ -6,12 +6,15 @@
 
 package simulator.fes;
 
+import simulator.Pnone;
+
 /**
- * Works as a specialised version on the period estimation ZnLLS algorithm.
- * O(n^3log(n)).
- * @author Robby
+ * Use the faster O(n^3 log(n)) Pn1 nearest point algorithm that
+ * is a specialisation of the ZnLLS algorithm for the period
+ * estimation problem.
+ * @author Tim Mason and Robby McKilliam
  */
-public class ZnLLS implements FrequencyEstimator{
+public class ZnLLS extends Pnone implements FrequencyEstimator{
     
     /** Set the number of samples */
     public void setSize(int n){

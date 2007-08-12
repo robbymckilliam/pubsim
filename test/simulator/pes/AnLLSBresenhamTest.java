@@ -47,7 +47,7 @@ public class AnLLSBresenhamTest extends TestCase {
         double[] trans = sig.generateSparseSignal(n);
         y = sig.generateReceivedSignal();
         
-        System.out.println("trans = " + VectorFunctions.print(trans));
+        //System.out.println("trans = " + VectorFunctions.print(trans));
         
         double expResult = f;
         double result = instance.estimateFreq(y, fmin, fmax);

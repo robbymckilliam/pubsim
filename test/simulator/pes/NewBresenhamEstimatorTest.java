@@ -49,7 +49,7 @@ public class NewBresenhamEstimatorTest extends TestCase {
             sig.generateReceivedSignal();
         }
                        
-        System.out.println("real u = " + VectorFunctions.print(sig.generateSparseSignal(n)) + "\n");
+        //System.out.println("real u = " + VectorFunctions.print(sig.generateSparseSignal(n)) + "\n");
         
         double fmin = 0.6;
         double fmax = 1.4;

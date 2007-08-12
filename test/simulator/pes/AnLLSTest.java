@@ -133,7 +133,7 @@ public class AnLLSTest extends TestCase {
         double[] trans = sig.generateSparseSignal(n);
         y = sig.generateReceivedSignal();
         
-        System.out.println(VectorFunctions.print(trans));
+        //System.out.println(VectorFunctions.print(trans));
         
         double expResult = T;
         double result = instance.estimateFreq(y, fmin, fmax);
