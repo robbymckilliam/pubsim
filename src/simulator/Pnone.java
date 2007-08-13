@@ -43,7 +43,9 @@ public class Pnone {
      */
     public static void project(double[] x, double[] y){
         Anstar.project(x,y);
-        double sumn2 = Math.floor(x.length/2.0)*( Math.floor(x.length/2.0) + 1 )*( 2*Math.floor(x.length/2.0) + 1) / 3.0;
+        double sumn2 = Math.floor(x.length/2.0)*
+                ( Math.floor(x.length/2.0) + 1 )*
+                ( 2*Math.floor(x.length/2.0) + 1) / 3.0;
         double nbar = x.length*(x.length + 1)/2 / x.length;
         
         System.out.println("floor " + Math.floor(x.length/2.0));

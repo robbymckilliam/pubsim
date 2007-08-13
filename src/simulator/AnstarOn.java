@@ -17,7 +17,7 @@ public class AnstarOn extends Anstar{
    
     
     /** Overided the standard nearest point algorithm */
-    protected void nearestPoint(double[] y) {
+    public void nearestPoint(double[] y) {
         
         /*
         project(y, x);
