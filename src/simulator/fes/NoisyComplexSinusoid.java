@@ -44,11 +44,13 @@ public class NoisyComplexSinusoid implements SignalGenerator{
         phase = new double[n];
     }
     
-    /** default constructor: f = 1, rate = 10*f, n = 10 */
+    /** default constructor: f = 0.1, rate = 1, n = 10, p = 0.0 */
     public NoisyComplexSinusoid() {
-        f = 1.0;
-        rate = 10*f;
+        f = 0.1;
+        rate = 1.0;
         n = 10;
+        p = 0.0;
+        setSize(n);
     }
     
     /** construct and set variables */
@@ -82,20 +84,16 @@ public class NoisyComplexSinusoid implements SignalGenerator{
         this.rate = k * f;
     }
     
-    /** Generates the real and imaginary components and returns phase.
+    /** Generates the real and imaginary components and returns null.
      * Use getReal and getImag to get the individual components.
      */
     public double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++){
             real[i] = Math.cos(i*2*Math.PI*f/rate + p) + noise.getNoise();
             imag[i] = Math.sin(i*2*Math.PI*f/rate + p) + noise.getNoise();
-            phase[i] = Math.atan(imag[i]/real[i]);
         }
-        return phase;
+        return null;
     }
-    
-    /** Return the noisy phase signal */
-    public double[] getPhase() { return phase; }
     
     /** Return the noisy real component of the signal */
     public double[] getReal() { return real; }

@@ -22,7 +22,7 @@ public class ZnLLS extends Pnone implements FrequencyEstimator{
     }
     
     /** Run the estimator on recieved data, @param y */
-    public double estimateFreq(double[] y){
+    public double estimateFreq(double[] real, double[] imag){
         return 0.0;
     }
     

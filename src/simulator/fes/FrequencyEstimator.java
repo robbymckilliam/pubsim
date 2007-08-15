@@ -16,7 +16,7 @@ public interface FrequencyEstimator {
     /** Set the number of samples */
     public void setSize(int n);
     
-    /** Run the estimator on recieved data, @param y */
-    public double estimateFreq(double[] y);
+    /** Run the estimator on recieved real and imaginary signal */
+    public double estimateFreq(double[] real, double[] imag);
     
 }
