@@ -17,7 +17,7 @@ public class PnoneGlued extends Pnone implements LatticeNearestPointAlgorithm {
     
     private Anstar anstar;
     
-    protected double[] g, vt, yt;
+    protected double[] g, vt, yt, ut;
     
     public void setDimension(int n){
         this.n = n;
@@ -27,21 +27,26 @@ public class PnoneGlued extends Pnone implements LatticeNearestPointAlgorithm {
         
         g = new double[n+2];
         v = new double[n+2];
+        u = new double[n+2];
         yt = new double[n+2];
         
     }
     
+    /** Find the nearest point in Pn1 by searching the o(n^3)
+     * translates/glues of An*.  Currently, this only works
+     * for odd n.
+     */
     public void nearestPoint(double[] y){
         if (n != y.length-2)
 	    setDimension(y.length-2);
         
-        double d = (Math.floor(n/2.0) + 1)*(Math.floor(n/2.0) + 2)*(2*Math.floor(n/2.0) + 3)/3.0; 
+        double d = (Math.floor(n/2.0) + 1)*(Math.floor(n/2.0) + 2)
+                    *(2*Math.floor(n/2.0) + 3)/3.0; 
                
         for (int j = 0; j < n+2; j++)
-            g[j] = -1.0/(n+2) + 1.0/d;
+            g[j] = -1.0/(n+2) + (j + 1.0 - (n+3.0)/2.0)/d;
         
-        //note that there in an implicit floor happening here!
-        g[n/2 + 2] += 1.0;
+        g[(n+2)/2 - 1] += 1.0;
         
         double bestdist = Double.POSITIVE_INFINITY;
         //iterate over all glue vectors
@@ -53,6 +58,7 @@ public class PnoneGlued extends Pnone implements LatticeNearestPointAlgorithm {
             //solve the nearestPoint algorithm in An* for this glue
             anstar.nearestPoint(yt);
             vt = anstar.getLatticePoint();
+            ut = anstar.getIndex();
             
             double dist = 0.0;
             for (int j = 0; j < n+2; j++)
@@ -60,17 +66,22 @@ public class PnoneGlued extends Pnone implements LatticeNearestPointAlgorithm {
             
             if(dist < bestdist){
                 bestdist = dist;
-                for (int j = 0; j < n+2; j++)
-                    v[j] = vt[j];
+                for (int j = 0; j < n+2; j++){
+                    v[j] = vt[j] + i*g[j];
+                    u[j] = ut[j];
+                }
+                u[(n+2)/2 - 1] += i;
+                
+                
+                System.out.println("y = " + VectorFunctions.print(y));
+                System.out.println("v = " + VectorFunctions.print(v));
+                System.out.println("vt = " + VectorFunctions.print(vt));
+                System.out.println("u = " + VectorFunctions.print(u));
+                 
             }
+            System.out.println("dist = " + dist);
             
         }
     }
-    
-    /**Getter for the nearest point. */
-    public double[] getLatticePoint() { return v; }
-    
-    /**Getter for the interger vector. Not implemented*/
-    public double[] getIndex() { return null; }
     
 }

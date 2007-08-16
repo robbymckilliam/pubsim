@@ -18,12 +18,13 @@ public class Pnone {
     /** Dimension of this lattice */
     protected int n;
     
-    /** Storage for the nearest lattice point */
-    protected double[] v;
+    /** Storage for the nearest lattice point and
+     *  it's integer index */
+    protected double[] v, u;
     
     public void setDimension(int n){
         this.n = n;
-        
+        u = new double[n+2];
         v = new double[n+2];
     }
     
@@ -33,7 +34,7 @@ public class Pnone {
     public double[] getLatticePoint(){ return v; }
     
     /**Getter for the interger vector. */
-    public double[] getIndex(){ return null; }
+    public double[] getIndex(){ return u; }
     
     /** 
      * Project a n+2 length vector into Pn1 space.
@@ -47,11 +48,6 @@ public class Pnone {
                 ( Math.floor(x.length/2.0) + 1 )*
                 ( 2*Math.floor(x.length/2.0) + 1) / 3.0;
         double nbar = x.length*(x.length + 1)/2 / x.length;
-        
-        System.out.println("floor " + Math.floor(x.length/2.0));
-        System.out.println("sumn2 " + sumn2);
-        System.out.println("nbar " + nbar);
-        
         double dot = 0.0;
         for(int i = 0; i < x.length; i++)
             dot += y[i]*(i+1-nbar);
