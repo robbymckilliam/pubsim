@@ -8,7 +8,7 @@ package simulator.fes;
 
 /**
  * Periodogram Estimator for frequency.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class PeriodogramEstimator implements FrequencyEstimator{
     
@@ -66,10 +66,50 @@ public class PeriodogramEstimator implements FrequencyEstimator{
 	    }
 	}
         
-        System.out.println("f = " + fhat);
         
         //Newton Raphson
-        //need to fill this in
+        int numIter = 0;
+        double f = fhat, lastf = f - 2 * EPSILON, lastp = 0;
+        while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER
+	       && f >= -0.5 && f <= 0.5) {
+            double p = 0, pd = 0, pdd = 0;
+	    double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
+	    sumwr = 0, sumwi = 0;
+	    for (int i = 0; i < n; i++) {
+                double cosf =  Math.cos(-2 * Math.PI * f * i);
+                double sinf =  Math.sin(-2 * Math.PI * f * i);
+		double ur = real[i]*cosf - imag[i]*sinf;
+		double ui = imag[i]*cosf + real[i]*sinf;
+		double vr = 2 * Math.PI * i * ui;
+		double vi = -2 * Math.PI * i * ur;
+		double wr = 2 * Math.PI * i * vi;
+		double wi = -2 * Math.PI * i * vr;
+		sumur += ur;
+		sumui += ui;
+		sumvr += vr;
+		sumvi += vi;
+		sumwr += wr;
+		sumwi += wi;
+	    }
+	    p = sumur * sumur + sumui * sumui;
+	    if (p < lastp)  //I am not sure this is necessary, Vaughan did it for period estimation.
+		f = (f + lastf) / 2;
+	    else {
+		lastf = f;
+		lastp = p;
+		if (p > maxp) {
+		    maxp = p;
+		    fhat = f;
+		}
+		pd = 2 * (sumvr * sumur + sumvi * sumui);
+		pdd = 2 * (sumvr * sumvr + sumwr * sumur
+			   + sumvi * sumvi + sumwi * sumui);
+		f += pd / Math.abs(pdd);
+	    }
+	    numIter++;
+        }
+        
+        //System.out.println("f = " + fhat);
         
         return fhat;
     }
