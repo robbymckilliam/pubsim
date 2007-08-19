@@ -82,7 +82,7 @@ public class Pn1Glued extends Pn1 implements LatticeNearestPointAlgorithm {
                 System.out.println("u = " + VectorFunctions.print(u));
                  */
             }
-            System.out.println("glue dist = " + dist);
+            //System.out.println("glue dist = " + dist);
             
         }
     }
