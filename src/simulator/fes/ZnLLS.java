@@ -6,7 +6,7 @@
 
 package simulator.fes;
 
-import simulator.Pnone;
+import simulator.Pn1;
 
 /**
  * Use the faster O(n^3 log(n)) Pn1 nearest point algorithm that
@@ -14,7 +14,7 @@ import simulator.Pnone;
  * estimation problem.
  * @author Tim Mason and Robby McKilliam
  */
-public class ZnLLS extends Pnone implements FrequencyEstimator{
+public class ZnLLS extends Pn1 implements FrequencyEstimator{
     
     /** Set the number of samples */
     public void setSize(int n){

@@ -8,7 +8,7 @@
 package simulator.fes;
 
 import junit.framework.*;
-import simulator.PnoneGlued;
+import simulator.Pn1Glued;
 import simulator.VectorFunctions;
 
 /**

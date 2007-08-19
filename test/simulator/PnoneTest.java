@@ -20,13 +20,13 @@ public class PnoneTest extends TestCase {
     }
 
     /**
-     * Test of setDimension method, of class simulator.Pnone.
+     * Test of setDimension method, of class simulator.Pn1.
      */
     public void testSetDimension() {
         System.out.println("setDimension");
         
         int n = 0;
-        Pnone instance = new Pnone();
+        Pn1 instance = new Pn1();
         
         instance.setDimension(n);
         
@@ -35,13 +35,13 @@ public class PnoneTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class simulator.Pnone.
+     * Test of nearestPoint method, of class simulator.Pn1.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
         double[] y = null;
-        Pnone instance = new Pnone();
+        Pn1 instance = new Pn1();
         
         instance.nearestPoint(y);
         
@@ -50,7 +50,7 @@ public class PnoneTest extends TestCase {
     }
 
     /**
-     * Test of project method, of class simulator.Pnone.
+     * Test of project method, of class simulator.Pn1.
      */
     public void testProject() {
         System.out.println("project");
@@ -58,7 +58,7 @@ public class PnoneTest extends TestCase {
         double[] x = { 1.0, 1.1, 2.0, 4.0, 5.4 };
         double[] y = new double[x.length];
         
-        Pnone.project(x, y);
+        Pn1.project(x, y);
         
         //calculated in matlab
         double[] expResult = {0.6400, -0.4300, -0.7000, 0.1300, 0.3600};

@@ -1,25 +1,30 @@
 /*
- * GlueAnstarEstimator.java
+ * SamplingLatticeEstimator.java
  *
- * Created on 12 August 2007, 12:28
+ * Created on 18 August 2007, 12:47
  */
 
 package simulator.fes;
-
-import simulator.Pn1Glued;
-import simulator.VectorFunctions;
+import simulator.Pn1Sampled;
 
 /**
- * Frequency estimator that uses Pn1 glue vector algorithm to solve the nearest
- * point problem for the frequency estimation lattice Pn1.  O(n^4log(n)).
- * @author Robby
+ * Simple and fast suboptimal (but perharps can be made optimal)
+ * lattice frequency estimator based on the pes.SamplingLLS 
+ * period estimator.
+ * @author Robby McKilliam
  */
-public class GlueAnstarEstimator extends Pn1Glued implements FrequencyEstimator {
+public class SamplingLatticeEstimator extends Pn1Sampled implements FrequencyEstimator {
     
-    protected double[] x, y;
     protected int N;
     
-    /** Set the number of samples */
+    protected double[] x, y;
+    
+    public SamplingLatticeEstimator() { super(); }
+    
+    /**Constructor that sets the number of samples used */
+    public SamplingLatticeEstimator(int samples) { super(samples); }
+    
+        /** Set the number of samples */
     public void setSize(int n){
         setDimension(n-2);  
         x = new double[n];
@@ -27,7 +32,7 @@ public class GlueAnstarEstimator extends Pn1Glued implements FrequencyEstimator 
         N = n;
     }
     
-    /** Run the estimator on recieved data, @param y */
+        /** Run the estimator on recieved data, @param y */
     public double estimateFreq(double[] real, double[] imag){
         if(n+2 != real.length)
             setSize(real.length);
@@ -37,12 +42,6 @@ public class GlueAnstarEstimator extends Pn1Glued implements FrequencyEstimator 
         
         project(y, x);
         nearestPoint(x);
-        
-        /*
-        System.out.println("y antan = " + VectorFunctions.print(y));
-        System.out.println("v = " + VectorFunctions.print(v));
-        System.out.println("u = " + VectorFunctions.print(u));
-        */
         
         //calculate f from the nearest point
         double f = 0;
@@ -58,5 +57,5 @@ public class GlueAnstarEstimator extends Pn1Glued implements FrequencyEstimator 
         return f;
         
     }
-    
+   
 }

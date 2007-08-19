@@ -28,7 +28,7 @@ public class KaysEstimator implements FrequencyEstimator{
         for(int i=0; i<=n-2; i++){
             double re = real[i]*real[i+1] + imag[i]*imag[i+1];
             double im = real[i]*imag[i+1] - real[i+1]*imag[i];
-            ks += (i + 1)*(n - 1 - i)*Math.atan(im/re);
+            ks += (i + 1)*(n - 1 - i)*Math.atan2(im,re);
         }
         return ks*6.0/(2*Math.PI*n*(n*n - 1));
     }

@@ -1,5 +1,5 @@
 /*
- * PnoneGlued.java
+ * Pn1Glued.java
  *
  * Created on 12 August 2007, 20:15
  */
@@ -8,12 +8,15 @@ package simulator;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the
- * An* nearest point algorithm for all O(n^3) glue vectors.  Pnone is a faster
- * O(n^3 log(n)) algorithm.  This one is for testing.
- * NEEDS TESTING.
+ * An* nearest point algorithm for all O(n^3) glue vectors.  Pn1 is a faster
+ * O(n^3 log(n)) algorithm.  
+ * <p>
+ * This currently only works for odd n.  The glue vectors are slightly different
+ * for even n.  There are also 4 times more of them for even n!
+ * 
  * @author Robby McKilliam
  */
-public class PnoneGlued extends Pnone implements LatticeNearestPointAlgorithm {
+public class Pn1Glued extends Pn1 implements LatticeNearestPointAlgorithm {
     
     private Anstar anstar;
     
@@ -72,14 +75,14 @@ public class PnoneGlued extends Pnone implements LatticeNearestPointAlgorithm {
                 }
                 u[(n+2)/2 - 1] += i;
                 
-                
+                /*
                 System.out.println("y = " + VectorFunctions.print(y));
                 System.out.println("v = " + VectorFunctions.print(v));
                 System.out.println("vt = " + VectorFunctions.print(vt));
                 System.out.println("u = " + VectorFunctions.print(u));
-                 
+                 */
             }
-            System.out.println("dist = " + dist);
+            System.out.println("glue dist = " + dist);
             
         }
     }

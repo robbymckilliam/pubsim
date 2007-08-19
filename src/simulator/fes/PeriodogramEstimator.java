@@ -70,8 +70,7 @@ public class PeriodogramEstimator implements FrequencyEstimator{
         //Newton Raphson
         int numIter = 0;
         double f = fhat, lastf = f - 2 * EPSILON, lastp = 0;
-        while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER
-	       && f >= -0.5 && f <= 0.5) {
+        while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER) {
             double p = 0, pd = 0, pdd = 0;
 	    double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
 	    sumwr = 0, sumwi = 0;

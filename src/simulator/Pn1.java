@@ -1,5 +1,5 @@
 /*
- * Pnone.java
+ * Pn1.java
  *
  * Created on 12 August 2007, 21:11
  */
@@ -13,7 +13,7 @@ package simulator;
  * UNDER CONSTRUCTION BY TIM!
  * @author Tim Mason and Robby McKilliam
  */
-public class Pnone {
+public class Pn1 implements LatticeNearestPointAlgorithm{
     
     /** Dimension of this lattice */
     protected int n;
@@ -28,6 +28,8 @@ public class Pnone {
         v = new double[n+2];
     }
     
+    /** Find the nearest lattice point.  TIM, this is the function
+     * you need to fill in! */
     public void nearestPoint(double[] y){}
     
     /**Getter for the nearest point. */

@@ -56,6 +56,15 @@ public class VectorFunctions {
     }
     
     /**
+     * Copy vector. <br>
+     * PRE: x.length < y.length
+     */
+    public static void copy(double[] x, double[] y){
+        for(int i=0; i<x.length; i++)
+            y[i] = x[i]; 
+    }
+    
+    /**
      * angle between two vectors
      */
     public static double angle_between(double[] x, double[] y){
