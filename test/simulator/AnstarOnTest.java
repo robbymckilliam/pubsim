@@ -37,7 +37,7 @@ public class AnstarOnTest extends TestCase {
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);
-        for(int i=0; i<=10; i++){
+        for(int i=0; i<2; i++){
             for(int k = 0; k < n; k++){
                 y[k] = ( rand.nextGaussian() - 0.5 )*10.0;
             }

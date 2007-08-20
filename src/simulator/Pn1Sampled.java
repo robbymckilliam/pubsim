@@ -68,10 +68,9 @@ public class Pn1Sampled extends Pn1 implements LatticeNearestPointAlgorithm {
                 VectorFunctions.copy(vt, v);
                 VectorFunctions.copy(anstar.getIndex(), u);
             } 
-            
-            System.out.println("samp dist = " + bestdist);
-            
+           
         }
+        //System.out.println("samp dist = " + bestdist);
     }
     
 }

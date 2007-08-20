@@ -26,10 +26,10 @@ public class Pn1SampledTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 10;
+        int n = 11;
         Random rand = new Random();
         
-        double[] y = new double[10];
+        double[] y = new double[n];
         Pn1Sampled instance = new Pn1Sampled(1000);
         Pn1Glued tester = new Pn1Glued();
         
@@ -44,7 +44,7 @@ public class Pn1SampledTest extends TestCase {
             
             double dist = VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint());
             System.out.println("dist = " + dist);
-            assertEquals(dist < 5, true);
+            assertEquals(dist < 0.0001, true);
             
         }
 
