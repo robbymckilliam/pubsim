@@ -33,14 +33,23 @@ public class VectorFunctionsTest extends TestCase {
     public void testSlowFT() {
         System.out.println("slowFT");
         
-        double[] x = null;
-        double[] Xi = null;
-        double[] Xr = null;
+        double[] x = {2, 3, 1, 4};
+        double[] Xi = new double[x.length];
+        double[] Xr = new double[x.length];
+        double[] expXi = {0, 1, 0, -1};
+        double[] expXr = {10,1,-4 ,1};
         
         VectorFunctions.slowFT(x, Xi, Xr);
         
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+                
+        System.out.println("Xi = " + VectorFunctions.print(Xi));
+        System.out.println("Xr = " + VectorFunctions.print(Xr));
+        
+        for(int i = 0; i < x.length; i++){
+            assertEquals(true, Math.abs(expXi[i] - Xi[i]) < 0.00001);
+            assertEquals(true, Math.abs(expXr[i] - Xr[i]) < 0.00001);
+        }
+       
     }
 
     /**
@@ -49,14 +58,12 @@ public class VectorFunctionsTest extends TestCase {
     public void testAbs2FT() {
         System.out.println("abs2FT");
         
-        double[] x = null;
+        double[] x = {2, 3, 1, 4};
         
-        double[] expResult = null;
+        double[] expResult = {100.0000, 2.0000, 16.0000, 2.0000};
         double[] result = VectorFunctions.abs2FT(x);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(true, VectorFunctions.distance_between(expResult, result) < 0.00001);
+       
     }
 
     /**
@@ -65,15 +72,13 @@ public class VectorFunctionsTest extends TestCase {
     public void testDistance_between() {
         System.out.println("distance_between");
         
-        double[] x = null;
-        double[] s = null;
+        double[] x = {0, 1, 3};
+        double[] s = {0, 4, 1};
         
-        double expResult = 0.0;
+        double expResult = Math.sqrt(13.0);
         double result = VectorFunctions.distance_between(x, s);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult,result);
+  
     }
 
     /**
@@ -82,15 +87,13 @@ public class VectorFunctionsTest extends TestCase {
     public void testAngle_between() {
         System.out.println("angle_between");
         
-        double[] x = null;
-        double[] y = null;
+        double[] x = {0,1};
+        double[] y = {1,1};
         
-        double expResult = 0.0;
+        double expResult = Math.PI/4;
         double result = VectorFunctions.angle_between(x, y);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(true, Math.abs(expResult - result) < 0.000001);
+
     }
 
     /**
@@ -99,15 +102,12 @@ public class VectorFunctionsTest extends TestCase {
     public void testSubtract() {
         System.out.println("subtract");
         
-        double[] x = null;
-        double[] y = null;
+        double[] x = {1,2,3};
+        double[] y = {1,-1,-1};
         
-        double[] expResult = null;
+        double[] expResult = {0,3,4};
         double[] result = VectorFunctions.subtract(x, y);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(0.0, VectorFunctions.distance_between(expResult,result));
     }
 
     /**
@@ -116,15 +116,13 @@ public class VectorFunctionsTest extends TestCase {
     public void testAdd() {
         System.out.println("add");
         
-        double[] x = null;
-        double[] y = null;
+        double[] x = {1,2,3};
+        double[] y = {-1,1,1};
         
-        double[] expResult = null;
+        double[] expResult = {0,3,4};
         double[] result = VectorFunctions.add(x, y);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(0.0, VectorFunctions.distance_between(expResult,result));
+       
     }
 
     /**
@@ -133,14 +131,12 @@ public class VectorFunctionsTest extends TestCase {
     public void testSum() {
         System.out.println("sum");
         
-        double[] x = null;
+        double[] x = {1,1,4};
         
-        double expResult = 0.0;
+        double expResult = 6;
         double result = VectorFunctions.sum(x);
         assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -149,14 +145,12 @@ public class VectorFunctionsTest extends TestCase {
     public void testSum2() {
         System.out.println("sum2");
         
-        double[] x = null;
+        double[] x = {1,2,3};;
         
-        double expResult = 0.0;
+        double expResult = 14;
         double result = VectorFunctions.sum2(x);
         assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -165,14 +159,12 @@ public class VectorFunctionsTest extends TestCase {
     public void testMean() {
         System.out.println("mean");
         
-        double[] x = null;
+        double[] x = {1,2,3};
         
-        double expResult = 0.0;
+        double expResult = 2;
         double result = VectorFunctions.mean(x);
         assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -181,14 +173,12 @@ public class VectorFunctionsTest extends TestCase {
     public void testMagnitude() {
         System.out.println("magnitude");
         
-        double[] x = null;
+        double[] x = {1,2,3};
         
-        double expResult = 0.0;
+        double expResult = Math.sqrt(14.0);
         double result = VectorFunctions.magnitude(x);
         assertEquals(expResult, result);
         
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -197,14 +187,11 @@ public class VectorFunctionsTest extends TestCase {
     public void testMax() {
         System.out.println("max");
         
-        double[] x = null;
+        double[] x = {1,4,2,3,-5};
         
-        double expResult = 0.0;
+        double expResult = 4.0;
         double result = VectorFunctions.max(x);
         assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -213,30 +200,12 @@ public class VectorFunctionsTest extends TestCase {
     public void testIncreasing() {
         System.out.println("increasing");
         
-        double[] x = null;
+        double[] x1 = {1,4,2,3,-5};
+        double[] x2 = {1,2,4,7};
         
-        boolean expResult = true;
-        boolean result = VectorFunctions.increasing(x);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of print method, of class simulator.VectorFunctions.
-     */
-    public void testPrint() {
-        System.out.println("print");
-        
-        double[] x = null;
-        
-        String expResult = "";
-        String result = VectorFunctions.print(x);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(false, VectorFunctions.increasing(x1));
+        assertEquals(true, VectorFunctions.increasing(x2));
+       
     }
 
     /**
@@ -245,15 +214,13 @@ public class VectorFunctionsTest extends TestCase {
     public void testDot() {
         System.out.println("dot");
         
-        double[] x = null;
-        double[] y = null;
+        double[] x = {1,2,3};
+        double[] y = {1,-1,4};
         
-        double expResult = 0.0;
+        double expResult = 11.0;
         double result = VectorFunctions.dot(x, y);
         assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -262,7 +229,7 @@ public class VectorFunctionsTest extends TestCase {
     public void testMin() {
         System.out.println("min");
         
-        double[] x = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};;
+        double[] x = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};
         
         double expResult = -11.0;
         double result = VectorFunctions.min(x);

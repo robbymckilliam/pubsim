@@ -26,7 +26,7 @@ public class VectorFunctions {
         for (int k = 0; k < N; k++){
             for (int m = 0; m < N; m++){
                 Xr[k] += x[m] * Math.cos(k*m*2*Math.PI/N);
-                Xi[k] += x[m] * Math.sin(k*m*2*Math.PI/N);
+                Xi[k] -= x[m] * Math.sin(k*m*2*Math.PI/N);
             }
         }
     }
