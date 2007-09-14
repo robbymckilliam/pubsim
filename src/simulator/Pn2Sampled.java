@@ -1,5 +1,5 @@
 /*
- * Pn1Sampled.java
+ * Pn2Sampled.java
  *
  * Created on 18 August 2007, 12:53
  */
@@ -7,14 +7,15 @@
 package simulator;
 
 /**
- * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Pn1.
+ * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Pn2.
  * Based on the pes.SamplingLLS period estimator.  Runs in 0(n^2 logn) assuming
  * that 0(n) samples are used.
  * <p>
  * This currently only works for odd n.
+ * 
  * @author Robby McKilliam
  */
-public class Pn1Sampled extends Pn1 implements LatticeNearestPointAlgorithm {
+public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
     
     protected int num_samples;
     Anstar anstar;
@@ -22,12 +23,12 @@ public class Pn1Sampled extends Pn1 implements LatticeNearestPointAlgorithm {
     protected double[] g, vt, ut; 
     
     /** Default constructor.  Uses 100 samples */
-    public Pn1Sampled() {
+    public Pn2Sampled() {
         num_samples = 100;
     }
     
     /** Default constructor sets the number of samples */
-    public Pn1Sampled(int samples) {
+    public Pn2Sampled(int samples) {
         num_samples = samples;
     }
     

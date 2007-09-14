@@ -1,5 +1,5 @@
 /*
- * Pn1Glued.java
+ * Pn2Glued.java
  *
  * Created on 12 August 2007, 20:15
  */
@@ -8,15 +8,16 @@ package simulator;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the
- * An* nearest point algorithm for all O(n^3) glue vectors.  Pn1 is a faster
+ * An* nearest point algorithm for all O(n^3) glue vectors.  Pn2 is a faster
  * O(n^3 log(n)) algorithm.  
  * <p>
  * This currently only works for odd n.  The glue vectors are slightly different
  * for even n.  There are also 4 times more of them for even n!
  * 
+ * 
  * @author Robby McKilliam
  */
-public class Pn1Glued extends Pn1 implements LatticeNearestPointAlgorithm {
+public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
     
     private Anstar anstar;
     
@@ -35,7 +36,8 @@ public class Pn1Glued extends Pn1 implements LatticeNearestPointAlgorithm {
         
     }
     
-    /** Find the nearest point in Pn1 by searching the o(n^3)
+    /**
+     * Find the nearest point in Pn2 by searching the o(n^3)
      * translates/glues of An*.  Currently, this only works
      * for odd n.
      */

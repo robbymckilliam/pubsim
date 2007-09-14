@@ -1,5 +1,5 @@
 /*
- * Pn1.java
+ * Pn2.java
  *
  * Created on 12 August 2007, 21:11
  */
@@ -7,13 +7,14 @@
 package simulator;
 
 /**
- * Nearest point algorithm for the Pn1 lattice.
+ * Nearest point algorithm for the Pn2 lattice.
  * Works as a specialised version on the period estimation ZnLLS algorithm.
  * O(n^3log(n)).
  * UNDER CONSTRUCTION BY TIM!
+ * 
  * @author Tim Mason and Robby McKilliam
  */
-public class Pn1 implements LatticeNearestPointAlgorithm{
+public class Pn2 implements LatticeNearestPointAlgorithm{
     
     /** Dimension of this lattice */
     protected int n;
@@ -38,8 +39,9 @@ public class Pn1 implements LatticeNearestPointAlgorithm{
     /**Getter for the interger vector. */
     public double[] getIndex(){ return u; }
     
-    /** 
-     * Project a n+2 length vector into Pn1 space.
+    /**
+     * 
+     * Project a n+2 length vector into Pn2 space.
      * y is output, x is input (x & y can be the same array)
      * <p>
      * PRE: x.length <= y.length

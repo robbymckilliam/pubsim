@@ -5,7 +5,7 @@
  */
 
 package simulator.fes;
-import simulator.Pn1Sampled;
+import simulator.Pn2Sampled;
 
 /**
  * Simple and fast suboptimal (but perharps can be made optimal)
@@ -13,7 +13,7 @@ import simulator.Pn1Sampled;
  * period estimator.
  * @author Robby McKilliam
  */
-public class SamplingLatticeEstimator extends Pn1Sampled implements FrequencyEstimator {
+public class SamplingLatticeEstimator extends Pn2Sampled implements FrequencyEstimator {
     
     protected int N;
     

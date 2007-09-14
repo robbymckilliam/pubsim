@@ -6,7 +6,7 @@
 
 package simulator.fes;
 
-import simulator.Pn1Glued;
+import simulator.Pn2Glued;
 import simulator.VectorFunctions;
 
 /**
@@ -14,7 +14,7 @@ import simulator.VectorFunctions;
  * point problem for the frequency estimation lattice Pn1.  O(n^4log(n)).
  * @author Robby
  */
-public class GlueAnstarEstimator extends Pn1Glued implements FrequencyEstimator {
+public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator {
     
     protected double[] x, y;
     protected int N;
