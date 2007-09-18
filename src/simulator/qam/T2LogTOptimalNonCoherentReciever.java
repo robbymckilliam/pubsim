@@ -154,7 +154,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                     Double key = ((Double) map.firstKey());
                     n = ((Integer)map.get(key)).intValue();
                     double s = Math.signum(d[n]);
-                    v[k] += 2*s;
+                    v[n] += 2*s;
                     map.remove(key);
                     map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
                     
