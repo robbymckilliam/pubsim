@@ -101,29 +101,83 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                 for(int j = 0; j < 2*T; j++)
                         v[j] = 2*Math.round((bmin*d[j]+c[j]+1)/2)-1;
                 v[i] = k + 1;
+                v[minT] = -Math.signum(d[minT])*(M - 1);
                 
                 //setup map
                 map.clear();
                 for(int j = 0; j < 2*T; j++){
                     if(i!=j)
-                        map.put((v[j]+Math.signum(d[j])-c[j])/d[j], j);
+                        map.put(new Double((v[j]+Math.signum(d[j])-c[j])/d[j]),
+                                new Integer(j));
                 }
                 
+                //setup dot product variables for updating 
+                //likelihood in constant time.
+                double y1tv = 0.0, y2tv = 0.0, y1ty2 = 0.0, vtv = 0.0,
+                        y1tvn = 0.0, y2tvn = 0.0, vtvn = 0.0,
+                        y1ty1 = 0.0, y2ty2 = 0.0;
+                for(int j = 0; j < 2*T; j++){
+                    y1tv += y1[j]*v[j];
+                    y2tv += y2[j]*v[j];
+                    y1ty2 += y1[j]*y2[j];
+                    vtv += v[j]*v[j];
+                    y1ty1 += y1[j]*y1[j];
+                    y2ty2 += y2[j]*y2[j];
+                }
+                y1tvn = y1tv - 2*y1[i];
+                y2tvn = y2tv - 2*y2[i];
+                vtvn = vtv - 4*v[i] + 4;
                 
                 //run the search loop
                 int n = 0;
                 double Lbest = Double.POSITIVE_INFINITY;
                 while( (v[n] >= -M + 1) && (v[n] <= M - 1)){
                     
-                    //under construction
+                    //test the likelihood of the codeword on each
+                    //side of the line, runs in constant time.
+                    double L = vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
+                            + y1tv*y2tv*y1ty2/(y1ty1*y2ty2);
+                    if(L < Lbest){
+                        Lbest = L;
+                        for(int j = 0; j < 2*T; j++)
+                            vbest[j] = v[j];
+                    }
+                    L = vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
+                        + y1tvn*y2tvn*y1ty2/(y1ty1*y2ty2);
+                    if(L < Lbest){
+                        Lbest = L;
+                        for(int j = 0; j < 2*T; j++)
+                            vbest[j] = v[j];
+                        vbest[i] -= 2;
+                    }
                     
+                    Double key = ((Double) map.firstKey());
+                    n = ((Integer)map.get(key)).intValue();
+                    double s = Math.signum(d[n]);
+                    v[k] += 2*s;
+                    map.remove(key);
+                    map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
+                    
+                    //update the dot products
+                    y1tv += 2*s*y1[i];
+                    y2tv += 2*s*y2[i];
+                    vtv += 4*s*v[i] + 4;
+                    y1tvn += 2*s*y1[i];
+                    y2tvn += 2*s*y2[i];
+                    vtvn += 4*s*v[i] + 4;
+
                 }
-                
                 
             }
             
         }
         
+        //Write the best codeword into real and
+        //imaginary vectors
+        for(int i = 0; i < T; i++){
+            dreal[i] = vbest[2*i];
+            dimag[i] = vbest[2*i + 1];
+        }
         
     }
     
