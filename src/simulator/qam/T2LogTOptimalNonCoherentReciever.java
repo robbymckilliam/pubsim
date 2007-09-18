@@ -7,6 +7,7 @@
 package simulator.qam;
 
 import java.util.TreeMap;
+import simulator.VectorFunctions;
 
 /**
  * The faster O(T^2 log(T)) GLRT-optimal non-coherent QAM
@@ -65,6 +66,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
             y2[2*i+1] = rreal[i];
         }
         
+        double Lbest = Double.POSITIVE_INFINITY;
         //for each type of line
         for(int i = 0; i < 2*T; i++){
             
@@ -85,7 +87,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                 double bmin = Double.NEGATIVE_INFINITY;
                 int minT = 0;
                 for(int j = 0; j < 2*T; j++){
-                    if(j!=i){
+                    if(j!=i && d[j] != 0.0){
                         double bpos = (M - 2 - c[j])/d[j];
                         double bneg = (-M + 2 - c[j])/d[j];
                         double thismin = Math.min(bpos, bneg);
@@ -106,7 +108,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                 //setup map
                 map.clear();
                 for(int j = 0; j < 2*T; j++){
-                    if(i!=j)
+                    if(i!=j && d[j] != 0.0)
                         map.put(new Double((v[j]+Math.signum(d[j])-c[j])/d[j]),
                                 new Integer(j));
                 }
@@ -130,7 +132,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                 
                 //run the search loop
                 int n = 0;
-                double Lbest = Double.POSITIVE_INFINITY;
+                //int count = 0;
                 while( (v[n] >= -M + 1) && (v[n] <= M - 1)){
                     
                     //test the likelihood of the codeword on each
@@ -141,22 +143,24 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                         Lbest = L;
                         for(int j = 0; j < 2*T; j++)
                             vbest[j] = v[j];
+                        System.out.println("*****");
                     }
-                    L = vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
+                    double Ln = vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
                         + y1tvn*y2tvn*y1ty2/(y1ty1*y2ty2);
-                    if(L < Lbest){
-                        Lbest = L;
+                    if(Ln < Lbest){
+                        Lbest = Ln;
                         for(int j = 0; j < 2*T; j++)
                             vbest[j] = v[j];
                         vbest[i] -= 2;
+                        System.out.println("*****");
                     }
+                    
+                    System.out.println("L = " + L + ", Ln = " + Ln);
+                    System.out.println("v = " + VectorFunctions.print(v));
                     
                     Double key = ((Double) map.firstKey());
                     n = ((Integer)map.get(key)).intValue();
                     double s = Math.signum(d[n]);
-                    v[n] += 2*s;
-                    map.remove(key);
-                    map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
                     
                     //update the dot products
                     y1tv += 2*s*y1[i];
@@ -165,8 +169,15 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                     y1tvn += 2*s*y1[i];
                     y2tvn += 2*s*y2[i];
                     vtvn += 4*s*v[i] + 4;
+                    
+                    v[n] += 2*s;
+                    map.remove(key);
+                    map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
 
                 }
+                
+                System.out.println("end " + i + ", " + k);
+                System.out.println("");
                 
             }
             
@@ -207,5 +218,32 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
         return dimag;
     }
     
-    
+    /**
+     * Tests two QAM symbols for equality up to the
+     * ambiguity of an pi/2 rotation in phase.
+     */
+    public static boolean ambiguityEqual(double[] xreal, double[] ximag, 
+                                            double[] yreal, double[] yimag){
+        boolean ret = true;
+        for(int i = 0; i < xreal.length; i++)
+            ret = ret && (xreal[i] == yreal[i])&&(ximag[i] == yimag[i]);
+        if(ret == true) return true;
+        
+        ret = true;
+        for(int i = 0; i < xreal.length; i++)
+            ret = ret && (xreal[i] == -yreal[i])&&(ximag[i] == -yimag[i]);
+        if(ret == true) return true;
+        
+        ret = true;
+        for(int i = 0; i < xreal.length; i++)
+            ret = ret && (xreal[i] == -yimag[i])&&(ximag[i] == yreal[i]);
+        if(ret == true) return true;
+        
+        ret = true;
+        for(int i = 0; i < xreal.length; i++)
+            ret = ret && (xreal[i] == yimag[i])&&(ximag[i] == -yreal[i]);
+        if(ret == true) return true;
+            
+        return false;
+    }
 }
