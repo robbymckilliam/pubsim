@@ -48,12 +48,9 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
         if (n != y.length-2)
 	    setDimension(y.length-2);
         
-        double d = (Math.floor(n/2.0) + 1)*(Math.floor(n/2.0) + 2)
-            *(2*Math.floor(n/2.0) + 3)/3.0; 
-        
         double bestdist = Double.POSITIVE_INFINITY;
-        double step = Math.sqrt(d)/num_samples;
-        for( double f = 0; f < Math.sqrt(d); f+=step ){
+        double step = 1.0/num_samples;
+        for( double f = 0; f < 1.0; f+=step ){
             
             //calculate the next point on line to test
             for(int i=0; i<n+2; i++)
@@ -71,7 +68,7 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
             } 
            
         }
-        //System.out.println("samp dist = " + bestdist);
+
     }
     
 }

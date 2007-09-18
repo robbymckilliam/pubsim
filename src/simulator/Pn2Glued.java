@@ -47,6 +47,7 @@ public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
         
         double d = (Math.floor(n/2.0) + 1)*(Math.floor(n/2.0) + 2)
                     *(2*Math.floor(n/2.0) + 3)/3.0; 
+        if(n%2 == 0) d = 2*d;
                
         for (int j = 0; j < n+2; j++)
             g[j] = -1.0/(n+2) + (j + 1.0 - (n+3.0)/2.0)/d;
@@ -77,15 +78,8 @@ public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
                 }
                 u[(n+2)/2 - 1] += i;
                 
-                /*
-                System.out.println("y = " + VectorFunctions.print(y));
-                System.out.println("v = " + VectorFunctions.print(v));
-                System.out.println("vt = " + VectorFunctions.print(vt));
-                System.out.println("u = " + VectorFunctions.print(u));
-                 */
             }
         }
-        //System.out.println("glue dist = " + bestdist);
     }
     
 }
