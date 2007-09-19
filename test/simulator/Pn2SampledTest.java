@@ -1,5 +1,5 @@
 /*
- * Pn1SampledTest.java
+ * Pn2SampledTest.java
  * JUnit based test
  *
  * Created on 18 August 2007, 17:55
@@ -14,9 +14,9 @@ import java.util.Random;
  *
  * @author Robby
  */
-public class Pn1SampledTest extends TestCase {
+public class Pn2SampledTest extends TestCase {
     
-    public Pn1SampledTest(String testName) {
+    public Pn2SampledTest(String testName) {
         super(testName);
     }
 

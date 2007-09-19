@@ -28,13 +28,13 @@ public class T2LogTOptimalNonCoherentRecieverTest extends TestCase {
     public void testDecode() {
         System.out.println("decode");
         
-        int M = 4;
-        int T = 3;
+        int M = 16;
+        int T = 13;
         
         FadingNoisyQAM siggen = new FadingNoisyQAM(M);
         siggen.setChannel(1.0,0.0);
         
-        GaussianNoise noise = new GaussianNoise(0.0,0.0);
+        GaussianNoise noise = new GaussianNoise(0.0,0.0001);
         siggen.setNoise(noise);
         
         T2LogTOptimalNonCoherentReciever instance = new T2LogTOptimalNonCoherentReciever();
@@ -70,6 +70,33 @@ public class T2LogTOptimalNonCoherentRecieverTest extends TestCase {
         
         double[] expr = {1.0, -1.0, 1.0, 3.0};
         assertEquals(true, VectorFunctions.distance_between(expr,y)<0.000001);
+        
+    }
+    
+    public void testAmbiguityEqual(){
+        System.out.println("ambiguityEqual");
+        
+        double[] xr = {3.0,1.0};
+        double[] xi = {2.0,-1.0};
+        double[] yr = {3.0,1.0};
+        double[] yi = {2.0,-1.0};
+        assertEquals(true, 
+                T2LogTOptimalNonCoherentReciever.ambiguityEqual(xr,xi,yr,yi));
+        
+        double[] yr1 = {-3.0,-1.0};
+        double[] yi1 = {-2.0,1.0};
+        assertEquals(true, 
+                T2LogTOptimalNonCoherentReciever.ambiguityEqual(xr,xi,yr1,yi1));
+        
+        double[] yr2 = {2.0,-1.0};
+        double[] yi2 = {-3.0,-1.0};
+        assertEquals(true, 
+                T2LogTOptimalNonCoherentReciever.ambiguityEqual(xr,xi,yr2,yi2));
+        
+        double[] yr3 = {-2.0,1.0};
+        double[] yi3 = {3.0,1.0};
+        assertEquals(true, 
+                T2LogTOptimalNonCoherentReciever.ambiguityEqual(xr,xi,yr3,yi3));
         
     }
     

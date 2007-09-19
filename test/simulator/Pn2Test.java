@@ -1,5 +1,5 @@
 /*
- * PnoneTest.java
+ * Pn2Test.java
  * JUnit based test
  *
  * Created on 12 August 2007, 22:11
@@ -13,9 +13,9 @@ import junit.framework.*;
  *
  * @author Robby
  */
-public class PnoneTest extends TestCase {
+public class Pn2Test extends TestCase {
     
-    public PnoneTest(String testName) {
+    public Pn2Test(String testName) {
         super(testName);
     }
 

@@ -11,7 +11,7 @@ package simulator;
  * Based on the pes.SamplingLLS period estimator.  Runs in 0(n^2 logn) assuming
  * that 0(n) samples are used.
  * <p>
- * This currently only works for odd n.
+ * This currently only works for odd n.  Why?
  * 
  * @author Robby McKilliam
  */

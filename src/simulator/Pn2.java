@@ -40,7 +40,6 @@ public class Pn2 implements LatticeNearestPointAlgorithm{
     public double[] getIndex(){ return u; }
     
     /**
-     * 
      * Project a n+2 length vector into Pn2 space.
      * y is output, x is input (x & y can be the same array)
      * <p>

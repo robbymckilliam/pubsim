@@ -143,7 +143,6 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                         Lbest = L;
                         for(int j = 0; j < 2*T; j++)
                             vbest[j] = v[j];
-                        System.out.println("*****");
                     }
                     double Ln = vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
                         + y1tvn*y2tvn*y1ty2/(y1ty1*y2ty2);
@@ -152,32 +151,25 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                         for(int j = 0; j < 2*T; j++)
                             vbest[j] = v[j];
                         vbest[i] -= 2;
-                        System.out.println("*****");
                     }
-                    
-                    System.out.println("L = " + L + ", Ln = " + Ln);
-                    System.out.println("v = " + VectorFunctions.print(v));
                     
                     Double key = ((Double) map.firstKey());
                     n = ((Integer)map.get(key)).intValue();
                     double s = Math.signum(d[n]);
                     
                     //update the dot products
-                    y1tv += 2*s*y1[i];
-                    y2tv += 2*s*y2[i];
-                    vtv += 4*s*v[i] + 4;
-                    y1tvn += 2*s*y1[i];
-                    y2tvn += 2*s*y2[i];
-                    vtvn += 4*s*v[i] + 4;
+                    y1tv += 2*s*y1[n];
+                    y2tv += 2*s*y2[n];
+                    vtv += 4*s*v[n] + 4;
+                    y1tvn += 2*s*y1[n];
+                    y2tvn += 2*s*y2[n];
+                    vtvn += 4*s*v[n] + 4;
                     
                     v[n] += 2*s;
                     map.remove(key);
                     map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
 
                 }
-                
-                System.out.println("end " + i + ", " + k);
-                System.out.println("");
                 
             }
             
