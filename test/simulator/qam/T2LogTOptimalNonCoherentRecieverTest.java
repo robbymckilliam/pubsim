@@ -29,10 +29,11 @@ public class T2LogTOptimalNonCoherentRecieverTest extends TestCase {
         System.out.println("decode");
         
         int M = 16;
-        int T = 13;
+        int T = 3;
         
         FadingNoisyQAM siggen = new FadingNoisyQAM(M);
-        siggen.setChannel(1.0,0.0);
+        //siggen.setChannel(1.0,0.0);
+        siggen.generateChannel();
         
         GaussianNoise noise = new GaussianNoise(0.0,0.0001);
         siggen.setNoise(noise);

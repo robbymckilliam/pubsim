@@ -16,6 +16,12 @@ public interface QAMReceiver {
     /** Set the size of the QAM array */
     public void setQAMSize(int M);
     
+    /** 
+    * Set number of QAM signals to use for
+    * estimating the channel
+    */
+    public void setT(int T);
+    
     /**Decode the QAM signal*/
     public void decode(double[] rreal, double[] rimag);
     
