@@ -14,7 +14,7 @@ import simulator.VectorFunctions;
  * receiver. 
  * @author Robby
  */
-public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
+public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
     
     protected int M;
     protected int T;
@@ -29,9 +29,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
     protected TreeMap map;
     
     /** Set the size of the QAM array */
-    public void setQAMSize(int M){
-        this.M = M;
-    }
+    public void setQAMSize(int M){ this.M = M; }
     
     /** 
      * Set number of QAM signals to use for
@@ -71,7 +69,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
         for(int i = 0; i < 2*T; i++){
             
             //for the parallel lines of this type
-            for(int k = -M+2; k <= M-2; k+=2){
+            for(int k = 0; k <= M-2; k+=2){
                 
                 //calculate parameters for the 
                 //line we are searching.  d can be
@@ -89,7 +87,7 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
                 for(int j = 0; j < 2*T; j++){
                     if(j!=i && d[j] != 0.0){
                         double bpos = (M - 2 - c[j])/d[j];
-                        double bneg = (-M + 2 - c[j])/d[j];
+                        double bneg = (0.0 - c[j])/d[j];
                         double thismin = Math.min(bpos, bneg);
                         if(bmin < thismin){
                             minT = j;
@@ -185,16 +183,6 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
     }
     
     /** 
-     * Nearest neighbour algorithm for this form of QAM.
-     * See Dan's paper. x input, y output.
-     * pre: x.length == y.length.
-     */
-    public void NN(double[] x, double[] y){
-        for(int i = 0; i < x.length; i++)
-            y[i] = 2*Math.round((x[i]+1)/2) - 1;
-    }
-    
-    /** 
      * Get the real part of the decoded QAM signal.
      * Call decode first.
      */
@@ -209,33 +197,5 @@ public class T2LogTOptimalNonCoherentReciever implements  QAMReceiver {
     public double[] getImag(){
         return dimag;
     }
-    
-    /**
-     * Tests two QAM symbols for equality up to the
-     * ambiguity of an pi/2 rotation in phase.
-     */
-    public static boolean ambiguityEqual(double[] xreal, double[] ximag, 
-                                            double[] yreal, double[] yimag){
-        boolean ret = true;
-        for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == yreal[i])&&(ximag[i] == yimag[i]);
-        if(ret == true) return true;
-        
-        ret = true;
-        for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == -yreal[i])&&(ximag[i] == -yimag[i]);
-        if(ret == true) return true;
-        
-        ret = true;
-        for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == -yimag[i])&&(ximag[i] == yreal[i]);
-        if(ret == true) return true;
-        
-        ret = true;
-        for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == yimag[i])&&(ximag[i] == -yreal[i]);
-        if(ret == true) return true;
-            
-        return false;
-    }
+ 
 }
