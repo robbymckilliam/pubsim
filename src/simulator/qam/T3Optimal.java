@@ -5,7 +5,6 @@
  */
 
 package simulator.qam;
-import com.sun.org.apache.bcel.internal.verifier.statics.DOUBLE_Upper;
 import simulator.VectorFunctions;
 
 /**
@@ -49,6 +48,8 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
     
     /**Decode the QAM signal*/
     public void decode(double[] rreal, double[] rimag){
+        if( rreal.length != T )
+            setT(rreal.length);
         
         //Dan's underline operator
         for(int i = 0; i < T; i++){
@@ -60,7 +61,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         
         //Dan's small offset to ensure we translate off a nearest
         //neighbour boundry.
-        double e = 0.0000001;
+        double e = 0.00001;
         double Lbest = Double.POSITIVE_INFINITY;
         
         for(int i = 0; i < 2*T-1; i++){
@@ -71,22 +72,24 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                         //2x2 matrix inversion 
                         double det = y1[i]*y2[j] - y1[j]*y2[i];
                         double a = (y2[j]*k - y2[i]*n)/det;
-                        double b = (y1[j]*k - y1[i]*n)/det;
+                        double b = (-y1[j]*k + y1[i]*n)/det;
                         
                         //run for positive and negative e
-                        for(double ve = e; ve >= -e; ve-=e){
+                        for(double ve = e; ve >= -e; ve-=2*e){
                             for(int ii=0; ii < 2*T; ii++)
                                 v[ii] = (a+ve)*y1[ii] + (b+ve)*y2[ii];
                             NN(v,v);
-
-                            //postive small translation
+                            
                             if(inbounds(v)){
                                 project(v,vp);
+                                //double L = VectorFunctions.angle_between(v,vp);
                                 double L = VectorFunctions.distance_between(v,vp);
                                 if(L < Lbest){
                                     Lbest = L;
                                     for(int ii=0; ii < 2*T; ii++)
                                         vbest[ii] = v[ii];
+                                    System.out.println("L = " + L*L);
+                                    System.out.println("bv = " + VectorFunctions.print(vbest));
                                 }
                             }
                         }

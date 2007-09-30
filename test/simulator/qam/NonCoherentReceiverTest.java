@@ -32,13 +32,13 @@ public class NonCoherentReceiverTest extends TestCase {
     public void testNN() {
         System.out.println("NN");
         
-        double[] x = {0.1, -0.1, 1.1, 2.1};
+        double[] x = {0.1, -0.1, 1.1, 2.1, -2.0001, -1.9999, 3.01, 3.9, -4.1};
         double[] y = new double[x.length];
         NonCoherentReceiver instance = new NonCoherentReceiver();
         
         instance.NN(x, y);
         
-        double[] expr = {1.0, -1.0, 1.0, 3.0};
+        double[] expr = {1.0, -1.0, 1.0, 3.0, -3.0, -1.0, 3.0, 3.0, -5.0};
         assertEquals(true, VectorFunctions.distance_between(expr,y)<0.000001);
     }
 

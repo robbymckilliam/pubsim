@@ -121,7 +121,6 @@ public class FadingNoisyQAM implements SignalGenerator{
     
     /** Generate the Rayleigh fading channel */
     public void generateChannel(){
-        Random rand = new Random();
         Hr = rand.nextGaussian();
         Hi = rand.nextGaussian();
     }
@@ -132,7 +131,7 @@ public class FadingNoisyQAM implements SignalGenerator{
      */
     public void setChannel(double Hr, double Hi){
         this.Hr = Hr;
-        this.Hi = Hi; 
+        this.Hi = Hi;
     }
     
 }

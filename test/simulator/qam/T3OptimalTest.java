@@ -33,12 +33,12 @@ public class T3OptimalTest extends TestCase {
     public void testDecode() {
         System.out.println("decode");
         
-        int M = 16;
-        int T = 7;
+        int M = 4;
+        int T = 3;
+        long seed = 5;
         
         FadingNoisyQAM siggen = new FadingNoisyQAM(M);
         //siggen.setChannel(1.0,0.0);
-        siggen.generateChannel();
         
         GaussianNoise noise = new GaussianNoise(0.0,0.00001);
         siggen.setNoise(noise);
@@ -46,6 +46,10 @@ public class T3OptimalTest extends TestCase {
         T3Optimal instance = new T3Optimal();
         instance.setQAMSize(M);
         instance.setT(T);
+        
+        siggen.setSeed(seed);
+        noise.setSeed(seed);
+        siggen.generateChannel();
         
         siggen.generateQAMSignal(T);
         siggen.generateReceivedSignal();
