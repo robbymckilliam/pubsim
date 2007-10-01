@@ -1,34 +1,29 @@
 /*
- * T3OptimalTest.java
+ * T2LogTSubOptimalTest.java
  * JUnit based test
  *
- * Created on 27 September 2007, 15:30
+ * Created on 1 October 2007, 10:04
  */
 
 package simulator.qam;
 
 import junit.framework.*;
+import java.util.TreeMap;
 import simulator.VectorFunctions;
 import simulator.GaussianNoise;
 
 /**
  *
- * @author robertm
+ * @author Robby
  */
-public class T3OptimalTest extends TestCase {
+public class T2LogTSubOptimalTest extends TestCase {
     
-    public T3OptimalTest(String testName) {
+    public T2LogTSubOptimalTest(String testName) {
         super(testName);
     }
 
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
     /**
-     * Test of decode method, of class simulator.qam.T3Optimal.
+     * Test of decode method, of class simulator.qam.T2LogTSubOptimal.
      */
     public void testDecode() {
         System.out.println("decode");
@@ -43,7 +38,7 @@ public class T3OptimalTest extends TestCase {
         GaussianNoise noise = new GaussianNoise(0.0,0.00001);
         siggen.setNoise(noise);
         
-        T3Optimal instance = new T3Optimal();
+        T2LogTSubOptimal instance = new T2LogTSubOptimal(20);
         instance.setQAMSize(M);
         instance.setT(T);
         
@@ -63,23 +58,6 @@ public class T3OptimalTest extends TestCase {
         assertEquals(true, instance.ambiguityEqual(siggen.getTransmittedRealQAMSignal(), 
                 siggen.getTransmittedImagQAMSignal(), 
                 instance.getReal(), instance.getImag()));
-    }
-
-
-    /**
-     * Test of project method, of class simulator.qam.T3Optimal.
-     */
-    public void testProject() {
-        System.out.println("project");
-        
-        double[] x = null;
-        double[] y = null;
-        T3Optimal instance = new T3Optimal();
-        
-        instance.project(x, y);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

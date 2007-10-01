@@ -57,13 +57,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         if( rreal.length != T )
             setT(rreal.length);
         
-        //Dan's underline operator
-        for(int i = 0; i < T; i++){
-            y1[2*i] = rreal[i];
-            y1[2*i+1] = rimag[i];
-            y2[2*i] = -rimag[i];
-            y2[2*i+1] = rreal[i];
-        }
+        createPlane(rreal, rimag, y1, y2);
         
         //System.out.println("y1 = " + VectorFunctions.print(y1));
         //System.out.println("y2 = " + VectorFunctions.print(y2));
@@ -91,18 +85,25 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                 //calculate the start point
                 //for the line search
                 double bmin = Double.NEGATIVE_INFINITY;
+                double bmax = Double.POSITIVE_INFINITY;
                 int minT = 0;
                 for(int j = 0; j < 2*T; j++){
                     if(j!=i && d[j] != 0.0){
                         double bpos = (M - c[j])/d[j];
                         double bneg = (-M - c[j])/d[j];
                         double thismin = Math.min(bpos, bneg);
-                        if(bmin < thismin){
+                        if(thismin > bmin){
                             minT = j;
                             bmin = thismin;
                         }
+                        double thismax = Math.max(bpos, bneg);
+                        if(thismax < bmax)
+                            bmax = thismax;
                     }
                 }
+                
+                //if line is never in codeword boundry
+                if(bmax < bmin) break;
                 
                 //setup start point
                 for(int j = 0; j < 2*T; j++)
@@ -110,7 +111,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                 v[i] = k + 1;
                 v[minT] = -Math.signum(d[minT])*(M - 1);
                 
-                //setup map
+                //setup sorted map
                 map.clear();
                 for(int j = 0; j < 2*T; j++){
                     if(i!=j && d[j] != 0.0)
@@ -157,17 +158,25 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                             vbest[j] = v[j];
                         vbest[i] -= 2;
                         System.out.println("Ln = " + Ln);
-                        System.out.println("bv = " + VectorFunctions.print(vbest));
                         
                     }
                     
-                    double[] vtest = {3.0, 5.0, 5.0, -5.0, 3.0, 7.0, 7.0, 7.0, 7.0, 7.0};
-                    if( vtest.equals(v) )
+                    System.out.println("L = " + L);
+                    System.out.println("v0 = " + VectorFunctions.print(v));
+                    v[i] -= 2;
+                    System.out.println("Ln = " + Ln);
+                    System.out.println("v1 = " + VectorFunctions.print(v));
+                    v[i] += 2;
+                    
+                    
+                    double[] vtest = {3.0, 1.0, 3.0, 1.0, -1.0, 1.0};
+                    if( ambiguityEqual(v,vtest) )
                         System.out.println("OMG**************");
                     v[i] -= 2;
-                    if( vtest.equals(v) )
+                    if( ambiguityEqual(v,vtest) )
                         System.out.println("OMG**************");
                     v[i] += 2;
+                    
                     
                     Double key = ((Double) map.firstKey());
                     n = ((Integer)map.get(key)).intValue();
@@ -185,9 +194,14 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                     map.remove(key);
                     map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
 
-                }while( (v[n] >= -M + 1) && (v[n] <= M - 1));
+                }while( (v[n] >= -M + 1 ) && (v[n] <= M - 1 ));
+                
+                System.out.println();
                 
             }
+            
+            System.out.println("**");
+            System.out.println();
             
         }
         

@@ -60,7 +60,8 @@ public class ZnLLS implements PRIEstimator {
             double ztz = 0.0, ztv = 0.0, vtv = 0.0;
             for(int j=0; j<=n; j++){
                 v[j] = Math.round(fmin*z[j] - g[j]) + g[j];
-                map.put(new Double((Math.signum(z[j])*0.5 + v[j])/z[j]), new Integer(j));
+                map.put(new Double((Math.signum(z[j])*0.5 + v[j])/z[j]), 
+                        new Integer(j));
                 ztz += z[j]*z[j];
                 ztv += z[j]*v[j];
                 vtv += v[j]*v[j];

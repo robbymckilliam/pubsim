@@ -51,17 +51,11 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         if( rreal.length != T )
             setT(rreal.length);
         
-        //Dan's underline operator
-        for(int i = 0; i < T; i++){
-            y1[2*i] = rreal[i];
-            y1[2*i+1] = rimag[i];
-            y2[2*i] = -rimag[i];
-            y2[2*i+1] = rreal[i];
-        }
+        createPlane(rreal, rimag, y1, y2);
         
         //Dan's small offset to ensure we translate off a nearest
         //neighbour boundry.
-        double e = 0.00001;
+        double e = 0.000001;
         double Lbest = Double.POSITIVE_INFINITY;
         
         for(int i = 0; i < 2*T-1; i++){
@@ -80,7 +74,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                                 v[ii] = (a+ve)*y1[ii] + (b+ve)*y2[ii];
                             NN(v,v);
                             
-                            if(inbounds(v)){
+                            if(inbounds(v,M)){
                                 project(v,vp);
                                 //double L = VectorFunctions.angle_between(v,vp);
                                 double L = VectorFunctions.distance_between(v,vp);
@@ -88,8 +82,8 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                                     Lbest = L;
                                     for(int ii=0; ii < 2*T; ii++)
                                         vbest[ii] = v[ii];
-                                    System.out.println("L = " + L*L);
-                                    System.out.println("bv = " + VectorFunctions.print(vbest));
+                                    //System.out.println("L = " + L*L);
+                                    //System.out.println("bv = " + VectorFunctions.print(vbest));
                                 }
                             }
                         }
@@ -106,11 +100,6 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
             dimag[i] = vbest[2*i + 1];
         }
         
-    }
-    
-    /** Returns true if v is within boundry of an M-ary QAM symbol */
-    protected boolean inbounds(double[] v){
-        return VectorFunctions.max(v) < M && VectorFunctions.min(v) > -M;
     }
     
     /**

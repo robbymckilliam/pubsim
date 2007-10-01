@@ -6,6 +6,8 @@
 
 package simulator.qam;
 
+import simulator.VectorFunctions;
+
 /**
  * Contains functions relavant to most NonCoherentReceivers
  * @author robertm
@@ -17,7 +19,7 @@ public class NonCoherentReceiver {
     * See Dan's paper. x input, y output.
     * pre: x.length == y.length.
     */
-    public static void NN(double[] x, double[] y){
+    protected static void NN(double[] x, double[] y){
         for(int i = 0; i < x.length; i++)
             y[i] = 2*Math.round((x[i]+1)/2) - 1;
     }
@@ -49,6 +51,57 @@ public class NonCoherentReceiver {
         if(ret == true) return true;
             
         return false;
+    }
+    
+    /**
+     * Test two vectors for equality up to the
+     * ambiguity of an pi/2 rotation in phase.
+     * This assumes the vectors are in the format
+     * of Dan's underline operator.
+     */
+    public static boolean ambiguityEqual(double[] x, double[] y ){
+        
+        boolean ret = true;
+        for(int i = 0; i < x.length; i++)
+            ret = ret && (x[i] == y[i]);
+        if(ret == true) return true;
+        
+        ret = true;
+        for(int i = 0; i < x.length; i++)
+            ret = ret && (x[i] == -y[i]);
+        if(ret == true) return true;
+        
+        ret = true;
+        for(int i = 0; i < x.length/2; i++)
+            ret = ret && (x[2*i] == -y[2*i+1])&&(x[2*i+1] == y[2*i]);
+        if(ret == true) return true;
+        
+        ret = true;
+        for(int i = 0; i < x.length/2; i++)
+            ret = ret && (x[2*i] == y[2*i+1])&&(x[2*i+1] == -y[2*i]);
+        if(ret == true) return true;
+        
+        return false;
+    }
+    
+    /** Returns true if v is within boundry of an M-ary QAM symbol */
+    protected static boolean inbounds(double[] v, int M){
+        return VectorFunctions.max(v) < M && VectorFunctions.min(v) > -M;
+    }
+    
+    /**
+     * Create two vectors y1 and y2 that form the search plane
+     * for QAM receivers.  This is detailed in Dan's paper.
+     * PRE: y1.length == y2.length == 2*real.length
+     */
+    protected static void createPlane(double[] real, double[] imag,
+            double[] y1, double[] y2){
+        for(int i = 0; i < real.length; i++){
+            y1[2*i] = real[i];
+            y1[2*i+1] = imag[i];
+            y2[2*i] = -imag[i];
+            y2[2*i+1] = real[i];
+        }
     }
     
 }
