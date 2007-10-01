@@ -55,13 +55,13 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         
         //Dan's small offset to ensure we translate off a nearest
         //neighbour boundry.
-        double e = 0.000001;
+        double e = 0.0000001;
         double Lbest = Double.POSITIVE_INFINITY;
         
         for(int i = 0; i < 2*T-1; i++){
             for(int j = i+1; j < 2*T; j++){
-                for(int k = 0; k <= M-2; k+=2){
-                    for(int n = 0; n <= M-2; n+=2){
+                for(int k = 0; k <= M; k+=2){
+                    for(int n = 0; n <= M; n+=2){
                         
                         //2x2 matrix inversion 
                         double det = y1[i]*y2[j] - y1[j]*y2[i];
@@ -69,7 +69,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                         double b = (-y1[j]*k + y1[i]*n)/det;
                         
                         //run for positive and negative e
-                        for(double ve = e; ve >= -e; ve-=2*e){
+                        for(double ve = e; ve >= -1.1*e; ve-=2*e){
                             for(int ii=0; ii < 2*T; ii++)
                                 v[ii] = (a+ve)*y1[ii] + (b+ve)*y2[ii];
                             NN(v,v);
@@ -86,7 +86,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                                     //System.out.println("bv = " + VectorFunctions.print(vbest));
                                 }
                             }
-                        }
+                        }  
                         
                     }
                 }     

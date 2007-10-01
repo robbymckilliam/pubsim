@@ -18,7 +18,7 @@ public interface LatticeNearestPointAlgorithm {
     /**Getter for the nearest point. */
     double[] getLatticePoint();
     
-    /**Getter for the interger vector. */
+    /**Getter for the integer vector. */
     double[] getIndex();
     
 }

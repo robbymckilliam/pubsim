@@ -68,15 +68,15 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         for(int i = 0; i < 2*T; i++){
             
             //for the parallel lines of this type
-            for(int k = -M+2; k <= M-2; k+=2){
+            for(int k = 0; k <= M-2; k+=2){
                 
                 //calculate parameters for the 
                 //line we are searching.  d can be
                 //calculated outside of k loop but
                 //it's neater to have it here
                 for(int j = 0; j < 2*T; j++){
-                    c[j] = k*y1[j]/y1[i];
-                    d[j] = -y2[i]*y1[j] - y2[j];
+                    c[j] = k*y2[j]/y2[i];
+                    d[j] = y1[j] - y1[i]*y2[j]/y2[i];
                 }
                 
                 //System.out.println("c = " + VectorFunctions.print(c));
@@ -147,8 +147,8 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                         Lbest = L;
                         for(int j = 0; j < 2*T; j++)
                             vbest[j] = v[j];
-                        System.out.println("L = " + L);
-                        System.out.println("bv = " + VectorFunctions.print(vbest));
+                        //System.out.println("L = " + L);
+                        //System.out.println("bv = " + VectorFunctions.print(vbest));
                     }
                     double Ln = vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
                         + y1tvn*y2tvn*y1ty2/(y1ty1*y2ty2);
@@ -157,26 +157,10 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                         for(int j = 0; j < 2*T; j++)
                             vbest[j] = v[j];
                         vbest[i] -= 2;
-                        System.out.println("Ln = " + Ln);
+                        //System.out.println("Ln = " + Ln);
+                        //System.out.println("bv = " + VectorFunctions.print(vbest));
                         
                     }
-                    
-                    System.out.println("L = " + L);
-                    System.out.println("v0 = " + VectorFunctions.print(v));
-                    v[i] -= 2;
-                    System.out.println("Ln = " + Ln);
-                    System.out.println("v1 = " + VectorFunctions.print(v));
-                    v[i] += 2;
-                    
-                    
-                    double[] vtest = {3.0, 1.0, 3.0, 1.0, -1.0, 1.0};
-                    if( ambiguityEqual(v,vtest) )
-                        System.out.println("OMG**************");
-                    v[i] -= 2;
-                    if( ambiguityEqual(v,vtest) )
-                        System.out.println("OMG**************");
-                    v[i] += 2;
-                    
                     
                     Double key = ((Double) map.firstKey());
                     n = ((Integer)map.get(key)).intValue();
@@ -196,12 +180,12 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
 
                 }while( (v[n] >= -M + 1 ) && (v[n] <= M - 1 ));
                 
-                System.out.println();
+                //System.out.println();
                 
             }
             
-            System.out.println("**");
-            System.out.println();
+            //System.out.println("**");
+            //System.out.println();
             
         }
         
