@@ -76,8 +76,8 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                             
                             if(inbounds(v,M)){
                                 project(v,vp);
-                                //double L = VectorFunctions.angle_between(v,vp);
-                                double L = VectorFunctions.distance_between(v,vp);
+                                double L = VectorFunctions.angle_between(v,vp);
+                                //double L = VectorFunctions.distance_between(v,vp);
                                 if(L < Lbest){
                                     Lbest = L;
                                     for(int ii=0; ii < 2*T; ii++)
@@ -95,10 +95,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         
         //Write the best codeword into real and
         //imaginary vectors
-        for(int i = 0; i < T; i++){
-            dreal[i] = vbest[2*i];
-            dimag[i] = vbest[2*i + 1];
-        }
+        toRealImag(vbest, dreal, dimag);
         
     }
     

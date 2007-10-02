@@ -101,8 +101,10 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
             do{
                 //test the likelihood of the codeword on each
                 //side of the line, runs in constant time.
-                double L = vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
-                        + y1tv*y2tv*y1ty2/(y1ty1*y2ty2);
+                //double vp = 2*y1tv*y2tv*y1ty2/(y1ty1*y2ty2) 
+                //        + y1tv*y1tv/y1ty1 + y2tv*y2tv/y2ty2;
+                double L = (vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
+                        + y1tv*y2tv*y1ty2/(y1ty1*y2ty2))/vtv;    
                 if(L < Lbest){
                     Lbest = L;
                     for(int j = 0; j < 2*T; j++)
@@ -130,10 +132,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         
         //Write the best codeword into real and
         //imaginary vectors
-        for(int i = 0; i < T; i++){
-            dreal[i] = vbest[2*i];
-            dimag[i] = vbest[2*i + 1];
-        }
+        toRealImag(vbest, dreal, dimag);
          
     }
     

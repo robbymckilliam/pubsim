@@ -104,4 +104,17 @@ public class NonCoherentReceiver {
         }
     }
     
+    /**
+     * Goes from a vector in Dan's underline notation to
+     * two separate vector's containing real and imaginary
+     * parts.
+     * PRE: y.length == 2*real.length == 2*imag.length
+     */
+    protected static void toRealImag(double[] y, double[] real, double[] imag){
+        for(int i = 0; i < real.length; i++){
+            real[i] = y[2*i];
+            imag[i] = y[2*i + 1];
+        }
+    }
+    
 }
