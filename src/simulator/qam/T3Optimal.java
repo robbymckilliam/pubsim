@@ -76,6 +76,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                             
                             if(inbounds(v,M)){
                                 project(v,vp);
+                                //double L = VectorFunctions.sum2(vp)/VectorFunctions.sum2(v);
                                 double L = VectorFunctions.angle_between(v,vp);
                                 //double L = VectorFunctions.distance_between(v,vp);
                                 if(L < Lbest){

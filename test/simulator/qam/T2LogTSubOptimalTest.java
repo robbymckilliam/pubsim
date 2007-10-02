@@ -29,8 +29,8 @@ public class T2LogTSubOptimalTest extends TestCase {
         System.out.println("decode");
         
         int M = 16;
-        int T = 3;
-        long seed = 1551;
+        int T = 5;
+        long seed = 11111;
         
         FadingNoisyQAM siggen = new FadingNoisyQAM(M);
         //siggen.setChannel(1.0,0.0);
