@@ -60,8 +60,8 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         
         for(int i = 0; i < 2*T-1; i++){
             for(int j = i+1; j < 2*T; j++){
-                for(int k = 0; k <= M; k+=2){
-                    for(int n = 0; n <= M; n+=2){
+                for(int k = -M; k <= M; k+=2){
+                    for(int n = -M; n <= M; n+=2){
                         
                         //2x2 matrix inversion 
                         double det = y1[i]*y2[j] - y1[j]*y2[i];
