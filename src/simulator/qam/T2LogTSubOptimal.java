@@ -66,7 +66,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         
         createPlane(rreal, rimag, y1, y2);
         
-        double Lbest = Double.POSITIVE_INFINITY;
+        double Lbest = Double.NEGATIVE_INFINITY;
         double thetastep = Math.PI/(2*T*L);
         for(double theta = 0.0; theta < Math.PI/2; theta+=thetastep){
             
@@ -103,9 +103,9 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
                 //side of the line, runs in constant time.
                 //double vp = 2*y1tv*y2tv*y1ty2/(y1ty1*y2ty2) 
                 //        + y1tv*y1tv/y1ty1 + y2tv*y2tv/y2ty2;
-                double L = (vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
-                        + y1tv*y2tv*y1ty2/(y1ty1*y2ty2))/vtv;    
-                if(L < Lbest){
+                double L = vtv/(vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
+                        + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
+                if(L > Lbest){
                     Lbest = L;
                     for(int j = 0; j < 2*T; j++)
                         vbest[j] = v[j];

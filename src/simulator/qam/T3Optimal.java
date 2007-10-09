@@ -56,17 +56,19 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         //Dan's small offset to ensure we translate off a nearest
         //neighbour boundry.
         double e = 0.0000001;
-        double Lbest = Double.POSITIVE_INFINITY;
+        double Lbest = Double.NEGATIVE_INFINITY;
         
         for(int i = 0; i < 2*T-1; i++){
             for(int j = i+1; j < 2*T; j++){
-                for(int k = -M; k <= M; k+=2){
+                for(int k = 2; k <= M; k+=2){
                     for(int n = -M; n <= M; n+=2){
                         
                         //2x2 matrix inversion 
                         double det = y1[i]*y2[j] - y1[j]*y2[i];
                         double a = (y2[j]*k - y2[i]*n)/det;
                         double b = (-y1[j]*k + y1[i]*n)/det;
+                        
+                        //if( a < 0.0 || b < 0.0 ) break;
                         
                         //run for positive and negative e
                         for(double ve = e; ve >= -1.1*e; ve-=2*e){
@@ -76,10 +78,10 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                             
                             if(inbounds(v,M)){
                                 project(v,vp);
-                                //double L = VectorFunctions.sum2(vp)/VectorFunctions.sum2(v);
-                                double L = VectorFunctions.angle_between(v,vp);
+                                double L = VectorFunctions.sum2(vp)/VectorFunctions.sum2(v);
+                                //double L = VectorFunctions.angle_between(v,vp);
                                 //double L = VectorFunctions.distance_between(v,vp);
-                                if(L < Lbest){
+                                if(L > Lbest){
                                     Lbest = L;
                                     for(int ii=0; ii < 2*T; ii++)
                                         vbest[ii] = v[ii];
