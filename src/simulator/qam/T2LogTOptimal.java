@@ -64,8 +64,14 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         for(int i = 0; i < 2*T; i++){
             
             //for the parallel lines of this type
-            for(int k = -M+2; k <= M-2; k+=2){
-
+            for(int k = 2; k <= M-2; k+=2){
+                
+                //only use lines with negative gradient
+                //this removes half the ambiguities.
+                //we could alternatively take only line
+                //of positive gradient.
+                if(Math.signum(y1[i])==Math.signum(y2[i])) break;
+                
                 //calculate parameters for the 
                 //line we are searching.  d can be
                 //calculated outside of k loop but
@@ -79,17 +85,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                 //for the line search
                 double bmin = Double.NEGATIVE_INFINITY;
                 double bmax = Double.POSITIVE_INFINITY;
-                /*if(k/y1[i] < 0.0 && k/y2[i] < 0.0) break;
-                else if(k == 0 && y1[i]/y2[i] < 0.0) bmin = 0.0;
-                else if(k == 0 && y1[i]/y2[i] > 0.0) break;
-                else if(k/y1[i] > 0.0 && k/y2[i] > 0.0){
-                    bmin = 0.0;
-                    bmax = k/y1[i];
-                }
-                else if(k/y1[i] < 0.0 && k/y2[i] > 0.0) bmin = 0.0;
-                else if(k/y1[i] > 0.0 && k/y2[i] < 0.0) bmin = k/y1[i];*/
-                
-                int minT = -1;
+                int minT = 0;
                 for(int j = 0; j < 2*T; j++){
                     if(j!=i && d[j] != 0.0){
                         double bpos = (M - c[j])/d[j];
@@ -112,7 +108,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                 for(int j = 0; j < 2*T; j++)
                         v[j] = 2*Math.round((bmin*d[j]+c[j]+1.0)/2.0)-1;
                 v[i] = k + 1;
-                if(minT != -1) v[minT] = -Math.signum(d[minT])*(M - 1);
+                v[minT] = -Math.signum(d[minT])*(M - 1);
                 
                 //setup sorted map
                 map.clear();

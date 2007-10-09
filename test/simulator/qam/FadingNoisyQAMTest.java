@@ -31,9 +31,8 @@ public class FadingNoisyQAMTest extends TestCase {
         System.out.println("generateQAMSignal");
         
         int length = 10;
-        FadingNoisyQAM instance = new FadingNoisyQAM();
         
-        instance.generateQAMSignal(length);
+        FadingNoisyQAM instance = new FadingNoisyQAM();
         
         double[] xr = instance.getTransmittedRealQAMSignal();
         double[] xi = instance.getTransmittedImagQAMSignal();
