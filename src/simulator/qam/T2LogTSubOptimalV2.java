@@ -1,26 +1,34 @@
 /*
- * T2LogTSubOptimal.java
+ * T2LogTSubOptimalV2.java
  *
- * Created on 1 October 2007, 09:01
+ * Created on 10 October 2007, 15:24
  */
 
 package simulator.qam;
 
-import java.util.TreeMap;
-import simulator.VectorFunctions;
+import java.util.Arrays;
 
 /**
- * Dan's O(T^2 log(T)) suboptimal noncoherent QAM
- * receiver.
- * @author Robby
+ * Version of the O(T^2 LogT) sub optimal algorithm that does not
+ * use a Red/Black tree (TreeMap) and instead does one large sort.
+ * <p>
+ * In theory you would expect this algorithm to be slightly slower than the
+ * T2LogTSubOptimal, particularly for large M.  In practice the algorithm is
+ * faster.  This is likely due to java implementation of Arrays.sort 
+ * (quick sort) being faster than the TreeMap.
+ * <p>
+ * This algorithm is probably shorter and easier to understand and
+ * code than T2LogTSubOptimal
+ *
+ * @author robertm
  */
-public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceiver{
+public class T2LogTSubOptimalV2 extends NonCoherentReceiver implements  QAMReceiver{
     
     /** Default, L = 1.0 */
-    public T2LogTSubOptimal() { L = 1.0; }
+    public T2LogTSubOptimalV2() { L = 1.0; }
     
     /** Set L */
-    public T2LogTSubOptimal(double L) { this.L = L; }
+    public T2LogTSubOptimalV2(double L) { this.L = L; }
     
     protected int M;
     protected int T;
@@ -35,7 +43,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
     protected double[] dreal;
     protected double[] dimag;
     
-    protected TreeMap map;
+    protected IndexedDouble[] sorted;
     
     /** Set the size of the QAM array */
     public void setQAMSize(int M){ this.M = M; }
@@ -56,7 +64,9 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         dreal = new double[T];
         dimag = new double[T];
         
-        map = new TreeMap();
+        sorted = new IndexedDouble[2*T*(M/2-1)];
+        for(int m = 0; m < sorted.length; m++)
+            sorted[m] = new IndexedDouble();
     }
     
     /** Decode the QAM signal */
@@ -76,10 +86,16 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
             for(int i = 0; i < 2*T; i++)
                 d[i] = a*y1[i] + b*y2[i];
             
-            //setup the sorted map
-            map.clear();
-            for(int i = 0; i < 2*T; i++)
-                map.put(new Double(2*Math.signum(d[i])/d[i]), new Integer(i));
+            //setup sorted map
+            int count = 0;
+            for(int j = 0; j < 2*T; j++){
+                for(int m = 2; m <= M-2; m+=2){
+                    sorted[count].value = Math.signum(d[j])*m/d[j];
+                    sorted[count].index = j;
+                    count++;
+                }
+            }
+            Arrays.sort(sorted);
             
             //calculate the start point
             for(int i = 0; i < 2*T; i++)
@@ -97,8 +113,10 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
                 y2ty2 += y2[j]*y2[j];
             }
              
-            int n = 0;
-            do{
+            //run the search loop
+            for(int m = 0; m < sorted.length; m++){ 
+                
+                 //test the likelihood at this point
                 double L = vtv/(vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
                         + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
                 if(L > Lbest){
@@ -107,8 +125,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
                         vbest[j] = v[j];
                 }
                 
-                Double key = ((Double) map.firstKey());
-                n = ((Integer)map.get(key)).intValue();
+                int n = sorted[m].index;
                 double s = Math.signum(d[n]);
 
                 //update the dot products
@@ -117,11 +134,8 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
                 vtv += 4*s*v[n] + 4;
 
                 v[n] += 2*s;
-                map.remove(key);
-                if((v[n] > -M + 1) && (v[n] < M - 1))
-                    map.put(new Double((v[n]+s)/d[n]), new Integer(n));
 
-            }while(!map.isEmpty());
+            }
             
         }
         

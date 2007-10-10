@@ -22,7 +22,7 @@ public class Sorter {
 	    result[i] = z[i].index;
     }
 
-    static class ComparableHolder implements Comparable {
+    public static class ComparableHolder implements Comparable {
 	Comparable comparable;
 	int index;
 

@@ -1,21 +1,28 @@
 /*
- * T2LogTOptimal.java
+ * T2LogTOptimalV2.java
  *
- * Created on 17 September 2007, 14:10
+ * Created on 10 October 2007, 13:10
  */
 
 package simulator.qam;
 
-import java.util.*;
-import java.util.TreeMap;
-import simulator.VectorFunctions;
+import java.util.Arrays;
 
 /**
- * The faster O(T^2 log(T)) GLRT-optimal non-coherent QAM
- * receiver. 
- * @author Robby
+ * Version of the O(T^2 LogT) optimal algorithm that does not
+ * use a Red/Black tree (TreeMap) and instead does one large sort.
+ * <p>
+ * In theory you would expect this algorithm to be slightly slower than the
+ * T2LogTOptimal, particularly for large M.  In practice the algorithm is
+ * faster.  This is likely due to java implementation of Arrays.sort 
+ * (quick sort) being faster than the TreeMap.
+ * <p>
+ * This algorithm is probably shorter and easier to understand and
+ * code than T2LogTOptimal
+ *
+ * @author robertm
  */
-public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
+public class T2LogTOptimalV2 extends NonCoherentReceiver implements  QAMReceiver {
     
     protected int M;
     protected int T;
@@ -26,8 +33,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
     protected double[] d;
     protected double[] dreal;
     protected double[] dimag;
-    
-    protected TreeMap map;
+    protected IndexedDouble[] sorted;
     
     /** Set the size of the QAM array */
     public void setQAMSize(int M){ this.M = M; }
@@ -49,7 +55,10 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         dreal = new double[T];
         dimag = new double[T];
         
-        map = new TreeMap();
+        sorted = new IndexedDouble[(2*T-1)*(M-1)];
+        for(int m = 0; m < sorted.length; m++)
+            sorted[m] = new IndexedDouble();
+        
     }
     
     /**Decode the QAM signal*/
@@ -60,13 +69,11 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         createPlane(rreal, rimag, y1, y2);
      
         double Lbest = Double.NEGATIVE_INFINITY;
-        
-        //for every second line type.  We remove half
-        //the ambiguities by not testing perpedicular lines
+        //for each type of line
         for(int i = 0; i < 2*T; i+=2){
             
             //calculate gradient for the 
-            //line we are searching.
+            //line we are searching
             for(int j = 0; j < 2*T; j++)
                 d[j] = y1[j] - y1[i]*y2[j]/y2[i];
             
@@ -75,41 +82,32 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
             //removes half the ambiguities.
             for(int k = 0; k <= M-2; k+=2){
 
-                //calculate offset for the 
-                //line we are searching.
+                //calculate offest for the 
+                //line we are searching
                 for(int j = 0; j < 2*T; j++)
                     c[j] = k*y2[j]/y2[i];
 
-                //calculate the start point
-                //for the line search
-                double bmin = Double.POSITIVE_INFINITY;
-                int minT = 0;
+                //setup sorted map
+                int count = 0;
                 for(int j = 0; j < 2*T; j++){
-                    if(j!=i && d[j] != 0.0){
-                        double bpos = (M - c[j])/d[j];
-                        double bneg = (-M - c[j])/d[j];
-                        double thismin = Math.min(bpos, bneg);
-                        if(thismin < bmin){
-                            minT = j;
-                            bmin = thismin;
-                        }
+                    if(j!=i){
+                        for(int m = -M+2; m <= M-2; m+=2){
+                            sorted[count].value = (m-c[j])/d[j];
+                            sorted[count].index = j;
+                            count++;
+                        }   
                     }
                 }
+                Arrays.sort(sorted);
 
                 //setup start point
+                double b = sorted[0].value;
+                int minT = sorted[0].index;
                 for(int j = 0; j < 2*T; j++)
-                        v[j] = bmin*d[j]+c[j];
+                    v[j] = b*d[j]+c[j];
                 NN(v,v,M);
                 v[i] = k + 1;
                 v[minT] = -Math.signum(d[minT])*(M - 1);
-
-                //setup sorted map
-                map.clear();
-                for(int j = 0; j < 2*T; j++){
-                    if(i!=j && d[j] != 0.0)
-                        map.put(new Double((v[j]+Math.signum(d[j])-c[j])/d[j]),
-                                new Integer(j));
-                }
 
                 //setup dot product variables for updating 
                 //likelihood in constant time.
@@ -129,7 +127,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                 vtvn = vtv - 4*v[i] + 4;
 
                 //run the search loop
-                do{                   
+                for(int m = 0; m < sorted.length; m++){                
                     //test the likelihood of the codeword on each
                     //side of the line, runs in constant time.
                     double L = vtv/(vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
@@ -148,8 +146,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                         vbest[i] -= 2;    
                     }
 
-                    Double key = ((Double) map.firstKey());
-                    int n = ((Integer)map.get(key)).intValue();
+                    int n = sorted[m].index;
                     double s = Math.signum(d[n]);
 
                     //update the dot products
@@ -161,14 +158,10 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                     vtvn += 4*s*v[n] + 4;
 
                     v[n] += 2*s;
-                    map.remove(key);
-                    if((v[n] > -M + 1 ) && (v[n] < M - 1 ))
-                        map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
-
-                }while(!map.isEmpty());
+                }
 
             }
-       
+            
         }
         
         //Write the best codeword into real and
@@ -192,5 +185,5 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
     public double[] getImag(){
         return dimag;
     }
- 
+    
 }
