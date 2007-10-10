@@ -124,9 +124,11 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
 
                 v[n] += 2*s;
                 map.remove(key);
-                map.put(new Double((v[n]+s)/d[n]), new Integer(n));
+                if((v[n] > -M + 1) && (v[n] < M - 1))
+                    map.put(new Double((v[n]+s)/d[n]), new Integer(n));
 
-            }while( (v[n] >= -M + 1 ) && (v[n] <= M - 1 ) );
+            }while(!map.isEmpty());
+            //}while( (v[n] >= -M + 1 ) && (v[n] <= M - 1 ) );
             
         }
         

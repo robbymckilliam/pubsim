@@ -15,13 +15,13 @@ import simulator.VectorFunctions;
 public class NonCoherentReceiver {
     
     /** 
-    * Nearest neighbour algorithm for this form of QAM.
+    * Nearest neighbour algorithm for M^2-ary QAM.
     * See Dan's paper. x input, y output.
     * pre: x.length == y.length.
     */
-    protected static void NN(double[] x, double[] y){
+    protected static void NN(double[] x, double[] y, int M){
         for(int i = 0; i < x.length; i++)
-            y[i] = 2*Math.round((x[i]+1)/2) - 1;
+            y[i] = Math.max(Math.min(M-1, 2*Math.round((x[i]+1)/2) - 1),-M+1);
     }
     
     /**
@@ -82,11 +82,6 @@ public class NonCoherentReceiver {
         if(ret == true) return true;
         
         return false;
-    }
-    
-    /** Returns true if v is within boundry of an M-ary QAM symbol */
-    protected static boolean inbounds(double[] v, int M){
-        return VectorFunctions.max(v) < M && VectorFunctions.min(v) > -M;
     }
     
     /**

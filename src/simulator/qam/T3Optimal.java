@@ -60,7 +60,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         
         for(int i = 0; i < 2*T-1; i++){
             for(int j = i+1; j < 2*T; j++){
-                for(int k = 2; k <= M; k+=2){
+                for(int k = -M; k <= M; k+=2){
                     for(int n = -M; n <= M; n+=2){
                         
                         //2x2 matrix inversion 
@@ -68,15 +68,14 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                         double a = (y2[j]*k - y2[i]*n)/det;
                         double b = (-y1[j]*k + y1[i]*n)/det;
                         
-                        //if( a < 0.0 || b < 0.0 ) break;
+                        if( a > 0.0 && b > 0.0 ){
                         
-                        //run for positive and negative e
-                        for(double ve = e; ve >= -1.1*e; ve-=2*e){
-                            for(int ii=0; ii < 2*T; ii++)
-                                v[ii] = (a+ve)*y1[ii] + (b+ve)*y2[ii];
-                            NN(v,v);
-                            
-                            if(inbounds(v,M)){
+                            //run for positive and negative e
+                            for(double ve = e; ve >= -1.1*e; ve-=2*e){
+                                for(int ii=0; ii < 2*T; ii++)
+                                    v[ii] = (a+ve)*y1[ii] + (b+ve)*y2[ii];
+                                NN(v,v,M);
+
                                 project(v,vp);
                                 double L = VectorFunctions.sum2(vp)/VectorFunctions.sum2(v);
                                 //double L = VectorFunctions.angle_between(v,vp);
@@ -85,11 +84,10 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                                     Lbest = L;
                                     for(int ii=0; ii < 2*T; ii++)
                                         vbest[ii] = v[ii];
-                                    //System.out.println("L = " + L*L);
-                                    //System.out.println("bv = " + VectorFunctions.print(vbest));
                                 }
                             }
-                        }  
+                            
+                        }
                         
                     }
                 }     
