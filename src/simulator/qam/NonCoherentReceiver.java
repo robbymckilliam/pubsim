@@ -14,12 +14,24 @@ import simulator.VectorFunctions;
  */
 public class NonCoherentReceiver {
     
+    /** size of the QAM array will be M^2 */
+    protected int M;
+    
+    /** block length used be the receiver */
+    protected int T;
+    
     /** 
     * Nearest neighbour algorithm for M^2-ary QAM.
     * See Dan's paper. x input, y output.
     * pre: x.length == y.length.
     */
     protected static void NN(double[] x, double[] y, int M){
+        for(int i = 0; i < x.length; i++)
+            y[i] = Math.max(Math.min(M-1, 2*Math.round((x[i]+1)/2) - 1),-M+1);
+    }
+    
+    /** Non-static version of the NN */
+    protected void NN(double[] x, double[] y){
         for(int i = 0; i < x.length; i++)
             y[i] = Math.max(Math.min(M-1, 2*Math.round((x[i]+1)/2) - 1),-M+1);
     }
@@ -124,8 +136,7 @@ public class NonCoherentReceiver {
 	public int compareTo(Object o) {
 	    IndexedDouble co = (IndexedDouble) o;
 	    return Double.compare(value, co.value);
-	}
-        
+	} 
     }
     
 }

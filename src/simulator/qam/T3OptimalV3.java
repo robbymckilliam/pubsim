@@ -1,32 +1,22 @@
 /*
- * T3OptimalNonCoherentReciever.java
+ * T3OptimalV3.java
  *
- * Created on 20 September 2007, 13:34
+ * Created on 11 October 2007, 11:53
  */
 
 package simulator.qam;
+
 import simulator.VectorFunctions;
 
 /**
- * Optimal algorithm proposed by Dan.  Runs in O(T^3) time.
- * Under construction.
+ *
  * @author Robby
  */
-public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
-    
-    protected double[] y1, y2;
-    protected double[] x, xbest;
-    protected double[] dreal;
-    protected double[] dimag;
-    
-    private double[] xp;
+public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
     
     /** Creates a new instance of T3OptimalNonCoherentReciever */
-    public T3Optimal() {
+    public T3OptimalV3() {
     }
-    
-    /** Set the size of the QAM array */
-    public void setQAMSize(int M){ this.M = M; }
     
     /** 
     * Set number of QAM signals to use for
@@ -38,7 +28,6 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         y1 = new double[2*T];
         y2 = new double[2*T];
         x = new double[2*T];
-        xp = new double[2*T];
         xbest = new double[2*T];
         dreal = new double[T];
         dimag = new double[T];
@@ -75,10 +64,14 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
                                     x[ii] = (a+ve)*y1[ii] + (b+ve)*y2[ii];
                                 NN(x,x,M);
 
-                                project(x,xp);
-                                double L = VectorFunctions.sum2(xp)/VectorFunctions.sum2(x);
-                                //double L = VectorFunctions.angle_between(x,xp);
-                                //double L = VectorFunctions.distance_between(x,xp);
+                                double ar = 0.0, ai = 0.0;
+                                for(int ii = 0; ii < T; ii++){
+                                    ar += x[2*ii]*rreal[ii] + x[2*ii+1]*rimag[ii];
+                                    ai += x[2*ii]*rimag[ii] - x[2*ii+1]*rreal[ii];
+                                }
+                                double L = (ar*ar + ai*ai)/VectorFunctions.sum2(x);
+                                //double L = VectorFunctions.angle_between(x,vp);
+                                //double L = VectorFunctions.distance_between(x,vp);
                                 if(L > Lbest){
                                     Lbest = L;
                                     System.arraycopy(x, 0, xbest, 0, 2*T);
@@ -97,38 +90,5 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         toRealImag(xbest, dreal, dimag);
         
     }
-    
-    /**
-     * Project x into the plane created by y1 and y2.  Return the
-     * value into y.  Uses the fact that y1 and y2 are orthogonal
-     * already.
-     * Pre: x.length = y.length 
-     */
-    protected void project(double[] x, double[] y){
-        
-        double y1tx = 0.0, y1ty1 = 0.0;
-        double y2tx = 0.0, y2ty2 = 0.0;
-        for(int i = 0; i < x.length; i++){
-            y1tx += y1[i]*x[i];
-            y1ty1 += y1[i]*y1[i];
-            y2tx += y2[i]*x[i];
-            y2ty2 += y2[i]*y2[i];
-        }
-        for(int i = 0; i < x.length; i++)
-            y[i] = y1tx/y1ty1 * y1[i] + y2tx/y2ty2 * y2[i];
-        
-    }
-    
-    /** 
-     * Get the real part of the decoded QAM signal.
-     * Call decode first.
-     */
-    public double[] getReal(){ return dreal;}
-    
-    /** 
-     * Get the imaginary part of the decoded QAM signal.
-     * Call decode first.
-     */
-    public double[] getImag(){ return dimag;}
     
 }

@@ -183,4 +183,27 @@ public class VectorFunctions {
     {
      return max(x) - min(x);   
     }
+    
+    /** 
+     * Complex dot product using Hermition transpose of x. 
+     * <p>
+     * Pre: x.length = y.length
+     * <p>
+     * It would be interesting to know what is faster out
+     * of the two ways of calculating this bellow.  One
+     * of them is commented out.
+     */
+    public static Complex dot(Complex[] x, Complex[] y){
+        //double re = 0.0, im = 0.0;
+        Complex ret = new Complex(0,0);
+        for(int i = 0; i < x.length; i++){
+            ret = ret.plus(x[i].conjugate().times(y[i]));
+            //re += x[i].re()*y[i].re() + x[i].im()*y[i].im();
+            //im += x[i].re()*y[i].im() - x[i].im()*y[i].re();
+        }
+        //return new Complex(re, im);
+        return ret;
+    }
+    
+    
 }

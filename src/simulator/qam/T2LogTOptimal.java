@@ -17,17 +17,14 @@ import simulator.VectorFunctions;
  */
 public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
     
-    protected int M;
-    protected int T;
-    
     protected double[] y1, y2;
-    protected double[] v, vbest;
+    protected double[] x, xbest;
     protected double[] c;
     protected double[] d;
     protected double[] dreal;
     protected double[] dimag;
     
-    protected TreeMap map;
+    private TreeMap map;
     
     /** Set the size of the QAM array */
     public void setQAMSize(int M){ this.M = M; }
@@ -41,8 +38,8 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         
         y1 = new double[2*T];
         y2 = new double[2*T];
-        v = new double[2*T];
-        vbest = new double[2*T];
+        x = new double[2*T];
+        xbest = new double[2*T];
         c = new double[2*T];
         d = new double[2*T];
         
@@ -98,16 +95,14 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
 
                 //setup start point
                 for(int j = 0; j < 2*T; j++)
-                        v[j] = bmin*d[j]+c[j];
-                NN(v,v,M);
-                v[i] = k + 1;
-                v[minT] = -Math.signum(d[minT])*(M - 1);
+                    x[j] = -Math.signum(d[j])*(M-1);
+                x[i] = k + 1;
 
                 //setup sorted map
                 map.clear();
                 for(int j = 0; j < 2*T; j++){
                     if(i!=j && d[j] != 0.0)
-                        map.put(new Double((v[j]+Math.signum(d[j])-c[j])/d[j]),
+                        map.put(new Double((x[j]+Math.signum(d[j])-c[j])/d[j]),
                                 new Integer(j));
                 }
 
@@ -117,16 +112,16 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                         y1tvn = 0.0, y2tvn = 0.0, vtvn = 0.0,
                         y1ty1 = 0.0, y2ty2 = 0.0;
                 for(int j = 0; j < 2*T; j++){
-                    y1tv += y1[j]*v[j];
-                    y2tv += y2[j]*v[j];
+                    y1tv += y1[j]*x[j];
+                    y2tv += y2[j]*x[j];
                     y1ty2 += y1[j]*y2[j];
-                    vtv += v[j]*v[j];
+                    vtv += x[j]*x[j];
                     y1ty1 += y1[j]*y1[j];
                     y2ty2 += y2[j]*y2[j];
                 }
                 y1tvn = y1tv - 2*y1[i];
                 y2tvn = y2tv - 2*y2[i];
-                vtvn = vtv - 4*v[i] + 4;
+                vtvn = vtv - 4*x[i] + 4;
 
                 //run the search loop
                 do{                   
@@ -136,16 +131,14 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                             + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));       
                     if(L > Lbest){
                         Lbest = L;
-                        for(int j = 0; j < 2*T; j++)
-                            vbest[j] = v[j];
+                        System.arraycopy(x, 0, xbest, 0, 2*T);
                     }
                     double Ln = vtvn/(vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
                         + y1tvn*y2tvn*y1ty2/(y1ty1*y2ty2));
                     if(Ln > Lbest){
                         Lbest = Ln;
-                        for(int j = 0; j < 2*T; j++)
-                            vbest[j] = v[j];
-                        vbest[i] -= 2;    
+                        System.arraycopy(x, 0, xbest, 0, 2*T);
+                        xbest[i] -= 2;    
                     }
 
                     Double key = ((Double) map.firstKey());
@@ -155,15 +148,15 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                     //update the dot products
                     y1tv += 2*s*y1[n];
                     y2tv += 2*s*y2[n];
-                    vtv += 4*s*v[n] + 4;
+                    vtv += 4*s*x[n] + 4;
                     y1tvn += 2*s*y1[n];
                     y2tvn += 2*s*y2[n];
-                    vtvn += 4*s*v[n] + 4;
+                    vtvn += 4*s*x[n] + 4;
 
-                    v[n] += 2*s;
+                    x[n] += 2*s;
                     map.remove(key);
-                    if((v[n] > -M + 1 ) && (v[n] < M - 1 ))
-                        map.put(new Double((v[n]+s-c[n])/d[n]), new Integer(n));
+                    if((x[n] > -M + 1 ) && (x[n] < M - 1 ))
+                        map.put(new Double((x[n]+s-c[n])/d[n]), new Integer(n));
 
                 }while(!map.isEmpty());
 
@@ -173,7 +166,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(vbest, dreal, dimag);
+        toRealImag(xbest, dreal, dimag);
         
     }
     

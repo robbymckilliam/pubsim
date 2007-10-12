@@ -1,28 +1,21 @@
 /*
- * T2LogTOptimalV2.java
+ * T2LogTOptimalV3.java
  *
- * Created on 10 October 2007, 13:10
+ * Created on 11 October 2007, 11:53
  */
 
 package simulator.qam;
 
 import java.util.Arrays;
+import simulator.Complex;
+import simulator.VectorFunctions;
 
 /**
- * Version of the O(T^2 LogT) optimal algorithm that does not
- * use a Red/Black tree (TreeMap) and instead does one large sort.
- * <p>
- * In theory you would expect this algorithm to be slightly slower than the
- * T2LogTOptimal, particularly for large M.  In practice the algorithm is
- * faster.  This is likely due to java implementation of Arrays.sort 
- * (quick sort) being faster than the TreeMap.
- * <p>
- * This algorithm is probably shorter and easier to understand and
- * code than T2LogTOptimal
- *
- * @author robertm
+ * Same as T2LogTOptimalV2 but uses Dan's simpler calculation of the 
+ * likelihood function.
+ * @author Robby
  */
-public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
+public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
     
     private IndexedDouble[] sorted;
     
@@ -98,51 +91,58 @@ public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
 
                 //setup dot product variables for updating 
                 //likelihood in constant time.
-                double y1tv = 0.0, y2tv = 0.0, y1ty2 = 0.0, vtv = 0.0,
-                        y1tvn = 0.0, y2tvn = 0.0, vtvn = 0.0,
-                        y1ty1 = 0.0, y2ty2 = 0.0;
-                for(int j = 0; j < 2*T; j++){
-                    y1tv += y1[j]*x[j];
-                    y2tv += y2[j]*x[j];
-                    y1ty2 += y1[j]*y2[j];
-                    vtv += x[j]*x[j];
-                    y1ty1 += y1[j]*y1[j];
-                    y2ty2 += y2[j]*y2[j];
+                double b = VectorFunctions.sum2(x);
+                double ar = 0.0, ai = 0.0;
+                for(int j = 0; j < T; j++){
+                    ar += x[2*j]*rreal[j] + x[2*j+1]*rimag[j];
+                    ai += x[2*j]*rimag[j] - x[2*j+1]*rreal[j];
                 }
-                y1tvn = y1tv - 2*y1[i];
-                y2tvn = y2tv - 2*y2[i];
-                vtvn = vtv - 4*x[i] + 4;
+                
+                //test the likelihood of the codeword on each
+                //side of the line, runs in constant time.
+                double L = (ar*ar + ai*ai)/b;       
+                if(L > Lbest){
+                    Lbest = L;
+                    System.arraycopy(x, 0, xbest, 0, 2*T);
+                }
+                double ard = ar - 2*y1[i];
+                double aid = ai + 2*y2[i];
+                double bd = b - 4*x[i] + 4;
+                double Ln = (ard*ard + aid*aid)/bd;
+                if(Ln > Lbest){
+                    Lbest = Ln;
+                    System.arraycopy(x, 0, xbest, 0, 2*T);
+                    xbest[i] -= 2;    
+                }
 
                 //run the search loop
                 for(int m = 0; m < sorted.length; m++){                
+
+                    int n = sorted[m].index;
+                    double s = Math.signum(d[n]);
+
+                    //update likelihood variables
+                    b += 4*s*x[n] + 4;
+                    ar += 2*s*y1[n];
+                    ai -= 2*s*y2[n];
+                    x[n] += 2*s;
+                    
                     //test the likelihood of the codeword on each
                     //side of the line, runs in constant time.
-                    double L = vtv/(vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
-                            + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));       
+                    L = (ar*ar + ai*ai)/b;       
                     if(L > Lbest){
                         Lbest = L;
                         System.arraycopy(x, 0, xbest, 0, 2*T);
                     }
-                    double Ln = vtvn/(vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
-                        + y1tvn*y2tvn*y1ty2/(y1ty1*y2ty2));
+                    ard = ar - 2*y1[i];
+                    aid = ai + 2*y2[i];
+                    bd = b - 4*x[i] + 4;
+                    Ln = (ard*ard + aid*aid)/bd;
                     if(Ln > Lbest){
                         Lbest = Ln;
                         System.arraycopy(x, 0, xbest, 0, 2*T);
                         xbest[i] -= 2;    
                     }
-
-                    int n = sorted[m].index;
-                    double s = Math.signum(d[n]);
-
-                    //update the dot products
-                    y1tv += 2*s*y1[n];
-                    y2tv += 2*s*y2[n];
-                    vtv += 4*s*x[n] + 4;
-                    y1tvn += 2*s*y1[n];
-                    y2tvn += 2*s*y2[n];
-                    vtvn += 4*s*x[n] + 4;
-
-                    x[n] += 2*s;
                 }
 
             }

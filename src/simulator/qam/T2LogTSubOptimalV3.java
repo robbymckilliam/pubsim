@@ -1,36 +1,36 @@
 /*
- * T2LogTSubOptimalV2.java
+ * T2LogTSubOptimalV3.java
  *
- * Created on 10 October 2007, 15:24
+ * Created on 11 October 2007, 11:53
  */
 
 package simulator.qam;
 
 import java.util.Arrays;
+import simulator.VectorFunctions;
 
 /**
- * Version of the O(T^2 LogT) sub optimal algorithm that does not
- * use a Red/Black tree (TreeMap) and instead does one large sort.
- * <p>
- * In theory you would expect this algorithm to be slightly slower than the
- * T2LogTSubOptimal, particularly for large M.  In practice the algorithm is
- * faster.  This is likely due to java implementation of Arrays.sort 
- * (quick sort) being faster than the TreeMap.
- * <p>
- * This algorithm is probably shorter and easier to understand and
- * code than T2LogTSubOptimal
- *
- * @author robertm
+ * Same as T2LogTSubOptimalV2 but uses Dan's simpler calculation of the 
+ * likelihood function.
+ * @author Robby
  */
-public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver{
+public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver{
     
-    /** Default, L = 1.0 */
-    public T2LogTSubOptimalV2() { numL = 1.0; }
+    /**
+     * Default, numL = 1.0
+     */
+    public T2LogTSubOptimalV3() { numL = 1.0; }
     
-    /** Set L */
-    public T2LogTSubOptimalV2(double numL) { this.numL = numL; }
+    /**
+     * Set numL
+     */
+    public T2LogTSubOptimalV3(double numL) { this.numL = numL; }
+    
     
     private IndexedDouble[] sorted;
+    
+    /** Set the size of the QAM array */
+    public void setQAMSize(int M){ this.M = M; }
     
     /** 
      * Set number of QAM signals to use for
@@ -86,24 +86,20 @@ public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver
                 x[i] = Math.signum(d[i]);
             
             //setup likelihood variables
-             double y1tv = 0.0, y2tv = 0.0, y1ty2 = 0.0, vtv = 0.0,
-                        y1ty1 = 0.0, y2ty2 = 0.0;
-            for(int j = 0; j < 2*T; j++){
-                y1tv += y1[j]*x[j];
-                y2tv += y2[j]*x[j];
-                y1ty2 += y1[j]*y2[j];
-                vtv += x[j]*x[j];
-                y1ty1 += y1[j]*y1[j];
-                y2ty2 += y2[j]*y2[j];
+            double beta = VectorFunctions.sum2(x);
+            double ar = 0.0, ai = 0.0;
+            for(int j = 0; j < T; j++){
+                ar += x[2*j]*rreal[j] + x[2*j+1]*rimag[j];
+                ai += x[2*j]*rimag[j] - x[2*j+1]*rreal[j];
             }
-             
+            
             //test the likelihood at this point
-            double L = vtv/(vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
-                    + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
+            double L = (ar*ar + ai*ai)/beta;  
             if(L > Lbest){
                 Lbest = L;
                 System.arraycopy(x, 0, xbest, 0, 2*T);
             }
+
              
             //run the search loop
             for(int m = 0; m < sorted.length; m++){ 
@@ -111,16 +107,14 @@ public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver
                 int n = sorted[m].index;
                 double s = Math.signum(d[n]);
 
-                //update the dot products
-                y1tv += 2*s*y1[n];
-                y2tv += 2*s*y2[n];
-                vtv += 4*s*x[n] + 4;
-
+                //update likelihood variables
+                beta += 4*s*x[n] + 4;
+                ar += 2*s*y1[n];
+                ai -= 2*s*y2[n];
                 x[n] += 2*s;
                 
-                 //test the likelihood at this point
-                L = vtv/(vtv - y1tv*y1tv/y1ty1 - y2tv*y2tv/y2ty2
-                        + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
+                //test the likelihood at this point
+                L = (ar*ar + ai*ai)/beta;         
                 if(L > Lbest){
                     Lbest = L;
                     System.arraycopy(x, 0, xbest, 0, 2*T);

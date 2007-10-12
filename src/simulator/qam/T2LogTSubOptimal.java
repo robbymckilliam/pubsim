@@ -16,26 +16,29 @@ import simulator.VectorFunctions;
  */
 public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceiver{
     
-    /** Default, L = 1.0 */
-    public T2LogTSubOptimal() { L = 1.0; }
+    /**
+     * Default, numL = 1.0
+     */
+    public T2LogTSubOptimal() { numL = 1.0; }
     
-    /** Set L */
-    public T2LogTSubOptimal(double L) { this.L = L; }
+    /**
+     * Set numL
+     */
+    public T2LogTSubOptimal(double L) { this.numL = L; }
     
-    protected int M;
-    protected int T;
-    
-    /** The number of line searches is floor(T*L) */ 
-    protected double L;
+    /**
+     * The number of line searches is floor(T*numL)
+     */ 
+    protected double numL;
     
     protected double[] y1, y2;
-    protected double[] v, vbest;
+    protected double[] x, xbest;
     protected double[] c;
     protected double[] d;
     protected double[] dreal;
     protected double[] dimag;
     
-    protected TreeMap map;
+    private TreeMap map;
     
     /** Set the size of the QAM array */
     public void setQAMSize(int M){ this.M = M; }
@@ -49,8 +52,8 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         
         y1 = new double[2*T];
         y2 = new double[2*T];
-        v = new double[2*T];
-        vbest = new double[2*T];
+        x = new double[2*T];
+        xbest = new double[2*T];
         d = new double[2*T];
         
         dreal = new double[T];
@@ -67,7 +70,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         createPlane(rreal, rimag, y1, y2);
         
         double Lbest = Double.NEGATIVE_INFINITY;
-        double thetastep = Math.PI/(2*T*L);
+        double thetastep = Math.PI/(2*T*numL);
         for(double theta = 0.0; theta < Math.PI/2; theta+=thetastep){
             
             //calculate the search line
@@ -83,16 +86,16 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
             
             //calculate the start point
             for(int i = 0; i < 2*T; i++)
-                v[i] = Math.signum(d[i]);
+                x[i] = Math.signum(d[i]);
             
             //setup likelihood variables
              double y1tv = 0.0, y2tv = 0.0, y1ty2 = 0.0, vtv = 0.0,
                         y1ty1 = 0.0, y2ty2 = 0.0;
             for(int j = 0; j < 2*T; j++){
-                y1tv += y1[j]*v[j];
-                y2tv += y2[j]*v[j];
+                y1tv += y1[j]*x[j];
+                y2tv += y2[j]*x[j];
                 y1ty2 += y1[j]*y2[j];
-                vtv += v[j]*v[j];
+                vtv += x[j]*x[j];
                 y1ty1 += y1[j]*y1[j];
                 y2ty2 += y2[j]*y2[j];
             }
@@ -103,8 +106,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
                         + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
                 if(L > Lbest){
                     Lbest = L;
-                    for(int j = 0; j < 2*T; j++)
-                        vbest[j] = v[j];
+                    System.arraycopy(x, 0, xbest, 0, 2*T);
                 }
                 
                 Double key = ((Double) map.firstKey());
@@ -114,12 +116,12 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
                 //update the dot products
                 y1tv += 2*s*y1[n];
                 y2tv += 2*s*y2[n];
-                vtv += 4*s*v[n] + 4;
+                vtv += 4*s*x[n] + 4;
 
-                v[n] += 2*s;
+                x[n] += 2*s;
                 map.remove(key);
-                if((v[n] > -M + 1) && (v[n] < M - 1))
-                    map.put(new Double((v[n]+s)/d[n]), new Integer(n));
+                if((x[n] > -M + 1) && (x[n] < M - 1))
+                    map.put(new Double((x[n]+s)/d[n]), new Integer(n));
 
             }while(!map.isEmpty());
             
@@ -127,7 +129,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(vbest, dreal, dimag);
+        toRealImag(xbest, dreal, dimag);
          
     }
     
