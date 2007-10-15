@@ -61,12 +61,12 @@ public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
      
         double Lbest = Double.NEGATIVE_INFINITY;
         //for each type of line
-        for(int i = 0; i < 2*T; i+=2){
+        for(int t = 0; t < 2*T; t+=2){
             
             //calculate gradient for the 
             //line we are searching
             for(int j = 0; j < 2*T; j++)
-                d[j] = y1[j] - y1[i]*y2[j]/y2[i];
+                d[j] = y1[j] - y1[t]*y2[j]/y2[t];
             
             //for the parallel lines of this type
             //only use the non-negative lines, this
@@ -76,12 +76,12 @@ public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
                 //calculate offest for the 
                 //line we are searching
                 for(int j = 0; j < 2*T; j++)
-                    c[j] = k*y2[j]/y2[i];
+                    c[j] = k*y2[j]/y2[t];
 
                 //setup sorted map
                 int count = 0;
                 for(int j = 0; j < 2*T; j++){
-                    if(j!=i){
+                    if(j!=t){
                         for(int m = -M+2; m <= M-2; m+=2){
                             sorted[count].value = (m-c[j])/d[j];
                             sorted[count].index = j;
@@ -94,7 +94,7 @@ public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
                 //setup start point
                 for(int j = 0; j < 2*T; j++)
                     x[j] = -Math.signum(d[j])*(M-1);
-                x[i] = k + 1;
+                x[t] = k + 1;
 
                 //setup dot product variables for updating 
                 //likelihood in constant time.
@@ -109,9 +109,9 @@ public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
                     y1ty1 += y1[j]*y1[j];
                     y2ty2 += y2[j]*y2[j];
                 }
-                y1tvn = y1tv - 2*y1[i];
-                y2tvn = y2tv - 2*y2[i];
-                vtvn = vtv - 4*x[i] + 4;
+                y1tvn = y1tv - 2*y1[t];
+                y2tvn = y2tv - 2*y2[t];
+                vtvn = vtv - 4*x[t] + 4;
 
                 //run the search loop
                 for(int m = 0; m < sorted.length; m++){                
@@ -128,7 +128,7 @@ public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
                     if(Ln > Lbest){
                         Lbest = Ln;
                         System.arraycopy(x, 0, xopt, 0, 2*T);
-                        xopt[i] -= 2;    
+                        xopt[t] -= 2;    
                     }
 
                     int n = sorted[m].index;

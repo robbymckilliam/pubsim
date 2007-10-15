@@ -32,7 +32,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
     protected double numL;
     
     protected double[] y1, y2;
-    protected double[] x, xbest;
+    protected double[] x, xopt;
     protected double[] c;
     protected double[] d;
     protected double[] dreal;
@@ -53,7 +53,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         y1 = new double[2*T];
         y2 = new double[2*T];
         x = new double[2*T];
-        xbest = new double[2*T];
+        xopt = new double[2*T];
         d = new double[2*T];
         
         dreal = new double[T];
@@ -106,7 +106,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
                         + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
                 if(L > Lbest){
                     Lbest = L;
-                    System.arraycopy(x, 0, xbest, 0, 2*T);
+                    System.arraycopy(x, 0, xopt, 0, 2*T);
                 }
                 
                 Double key = ((Double) map.firstKey());
@@ -129,7 +129,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(xbest, dreal, dimag);
+        toRealImag(xopt, dreal, dimag);
          
     }
     

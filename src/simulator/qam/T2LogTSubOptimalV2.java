@@ -42,7 +42,7 @@ public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver
         y1 = new double[2*T];
         y2 = new double[2*T];
         x = new double[2*T];
-        xbest = new double[2*T];
+        xopt = new double[2*T];
         d = new double[2*T];
         
         dreal = new double[T];
@@ -102,7 +102,7 @@ public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver
                     + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
             if(L > Lbest){
                 Lbest = L;
-                System.arraycopy(x, 0, xbest, 0, 2*T);
+                System.arraycopy(x, 0, xopt, 0, 2*T);
             }
              
             //run the search loop
@@ -123,7 +123,7 @@ public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver
                         + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));    
                 if(L > Lbest){
                     Lbest = L;
-                    System.arraycopy(x, 0, xbest, 0, 2*T);
+                    System.arraycopy(x, 0, xopt, 0, 2*T);
                 }
 
             }
@@ -132,7 +132,7 @@ public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver
         
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(xbest, dreal, dimag);
+        toRealImag(xopt, dreal, dimag);
          
     }
     

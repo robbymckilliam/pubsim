@@ -42,7 +42,7 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
         y1 = new double[2*T];
         y2 = new double[2*T];
         x = new double[2*T];
-        xbest = new double[2*T];
+        xopt = new double[2*T];
         d = new double[2*T];
         
         dreal = new double[T];
@@ -61,6 +61,7 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
         createPlane(rreal, rimag, y1, y2);
         
         double Lbest = Double.NEGATIVE_INFINITY;
+        double thetaopt = 0.0, dopt = 0.0;
         double thetastep = Math.PI/(2*T*numL);
         for(double theta = 0.0; theta < Math.PI/2; theta+=thetastep){
             
@@ -97,7 +98,7 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
             double L = (ar*ar + ai*ai)/beta;  
             if(L > Lbest){
                 Lbest = L;
-                System.arraycopy(x, 0, xbest, 0, 2*T);
+                System.arraycopy(x, 0, xopt, 0, 2*T);
             }
 
              
@@ -117,16 +118,28 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
                 L = (ar*ar + ai*ai)/beta;         
                 if(L > Lbest){
                     Lbest = L;
-                    System.arraycopy(x, 0, xbest, 0, 2*T);
+                    thetaopt = theta;
+                    if(m != sorted.length-1) 
+                        dopt = (sorted[m].value + sorted[m+1].value)/2;
+                    else
+                        dopt = sorted[m].value + 1.0;
                 }
 
             }
             
         }
         
+        double a = Math.cos(thetaopt);
+        double b = Math.sin(thetaopt);
+        for(int i = 0; i < 2*T; i++){
+            d[i] = a*y1[i] + b*y2[i];
+            xopt[i] = dopt*d[i];
+        }
+        NN(xopt,xopt);
+        
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(xbest, dreal, dimag);
+        toRealImag(xopt, dreal, dimag);
          
     }
     
