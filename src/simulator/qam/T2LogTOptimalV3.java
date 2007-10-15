@@ -32,7 +32,7 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
         y1 = new double[2*T];
         y2 = new double[2*T];
         x = new double[2*T];
-        xbest = new double[2*T];
+        xopt = new double[2*T];
         c = new double[2*T];
         d = new double[2*T];
         
@@ -52,14 +52,16 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
         
         createPlane(rreal, rimag, y1, y2);
      
-        double Lbest = Double.NEGATIVE_INFINITY;
+        double Lopt = Double.NEGATIVE_INFINITY;
+        double aopt = 0.0, bopt = 0.0; 
+        int topt = 0, kopt = 0;
         //for each type of line
-        for(int i = 0; i < 2*T; i+=2){
+        for(int t = 0; t < 2*T; t+=2){
             
             //calculate gradient for the 
             //line we are searching
             for(int j = 0; j < 2*T; j++)
-                d[j] = y1[j] - y1[i]*y2[j]/y2[i];
+                d[j] = y1[j] - y1[t]*y2[j]/y2[t];
             
             //for the parallel lines of this type
             //only use the non-negative lines, this
@@ -69,12 +71,12 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
                 //calculate offest for the 
                 //line we are searching
                 for(int j = 0; j < 2*T; j++)
-                    c[j] = k*y2[j]/y2[i];
+                    c[j] = k*y2[j]/y2[t];
 
                 //setup sorted map
                 int count = 0;
                 for(int j = 0; j < 2*T; j++){
-                    if(j!=i){
+                    if(j!=t){
                         for(int m = -M+2; m <= M-2; m+=2){
                             sorted[count].value = (m-c[j])/d[j];
                             sorted[count].index = j;
@@ -87,7 +89,7 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
                 //setup start point
                 for(int j = 0; j < 2*T; j++)
                     x[j] = -Math.signum(d[j])*(M-1);
-                x[i] = k + 1;
+                x[t] = k + 1;
 
                 //setup dot product variables for updating 
                 //likelihood in constant time.
@@ -101,22 +103,30 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
                 //test the likelihood of the codeword on each
                 //side of the line, runs in constant time.
                 double L = (ar*ar + ai*ai)/b;       
-                if(L > Lbest){
-                    Lbest = L;
-                    System.arraycopy(x, 0, xbest, 0, 2*T);
+                if(L > Lopt){
+                    Lopt = L;
+                    aopt = (sorted[0].value - 1.0)/2;
+                    bopt = k/y2[t] - aopt*y1[t]/y2[t];
+                    topt = t;
+                    kopt = k+1;
+                    //System.arraycopy(x, 0, xopt, 0, 2*T);
                 }
-                double ard = ar - 2*y1[i];
-                double aid = ai + 2*y2[i];
-                double bd = b - 4*x[i] + 4;
+                double ard = ar - 2*y1[t];
+                double aid = ai + 2*y2[t];
+                double bd = b - 4*x[t] + 4;
                 double Ln = (ard*ard + aid*aid)/bd;
-                if(Ln > Lbest){
-                    Lbest = Ln;
-                    System.arraycopy(x, 0, xbest, 0, 2*T);
-                    xbest[i] -= 2;    
+                if(Ln > Lopt){
+                    Lopt = L;
+                    aopt = (sorted[0].value - 1.0)/2;
+                    bopt = k/y2[t] - aopt*y1[t]/y2[t];
+                    topt = t;
+                    kopt = k-1;
+                    //System.arraycopy(x, 0, xopt, 0, 2*T);
+                    //xopt[t] -= 2;    
                 }
 
                 //run the search loop
-                for(int m = 0; m < sorted.length; m++){                
+                for(int m = 0; m < sorted.length-1; m++){                
 
                     int n = sorted[m].index;
                     double s = Math.signum(d[n]);
@@ -130,28 +140,79 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
                     //test the likelihood of the codeword on each
                     //side of the line, runs in constant time.
                     L = (ar*ar + ai*ai)/b;       
-                    if(L > Lbest){
-                        Lbest = L;
-                        System.arraycopy(x, 0, xbest, 0, 2*T);
+                    if(L > Lopt){
+                        Lopt = L;
+                        aopt = (sorted[m].value + sorted[m+1].value)/2;
+                        bopt = k/y2[t] - aopt*y1[t]/y2[t];
+                        topt = t;
+                        kopt = k+1;
+                        //System.arraycopy(x, 0, xopt, 0, 2*T);
                     }
-                    ard = ar - 2*y1[i];
-                    aid = ai + 2*y2[i];
-                    bd = b - 4*x[i] + 4;
+                    ard = ar - 2*y1[t];
+                    aid = ai + 2*y2[t];
+                    bd = b - 4*x[t] + 4;
                     Ln = (ard*ard + aid*aid)/bd;
-                    if(Ln > Lbest){
-                        Lbest = Ln;
-                        System.arraycopy(x, 0, xbest, 0, 2*T);
-                        xbest[i] -= 2;    
+                    if(Ln > Lopt){
+                        Lopt = L;
+                        aopt = (sorted[m].value + sorted[m+1].value)/2;
+                        bopt = k/y2[t] - aopt*y1[t]/y2[t];
+                        topt = t;
+                        kopt = k-1;
+                        //System.arraycopy(x, 0, xopt, 0, 2*T);
+                        //xopt[t] -= 2;    
                     }
+                }
+                
+                int m = sorted.length-1;
+                int n = sorted[m].index;
+                double s = Math.signum(d[n]);
+                
+                //update likelihood variables
+                b += 4*s*x[n] + 4;
+                ar += 2*s*y1[n];
+                ai -= 2*s*y2[n];
+                x[n] += 2*s;
+
+                //test the likelihood of the codeword on each
+                //side of the line, runs in constant time.
+                L = (ar*ar + ai*ai)/b;       
+                if(L > Lopt){
+                    Lopt = L;
+                    aopt = (sorted[m].value + 1.0)/2;
+                    bopt = k/y2[t] - aopt*y1[t]/y2[t];
+                    topt = t;
+                    kopt = k+1;
+                    //System.arraycopy(x, 0, xopt, 0, 2*T);
+                }
+                ard = ar - 2*y1[t];
+                aid = ai + 2*y2[t];
+                bd = b - 4*x[t] + 4;
+                Ln = (ard*ard + aid*aid)/bd;
+                if(Ln > Lopt){
+                    Lopt = L;
+                    aopt = (sorted[m].value + 1.0)/2;
+                    bopt = k/y2[t] - aopt*y1[t]/y2[t];
+                    topt = t;
+                    kopt = k-1;
+                    //System.arraycopy(x, 0, xopt, 0, 2*T);
+                    //xopt[t] -= 2;    
                 }
 
             }
             
         }
         
+        //calculate the closest point from stored
+        //variables.  This must be dont this way
+        //to gaurantee 0(T^2 log(T)) running time.
+        for(int j = 0; j<2*T; j++)
+            xopt[j] = aopt*y1[j] + bopt*y2[j];
+        NN(xopt, xopt);
+        xopt[topt] = kopt;
+        
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(xbest, dreal, dimag);
+        toRealImag(xopt, dreal, dimag);
         
     }
     

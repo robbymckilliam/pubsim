@@ -18,7 +18,7 @@ import simulator.VectorFunctions;
 public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
     
     protected double[] y1, y2;
-    protected double[] x, xbest;
+    protected double[] x, xopt;
     protected double[] c;
     protected double[] d;
     protected double[] dreal;
@@ -39,7 +39,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         y1 = new double[2*T];
         y2 = new double[2*T];
         x = new double[2*T];
-        xbest = new double[2*T];
+        xopt = new double[2*T];
         c = new double[2*T];
         d = new double[2*T];
         
@@ -131,14 +131,14 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
                             + y1tv*y2tv*y1ty2/(y1ty1*y2ty2));       
                     if(L > Lbest){
                         Lbest = L;
-                        System.arraycopy(x, 0, xbest, 0, 2*T);
+                        System.arraycopy(x, 0, xopt, 0, 2*T);
                     }
                     double Ln = vtvn/(vtvn - y1tvn*y1tvn/y1ty1 - y2tvn*y2tvn/y2ty2
                         + y1tvn*y2tvn*y1ty2/(y1ty1*y2ty2));
                     if(Ln > Lbest){
                         Lbest = Ln;
-                        System.arraycopy(x, 0, xbest, 0, 2*T);
-                        xbest[i] -= 2;    
+                        System.arraycopy(x, 0, xopt, 0, 2*T);
+                        xopt[i] -= 2;    
                     }
 
                     Double key = ((Double) map.firstKey());
@@ -166,7 +166,7 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
         
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(xbest, dreal, dimag);
+        toRealImag(xopt, dreal, dimag);
         
     }
     
