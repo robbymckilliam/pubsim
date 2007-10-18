@@ -28,7 +28,7 @@ public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
         y1 = new double[2*T];
         y2 = new double[2*T];
         x = new double[2*T];
-        xbest = new double[2*T];
+        xopt = new double[2*T];
         dreal = new double[T];
         dimag = new double[T];
         
@@ -43,7 +43,7 @@ public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
         
         //Dan's small offset to ensure we translate off a nearest
         //neighbour boundry.
-        double e = 0.0000001;
+        double e = 0.000001;
         double Lbest = Double.NEGATIVE_INFINITY;
         
         for(int i = 0; i < 2*T-1; i++){
@@ -62,7 +62,7 @@ public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
                             for(double ve = e; ve >= -1.1*e; ve-=2*e){
                                 for(int ii=0; ii < 2*T; ii++)
                                     x[ii] = (a+ve)*y1[ii] + (b+ve)*y2[ii];
-                                NN(x,x,M);
+                                NN(x,x);
 
                                 double ar = 0.0, ai = 0.0;
                                 for(int ii = 0; ii < T; ii++){
@@ -74,7 +74,7 @@ public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
                                 //double L = VectorFunctions.distance_between(x,vp);
                                 if(L > Lbest){
                                     Lbest = L;
-                                    System.arraycopy(x, 0, xbest, 0, 2*T);
+                                    System.arraycopy(x, 0, xopt, 0, 2*T);
                                 }
                             }
                             
@@ -87,7 +87,7 @@ public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
         
         //Write the best codeword into real and
         //imaginary vectors
-        toRealImag(xbest, dreal, dimag);
+        toRealImag(xopt, dreal, dimag);
         
     }
     

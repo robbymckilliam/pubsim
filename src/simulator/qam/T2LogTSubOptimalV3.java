@@ -10,7 +10,7 @@ import java.util.Arrays;
 import simulator.VectorFunctions;
 
 /**
- * Same as T2LogTSubOptimalV2 but uses Dan's simpler calculation of the 
+ * Same as T2LogTSubOptimalV2 but uses Dan's simpler calculation of the
  * likelihood function.
  * @author Robby
  */
@@ -32,7 +32,7 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
     /** Set the size of the QAM array */
     public void setQAMSize(int M){ this.M = M; }
     
-    /** 
+    /**
      * Set number of QAM signals to use for
      * estimating the channel
      */
@@ -60,7 +60,7 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
         
         createPlane(rreal, rimag, y1, y2);
         
-        double Lbest = Double.NEGATIVE_INFINITY;
+        double Lopt = Double.NEGATIVE_INFINITY;
         double thetaopt = 0.0, dopt = 0.0;
         double thetastep = Math.PI/(2*T*numL);
         for(double theta = 0.0; theta < Math.PI/2; theta+=thetastep){
@@ -95,19 +95,21 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
             }
             
             //test the likelihood at this point
-            double L = (ar*ar + ai*ai)/beta;  
-            if(L > Lbest){
-                Lbest = L;
-                System.arraycopy(x, 0, xopt, 0, 2*T);
+            double L = (ar*ar + ai*ai)/beta;
+            if(L > Lopt){
+                Lopt = L;
+                thetaopt = theta;
+                dopt = sorted[0].value/2.0;
+                //System.arraycopy(x,0,xopt,0,2*T);
             }
-
-             
+            
+            
             //run the search loop
-            for(int m = 0; m < sorted.length; m++){ 
+            for(int m = 0; m < sorted.length; m++){
                 
                 int n = sorted[m].index;
                 double s = Math.signum(d[n]);
-
+                
                 //update likelihood variables
                 beta += 4*s*x[n] + 4;
                 ar += 2*s*y1[n];
@@ -115,18 +117,18 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
                 x[n] += 2*s;
                 
                 //test the likelihood at this point
-                L = (ar*ar + ai*ai)/beta;         
-                if(L > Lbest){
-                    Lbest = L;
+                L = (ar*ar + ai*ai)/beta;
+                if(L > Lopt){
+                    Lopt = L;
                     thetaopt = theta;
-                    if(m != sorted.length-1) 
+                    if(m != sorted.length-1)
                         dopt = (sorted[m].value + sorted[m+1].value)/2;
                     else
                         dopt = sorted[m].value + 1.0;
+                    //System.arraycopy(x,0,xopt,0,2*T);
                 }
-
+                
             }
-            
         }
         
         double a = Math.cos(thetaopt);
@@ -140,7 +142,7 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
         //Write the best codeword into real and
         //imaginary vectors
         toRealImag(xopt, dreal, dimag);
-         
+        
     }
     
 }
