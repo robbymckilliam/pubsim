@@ -17,6 +17,7 @@ import java.util.Random;
  */
 public class FadingNoisyQAM implements SignalGenerator{
     
+    protected int T;
     protected int M;
     protected double Hr, Hi;
     protected double[] xr, xi;
@@ -43,6 +44,7 @@ public class FadingNoisyQAM implements SignalGenerator{
         xi = new double[n];
         yr = new double[n];
         yi = new double[n];
+        T = n;
     }
     
     /** Set the size of the QAM array */
@@ -52,12 +54,21 @@ public class FadingNoisyQAM implements SignalGenerator{
      * Generate a random QAM signal.  The QAM signal
      * has only odd integer components for both the
      * real and imaginary parts.  This is what Dan used
-     * in his GLRT non-coherent QAM paper.
+     * in his GLRT non-coherent QAM paper.  This resets
+     * the length of the signal if required.
      */
     public void generateQAMSignal(int length){
-        if(xr.length != length) setSize(length);
+        if(T != length) setSize(length);
         
-        for(int i=0; i < length; i++){
+        generateQAMSignal();
+    }
+    
+    /** 
+     * Generate a random QAM signal of the currently
+     * specified length.
+     */
+    public void generateQAMSignal(){
+        for(int i=0; i < T; i++){
             xr[i] = 2*rand.nextInt(M) - M + 1;
             xi[i] = 2*rand.nextInt(M) - M + 1;
         }
