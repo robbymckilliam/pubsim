@@ -39,7 +39,7 @@ public class FadingNoisyQAM implements SignalGenerator{
         this.M = M;
     }
     
-    protected void setSize(int n){
+    public void setSize(int n){
         xr = new double[n];
         xi = new double[n];
         yr = new double[n];
