@@ -103,8 +103,9 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     }
     
     /** Set the noise type for the signal */
-    public void setNoise(NoiseGenerator noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
     
 }

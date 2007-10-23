@@ -127,7 +127,7 @@ public class AnLLSTest extends TestCase {
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);
-        sig.setNoise(noise);
+        sig.setNoiseGenerator(noise);
           
         //noise.setSeed(200);
         double[] trans = sig.generateSparseSignal(n);

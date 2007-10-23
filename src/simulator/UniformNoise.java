@@ -12,10 +12,7 @@ import java.util.Random;
  *
  * @author Robby
  */
-public class UniformNoise implements NoiseGenerator {
-    
-    private double mean;
-    private double variance;
+public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenerator {
     private double stdDeviation;
     private double range;
     private Random random;
@@ -37,8 +34,7 @@ public class UniformNoise implements NoiseGenerator {
         range = Math.pow(3*variance/2.0, 1.0/3);
         random = new Random();
     }
-    
-    public void setMean(double mean){ this.mean = mean; }
+
     public void setVariance(double variance){
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);

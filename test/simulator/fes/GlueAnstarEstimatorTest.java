@@ -36,7 +36,7 @@ public class GlueAnstarEstimatorTest extends TestCase {
         signal.setSize(n);
         signal.setFrequency(f);
         simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.0);
-        signal.setNoise(noise);
+        signal.setNoiseGenerator(noise);
         
         signal.generateReceivedSignal();
         double result = instance.estimateFreq(signal.getReal(), signal.getImag());

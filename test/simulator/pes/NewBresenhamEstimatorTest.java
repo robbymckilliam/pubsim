@@ -39,7 +39,7 @@ public class NewBresenhamEstimatorTest extends TestCase {
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(1.0);
-        sig.setNoise(noise);
+        sig.setNoiseGenerator(noise);
           
         noise.setSeed(200);
         sig.generateSparseSignal(n,200);

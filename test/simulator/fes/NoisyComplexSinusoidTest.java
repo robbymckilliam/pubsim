@@ -38,7 +38,7 @@ public class NoisyComplexSinusoidTest extends TestCase {
         UniformNoise noise = new UniformNoise();
         noise.setMean(0.0);
         noise.setVariance(1.0/24.0);
-        instance.setNoise(noise);
+        instance.setNoiseGenerator(noise);
         
         instance.generateReceivedSignal();
         

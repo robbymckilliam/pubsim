@@ -16,7 +16,9 @@ package simulator;
  */
 public interface NoiseGenerator {
     public void setMean(double mean);
-    public void setVariance(double mean);
+    public void setVariance(double variance);
+    public double getMean();
+    public double getVariance();
     
     /** Set the current seed the random generator */
     public void setSeed(long seed);
@@ -26,4 +28,10 @@ public interface NoiseGenerator {
      * distribution.
      */
     public double getNoise();
+    
+     /**
+     * Randomises the seed of the generator
+     */
+    public void randomSeed();
+    
 }

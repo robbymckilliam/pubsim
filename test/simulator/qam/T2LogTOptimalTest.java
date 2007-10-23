@@ -36,7 +36,7 @@ public class T2LogTOptimalTest extends TestCase {
         //siggen.setChannel(1.0,0.0);
         
         GaussianNoise noise = new GaussianNoise(0.0,0.00001);
-        siggen.setNoise(noise);
+        siggen.setNoiseGenerator(noise);
         
         
         T2LogTOptimal instance = new T2LogTOptimal();

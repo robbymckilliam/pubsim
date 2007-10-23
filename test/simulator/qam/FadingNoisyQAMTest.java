@@ -57,7 +57,7 @@ public class FadingNoisyQAMTest extends TestCase {
         instance.setChannel(-0.4326, -1.6656);
         
         NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.0);
-        instance.setNoise(noise);  
+        instance.setNoiseGenerator(noise);  
                
         instance.setTransmittedSignal(xr, xi);
         

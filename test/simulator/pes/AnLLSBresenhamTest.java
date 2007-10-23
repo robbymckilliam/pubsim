@@ -39,7 +39,7 @@ public class AnLLSBresenhamTest extends TestCase {
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);
-        sig.setNoise(noise);
+        sig.setNoiseGenerator(noise);
           
         long seed = 133;
         noise.setSeed(seed);

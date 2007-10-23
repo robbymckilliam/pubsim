@@ -12,5 +12,6 @@ package simulator;
  */
 public interface SignalGenerator {
     public double[] generateReceivedSignal();
-    public void setNoise(NoiseGenerator noise);
+    public void setNoiseGenerator(NoiseGenerator noise);
+    public NoiseGenerator getNoiseGenerator();
 }

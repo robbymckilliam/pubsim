@@ -116,9 +116,10 @@ public class FadingNoisyQAM implements SignalGenerator{
     public double[] getImag() { return yi; }
     
     /** Set the noise distribution */
-    public void setNoise(NoiseGenerator noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
     
     /** 
      * Set the seed for the random generator used

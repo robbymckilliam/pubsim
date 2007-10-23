@@ -32,9 +32,11 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     protected NoiseGenerator noise;
     
     /** Set the noise type for the signal */
-    public void setNoise(NoiseGenerator noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
+    
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
     
     /** Set the number of samples */
     public void setSize(int n){

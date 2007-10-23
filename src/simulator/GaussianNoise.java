@@ -14,12 +14,7 @@ import java.util.Random;
  * Creates single gaussian variables
  * @author Robby
  */
-public class GaussianNoise implements NoiseGenerator {
-    
-    private double mean;
-    private double variance;
-    private double stdDeviation;
-    private Random random;
+public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGenerator {
     
     /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
     public GaussianNoise() {
@@ -37,12 +32,11 @@ public class GaussianNoise implements NoiseGenerator {
         random = new Random();
     }
     
-    public void setMean(double mean){ this.mean = mean; }
     public void setVariance(double variance){
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
     }
-    
+
     public void setSeed(long seed){
         random.setSeed(seed);
     }
