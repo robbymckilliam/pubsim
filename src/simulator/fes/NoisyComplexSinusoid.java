@@ -67,6 +67,7 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     public void setFrequency(double f){
         this.f = f;
     }
+    public double getFrequency(){ return f; }
     
    /** Set the phase of the sinusoid */
     public void setPhase(double p){
