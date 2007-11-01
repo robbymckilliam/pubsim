@@ -13,9 +13,7 @@ import java.util.Random;
  * @author Robby
  */
 public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenerator {
-    private double stdDeviation;
-    private double range;
-    private Random random;
+    protected double range;
     
     /** Creates a new instance of UniformNoise with specific variance and mean */
     public UniformNoise(double mean , double variance) {
@@ -39,6 +37,16 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
         range = Math.pow(3*variance/2.0, 1.0/3);
+    }
+    
+    /** 
+     * The noise is uniformly distributed in
+     * [-range*0.5 + mean, range*0.5 + mean]
+     */
+    public void setRange(double range){
+        this.range = range;
+        variance = 2.0/3*Math.pow(range, 3);
+        stdDeviation = Math.sqrt(variance);
     }
     
     public void setSeed(long seed){

@@ -17,7 +17,7 @@ public class SamplingLatticeEstimator extends Pn2Sampled implements FrequencyEst
     
     protected int N;
     
-    protected double[] x, y;
+    protected double[] y;
     
     public SamplingLatticeEstimator() { super(); }
     
@@ -27,7 +27,6 @@ public class SamplingLatticeEstimator extends Pn2Sampled implements FrequencyEst
         /** Set the number of samples */
     public void setSize(int n){
         setDimension(n-2);  
-        x = new double[n];
         y = new double[n];
         N = n;
     }
@@ -40,8 +39,7 @@ public class SamplingLatticeEstimator extends Pn2Sampled implements FrequencyEst
         for(int i = 0; i < real.length; i++)
             y[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
         
-        project(y, x);
-        nearestPoint(x);
+        nearestPoint(y);
         
         //calculate f from the nearest point
         double f = 0;

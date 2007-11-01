@@ -20,7 +20,7 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
     protected int num_samples;
     Anstar anstar;
     
-    protected double[] g, vt, ut; 
+    protected double[] g, vt, ut, y; 
     
     /** Default constructor.  Uses 100 samples */
     public Pn2Sampled() {
@@ -41,6 +41,7 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
         u = new double[n+2];
         v = new double[n+2];
         vt = new double[n+2];
+        y = new double[n+2];
         g = new double[n+2];
     }
     
@@ -48,18 +49,20 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
         if (n != y.length-2)
 	    setDimension(y.length-2);
         
+        project(y, this.y);
+        
         double bestdist = Double.POSITIVE_INFINITY;
         double step = 1.0/num_samples;
         for( double f = 0; f < 1.0; f+=step ){
             
             //calculate the next point on line to test
             for(int i=0; i<n+2; i++)
-                g[i] = y[i] + (i+1.0-(n+3.0)/2.0)*f;
+                g[i] = this.y[i] + (i+1.0-(n+3.0)/2.0)*f;
             
             anstar.nearestPoint(g);         
             project(anstar.getLatticePoint(), vt);
             
-            double dist = VectorFunctions.distance_between(y, vt);
+            double dist = VectorFunctions.distance_between(this.y, vt);
             
             if(dist < bestdist){
                 bestdist = dist;

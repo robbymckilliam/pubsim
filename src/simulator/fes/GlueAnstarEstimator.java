@@ -16,13 +16,12 @@ import simulator.VectorFunctions;
  */
 public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator {
     
-    protected double[] x, y;
+    protected double[] y;
     protected int N;
     
     /** Set the number of samples */
     public void setSize(int n){
         setDimension(n-2);  
-        x = new double[n];
         y = new double[n];
         N = n;
     }
@@ -35,8 +34,7 @@ public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator 
         for(int i = 0; i < real.length; i++)
             y[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
         
-        project(y, x);
-        nearestPoint(x);
+        nearestPoint(y);
         
         /*
         System.out.println("y antan = " + VectorFunctions.print(y));

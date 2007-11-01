@@ -87,10 +87,6 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * sparse signal.
      */
     public double[] generateReceivedSignal(){
-          if(transmittedSignal == null)
-              throw new Error("No transmitted signal has been specified");
-          if(noise == null)
-              throw new Error("No noise generator has been specified");
 
           if( transmittedSignal.length != recievedSignal.length )
                 recievedSignal = new double[transmittedSignal.length];

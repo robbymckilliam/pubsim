@@ -21,7 +21,7 @@ public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
     
     private Anstar anstar;
     
-    protected double[] g, vt, yt, ut;
+    protected double[] g, vt, yt, y, ut;
     
     public void setDimension(int n){
         this.n = n;
@@ -33,6 +33,7 @@ public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
         v = new double[n+2];
         u = new double[n+2];
         yt = new double[n+2];
+        y = new double[n+2];
         
     }
     
@@ -44,6 +45,8 @@ public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
     public void nearestPoint(double[] y){
         if (n != y.length-2)
 	    setDimension(y.length-2);
+        
+        project(y, this.y);
         
         double d = (Math.floor(n/2.0) + 1)*(Math.floor(n/2.0) + 2)
                     *(2*Math.floor(n/2.0) + 3)/3.0; 
@@ -59,7 +62,7 @@ public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
         for(int i = 0; i < d; i++){
             
             for (int j = 0; j < n+2; j++)
-                yt[j] = y[j] - i*g[j];
+                yt[j] = this.y[j] - i*g[j];
             
             //solve the nearestPoint algorithm in An* for this glue
             anstar.nearestPoint(yt);
@@ -68,7 +71,7 @@ public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
             
             double dist = 0.0;
             for (int j = 0; j < n+2; j++)
-                dist += Math.pow( vt[j] + i*g[j] - y[j], 2);
+                dist += Math.pow( vt[j] + i*g[j] - this.y[j], 2);
             
             if(dist < bestdist){
                 bestdist = dist;
