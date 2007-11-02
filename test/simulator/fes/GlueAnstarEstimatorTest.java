@@ -8,7 +8,7 @@
 package simulator.fes;
 
 import junit.framework.*;
-import simulator.Pn2Glued;
+import lattices.Pn2Glued;
 import simulator.VectorFunctions;
 
 /**

@@ -6,6 +6,7 @@
 
 package simulator.pes;
 
+import lattices.Anstar;
 import simulator.*;
 
 /**

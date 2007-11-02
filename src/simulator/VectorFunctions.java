@@ -56,6 +56,16 @@ public class VectorFunctions {
     }
     
     /**
+     * Squared Euclidean distance between two vectors
+     */
+    public static double distance_between2(double[] x, double[] s){
+        double out = 0.0;
+        for(int i = 0; i < x.length; i++)
+            out += Math.pow(x[i] - s[i], 2.0); 
+        return out;
+    }
+    
+    /**
      * Copy vector. <br>
      * PRE: x.length < y.length
      */

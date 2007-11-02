@@ -4,7 +4,9 @@
  * Created on 12 August 2007, 20:15
  */
 
-package simulator;
+package lattices;
+
+import simulator.*;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the

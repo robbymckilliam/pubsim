@@ -4,7 +4,9 @@
  * Created on 12 August 2007, 21:11
  */
 
-package simulator;
+package lattices;
+
+import simulator.*;
 
 /**
  * Nearest point algorithm for the Pn2 lattice.

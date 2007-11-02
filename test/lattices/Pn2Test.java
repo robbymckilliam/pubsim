@@ -5,9 +5,10 @@
  * Created on 12 August 2007, 22:11
  */
 
-package simulator;
+package lattices;
 
 import junit.framework.*;
+import simulator.*;
 
 /**
  *

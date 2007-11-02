@@ -5,10 +5,11 @@
  * Created on 7 July 2007, 09:46
  */
 
-package simulator;
+package lattices;
 
 import junit.framework.*;
 import java.util.Random;
+import simulator.*;
 
 /**
  *

@@ -1,4 +1,6 @@
-package simulator;
+package lattices;
+
+import simulator.*;
 
 /**
  * Class for methods associated with the lattice A_n^*.

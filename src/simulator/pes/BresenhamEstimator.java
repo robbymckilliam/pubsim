@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.vecmath.GVector;
+import lattices.Anstar;
 import simulator.*;
 
 /**

@@ -6,7 +6,7 @@
 
 package simulator.fes;
 
-import simulator.Pn2;
+import lattices.Pn2;
 
 /**
  * Use the faster O(n^3 log(n)) Pn2 nearest point algorithm that

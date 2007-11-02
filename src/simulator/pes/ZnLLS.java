@@ -7,6 +7,7 @@
 package simulator.pes;
 
 import java.util.TreeMap;
+import lattices.Anstar;
 import simulator.*;
 
 /**

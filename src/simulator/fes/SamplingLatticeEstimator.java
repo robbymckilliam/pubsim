@@ -5,7 +5,7 @@
  */
 
 package simulator.fes;
-import simulator.Pn2Sampled;
+import lattices.Pn2Sampled;
 
 /**
  * Simple and fast suboptimal (but perharps can be made optimal)

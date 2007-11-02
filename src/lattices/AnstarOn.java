@@ -4,7 +4,7 @@
  * Created on 7 July 2007, 09:21
  */
 
-package simulator;
+package lattices;
 
 /**
  * This is just a template for testing other ways of 

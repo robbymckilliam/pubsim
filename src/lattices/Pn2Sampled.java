@@ -4,7 +4,9 @@
  * Created on 18 August 2007, 12:53
  */
 
-package simulator;
+package lattices;
+
+import simulator.*;
 
 /**
  * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Pn2.

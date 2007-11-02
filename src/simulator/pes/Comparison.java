@@ -2,6 +2,7 @@ package simulator.pes;
 
 import java.util.Random;
 import javax.vecmath.GVector;
+import lattices.Anstar;
 import simulator.*;
 
 /**
