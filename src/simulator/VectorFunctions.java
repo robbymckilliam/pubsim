@@ -215,5 +215,17 @@ public class VectorFunctions {
         return ret;
     }
     
+    /** 
+     * y and x and vector, M is a matrix.
+     * Performs y = M*x.  
+     * PRE: x.length = n, y.length = m, M is m by n matrix
+     */
+    public static void matrixMultVector(double[] y, double[][] M, double[] x){
+        for(int m = 0; m < x.length; m++){
+            y[m] = 0;
+            for(int n = 0; n < y.length; n++)
+                y[m] += M[m][n] * x[n];
+        }
+    }
     
 }
