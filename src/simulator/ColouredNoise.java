@@ -37,13 +37,13 @@ public class ColouredNoise extends NoiseVector implements SignalGenerator {
     
     public double[] generateReceivedSignal(){
         //generate uncoloured noise
-        if(iidsignal.length != cor[0].length)
+        if(iidsignal == null || iidsignal.length != cor[0].length)
             iidsignal = new double[cor[0].length];
         for(int i = 0; i < iidsignal.length; i++)
             iidsignal[i] = noise.getNoise();
         
         //colour the noise
-        if(corsignal.length != cor.length)
+        if(corsignal == null || corsignal.length != cor.length)
             corsignal = new double[cor.length];
         VectorFunctions.matrixMultVector(cor, iidsignal, corsignal);
         return corsignal;
