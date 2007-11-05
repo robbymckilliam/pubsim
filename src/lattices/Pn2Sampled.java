@@ -68,8 +68,8 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
             
             if(dist < bestdist){
                 bestdist = dist;
-                VectorFunctions.copy(vt, v);
-                VectorFunctions.copy(anstar.getIndex(), u);
+                System.arraycopy(vt, 0, v, 0, vt.length);
+                System.arraycopy(anstar.getIndex(), 0, u, 0, u.length);
             } 
            
         }

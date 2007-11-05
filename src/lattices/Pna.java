@@ -12,7 +12,7 @@ import simulator.VectorFunctions;
  * Class that solves the nearst point algorithm for the family of lattices
  * P_n^alpha.  This is a suboptimal sampling approach.  It is polynomial time 
  * in n but exponential in alpha.
- * @author robertm
+ * @author Robby McKilliam
  */
 public class Pna implements LatticeNearestPointAlgorithm{
     
@@ -124,13 +124,30 @@ public class Pna implements LatticeNearestPointAlgorithm{
      * This is usefull, in particular, for testing the performance
      * of these lattices in Gaussian noise.
      * <p>
-     * This could be done using a QR decompostition, however it is
-     * requires potentially lots of matrix multiplication first and
+     * This could be done using a QR decompostition, however it
+     * potentially requires lots of matrix multiplication first and
      * tends to be unstable.  Instead, we use a coordinate change
      * followed by a stable gram-schmidt algorithm.
      */
-    protected static double[][] generateRotationMatrix(int n, int a){
-        return null;
+    public static double[][] generateRotationMatrix(int n, int a){
+        //store all the g's first, otherwise
+        //this can take a long time to run.
+        double[][] gs = new double[a+1][n+a];
+        for(int i = 1; i <= a; i++)
+            System.arraycopy(createg(n+a-i,i), 0, gs[i], 0, n+a);
+        
+        //stable version of gram schmit othonormalisation
+        double[][] mat = new double[n][n+a];
+        for(int i = 0; i < n; i++){
+            mat[i][i] = 1.0;  //make column this e_i
+            for(int j = 1; j <= a; j++)
+                VectorFunctions.projectOrthogonal(gs[j], mat[i], mat[i]);
+            for(int j = 0; j < i; j++)
+                VectorFunctions.projectOrthogonal(mat[j], mat[i], mat[i]);
+            VectorFunctions.normalise(mat[i], mat[i]);
+        }
+        
+        return VectorFunctions.transpose(mat);
     }
     
 }

@@ -13,7 +13,7 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class PnaEfficientTest extends TestCase {
     

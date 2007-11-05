@@ -12,7 +12,7 @@ import simulator.VectorFunctions;
 /**
  * Frequency estimator that uses Pn1 glue vector algorithm to solve the nearest
  * point problem for the frequency estimation lattice Pn1.  O(n^4log(n)).
- * @author Robby
+ * @author Robby McKilliam
  */
 public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator {
     

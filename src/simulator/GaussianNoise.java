@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * Creates single gaussian variables
- * @author Robby
+ * @author Robby McKilliam
  */
 public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGenerator {
     

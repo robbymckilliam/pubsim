@@ -8,7 +8,7 @@ package simulator.fes;
 
 /**
  * The Parabolic Smoothed Central Finite Difference Estimator
- * @author Robby
+ * @author Robby McKilliam
  */
 public class PSCFDEstimator implements FrequencyEstimator{
        

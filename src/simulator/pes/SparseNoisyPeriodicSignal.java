@@ -16,7 +16,7 @@ import simulator.*;
  * The specific sparse pulses that will be transmitted can
  * be specefied by @func setSparseSignal.
  * 
- * @author Robby
+ * @author Robby McKilliam
  */
 public class SparseNoisyPeriodicSignal implements SignalGenerator {
     

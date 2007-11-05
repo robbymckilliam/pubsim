@@ -10,7 +10,7 @@ package simulator;
  * Basic complex functions.  I nikced this from 
  * http://www.cs.princeton.edu/introcs/97data/Complex.java.html 
  * <p>
- * @author Robby
+ * @author Robby McKilliam
  */
 public class Complex extends Object{
     

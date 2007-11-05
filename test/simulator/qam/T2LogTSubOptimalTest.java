@@ -14,7 +14,7 @@ import simulator.GaussianNoise;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class T2LogTSubOptimalTest extends TestCase {
     

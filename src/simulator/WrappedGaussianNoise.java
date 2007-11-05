@@ -8,7 +8,7 @@ package simulator;
 
 /**
  * Gaussian noise mod 2 pi
- * @author Robby
+ * @author Robby McKilliam
  */
 public class WrappedGaussianNoise extends GaussianNoise implements NoiseGenerator {
     

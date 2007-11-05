@@ -16,13 +16,14 @@ package simulator;
  * The JAMA library looks decent.
  * @author Robby
  */
-public class ColouredNoise implements SignalGenerator {
+public class ColouredNoise extends NoiseVector implements SignalGenerator {
     
     protected double[] iidsignal, corsignal;
     protected double[][] cor;
     protected NoiseGenerator noise;
     
     public void setCorrelationMatrix(double[][] cor){
+        n = cor.length;
         this.cor = cor;
     }
     
@@ -34,22 +35,17 @@ public class ColouredNoise implements SignalGenerator {
         return noise;
     }
     
-    /** 
-     * Generate the iid noise of length n.
-     * The correlation matrix must have n columns.
-     */
-    public double[] generateIIDNoise(int n){
-        if( iidsignal.length != n )
-            iidsignal = new double[n];
-        for(int i = 0; i < n; i++)
-            iidsignal[i] = noise.getNoise();
-        return iidsignal;
-    }
-    
     public double[] generateReceivedSignal(){
-        if(corsignal.length != cor[0].length)
-            corsignal = new double[cor[0].length];
-        VectorFunctions.matrixMultVector(corsignal, cor, iidsignal);
+        //generate uncoloured noise
+        if(iidsignal.length != cor[0].length)
+            iidsignal = new double[cor[0].length];
+        for(int i = 0; i < iidsignal.length; i++)
+            iidsignal[i] = noise.getNoise();
+        
+        //colour the noise
+        if(corsignal.length != cor.length)
+            corsignal = new double[cor.length];
+        VectorFunctions.matrixMultVector(cor, iidsignal, corsignal);
         return corsignal;
     }
     

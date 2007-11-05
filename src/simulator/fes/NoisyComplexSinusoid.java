@@ -13,10 +13,7 @@ import java.util.Random;
 
 /**
  * Generator for a noisy sinusoid.
- * <p>
- * Notes: Probably need to refactor SignalGenerator.
- * <p>
- * @author Robby
+ * @author Robby McKilliam
  */
 public class NoisyComplexSinusoid implements SignalGenerator{
     

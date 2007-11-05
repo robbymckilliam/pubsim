@@ -12,7 +12,7 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class NonCoherentReceiverTest extends TestCase {
     
@@ -36,7 +36,9 @@ public class NonCoherentReceiverTest extends TestCase {
         double[] y = new double[x.length];
         NonCoherentReceiver instance = new NonCoherentReceiver();
         
-        instance.NN(x, y);
+        instance.NN(x, y, 16);
+        
+        System.out.println(" y = " + VectorFunctions.print(y));
         
         double[] expr = {1.0, -1.0, 1.0, 3.0, -3.0, -1.0, 3.0, 3.0, -5.0};
         assertEquals(true, VectorFunctions.distance_between(expr,y)<0.000001);

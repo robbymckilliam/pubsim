@@ -11,7 +11,7 @@ import simulator.*;
 /**
  * Version of the SamplingEstimator that uses the modified liklihood
  * function.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class ModifiedSamplingLLS extends SamplingEstimator implements PRIEstimator {
     

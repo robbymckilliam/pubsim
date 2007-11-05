@@ -13,7 +13,7 @@ import simulator.GaussianNoise;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class T3OptimalTest extends TestCase {
     

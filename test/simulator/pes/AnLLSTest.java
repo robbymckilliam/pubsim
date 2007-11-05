@@ -12,7 +12,7 @@ import simulator.*;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class AnLLSTest extends TestCase {
     
@@ -139,24 +139,6 @@ public class AnLLSTest extends TestCase {
         double result = instance.estimateFreq(y, fmin, fmax);
         assertEquals(expResult, result);
 
-    }
-
-    /**
-     * Test of varianceBound method, of class simulator.AnLLS.
-     */
-    public void testVarianceBound() {
-        System.out.println("varianceBound");
-        
-        double sigma = 0.0;
-        double[] k = null;
-        AnLLS instance = new AnLLS();
-        
-        double expResult = 0.0;
-        double result = instance.varianceBound(sigma, k);
-        assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

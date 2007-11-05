@@ -13,7 +13,7 @@ import java.util.Random;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class VectorFunctionsTest extends TestCase {
     
@@ -238,7 +238,7 @@ public class VectorFunctionsTest extends TestCase {
     }
 
     /**
-     * Test of max_distance method, of class simulator.VectorFunctions.
+     * Test of maxDistance method, of class simulator.VectorFunctions.
      */
     public void testMax_distance() {
         System.out.println("max_distance");
@@ -246,8 +246,24 @@ public class VectorFunctionsTest extends TestCase {
         double[] x = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};
         
         double expResult = 20.0;
-        double result = VectorFunctions.max_distance(x);
+        double result = VectorFunctions.maxDistance(x);
         assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of maxDistance method, of class simulator.VectorFunctions.
+     */
+    public void testMatrixMultVector() {
+        System.out.println("matrixMultVector");
+        
+        double[] x = {1, 2, 3};
+        double[][] M = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
+        double[] y = new double[M.length];
+        
+        double[] expResult =  {14, 32, 50, 68};
+        VectorFunctions.matrixMultVector(M, x, y);
+        assertEquals(true, 
+                VectorFunctions.distance_between(expResult,y)<0.00001);
     }
     
     /**

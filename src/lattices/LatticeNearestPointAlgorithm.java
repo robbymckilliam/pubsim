@@ -8,7 +8,7 @@ package lattices;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public interface LatticeNearestPointAlgorithm {
     

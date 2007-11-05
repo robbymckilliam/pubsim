@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class UniformNoiseTest extends TestCase {
     

@@ -12,7 +12,7 @@ import simulator.*;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class AnLLSBresenhamTest extends TestCase {
     

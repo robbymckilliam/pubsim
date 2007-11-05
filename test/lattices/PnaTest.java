@@ -12,7 +12,7 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class PnaTest extends TestCase {
     
@@ -82,6 +82,24 @@ public class PnaTest extends TestCase {
         double[] result2 = Pna.createg(n-a, a);
         System.out.println("g = " + VectorFunctions.print(result2));
         assertEquals(true, VectorFunctions.distance_between(expResult2, result2)<0.00001);
+        
+    }
+    
+    /**
+     * Test of generateRotationMatrix method, of class lattices.Pna.
+     */
+    public void testGenerateRotationMatrix() {
+        System.out.println("generateRotationMatrix");
+        
+        int n = 11;
+        int a = 4;
+        
+        double[][] mat = VectorFunctions.transpose(Pna.generateRotationMatrix(n-a, a));
+        System.out.println("mat = " + VectorFunctions.print(VectorFunctions.transpose(mat)));
+        for(int i = 0; i < n - a; i++){
+            for(int j = 1; j <= a; j++)
+            assertEquals(true, Math.abs(VectorFunctions.dot(mat[i], Pna.createg(n-j,j)))<0.00001);
+        }
         
     }
 

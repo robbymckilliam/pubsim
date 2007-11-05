@@ -8,7 +8,7 @@ package lattices;
 
 /**
  * Nearest point algorithm for the square lattice Zn.
- * @author robertm
+ * @author Robby McKilliam
  */
 public class Zn implements LatticeNearestPointAlgorithm {
     

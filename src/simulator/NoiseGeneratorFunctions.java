@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  * Class that contains some standard functions for noise generators
- * @author robertm
+ * @author Robby McKilliam
  */
 public abstract class NoiseGeneratorFunctions implements NoiseGenerator {
     

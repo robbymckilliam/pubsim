@@ -13,7 +13,7 @@ import simulator.*;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class SparseNoisyPeriodicSignalTest extends TestCase {
     

@@ -18,7 +18,7 @@ import simulator.*;
  * faster than the An* bresenham estimator.  Certainly it is faster
  * in simulation.
  * THIS DOES NOT ACTUALLY WORK!  CAN MISS THE CLOSEST BOX!
- * @author Robby
+ * @author Robby McKilliam
  */
 public class AnLLSBresenham extends AnLLS implements PRIEstimator {
     

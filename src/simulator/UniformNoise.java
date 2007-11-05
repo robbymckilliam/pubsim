@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenerator {
     protected double range;

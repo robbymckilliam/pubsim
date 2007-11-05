@@ -16,7 +16,7 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class FadingNoisyQAMTest extends TestCase {
     
@@ -30,14 +30,12 @@ public class FadingNoisyQAMTest extends TestCase {
     public void testGenerateQAMSignal() {
         System.out.println("generateQAMSignal");
         
-        int length = 10;
-        
         FadingNoisyQAM instance = new FadingNoisyQAM();
         
         double[] xr = instance.getTransmittedRealQAMSignal();
         double[] xi = instance.getTransmittedImagQAMSignal();
         
-        for(int i = 0; i < length; i++){
+        for(int i = 0; i < xr.length; i++){
             assertEquals(true, Math.abs(xr[i])<=7);
             assertEquals(true, Math.abs(xr[i])<=7);
         }

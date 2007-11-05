@@ -12,7 +12,7 @@ package simulator.pes;
  * is uncertain whether this will work at all!  However,
  * it might be interesting to see what happens.
  * Under construction.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class SLSKay implements PRIEstimator {
     protected int NUM_SAMPLES = 100;

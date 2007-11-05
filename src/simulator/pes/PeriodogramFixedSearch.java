@@ -11,7 +11,7 @@ import simulator.*;
 /**
  * Periodogram estimator that allows selection of the search
  * frequencies.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class PeriodogramFixedSearch extends PeriodogramEstimator implements PRIEstimator{
     

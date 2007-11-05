@@ -15,7 +15,7 @@ import simulator.VectorFunctions;
  * Pnb, b<=a algorithms.
  * <p>
  * The biggest gain comes from createg and project not recuring so much.  
- * @author Robby
+ * @author Robby McKilliam
  */
 public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
     

@@ -8,7 +8,7 @@ package simulator;
 
 /**
  * Miscelaneous functions to run on double arrays
- * @author Robby
+ * @author Robby McKilliam
  */
 public class VectorFunctions {
     
@@ -32,7 +32,7 @@ public class VectorFunctions {
     }
     
     /**
-     * Return the magnitude squared of the fourier
+     * Return the magnitude squared of the Fourier
      * tranform of @param x.
      */
     public static double[] abs2FT(double[] x){
@@ -45,7 +45,7 @@ public class VectorFunctions {
         return out;
     }
     
-     /**
+    /**
      * Euclidean distance between two vectors
      */
     public static double distance_between(double[] x, double[] s){
@@ -63,15 +63,6 @@ public class VectorFunctions {
         for(int i = 0; i < x.length; i++)
             out += Math.pow(x[i] - s[i], 2.0); 
         return out;
-    }
-    
-    /**
-     * Copy vector. <br>
-     * PRE: x.length < y.length
-     */
-    public static void copy(double[] x, double[] y){
-        for(int i=0; i<x.length; i++)
-            y[i] = x[i]; 
     }
     
     /**
@@ -166,6 +157,19 @@ public class VectorFunctions {
     }
     
     /**
+     * Return a string for the vector
+     */
+    public static String print(double[][] M){
+        String st = new String();
+        for(int m = 0; m < M.length; m++){
+            for(int n = 0; n < M[0].length; n++)
+                st = st.concat("\t" + M[m][n]);
+            st = st.concat("\n");
+        }
+        return st;
+    }
+    
+    /**
      * Vector dot/inner product
      */
     public static double dot(double[] x, double[] y){
@@ -189,7 +193,7 @@ public class VectorFunctions {
      * Return the distance between the two elements in
      * x that are the fathest apart.
      */
-    public static double max_distance(double[] x)
+    public static double maxDistance(double[] x)
     {
      return max(x) - min(x);   
     }
@@ -218,14 +222,68 @@ public class VectorFunctions {
     /** 
      * y and x and vector, M is a matrix.
      * Performs y = M*x.  
-     * PRE: x.length = n, y.length = m, M is m by n matrix
+     * PRE: x.length = m, y.length = n, M is n by m matrix
      */
-    public static void matrixMultVector(double[] y, double[][] M, double[] x){
-        for(int m = 0; m < x.length; m++){
-            y[m] = 0;
-            for(int n = 0; n < y.length; n++)
-                y[m] += M[m][n] * x[n];
+    public static void matrixMultVector(double[][] M, double[] x, double[] y){
+        for(int n = 0; n < y.length; n++){
+            y[n] = 0;
+            for(int m = 0; m < x.length; m++)
+                y[n] += M[n][m] * x[m];
         }
+    }
+    
+    /** 
+     * Project y parallel to x and return in yp.
+     * PRE: y.length == x.length == yp.length
+     */
+    public static void projectParallel(double[] x, double[] y, double[] yp){
+        double xty = dot(x,y);
+        double xtx = dot(x,x);
+        for(int i = 0; i < x.length; i++)
+            yp[i] = xty/xtx*x[i];
+    }
+    
+    /** 
+     * Project y orthogonal to x and return in yp.
+     * PRE: y.length == x.length == yp.length
+     */
+    public static void projectOrthogonal(double[] x, double[] y, double[] yp){
+        double xty = dot(x,y);
+        double xtx = dot(x,x);
+        for(int i = 0; i < x.length; i++)
+            yp[i] = y[i] - xty/xtx*x[i];
+    }
+    
+    /** 
+     * Scalar divide.  Result is returned in y
+     * PRE: x.length == y.length
+     */
+    public static void divide(double[] x, double d, double[] y){
+        for(int i = 0; i < x.length; i++)
+            y[i] = x[i]/d;
+    }
+    
+    /** 
+     * Returns the normalised vector
+     * PRE: x.length == y.length
+     */
+    public static void normalise(double[] x, double[] y){
+        double d = magnitude(x);
+        for(int i = 0; i < x.length; i++)
+            y[i] = x[i]/d;
+    }
+    
+    /** 
+     * Returns the transpose of a matrix.  Allocates memory.
+     * PRE: x.length == y.length
+     */
+    public static double[][] transpose(double[][] M1){
+        double[][] mat = new double[M1[0].length][M1.length];
+        for(int m = 0; m < M1.length; m++){
+            for(int n = 0; n < M1[0].length; n++)
+                mat[n][m] = M1[m][n];
+        }
+        return mat;
     }
     
 }

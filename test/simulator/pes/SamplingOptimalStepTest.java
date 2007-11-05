@@ -13,7 +13,7 @@ import simulator.*;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class SamplingOptimalStepTest extends TestCase {
     
