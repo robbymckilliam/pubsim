@@ -6,6 +6,7 @@
 
 package lattices;
 
+import Jama.Matrix;
 import java.util.ArrayList;
 import simulator.VectorFunctions;
 
@@ -141,10 +142,21 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
     
     /** {@inheritDoc} */
     public double volume(){
-        //calculate det( I - gg'/g'g )
-        double det = 0;
-        
-        return Math.sqrt(det) * pnam1.volume();
+        //if this is the Zn lattice
+        if(a == 0){
+            return 1.0;
+        }else{
+            //calculate det( I - gg'/g'g )
+            double[][] gm = new double[1][n+a];
+            System.arraycopy(g, 0, gm[0], 0, n+a);
+            Matrix gM = new Matrix(gm);
+            Matrix M = Matrix.identity(n+a,n+a).minus(
+                    gM.transpose().times(gM).times(1.0/gtg));
+            M = M.getMatrix(0, n-1, 0, n+a-1);
+            double det = M.times(M.transpose()).det();
+            //double det = VectorFunctions.stableDet(M.times(M.transpose()));
+            return Math.sqrt(det) * pnam1.volume();
+        }
     }
     
 }

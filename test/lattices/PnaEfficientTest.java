@@ -77,4 +77,38 @@ public class PnaEfficientTest extends TestCase {
         assertEquals(true, dist<0.0001);
     }
     
+    /**
+     * Test of volume method, of class lattices.PnaEfficient.
+     */
+    public void testVolume() {
+        System.out.println("volume");
+        
+        int n = 10;
+        int a = 1;
+        PnaEfficient pna = new PnaEfficient(a, n-a);
+        
+        //Anstar det
+        double expres = Math.sqrt(1.0/n);
+        
+        assertEquals(true, Math.abs(pna.volume() - expres)<0.0001);
+        
+        n = 10;
+        a = 2;
+        pna = new PnaEfficient(a, n-a);
+        
+        //from matlab
+        expres = 0.198479065379550;
+        
+        assertEquals(true, Math.abs(pna.volume()- expres) < 0.00001);
+        
+        n = 22;
+        a = 3;
+        pna = new PnaEfficient(a, n-a);
+        
+        expres = 0.047564984401627;
+        
+        assertEquals(true, Math.abs(pna.volume()- expres));
+        assertEquals(true, Math.abs(pna.volume()- expres) < 0.00001);
+    }
+    
 }

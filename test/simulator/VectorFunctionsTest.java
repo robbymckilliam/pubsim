@@ -7,6 +7,7 @@
 
 package simulator;
 
+import Jama.Matrix;
 import junit.framework.*;
 import javax.vecmath.GVector;
 import java.util.Random;
@@ -289,6 +290,22 @@ public class VectorFunctionsTest extends TestCase {
         assertEquals(VectorFunctions.sum2(y), gy.normSquared());
         assertEquals(VectorFunctions.dot(x,y), gx.dot(gy));
         
+    }
+    
+    /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testStableDet() {
+        System.out.println("stableDet");
+        
+        int m = 10;
+        
+        Matrix mat = Matrix.identity(m,m);
+        assertEquals(true, Math.abs(mat.det() - VectorFunctions.stableDet(mat)) < 0.00001);
+        
+        mat = Matrix.random(m,m);
+        assertEquals(true, Math.abs(mat.det() - VectorFunctions.stableDet(mat)) < 0.00001);
+
     }
     
 }

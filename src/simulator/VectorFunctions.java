@@ -6,6 +6,8 @@
 
 package simulator;
 
+import Jama.Matrix;
+
 /**
  * Miscelaneous functions to run on double arrays
  * @author Robby McKilliam
@@ -285,5 +287,48 @@ public class VectorFunctions {
         }
         return mat;
     }
+    
+    /** 
+     * O(n^3) determinant algorithm that is 'fraction free'
+     * and more stable than the LU and trace algorithm in the
+     * Jama library.
+     * <p>
+     * Erwin H. Bareiss, “Sylvester's Identity and Multistep 
+     * Integer-Preserving Gaussian Elimination,” 
+     * Mathematical Computation 22, 103, pp. 565 – 578, 1968.
+     */
+    public static double stableDet(Matrix mat){
+        
+        //handle exceptional cases
+        if(mat.getColumnDimension() != mat.getRowDimension())
+            throw new IllegalArgumentException("Matrix must be square.");
+        if(mat.getRowDimension() == 1) 
+            return mat.get(0,0);
+        
+        return stableDet(mat, 0);          
+        
+    }
+    
+    /** Recursive function used by stableDet */
+    protected static double stableDet(Matrix mat, int index){
+        
+        if(mat.getRowDimension() - index == 2) 
+            return mat.get(index,index)*mat.get(index+1,index+1) 
+                    - mat.get(index,index+1)*mat.get(index+1,index);
+        
+        for(int i = index + 1; i < mat.getRowDimension(); i++){
+            for(int j = index + 1; j < mat.getRowDimension(); j++){
+                double sub = mat.get(i,index) * mat.get(index,j);
+                mat.set(i,j, mat.get(i,j) * mat.get(index,index) - sub);
+            }
+        }
+        double det = stableDet(mat, index + 1);
+        for(int i = index; i < mat.getRowDimension() - 2; i++)
+            det /= mat.get(index, index);
+        
+        return det;
+    }
+    
+    
     
 }
