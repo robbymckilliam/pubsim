@@ -13,7 +13,7 @@ package lattices;
  * things easy.
  * @author Robby McKilliam
  */
-public class AnstarOn extends Anstar{
+public class AnstarOn extends Anstar implements LatticeNearestPointAlgorithm{
    
     
     /** Overided the standard nearest point algorithm */

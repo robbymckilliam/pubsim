@@ -28,5 +28,8 @@ public class Zn implements LatticeNearestPointAlgorithm {
     public double[] getLatticePoint() { return x; }
     
     public double[] getIndex() { return x; }
+
+    /** {@inheritDoc} */
+    public double volume(){ return 1;}
     
 }

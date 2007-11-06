@@ -60,4 +60,7 @@ public class Pn2 implements LatticeNearestPointAlgorithm{
             y[i] = y[i] - dot/sumn2 * (i+1-nbar);
     }
     
+    /** {@inheritDoc} */
+    public double volume(){ return 0;}
+    
 }

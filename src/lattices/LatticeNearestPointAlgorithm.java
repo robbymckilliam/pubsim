@@ -21,4 +21,11 @@ public interface LatticeNearestPointAlgorithm {
     /**Getter for the integer vector. */
     double[] getIndex();
     
+    /** 
+     * Return the volume of the fundamental region
+     * of the lattice.  This is the square root of 
+     * the determinat of the gram matrix
+     */
+    double volume();
+    
 }

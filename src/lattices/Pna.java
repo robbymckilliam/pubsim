@@ -29,14 +29,10 @@ public class Pna implements LatticeNearestPointAlgorithm{
         u = new double[0];
     }
     
-    /** Must set a when constucted */
+    /** Sets a and the dimension n when constructed */
     public Pna(int a, int n){
         this.a = a;
         setDimension(n);
-        //this is a bit icky.  It's just to
-        //ensure that it's not a null pointer
-        //for nearestPoint
-        u = new double[0];
     }
     
     public void setDimension(int n){
@@ -108,11 +104,7 @@ public class Pna implements LatticeNearestPointAlgorithm{
         if(a > 0){
             project(x,y,a-1);
             double[] g = createg(x.length-a, a);
-            double gtg = VectorFunctions.sum2(g);
-            double dot = VectorFunctions.dot(y,g);
-            for(int i = 0; i < x.length; i++){
-                y[i] = y[i] - dot/gtg * g[i];
-            }
+            VectorFunctions.projectOrthogonal(g,y,y);
         }
         else{
             System.arraycopy(x, 0, y, 0, x.length);
@@ -158,6 +150,11 @@ public class Pna implements LatticeNearestPointAlgorithm{
         }
         
         return VectorFunctions.transpose(mat);
+    }
+
+    /** {@inheritDoc} */
+    public double volume(){
+        return 0;
     }
     
 }

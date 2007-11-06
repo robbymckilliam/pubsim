@@ -14,12 +14,18 @@ import simulator.VectorFunctions;
  * the time.  This is achieved by precalculating and storing all 
  * Pnb, b<=a algorithms.
  * <p>
- * The biggest gain comes from createg and project not recuring so much.  
+ * The biggest gain comes from createg and project not recuring so much. 
  * @author Robby McKilliam
  */
 public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
     
-    protected PnaEfficient[] holder;
+    /** Store P_n^(a-1) that is used for recursion. */
+    protected PnaEfficient pnam1;
+    
+    /** 
+     * gtg = VectorFunctions.sum2(g)
+     * This gets used frequenctly so it is precalculated.
+     */
     private double gtg;
     
     /** {@inheritDoc} */
@@ -35,33 +41,36 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
     /** 
      * Creates a PnaEfficient with a holder.  This is protected
      * because is should only be used to create the PnaEfficient
-     * objects that are contained in the holder list
-     * That list is created when setDimension is called
+     * objects that are contained in the holder list.
+     * The list is created when setDimension is called
      */
-    protected PnaEfficient(PnaEfficient[] holder, int a, int n) { 
+    protected PnaEfficient(PnaEfficient pnam1, int a, int n) { 
         super(a);
-        this.holder = holder;
+        this.pnam1 = pnam1;
         this.n =  n;
         u = new double[n + a];
         v = new double[n + a];
         yt = new double[n + a];
         yp = new double[n + a];
-        g = createg(n,a);
+        createg();
         gtg = VectorFunctions.sum2(g);
     }
     
     public void setDimension(int n){
         this.n =  n;
+        
+        //setup pnam1 and all Pna under it
+        PnaEfficient prevpna = new PnaEfficient(null, 0, n+a);
+        for(int i = 0; i < a; i++)
+            prevpna = new PnaEfficient(prevpna, i, n + a - i);
+        this.pnam1 = prevpna;
+        
         u = new double[n + a];
         v = new double[n + a];
         yt = new double[n + a];
         yp = new double[n + a];
-        g = createg(n,a);
+        createg();
         gtg = VectorFunctions.sum2(g);
-        holder = new PnaEfficient[a+1];
-        holder[a] = this;
-        for(int i = 0; i < a; i++)
-            holder[i] = new PnaEfficient(holder, i, n + a - i);
     }
     
     public void nearestPoint(double[] y){
@@ -78,14 +87,16 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
             for(double s = 0; s < magg; s+=step){
                 for(int i = 0; i < y.length; i++)
                     yt[i] = y[i] + s*g[i];
-                holder[a-1].nearestPoint(yt);
+                pnam1.nearestPoint(yt);
                 //this is bad practice, I am reusing memory
-                project(holder[a-1].getIndex(), holder[a-1].getLatticePoint());
+                VectorFunctions.projectOrthogonal(g,
+                        pnam1.getLatticePoint(), 
+                        pnam1.getLatticePoint());
                 double D = VectorFunctions.distance_between2
-                                    (yp, holder[a-1].getLatticePoint());
+                                    (yp, pnam1.getLatticePoint());
                 if(D < Dmin){
                     Dmin = D;
-                    System.arraycopy(holder[a-1].getIndex(), 0, u, 0, u.length);
+                    System.arraycopy(pnam1.getIndex(), 0, u, 0, u.length);
                 }
             }
         }else{
@@ -103,7 +114,7 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
      */
     protected void project(double[] x, double[] y){
         if(a > 0){
-            holder[a-1].project(x,y);
+            pnam1.project(x,y);
             double dot = VectorFunctions.dot(y,g);
             for(int i = 0; i < x.length; i++){
                 y[i] = y[i] - dot/gtg * g[i];
@@ -112,6 +123,28 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
         else{
             System.arraycopy(x, 0, y, 0, x.length);
         }
+    }
+    
+    /** 
+     * Creates the orthogonal vector. 
+     * Assumes that pnam1 is already setup.
+     * This is protected for good reason!
+     */
+    protected void createg(){
+        g = new double[n + a];
+        if( a > 0 ){
+            for(int i = 0; i < n+a; i++)
+                g[i] = Math.pow(i+1,a-1);
+            pnam1.project(g,g);
+        }
+    }
+    
+    /** {@inheritDoc} */
+    public double volume(){
+        //calculate det( I - gg'/g'g )
+        double det = 0;
+        
+        return Math.sqrt(det) * pnam1.volume();
     }
     
 }

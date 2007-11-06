@@ -128,4 +128,9 @@ public class Anstar implements LatticeNearestPointAlgorithm{
     public double[] getLatticePoint() {return v;}
     /**Getter for the interger vector. */
     public double[] getIndex() {return u;}
+
+    /** {@inheritDoc} */
+    public double volume(){
+        return Math.sqrt(1/(n+1));
+    }
 }
