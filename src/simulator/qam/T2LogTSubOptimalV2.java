@@ -7,6 +7,7 @@
 package simulator.qam;
 
 import java.util.Arrays;
+import simulator.IndexedDouble;
 
 /**
  * Version of the O(T^2 LogT) sub optimal algorithm that does not

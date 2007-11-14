@@ -8,6 +8,7 @@ package simulator.qam;
 
 import java.util.Arrays;
 import simulator.Complex;
+import simulator.IndexedDouble;
 import simulator.VectorFunctions;
 
 /**

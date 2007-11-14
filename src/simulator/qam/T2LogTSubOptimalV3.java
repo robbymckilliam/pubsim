@@ -7,6 +7,7 @@
 package simulator.qam;
 
 import java.util.Arrays;
+import simulator.IndexedDouble;
 import simulator.VectorFunctions;
 
 /**

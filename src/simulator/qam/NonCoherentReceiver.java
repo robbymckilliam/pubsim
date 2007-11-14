@@ -123,20 +123,6 @@ public class NonCoherentReceiver {
             imag[i] = y[2*i + 1];
         }
     }
-    
-    /** 
-     * Internal class used for storing the and double and an index.
-     * Acts a little bit like simulator.Sorter.ComparibleHolder but
-     * is more specialised and probably faster.
-     */
-    public static class IndexedDouble implements Comparable{
-        double value;
-	int index;
 
-	public int compareTo(Object o) {
-	    IndexedDouble co = (IndexedDouble) o;
-	    return Double.compare(value, co.value);
-	} 
-    }
     
 }
