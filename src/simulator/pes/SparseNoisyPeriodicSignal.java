@@ -25,6 +25,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     private NoiseGenerator noise;
     private Random rand;
     private double T;
+    private int n;
     
     public SparseNoisyPeriodicSignal(){
             rand = new Random();
@@ -39,17 +40,16 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     public void setPeriod(double T){  this.T = T; }
     public double getPeriod(){ return T; }
     
-    /**
-     * Generate a binomial sequence typical of a transmitted
-     * sparse signal.
-     */
-    public double[] generateSparseSignal(int length){
-        if( transmittedSignal.length != length )
-            transmittedSignal = new double[length];
-            
+    public void setLength(int n){
+        this.n = n;
+        transmittedSignal = new double[n];
+        recievedSignal = new double[n];
+    }
+    
+    public double[] generateSparseSignal(){
         double count = 0.0;
         int added = 0;
-        while(added < length){
+        while(added < n){
             if(rand.nextBoolean()){
                 transmittedSignal[added] = count;
                 added++;
@@ -59,37 +59,35 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
         return transmittedSignal;
     }
     
+    /**
+     * Generate a binomial sequence typical of a transmitted
+     * sparse signal.
+     */
+    public double[] generateSparseSignal(int length){
+        if( n != length )
+            setLength(n);
+        return generateSparseSignal();
+    }
+    
      /**
      * Generate a binomial sequence typical of a transmitted
      * sparse signal.  Seed the random generator so that well always get
      * the same answer.
      */
     public double[] generateSparseSignal(int length, long seed){
-        rand.setSeed(seed);
-        
-        if( transmittedSignal.length != length )
-            transmittedSignal = new double[length];
-            
-        double count = 0.0;
-        int added = 0;
-        while(added < length){
-            if(rand.nextBoolean()){
-                transmittedSignal[added] = count;
-                added++;
-            }
-            count++;
-        }
-        return transmittedSignal;
+        rand.setSeed(seed);      
+        return generateSparseSignal(length);
     }
     
     /**
      * Generate a binomial sequence typical of a transmitted
      * sparse signal.
      */
-    public double[] generateReceivedSignal(){
-
-          if( transmittedSignal.length != recievedSignal.length )
-                recievedSignal = new double[transmittedSignal.length];
+    public double[] generateReceivedSignal() {
+          if(transmittedSignal == null )
+              throw new java.lang.NullPointerException
+                      ("transmitted signal has not been allocated\n" +
+                      "call generateSparseSignal(length) first ");
           
           for(int i = 0; i< transmittedSignal.length; i++){
               recievedSignal[i] = T * transmittedSignal[i] + noise.getNoise();

@@ -8,10 +8,10 @@ import simulator.*;
  */
 public class Anstar implements LatticeNearestPointAlgorithm{
 
-    private int m;
-    private int[] s, tmps;
-    private Double[] delta;
-    private double[] x;
+    protected int m;
+    protected int[] s, tmps;
+    protected Double[] delta;
+    protected double[] x;
     
     protected int n = 0;
     protected double[] u, v;
