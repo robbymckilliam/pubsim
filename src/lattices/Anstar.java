@@ -97,7 +97,7 @@ public class Anstar implements LatticeNearestPointAlgorithm{
         
     }
 
-    private void rotate(int r) {
+    protected void rotate(int r) {
 	// Update u and v
 
 	for (int i = r+1; i <= n; i++)

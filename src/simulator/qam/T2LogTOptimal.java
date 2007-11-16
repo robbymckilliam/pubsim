@@ -13,7 +13,7 @@ import simulator.VectorFunctions;
 /**
  * The faster O(T^2 log(T)) GLRT-optimal non-coherent QAM
  * receiver. 
- * @author Robby
+ * @author Robby McKilliam
  */
 public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
     

@@ -65,7 +65,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      */
     public double[] generateSparseSignal(int length){
         if( n != length )
-            setLength(n);
+            setLength(length);
         return generateSparseSignal();
     }
     
@@ -78,6 +78,10 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
         rand.setSeed(seed);      
         return generateSparseSignal(length);
     }
+    
+    /** Randomise the seed for generateSparseSignal */ 
+    public void randomSeed(){ rand = new Random(); }
+        
     
     /**
      * Generate a binomial sequence typical of a transmitted

@@ -1,6 +1,7 @@
 package simulator.pes;
 
 import lattices.Anstar;
+import lattices.AnstarNew;
 import simulator.*;
 
 /**
@@ -9,7 +10,7 @@ import simulator.*;
  * @author Vaughan Clarkson, 16-Jun-05.
  * Add calculateObjective method, 13-Jan-07.
  */
-public class SamplingEstimator extends Anstar implements PRIEstimator {
+public class SamplingEstimator extends AnstarNew implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
     
@@ -107,7 +108,7 @@ public class SamplingEstimator extends Anstar implements PRIEstimator {
 	return bestL;
     }
     
-        /** Return the likilhood of the best result */ 
+    /** Return the likilhood of the best result */ 
     public double[] bestLatticePoint(double[] y, double fmin, double fmax) {
 	if (n != y.length-1)
 	    setSize(y.length);

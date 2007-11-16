@@ -9,8 +9,9 @@ package simulator.qam;
 import simulator.VectorFunctions;
 
 /**
- *
- * @author Robby
+ * Same as T3Optimal but uses Dan's simpler calculation of the
+ * likelihood function.
+ * @author Robby McKilliam
  */
 public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
     

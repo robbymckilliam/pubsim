@@ -13,7 +13,7 @@ import simulator.VectorFunctions;
 /**
  * Same as T2LogTSubOptimalV2 but uses Dan's simpler calculation of the
  * likelihood function.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver{
     

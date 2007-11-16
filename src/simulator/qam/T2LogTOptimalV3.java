@@ -15,7 +15,7 @@ import simulator.VectorFunctions;
  * Same as T2LogTOptimalV2 but uses Dan's simpler calculation of the 
  * likelihood function.  The algorithm also avoids System.array.copy
  * and so is strictly O(T^2 LogT).
- * @author Robby
+ * @author Robby McKilliam
  */
 public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
     

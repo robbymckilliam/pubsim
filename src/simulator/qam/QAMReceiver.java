@@ -9,7 +9,7 @@ package simulator.qam;
 /**
  * Interface for an QAM receiver.  Should implement
  * some algorithm for decoding.
- * @author Robby
+ * @author Robby McKilliam
  */
 public interface QAMReceiver {
     

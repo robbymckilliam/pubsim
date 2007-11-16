@@ -16,12 +16,12 @@ import simulator.IndexedDouble;
  * In theory you would expect this algorithm to be slightly slower than the
  * T2LogTSubOptimal, particularly for large M.  In practice the algorithm is
  * faster.  This is likely due to java implementation of Arrays.sort 
- * (quick sort) being faster than the TreeMap.
+ * (merge sort) being faster than the TreeMap.
  * <p>
  * This algorithm is probably shorter and easier to understand and
  * code than T2LogTSubOptimal
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver{
     

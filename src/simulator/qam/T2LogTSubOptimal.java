@@ -12,7 +12,7 @@ import simulator.VectorFunctions;
 /**
  * Dan's O(T^2 log(T)) suboptimal noncoherent QAM
  * receiver.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceiver{
     

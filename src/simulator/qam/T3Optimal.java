@@ -10,7 +10,7 @@ import simulator.VectorFunctions;
 /**
  * Optimal algorithm proposed by Dan.  Runs in O(T^3) time.
  * Under construction.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
     

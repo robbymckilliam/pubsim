@@ -10,7 +10,7 @@ import simulator.VectorFunctions;
 
 /**
  * Contains functions relavant to most NonCoherentReceivers
- * @author robertm
+ * @author Robby McKilliam
  */
 public class NonCoherentReceiver {
     

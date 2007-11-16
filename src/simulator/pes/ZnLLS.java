@@ -82,15 +82,16 @@ public class ZnLLS implements PRIEstimator {
                 Double key = ((Double) map.firstKey());
                 int k = ((Integer)map.get(key)).intValue();
                 double d = Math.signum(z[k]);
-                v[k] += d;
-                map.remove(key);
-                map.put(new Double((d*0.5 + v[k])/z[k]), new Integer(k));
                 
                 ztv += d*z[k];
-                vtv += 2*d*(v[k]-d) + 1;
+                vtv += 2*d*v[k] + 1;
                 
                 //update f
                 f = ztv/ztz;
+                
+                v[k] += d;
+                map.remove(key);
+                map.put(new Double((d*0.5 + v[k])/z[k]), new Integer(k));
                 
             }  
         }

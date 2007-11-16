@@ -90,7 +90,6 @@ public class AnLLS implements PRIEstimator {
                         vtv += v[j]*v[j];
                     }
                     double f0 = vtv/ytv;
-                    //double f0 = VectorFunctions.sum2(v)/VectorFunctions.dot(y,v);
                     double dist2 = 0.0;
                     for(int j = 0; j <= n; j++){
                         double diff = f0*y[j] - v[j];
@@ -99,10 +98,8 @@ public class AnLLS implements PRIEstimator {
                     if( dist2 < bestdist2 && f0 > fmin && f0 < fmax ){
                         bestdist2 = dist2;
                         bestf = f0;
-                        //System.out.println("f0 = " + f0 + " bestdist = " + bestdist2);
                     }      
                 }
-                //System.out.println();
                 
                 //calculate the next f that moves into another
                 //voronoi region in Zn

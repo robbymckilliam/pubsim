@@ -13,7 +13,7 @@ import java.util.Random;
 
 /**
  * Creates a Rayleigh fading QAM symbol with gaussian noise.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class FadingNoisyQAM implements SignalGenerator{
     

@@ -21,7 +21,7 @@ import simulator.IndexedDouble;
  * This algorithm is probably shorter and easier to understand and
  * code than T2LogTOptimal
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class T2LogTOptimalV2 extends T2LogTOptimal implements  QAMReceiver {
     
