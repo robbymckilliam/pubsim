@@ -68,10 +68,11 @@ public class ZnLLS implements PRIEstimator {
                 vtv += v[j]*v[j];
             }
             
-            double f = ztv/ztz;
+            double f = fmin;
             //line search loop
             while(f < fmax){
                 
+                f = vtv/ztv;
                 double dist = ztz - 2*ztv/f + vtv/(f*f);
                 
                 if(dist < mindist && f > fmin && f < fmax){
@@ -85,9 +86,6 @@ public class ZnLLS implements PRIEstimator {
                 
                 ztv += d*z[k];
                 vtv += 2*d*v[k] + 1;
-                
-                //update f
-                f = ztv/ztz;
                 
                 v[k] += d;
                 map.remove(key);
