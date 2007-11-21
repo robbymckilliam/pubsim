@@ -7,7 +7,7 @@
 package simulator;
 
 /**
- *
+ * Generates a vector of iid noise
  * @author Robby McKilliam
  */
 public class NoiseVector implements SignalGenerator{
@@ -19,6 +19,7 @@ public class NoiseVector implements SignalGenerator{
     /** Default constructor set length of vector to 1 */ 
     public NoiseVector(){
         n = 1;
+        iidsignal = new double[1];
     }
     
     public void setLength(int n){ this.n = n; }
