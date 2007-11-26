@@ -57,25 +57,27 @@ public class ZnLLS implements PRIEstimator {
             map.clear();
             glueVector(i);
             
+            
+            //System.out.println();
+            //System.out.println("glue " + i);
+            
             //setup map and variables for this glue vector
             double ztz = 0.0, ztv = 0.0, vtv = 0.0;
             for(int j=0; j<=n; j++){
                 v[j] = Math.round(fmin*z[j] - g[j]) + g[j];
-                map.put(new Double((Math.signum(z[j])*0.5 + v[j])/z[j]), 
-                        new Integer(j));
+                map.put(new Double((Math.signum(z[j])*0.5 + v[j])/z[j]), new Integer(j));
                 ztz += z[j]*z[j];
                 ztv += z[j]*v[j];
                 vtv += v[j]*v[j];
             }
             
-            double f = fmin;
+            double f = vtv/ztv;
             //line search loop
             while(f < fmax){
                 
-                f = vtv/ztv;
                 double dist = ztz - 2*ztv/f + vtv/(f*f);
                 
-                if(dist < mindist && f > fmin && f < fmax){
+                if(dist < mindist /*&& f > fmin && f < fmax*/){
                     mindist = dist;
                     bestf = f;
                 }
@@ -83,16 +85,21 @@ public class ZnLLS implements PRIEstimator {
                 Double key = ((Double) map.firstKey());
                 int k = ((Integer)map.get(key)).intValue();
                 double d = Math.signum(z[k]);
-                
-                ztv += d*z[k];
-                vtv += 2*d*v[k] + 1;
-                
                 v[k] += d;
                 map.remove(key);
                 map.put(new Double((d*0.5 + v[k])/z[k]), new Integer(k));
                 
-            }  
+                ztv += d*z[k];
+                vtv += 2*d*(v[k]-d) + 1;
+                
+                //update f
+                f = vtv/ztv;
+                
+            }
         }
+        
+        //System.out.println("bestf = " + bestf + ", mindist = " + mindist);
+        
         return bestf;
     }
     

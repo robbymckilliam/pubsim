@@ -43,23 +43,16 @@ public class ModifiedZnLLS extends ZnLLS implements PRIEstimator {
                 vtv += v[j]*v[j];
             }
             
-            double f = ztv/ztz;
+            double f = vtv/ztv;
             //line search loop
             while(f < fmax){
                 
                 double dist = f*f*ztz - 2*f*ztv + vtv;
                 
-                if(dist < mindist && f > fmin && f < fmax){
+                if(dist < mindist /*&& f > fmin && f < fmax*/){
                     mindist = dist;
                     bestf = f;
-                    //System.out.print("****** ");
                 }
-                
-                   /* if( i == 10 && f > 0.8 && f < 0.9 ){
-                       System.out.println("f = " + f + ", dist = " + dist);
-                       System.out.println("v = " + VectorFunctions.print(v));
-                       System.out.println("sum v = " + VectorFunctions.sum(v));
-                    }*/
                        
                 Double key = ((Double) map.firstKey());
                 int k = ((Integer)map.get(key)).intValue();
@@ -72,7 +65,7 @@ public class ModifiedZnLLS extends ZnLLS implements PRIEstimator {
                 vtv += 2*d*(v[k]-d) + 1;
                 
                 //update f
-                f = ztv/ztz;
+                f = vtv/ztv;
                 
             }  
         }
