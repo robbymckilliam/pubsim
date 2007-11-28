@@ -9,6 +9,7 @@ package simulator.qam;
 import simulator.SignalGenerator;
 import simulator.GaussianNoise;
 import simulator.NoiseGenerator;
+import simulator.RandomFunctions;
 import java.util.Random;
 
 /**
@@ -23,23 +24,24 @@ public class FadingNoisyQAM implements SignalGenerator{
     protected double[] xr, xi;
     protected double[] yr, yi;
     protected NoiseGenerator noise;
-    Random rand;
+    protected Random random;
     
     /** Default constructor using 8-ary QAM */
     public FadingNoisyQAM() {
-        rand = new Random();
-        setSize(0);
+        random = new Random();
+        setLength(0);
         this.M = 8;
     }
     
     /** Parameter is the QAM size */
     public FadingNoisyQAM(int M) {
-        rand = new Random();
-        setSize(0);
+        random = new Random();
+        setLength(0);
         this.M = M;
     }
     
-    public void setSize(int n){
+    /** Set the number of QAM symbols transmitted, i.e. block length. */
+    public void setLength(int n){
         xr = new double[n];
         xi = new double[n];
         yr = new double[n];
@@ -47,10 +49,13 @@ public class FadingNoisyQAM implements SignalGenerator{
         T = n;
     }
     
-    /** Set the size of the QAM array */
-    public void setM(int M){this.M = M;}
+    /** Set the number of QAM symbols transmitted, i.e. block length. */
+    public int getLength() { return T; }
     
-    /** 
+    /** Set the size of the QAM array */
+    public void setQAMSize(int M){this.M = M;}
+    
+    /**
      * Generate a random QAM signal.  The QAM signal
      * has only odd integer components for both the
      * real and imaginary parts.  This is what Dan used
@@ -58,24 +63,24 @@ public class FadingNoisyQAM implements SignalGenerator{
      * the length of the signal if required.
      */
     public void generateQAMSignal(int length){
-        if(T != length) setSize(length);
+        if(T != length) setLength(length);
         
         generateQAMSignal();
     }
     
-    /** 
+    /**
      * Generate a random QAM signal of the currently
      * specified length.
      */
     public void generateQAMSignal(){
         for(int i=0; i < T; i++){
-            xr[i] = 2*rand.nextInt(M) - M + 1;
-            xi[i] = 2*rand.nextInt(M) - M + 1;
+            xr[i] = 2*random.nextInt(M) - M + 1;
+            xi[i] = 2*random.nextInt(M) - M + 1;
         }
     }
     
     public void setTransmittedSignal(double[] xr, double[] xi){
-        if(this.xr.length != xr.length) setSize(xr.length);
+        if(this.xr.length != xr.length) setLength(xr.length);
         for(int i = 0; i < xr.length; i++){
             this.xr[i] = xr[i];
             this.xi[i] = xi[i];
@@ -83,23 +88,21 @@ public class FadingNoisyQAM implements SignalGenerator{
     }
     
     /** Return the real transmitted signal */
-    public double[] getTransmittedRealQAMSignal(){ 
-        return xr; 
+    public double[] getTransmittedRealQAMSignal(){
+        return xr;
     }
     
     /** Return the imaginary transmitted signal */
-    public double[] getTransmittedImagQAMSignal(){ 
-        return xi; 
+    public double[] getTransmittedImagQAMSignal(){
+        return xi;
     }
     
-    /** 
-     * Generate the recived QAM signal.  The signal has 
+    /**
+     * Generate the recived QAM signal.  The signal has
      * Rayleigh fading and noise.  Returns null, use
      * getInphase and getQuadrature to get the signal
      */
     public double[] generateReceivedSignal(){
-        if( yr.length != xr.length ) setSize(xr.length);
-        
         for(int i=0; i < yr.length; i++){
             yr[i] = xr[i]*Hr - xi[i]*Hi + noise.getNoise();
             yi[i] = xr[i]*Hi + xi[i]*Hr + noise.getNoise();
@@ -121,29 +124,61 @@ public class FadingNoisyQAM implements SignalGenerator{
     }
     public NoiseGenerator getNoiseGenerator(){ return noise; }
     
-    /** 
+    /**
      * Set the seed for the random generator used
      * to create the channel noise and generate
      * the QAM signal.  Potentially this should also
      * set the seed for the Gaussian noise?
-     */ 
+     */
     public void setSeed(long seed){
-        rand.setSeed(seed);
+        random.setSeed(seed);
     }
+    
+    /** Randomise the seed */ 
+    public void randomSeed(){ random = new Random(); }
     
     /** Generate the Rayleigh fading channel */
     public void generateChannel(){
-        Hr = rand.nextGaussian();
-        Hi = rand.nextGaussian();
+        Hr = random.nextGaussian();
+        Hi = random.nextGaussian();
     }
     
-    /** 
+    /**
      * Set the real and imaginary parts of the
      * Rayleigh fading channel.
      */
     public void setChannel(double Hr, double Hi){
         this.Hr = Hr;
         this.Hi = Hi;
+    }
+    
+    /** 
+     * Return the number of symbol errors between 
+     * two QAM blocks x and y. 
+     * PRE: xr.length == xi.length == yr.length == yi.length
+     */
+    public static int symbolErrors(double[] xr, double[] xi, 
+                                    double[] yr, double[] yi){
+        int ers = 0;
+        for(int i = 0; i < xr.length; i++)
+            if( xr[i] != yr[i] || xi[i] != yi[i] ) ers++;
+        
+        return ers;
+    }
+    
+    /** 
+     * Returns the number of bit errors between 
+     * M^2-ary QAM symbols x and y.  
+     * Assumes gray coding.
+     * UNDER CONSTRUCTION
+     */
+    public static int bitErrors(double xr, double xi, 
+            double yr, double yi, int M){
+        
+        int er = (int)Math.abs(xr - yr);
+        int ei = (int)Math.abs(xi - yi);
+        
+        return er%(M/2+1) + ei%(M/2+1);
     }
     
 }

@@ -49,9 +49,6 @@ public class NoisyComplexSinusoidTest extends TestCase {
             
         }
         
-        System.out.println( "real = " + simulator.VectorFunctions.print(instance.getReal()) );
-        System.out.println( "imag = " + simulator.VectorFunctions.print(instance.getImag()) );
-        
     }
     
 }

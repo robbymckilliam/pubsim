@@ -1,53 +1,29 @@
 /*
- * T2LogTOptimalV3.java
+ * NonCoherentPATReceiver.java
  *
- * Created on 11 October 2007, 11:53
+ * Created on 27 November 2007, 11:36
  */
 
 package simulator.qam;
 
 import java.util.Arrays;
-import simulator.Complex;
-import simulator.IndexedDouble;
 import simulator.VectorFunctions;
 
 /**
- * Same as T2LogTOptimalV2 but uses Dan's simpler calculation of the 
- * likelihood function.  The algorithm also avoids System.array.copy
- * and so is strictly O(T^2 LogT).
+ * Noncoherent receiver with a PAT symbol to remove ambiguities.
+ * This is a slow version of the receiver that simply checks all
+ * codewords on the plane and only returns those that satisfy the
+ * PAT symbol.  A faster version would only check codewords that
+ * are going to satisfy the PAT symbol.
  * @author Robby McKilliam
  */
-public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
+public class NonCoherentPATReceiver extends T2LogTOptimalV3 
+        implements QAMReceiver, PATSymbol {
     
-    protected IndexedDouble[] sorted;
-    
-    /** Set the size of the QAM array */
+    /** {@inheritDoc} */
     public void setQAMSize(int M){ this.M = M; }
     
-    /** 
-     * Set number of QAM signals to use for
-     * estimating the channel
-     */
-    public void setT(int T){
-        this.T = T;
-        
-        y1 = new double[2*T];
-        y2 = new double[2*T];
-        x = new double[2*T];
-        xopt = new double[2*T];
-        c = new double[2*T];
-        d = new double[2*T];
-        
-        dreal = new double[T];
-        dimag = new double[T];
-        
-        sorted = new IndexedDouble[(2*T-1)*(M-1)];
-        for(int m = 0; m < sorted.length; m++)
-            sorted[m] = new IndexedDouble();
-        
-    }
-    
-    /**Decode the QAM signal*/
+    /** {@inheritDoc} */
     public void decode(double[] rreal, double[] rimag){
         if( rreal.length != T )
             setT(rreal.length);
@@ -60,7 +36,7 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
         topt = 0; sopt = 0; kopt = 0;
         
         //for each type of line
-        for(int t = 0; t < 2*T; t+=2){
+        for(int t = 0; t < 2*T; t++){
             
             //calculate gradient for the 
             //line we are searching
@@ -70,9 +46,9 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
             //for the parallel lines of this type
             //only use the non-negative lines, this
             //removes half the ambiguities.
-            for(int k = 2; k <= M-2; k+=2){
+            for(int k = -M+2; k <= M-2; k+=2){
 
-                //calculate offest for the 
+                //calculate offset for the 
                 //line we are searching
                 for(int j = 0; j < 2*T; j++)
                     c[j] = k*y2[j]/y2[t];
@@ -154,44 +130,55 @@ public class T2LogTOptimalV3 extends T2LogTOptimal implements  QAMReceiver {
         //Write the best codeword into real and
         //imaginary vectors
         toRealImag(xopt, dreal, dimag);
-        
     }
     
-    protected double Lopt, aopt;
-    protected int topt, sopt, kopt;
     /** 
-     * Update the likelihood.
-     * This is in a separate function to limit code replication.
-     * Input is the position along current line to use and all the 
-     * internal likelihood variables.
+     * {@inheritDoc} 
+     * Only update the best codeword is the PAT symbol is satisfied
      */
     protected void updateL(double aL, int t, int k,
             double ar, double ai, double b){
-        //test the likelihood of the codeword on each
-        //side of the line, runs in constant time.
-        double L = (ar*ar + ai*ai)/b;       
-        if(L > Lopt){
-            Lopt = L;
-            aopt = aL;
-            topt = t;
-            kopt = k;
-            sopt = k+1;
-            //System.arraycopy(x,0,xopt,0,2*T);
-            //xopt[t] = k+1;
-        }
-        double ard = ar - 2*y1[t];
-        double aid = ai + 2*y2[t];
-        double bd = b - 4*x[t] + 4;
-        double Ln = (ard*ard + aid*aid)/bd;
-        if(Ln > Lopt){
-            Lopt = Ln;
-            aopt = aL;
-            topt = t;
-            kopt = k;
-            sopt = k-1;
-            //System.arraycopy(x,0,xopt,0,2*T);
-            //xopt[t] = k-1;
+        
+        //only update if the PAT symbol is satisfied
+        if(x[0] == realPATSymbol && x[1] == imagPATSymbol){        
+            //test the likelihood of the codeword on each
+            //side of the line, runs in constant time.
+            double L = (ar*ar + ai*ai)/b;       
+            if(L > Lopt){
+                Lopt = L;
+                aopt = aL;
+                topt = t;
+                kopt = k;
+                sopt = k+1;
+                //System.arraycopy(x,0,xopt,0,2*T);
+                //xopt[t] = k+1;
+            }
+            double ard = ar - 2*y1[t];
+            double aid = ai + 2*y2[t];
+            double bd = b - 4*x[t] + 4;
+            double Ln = (ard*ard + aid*aid)/bd;
+            if(Ln > Lopt){
+                Lopt = Ln;
+                aopt = aL;
+                topt = t;
+                kopt = k;
+                sopt = k-1;
+                //System.arraycopy(x,0,xopt,0,2*T);
+                //xopt[t] = k-1;
+            }         
         }
     }
+    
+    
+    protected double realPATSymbol, imagPATSymbol;
+    
+    /** {@inheritDoc} */
+    public void setPATSymbol(double real, double imag){
+        realPATSymbol = real;
+        imagPATSymbol = imag;
+    }
+    
+    public double getImagPatSymbol() { return imagPATSymbol; }
+    public double getRealPatSymbol() { return realPATSymbol; }
     
 }

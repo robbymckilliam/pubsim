@@ -22,7 +22,11 @@ public class NoiseVector implements SignalGenerator{
         iidsignal = new double[1];
     }
     
+    /** {@inheritDoc} */
     public void setLength(int n){ this.n = n; }
+    
+    /** {@inheritDoc} */
+    public int getLength() { return n; }
     
     public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;

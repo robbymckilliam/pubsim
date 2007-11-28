@@ -20,15 +20,15 @@ import simulator.*;
  */
 public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
-    private double[] transmittedSignal;
-    private double[] recievedSignal;
-    private NoiseGenerator noise;
-    private Random rand;
-    private double T;
-    private int n;
+    protected double[] transmittedSignal;
+    protected double[] recievedSignal;
+    protected NoiseGenerator noise;
+    protected double T;
+    protected int n;
+    protected Random random;
     
     public SparseNoisyPeriodicSignal(){
-            rand = new Random();
+            random = new Random();
             transmittedSignal = new double[0];
             recievedSignal = new double[0];
     }
@@ -40,17 +40,21 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     public void setPeriod(double T){  this.T = T; }
     public double getPeriod(){ return T; }
     
+    /** {@inheritDoc} */
     public void setLength(int n){
         this.n = n;
         transmittedSignal = new double[n];
         recievedSignal = new double[n];
     }
     
+    /** {@inheritDoc} */
+    public int getLength() {return n; }
+    
     public double[] generateSparseSignal(){
         double count = 0.0;
         int added = 0;
         while(added < n){
-            if(rand.nextBoolean()){
+            if(random.nextBoolean()){
                 transmittedSignal[added] = count;
                 added++;
             }
@@ -75,13 +79,9 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * the same answer.
      */
     public double[] generateSparseSignal(int length, long seed){
-        rand.setSeed(seed);      
+        random.setSeed(seed);      
         return generateSparseSignal(length);
     }
-    
-    /** Randomise the seed for generateSparseSignal */ 
-    public void randomSeed(){ rand = new Random(); }
-        
     
     /**
      * Generate a binomial sequence typical of a transmitted
@@ -106,4 +106,14 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     }
     public NoiseGenerator getNoiseGenerator(){ return noise; }
     
+    /**
+     * Set the seed for the random generator used
+     * to create the sparse signal
+     */
+    public void setSeed(long seed){
+        random.setSeed(seed);
+    }
+    
+    /** Randomise the seed for the sparse signal */ 
+    public void randomSeed(){ random = new Random(); }
 }

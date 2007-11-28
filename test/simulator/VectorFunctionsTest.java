@@ -40,11 +40,7 @@ public class VectorFunctionsTest extends TestCase {
         double[] expXi = {0, 1, 0, -1};
         double[] expXr = {10,1,-4 ,1};
         
-        VectorFunctions.slowFT(x, Xi, Xr);
-        
-                
-        System.out.println("Xi = " + VectorFunctions.print(Xi));
-        System.out.println("Xr = " + VectorFunctions.print(Xr));
+        VectorFunctions.slowFT(x, Xi, Xr);   
         
         for(int i = 0; i < x.length; i++){
             assertEquals(true, Math.abs(expXi[i] - Xi[i]) < 0.00001);

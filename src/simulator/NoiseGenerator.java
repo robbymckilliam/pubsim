@@ -20,18 +20,16 @@ public interface NoiseGenerator {
     public double getMean();
     public double getVariance();
     
-    /** Set the current seed the random generator */
-    public void setSeed(long seed);
-    
     /**
      * Returns a random variable from the noise
      * distribution.
      */
     public double getNoise();
     
-     /**
-     * Randomises the seed of the generator
-     */
+    /** Randomise the seed for the internal Random */ 
     public void randomSeed();
+    
+    /** Set the seed for the internal Random */
+    public void setSeed(long seed);
     
 }

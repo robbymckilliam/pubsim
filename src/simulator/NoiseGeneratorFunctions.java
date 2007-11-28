@@ -12,7 +12,8 @@ import java.util.Random;
  * Class that contains some standard functions for noise generators
  * @author Robby McKilliam
  */
-public abstract class NoiseGeneratorFunctions implements NoiseGenerator {
+public abstract class NoiseGeneratorFunctions 
+        implements NoiseGenerator {
     
     protected double mean;
     protected double stdDeviation;
@@ -32,7 +33,16 @@ public abstract class NoiseGeneratorFunctions implements NoiseGenerator {
     
     public abstract double getNoise();
     
-    /** {@inheritDoc} */
+    
+    public NoiseGeneratorFunctions(){
+        random = new Random();
+    }
+    
+    /** Randomise the seed for the internal Random */ 
     public void randomSeed(){ random = new Random(); }
+    
+    /** Set the seed for the internal Random */
+    public void setSeed(long seed) { random.setSeed(seed); }
+    
     
 }

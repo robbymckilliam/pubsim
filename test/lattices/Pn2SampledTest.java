@@ -44,7 +44,7 @@ public class Pn2SampledTest extends TestCase {
             tester.nearestPoint(y);
             
             double dist = VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint());
-            System.out.println("dist = " + dist);
+            //System.out.println("dist = " + dist);
             assertEquals(dist < 0.0001, true);
             
         }

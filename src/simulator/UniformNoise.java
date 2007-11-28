@@ -17,11 +17,11 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
     
     /** Creates a new instance of UniformNoise with specific variance and mean */
     public UniformNoise(double mean , double variance) {
+        super();
         this.mean = mean;
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
         range = 2.0 * Math.sqrt( 3.0 * variance );
-        random = new Random();
     }
     
     /** Creates UniformNoise with mean = 0.0 and variance = 1.0 */

@@ -18,10 +18,10 @@ public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGener
     
     /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
     public GaussianNoise() {
+        super();
         mean = 0.0;
         variance = 1.0;
         stdDeviation = 1.0;
-        random = new Random();
     }
     
     /** Creates a new instance of GaussianNoise with specific variance and mean */

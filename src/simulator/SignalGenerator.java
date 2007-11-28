@@ -14,4 +14,10 @@ public interface SignalGenerator {
     public double[] generateReceivedSignal();
     public void setNoiseGenerator(NoiseGenerator noise);
     public NoiseGenerator getNoiseGenerator();
+    
+    /** Set the length of the signal generated */
+    public void setLength(int n);
+    
+    /** Return the length of the signal generated */
+    public int getLength();
 }
