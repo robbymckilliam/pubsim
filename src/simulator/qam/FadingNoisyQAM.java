@@ -161,7 +161,8 @@ public class FadingNoisyQAM implements SignalGenerator{
                                     double[] yr, double[] yi){
         int ers = 0;
         for(int i = 0; i < xr.length; i++)
-            if( xr[i] != yr[i] || xi[i] != yi[i] ) ers++;
+            if( Math.round(xr[i]) != Math.round(yr[i]) 
+                || Math.round(xi[i]) != Math.round(yi[i]) ) ers++;
         
         return ers;
     }

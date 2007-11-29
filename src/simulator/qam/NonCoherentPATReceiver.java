@@ -15,6 +15,13 @@ import simulator.VectorFunctions;
  * codewords on the plane and only returns those that satisfy the
  * PAT symbol.  A faster version would only check codewords that
  * are going to satisfy the PAT symbol.
+ * <p>
+ * This wont actually work all that well anyway.  Just improving
+ * the estimate of the channel doesn't give that much gain.  What
+ * you can do is remove the ambiguities in such a way as to increase
+ * the separation between codewords (ie coding).  This is what Dan
+ * does for his RA tranmission scheme.  Whether this can be made
+ * more general (ie not just 16-QAM) I don't know.
  * @author Robby McKilliam
  */
 public class NonCoherentPATReceiver extends T2LogTOptimalV3 
@@ -36,7 +43,7 @@ public class NonCoherentPATReceiver extends T2LogTOptimalV3
         topt = 0; sopt = 0; kopt = 0;
         
         //for each type of line
-        for(int t = 0; t < 2*T; t++){
+        for(int t = 0; t < 2*T; t+=2){
             
             //calculate gradient for the 
             //line we are searching
@@ -46,7 +53,7 @@ public class NonCoherentPATReceiver extends T2LogTOptimalV3
             //for the parallel lines of this type
             //only use the non-negative lines, this
             //removes half the ambiguities.
-            for(int k = -M+2; k <= M-2; k+=2){
+            for(int k = 0; k <= M-2; k+=2){
 
                 //calculate offset for the 
                 //line we are searching
@@ -130,45 +137,29 @@ public class NonCoherentPATReceiver extends T2LogTOptimalV3
         //Write the best codeword into real and
         //imaginary vectors
         toRealImag(xopt, dreal, dimag);
-    }
-    
-    /** 
-     * {@inheritDoc} 
-     * Only update the best codeword is the PAT symbol is satisfied
-     */
-    protected void updateL(double aL, int t, int k,
-            double ar, double ai, double b){
         
-        //only update if the PAT symbol is satisfied
-        if(x[0] == realPATSymbol && x[1] == imagPATSymbol){        
-            //test the likelihood of the codeword on each
-            //side of the line, runs in constant time.
-            double L = (ar*ar + ai*ai)/b;       
-            if(L > Lopt){
-                Lopt = L;
-                aopt = aL;
-                topt = t;
-                kopt = k;
-                sopt = k+1;
-                //System.arraycopy(x,0,xopt,0,2*T);
-                //xopt[t] = k+1;
-            }
-            double ard = ar - 2*y1[t];
-            double aid = ai + 2*y2[t];
-            double bd = b - 4*x[t] + 4;
-            double Ln = (ard*ard + aid*aid)/bd;
-            if(Ln > Lopt){
-                Lopt = Ln;
-                aopt = aL;
-                topt = t;
-                kopt = k;
-                sopt = k-1;
-                //System.arraycopy(x,0,xopt,0,2*T);
-                //xopt[t] = k-1;
-            }         
+        //rotate so that the first symbol is the pilot
+        double absd0 = dreal[0]*dreal[0] + dimag[0]*dimag[0];
+        double invd0r = dreal[0]/absd0;
+        double invd0i = -dimag[0]/absd0;
+        
+        double mr = realPATSymbol*invd0r - imagPATSymbol*invd0i;
+        double mi = realPATSymbol*invd0i + imagPATSymbol*invd0r;
+        
+        //System.out.println("m = " + mr + " + i" + mi);
+        //System.out.println("d0 = " + dreal[0] + " + i" + dimag[0]);
+        //System.out.println((dreal[0]*mi + dimag[0]*mr));
+        
+        
+        for(int i = 0; i < T; i++){
+            double drtemp = dreal[i];
+            double ditemp = dimag[i];
+            dreal[i] = drtemp*mr - ditemp*mi;
+            dimag[i] = drtemp*mi + ditemp*mr;
         }
+          
+        
     }
-    
     
     protected double realPATSymbol, imagPATSymbol;
     
