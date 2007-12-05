@@ -55,7 +55,7 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
         
         double bestdist = Double.POSITIVE_INFINITY;
         double step = 1.0/num_samples;
-        for( double f = 0; f < 1.0; f+=step ){
+        for( double f = -0.5; f < 0.5; f+=step ){
             
             //calculate the next point on line to test
             for(int i=0; i<n+2; i++)

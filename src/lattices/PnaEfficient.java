@@ -29,12 +29,10 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
      */
     private double gtg;
     
-    /** {@inheritDoc} */
     public PnaEfficient(int a) { 
         super(a);
     }
     
-    /** {@inheritDoc}  */
     public PnaEfficient(int a, int n){
         super(a,n);
     }
