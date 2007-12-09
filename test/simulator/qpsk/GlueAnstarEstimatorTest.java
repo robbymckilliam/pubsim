@@ -23,14 +23,16 @@ public class GlueAnstarEstimatorTest extends TestCase {
     /**
      * Test of estimateFreq method, of class simulator.qpsk.GlueAnstarCarrierEstimator.
      */
-    public void testEstimateFreq() {
+    public void testEstimateCarrierFreq() {
         System.out.println("estimateFreq");
         
         int n = 15;
         int M = 4;
-        double transF = 1.0;
-        double symbF = 4;
-        double sampF = 20;
+        double transF = 0.1;
+        double fmin = 0.07;
+        double fmax = 0.13;
+        double symbF = 0.23;
+        double sampF = 1;
         double phase = 0.3;
         
         QPSKSignal sig = new QPSKSignal();
@@ -41,7 +43,7 @@ public class GlueAnstarEstimatorTest extends TestCase {
         sig.setLength(n);
         sig.setM(M);
         
-        GaussianNoise noise = new GaussianNoise(0, 0.001);
+        GaussianNoise noise = new GaussianNoise(0, 1);
         sig.setNoiseGenerator(noise);
         
         sig.generateTransmittedQPSKSignal();
@@ -55,8 +57,9 @@ public class GlueAnstarEstimatorTest extends TestCase {
         instance.setM(M);
         instance.setSize(n);
         
-        double result = sampF*instance.estimateFreq(rr, ri);
-        assertEquals(true, Math.abs(transF-result)<0.01);
+        double result = sampF*instance.estimateCarrierFrequency(rr, ri, fmin, fmax);
+        //assertEquals(true, Math.abs(transF-result)<0.01);
+        assertEquals(transF, result);
         
     }
     

@@ -21,7 +21,7 @@ import simulator.*;
  */
 public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
     
-    private Anstar anstar;
+    protected Anstar anstar;
     
     protected double[] g, vt, yt, y, ut;
     

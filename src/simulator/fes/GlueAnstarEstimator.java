@@ -16,28 +16,30 @@ import simulator.VectorFunctions;
  */
 public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator {
     
-    protected double[] y;
+    protected double[] ya;
     protected int N;
     
     /** Set the number of samples */
     public void setSize(int n){
         setDimension(n-2);  
-        y = new double[n];
+        ya = new double[n];
         N = n;
     }
     
-    /** Run the estimator on recieved data, @param y */
+    /**
+     * Run the estimator on recieved data, @param ya
+     */
     public double estimateFreq(double[] real, double[] imag){
         if(n+2 != real.length)
             setSize(real.length);
         
         for(int i = 0; i < real.length; i++)
-            y[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
+            ya[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
         
-        nearestPoint(y);
+        nearestPoint(ya);
         
         /*
-        System.out.println("y antan = " + VectorFunctions.print(y));
+        System.out.println("ya antan = " + VectorFunctions.print(ya));
         System.out.println("v = " + VectorFunctions.print(v));
         System.out.println("u = " + VectorFunctions.print(u));
         */
@@ -47,7 +49,7 @@ public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator 
         double sumn = N*(N+1)/2;
         double sumn2 = N*(N+1)*(2*N+1)/6;
         for(int i = 0; i < N; i++)
-            f += (N*(i+1) - sumn)*(y[i]-u[i]);
+            f += (N*(i+1) - sumn)*(ya[i]-u[i]);
         
         f /= (sumn2*N - sumn*sumn);
 
