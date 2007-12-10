@@ -35,7 +35,7 @@ public class AnstarNew extends Anstar implements LatticeNearestPointAlgorithm{
         
         double a = 0, b = 0;
         for(int i = 0; i < n + 1; i++){
-            z[i].value = Math.round(y[i]) - y[i];
+            z[i].value = y[i] - Math.round(y[i]);
             z[i].index = i;
             a += z[i].value;
             b += z[i].value * z[i].value;
@@ -51,15 +51,15 @@ public class AnstarNew extends Anstar implements LatticeNearestPointAlgorithm{
                 D = dist;
                 m = i;
             }
-            a += 1;
-            b += 2*z[i].value + 1;
+            a -= 1;
+            b += -2*z[n-i].value + 1;
         }
         
         for(int i = 0; i < n + 1; i++)
             u[i] = Math.round(y[i]);
         
         for(int i = 0; i < m; i++)
-            u[z[i].index] += 1;
+            u[z[n-i].index] += 1;
         
         project(u, v);
            

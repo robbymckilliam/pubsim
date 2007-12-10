@@ -49,6 +49,7 @@ public class AnstarNewTest extends TestCase {
             v_instance = instance.getLatticePoint();
             v_tester = tester.getLatticePoint();
             Anstar.project(y,x);
+            System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         }
         
