@@ -34,7 +34,6 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
         double phase = 0.3;
         
         QPSKSignal sig = new QPSKSignal();
-        sig.setSampleRate(sampF);
         sig.setSymbolRate(symbF);
         sig.setCarrierPhase(phase);
         sig.setCarrierFrequency(transF);

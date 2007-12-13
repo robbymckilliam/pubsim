@@ -33,10 +33,8 @@ public class QPSKSignalTest extends TestCase {
         int M = 4;
         double transF = 0;
         double symbF = 4;
-        double sampF = 20;
         
         QPSKSignal instance = new QPSKSignal();
-        instance.setSampleRate(sampF);
         instance.setSymbolRate(symbF);
         instance.setCarrierFrequency(transF);
         instance.setLength(n);
@@ -56,7 +54,7 @@ public class QPSKSignalTest extends TestCase {
         for(int i = 0; i < n; i++){
             double t = Math.atan2(ri[i],rr[i]);
             if(t < 0.0) t += 2*Math.PI;
-            assertEquals(trans[(int)Math.floor(i*symbF/sampF)], 
+            assertEquals(trans[(int)Math.floor(i*symbF)], 
                     M*t/(2*Math.PI) - 0.5);
         }
         
@@ -75,7 +73,6 @@ public class QPSKSignalTest extends TestCase {
         double sampF = 10;
         
         QPSKSignal instance = new QPSKSignal();
-        instance.setSampleRate(sampF);
         instance.setSymbolRate(symbF);
         instance.setCarrierFrequency(transF);
         instance.setLength(n);

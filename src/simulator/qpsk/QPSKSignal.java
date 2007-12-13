@@ -6,6 +6,7 @@
 
 package simulator.qpsk;
 
+import java.util.LinkedList;
 import java.util.Random;
 import simulator.NoiseGenerator;
 import simulator.SignalGenerator;
@@ -20,7 +21,6 @@ public class QPSKSignal implements SignalGenerator{
     protected Random random;
     protected double symF;
     protected double transF;
-    protected double sampF;
     protected double phase;
     
     protected int n;
@@ -51,8 +51,8 @@ public class QPSKSignal implements SignalGenerator{
     public double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++){
             double phase = 
-                2*Math.PI*(0.5 + trans[(int)Math.floor(i*symF/sampF)])/M;
-            double t = 2*Math.PI*transF*i/sampF + phase + this.phase;
+                2*Math.PI*(0.5 + trans[(int)Math.floor(i*symF)])/M;
+            double t = 2*Math.PI*transF*i + phase + this.phase;
             recReal[i] = Math.cos(t) + noise.getNoise();
             recImag[i] = Math.sin(t) + noise.getNoise();
         }
@@ -85,7 +85,7 @@ public class QPSKSignal implements SignalGenerator{
     }
     
     protected void setTransmittedSignalLength(){
-        numSymbols = (int) Math.floor(n*symF/sampF) + 1;
+        numSymbols = (int) Math.floor(n*symF) + 1;
         trans = new double[numSymbols];
     }
     
@@ -110,16 +110,6 @@ public class QPSKSignal implements SignalGenerator{
      * QPSK symbols.
      */
     public void setCarrierFrequency(double f){ transF = f; }
-    
-    /** 
-     * Set the period of the samples that are made
-     * of the QPSK signal.  This is the
-     * sample rate of the ADC used in practice.
-     */ 
-    public void setSampleRate(double f){
-        sampF = f;
-        setTransmittedSignalLength();
-    }
     
     /** 
      * Set the number of QPSK symbols that are in 
@@ -153,5 +143,67 @@ public class QPSKSignal implements SignalGenerator{
     
     /** Randomise the seed */ 
     public void randomSeed(){ random = new Random(); }
+    
+    /** 
+     * Generates, stores and compares lists of QPSK symbols.
+     * Stores Differnetially encoded symbols.  ie. the 
+     * difference between consecutive symbols rather than
+     * the symbols themselves.
+     * <p>
+     * Comparisons between two lists return the symbol error
+     * rate for the differentially encoded symbols.
+     */
+    public static class SymbolGenerator {
+        private LinkedList<Integer> slist;
+        private int M;
+        private Random random;
+        
+        int lastsym;
+        
+        public SymbolGenerator(){
+            slist = new LinkedList<Integer>();
+            setM(4);
+        }
+        
+        public void setM(int M){
+            this.M = M;
+            lastsym = M+1;
+        }
+        
+        public void addSymbol(int sym){
+            slist.add(new Integer(sym));
+        }
+        
+        public LinkedList<Integer> getList(){ return slist; }
+        
+        /** 
+         * Generate and return another symbol.
+         * Also add the symbol to the list.
+         */
+        public int generateNextSymbol(){
+            int sym =  random.nextInt(M);
+            //this is not good practice.  M+1 is used
+            //so that I know this is the first symbol generated
+            if(lastsym != M+1)
+                addSymbol(sym - lastsym);
+            lastsym = sym;
+            return sym;
+        }
+        
+        /** 
+         * Calcualat the number of symbol errors between two lists
+         * of symbols.
+         */
+        public long errors(SymbolGenerator s1){
+            LinkedList<Integer> slist1 = s1.getList();
+            long errs = 0;
+            while(!slist1.isEmpty() && !slist.isEmpty()){
+                if(slist1.remove().intValue() != slist.remove().intValue())
+                    errs++;
+            }
+            return errs;
+        }
+            
+    }
     
 }

@@ -105,6 +105,16 @@ public class VectorFunctions {
     }
     
     /**
+     * Return the vector with each element rounded to
+     * the nearest integer.
+     * Pre: x.length = y.length
+     */
+    public static void round(double[] x, double[] y){
+        for(int i = 0; i < x.length; i++)
+            y[i] = Math.round(x[i]); 
+    }
+    
+    /**
      * Return the squared sum of a vector
      */
     public static double sum2(double[] x){

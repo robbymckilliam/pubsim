@@ -17,9 +17,21 @@ package simulator.qpsk;
 public interface CarrierEstimator {
     
     /** Set the number of samples */
-    public void setSize(int n);
+    void setSize(int n);
     
-    double estimateCarrierFrequency(double[] real, double[] imag, 
-            double fmin, double fmax);
+    /** Input is the phase of the reqcieved QPSK signal */
+    void estimateCarrier(double[] y);
+    
+    /** Return the estimated phase */
+    double getPhase();
+    
+    /** Return the estiamted freqenucy */
+    double getFreqency();
+    
+    /** Set the maximum allowed frequency */
+    void setFmin(double fmin);
+    
+    /** Set the minimum allowed frequency */
+    void setFmax(double fmax);
     
 }

@@ -17,20 +17,46 @@ public class GlueAnstarCarrierEstimator extends lattices.Pn2Glued
         implements CarrierEstimator{
     
     protected int M;
-    protected double[] ya;
+    protected double[] marg;
     protected int N;
     
     protected double fmin, fmax;
+    protected double phase, frequency;
     
-    public void setM(int M){
-        this.M = M;
+    
+    /** Return the estimated phase */
+    public double getPhase(){
+        return phase;
+    }
+    
+    /** Return the estiamted freqenucy */
+    public double getFreqency(){
+        return frequency;
+    }
+    
+    /** Set the maximum allowed frequency */
+    public void setFmin(double fmin) {
+        this.fmin = fmin;
+    }
+    
+    /** 
+     * Set the minimum allowed frequency 
+     * Set this to M*fmin
+     */
+    public void setFmax(double fmax){
+        this.fmax = fmax;
     }
     
     /** Set the number of samples */
     public void setSize(int n){
         setDimension(n-2);  
-        ya = new double[n];
+        marg = new double[n];
         N = n;
+    }
+    
+    /** Set to M-ary QPSK */
+    public void setM(int M){
+        this.M = M;
     }
     
     /** 
@@ -39,28 +65,25 @@ public class GlueAnstarCarrierEstimator extends lattices.Pn2Glued
      * solution to the nearest lattice point algorithm to really
      * make this work.
      */
-    public double estimateCarrierFrequency(double[] real, double[] imag, 
-            double fmin, double fmax){
+    public void estimateCarrier(double[] arg){
         
-        this.fmin = fmin;
-        this.fmax = fmax;
+        if(n+2 != arg.length)
+            setSize(arg.length);
         
-        if(n+2 != real.length)
-            setSize(real.length);
+        for(int i = 0; i < arg.length; i++)
+            marg[i] = M*arg[i];
         
-        for(int i = 0; i < real.length; i++)
-            ya[i] = M * Math.atan2(imag[i],real[i])/(2*Math.PI);
-        
-        nearestPoint(ya);
+        nearestPoint(marg);
         
         //calculate f from the nearest point
         double f = 0;
         double sumn = N*(N+1)/2;
         double sumn2 = N*(N+1)*(2*N+1)/6;
         for(int i = 0; i < N; i++)
-            f += (N*(i+1) - sumn)*(ya[i]-u[i]);
+            f += (N*(i+1) - sumn)*(marg[i]-u[i]);
         
-        f /= M*(sumn2*N - sumn*sumn);
+        frequency = f/(M*(sumn2*N - sumn*sumn));
+        
         
         /*double f = 0;
         double sumn2 = N*(N+1)*(2*N+1)/6;
@@ -70,7 +93,6 @@ public class GlueAnstarCarrierEstimator extends lattices.Pn2Glued
         
         f /= M*(sumn2 - sumn*sumn/N);*/
         
-        return f;
     }
     
      public void nearestPoint(double[] y){
