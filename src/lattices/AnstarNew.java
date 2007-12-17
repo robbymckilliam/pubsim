@@ -43,7 +43,7 @@ public class AnstarNew extends Anstar implements LatticeNearestPointAlgorithm{
         
         Arrays.sort(z);
         
-        double D = Double.POSITIVE_INFINITY;
+        double D = b - a*a/(n+1);
         int m = 0;
         for(int i = 0; i < n + 1; i++){
             double dist = b - a*a/(n+1);
