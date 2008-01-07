@@ -18,4 +18,8 @@ public class IndexedDouble implements Comparable{
         return Double.compare(value, co.value);
     } 
    
+    public String toString() {
+        return "(" + index + ", " + value + ")";
+    }
+    
 }
