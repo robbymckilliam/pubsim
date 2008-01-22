@@ -23,6 +23,7 @@ import simulator.*;
  */
  public class BresenhamEstimator extends Anstar implements PRIEstimator {
 
+    int m;
     double f, nextf;
     double[] z, sumz, sumv, kappa;
     Double[] phi;
