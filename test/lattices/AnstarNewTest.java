@@ -8,9 +8,7 @@
 package lattices;
 
 import junit.framework.*;
-import simulator.IndexedDouble;
 import simulator.VectorFunctions;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -52,6 +50,13 @@ public class AnstarNewTest extends TestCase {
             System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         }
+        
+        //this is actually a test for the matlab code sent to Warren Smith
+        double[] yMTest = {1.1393, 10.6677, 0.5928, -0.9565, -8.3235};
+        double[] Mres = {0.2000, 10.2000, 0.2000, -1.8000, -8.8000};
+        instance.nearestPoint(yMTest);
+        assertEquals(VectorFunctions.distance_between(Mres,  instance.getLatticePoint()) < 0.00001, true);
+        
         
     }
     

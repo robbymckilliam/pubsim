@@ -8,7 +8,7 @@ import simulator.*;
  */
 public class Anstar implements LatticeNearestPointAlgorithm{
 
-    protected int m;
+    //protected int m;
     protected int[] s, tmps;
     protected Double[] delta;
     protected double[] x;
@@ -16,6 +16,7 @@ public class Anstar implements LatticeNearestPointAlgorithm{
     protected int n = 0;
     protected double[] u, v;
 
+    @Override
     public void setDimension(int n) {
 	this.n = n;
 	// Allocate some space for arrays
@@ -28,6 +29,7 @@ public class Anstar implements LatticeNearestPointAlgorithm{
 	delta = new Double[n+1];
     }
     
+    @Override
     public void nearestPoint(double[] y) {
 	if (n != y.length-1)
 	    setDimension(y.length-1);
@@ -57,7 +59,7 @@ public class Anstar implements LatticeNearestPointAlgorithm{
 
 	// Algorithm 2
 
-	m = 0;
+	int m = 0;
 	while (delta[s[m]].doubleValue() < (double) m / (n+1) - 0.5) {
 	    u[s[m]]--;
 	    m++;

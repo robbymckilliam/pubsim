@@ -24,6 +24,7 @@ public class AnstarHalfSort extends Anstar implements LatticeNearestPointAlgorit
     private IndexedDouble[] z;
     private double[] projy, au, av, fu, fv;
     
+    @Override
     public void setDimension(int n){
         this.n = n;
         au = new double[n+1];
@@ -36,6 +37,7 @@ public class AnstarHalfSort extends Anstar implements LatticeNearestPointAlgorit
             z[i] = new IndexedDouble();
     }
     
+    @Override
     public void nearestPoint(double[] y){
         if (n != y.length-1)
 	    setDimension(y.length-1);

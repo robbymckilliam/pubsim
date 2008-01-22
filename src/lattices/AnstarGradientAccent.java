@@ -30,6 +30,7 @@ public class AnstarGradientAccent extends Anstar
     /**Finish variable for the Newton step */
     static final double EPSILON = 1e-7;
     
+    @Override
     public void setDimension(int n) {
 	this.n = n;     
 	//u = new double[n+1];
@@ -38,6 +39,7 @@ public class AnstarGradientAccent extends Anstar
         fd = new double[n+1];
     }
     
+    @Override
     public void nearestPoint(double[] y) {
         
         project(y,v);

@@ -7,7 +7,6 @@
 package lattices;
 
 import simulator.IndexedDouble;
-import simulator.VectorFunctions;
 import java.util.Arrays;
 
 /**
@@ -20,6 +19,7 @@ public class AnstarNew extends Anstar implements LatticeNearestPointAlgorithm{
     
     private IndexedDouble[] z;
     
+    @Override
     public void setDimension(int n){
         this.n = n;
         u = new double[n+1];
@@ -29,6 +29,7 @@ public class AnstarNew extends Anstar implements LatticeNearestPointAlgorithm{
             z[i] = new IndexedDouble();
     }
     
+    @Override
     public void nearestPoint(double[] y){
         if (n != y.length-1)
 	    setDimension(y.length-1);
@@ -45,7 +46,7 @@ public class AnstarNew extends Anstar implements LatticeNearestPointAlgorithm{
         
         double D = b - a*a/(n+1);
         int m = 0;
-        for(int i = 0; i < n + 1; i++){
+        for(int i = 0; i < n+1; i++){
             double dist = b - a*a/(n+1);
             if(dist < D){
                 D = dist;
