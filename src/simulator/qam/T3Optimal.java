@@ -26,12 +26,14 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
     }
     
     /** Set the size of the QAM array */
+    @Override
     public void setQAMSize(int M){ this.M = M; }
     
     /** 
     * Set number of QAM signals to use for
     * estimating the channel
     */
+    @Override
     public void setT(int T){
         this.T = T;
         
@@ -46,6 +48,7 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
     }
     
     /**Decode the QAM signal*/
+    @Override
     public void decode(double[] rreal, double[] rimag){
         if( rreal.length != T )
             setT(rreal.length);
@@ -123,12 +126,14 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
      * Get the real part of the decoded QAM signal.
      * Call decode first.
      */
+    @Override
     public double[] getReal(){ return dreal;}
     
     /** 
      * Get the imaginary part of the decoded QAM signal.
      * Call decode first.
      */
+    @Override
     public double[] getImag(){ return dimag;}
     
 }
