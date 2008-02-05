@@ -13,14 +13,24 @@ import simulator.VectorFunctions;
  *
  * @author Robby
  */
-public class AnstarBucketTest extends TestCase {
+public class AnstarBucketWithArrayTest extends TestCase {
     
-    public AnstarBucketTest(String testName) {
+    public AnstarBucketWithArrayTest(String testName) {
         super(testName);
     }            
 
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
+
     /**
-     * Test of nearestPoint method, of class AnstarBucket.
+     * Test of nearestPoint method, of class AnstarBucketWithArray.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
@@ -31,7 +41,7 @@ public class AnstarBucketTest extends TestCase {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[n];
-        AnstarBucket instance = new AnstarBucket();
+        AnstarBucketWithArray instance = new AnstarBucketWithArray();
         Anstar tester = new Anstar();
         
         instance.setDimension(n - 1);
@@ -54,7 +64,6 @@ public class AnstarBucketTest extends TestCase {
         double[] Mres = {0.2000, 10.2000, 0.2000, -1.8000, -8.8000};
         instance.nearestPoint(yMTest);
         assertEquals(VectorFunctions.distance_between(Mres,  instance.getLatticePoint()) < 0.00001, true);
-        
     }
 
 }
