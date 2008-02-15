@@ -7,6 +7,7 @@
 package simulator.pes;
 
 import java.util.Random;
+import lattices.Anstar;
 import simulator.*;
 
 /**
@@ -33,19 +34,21 @@ public class ModifiedLLSFixedSearch extends ShatErrorTesterLLS implements PRIEst
         }
     }
     
+    @Override
     public double estimateFreq(double[] y, double fmin, double fmax) {
-	if (n != y.length-1)
+	if (n != y.length)
 	    setSize(y.length);
-	project(y, zeta);
+	Anstar.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fsearch[0];
        
 	for (int k = 0; k < fsearch.length; k++) {
-	    for (int i = 0; i <= n; i++)
+	    for (int i = 0; i < n; i++)
 		fzeta[i] = fsearch[k] * zeta[i];
-	    nearestPoint(fzeta);
+	    lattice.nearestPoint(fzeta);
+            double[] v = lattice.getLatticePoint();
 	    double sumz2 = 0, sumvz = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		//sumv2 += v[i] * v[i];
                 sumz2 += zeta[i] * zeta[i];
 		sumvz += v[i] * zeta[i];
@@ -53,7 +56,7 @@ public class ModifiedLLSFixedSearch extends ShatErrorTesterLLS implements PRIEst
 	    //double f0 = sumv2 / sumvz;
             double f0 = sumvz / sumz2;
 	    double L = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
                 double diff = v[i] - (f0 * zeta[i]);
 		L += diff * diff;
 	    }

@@ -68,13 +68,12 @@ public class AnLLSTest extends TestCase {
         System.out.println("round");
         
         int N = 0;
-        AnLLS instance = new AnLLS();
-        assertEquals(-2.0, instance.round(-1.5));
-        assertEquals(-2.0, instance.round(-1.6));
-        assertEquals(-1.0, instance.round(-1.3));
-        assertEquals(2.0, instance.round(1.5));
-        assertEquals(2.0, instance.round(1.6));
-        assertEquals(1.0, instance.round(1.3));
+        assertEquals(-2.0, AnLLS.round(-1.5));
+        assertEquals(-2.0, AnLLS.round(-1.6));
+        assertEquals(-1.0, AnLLS.round(-1.3));
+        assertEquals(2.0, AnLLS.round(1.5));
+        assertEquals(2.0, AnLLS.round(1.6));
+        assertEquals(1.0, AnLLS.round(1.3));
     }
     
     
@@ -85,13 +84,12 @@ public class AnLLSTest extends TestCase {
         System.out.println("round");
         
         int N = 0;
-        AnLLS instance = new AnLLS();
-        assertEquals(-2.0, instance.nround(-1.5));
-        assertEquals(-2.0, instance.nround(-1.6));
-        assertEquals(-1.0, instance.nround(-1.3));
-        assertEquals(1.0, instance.nround(1.5));
-        assertEquals(2.0, instance.nround(1.6));
-        assertEquals(1.0, instance.nround(1.3));
+        assertEquals(-2.0, AnLLS.nround(-1.5));
+        assertEquals(-2.0, AnLLS.nround(-1.6));
+        assertEquals(-1.0, AnLLS.nround(-1.3));
+        assertEquals(1.0, AnLLS.nround(1.5));
+        assertEquals(2.0, AnLLS.nround(1.6));
+        assertEquals(1.0, AnLLS.nround(1.3));
     }
     
         /**
@@ -101,13 +99,12 @@ public class AnLLSTest extends TestCase {
         System.out.println("round");
         
         int N = 0;
-        AnLLS instance = new AnLLS();
-        assertEquals(-1.0, instance.pround(-1.5));
-        assertEquals(-2.0, instance.pround(-1.6));
-        assertEquals(-1.0, instance.pround(-1.3));
-        assertEquals(2.0, instance.pround(1.5));
-        assertEquals(2.0, instance.pround(1.6));
-        assertEquals(1.0, instance.pround(1.3));
+        assertEquals(-1.0, AnLLS.pround(-1.5));
+        assertEquals(-2.0, AnLLS.pround(-1.6));
+        assertEquals(-1.0, AnLLS.pround(-1.3));
+        assertEquals(2.0, AnLLS.pround(1.5));
+        assertEquals(2.0, AnLLS.pround(1.6));
+        assertEquals(1.0, AnLLS.pround(1.3));
     }
 
     /**
@@ -137,7 +134,7 @@ public class AnLLSTest extends TestCase {
         
         double expResult = T;
         double result = instance.estimateFreq(y, fmin, fmax);
-        assertEquals(expResult, result);
+        assertEquals(Math.abs(expResult-result) < 0.001, true);
 
     }
     

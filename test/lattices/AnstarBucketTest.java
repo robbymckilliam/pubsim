@@ -19,13 +19,24 @@ public class AnstarBucketTest extends TestCase {
         super(testName);
     }            
 
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
+
     /**
      * Test of nearestPoint method, of class AnstarBucket.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 1000;
+        int numTrials = 10000;
+        int n = 34;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;
@@ -36,7 +47,7 @@ public class AnstarBucketTest extends TestCase {
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);
-        for(int i=0; i<50; i++){
+        for(int i=0; i<numTrials; i++){
             for(int k = 0; k < n; k++){
                 y[k] = ( rand.nextGaussian() - 0.5 )*10.0;
             }
@@ -45,7 +56,7 @@ public class AnstarBucketTest extends TestCase {
             v_instance = instance.getLatticePoint();
             v_tester = tester.getLatticePoint();
             Anstar.project(y,x);
-            System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
+            //System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         }
         
@@ -54,7 +65,6 @@ public class AnstarBucketTest extends TestCase {
         double[] Mres = {0.2000, 10.2000, 0.2000, -1.8000, -8.8000};
         instance.nearestPoint(yMTest);
         assertEquals(VectorFunctions.distance_between(Mres,  instance.getLatticePoint()) < 0.00001, true);
-        
     }
 
 }

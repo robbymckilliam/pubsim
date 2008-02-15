@@ -6,8 +6,6 @@
 
 package simulator.fes;
 
-import lattices.Pn2;
-
 /**
  * Use the faster O(n^3 log(n)) Pn2 nearest point algorithm that
  * is a specialisation of the ZnLLS algorithm for the period
@@ -15,7 +13,7 @@ import lattices.Pn2;
  * 
  * @author Tim Mason and Robby McKilliam
  */
-public class ZnLLS extends Pn2 implements FrequencyEstimator{
+public class ZnLLS implements FrequencyEstimator{
     
     /** Set the number of samples */
     public void setSize(int n){

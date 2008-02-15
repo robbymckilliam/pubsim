@@ -63,8 +63,8 @@ class PlotObjective {
 	    estimator.calculateObjective(y, f);
 	    double sumv2 = 0, sumvz = 0;
 	    for (int i = 0; i < N; i++) {
-		sumv2 += estimator.getLatticePoint()[i] * estimator.getLatticePoint()[i];
-		sumvz += estimator.getLatticePoint()[i] * estimator.zeta[i];
+	//	sumv2 += estimator.getLatticePoint()[i] * estimator.getLatticePoint()[i];
+	//	sumvz += estimator.getLatticePoint()[i] * estimator.zeta[i];
 	    }
 	    double f0 = sumv2 / sumvz;
 	    System.out.println("" + f0 + " "

@@ -40,7 +40,7 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
         sig.setLength(n);
         sig.setM(M);
         
-        GaussianNoise noise = new GaussianNoise(0, 0.001);
+        GaussianNoise noise = new GaussianNoise(0, 0.0001);
         sig.setNoiseGenerator(noise);
         
         sig.generateTransmittedQPSKSignal();
@@ -50,7 +50,7 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
         double[] rr = sig.getReal();
         double[] ri = sig.getImag();
         
-        SamplingLatticeCarrierEstimator instance = new SamplingLatticeCarrierEstimator();
+        SamplingLatticeCarrierEstimator instance = new SamplingLatticeCarrierEstimator(100);
         instance.setM(M);
         instance.setSize(n);
         

@@ -8,8 +8,6 @@
 package simulator.fes;
 
 import junit.framework.*;
-import lattices.Pn2Glued;
-import simulator.VectorFunctions;
 
 /**
  *
@@ -35,6 +33,7 @@ public class GlueAnstarEstimatorTest extends TestCase {
         NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
         signal.setSize(n);
         signal.setFrequency(f);
+        signal.setPhase(0.3);
         simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.0001);
         signal.setNoiseGenerator(noise);
         

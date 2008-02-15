@@ -6,7 +6,8 @@
 
 package simulator.pes;
 
-import java.lang.ArrayIndexOutOfBoundsException;
+import lattices.Anstar;
+import lattices.AnstarBucket;
 import simulator.*;
 
 /**
@@ -81,12 +82,15 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
     /**
      * Reimplemented setSize to also set the size of bestU array
      */
-    public void setSize(int N) {
-	setDimension(N-1); // => n = N-1
-	zeta = new double[N];
-	fzeta = new double[N];
-	kappa = new double[N];
-        bestU = new double[N];
+    @Override
+    public void setSize(int n) {
+        lattice = new AnstarBucket();
+	lattice.setDimension(n-1); // => n = N-1
+	zeta = new double[n];
+	fzeta = new double[n];
+	kappa = new double[n];
+        bestU = new double[n];
+        this.n = n;
     }
     
     /**
@@ -94,24 +98,25 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
      * comparison
      */
     public double estimateFreq(double[] y, double fmin, double fmax) {
-	if (n != y.length-1)
+	if (n != y.length)
 	    setSize(y.length);
-	project(y, zeta);
+	Anstar.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
 	for (double f = fmin; f <= fmax; f += fstep) {
-	    for (int i = 0; i <= n; i++)
+	    for (int i = 0; i < n; i++)
 		fzeta[i] = f * zeta[i];
-	    nearestPoint(fzeta);
+	    lattice.nearestPoint(fzeta);
+            double[] v = lattice.getLatticePoint();
 	    double sumv2 = 0, sumvz = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		sumv2 += v[i] * v[i];
 		sumvz += v[i] * zeta[i];
 	    }
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		double diff = zeta[i] - (v[i] / f0);
                 //double diff = fzeta[i] - v[i];
 		L += diff * diff;
@@ -121,7 +126,7 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
 		bestL = L;
                 //System.out.println(bestL);
 		fhat = f0;
-                bestU = u.clone();
+                bestU = lattice.getIndex().clone();
                 likelihood = -L;
 	    }
 	}

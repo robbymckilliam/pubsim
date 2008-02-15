@@ -6,37 +6,41 @@
 
 package simulator.fes;
 
+import lattices.LatticeNearestPointAlgorithm;
 import lattices.Pn2Glued;
-import simulator.VectorFunctions;
 
 /**
  * Frequency estimator that uses Pn1 glue vector algorithm to solve the nearest
  * point problem for the frequency estimation lattice Pn1.  O(n^4log(n)).
  * @author Robby McKilliam
  */
-public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator {
+public class GlueAnstarEstimator implements FrequencyEstimator {
     
     protected double[] ya;
-    protected int N;
+    protected int n;
+    protected LatticeNearestPointAlgorithm lattice;
     
     /** Set the number of samples */
+    @Override
     public void setSize(int n){
-        setDimension(n-2);  
+        lattice = new Pn2Glued();
+        lattice.setDimension(n-2);  
         ya = new double[n];
-        N = n;
+        this.n = n;
     }
     
     /**
      * Run the estimator on recieved data, @param ya
      */
+    @Override
     public double estimateFreq(double[] real, double[] imag){
-        if(n+2 != real.length)
+        if(n != real.length)
             setSize(real.length);
         
         for(int i = 0; i < real.length; i++)
             ya[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
         
-        nearestPoint(ya);
+        lattice.nearestPoint(ya);
         
         /*
         System.out.println("ya antan = " + VectorFunctions.print(ya));
@@ -45,13 +49,24 @@ public class GlueAnstarEstimator extends Pn2Glued implements FrequencyEstimator 
         */
         
         //calculate f from the nearest point
-        double f = 0;
-        double sumn = N*(N+1)/2;
-        double sumn2 = N*(N+1)*(2*N+1)/6;
-        for(int i = 0; i < N; i++)
-            f += (N*(i+1) - sumn)*(ya[i]-u[i]);
+        /*double f = 0;
+        double sumn = n*(n+1)/2;
+        double sumn2 = n*(n+1)*(2*n+1)/6;
+        double[] u = lattice.getIndex();
+        for(int i = 0; i < n; i++)
+            f += (n*(i+1) - sumn)*(ya[i]-u[i]);
         
-        f /= (sumn2*N - sumn*sumn);
+        f /= (sumn2*n - sumn*sumn);
+        */
+        double f = 0, gtg = 0;
+        double meann = (n-1)/2.0;
+        double[] u = lattice.getIndex();
+        for(int i = 0; i < n; i++){
+            f += (i - meann)*(ya[i]-u[i]);
+            gtg += (i - meann)*(i - meann);
+        }
+        f /= gtg;
+        
 
         //System.out.println("f = " + f);
         

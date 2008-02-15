@@ -7,7 +7,6 @@
 package lattices;
 
 import Jama.Matrix;
-import java.util.ArrayList;
 import simulator.VectorFunctions;
 
 /**
@@ -37,32 +36,13 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
         super(a,n);
     }
     
-    /** 
-     * Creates a PnaEfficient with a holder.  This is protected
-     * because is should only be used to create the PnaEfficient
-     * objects that are contained in the holder list.
-     * The list is created when setDimension is called
-     */
-    protected PnaEfficient(PnaEfficient pnam1, int a, int n) { 
-        super(a);
-        this.pnam1 = pnam1;
-        this.n =  n;
-        u = new double[n + a];
-        v = new double[n + a];
-        yt = new double[n + a];
-        yp = new double[n + a];
-        createg();
-        gtg = VectorFunctions.sum2(g);
-    }
-    
+    @Override
     public void setDimension(int n){
         this.n =  n;
         
-        //setup pnam1 and all Pna under it
-        PnaEfficient prevpna = new PnaEfficient(null, 0, n+a);
-        for(int i = 0; i < a; i++)
-            prevpna = new PnaEfficient(prevpna, i, n + a - i);
-        this.pnam1 = prevpna;
+        //setup pnam1
+        if(a > 0)
+            pnam1 = new PnaEfficient(a-1, n+1);
         
         u = new double[n + a];
         v = new double[n + a];
@@ -72,6 +52,7 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
         gtg = VectorFunctions.sum2(g);
     }
     
+    @Override
     public void nearestPoint(double[] y){
         if(u.length != y.length)
             setDimension(y.length-a);
@@ -82,7 +63,8 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
         double Dmin = Double.POSITIVE_INFINITY;
         if(a > 0){       
             double magg = Math.sqrt(gtg);
-            double step = 8*magg/Math.pow(n,a);
+            double step = magg/Math.pow(n,a);
+            //double step = 8*magg/Math.pow(n,a);
             for(double s = 0; s < magg; s+=step){
                 for(int i = 0; i < y.length; i++)
                     yt[i] = y[i] + s*g[i];
@@ -139,6 +121,7 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
     }
     
     /** {@inheritDoc} */
+    @Override
     public double volume(){
         //if this is the Zn lattice
         if(a == 0){

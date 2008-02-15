@@ -8,7 +8,6 @@
 package lattices;
 
 import junit.framework.*;
-import java.util.ArrayList;
 import simulator.VectorFunctions;
 
 /**
@@ -66,12 +65,11 @@ public class PnaEfficientTest extends TestCase {
         double[] x = {1,4,5,2,1};
         double[] y = new double[x.length];
         int a = 2;
-        PnaEfficient pna = new PnaEfficient(a);
         
         //from matlab
         double[] exp = {-2, 1.2, 2.4 ,-0.4, -1.2};
         
-        pna.project(x, y, a);
+        PnaEfficient.project(x, y, a);
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);
@@ -107,7 +105,7 @@ public class PnaEfficientTest extends TestCase {
         
         expres = 0.047564984401627;
         
-        assertEquals(true, Math.abs(pna.volume()- expres));
+        //assertEquals(true, Math.abs(pna.volume()- expres));
         assertEquals(true, Math.abs(pna.volume()- expres) < 0.00001);
     }
     

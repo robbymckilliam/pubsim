@@ -2,26 +2,29 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package lattices;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
- * This is the bucket sorting Anstar algorithm that should run
- * in o(n) time.  
- * I beleive that I have a proof that this should work and
- * that precisely n+1 buckets are required.
+ * Implementation of the O(n) Anstar bucket sorting algorithm
+ * with a specialised list implementation.  This has fixed 
+ * memory (no allocation/deallocation) and also O(n) memory
+ * requirements.  This implementation should be the fastest.
+ * It is also an implementation that lends itself to the C and
+ * C++ language rather that java.  It would be good to do
+ * performance tests in C.
  * @author Robby McKilliam
  */
-public class AnstarBucket extends Anstar
+public class AnstarBucket extends AnstarBucketSlowAllocation
         implements LatticeNearestPointAlgorithm {
-
-    private List<Integer>[] buckets;
-    private Integer[] ints;
+    
+    private IntList[] buckets;
+    private ListElem[] ints;
     private double[] z;
 
     @Override
@@ -31,11 +34,12 @@ public class AnstarBucket extends Anstar
         u = new double[n + 1];
         v = new double[n + 1];
         z = new double[n + 1];
-        ints = new Integer[n + 1];
-        buckets = new List[n+1];
+        ints = new ListElem[n + 1];
+        buckets = new IntList[n+1];
         for(int i = 0; i < n + 1; i++){
-            buckets[i] = new ArrayList<Integer>();
-            ints[i] = new Integer(i);
+            buckets[i] = new IntList();
+            ints[i] = new ListElem();
+            ints[i].value = i;
         }
     }
 
@@ -60,9 +64,9 @@ public class AnstarBucket extends Anstar
         double D = b - a*a/(n+1);
         int m = 0;
         for(int i = 0; i < n+1; i++){
-            Iterator<Integer> itr = buckets[i].iterator();
+            IntListIterator itr = buckets[i].iterator();
             while(itr.hasNext()){
-                int ind = itr.next().intValue();
+                int ind = itr.next().value;
                 a -= 1;
                 b += -2*z[ind] + 1;                
             }
@@ -77,9 +81,9 @@ public class AnstarBucket extends Anstar
             u[i] = Math.round(y[i]);
         
         for(int i = 0; i < m; i++){
-            Iterator<Integer> itr = buckets[i].iterator();
+            IntListIterator itr = buckets[i].iterator();
             while(itr.hasNext()){
-                int ind = itr.next().intValue();
+                int ind = itr.next().value;
                 u[ind] += 1;
             }
         }
@@ -88,4 +92,80 @@ public class AnstarBucket extends Anstar
         
     }
     
+    /** 
+     * Specialised list implementation for the bucket
+     * sorting algorithm.  This should be significantly
+     * faster than java's list implementations.  It
+     * allows a fixed memory implementation.
+     */
+    public class IntList{
+        protected int size;
+        protected ListElem current, first;
+        protected IntListIterator itr;
+        
+        public IntList(){
+            first = new ListElem();
+            current = first;
+            current.next = null;
+            size = 0;
+            itr = new IntListIterator(this);
+        }
+        
+        public boolean add(ListElem e){
+            current.next = e;
+            current = e;
+            current.next = null;
+            size++;
+            return true;
+        }
+        
+        public void clear(){
+            current = first;
+            current.next = null;
+            size = 0;
+        }
+        
+        public IntListIterator iterator(){
+            itr.reset(this);
+            return itr;
+        }
+        
+    }
+    
+    /** List element for IntList */
+    public class ListElem{
+        protected ListElem next;
+        protected int value;
+    }
+    
+    /** An iterator for IntList */
+    public class IntListIterator implements Iterator{
+        protected ListElem current;
+        
+        public IntListIterator(IntList list){
+            current = list.first;
+        }
+        
+        public void reset(IntList list){
+            current = list.first;
+        }
+        
+        @Override
+        public boolean hasNext(){
+            if(current.next == null) return false;
+            else return true;
+        }
+        
+        @Override
+        public ListElem next(){
+            current = current.next;
+            return current;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+    }
+
 }

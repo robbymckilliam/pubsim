@@ -21,12 +21,6 @@ public class ZnLLSTest extends TestCase {
         super(testName);
     }
 
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-    
     /**
      * Test of estimateFreq method, of class simulator.ZnLLS.
      */

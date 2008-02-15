@@ -35,6 +35,7 @@ public class Pna implements LatticeNearestPointAlgorithm{
         setDimension(n);
     }
     
+    @Override
     public void setDimension(int n){
         this.n =  n;
         u = new double[n + a];
@@ -44,6 +45,7 @@ public class Pna implements LatticeNearestPointAlgorithm{
         g = createg(n,a);
     }
     
+    @Override
     public void nearestPoint(double[] y){
         if(u.length != y.length)
             setDimension(y.length-a);
@@ -79,8 +81,10 @@ public class Pna implements LatticeNearestPointAlgorithm{
         
     }
     
+    @Override
     public double[] getLatticePoint() { return v; }
     
+    @Override
     public double[] getIndex() { return u; }
     
     /** creates the orthogonal vector for Pna.  Allocates memory*/
@@ -153,8 +157,19 @@ public class Pna implements LatticeNearestPointAlgorithm{
     }
 
     /** {@inheritDoc} */
+    @Override
     public double volume(){
         return 0;
+    }
+    
+    /** 
+     * Returns the vector g for this Pna.
+     * g is the orthogogonal component of 
+     * the largest order direction for this Pna.
+     * (This probably doesn't make much sense!)
+     */
+    public double[] getg(){
+        return g;
     }
     
 }

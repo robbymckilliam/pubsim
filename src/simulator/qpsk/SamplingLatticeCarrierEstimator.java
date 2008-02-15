@@ -35,7 +35,7 @@ public class SamplingLatticeCarrierEstimator extends SamplingLatticeEstimator
         for(int i = 0; i < real.length; i++)
             y[i] = M * Math.atan2(imag[i],real[i])/(2*Math.PI);
         
-        nearestPoint(y);
+        lattice.nearestPoint(y);
         
         /*
         System.out.println("y antan = " + VectorFunctions.print(y));
@@ -45,12 +45,13 @@ public class SamplingLatticeCarrierEstimator extends SamplingLatticeEstimator
         
         //calculate f from the nearest point
         double f = 0;
-        double sumn = N*(N+1)/2;
-        double sumn2 = N*(N+1)*(2*N+1)/6;
-        for(int i = 0; i < N; i++)
-            f += (N*(i+1) - sumn)*(y[i]-u[i]);
+        double sumn = n*(n+1)/2;
+        double sumn2 = n*(n+1)*(2*n+1)/6;
+        double[] u = lattice.getIndex();
+        for(int i = 0; i < n; i++)
+            f += (n*(i+1) - sumn)*(y[i]-u[i]);
         
-        f /= M*(sumn2*N - sumn*sumn);
+        f /= M*(sumn2*n - sumn*sumn);
 
         //System.out.println("f = " + f);
         

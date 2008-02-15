@@ -8,7 +8,6 @@
 package simulator.pes;
 
 import junit.framework.*;
-import java.util.Arrays;
 import simulator.*;
 
 /**
@@ -19,12 +18,6 @@ public class SamplingOptimalStepTest extends TestCase {
     
     public SamplingOptimalStepTest(String testName) {
         super(testName);
-    }
-
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
     }
 
     /**

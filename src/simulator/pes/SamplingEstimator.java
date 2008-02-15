@@ -1,7 +1,8 @@
 package simulator.pes;
 
 import lattices.Anstar;
-import lattices.AnstarNew;
+import lattices.AnstarBucket;
+import lattices.LatticeNearestPointAlgorithm;
 import simulator.*;
 
 /**
@@ -10,9 +11,11 @@ import simulator.*;
  * @author Vaughan Clarkson, 16-Jun-05.
  * Add calculateObjective method, 13-Jan-07.
  */
-public class SamplingEstimator extends AnstarNew implements PRIEstimator {
+public class SamplingEstimator implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
+    protected int n;
+    protected LatticeNearestPointAlgorithm lattice;
     
     public SamplingEstimator(){
     }
@@ -23,39 +26,44 @@ public class SamplingEstimator extends AnstarNew implements PRIEstimator {
 
     double[] zeta, fzeta, kappa;
 
-    public void setSize(int N) {
-	setDimension(N-1); // => n = N-1
-	zeta = new double[N];
-	fzeta = new double[N];
-	kappa = new double[N];
+    public void setSize(int n) {
+        lattice = new AnstarBucket();
+	lattice.setDimension(n-1); // => n = N-1
+	zeta = new double[n];
+	fzeta = new double[n];
+	kappa = new double[n];
+        this.n = n;
     }
 
     double calculateObjective(double[] y, double f) {
-	project(y, zeta);
-	for (int i = 0; i <= n; i++)
+	Anstar.project(y, zeta);
+	for (int i = 0; i < n; i++)
 	    fzeta[i] = f * zeta[i];
-	nearestPoint(fzeta);
+	lattice.nearestPoint(fzeta);
+        double[] v = lattice.getLatticePoint();
 	double L = 0;
-	for (int i = 0; i <= n; i++) {
+	for (int i = 0; i < n; i++) {
 	    double diff = zeta[i] - (v[i] / f);
 	    L += diff * diff;
 	}
 	return L;
     }
 
+    @Override
     public double estimateFreq(double[] y, double fmin, double fmax) {
-	if (n != y.length-1)
+	if (n != y.length)
 	    setSize(y.length);
-	project(y, zeta);
+	Anstar.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
 	for (double f = fmin; f <= fmax; f += fstep) {
-	    for (int i = 0; i <= n; i++)
+	    for (int i = 0; i < n; i++)
 		fzeta[i] = f * zeta[i];
-	    nearestPoint(fzeta);
+	    lattice.nearestPoint(fzeta);
+            double[] v = lattice.getLatticePoint();
 	    double sumv2 = 0, sumvz = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		sumv2 += v[i] * v[i];
 		sumvz += v[i] * zeta[i];
                 //sumv2 += v[i] * zeta[i];
@@ -63,7 +71,7 @@ public class SamplingEstimator extends AnstarNew implements PRIEstimator {
 	    }
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		double diff = zeta[i] - (v[i] / f0);
                 //double diff = f0*zeta[i] - v[i];
 		L += diff * diff;
@@ -78,24 +86,25 @@ public class SamplingEstimator extends AnstarNew implements PRIEstimator {
     
     /** Return the likilhood of the best result */ 
     public double likelihood(double[] y, double fmin, double fmax) {
-	if (n != y.length-1)
+	if (n != y.length)
 	    setSize(y.length);
-	project(y, zeta);
+	Anstar.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
 	for (double f = fmin; f <= fmax; f += fstep) {
-	    for (int i = 0; i <= n; i++)
+	    for (int i = 0; i < n; i++)
 		fzeta[i] = f * zeta[i];
-	    nearestPoint(fzeta);
+	    lattice.nearestPoint(fzeta);
+            double[] v = lattice.getLatticePoint();
 	    double sumv2 = 0, sumvz = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		sumv2 += v[i] * v[i];
 		sumvz += v[i] * zeta[i];
 	    }
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		double diff = zeta[i] - (v[i] / f0);
                 //double diff = f0*zeta[i] - v[i];
 		L += diff * diff;
@@ -113,22 +122,23 @@ public class SamplingEstimator extends AnstarNew implements PRIEstimator {
 	if (n != y.length-1)
 	    setSize(y.length);
         double[] bestv = new double[y.length];
-	project(y, zeta);
+	Anstar.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
 	for (double f = fmin; f <= fmax; f += fstep) {
-	    for (int i = 0; i <= n; i++)
+	    for (int i = 0; i < n; i++)
 		fzeta[i] = f * zeta[i];
-	    nearestPoint(fzeta);
+	    lattice.nearestPoint(fzeta);
+            double[] v = lattice.getLatticePoint();
 	    double sumv2 = 0, sumvz = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		sumv2 += v[i] * v[i];
 		sumvz += v[i] * zeta[i];
 	    }
 	    double f0 = sumv2 / sumvz;
 	    double L = 0;
-	    for (int i = 0; i <= n; i++) {
+	    for (int i = 0; i < n; i++) {
 		//double diff = zeta[i] - (v[i] / f0);
                 double diff = f0*zeta[i] - v[i];
 		L += diff * diff;
@@ -142,6 +152,7 @@ public class SamplingEstimator extends AnstarNew implements PRIEstimator {
 	return bestv;
     }
 
+    @Override
     public double varianceBound(double sigma, double[] k) {
 	Anstar.project(k, kappa);
 	double sk = 0;
