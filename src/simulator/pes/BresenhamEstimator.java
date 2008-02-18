@@ -30,6 +30,7 @@ import simulator.*;
     Integer[] ix;
     TreeMap sorted;
 
+    @Override
     public void setSize(int N) {
 	setDimension(N-1); // => n = N-1
 	z = new double[N];
@@ -140,6 +141,7 @@ import simulator.*;
 	nextIndex(phi[m].doubleValue());
     }
 
+    @SuppressWarnings("empty-statement")
     void nextIndex(double f) {
 	this.f = f;
 

@@ -11,7 +11,7 @@ public class Anstar implements LatticeNearestPointAlgorithm{
     //protected int m;
     protected int[] s, tmps;
     protected Double[] delta;
-    protected double[] x;
+    private double[] x;
     
     protected int n = 0;
     protected double[] u, v;
@@ -130,11 +130,14 @@ public class Anstar implements LatticeNearestPointAlgorithm{
     }
     
     /**Getter for the nearest point. */
+    @Override
     public double[] getLatticePoint() {return v;}
     /**Getter for the interger vector. */
+    @Override
     public double[] getIndex() {return u;}
 
     /** {@inheritDoc} */
+    @Override
     public double volume(){
         return Math.sqrt(1/(n+1));
     }

@@ -25,6 +25,7 @@ public class Pn2 implements LatticeNearestPointAlgorithm{
      *  it's integer index */
     protected double[] v, u;
     
+    @Override
     public void setDimension(int n){
         this.n = n;
         u = new double[n+2];
@@ -33,12 +34,15 @@ public class Pn2 implements LatticeNearestPointAlgorithm{
     
     /** Find the nearest lattice point.  TIM, this is the function
      * you need to fill in! */
+    @Override
     public void nearestPoint(double[] y){}
     
     /**Getter for the nearest point. */
+    @Override
     public double[] getLatticePoint(){ return v; }
     
     /**Getter for the interger vector. */
+    @Override
     public double[] getIndex(){ return u; }
     
     /**
@@ -61,6 +65,7 @@ public class Pn2 implements LatticeNearestPointAlgorithm{
     }
     
     /** {@inheritDoc} */
+    @Override
     public double volume(){ return 0;}
     
 }

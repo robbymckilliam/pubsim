@@ -11,12 +11,17 @@ package lattices;
  * solving the An* nearest point problem.  A test 
  * interface already exists for this class to make
  * things easy.
+ * 
+ * Update:  AnstarBucket runs in O(n) and works!
+ * 
  * @author Robby McKilliam
  */
 public class AnstarOn extends Anstar implements LatticeNearestPointAlgorithm{
    
+    private double[] x;
     
     /** Overided the standard nearest point algorithm */
+    @Override
     public void nearestPoint(double[] y) {
         
         /*

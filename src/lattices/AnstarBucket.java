@@ -5,11 +5,6 @@
 
 package lattices;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 /**
  * Implementation of the O(n) Anstar bucket sorting algorithm
  * with a specialised list implementation.  This has fixed 
@@ -98,7 +93,7 @@ public class AnstarBucket extends AnstarBucketSlowAllocation
      * faster than java's list implementations.  It
      * allows a fixed memory implementation.
      */
-    public class IntList{
+    protected class IntList{
         protected int size;
         protected ListElem current, first;
         protected IntListIterator itr;
@@ -133,13 +128,13 @@ public class AnstarBucket extends AnstarBucketSlowAllocation
     }
     
     /** List element for IntList */
-    public class ListElem{
+    protected class ListElem{
         protected ListElem next;
         protected int value;
     }
     
     /** An iterator for IntList */
-    public class IntListIterator implements Iterator{
+    protected class IntListIterator{
         protected ListElem current;
         
         public IntListIterator(IntList list){
@@ -150,22 +145,16 @@ public class AnstarBucket extends AnstarBucketSlowAllocation
             current = list.first;
         }
         
-        @Override
         public boolean hasNext(){
             if(current.next == null) return false;
             else return true;
         }
         
-        @Override
         public ListElem next(){
             current = current.next;
             return current;
         }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
+        
     }
 
 }

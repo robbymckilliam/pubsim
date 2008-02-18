@@ -10,7 +10,8 @@ import simulator.IndexedDouble;
 
 /**
  * Implementation of the O(n log(n)) algorithm to find the nearest
- * lattice point in the Coxeter lattice A_{n/m}
+ * lattice point in the Coxeter lattice A_{n/m}.  This was suggested
+ * by Warren Smith.
  * @author Robby
  */
 public class Anm extends Anstar implements LatticeNearestPointAlgorithm{
@@ -29,10 +30,11 @@ public class Anm extends Anstar implements LatticeNearestPointAlgorithm{
      * the algorithm will not work as a nearest point algorithm
      * for An*.
      */
-    public void setM(int M){
+    protected void setM(int M){
         this.M = M;
     }
     
+    /** {@inheritDoc} */
     @Override
     public void setDimension(int n){
         this.n = n;
@@ -43,6 +45,7 @@ public class Anm extends Anstar implements LatticeNearestPointAlgorithm{
             z[i] = new IndexedDouble();
     }
     
+    /** {@inheritDoc} */
     @Override
     public void nearestPoint(double[] y){
         if (n != y.length-1)
@@ -81,6 +84,12 @@ public class Anm extends Anstar implements LatticeNearestPointAlgorithm{
         
         project(u, v);
            
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public double volume(){
+        return Math.sqrt(M/(n+1));
     }
 
 }

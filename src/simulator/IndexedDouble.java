@@ -12,14 +12,23 @@ package simulator;
 public class IndexedDouble implements Comparable{
     public double value;
     public int index;
+    
+    public IndexedDouble(){}
+    
+    public IndexedDouble(double value, int index){
+        this.value = value;
+        this.index = index;
+    }
 
+    @Override
     public int compareTo(Object o) {
         IndexedDouble co = (IndexedDouble) o;
         return Double.compare(value, co.value);
     } 
    
+    @Override
     public String toString() {
-        return "(" + index + ", " + value + ")";
+        return "(" + value + ", " + index + ")";
     }
     
 }
