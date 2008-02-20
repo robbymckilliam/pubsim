@@ -88,6 +88,7 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     /** Generates the real and imaginary components and returns null.
      * Use getReal and getImag to get the individual components.
      */
+    @Override
     public double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++){
             real[i] = Math.cos(i*2*Math.PI*f/rate + p) + noise.getNoise();

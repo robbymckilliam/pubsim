@@ -27,7 +27,7 @@ public class LatticeEstimatorTest extends TestCase {
         System.out.println("estimate");
                 
         int n = 6;
-        double[] params = {0.12, 0.15, -0.4};
+        double[] params = {0.12, 0.15, 0.1};
         
         PolynomialPhaseSignal gen = new PolynomialPhaseSignal();
         gen.setLength(n);

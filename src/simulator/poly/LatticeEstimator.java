@@ -62,7 +62,7 @@ public class LatticeEstimator implements PolynomialPhaseEstimator{
         }
         f /= gtg;
         
-        params[params.length-1] = f - Math.round(f);
+        params[params.length-1] = f - Math.round(2.0*f)/2.0;
         
         //System.out.println("f = " + f)
         return params;
