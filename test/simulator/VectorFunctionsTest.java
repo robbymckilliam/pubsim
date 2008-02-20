@@ -22,12 +22,6 @@ public class VectorFunctionsTest extends TestCase {
         super(testName);
     }
 
-    protected void setUp() throws Exception {
-    }
-
-    protected void tearDown() throws Exception {
-    }
-
     /**
      * Test of slowFT method, of class simulator.VectorFunctions.
      */
@@ -142,7 +136,7 @@ public class VectorFunctionsTest extends TestCase {
     public void testSum2() {
         System.out.println("sum2");
         
-        double[] x = {1,2,3};;
+        double[] x = {1,2,3};
         
         double expResult = 14;
         double result = VectorFunctions.sum2(x);

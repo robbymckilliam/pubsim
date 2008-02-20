@@ -28,6 +28,9 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
      */
     private double gtg;
     
+     /** When a = 1, we can use the O(n) An* algorithm */
+    protected Anstar anstar;
+    
     public PnaEfficient(int a) { 
         super(a);
     }
@@ -50,6 +53,10 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
         yp = new double[n + a];
         createg();
         gtg = VectorFunctions.sum2(g);
+        if( a == 1 ) {
+            anstar = new AnstarBucket();
+            anstar.setDimension(n);
+        }
     }
     
     @Override
@@ -61,10 +68,10 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
         project(y, yp);
         
         double Dmin = Double.POSITIVE_INFINITY;
-        if(a > 0){       
+        if(a > 1){       
             double magg = Math.sqrt(gtg);
-            double step = magg/Math.pow(n,a);
-            //double step = 8*magg/Math.pow(n,a);
+            //double step = magg/Math.pow(n,a);
+            double step = 4*magg/Math.pow(n,a);
             for(double s = 0; s < magg; s+=step){
                 for(int i = 0; i < y.length; i++)
                     yt[i] = y[i] + s*g[i];
@@ -80,6 +87,11 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
                     System.arraycopy(pnam1.getIndex(), 0, u, 0, u.length);
                 }
             }
+        //It's An* so run the O(n) An* algorithm
+        }else if( a == 1){
+            anstar.nearestPoint(y);
+            u = anstar.getIndex();
+        //It's Z^n so round.  This should never be reached.
         }else{
             for(int i = 0; i < y.length; i++)
                 u[i] = Math.round(y[i]);
@@ -138,6 +150,19 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
             //double det = VectorFunctions.stableDet(M.times(M.transpose()));
             return Math.sqrt(det) * pnam1.volume();
         }
+    }
+    
+    /** 
+     * Returns the vector g for this Pna where
+     * a is the input to the function.
+     */
+    public double[] getg(int a){
+        double[] ret = null;
+        if(a < this.a )
+            ret = pnam1.getg(a);
+        else
+            ret = getg();
+        return ret;
     }
     
 }
