@@ -71,7 +71,7 @@ public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
         if(a > 1){       
             double magg = Math.sqrt(gtg);
             //double step = magg/Math.pow(n,a);
-            double step = 4*magg/Math.pow(n,a);
+            double step = magg/Math.pow(n,a);
             for(double s = 0; s < magg; s+=step){
                 for(int i = 0; i < y.length; i++)
                     yt[i] = y[i] + s*g[i];

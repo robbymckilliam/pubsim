@@ -181,6 +181,15 @@ public class VectorFunctions {
         return st;
     }
     
+        
+    /**
+     * Return a string for the vector
+     */
+    public static String print(Matrix mat){
+        return print(mat.getArray());
+    }
+    
+    
     /**
      * Vector dot/inner product
      */

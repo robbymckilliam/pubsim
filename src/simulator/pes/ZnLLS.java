@@ -25,7 +25,7 @@ public class ZnLLS implements PRIEstimator {
      
     /** 
      * Sets protected variable g to the glue
-     * vector [i].  See SLAG pp109.
+     * vector [i].  See SPLAG pp109.
      */
     protected void glueVector(double i){
         double j = n + 1 - i;

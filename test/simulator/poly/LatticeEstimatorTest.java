@@ -19,7 +19,6 @@ public class LatticeEstimatorTest extends TestCase {
         super(testName);
     }            
 
-
     /**
      * Test of estimate method, of class LatticeEstimator.
      */
@@ -27,13 +26,13 @@ public class LatticeEstimatorTest extends TestCase {
         System.out.println("estimate");
                 
         int n = 10;
-        double[] params = {0.12, 0.15, 0.2};
+        double[] params = {0.2 , 0.15, 0.1};
         
         PolynomialPhaseSignal gen = new PolynomialPhaseSignal();
         gen.setLength(n);
         gen.setParameters(params);
         
-        GaussianNoise noise = new GaussianNoise(0, 0.000001);
+        GaussianNoise noise = new GaussianNoise(0, 0.0000001);
         gen.setNoiseGenerator(noise);
         
         gen.generateReceivedSignal();
@@ -41,9 +40,12 @@ public class LatticeEstimatorTest extends TestCase {
         LatticeEstimator instance = new LatticeEstimator(params.length);
         double[] res = instance.estimate(gen.getReal(), gen.getImag());
         
-        System.out.println("res = " + VectorFunctions.print(res));
+        double[] mse = PolynomialPhaseSignal.disambiguateMSE(params, res);
         
-        assertEquals( VectorFunctions.distance_between(res, params)<0.01, true);
+        System.out.println("res = " + VectorFunctions.print(res));
+        System.out.println("mse = " + VectorFunctions.print(mse));
+        
+        assertEquals( VectorFunctions.magnitude(mse)<0.01, true);
     }
 
 }
