@@ -49,7 +49,7 @@ public class AnstarBucketTest extends TestCase {
         tester.setDimension(n - 1);
         for(int i=0; i<numTrials; i++){
             for(int k = 0; k < n; k++){
-                y[k] = ( rand.nextGaussian() - 0.5 )*10.0;
+                y[k] = rand.nextGaussian()*10.0;
             }
             instance.nearestPoint(y);
             tester.nearestPoint(y);

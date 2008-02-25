@@ -61,7 +61,7 @@ public class AnstarBucket extends AnstarBucketSlowAllocation
         for(int i = 0; i < n+1; i++){
             IntListIterator itr = buckets[i].iterator();
             while(itr.hasNext()){
-                int ind = itr.next().value;
+                int ind = itr.next();
                 a -= 1;
                 b += -2*z[ind] + 1;                
             }
@@ -78,7 +78,7 @@ public class AnstarBucket extends AnstarBucketSlowAllocation
         for(int i = 0; i < m; i++){
             IntListIterator itr = buckets[i].iterator();
             while(itr.hasNext()){
-                int ind = itr.next().value;
+                int ind = itr.next();
                 u[ind] += 1;
             }
         }
@@ -150,9 +150,9 @@ public class AnstarBucket extends AnstarBucketSlowAllocation
             else return true;
         }
         
-        public ListElem next(){
+        public int next(){
             current = current.next;
-            return current;
+            return current.value;
         }
         
     }
