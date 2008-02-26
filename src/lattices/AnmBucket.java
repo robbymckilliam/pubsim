@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import simulator.FastSelection;
 import simulator.IndexedDouble;
-import simulator.VectorFunctions;
 
 /**
  * This is Warren Smith's O(n) bucket A_{n/m} nearest point
@@ -226,18 +225,21 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
             return true;
         }
         
+        @Override
         public void clear(){
             current = first;
             current.next = null;
             size = 0;
         }
         
+        @Override
         public IndexedDoubleListIterator iterator(){
             itr.reset(this);
             return itr;
         }
         
         /** Returns the list as an array of indexed doubles. */
+        @Override
         public IndexedDouble[] toArray(){
             IndexedDouble[] ret = new IndexedDouble[size];
             IndexedDoubleListIterator itra = this.iterator();
@@ -249,42 +251,52 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
             return ret;
         }
 
+        @Override
         public int size() {
             return size;
         }
 
+        @Override
         public boolean isEmpty() {
             return size==0;
         }
 
+        @Override
         public boolean contains(Object o) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public Object[] toArray(Object[] a) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public boolean add(Object e) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public boolean remove(Object o) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public boolean containsAll(Collection c) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public boolean addAll(Collection c) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public boolean removeAll(Collection c) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public boolean retainAll(Collection c) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
@@ -309,16 +321,19 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
             current = list.first;
         }
         
+        @Override
         public boolean hasNext(){
             if(current.next == null) return false;
             else return true;
         }
         
+        @Override
         public IndexedDouble next(){
             current = current.next;
             return current.elem;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException("Not supported yet.");
         }

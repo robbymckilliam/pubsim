@@ -35,9 +35,9 @@ public class AnmBucketTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int numTrials = 10000;
-        int n = 32;
-        int M = 4;
+        int numTrials = 100000;
+        int n = 100;
+        int M = 50;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;
