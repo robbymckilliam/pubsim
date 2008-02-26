@@ -80,33 +80,18 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
             b += z[i] * z[i];
         }
         
-        //System.out.println("\n\n k = " + k);
-        
         double D = Double.POSITIVE_INFINITY;
-        int d = 0;
         int m = 0, bestbucket = 0;
         for(int i = 0; i < numBuckets; i++){
             
             //approximate value of z[i] in the bucket
-            double za = (i+0.5)/numBuckets;
+            //double za = 0.5 - (i+0.5)/numBuckets;
             
-            //calculate the minimum of the parabola approximation
-            double p = (1 - 2*za)*(n+1)/2.0 + a;
+            int j = nearestMultM(k) - k;
+            if(j < 0) j+=M;
             
-            /*
-            System.out.println();
-            Iterator itrp = buckets[i].iterator();
-            System.out.print("bucket = ");  
-            while(itrp.hasNext())
-                System.out.print(itrp.next() + ", ");
-            System.out.println();
-            */
-            
-            
-            //test first value of j
-            int j = nearestMultInRange(p + k + d, k + d, k + d + buckets[i].size()) - k - d;
             fselect.select(j, buckets[i]);
-            
+
             if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
                 double ad = a;
                 double bd = b;
@@ -121,33 +106,14 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
                     D = dist;
                     m = j;
                     bestbucket = i;
-                    //System.out.println("j = " + j + ", j - d = " + (j-d) + ", j + k = " + (j+k));
                 }
             }
-                
             
+            j = nearestMultM(k + buckets[i].size()) - k;
+            if(j > buckets[i].size()) j-=M;
             
-            /*
-            System.out.println("j - d = " + (j - d));
-            itrp = fselect.beforeAndIncluding().iterator();
-            System.out.print("before = ");  
-            while(itrp.hasNext())
-                System.out.print(itrp.next() + ", ");
-            System.out.println();
-            System.out.println(fselect.getElement());
-            itrp = fselect.after().iterator();
-            System.out.print("after = ");  
-            while(itrp.hasNext())
-                System.out.print(itrp.next() + ", ");  
-            System.out.println();
-            */
-            
-            
-            
-            //test second value of j
-            j += M*Math.signum(j - p);
             fselect.select(j, buckets[i]);
-            
+
             if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
                 double ad = a;
                 double bd = b;
@@ -162,24 +128,8 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
                     D = dist;
                     m = j;
                     bestbucket = i;
-                    //System.out.println("j' = " + j + ", j' - d = " + (j-d) + ", j + k = " + (j+k));
                 }
-            }
-            
-            /*
-            System.out.println("j' - d = " + (j - d));
-            itrp = fselect.beforeAndIncluding().iterator();
-            System.out.print("before = ");  
-            while(itrp.hasNext())
-                System.out.print(itrp.next() + ", ");
-            System.out.println();
-            System.out.println(fselect.getElement());
-            itrp = fselect.after().iterator();
-            System.out.print("after = ");  
-            while(itrp.hasNext())
-                System.out.print(itrp.next() + ", ");  
-            System.out.println();
-            */
+            }          
             
             //add all the indices on for the next bucket
             IndexedDoubleListIterator itrd = buckets[i].iterator();
@@ -187,7 +137,7 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
                 int ind = itrd.next().index;
                 a -= 1;
                 b += -2*z[ind] + 1; 
-                d++;
+                k++;
             }
            
             

@@ -35,9 +35,9 @@ public class AnmBucketTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int numTrials = 1000;
-        int n = 60;
-        int M = 6;
+        int numTrials = 10000;
+        int n = 32;
+        int M = 4;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;
@@ -46,7 +46,22 @@ public class AnmBucketTest extends TestCase {
         
         AnmBucket instance = new AnmBucket(M);
         Anm tester = new Anm(M);
+        /*
+        double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
         
+            instance.nearestPoint(y);
+            tester.nearestPoint(y);
+            v_instance = instance.getLatticePoint();
+            v_tester = tester.getLatticePoint();
+            
+            
+            System.out.println(" test d = " + VectorFunctions.distance_between(y, v_tester));
+            System.out.println(" inst d = " + VectorFunctions.distance_between(y, v_instance));
+            System.out.println(" test u = " + VectorFunctions.print(tester.getIndex()));
+            System.out.println(" inst u = " + VectorFunctions.print(instance.getIndex()));
+            
+            assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
+        */
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);
         for(int i=0; i<numTrials; i++){
@@ -59,14 +74,16 @@ public class AnmBucketTest extends TestCase {
             v_tester = tester.getLatticePoint();
             Anstar.project(y,x);
             
+            
             /*
-            System.out.println(" test d = " + VectorFunctions.distance_between(y, v_tester));
+             System.out.println(" test d = " + VectorFunctions.distance_between(y, v_tester));
             System.out.println(" inst d = " + VectorFunctions.distance_between(y, v_instance));
             System.out.println(" test u = " + VectorFunctions.print(tester.getIndex()));
             System.out.println(" inst u = " + VectorFunctions.print(instance.getIndex()));
-            System.out.println(" test mod = " + VectorFunctions.sum(tester.getIndex())%M);
-            System.out.println(" inst mod = " + VectorFunctions.sum(instance.getIndex())%M);
             */
+            //System.out.println(" test mod = " + VectorFunctions.sum(tester.getIndex())%M);
+            //System.out.println(" inst mod = " + VectorFunctions.sum(instance.getIndex())%M);
+            
             
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         }
