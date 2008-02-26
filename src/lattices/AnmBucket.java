@@ -40,7 +40,7 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
         z = new double[n+1];
         
         //setup the buckets.
-        numBuckets = (n+1)/M;
+        numBuckets = 2*(n+1)/M;
         
         buckets = new IndexedDoubleList[numBuckets];
         for(int i = 0; i < numBuckets; i++)
@@ -84,51 +84,61 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
         for(int i = 0; i < numBuckets; i++){
             
             //approximate value of z[i] in the bucket
-            //double za = 0.5 - (i+0.5)/numBuckets;
+            double za = 0.5 - i/numBuckets;
             
             int j = nearestMultM(k) - k;
             if(j < 0) j+=M;
             
-            fselect.select(j, buckets[i]);
+            double p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
+            
+            if(p < D){
+            
+                fselect.select(j, buckets[i]);
 
-            if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
-                double ad = a;
-                double bd = b;
-                Iterator itr = fselect.beforeAndIncluding().iterator();
-                while(itr.hasNext()){
-                    int ind = ((IndexedDouble)itr.next()).index;
-                    ad -= 1;
-                    bd += -2*z[ind] + 1;   
-                }
-                double dist = bd - ad*ad/(n+1);
-                if(dist < D){
-                    D = dist;
-                    m = j;
-                    bestbucket = i;
+                if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
+                    double ad = a;
+                    double bd = b;
+                    Iterator itr = fselect.beforeAndIncluding().iterator();
+                    while(itr.hasNext()){
+                        int ind = ((IndexedDouble)itr.next()).index;
+                        ad -= 1;
+                        bd += -2*z[ind] + 1;   
+                    }
+                    double dist = bd - ad*ad/(n+1);
+                    if(dist < D){
+                        D = dist;
+                        m = j;
+                        bestbucket = i;
+                    }
                 }
             }
             
             j = nearestMultM(k + buckets[i].size()) - k;
             if(j > buckets[i].size()) j-=M;
             
-            fselect.select(j, buckets[i]);
+            p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
+            
+            if(p < D){
+            
+                fselect.select(j, buckets[i]);
 
-            if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
-                double ad = a;
-                double bd = b;
-                Iterator itr = fselect.beforeAndIncluding().iterator();
-                while(itr.hasNext()){
-                    int ind = ((IndexedDouble)itr.next()).index;
-                    ad -= 1;
-                    bd += -2*z[ind] + 1;   
-                }
-                double dist = bd - ad*ad/(n+1);
-                if(dist < D){
-                    D = dist;
-                    m = j;
-                    bestbucket = i;
-                }
-            }          
+                if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
+                    double ad = a;
+                    double bd = b;
+                    Iterator itr = fselect.beforeAndIncluding().iterator();
+                    while(itr.hasNext()){
+                        int ind = ((IndexedDouble)itr.next()).index;
+                        ad -= 1;
+                        bd += -2*z[ind] + 1;   
+                    }
+                    double dist = bd - ad*ad/(n+1);
+                    if(dist < D){
+                        D = dist;
+                        m = j;
+                        bestbucket = i;
+                    }
+                }       
+            }
             
             //add all the indices on for the next bucket
             IndexedDoubleListIterator itrd = buckets[i].iterator();
