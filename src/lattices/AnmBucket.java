@@ -11,9 +11,9 @@ import simulator.FastSelection;
 import simulator.IndexedDouble;
 
 /**
- * This is Warren Smith's O(n) bucket A_{n/m} nearest point
- * algorithm.
- * UNDER CONSTRUCTION
+ * This is an O(n) bucket A_{n/m} nearest point
+ * algorithm.  This uses the polynomial approximation
+ * idea suggested by Warren.
  * @author Robby McKilliam
  */
 public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
@@ -84,13 +84,20 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
         for(int i = 0; i < numBuckets; i++){
             
             //approximate value of z[i] in the bucket
+            //this is modified to decrease the
+            //approximation to it's minimum possible. 
             double za = 0.5 - i/numBuckets;
             
-            int j = nearestMultM(k) - k;
-            if(j < 0) j+=M;
+            //get the first modularly admissble index in the bucket
+            //int j = nearestMultM(k) - k;
+            int j = M*(int)Math.ceil(((double)k)/M) - k;
+            //if(j < 0) j+=M;
             
+            //calculate the polynomial approximation
             double p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
             
+            //test the first modularly admissible point in the
+            //bucket if it can be better than the current best point
             if(p < D){
             
                 fselect.select(j, buckets[i]);
@@ -113,11 +120,16 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
                 }
             }
             
-            j = nearestMultM(k + buckets[i].size()) - k;
-            if(j > buckets[i].size()) j-=M;
+            //get the last modularly admissble index in the bucket
+            //j = nearestMultM(k + buckets[i].size()) - k;
+            j = M*(int)Math.floor(((double)k + buckets[i].size())/M) - k;
+            //if(j > buckets[i].size()) j-=M;
             
+            //calculate the polynomial approximation
             p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
             
+            //test the last modularly admissible point in the
+            //bucket if it can be better than the current best point
             if(p < D){
             
                 fselect.select(j, buckets[i]);
