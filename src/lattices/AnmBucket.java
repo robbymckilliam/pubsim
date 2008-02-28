@@ -40,7 +40,7 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
         z = new double[n+1];
         
         //setup the buckets.
-        numBuckets = 2*(n+1)/M;
+        numBuckets = (n+1)/M;
         
         buckets = new IndexedDoubleList[numBuckets];
         for(int i = 0; i < numBuckets; i++)
