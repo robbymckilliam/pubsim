@@ -1,6 +1,6 @@
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 // A modifed periodogram estimator, designed to behave more like the MLE.
@@ -99,7 +99,7 @@ public class ModifiedPeriodogram implements PRIEstimator {
     // to believe that the periodogram will achieve this bound.
 
     public double varianceBound(double sigma, double[] k) {
-	Anstar.project(k, kappa);
+	AnstarVaughan.project(k, kappa);
 	double sk = 0;
 	for (int i = 0; i < k.length; i++)
 	    sk += kappa[i] * kappa[i];

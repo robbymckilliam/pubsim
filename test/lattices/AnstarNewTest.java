@@ -34,7 +34,7 @@ public class AnstarNewTest extends TestCase {
         double[] v_tester = null;
         double[] x = new double[n];
         AnstarNew instance = new AnstarNew();
-        Anstar tester = new Anstar();
+        AnstarVaughan tester = new AnstarVaughan();
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);
@@ -46,7 +46,7 @@ public class AnstarNewTest extends TestCase {
             tester.nearestPoint(y);
             v_instance = instance.getLatticePoint();
             v_tester = tester.getLatticePoint();
-            Anstar.project(y,x);
+            AnstarVaughan.project(y,x);
             System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         }

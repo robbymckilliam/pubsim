@@ -14,7 +14,7 @@ import simulator.IndexedDouble;
  * by Warren Smith.
  * @author Robby
  */
-public class Anm extends Anstar implements LatticeNearestPointAlgorithm{
+public class Anm extends AnstarVaughan implements NearestPointAlgorithmInterface{
     
     private IndexedDouble[] z;
     protected int M;

@@ -6,7 +6,7 @@
 
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
@@ -42,7 +42,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
         double bestf = 0.0;
 
         //put y in the zero mean plane
-        Anstar.project(y,y);
+        AnstarVaughan.project(y,y);
 
         //System.out.println(iters);
         //System.out.println("y = " + VectorFunctions.print(y));
@@ -97,7 +97,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
                    //System.out.println("sum v =" + VectorFunctions.sum(v));
                 }
                 
-                //Anstar.project(v,v);
+                //AnstarVaughan.project(v,v);
                 //if(Math.abs(VectorFunctions.sum(v)) < 0.2 ){
                 
                     double ytv = 0.0, yty = 0.0;
@@ -136,7 +136,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
         double bestf = 0.0;
 
         //put y in the zero mean plane
-        Anstar.project(y,y);
+        AnstarVaughan.project(y,y);
 
         double maxy = 0;
         int maxi = 0;   //position of the maximum value of y[i]
@@ -172,7 +172,7 @@ public class AnLLSBresenham extends AnLLS implements PRIEstimator {
                     v[k] += g[k];   
                 }
 
-                //Anstar.project(v,v);
+                //AnstarVaughan.project(v,v);
                 if(Math.abs(VectorFunctions.sum(v)) < 0.2 ){
                 
                     double ytv = 0.0, yty = 0.0;

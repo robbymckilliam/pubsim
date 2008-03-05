@@ -16,7 +16,7 @@ import simulator.*;
  * 
  * @author Tim Mason and Robby McKilliam
  */
-public class Pn2 implements LatticeNearestPointAlgorithm{
+public class Pn2 implements NearestPointAlgorithmInterface{
     
     /** Dimension of this lattice */
     protected int n;
@@ -52,7 +52,7 @@ public class Pn2 implements LatticeNearestPointAlgorithm{
      * PRE: x.length <= y.length
      */
     public static void project(double[] x, double[] y){
-        Anstar.project(x,y);
+        AnstarVaughan.project(x,y);
         double sumn2 = Math.floor(x.length/2.0)*
                 ( Math.floor(x.length/2.0) + 1 )*
                 ( 2*Math.floor(x.length/2.0) + 1) / 3.0;

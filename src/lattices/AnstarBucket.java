@@ -15,8 +15,7 @@ package lattices;
  * performance tests in C.
  * @author Robby McKilliam
  */
-public class AnstarBucket extends AnstarBucketSlowAllocation
-        implements LatticeNearestPointAlgorithm {
+public class AnstarBucket extends Anstar {
     
     private IntList[] buckets;
     private ListElem[] ints;

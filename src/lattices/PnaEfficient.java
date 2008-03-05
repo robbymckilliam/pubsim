@@ -17,7 +17,7 @@ import simulator.VectorFunctions;
  * The biggest gain comes from createg and project not recuring so much. 
  * @author Robby McKilliam
  */
-public class PnaEfficient extends Pna implements LatticeNearestPointAlgorithm {
+public class PnaEfficient extends Pna {
     
     /** Store P_n^(a-1) that is used for recursion. */
     protected PnaEfficient pnam1;

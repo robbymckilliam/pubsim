@@ -34,7 +34,7 @@ public class PnaTest extends TestCase {
         
         double[] y = {-1, 0, 0.1, 5, -2};
         Pna pn1 = new Pna(1);
-        Anstar ans = new Anstar();
+        AnstarVaughan ans = new AnstarVaughan();
         
         pn1.nearestPoint(y);
         ans.nearestPoint(y);

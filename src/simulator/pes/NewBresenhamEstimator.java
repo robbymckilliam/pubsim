@@ -6,12 +6,12 @@
 
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
  * This using a O(n) algorithm to get the the next
- * Voronoi region in Anstar.  Runs the nearsestPoint
+ * Voronoi region in AnstarVaughan.  Runs the nearsestPoint
  * O(nlog(n)) search to start with, then O(n) after.
  * It is theoretically only O(n) if you start from the
  * origin, but in practice this is slower. <p>
@@ -19,7 +19,7 @@ import simulator.*;
  * only step to basis vectors which is not good enough.
  * @author Robby McKilliam
  */
-public class NewBresenhamEstimator extends Anstar implements PRIEstimator{
+public class NewBresenhamEstimator extends AnstarVaughan implements PRIEstimator{
     
     double theta;
     double[] zi, fy, kappa;
@@ -145,7 +145,7 @@ public class NewBresenhamEstimator extends Anstar implements PRIEstimator{
     }
 
     public double varianceBound(double sigma, double[] k) {
-	Anstar.project(k, kappa);
+	AnstarVaughan.project(k, kappa);
 	double sk = 0;
 	for (int i = 0; i < k.length; i++)
 	    sk += kappa[i] * kappa[i];

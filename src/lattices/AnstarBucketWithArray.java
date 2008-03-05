@@ -14,8 +14,7 @@ package lattices;
  * speed.
  * @author Robby McKilliam
  */
-public class AnstarBucketWithArray extends AnstarBucketSlowAllocation
-        implements LatticeNearestPointAlgorithm {
+public class AnstarBucketWithArray extends Anstar {
 
     private int[][] buckets;
     private int[] bucketlen;

@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.vecmath.GVector;
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
@@ -18,10 +18,10 @@ import simulator.*;
  * @author Vaughan Clarkson, 24-Feb-05.
  * First working (?) version, 25-Feb-05.
  * Included closest point algorithm, 27-Feb-05.
- * Reworked as an extension of Anstar with PRIEstimator interface, 15-Jun-05.
+ * Reworked as an extension of AnstarVaughan with PRIEstimator interface, 15-Jun-05.
  * Added setSize method, 16-Jun-05.
  */
- public class BresenhamEstimator extends Anstar implements PRIEstimator {
+ public class BresenhamEstimator extends AnstarVaughan implements PRIEstimator {
 
     int m;
     double f, nextf;
@@ -318,7 +318,7 @@ import simulator.*;
     }
 
     public double varianceBound(double sigma, double[] k) {
-	Anstar.project(k, kappa);
+	AnstarVaughan.project(k, kappa);
 	double sk = 0;
 	for (int i = 0; i < k.length; i++)
 	    sk += kappa[i] * kappa[i];

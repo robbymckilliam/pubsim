@@ -9,7 +9,7 @@ import simulator.VectorFunctions;
  * method described by Conway and Sloane.
  * @author Robby McKilliam
  */
-public class AnSorted implements LatticeNearestPointAlgorithm{
+public class AnSorted implements NearestPointAlgorithmInterface{
 
     double[] u;
     IndexedDouble[] z;

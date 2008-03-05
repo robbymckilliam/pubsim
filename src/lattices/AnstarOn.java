@@ -16,7 +16,7 @@ package lattices;
  * 
  * @author Robby McKilliam
  */
-public class AnstarOn extends Anstar implements LatticeNearestPointAlgorithm{
+public class AnstarOn extends AnstarVaughan{
    
     private double[] x;
     

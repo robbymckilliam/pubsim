@@ -11,14 +11,13 @@ import java.util.Vector;
 import java.util.Iterator;
 
 /**
- * This is the bucket sorting Anstar algorithm that should run
+ * This is the bucket sorting AnstarVaughan algorithm that should run
  * in o(n) time.  
  * I beleive that I have a proof that this should work and
  * that precisely n+1 buckets are required.
  * @author Robby McKilliam
  */
-public class AnstarBucketSlowAllocation extends Anstar
-        implements LatticeNearestPointAlgorithm {
+public class AnstarBucketSlowAllocation extends Anstar {
 
     private List<Integer>[] buckets;
     private Integer[] ints;

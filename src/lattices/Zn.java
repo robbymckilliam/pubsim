@@ -12,7 +12,7 @@ package lattices;
  * for completeness.
  * @author Robby McKilliam
  */
-public class Zn implements LatticeNearestPointAlgorithm {
+public class Zn implements NearestPointAlgorithmInterface {
     
     protected double[] x;
     protected int n;

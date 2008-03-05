@@ -28,7 +28,7 @@ public class PnaEfficientTest extends TestCase {
         
         double[] y = {-1, 0, 0.1, 5, -2};
         PnaEfficient pn1 = new PnaEfficient(1);
-        Anstar ans = new Anstar();
+        AnstarVaughan ans = new AnstarVaughan();
         
         pn1.nearestPoint(y);
         ans.nearestPoint(y);
@@ -85,7 +85,7 @@ public class PnaEfficientTest extends TestCase {
         int a = 1;
         PnaEfficient pna = new PnaEfficient(a, n-a);
         
-        //Anstar det
+        //AnstarVaughan det
         double expres = Math.sqrt(1.0/n);
         
         assertEquals(true, Math.abs(pna.volume() - expres)<0.0001);

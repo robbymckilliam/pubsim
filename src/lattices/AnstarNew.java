@@ -10,12 +10,12 @@ import simulator.IndexedDouble;
 import java.util.Arrays;
 
 /**
- * This is a new, simpler and faster version of the Anstar algorithm.
+ * This is a new, simpler and faster version of the AnstarVaughan algorithm.
  * Geometrically it searches along the line $\bm{1} r$ where 
  * $r \in [0, 1]$ in the lattice Zn.
  * @author Robby
  */
-public class AnstarNew extends Anstar implements LatticeNearestPointAlgorithm{
+public class AnstarNew extends Anstar{
     
     private IndexedDouble[] z;
     

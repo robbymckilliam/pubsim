@@ -1,6 +1,6 @@
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
@@ -13,7 +13,7 @@ import simulator.*;
  * @author Vaughan Clarkson, 05-Jan-07 (forking from SamplingEstimator).
  * Modified expression for f0, 06-Jan-07.
  */
-public class ModifiedNorm extends Anstar implements PRIEstimator {
+public class ModifiedNorm extends AnstarVaughan implements PRIEstimator {
 
     static final int NUM_SAMPLES = 100;
 
@@ -57,7 +57,7 @@ public class ModifiedNorm extends Anstar implements PRIEstimator {
     }
 
     public double varianceBound(double sigma, double[] k) {
-	Anstar.project(k, kappa);
+	AnstarVaughan.project(k, kappa);
 	double sk = 0;
 	for (int i = 0; i < k.length; i++)
 	    sk += kappa[i] * kappa[i];

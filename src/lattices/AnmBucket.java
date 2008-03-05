@@ -16,7 +16,7 @@ import simulator.IndexedDouble;
  * idea suggested by Warren.
  * @author Robby McKilliam
  */
-public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
+public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
 
     private IndexedDoubleList[] buckets;
     private ListElem[] bes;
@@ -183,7 +183,7 @@ public class AnmBucket extends Anm implements LatticeNearestPointAlgorithm{
             u[((IndexedDouble)itr.next()).index]++;
         
         //project index to nearest lattice point
-        Anstar.project(u, v);
+        AnstarVaughan.project(u, v);
         
     }
     

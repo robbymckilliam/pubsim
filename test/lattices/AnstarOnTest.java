@@ -34,7 +34,7 @@ public class AnstarOnTest extends TestCase {
         double[] v_tester = null;
         double[] x = new double[n];
         AnstarOn instance = new AnstarOn();
-        Anstar tester = new Anstar();
+        AnstarVaughan tester = new AnstarVaughan();
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);
@@ -46,7 +46,7 @@ public class AnstarOnTest extends TestCase {
             tester.nearestPoint(y);
             v_instance = instance.getLatticePoint();
             v_tester = tester.getLatticePoint();
-            Anstar.project(y,x);
+            AnstarVaughan.project(y,x);
             System.out.println("y = " + VectorFunctions.print(y));
             System.out.println("v_i = " + VectorFunctions.print(v_instance));
             System.out.println("v_t = " + VectorFunctions.print(v_tester));

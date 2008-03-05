@@ -34,7 +34,7 @@ public class AnstarGradientAccentTest extends TestCase {
         double[] v_tester = null;
         double[] x = new double[n];
         AnstarGradientAccent instance = new AnstarGradientAccent();
-        Anstar tester = new Anstar();
+        AnstarVaughan tester = new AnstarVaughan();
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);

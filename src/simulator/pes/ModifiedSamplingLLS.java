@@ -6,7 +6,7 @@
 
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
@@ -28,7 +28,7 @@ public class ModifiedSamplingLLS extends SamplingEstimator implements PRIEstimat
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length-1)
 	    setSize(y.length);
-	Anstar.project(y, zeta);
+	AnstarVaughan.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;

@@ -19,16 +19,16 @@ import simulator.*;
  * 
  * @author Robby McKilliam
  */
-public class Pn2Glued extends Pn2 implements LatticeNearestPointAlgorithm {
+public class Pn2Glued extends Pn2 implements NearestPointAlgorithmInterface {
     
-    protected Anstar anstar;
+    protected AnstarVaughan anstar;
     
     protected double[] g, vt, yt, y, ut;
     
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new Anstar();
+        anstar = new AnstarVaughan();
         anstar.setDimension(n+1);
         
         g = new double[n+2];

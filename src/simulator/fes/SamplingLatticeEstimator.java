@@ -5,7 +5,7 @@
  */
 
 package simulator.fes;
-import lattices.LatticeNearestPointAlgorithm;
+import lattices.NearestPointAlgorithmInterface;
 import lattices.Pn2Sampled;
 
 /**
@@ -17,7 +17,7 @@ import lattices.Pn2Sampled;
 public class SamplingLatticeEstimator implements FrequencyEstimator {
     
     protected int n;
-    protected LatticeNearestPointAlgorithm lattice;
+    protected NearestPointAlgorithmInterface lattice;
     protected double[] y;
     protected int samples;
     

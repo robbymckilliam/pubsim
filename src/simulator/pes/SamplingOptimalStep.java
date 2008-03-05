@@ -7,7 +7,7 @@
 package simulator.pes;
 
 import java.util.Arrays;
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
@@ -63,7 +63,7 @@ public class SamplingOptimalStep extends ShatErrorTesterLLS {
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length)
 	    setSize(y.length);
-	Anstar.project(y, zeta);
+	AnstarVaughan.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
         

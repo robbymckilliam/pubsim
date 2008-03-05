@@ -1,8 +1,8 @@
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import lattices.AnstarBucket;
-import lattices.LatticeNearestPointAlgorithm;
+import lattices.NearestPointAlgorithmInterface;
 import simulator.*;
 
 /**
@@ -15,7 +15,7 @@ public class SamplingEstimator implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
     protected int n;
-    protected LatticeNearestPointAlgorithm lattice;
+    protected NearestPointAlgorithmInterface lattice;
     
     public SamplingEstimator(){
     }
@@ -36,7 +36,7 @@ public class SamplingEstimator implements PRIEstimator {
     }
 
     double calculateObjective(double[] y, double f) {
-	Anstar.project(y, zeta);
+	AnstarVaughan.project(y, zeta);
 	for (int i = 0; i < n; i++)
 	    fzeta[i] = f * zeta[i];
 	lattice.nearestPoint(fzeta);
@@ -53,7 +53,7 @@ public class SamplingEstimator implements PRIEstimator {
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length)
 	    setSize(y.length);
-	Anstar.project(y, zeta);
+	AnstarVaughan.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
@@ -88,7 +88,7 @@ public class SamplingEstimator implements PRIEstimator {
     public double likelihood(double[] y, double fmin, double fmax) {
 	if (n != y.length)
 	    setSize(y.length);
-	Anstar.project(y, zeta);
+	AnstarVaughan.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
@@ -122,7 +122,7 @@ public class SamplingEstimator implements PRIEstimator {
 	if (n != y.length-1)
 	    setSize(y.length);
         double[] bestv = new double[y.length];
-	Anstar.project(y, zeta);
+	AnstarVaughan.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
@@ -154,7 +154,7 @@ public class SamplingEstimator implements PRIEstimator {
 
     @Override
     public double varianceBound(double sigma, double[] k) {
-	Anstar.project(k, kappa);
+	AnstarVaughan.project(k, kappa);
 	double sk = 0;
 	for (int i = 0; i < k.length; i++)
 	    sk += kappa[i] * kappa[i];

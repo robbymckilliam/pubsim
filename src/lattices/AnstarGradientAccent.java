@@ -9,9 +9,9 @@ package lattices;
 import simulator.VectorFunctions;
 
 /**
- * Newton-Raphson version of the Anstar nearest point algorithm.
+ * Newton-Raphson version of the AnstarVaughan nearest point algorithm.
  * Uses a psuedo-periodogram function that can be shown to be related
- * to the Anstar nearest point algorithm.
+ * to the AnstarVaughan nearest point algorithm.
  * <p>
  * It's likely that this will fail at the edges of the Voronoi region.
  * <p> 
@@ -19,8 +19,7 @@ import simulator.VectorFunctions;
  * if similar functions exist for the Pna lattices.
  * @author Robby McKilliam
  */
-public class AnstarGradientAccent extends Anstar 
-        implements LatticeNearestPointAlgorithm{
+public class AnstarGradientAccent extends Anstar {
     
     double[] lastv, fd;
     

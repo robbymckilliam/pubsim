@@ -2,7 +2,7 @@ package simulator.pes;
 
 import java.util.Random;
 import javax.vecmath.GVector;
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
@@ -25,7 +25,7 @@ class Comparison {
 	estimator.setSize(k.length);
 	double[] y = new double[N];
 	double[] kappa = new double[N];
-	Anstar.project(k, kappa);
+	AnstarVaughan.project(k, kappa);
 	Random random = new Random();
 	double sigma = 1e-3;
 

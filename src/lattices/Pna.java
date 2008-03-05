@@ -14,11 +14,10 @@ import simulator.VectorFunctions;
  * in n but exponential in alpha.
  * @author Robby McKilliam
  */
-public class Pna implements LatticeNearestPointAlgorithm{
+public class Pna extends NearestPointAlgorithm{
     
     protected int a;
-    protected double[] u, v, g, yt, yp;
-    protected int n;
+    protected double[] g, yt, yp;
     
     /** Must set a when constucted */
     public Pna(int a){
@@ -80,12 +79,6 @@ public class Pna implements LatticeNearestPointAlgorithm{
         project(u, v, a);
         
     }
-    
-    @Override
-    public double[] getLatticePoint() { return v; }
-    
-    @Override
-    public double[] getIndex() { return u; }
     
     /** creates the orthogonal vector for Pna.  Allocates memory*/
     protected static double[] createg(int n, int a){

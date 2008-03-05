@@ -6,7 +6,7 @@
 
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import lattices.AnstarBucket;
 import simulator.*;
 
@@ -26,7 +26,7 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
     
     protected double[] bestU;
     /** 
-     * Return the integer vector returned from the Anstar algorithm.
+     * Return the integer vector returned from the AnstarVaughan algorithm.
      * <p>
      * Recall that u returned from nearestPoint is not unique.  A constant
      * added to each element of u returns will result in the same
@@ -100,7 +100,7 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length)
 	    setSize(y.length);
-	Anstar.project(y, zeta);
+	AnstarVaughan.project(y, zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;

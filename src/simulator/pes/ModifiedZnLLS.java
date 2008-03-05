@@ -6,7 +6,7 @@
 
 package simulator.pes;
 
-import lattices.Anstar;
+import lattices.AnstarVaughan;
 import simulator.*;
 
 /**
@@ -20,7 +20,7 @@ public class ModifiedZnLLS extends ZnLLS implements PRIEstimator {
         if (n != y.length-1)
 	    setSize(y.length);
         
-        Anstar.project(y, z);
+        AnstarVaughan.project(y, z);
         
         double bestf = 0.0;
         double mindist = Double.POSITIVE_INFINITY;

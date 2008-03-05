@@ -17,10 +17,10 @@ import simulator.*;
  * 
  * @author Robby McKilliam
  */
-public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
+public class Pn2Sampled extends Pn2 implements NearestPointAlgorithmInterface {
     
     protected int num_samples;
-    Anstar anstar;
+    AnstarVaughan anstar;
     
     protected double[] g, vt, ut, y; 
     
@@ -37,7 +37,7 @@ public class Pn2Sampled extends Pn2 implements LatticeNearestPointAlgorithm {
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new Anstar();
+        anstar = new AnstarVaughan();
         anstar.setDimension(n+1);
         
         u = new double[n+2];

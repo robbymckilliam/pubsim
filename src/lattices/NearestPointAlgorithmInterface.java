@@ -1,5 +1,5 @@
 /*
- * LatticeNearestPointAlgorithm.java
+ * NearestPointAlgorithmInterface.java
  *
  * Created on 12 August 2007, 20:23
  */
@@ -10,7 +10,7 @@ package lattices;
  *
  * @author Robby McKilliam
  */
-public interface LatticeNearestPointAlgorithm {
+public interface NearestPointAlgorithmInterface {
     
     void setDimension(int n);
     void nearestPoint(double[] y);

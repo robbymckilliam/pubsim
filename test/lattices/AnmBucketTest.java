@@ -72,7 +72,7 @@ public class AnmBucketTest extends TestCase {
             tester.nearestPoint(y);
             v_instance = instance.getLatticePoint();
             v_tester = tester.getLatticePoint();
-            Anstar.project(y,x);
+            AnstarVaughan.project(y,x);
             
             
             /*
