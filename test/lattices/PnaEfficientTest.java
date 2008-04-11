@@ -21,13 +21,13 @@ public class PnaEfficientTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class lattices.PnaEfficient.
+     * Test of nearestPoint method, of class lattices.PhinaEfficient.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
         double[] y = {-1, 0, 0.1, 5, -2};
-        PnaEfficient pn1 = new PnaEfficient(1);
+        PhinaEfficient pn1 = new PhinaEfficient(1);
         AnstarVaughan ans = new AnstarVaughan();
         
         pn1.nearestPoint(y);
@@ -40,8 +40,8 @@ public class PnaEfficientTest extends TestCase {
         assertEquals(true, VectorFunctions.distance_between(pn1.getLatticePoint(), ans.getLatticePoint())<0.00001);
         
         double[] y1 = {-1, 0, 0.1, 5, -2};
-        PnaEfficient pn2 = new PnaEfficient(2);
-        Pn2Glued pn2g = new Pn2Glued();
+        PhinaEfficient pn2 = new PhinaEfficient(2);
+        Phin2Glued pn2g = new Phin2Glued();
         
         //pn2.setDimension(5-2);
         
@@ -57,7 +57,7 @@ public class PnaEfficientTest extends TestCase {
     }
 
     /**
-     * Test of project method, of class lattices.PnaEfficient.
+     * Test of project method, of class lattices.PhinaEfficient.
      */
     public void testProject() {
         System.out.println("project");
@@ -69,21 +69,21 @@ public class PnaEfficientTest extends TestCase {
         //from matlab
         double[] exp = {-2, 1.2, 2.4 ,-0.4, -1.2};
         
-        PnaEfficient.project(x, y, a);
+        PhinaEfficient.project(x, y, a);
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);
     }
     
     /**
-     * Test of volume method, of class lattices.PnaEfficient.
+     * Test of volume method, of class lattices.PhinaEfficient.
      */
     public void testVolume() {
         System.out.println("volume");
         
         int n = 10;
         int a = 1;
-        PnaEfficient pna = new PnaEfficient(a, n-a);
+        PhinaEfficient pna = new PhinaEfficient(a, n-a);
         
         //AnstarVaughan det
         double expres = Math.sqrt(1.0/n);
@@ -92,7 +92,7 @@ public class PnaEfficientTest extends TestCase {
         
         n = 10;
         a = 2;
-        pna = new PnaEfficient(a, n-a);
+        pna = new PhinaEfficient(a, n-a);
         
         //from matlab
         expres = 0.198479065379550;
@@ -101,7 +101,7 @@ public class PnaEfficientTest extends TestCase {
         
         n = 22;
         a = 3;
-        pna = new PnaEfficient(a, n-a);
+        pna = new PhinaEfficient(a, n-a);
         
         expres = 0.047564984401627;
         

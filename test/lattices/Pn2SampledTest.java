@@ -22,7 +22,7 @@ public class Pn2SampledTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class simulator.Pn2Sampled.
+     * Test of nearestPoint method, of class simulator.Phin2Sampled.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
@@ -31,14 +31,14 @@ public class Pn2SampledTest extends TestCase {
         Random rand = new Random();
         
         double[] y = new double[n];
-        Pn2Sampled instance = new Pn2Sampled(1000);
-        Pn2Glued tester = new Pn2Glued();
+        Phin2Sampled instance = new Phin2Sampled(1000);
+        Phin2Glued tester = new Phin2Glued();
         
         for(int i = 0; i < 100; i++){
             for(int j=0; j<n; j++)
                 y[j] = 10 * rand.nextGaussian();
             
-            Pn2.project(y,y);
+            Phin2.project(y,y);
             
             instance.nearestPoint(y);
             tester.nearestPoint(y);

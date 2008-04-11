@@ -28,6 +28,7 @@ public class SamplingLatticeCarrierEstimator extends SamplingLatticeEstimator
     }
     
     /** Run the estimator on recieved data, @param y */
+    @Override
     public double estimateFreq(double[] real, double[] imag){
         if(n+2 != real.length)
             setSize(real.length);

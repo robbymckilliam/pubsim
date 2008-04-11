@@ -6,11 +6,11 @@
 package simulator.poly;
 
 import Jama.Matrix;
-import lattices.PnaEfficient;
+import lattices.PhinaEfficient;
 import simulator.VectorFunctions;
 
 /**
- * Runs the PnaEfficient nearest lattice point algorithm to
+ * Runs the PhinaEfficient nearest lattice point algorithm to
  * estimate a polynomial phase signal.
  * @author Robby McKilliam
  */
@@ -18,7 +18,7 @@ public class LatticeEstimator implements PolynomialPhaseEstimator{
     
     protected double[] ya, gparams;
     protected int n, a;
-    protected PnaEfficient lattice;
+    protected PhinaEfficient lattice;
     protected Matrix mat;
     
     /** 
@@ -26,7 +26,7 @@ public class LatticeEstimator implements PolynomialPhaseEstimator{
      * @param a = polynomial order
      */
     public LatticeEstimator(int a){
-        lattice = new PnaEfficient(a);
+        lattice = new PhinaEfficient(a);
         this.a = a;
     }
 

@@ -14,13 +14,13 @@ import simulator.VectorFunctions;
  * in n but exponential in alpha.
  * @author Robby McKilliam
  */
-public class Pna extends NearestPointAlgorithm{
+public class Phina extends NearestPointAlgorithm{
     
     protected int a;
     protected double[] g, yt, yp;
     
     /** Must set a when constucted */
-    public Pna(int a){
+    public Phina(int a){
         this.a = a;
         //this is a bit icky.  It's just to
         //ensure that it's not a null pointer
@@ -29,7 +29,7 @@ public class Pna extends NearestPointAlgorithm{
     }
     
     /** Sets a and the dimension n when constructed */
-    public Pna(int a, int n){
+    public Phina(int a, int n){
         this.a = a;
         setDimension(n);
     }
@@ -56,7 +56,7 @@ public class Pna extends NearestPointAlgorithm{
         if(a > 0){       
             double magg = VectorFunctions.magnitude(g);
             double step = magg/Math.pow(n,a);
-            Pna pna = new Pna(a-1);
+            Phina pna = new Phina(a-1);
             pna.setDimension(n);
             for(double s = 0; s < magg; s+=step){
                 for(int i = 0; i < y.length; i++)
@@ -80,7 +80,7 @@ public class Pna extends NearestPointAlgorithm{
         
     }
     
-    /** creates the orthogonal vector for Pna.  Allocates memory*/
+    /** creates the orthogonal vector for Phina.  Allocates memory*/
     protected static double[] createg(int n, int a){
         double[] g = new double[n+a];
         if( a > 0 ){
@@ -93,7 +93,7 @@ public class Pna extends NearestPointAlgorithm{
     }
     
     /** 
-     * Project x into the space of the lattice Pna and return
+     * Project x into the space of the lattice Phina and return
      * the projection into y.  Requires recursion, runs in O(n a) time
      * PRE: x.length = y.length
      */
@@ -156,9 +156,9 @@ public class Pna extends NearestPointAlgorithm{
     }
     
     /** 
-     * Returns the vector g for this Pna.
+     * Returns the vector g for this Phina.
      * g is the orthogogonal component of 
-     * the largest order direction for this Pna.
+     * the largest order direction for this Phina.
      * (This probably doesn't make much sense!)
      */
     public double[] getg(){

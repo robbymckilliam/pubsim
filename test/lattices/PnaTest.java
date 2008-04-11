@@ -27,13 +27,13 @@ public class PnaTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class lattices.Pna.
+     * Test of nearestPoint method, of class lattices.Phina.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
         double[] y = {-1, 0, 0.1, 5, -2};
-        Pna pn1 = new Pna(1);
+        Phina pn1 = new Phina(1);
         AnstarVaughan ans = new AnstarVaughan();
         
         pn1.nearestPoint(y);
@@ -46,8 +46,8 @@ public class PnaTest extends TestCase {
         assertEquals(true, VectorFunctions.distance_between(pn1.getLatticePoint(), ans.getLatticePoint())<0.00001);
         
         double[] y1 = {-1, 0, 0.1, 5, -2};
-        Pna pn2 = new Pna(2);
-        Pn2Glued pn2g = new Pn2Glued();
+        Phina pn2 = new Phina(2);
+        Phin2Glued pn2g = new Phin2Glued();
         
         pn2.nearestPoint(y1);
         pn2g.nearestPoint(y1);
@@ -62,7 +62,7 @@ public class PnaTest extends TestCase {
     }
 
     /**
-     * Test of createg method, of class lattices.Pna.
+     * Test of createg method, of class lattices.Phina.
      */
     public void testCreateg() {
         System.out.println("createg");
@@ -71,7 +71,7 @@ public class PnaTest extends TestCase {
         int a = 2;
         
         double[] expResult = {-2, -1, 0, 1, 2};
-        double[] result = Pna.createg(n-a, a);
+        double[] result = Phina.createg(n-a, a);
         System.out.println("g = " + VectorFunctions.print(result));
         assertEquals(true, VectorFunctions.distance_between(expResult, result)<0.00001);
         
@@ -79,14 +79,14 @@ public class PnaTest extends TestCase {
         a = 3;
         
         double[] expResult2 = {7, 1, -3, -5, -5, -3, 1, 7};
-        double[] result2 = Pna.createg(n-a, a);
+        double[] result2 = Phina.createg(n-a, a);
         System.out.println("g = " + VectorFunctions.print(result2));
         assertEquals(true, VectorFunctions.distance_between(expResult2, result2)<0.00001);
         
     }
     
     /**
-     * Test of generateRotationMatrix method, of class lattices.Pna.
+     * Test of generateRotationMatrix method, of class lattices.Phina.
      */
     public void testGenerateRotationMatrix() {
         System.out.println("generateRotationMatrix");
@@ -94,17 +94,17 @@ public class PnaTest extends TestCase {
         int n = 11;
         int a = 4;
         
-        double[][] mat = VectorFunctions.transpose(Pna.generateRotationMatrix(n-a, a));
+        double[][] mat = VectorFunctions.transpose(Phina.generateRotationMatrix(n-a, a));
         System.out.println("mat = " + VectorFunctions.print(VectorFunctions.transpose(mat)));
         for(int i = 0; i < n - a; i++){
             for(int j = 1; j <= a; j++)
-            assertEquals(true, Math.abs(VectorFunctions.dot(mat[i], Pna.createg(n-j,j)))<0.00001);
+            assertEquals(true, Math.abs(VectorFunctions.dot(mat[i], Phina.createg(n-j,j)))<0.00001);
         }
         
     }
 
     /**
-     * Test of project method, of class lattices.Pna.
+     * Test of project method, of class lattices.Phina.
      */
     public void testProject() {
         System.out.println("project");
@@ -116,7 +116,7 @@ public class PnaTest extends TestCase {
         //from matlab
         double[] exp = {-2, 1.2, 2.4 ,-0.4, -1.2};
         
-        Pna.project(x, y, a);
+        Phina.project(x, y, a);
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);

@@ -33,8 +33,8 @@ public class AnmTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         double[] y = null;
-        Anm instance = null;
-        instance.nearestPoint(y);
+ //       Anm instance = null;
+//        instance.nearestPoint(y);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

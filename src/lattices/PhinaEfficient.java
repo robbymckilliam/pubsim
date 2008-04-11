@@ -1,5 +1,5 @@
 /*
- * PnaEfficient.java
+ * PhinaEfficient.java
  *
  * Created on 3 November 2007, 13:48
  */
@@ -10,17 +10,17 @@ import Jama.Matrix;
 import simulator.VectorFunctions;
 
 /**
- * This is a version of Pna that avoids allocating and deallocated memory all
+ * This is a version of Phina that avoids allocating and deallocated memory all
  * the time.  This is achieved by precalculating and storing all 
  * Pnb, b<=a algorithms.
  * <p>
  * The biggest gain comes from createg and project not recuring so much. 
  * @author Robby McKilliam
  */
-public class PnaEfficient extends Pna {
+public class PhinaEfficient extends Phina {
     
     /** Store P_n^(a-1) that is used for recursion. */
-    protected PnaEfficient pnam1;
+    protected PhinaEfficient pnam1;
     
     /** 
      * gtg = VectorFunctions.sum2(g)
@@ -31,11 +31,11 @@ public class PnaEfficient extends Pna {
      /** When a = 1, we can use the O(n) An* algorithm */
     protected Anstar anstar;
     
-    public PnaEfficient(int a) { 
+    public PhinaEfficient(int a) { 
         super(a);
     }
     
-    public PnaEfficient(int a, int n){
+    public PhinaEfficient(int a, int n){
         super(a,n);
     }
     
@@ -45,7 +45,7 @@ public class PnaEfficient extends Pna {
         
         //setup pnam1
         if(a > 0)
-            pnam1 = new PnaEfficient(a-1, n+1);
+            pnam1 = new PhinaEfficient(a-1, n+1);
         
         u = new double[n + a];
         v = new double[n + a];
@@ -103,7 +103,7 @@ public class PnaEfficient extends Pna {
     
     /** 
      * non static version of project that assumes that the
-     * holder contains all the Pna's that is needs
+     * holder contains all the Phina's that is needs
      */
     protected void project(double[] x, double[] y){
         if(a > 0){
@@ -153,7 +153,7 @@ public class PnaEfficient extends Pna {
     }
     
     /** 
-     * Returns the vector g for this Pna where
+     * Returns the vector g for this Phina where
      * a is the input to the function.
      */
     public double[] getg(int a){

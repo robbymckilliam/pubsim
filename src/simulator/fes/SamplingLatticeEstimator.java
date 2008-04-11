@@ -6,7 +6,7 @@
 
 package simulator.fes;
 import lattices.NearestPointAlgorithmInterface;
-import lattices.Pn2Sampled;
+import lattices.Phin2Sampled;
 
 /**
  * Simple and fast suboptimal (but perharps can be made optimal)
@@ -29,7 +29,7 @@ public class SamplingLatticeEstimator implements FrequencyEstimator {
     /** Set the number of samples */
     @Override
     public void setSize(int n){
-        lattice = new Pn2Sampled(samples);
+        lattice = new Phin2Sampled(samples);
         lattice.setDimension(n-2);  
         y = new double[n];
         this.n = n;
