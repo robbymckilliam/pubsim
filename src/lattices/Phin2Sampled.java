@@ -20,7 +20,7 @@ import simulator.*;
 public class Phin2Sampled extends Phin2 implements NearestPointAlgorithmInterface {
     
     protected int num_samples;
-    AnstarVaughan anstar;
+    Anstar anstar;
     
     protected double[] g, vt, ut, y; 
     
@@ -34,10 +34,11 @@ public class Phin2Sampled extends Phin2 implements NearestPointAlgorithmInterfac
         num_samples = samples;
     }
     
+    @Override
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new AnstarVaughan();
+        anstar = new AnstarBucket();
         anstar.setDimension(n+1);
         
         u = new double[n+2];
@@ -47,6 +48,7 @@ public class Phin2Sampled extends Phin2 implements NearestPointAlgorithmInterfac
         g = new double[n+2];
     }
     
+    @Override
     public void nearestPoint(double[] y){
         if (n != y.length-2)
 	    setDimension(y.length-2);

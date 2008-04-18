@@ -1,5 +1,5 @@
 /*
- * Pn2Test.java
+ * Phin2Test.java
  * JUnit based test
  *
  * Created on 12 August 2007, 22:11
@@ -14,9 +14,9 @@ import simulator.*;
  *
  * @author Robby McKilliam
  */
-public class Pn2Test extends TestCase {
+public class Phin2Test extends TestCase {
     
-    public Pn2Test(String testName) {
+    public Phin2Test(String testName) {
         super(testName);
     }
 

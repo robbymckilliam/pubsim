@@ -21,7 +21,7 @@ import simulator.*;
  */
 public class Phin2Glued extends Phin2 implements NearestPointAlgorithmInterface {
     
-    protected AnstarVaughan anstar;
+    protected Anstar anstar;
     
     protected double[] g, vt, yt, y, ut;
     
@@ -29,8 +29,8 @@ public class Phin2Glued extends Phin2 implements NearestPointAlgorithmInterface 
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new AnstarVaughan();
-        anstar.setDimension(n+1);
+        anstar = new AnstarBucket();
+        anstar.setDimension(n+2);
         
         g = new double[n+2];
         v = new double[n+2];
@@ -45,6 +45,7 @@ public class Phin2Glued extends Phin2 implements NearestPointAlgorithmInterface 
      * translates/glues of An*.  Currently, this only works
      * for odd n.
      */
+    @Override
     public void nearestPoint(double[] y){
         if (n != y.length-2)
 	    setDimension(y.length-2);

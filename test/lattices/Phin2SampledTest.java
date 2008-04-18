@@ -1,5 +1,5 @@
 /*
- * Pn2SampledTest.java
+ * Phin2SampledTest.java
  * JUnit based test
  *
  * Created on 18 August 2007, 17:55
@@ -15,9 +15,9 @@ import simulator.*;
  *
  * @author Robby McKilliam
  */
-public class Pn2SampledTest extends TestCase {
+public class Phin2SampledTest extends TestCase {
     
-    public Pn2SampledTest(String testName) {
+    public Phin2SampledTest(String testName) {
         super(testName);
     }
 
@@ -27,7 +27,7 @@ public class Pn2SampledTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 11;
+        int n = 10;
         Random rand = new Random();
         
         double[] y = new double[n];
@@ -44,7 +44,8 @@ public class Pn2SampledTest extends TestCase {
             tester.nearestPoint(y);
             
             double dist = VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint());
-            //System.out.println("dist = " + dist);
+            System.out.println("inst = " + VectorFunctions.distance_between(instance.getLatticePoint(), y));
+            System.out.println("test = " + VectorFunctions.distance_between(tester.getLatticePoint(), y));
             assertEquals(dist < 0.0001, true);
             
         }
