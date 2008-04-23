@@ -39,7 +39,7 @@ public class ClairvoyantCRB {
     }
     
     /** Return the clairvoyant CRB for the set parameters */
-    public double getCRB(){
+    public double getBound(){
         return var/mag2x;
     }
     
