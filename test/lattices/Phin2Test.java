@@ -21,13 +21,13 @@ public class Phin2Test extends TestCase {
     }
 
     /**
-     * Test of setDimension method, of class simulator.Phin2.
+     * Test of setDimension method, of class simulator.PhinStar2.
      */
     public void testSetDimension() {
         System.out.println("setDimension");
         
         int n = 0;
-        Phin2 instance = new Phin2();
+        PhinStar2 instance = new PhinStar2();
         
         instance.setDimension(n);
         
@@ -36,13 +36,13 @@ public class Phin2Test extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class simulator.Phin2.
+     * Test of nearestPoint method, of class simulator.PhinStar2.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
         double[] y = null;
-        Phin2 instance = new Phin2();
+        PhinStar2 instance = new PhinStar2();
         
         instance.nearestPoint(y);
         
@@ -51,7 +51,7 @@ public class Phin2Test extends TestCase {
     }
 
     /**
-     * Test of project method, of class simulator.Phin2.
+     * Test of project method, of class simulator.PhinStar2.
      */
     public void testProject() {
         System.out.println("project");
@@ -59,7 +59,7 @@ public class Phin2Test extends TestCase {
         double[] x = { 1.0, 1.1, 2.0, 4.0, 5.4 };
         double[] y = new double[x.length];
         
-        Phin2.project(x, y);
+        PhinStar2.project(x, y);
         
         //calculated in matlab
         double[] expResult = {0.6400, -0.4300, -0.7000, 0.1300, 0.3600};

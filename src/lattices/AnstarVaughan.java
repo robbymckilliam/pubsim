@@ -141,4 +141,5 @@ public class AnstarVaughan extends Anstar {
     public double volume(){
         return Math.sqrt(1/(n+1));
     }
+
 }

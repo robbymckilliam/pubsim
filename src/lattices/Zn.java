@@ -41,5 +41,9 @@ public class Zn implements NearestPointAlgorithmInterface {
     /** {@inheritDoc} */
     @Override
     public double volume(){ return 1;}
+
+    public double inradius() {
+        return 1.0;
+    }
     
 }

@@ -1,5 +1,5 @@
 /*
- * Phin2Glued.java
+ * Phin2StarGlued.java
  *
  * Created on 12 August 2007, 20:15
  */
@@ -10,7 +10,7 @@ import simulator.*;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the
- * An* nearest point algorithm for all O(n^3) glue vectors.  Phin2 is a faster
+ * An* nearest point algorithm for all O(n^3) glue vectors.  Phin2Star is a faster
  * O(n^3 log(n)) algorithm.  
  * <p>
  * This currently only works for odd n.  The glue vectors are slightly different
@@ -19,7 +19,7 @@ import simulator.*;
  * 
  * @author Robby McKilliam
  */
-public class Phin2Glued extends Phin2 implements NearestPointAlgorithmInterface {
+public class Phin2StarGlued extends Phin2Star implements NearestPointAlgorithmInterface {
     
     protected Anstar anstar;
     
@@ -41,7 +41,7 @@ public class Phin2Glued extends Phin2 implements NearestPointAlgorithmInterface 
     }
     
     /**
-     * Find the nearest point in Phin2 by searching the o(n^3)
+     * Find the nearest point in Phin2Star by searching the o(n^3)
      * translates/glues of An*.  Currently, this only works
      * for odd n.
      */

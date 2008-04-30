@@ -242,6 +242,30 @@ public class VectorFunctionsTest extends TestCase {
     }
     
     /**
+     * Test of increasing method, of class simulator.VectorFunctions.
+     */
+    public void testConv() {
+        System.out.println("conv");
+        
+        double[] x1 = {1, -1};
+        double[] x2 = {1, -1};
+        double[] exp = {1, -2, 1};
+        
+        double[] res = VectorFunctions.conv(x1, x2);
+        System.out.println(VectorFunctions.print(res));
+        assertEquals(true, VectorFunctions.distance_between2(exp, res) < 0.00001);
+        
+        double[] x12 = {1,-1, 2};
+        double[] x22 = {1,-1, 3, 4};
+        double[] exp2 = {1, -2, 6, -1, 2, 8};
+        
+        double[] res2 = VectorFunctions.conv(x12, x22);
+        System.out.println(VectorFunctions.print(res2));
+        assertEquals(true, VectorFunctions.distance_between2(exp2, res2) < 0.00001);
+       
+    }
+    
+    /**
      * Test of maxDistance method, of class simulator.VectorFunctions.
      */
     public void testMatrixMultVector() {

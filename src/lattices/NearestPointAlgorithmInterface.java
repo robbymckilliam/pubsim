@@ -27,5 +27,12 @@ public interface NearestPointAlgorithmInterface {
      * the determinat of the gram matrix
      */
     double volume();
+
+    /**
+     * Return the inradius for this lattice
+     */
+    double inradius();
+    
+    
     
 }

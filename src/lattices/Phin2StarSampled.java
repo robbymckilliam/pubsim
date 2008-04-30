@@ -1,5 +1,5 @@
 /*
- * Phin2Sampled.java
+ * Phin2StarSampled.java
  *
  * Created on 18 August 2007, 12:53
  */
@@ -9,7 +9,7 @@ package lattices;
 import simulator.*;
 
 /**
- * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Phin2.
+ * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Phin2Star.
  * Based on the pes.SamplingLLS period estimator.  Runs in 0(n^2 logn) assuming
  * that 0(n) samples are used.
  * <p>
@@ -17,7 +17,7 @@ import simulator.*;
  * 
  * @author Robby McKilliam
  */
-public class Phin2Sampled extends Phin2 implements NearestPointAlgorithmInterface {
+public class Phin2StarSampled extends Phin2Star implements NearestPointAlgorithmInterface {
     
     protected int num_samples;
     Anstar anstar;
@@ -25,12 +25,12 @@ public class Phin2Sampled extends Phin2 implements NearestPointAlgorithmInterfac
     protected double[] g, vt, ut, y; 
     
     /** Default constructor.  Uses 100 samples */
-    public Phin2Sampled() {
+    public Phin2StarSampled() {
         num_samples = 100;
     }
     
     /** Default constructor sets the number of samples */
-    public Phin2Sampled(int samples) {
+    public Phin2StarSampled(int samples) {
         num_samples = samples;
     }
     

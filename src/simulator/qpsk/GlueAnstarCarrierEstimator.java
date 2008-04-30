@@ -13,7 +13,7 @@ import simulator.fes.FrequencyEstimator;
  * efficiently remove the 
  * @author Robby McKilliam
  */
-public class GlueAnstarCarrierEstimator extends lattices.Phin2Glued
+public class GlueAnstarCarrierEstimator extends lattices.Phin2StarGlued
         implements CarrierEstimator{
     
     protected int M;

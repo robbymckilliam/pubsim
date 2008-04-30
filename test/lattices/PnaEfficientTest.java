@@ -21,13 +21,13 @@ public class PnaEfficientTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class lattices.PhinaEfficient.
+     * Test of nearestPoint method, of class lattices.PhinaStarEfficient.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
         double[] y = {-1, 0, 0.1, 5, -2};
-        PhinaEfficient pn1 = new PhinaEfficient(1);
+        PhinaStarEfficient pn1 = new PhinaStarEfficient(1);
         AnstarVaughan ans = new AnstarVaughan();
         
         pn1.nearestPoint(y);
@@ -40,8 +40,8 @@ public class PnaEfficientTest extends TestCase {
         assertEquals(true, VectorFunctions.distance_between(pn1.getLatticePoint(), ans.getLatticePoint())<0.00001);
         
         double[] y1 = {-1, 0, 0.1, 5, -2};
-        PhinaEfficient pn2 = new PhinaEfficient(2);
-        Phin2Glued pn2g = new Phin2Glued();
+        PhinaStarEfficient pn2 = new PhinaStarEfficient(2);
+        Phin2StarGlued pn2g = new Phin2StarGlued();
         
         //pn2.setDimension(5-2);
         
@@ -57,7 +57,7 @@ public class PnaEfficientTest extends TestCase {
     }
 
     /**
-     * Test of project method, of class lattices.PhinaEfficient.
+     * Test of project method, of class lattices.PhinaStarEfficient.
      */
     public void testProject() {
         System.out.println("project");
@@ -69,21 +69,21 @@ public class PnaEfficientTest extends TestCase {
         //from matlab
         double[] exp = {-2, 1.2, 2.4 ,-0.4, -1.2};
         
-        PhinaEfficient.project(x, y, a);
+        PhinaStarEfficient.project(x, y, a);
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);
     }
     
     /**
-     * Test of volume method, of class lattices.PhinaEfficient.
+     * Test of volume method, of class lattices.PhinaStarEfficient.
      */
     public void testVolume() {
         System.out.println("volume");
         
         int n = 10;
         int a = 1;
-        PhinaEfficient pna = new PhinaEfficient(a, n-a);
+        PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
         
         //AnstarVaughan det
         double expres = Math.sqrt(1.0/n);
@@ -92,7 +92,7 @@ public class PnaEfficientTest extends TestCase {
         
         n = 10;
         a = 2;
-        pna = new PhinaEfficient(a, n-a);
+        pna = new PhinaStarEfficient(a, n-a);
         
         //from matlab
         expres = 0.198479065379550;
@@ -101,12 +101,29 @@ public class PnaEfficientTest extends TestCase {
         
         n = 22;
         a = 3;
-        pna = new PhinaEfficient(a, n-a);
+        pna = new PhinaStarEfficient(a, n-a);
         
         expres = 0.047564984401627;
         
         //assertEquals(true, Math.abs(pna.volume()- expres));
         assertEquals(true, Math.abs(pna.volume()- expres) < 0.00001);
+    }
+    
+        /**
+     * Test of inradius method, of class lattices.PhinaStarEfficient.
+     */
+    public void testInradius() {
+        System.out.println("inradius");
+        
+        int n = 10;
+        int a = 1;
+        PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
+        
+        //AnstarVaughan det
+        double expres = Math.sqrt(1.0 - 1.0/n);
+        
+        assertEquals(true, Math.abs(pna.inradius() - expres)<0.0001);
+        
     }
     
 }

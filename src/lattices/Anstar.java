@@ -9,10 +9,14 @@ package lattices;
  * Abstract class for any Anstar algorithm
  * @author robertm
  */
-public abstract class Anstar extends NearestPointAlgorithm{
+public abstract class Anstar extends NearestPointAlgorithm {
     
     public double volume(){
-        return 1.0/(n+1);
+        return Math.sqrt(1.0/(n+1));
+    }
+    
+    public double inradius(){
+        return Math.sqrt(1.0 - 1.0/(n+1));
     }
     
     
@@ -30,5 +34,6 @@ public abstract class Anstar extends NearestPointAlgorithm{
 	for (int i = 0; i < x.length; i++)
 	    y[i] = x[i] - xbar;
     }
+    
 
 }

@@ -50,4 +50,8 @@ public class Dn implements NearestPointAlgorithmInterface{
         return 2.0;
     }
 
+    public double inradius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

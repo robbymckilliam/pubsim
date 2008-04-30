@@ -189,6 +189,23 @@ public class VectorFunctions {
         return print(mat.getArray());
     }
     
+    /**
+     * Convolution of two vectors.  This
+     * allocates the required memory
+     */
+    public static double[] conv(double[] x, double[] y){
+        double[] r = new double[x.length + y.length - 1];
+        for(int t = 0; t < r.length; t++){
+            double csum = 0.0;
+            for(int i = 0; i < x.length; i++){
+                if( t-i >= 0 && t-i < y.length)
+                    csum += x[i]*y[t-i];
+            }
+            r[t] = csum;
+        }
+        return r;
+    }
+    
     
     /**
      * Vector dot/inner product

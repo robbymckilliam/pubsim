@@ -1,5 +1,5 @@
 /*
- * Phin2.java
+ * Phin2Star.java
  *
  * Created on 12 August 2007, 21:11
  */
@@ -9,14 +9,14 @@ package lattices;
 import simulator.*;
 
 /**
- * Nearest point algorithm for the Phin2 lattice.
+ * Nearest point algorithm for the Phin2Star lattice.
  * Works as a specialised version on the period estimation ZnLLS algorithm.
  * O(n^3log(n)).
  * UNDER CONSTRUCTION BY TIM!
  * 
  * @author Tim Mason and Robby McKilliam
  */
-public class Phin2 implements NearestPointAlgorithmInterface{
+public class Phin2Star implements NearestPointAlgorithmInterface{
     
     /** Dimension of this lattice */
     protected int n;
@@ -46,7 +46,7 @@ public class Phin2 implements NearestPointAlgorithmInterface{
     public double[] getIndex(){ return u; }
     
     /**
-     * Project a n+2 length vector into Phin2 space.
+     * Project a n+2 length vector into Phin2Star space.
      * y is output, x is input (x & y can be the same array)
      * <p>
      * PRE: x.length <= y.length
@@ -67,5 +67,9 @@ public class Phin2 implements NearestPointAlgorithmInterface{
     /** {@inheritDoc} */
     @Override
     public double volume(){ return 0;}
+
+    public double inradius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

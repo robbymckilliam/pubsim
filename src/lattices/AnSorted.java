@@ -78,4 +78,8 @@ public class AnSorted implements NearestPointAlgorithmInterface{
         return g;
     }
 
+    public double inradius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

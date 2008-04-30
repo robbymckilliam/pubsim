@@ -1,5 +1,5 @@
 /*
- * PhinaEfficient.java
+ * PhinaStarEfficient.java
  *
  * Created on 3 November 2007, 13:48
  */
@@ -10,17 +10,17 @@ import Jama.Matrix;
 import simulator.VectorFunctions;
 
 /**
- * This is a version of Phina that avoids allocating and deallocated memory all
+ * This is a version of PhinaStar that avoids allocating and deallocated memory all
  * the time.  This is achieved by precalculating and storing all 
  * Pnb, b<=a algorithms.
  * <p>
  * The biggest gain comes from createg and project not recuring so much. 
  * @author Robby McKilliam
  */
-public class PhinaEfficient extends Phina {
+public class PhinaStarEfficient extends PhinaStar {
     
     /** Store P_n^(a-1) that is used for recursion. */
-    protected PhinaEfficient pnam1;
+    protected PhinaStarEfficient pnam1;
     
     /** 
      * gtg = VectorFunctions.sum2(g)
@@ -31,11 +31,11 @@ public class PhinaEfficient extends Phina {
      /** When a = 1, we can use the O(n) An* algorithm */
     protected Anstar anstar;
     
-    public PhinaEfficient(int a) { 
+    public PhinaStarEfficient(int a) { 
         super(a);
     }
     
-    public PhinaEfficient(int a, int n){
+    public PhinaStarEfficient(int a, int n){
         super(a,n);
     }
     
@@ -45,7 +45,7 @@ public class PhinaEfficient extends Phina {
         
         //setup pnam1
         if(a > 0)
-            pnam1 = new PhinaEfficient(a-1, n+1);
+            pnam1 = new PhinaStarEfficient(a-1, n+1);
         
         u = new double[n + a];
         v = new double[n + a];
@@ -103,7 +103,7 @@ public class PhinaEfficient extends Phina {
     
     /** 
      * non static version of project that assumes that the
-     * holder contains all the Phina's that is needs
+     * holder contains all the PhinaStar's that is needs
      */
     protected void project(double[] x, double[] y){
         if(a > 0){
@@ -133,6 +133,7 @@ public class PhinaEfficient extends Phina {
     }
     
     /** {@inheritDoc} */
+    /*
     @Override
     public double volume(){
         //if this is the Zn lattice
@@ -151,9 +152,10 @@ public class PhinaEfficient extends Phina {
             return Math.sqrt(det) * pnam1.volume();
         }
     }
+    */
     
     /** 
-     * Returns the vector g for this Phina where
+     * Returns the vector g for this PhinaStar where
      * a is the input to the function.
      */
     public double[] getg(int a){
@@ -163,6 +165,17 @@ public class PhinaEfficient extends Phina {
         else
             ret = getg();
         return ret;
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public double inradius(){
+        double r2 = 1.0;
+        for(int i = 1; i <= a; i ++){
+            double[] tg = getg(i);
+            r2 -= tg[0]*tg[0]/VectorFunctions.sum2(tg);
+        }
+        return Math.sqrt(r2)/2.0;
     }
     
 }
