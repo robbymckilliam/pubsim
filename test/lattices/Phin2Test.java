@@ -27,7 +27,7 @@ public class Phin2Test extends TestCase {
         System.out.println("setDimension");
         
         int n = 0;
-        PhinStar2 instance = new PhinStar2();
+        Phin2Star instance = new Phin2Star();
         
         instance.setDimension(n);
         
@@ -42,7 +42,7 @@ public class Phin2Test extends TestCase {
         System.out.println("nearestPoint");
         
         double[] y = null;
-        PhinStar2 instance = new PhinStar2();
+        Phin2Star instance = new Phin2Star();
         
         instance.nearestPoint(y);
         
@@ -59,7 +59,7 @@ public class Phin2Test extends TestCase {
         double[] x = { 1.0, 1.1, 2.0, 4.0, 5.4 };
         double[] y = new double[x.length];
         
-        PhinStar2.project(x, y);
+        Phin2Star.project(x, y);
         
         //calculated in matlab
         double[] expResult = {0.6400, -0.4300, -0.7000, 0.1300, 0.3600};
