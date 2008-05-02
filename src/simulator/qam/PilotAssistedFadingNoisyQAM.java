@@ -41,6 +41,7 @@ public class PilotAssistedFadingNoisyQAM extends FadingNoisyQAM
      * Generate a random QAM signal of the currently
      * specified length.  The first symbol is the pilot
      */
+    @Override
     public void generateQAMSignal(){
         xr[0] = realPATSymbol;
         xi[0] = imagPATSymbol;

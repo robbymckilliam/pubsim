@@ -23,6 +23,7 @@ public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
     * Set number of QAM signals to use for
     * estimating the channel
     */
+    @Override
     public void setT(int T){
         this.T = T;
         
@@ -36,6 +37,7 @@ public class T3OptimalV3 extends T3Optimal implements  QAMReceiver {
     }
     
     /**Decode the QAM signal*/
+    @Override
     public void decode(double[] rreal, double[] rimag){
         if( rreal.length != T )
             setT(rreal.length);
