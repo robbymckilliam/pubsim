@@ -64,8 +64,8 @@ public class PilotTranslatedT3OptimalTest extends TestCase {
         int M = 8;
         int T = 8;
         long seed = 11111;
-        double pr = 0.3;
-        double pi = 0.3;
+        double pr = 0.001;
+        double pi = 0.001;
         
         PilotTranslatedFadingNoisyQAM siggen = new PilotTranslatedFadingNoisyQAM(M);
         siggen.setChannel(1.0,0.2);
