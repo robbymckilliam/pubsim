@@ -52,8 +52,7 @@ public class Phin2StarGlued extends Phin2Star implements NearestPointAlgorithmIn
         
         project(y, this.y);
         
-        double d = (Math.floor(n/2.0) + 1)*(Math.floor(n/2.0) + 2)
-                    *(2*Math.floor(n/2.0) + 3)/3.0; 
+        double d = sumg2(y.length);
         if(n%2 == 0) d = 2*d;
                
         for (int j = 0; j < n+2; j++)

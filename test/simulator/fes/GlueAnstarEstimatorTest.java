@@ -27,7 +27,7 @@ public class GlueAnstarEstimatorTest extends TestCase {
         
         int iters = 100;
         double f = 0.2;
-        int n = 5;
+        int n = 6;
         GlueAnstarEstimator instance = new GlueAnstarEstimator();
         
         NoisyComplexSinusoid signal = new NoisyComplexSinusoid();

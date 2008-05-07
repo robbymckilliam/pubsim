@@ -1,5 +1,5 @@
 /*
- * Phin2Test.java
+ * Phin2StarTest.java
  * JUnit based test
  *
  * Created on 12 August 2007, 22:11
@@ -14,9 +14,9 @@ import simulator.*;
  *
  * @author Robby McKilliam
  */
-public class Phin2Test extends TestCase {
+public class Phin2StarTest extends TestCase {
     
-    public Phin2Test(String testName) {
+    public Phin2StarTest(String testName) {
         super(testName);
     }
 
@@ -68,6 +68,26 @@ public class Phin2Test extends TestCase {
         
         for(int i = 0; i < x.length; i++)
             assertEquals(true, Math.abs(expResult[i] - y[i]) < 0.000001);     
+            
+    }
+    
+    /**
+     * Test of project method, of class simulator.PhinStar2.
+     */
+    public void testSumg2() {
+        System.out.println("sumg2");
+        
+        int numtests = 100;
+        double[] g;
+        
+        for(int i = 1; i <= numtests; i++){
+            g = new double[i];
+            for(int j = 0; j < i; j++)
+                g[j] = j;
+            Anstar.project(g, g);
+            //System.out.println(VectorFunctions.print(g));
+            assertEquals(VectorFunctions.sum2(g), Phin2Star.sumg2(i));
+        }
             
     }
     

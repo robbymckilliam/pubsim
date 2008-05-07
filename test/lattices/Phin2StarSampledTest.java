@@ -1,5 +1,5 @@
 /*
- * Phin2SampledTest.java
+ * Phin2StarSampledTest.java
  * JUnit based test
  *
  * Created on 18 August 2007, 17:55
@@ -15,9 +15,9 @@ import simulator.*;
  *
  * @author Robby McKilliam
  */
-public class Phin2SampledTest extends TestCase {
+public class Phin2StarSampledTest extends TestCase {
     
-    public Phin2SampledTest(String testName) {
+    public Phin2StarSampledTest(String testName) {
         super(testName);
     }
 

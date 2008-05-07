@@ -53,9 +53,7 @@ public class Phin2Star implements NearestPointAlgorithmInterface{
      */
     public static void project(double[] x, double[] y){
         AnstarVaughan.project(x,y);
-        double sumn2 = Math.floor(x.length/2.0)*
-                ( Math.floor(x.length/2.0) + 1 )*
-                ( 2*Math.floor(x.length/2.0) + 1) / 3.0;
+        double sumn2 = sumg2(x.length);
         double nbar = x.length*(x.length + 1)/2 / x.length;
         double dot = 0.0;
         for(int i = 0; i < x.length; i++)
@@ -67,6 +65,18 @@ public class Phin2Star implements NearestPointAlgorithmInterface{
     /** {@inheritDoc} */
     @Override
     public double volume(){ return 0;}
+    
+    /** 
+     * Return the magnitude squared of the vector g with n elements.
+     * See Chapter 6 of Robby's confirmation report.
+     */
+    public static double sumg2(int n){
+        double f = Math.floor(n/2.0);
+        double sum = f*(f + 1)*(2*f + 1)/3.0;
+        if(n%2 == 0)
+            sum += n/4.0 - f*(f+1);
+        return sum;
+    }
 
     public double inradius() {
         throw new UnsupportedOperationException("Not supported yet.");
