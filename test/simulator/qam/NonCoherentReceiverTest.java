@@ -71,6 +71,13 @@ public class NonCoherentReceiverTest extends TestCase {
         double[] yi3 = {3.0,1.0};
         assertEquals(true, 
                 NonCoherentReceiver.ambiguityEqual(xr,xi,yr3,yi3));
+        
+        double[] xr1 = {3.1,1.1};
+        double[] xi1 = {2.3,-1.3};
+        double[] yr4 = {-3.1,-1.1};
+        double[] yi4 = {-2.3,1.3};
+        assertEquals(true, 
+                NonCoherentReceiver.ambiguityEqual(xr1,xi1,yr4,yi4));
     }
     
 }

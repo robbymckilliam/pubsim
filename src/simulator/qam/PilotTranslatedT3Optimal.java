@@ -69,7 +69,7 @@ public class PilotTranslatedT3Optimal extends T3OptimalV3
                         double a = (y2[j]*k - y2[i]*n)/det;
                         double b = (-y1[j]*k + y1[i]*n)/det;
                         
-                        if( a > 0.0 && b > 0.0 ){
+                        //if( a > 0.0 && b > 0.0 ){
                         
                             //run for positive and negative e
                             for(double ve = e; ve >= -1.1*e; ve-=2*e){
@@ -91,7 +91,7 @@ public class PilotTranslatedT3Optimal extends T3OptimalV3
                                 }
                             }
                             
-                        }
+                        //}
                         
                     }
                 }     

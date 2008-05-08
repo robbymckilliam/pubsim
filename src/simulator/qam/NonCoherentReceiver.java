@@ -44,22 +44,26 @@ public class NonCoherentReceiver {
                                             double[] yreal, double[] yimag){
         boolean ret = true;
         for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == yreal[i])&&(ximag[i] == yimag[i]);
+            ret = ret   && Math.round(xreal[i] - yreal[i]) == 0
+                        && Math.round(ximag[i] - yimag[i]) == 0;
         if(ret == true) return true;
         
         ret = true;
         for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == -yreal[i])&&(ximag[i] == -yimag[i]);
+            ret = ret   && Math.round(xreal[i] + yreal[i]) == 0
+                        &&Math.round(ximag[i] + yimag[i]) == 0;
         if(ret == true) return true;
         
         ret = true;
         for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == -yimag[i])&&(ximag[i] == yreal[i]);
+            ret = ret   && Math.round(xreal[i] + yimag[i]) == 0
+                        && Math.round(ximag[i] - yreal[i]) == 0;
         if(ret == true) return true;
         
         ret = true;
         for(int i = 0; i < xreal.length; i++)
-            ret = ret && (xreal[i] == yimag[i])&&(ximag[i] == -yreal[i]);
+            ret = ret   && Math.round(xreal[i] - yimag[i]) == 0
+                        && Math.round(ximag[i] + yreal[i]) == 0;
         if(ret == true) return true;
             
         return false;
@@ -75,22 +79,24 @@ public class NonCoherentReceiver {
         
         boolean ret = true;
         for(int i = 0; i < x.length; i++)
-            ret = ret && (x[i] == y[i]);
+            ret = ret && Math.round(x[i] - y[i]) == 0;
         if(ret == true) return true;
         
         ret = true;
         for(int i = 0; i < x.length; i++)
-            ret = ret && (x[i] == -y[i]);
+            ret = ret && Math.round(x[i] + y[i]) == 0;
         if(ret == true) return true;
         
         ret = true;
         for(int i = 0; i < x.length/2; i++)
-            ret = ret && (x[2*i] == -y[2*i+1])&&(x[2*i+1] == y[2*i]);
+            ret = ret   && Math.round(x[2*i] + y[2*i+1]) == 0
+                        && Math.round(x[2*i+1] - y[2*i]) == 0;  
         if(ret == true) return true;
         
         ret = true;
         for(int i = 0; i < x.length/2; i++)
-            ret = ret && (x[2*i] == y[2*i+1])&&(x[2*i+1] == -y[2*i]);
+            ret = ret   && Math.round(x[2*i] - y[2*i+1]) == 0 
+                        && Math.round(x[2*i+1] + y[2*i]) == 0;
         if(ret == true) return true;
         
         return false;
