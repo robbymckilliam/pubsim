@@ -27,14 +27,14 @@ public class GlueAnstarEstimatorTest extends TestCase {
         
         int iters = 100;
         double f = 0.2;
-        int n = 6;
+        int n = 21;
         GlueAnstarEstimator instance = new GlueAnstarEstimator();
         
         NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
         signal.setSize(n);
         signal.setFrequency(f);
         signal.setPhase(0.3);
-        simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.0001);
+        simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
         signal.setNoiseGenerator(noise);
         
         signal.generateReceivedSignal();
