@@ -92,7 +92,7 @@ public class PilotTranslatedT3OptimalTest extends TestCase {
         System.out.println("timag = " + VectorFunctions.print(siggen.getTransmittedImagQAMSignal()));
         System.out.println("rimag = " + VectorFunctions.print(instance.getImag()));
         
-        assertEquals(0, FadingNoisyQAM.symbolErrors(
+        assertEquals(0, siggen.symbolErrorRate(
                 instance.getReal(),
                 instance.getImag(),
                 siggen.getTransmittedRealQAMSignal(),

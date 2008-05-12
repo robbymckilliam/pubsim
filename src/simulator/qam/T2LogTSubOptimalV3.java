@@ -31,12 +31,14 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
     private IndexedDouble[] sorted;
     
     /** Set the size of the QAM array */
+    @Override
     public void setQAMSize(int M){ this.M = M; }
     
     /**
      * Set number of QAM signals to use for
      * estimating the channel
      */
+    @Override
     public void setT(int T){
         this.T = T;
         
@@ -55,6 +57,7 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
     }
     
     /** Decode the QAM signal */
+    @Override
     public void decode(double[] rreal, double[] rimag){
         if( rreal.length != T )
             setT(rreal.length);

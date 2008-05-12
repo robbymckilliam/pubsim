@@ -42,4 +42,29 @@ public class PilotAssistedFadingNoisyQAMTest extends TestCase {
         }
     }
     
+        /**
+     * Test of symbolErrorRate method, of class simulator.qam.FadingNoisyQAM.
+     */
+    public void testSymbolErrorRate() {
+        System.out.println("symbolErrors");
+        
+        double xr[] = { 1, 1, 3 };
+        double xi[] = { 1, 1, 3 };
+        double yr[] = { 1, 1, 3 };
+        double yi[] = { 1, 1, 3 };
+        
+        PilotAssistedFadingNoisyQAM instance = new PilotAssistedFadingNoisyQAM();
+        instance.setLength(3);
+        
+        assertEquals(0.0, instance.symbolErrorRate(xr, xi, yr, yi));
+        
+        double xr1[] = { 1, 1, 3 };
+        double xi1[] = { 1, 1, 3 };
+        double yr1[] = { 1, 1, 3 };
+        double yi1[] = { 1, 1, -1 };
+        
+        assertEquals(1.0/2.0, instance.symbolErrorRate(xr1, xi1, yr1, yi1));
+           
+    }
+    
 }

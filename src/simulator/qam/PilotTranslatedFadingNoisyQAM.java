@@ -13,7 +13,7 @@ import simulator.SignalGenerator;
  * reciever.  I am tentatively calling this scheme this Pilot Translated QAM.
  * @author Robby McKilliam
  */
-public class PilotTranslatedFadingNoisyQAM extends PilotAssistedFadingNoisyQAM
+public class PilotTranslatedFadingNoisyQAM extends FadingNoisyQAM
         implements SignalGenerator, PATSymbol{
     
      /** {@inheritDoc} */
@@ -40,5 +40,16 @@ public class PilotTranslatedFadingNoisyQAM extends PilotAssistedFadingNoisyQAM
             xi[i] = 2*random.nextInt(M) - M + 1 + imagPATSymbol;
         }
     }
+
+    protected double realPATSymbol, imagPATSymbol;
+    
+    /** Set the pilot symbol used */
+    public void setPATSymbol(double real, double imag){
+        realPATSymbol = real;
+        imagPATSymbol = imag;
+    }
+    
+    public double getImagPatSymbol() { return imagPATSymbol; }
+    public double getRealPatSymbol() { return realPATSymbol; }
 
 }

@@ -72,9 +72,9 @@ public class FadingNoisyQAMTest extends TestCase {
     }
     
     /**
-     * Test of symbolErrors method, of class simulator.qam.FadingNoisyQAM.
+     * Test of symbolErrorRate method, of class simulator.qam.FadingNoisyQAM.
      */
-    public void testSymbolErrors() {
+    public void testSymbolErrorRate() {
         System.out.println("symbolErrors");
         
         double xr[] = { 1, 1, 3 };
@@ -82,14 +82,17 @@ public class FadingNoisyQAMTest extends TestCase {
         double yr[] = { 1, 1, 3 };
         double yi[] = { 1, 1, 3 };
         
-        assertEquals(0, FadingNoisyQAM.symbolErrors(xr, xi, yr, yi));
+        FadingNoisyQAM instance = new FadingNoisyQAM();
+        instance.setLength(3);
+        
+        assertEquals(0.0, instance.symbolErrorRate(xr, xi, yr, yi));
         
         double xr1[] = { 1, 1, 3 };
         double xi1[] = { 1, 1, 3 };
         double yr1[] = { 1, 1, 3 };
         double yi1[] = { 1, 1, -1 };
         
-        assertEquals(1, FadingNoisyQAM.symbolErrors(xr1, xi1, yr1, yi1));
+        assertEquals(1.0/3.0, instance.symbolErrorRate(xr1, xi1, yr1, yi1));
            
     }
     

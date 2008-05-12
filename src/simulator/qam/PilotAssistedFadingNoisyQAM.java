@@ -51,4 +51,21 @@ public class PilotAssistedFadingNoisyQAM extends FadingNoisyQAM
         }
     }
     
+    /** 
+     * Return the number of symbol errors between 
+     * two QAM blocks x and y.  This ignores the first symbol
+     * which is a pilot symbol.
+     * PRE: xr.length == xi.length == yr.length == yi.length
+     */
+    @Override
+    public double symbolErrorRate(double[] xr, double[] xi, 
+                                    double[] yr, double[] yi){
+        double ers = 0;
+        for(int i = 1; i < xr.length; i++)
+            if( Math.round(xr[i] - yr[i]) != 0 
+                || Math.round(xi[i] - yi[i]) != 0 ) ers++;
+        
+        return ers/(xr.length-1);
+    }
+    
 }

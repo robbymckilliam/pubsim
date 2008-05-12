@@ -155,14 +155,14 @@ public class FadingNoisyQAM implements SignalGenerator{
      * two QAM blocks x and y. 
      * PRE: xr.length == xi.length == yr.length == yi.length
      */
-    public static int symbolErrors(double[] xr, double[] xi, 
+    public double symbolErrorRate(double[] xr, double[] xi, 
                                     double[] yr, double[] yi){
-        int ers = 0;
+        double ers = 0;
         for(int i = 0; i < xr.length; i++)
-            if( Math.round(xr[i] - yr[i]) != 0 
-                || Math.round(xi[i] - yi[i]) != 0 ) ers++;
+            if( Math.round(xr[i] - yr[i]) != 0.0 
+                || Math.round(xi[i] - yi[i]) != 0.0 ) ers++;
         
-        return ers;
+        return ers/xr.length;
     }
     
     /** 
