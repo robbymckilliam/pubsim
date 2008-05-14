@@ -5,34 +5,35 @@
 
 package simulator.qam;
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import simulator.GaussianNoise;
 import simulator.VectorFunctions;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author robertm
+ * @author Robby
  */
-public class PilotTranslatedT3OptimalTest extends TestCase {
-    
-    public PilotTranslatedT3OptimalTest(String testName) {
-        super(testName);
-    }            
+public class PilotTranslatedT2LogTSuboptimalTest {
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    public PilotTranslatedT2LogTSuboptimalTest() {
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
     }
 
     /**
-     * Test of NN method, of class PilotTranslatedT3Optimal.
+     * Test of NN method, of class PilotTranslatedT2LogTSuboptimal.
      */
-    public void testNN() {
+    @Test
+    public void NN() {
         System.out.println("NN");
         
         double pr = 0.1;
@@ -53,28 +54,30 @@ public class PilotTranslatedT3OptimalTest extends TestCase {
         
         double[] expr = {1.1, -0.9, 3.1, -2.9};
         assertEquals(true, VectorFunctions.distance_between(expr,y)<0.000001);
+        
     }
 
     /**
-     * Test of decode method, of class PilotTranslatedT3Optimal.
+     * Test of decode method, of class PilotTranslatedT2LogTSuboptimal.
      */
-    public void testDecode() {
+    @Test
+    public void decode() {
         System.out.println("decode");
         
-        int M = 8;
-        int T = 8;
+        int M = 4;
+        int T = 6;
         long seed = 11111;
-        double pr = 0.01;
-        double pi = 0.01;
+        double pr = 0.1;
+        double pi = 0.1;
         
         PilotTranslatedFadingNoisyQAM siggen = new PilotTranslatedFadingNoisyQAM(M);
-        siggen.setChannel(1.0,0.2);
+        siggen.setChannel(1.0,0.0);
         siggen.setPATSymbol(pr, pi);
         
-        GaussianNoise noise = new GaussianNoise(0.0,0.0000001);
+        GaussianNoise noise = new GaussianNoise(0.0,0.00000001);
         siggen.setNoiseGenerator(noise);
         
-        PilotTranslatedT3Optimal instance = new PilotTranslatedT3Optimal();
+        PilotTranslatedT2LogTSuboptimal instance = new PilotTranslatedT2LogTSuboptimal(40);
         instance.setQAMSize(M);
         instance.setT(T);
         instance.setPATSymbol(pr, pi);

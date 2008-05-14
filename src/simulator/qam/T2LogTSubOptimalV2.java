@@ -28,15 +28,16 @@ public class T2LogTSubOptimalV2 extends T2LogTSubOptimal implements  QAMReceiver
     /** Default, L = 1.0 */
     public T2LogTSubOptimalV2() { numL = 1.0; }
     
-    /** Set L */
+    /** Set number of lines used in the line search */
     public T2LogTSubOptimalV2(double numL) { this.numL = numL; }
     
-    private IndexedDouble[] sorted;
+    protected IndexedDouble[] sorted;
     
     /** 
      * Set number of QAM signals to use for
      * estimating the channel
      */
+    @Override
     public void setT(int T){
         this.T = T;
         

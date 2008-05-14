@@ -23,12 +23,12 @@ public class T2LogTSubOptimalV3 extends T2LogTSubOptimal implements  QAMReceiver
     public T2LogTSubOptimalV3() { numL = 1.0; }
     
     /**
-     * Set numL
+     * Set number of lines used in the line search
      */
     public T2LogTSubOptimalV3(double numL) { this.numL = numL; }
     
     
-    private IndexedDouble[] sorted;
+    protected IndexedDouble[] sorted;
     
     /** Set the size of the QAM array */
     @Override

@@ -22,7 +22,7 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
     public T2LogTSubOptimal() { numL = 1.0; }
     
     /**
-     * Set numL
+     * Set number of lines used in the line search
      */
     public T2LogTSubOptimal(double L) { this.numL = L; }
     
