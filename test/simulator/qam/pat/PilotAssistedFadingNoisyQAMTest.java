@@ -5,8 +5,9 @@
  * Created on 27 November 2007, 12:54
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
+import simulator.qam.pat.PilotAssistedFadingNoisyQAM;
 import junit.framework.*;
 import simulator.SignalGenerator;
 

@@ -7,15 +7,15 @@
 package simulator;
 
 /**
- * Basic complex functions.  I nikced this from 
+ * Basic complex functions.  I nicked this from 
  * http://www.cs.princeton.edu/introcs/97data/Complex.java.html 
  * <p>
  * @author Robby McKilliam
  */
 public class Complex extends Object{
     
-    private final double re;   // the real part
-    private final double im;   // the imaginary part
+    private double re;   // the real part
+    private double im;   // the imaginary part
 
     /** create a new object with the given real and imaginary parts */
     public Complex(double real, double imag) {
@@ -35,7 +35,20 @@ public class Complex extends Object{
         im = 0;
     }
     
+    /** Set the real and imaginary parts */
+    public void set(double re, double im){
+        this.re = re;
+        this.im = im;
+    }
+    
+    /** Copy the real and imaginary parts */
+    public void copy(Complex c){
+        this.re = c.re;
+        this.im = c.im;
+    }
+    
     /** return a string representation of the invoking Complex object */
+    @Override
     public String toString() {
         if (im == 0) return re + "";
         if (re == 0) return im + "i";
@@ -124,6 +137,11 @@ public class Complex extends Object{
         double imag = a.im + b.im;
         Complex sum = new Complex(real, imag);
         return sum;
+    }
+    
+    /** Test if this complex number is equal to c */
+    public boolean equals(Complex c){
+        return c.re == re && c.im == im;
     }
     
 }

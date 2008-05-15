@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
+import simulator.qam.pat.PilotTranslatedFadingNoisyQAM;
 import junit.framework.TestCase;
 
 /**

@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
+import simulator.Complex;
+import simulator.qam.*;
 import simulator.VectorFunctions;
 
 /**
@@ -14,27 +16,31 @@ import simulator.VectorFunctions;
 public class PilotTranslatedT3Optimal extends T3OptimalV3 
         implements  QAMReceiver, PATSymbol {
 
-    double pr, pi;
-    
+    /** The PAT symbol used */
+    protected Complex PAT;
+
     public void setPATSymbol(double real, double imag) {
-        pr = real;
-        pi = imag;
+        PAT = new Complex(real, imag);
     }
 
-    public double getImagPatSymbol() { return pi; }
+    public void setPATSymbol(Complex c) {
+        PAT = new Complex(c);
+    }
 
-    public double getRealPatSymbol() { return pr; }
+    public Complex getPATSymbol() {
+        return PAT;
+    }
     
     /** Overide Nearest Neigbour to work with the pilot translation */
     @Override
     protected void NN(double[] x, double[] y){
         for(int i = 0; i < x.length; i+=2){
-            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-pr)+1)/2) - 1),-M+1);
-            y[i] += pr;
+            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-PAT.re())+1)/2) - 1),-M+1);
+            y[i] += PAT.re();
         }
         for(int i = 1; i < x.length; i+=2){
-            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-pi)+1)/2) - 1),-M+1);
-            y[i] += pi;
+            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-PAT.im())+1)/2) - 1),-M+1);
+            y[i] += PAT.im();
         }
     }
     
@@ -56,10 +62,10 @@ public class PilotTranslatedT3Optimal extends T3OptimalV3
             for(int j = i+1; j < 2*T; j++){
                 
                 double pk, pn;
-                if(i%2 == 0) pk = pr;
-                else pk = pi;
-                if(j%2 == 0) pn = pr;
-                else pn = pi;
+                if(i%2 == 0) pk = PAT.re();
+                else pk = PAT.im();
+                if(j%2 == 0) pn = PAT.re();
+                else pn = PAT.im();
                 
                 for(double k = -M + pk; k <= M + pk; k+=2){
                     for(double n = -M + pn; n <= M + pn; n+=2){

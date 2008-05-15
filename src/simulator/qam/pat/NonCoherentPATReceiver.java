@@ -4,9 +4,11 @@
  * Created on 27 November 2007, 11:36
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
+import simulator.qam.*;
 import java.util.Arrays;
+import simulator.Complex;
 import simulator.VectorFunctions;
 
 /**
@@ -28,9 +30,11 @@ public class NonCoherentPATReceiver extends T2LogTOptimalV3
         implements QAMReceiver, PATSymbol {
     
     /** {@inheritDoc} */
+    @Override
     public void setQAMSize(int M){ this.M = M; }
     
     /** {@inheritDoc} */
+    @Override
     public void decode(double[] rreal, double[] rimag){
         if( rreal.length != T )
             setT(rreal.length);
@@ -143,8 +147,8 @@ public class NonCoherentPATReceiver extends T2LogTOptimalV3
         double invd0r = dreal[0]/absd0;
         double invd0i = -dimag[0]/absd0;
         
-        double mr = realPATSymbol*invd0r - imagPATSymbol*invd0i;
-        double mi = realPATSymbol*invd0i + imagPATSymbol*invd0r;
+        double mr = PAT.re()*invd0r - PAT.im()*invd0i;
+        double mi = PAT.re()*invd0i + PAT.im()*invd0r;
         
         //System.out.println("m = " + mr + " + i" + mi);
         //System.out.println("d0 = " + dreal[0] + " + i" + dimag[0]);
@@ -161,15 +165,20 @@ public class NonCoherentPATReceiver extends T2LogTOptimalV3
         
     }
     
-    protected double realPATSymbol, imagPATSymbol;
-    
-    /** {@inheritDoc} */
-    public void setPATSymbol(double real, double imag){
-        realPATSymbol = real;
-        imagPATSymbol = imag;
+    /** The PAT symbol used */
+    protected Complex PAT;
+
+    public void setPATSymbol(double real, double imag) {
+        PAT = new Complex(real, imag);
     }
-    
-    public double getImagPatSymbol() { return imagPATSymbol; }
-    public double getRealPatSymbol() { return realPATSymbol; }
+
+    public void setPATSymbol(Complex c) {
+        PAT = new Complex(c);
+    }
+
+    public Complex getPATSymbol() {
+        return PAT;
+    }
+
     
 }

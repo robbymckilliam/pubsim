@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
+import simulator.qam.pat.PilotTranslatedT3Optimal;
+import simulator.qam.pat.PilotTranslatedFadingNoisyQAM;
 import junit.framework.TestCase;
 import simulator.GaussianNoise;
 import simulator.VectorFunctions;
@@ -64,8 +66,8 @@ public class PilotTranslatedT3OptimalTest extends TestCase {
         int M = 8;
         int T = 8;
         long seed = 11111;
-        double pr = 0.01;
-        double pi = 0.01;
+        double pr = 0.1;
+        double pi = 0.0;
         
         PilotTranslatedFadingNoisyQAM siggen = new PilotTranslatedFadingNoisyQAM(M);
         siggen.setChannel(1.0,0.2);

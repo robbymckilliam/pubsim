@@ -3,9 +3,12 @@
  * and open the template in the editor.
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
+import simulator.qam.*;
+import simulator.qam.pat.PATSymbol;
 import java.util.Arrays;
+import simulator.Complex;
 import simulator.IndexedDouble;
 import simulator.VectorFunctions;
 
@@ -26,27 +29,31 @@ public class PilotTranslatedT2LogTSuboptimal extends T2LogTSubOptimalV3
      */
     public PilotTranslatedT2LogTSuboptimal(double numL) { this.numL = numL; }
     
-    double pr, pi;
-    
+    /** The PAT symbol used */
+    protected Complex PAT;
+
     public void setPATSymbol(double real, double imag) {
-        pr = real;
-        pi = imag;
+        PAT = new Complex(real, imag);
     }
 
-    public double getImagPatSymbol() { return pi; }
+    public void setPATSymbol(Complex c) {
+        PAT = new Complex(c);
+    }
 
-    public double getRealPatSymbol() { return pr; }
+    public Complex getPATSymbol() {
+        return PAT;
+    }
     
     /** Overide Nearest Neigbour to work with the pilot translation */
     @Override
     protected void NN(double[] x, double[] y){
         for(int i = 0; i < x.length; i+=2){
-            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-pr)+1)/2) - 1),-M+1);
-            y[i] += pr;
+            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-PAT.re())+1)/2) - 1),-M+1);
+            y[i] += PAT.re();
         }
         for(int i = 1; i < x.length; i+=2){
-            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-pi)+1)/2) - 1),-M+1);
-            y[i] += pi;
+            y[i] = Math.max(Math.min(M-1, 2*Math.round(((x[i]-PAT.im())+1)/2) - 1),-M+1);
+            y[i] += PAT.im();
         }
     }
     
@@ -96,11 +103,11 @@ public class PilotTranslatedT2LogTSuboptimal extends T2LogTSubOptimalV3
             for(int j = 0; j < 2*T; j++){
                 
                 double pn;
-                if(j%2 == 0) pn = pr;
-                else pn = pi;
+                if(j%2 == 0) pn = PAT.re();
+                else pn = PAT.im();
 
                 for(double m = -M+2 + pn; m <= M-2 + pn; m+=2.0){
-                    if( Math.signum(m) == Math.signum(d[j]) ){
+                    if( Math.signum(m) == Math.signum(d[j]) && m != 0){
                         sorted[sortcount].value = m/d[j];
                         sorted[sortcount].index = j;
                         sortcount++;

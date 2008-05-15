@@ -1,62 +1,57 @@
 /*
- * NonCoherentPATReceiverTest.java
+ * PATReceiverTest.java
  * JUnit based test
  *
- * Created on 28 November 2007, 09:44
+ * Created on 27 November 2007, 12:50
  */
 
-package simulator.qam;
+package simulator.qam.pat;
+
+import simulator.qam.pat.PilotAssistedFadingNoisyQAM;
+import simulator.qam.pat.PATReceiver;
+import simulator.GaussianNoise;
 
 import junit.framework.*;
-import simulator.GaussianNoise;
 
 /**
  *
  * @author Robby
  */
-public class NonCoherentPATReceiverTest extends TestCase {
+public class PATReceiverTest extends TestCase {
     
-    public NonCoherentPATReceiverTest(String testName) {
+    public PATReceiverTest(String testName) {
         super(testName);
     }
 
     /**
-     * Test of decode method, of class simulator.qam.NonCoherentPATReceiver.
+     * Test of decode method, of class simulator.qam.PATReceiver.
      */
     public void testDecode() {
         System.out.println("decode");
         
-        int M = 4;
-        int T = 7;
-        long seed = 12211;
+        int M = 16;
+        int T = 10;
+        long seed = 11311;
         
         PilotAssistedFadingNoisyQAM siggen = new PilotAssistedFadingNoisyQAM();
-        siggen.setSeed(seed);
         siggen.generateChannel();
-        //siggen.setChannel(-1, 0);
         siggen.setQAMSize(M);
         siggen.setLength(T);
-        siggen.setPATSymbol(3,1);
+        siggen.setPATSymbol(3,3);
         //siggen.setChannel(1.0,0.0);
         
         GaussianNoise noise = new GaussianNoise(0.0,0.0001);
         siggen.setNoiseGenerator(noise);
-        noise.setSeed(seed);
         
-        NonCoherentPATReceiver instance = new NonCoherentPATReceiver();
+        PATReceiver instance = new PATReceiver();
         instance.setQAMSize(M);
         instance.setT(T);
-        instance.setPATSymbol(3,1);
+        instance.setPATSymbol(3,3);
         
         siggen.generateQAMSignal();
         siggen.generateReceivedSignal();
         
         instance.decode(siggen.getReal(), siggen.getImag());
-        
-        System.out.println(" tr = " + simulator.VectorFunctions.print(siggen.getTransmittedRealQAMSignal()));
-        System.out.println(" ti = " + simulator.VectorFunctions.print(siggen.getTransmittedImagQAMSignal()));
-        System.out.println(" dr = " + simulator.VectorFunctions.print(instance.getReal()));
-        System.out.println(" di = " + simulator.VectorFunctions.print(instance.getImag()));
         
         assertEquals(true, simulator.VectorFunctions.distance_between(
                 instance.getReal(),siggen.getTransmittedRealQAMSignal())<0.00001);

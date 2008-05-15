@@ -4,7 +4,10 @@
  * Created on 27 November 2007, 11:35
  */
 
-package simulator.qam;
+package simulator.qam.pat;
+
+import simulator.Complex;
+import simulator.qam.*;
 
 /**
  *
@@ -34,17 +37,17 @@ public class PATReceiver implements QAMReceiver, PATSymbol {
     public void decode(double[] rreal, double[] rimag){
         
         //calculate channel estimate from PAT sybol
-        double absp = realPATSymbol*realPATSymbol + imagPATSymbol*imagPATSymbol;
-        double Hreal = (realPATSymbol*rreal[0] + imagPATSymbol*rimag[0])/absp;
-        double Himag = (realPATSymbol*rimag[0] - imagPATSymbol*rreal[0])/absp;
+        double absp = PAT.re()*PAT.re() + PAT.im()*PAT.im();
+        double Hreal = (PAT.re()*rreal[0] + PAT.im()*rimag[0])/absp;
+        double Himag = (PAT.re()*rimag[0] - PAT.im()*rreal[0])/absp;
         
         //calculate inverse of the channel
         double absH = Hreal*Hreal + Himag*Himag;
         double invHreal =  Hreal/absH;
         double invHimag = -Himag/absH;
         
-        dreal[0] = realPATSymbol;
-        dimag[0] = imagPATSymbol;
+        dreal[0] = PAT.re();
+        dimag[0] = PAT.im();
         for(int i = 1; i < T; i++){
             double xr = invHreal*rreal[i] - invHimag*rimag[i];
             double xi = invHreal*rimag[i] + invHimag*rreal[i];
@@ -61,15 +64,20 @@ public class PATReceiver implements QAMReceiver, PATSymbol {
     public double[] getImag() { return dimag; }
     
     
-    protected double realPATSymbol, imagPATSymbol;
     
-    /** {@inheritDoc} */
-    public void setPATSymbol(double real, double imag){
-        realPATSymbol = real;
-        imagPATSymbol = imag;
+    /** The PAT symbol used */
+    protected Complex PAT;
+
+    public void setPATSymbol(double real, double imag) {
+        PAT = new Complex(real, imag);
     }
-    
-    public double getImagPatSymbol() { return imagPATSymbol; }
-    public double getRealPatSymbol() { return realPATSymbol; }
-    
+
+    public void setPATSymbol(Complex c) {
+        PAT = new Complex(c);
+    }
+
+    public Complex getPATSymbol() {
+        return PAT;
+    }
+
 }

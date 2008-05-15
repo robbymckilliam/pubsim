@@ -4,8 +4,11 @@
  * Created on 27 November 2007, 11:20
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
+import simulator.Complex;
+import simulator.qam.*;
+import simulator.qam.pat.PATSymbol;
 import simulator.SignalGenerator;
 
 /**
@@ -16,8 +19,6 @@ import simulator.SignalGenerator;
 public class PilotAssistedFadingNoisyQAM extends FadingNoisyQAM 
         implements SignalGenerator, PATSymbol {
     
-    protected double realPATSymbol, imagPATSymbol;
-    
     /** Default constructor using 8-ary QAM */
     public PilotAssistedFadingNoisyQAM() {
         super();
@@ -27,15 +28,7 @@ public class PilotAssistedFadingNoisyQAM extends FadingNoisyQAM
     public PilotAssistedFadingNoisyQAM(int M) {
         super(M);
     }
-    
-    /** Set the pilot symbol used */
-    public void setPATSymbol(double real, double imag){
-        realPATSymbol = real;
-        imagPATSymbol = imag;
-    }
-    
-    public double getImagPatSymbol() { return imagPATSymbol; }
-    public double getRealPatSymbol() { return realPATSymbol; }
+
     
     /** 
      * Generate a random QAM signal of the currently
@@ -43,8 +36,8 @@ public class PilotAssistedFadingNoisyQAM extends FadingNoisyQAM
      */
     @Override
     public void generateQAMSignal(){
-        xr[0] = realPATSymbol;
-        xi[0] = imagPATSymbol;
+        xr[0] = PAT.re();
+        xi[0] = PAT.im();
         for(int i=1; i < T; i++){
             xr[i] = 2*random.nextInt(M) - M + 1;
             xi[i] = 2*random.nextInt(M) - M + 1;
@@ -66,6 +59,21 @@ public class PilotAssistedFadingNoisyQAM extends FadingNoisyQAM
                 || Math.round(xi[i] - yi[i]) != 0 ) ers++;
         
         return ers/(xr.length-1);
+    }
+    
+    /** The PAT symbol used */
+    protected Complex PAT;
+
+    public void setPATSymbol(double real, double imag) {
+        PAT = new Complex(real, imag);
+    }
+
+    public void setPATSymbol(Complex c) {
+        PAT = new Complex(c);
+    }
+
+    public Complex getPATSymbol() {
+        return PAT;
     }
     
 }

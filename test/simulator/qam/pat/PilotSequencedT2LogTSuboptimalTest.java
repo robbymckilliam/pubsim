@@ -3,11 +3,14 @@
  * and open the template in the editor.
  */
 
-package simulator.qam;
+package simulator.qam.pat;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.Complex;
 import simulator.GaussianNoise;
 import simulator.VectorFunctions;
 import static org.junit.Assert.*;
@@ -16,9 +19,17 @@ import static org.junit.Assert.*;
  *
  * @author Robby
  */
-public class PilotTranslatedT2LogTSuboptimalTest {
+public class PilotSequencedT2LogTSuboptimalTest {
 
-    public PilotTranslatedT2LogTSuboptimalTest() {
+    public PilotSequencedT2LogTSuboptimalTest() {
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
     }
 
     @Before
@@ -30,57 +41,60 @@ public class PilotTranslatedT2LogTSuboptimalTest {
     }
 
     /**
-     * Test of NN method, of class PilotTranslatedT2LogTSuboptimal.
+     * Test of NN method, of class PilotSequencedT2LogTSuboptimal.
      */
     @Test
     public void NN() {
         System.out.println("NN");
         
-        double pr = 0.1;
-        double pi = 0.1;
         int M = 4;
+        
+        Complex[] ca = { new Complex(0.1,0.2), new Complex(0.2,0.1) };
+        //Complex[] ca = { new Complex(0.01,0.2) };
+        PilotSequence pseq = new PilotSequence(ca);
         
         double[] x = {0.11, 0.09, 4.3, -1.91};
         double[] y = new double[x.length];
         
         
-        PilotTranslatedT3Optimal instance = new PilotTranslatedT3Optimal();
+        PilotSequencedT2LogTSuboptimal instance = new PilotSequencedT2LogTSuboptimal(40);
         instance.setQAMSize(M);
-        instance.setPATSymbol(pr, pi);
+        instance.setPilotSequence(pseq);
         
         instance.NN(x, y);
         
         System.out.println(" y = " + VectorFunctions.print(y));
         
-        double[] expr = {1.1, -0.9, 3.1, -2.9};
+        double[] expr = {1.1, -0.8, 3.2, -2.9};
         assertEquals(true, VectorFunctions.distance_between(expr,y)<0.000001);
-        
     }
 
     /**
-     * Test of decode method, of class PilotTranslatedT2LogTSuboptimal.
+     * Test of decode method, of class PilotSequencedT2LogTSuboptimal.
      */
     @Test
     public void decode() {
-        System.out.println("decode");
+                System.out.println("decode");
         
-        int M = 4;
-        int T = 6;
+        int M = 8;
+        int T = 10;
         long seed = 11111;
-        double pr = 0.1;
-        double pi = 0.1;
         
-        PilotTranslatedFadingNoisyQAM siggen = new PilotTranslatedFadingNoisyQAM(M);
+        Complex[] ca = { new Complex(0.01,0.2), new Complex(0.2,0.01), new Complex(-0.1,-0.1) };
+        //Complex[] ca = { new Complex(0.01,0.2) };
+        PilotSequence pseq = new PilotSequence(ca);
+        
+        PilotSequencedFadingNoisyQAM siggen = new PilotSequencedFadingNoisyQAM(M);
         siggen.setChannel(1.0,0.0);
-        siggen.setPATSymbol(pr, pi);
+        siggen.setPilotSequence(pseq);
         
         GaussianNoise noise = new GaussianNoise(0.0,0.00000001);
         siggen.setNoiseGenerator(noise);
         
-        PilotTranslatedT2LogTSuboptimal instance = new PilotTranslatedT2LogTSuboptimal(40);
+        PilotSequencedT2LogTSuboptimal instance = new PilotSequencedT2LogTSuboptimal(40);
         instance.setQAMSize(M);
         instance.setT(T);
-        instance.setPATSymbol(pr, pi);
+        instance.setPilotSequence(pseq);
         
         //siggen.setSeed(seed);
         //noise.setSeed(seed);
@@ -101,5 +115,6 @@ public class PilotTranslatedT2LogTSuboptimalTest {
                 siggen.getTransmittedRealQAMSignal(),
                 siggen.getTransmittedImagQAMSignal()));
     }
+
 
 }
