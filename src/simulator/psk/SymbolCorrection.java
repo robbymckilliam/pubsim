@@ -4,7 +4,7 @@
  * Created on 13 December 2007, 11:26
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 /**
  * Corrects the symbols for the frequency

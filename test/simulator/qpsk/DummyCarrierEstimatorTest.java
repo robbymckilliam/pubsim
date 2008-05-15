@@ -7,6 +7,7 @@
 
 package simulator.qpsk;
 
+import simulator.psk.DummyCarrierEstimator;
 import junit.framework.*;
 
 /**

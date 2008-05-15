@@ -4,7 +4,7 @@
  * Created on 13 December 2007, 14:12
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 /**
  * Fake symbol timing estimator.

@@ -36,6 +36,7 @@ public class PilotSequencedFadingNoisyQAM extends FadingNoisyQAM
      */
     @Override
     public void generateQAMSignal(){
+        PATseq.setPosition(0);
         Complex pat = PATseq.current();
         for(int i=0; i < T; i++){
             xr[i] = 2*random.nextInt(M) - M + 1 + pat.re();

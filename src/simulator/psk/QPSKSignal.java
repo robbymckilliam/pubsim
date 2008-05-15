@@ -4,7 +4,7 @@
  * Created on 5 December 2007, 09:56
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 import java.util.LinkedList;
 import java.util.Random;

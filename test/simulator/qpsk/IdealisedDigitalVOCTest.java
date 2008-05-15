@@ -7,6 +7,7 @@
 
 package simulator.qpsk;
 
+import simulator.psk.IdealisedDigitalVOC;
 import junit.framework.*;
 import simulator.VectorFunctions;
 

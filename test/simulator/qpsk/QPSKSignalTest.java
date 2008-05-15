@@ -7,6 +7,7 @@
 
 package simulator.qpsk;
 
+import simulator.psk.QPSKSignal;
 import junit.framework.*;
 import java.util.Random;
 import simulator.GaussianNoise;

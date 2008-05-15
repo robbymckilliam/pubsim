@@ -53,6 +53,15 @@ public class PilotSequenceTest {
         assertEquals(true, instance.next().equals(new Complex(5,6)));
         assertEquals(true, instance.next().equals(new Complex(1,2)));
         assertEquals(true, instance.next().equals(new Complex(3,4)));
+        
+        double[] da = { 1,2, 3,4, 5,6 };
+        
+        instance = new PilotSequence(da);
+        
+        assertEquals(true, instance.next().equals(new Complex(3,4)));
+        assertEquals(true, instance.next().equals(new Complex(5,6)));
+        assertEquals(true, instance.next().equals(new Complex(1,2)));
+        assertEquals(true, instance.next().equals(new Complex(3,4)));
 
     }
 

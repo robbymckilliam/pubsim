@@ -7,6 +7,8 @@
 
 package simulator.qpsk;
 
+import simulator.psk.QPSKSignal;
+import simulator.psk.SamplingLatticeCarrierEstimator;
 import junit.framework.*;
 import simulator.GaussianNoise;
 

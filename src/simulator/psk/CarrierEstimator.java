@@ -4,7 +4,7 @@
  * Created on 6 December 2007, 11:25
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 /**
  * Interface for a carrier estimator.  Assumes that the signal

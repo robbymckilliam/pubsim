@@ -4,7 +4,7 @@
  * Created on 5 December 2007, 15:54
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 import simulator.fes.FrequencyEstimator;
 import simulator.fes.SamplingLatticeEstimator;

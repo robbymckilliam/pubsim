@@ -4,7 +4,7 @@
  * Created on 13 December 2007, 14:15
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 /**
  * Interface for a Symbol Timing estimator from the corrected

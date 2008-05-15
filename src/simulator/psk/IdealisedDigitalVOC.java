@@ -4,7 +4,7 @@
  * Created on 13 December 2007, 10:43
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 /**
  * This emulates an idealised VOC and heterodyning

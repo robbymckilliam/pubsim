@@ -26,6 +26,17 @@ public class PilotSequence {
         current = 0;
     }
     
+    public PilotSequence(double[] s){
+        if(s.length%2 != 0)
+            throw new Error("Input sequence must have even length");
+        
+        seq = new Complex[s.length/2];
+        for(int i = 0; i < s.length/2; i++)
+            seq[i] = new Complex(s[2*i], s[2*i+1]);
+        
+        current = 0;
+    }
+    
     public void setSequence(Complex[] s){
         seq = s;
     }

@@ -7,6 +7,7 @@
 
 package simulator.qpsk;
 
+import simulator.psk.IntegrateDump;
 import junit.framework.*;
 import java.util.LinkedList;
 

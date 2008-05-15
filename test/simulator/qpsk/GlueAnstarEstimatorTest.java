@@ -7,6 +7,8 @@
 
 package simulator.qpsk;
 
+import simulator.psk.GlueAnstarCarrierEstimator;
+import simulator.psk.QPSKSignal;
 import junit.framework.*;
 import simulator.GaussianNoise;
 
