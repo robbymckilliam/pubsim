@@ -5,9 +5,9 @@
  * Created on 5 December 2007, 16:09
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
-import simulator.psk.QPSKSignal;
+import simulator.psk.PSKSignal;
 import simulator.psk.SamplingLatticeCarrierEstimator;
 import junit.framework.*;
 import simulator.GaussianNoise;
@@ -35,7 +35,7 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
         double sampF = 20;
         double phase = 0.3;
         
-        QPSKSignal sig = new QPSKSignal();
+        PSKSignal sig = new PSKSignal();
         sig.setSymbolRate(symbF);
         sig.setCarrierPhase(phase);
         sig.setCarrierFrequency(transF);

@@ -5,9 +5,8 @@
  * Created on 13 December 2007, 11:58
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
-import simulator.psk.SymbolCorrection;
 import junit.framework.*;
 import simulator.VectorFunctions;
 

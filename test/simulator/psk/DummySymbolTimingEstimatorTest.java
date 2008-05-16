@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 14:40
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 import simulator.psk.DummySymbolTimingEstimator;
 import junit.framework.*;

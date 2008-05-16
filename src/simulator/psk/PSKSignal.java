@@ -1,5 +1,5 @@
 /*
- * QPSKSignal.java
+ * PSKSignal.java
  *
  * Created on 5 December 2007, 09:56
  */
@@ -15,7 +15,7 @@ import simulator.SignalGenerator;
  * Generates a baseband sampled QPSK signal.
  * @author Robby McKilliam
  */
-public class QPSKSignal implements SignalGenerator{
+public class PSKSignal implements SignalGenerator{
     
     protected NoiseGenerator noise;
     protected Random random;
@@ -34,7 +34,7 @@ public class QPSKSignal implements SignalGenerator{
     protected double[] recReal;
     protected double[] recImag;
     
-    public QPSKSignal(){
+    public PSKSignal(){
         n = 10;
         random = new Random();
         phase = 0;
@@ -50,9 +50,9 @@ public class QPSKSignal implements SignalGenerator{
      */
     public double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++){
-            double phase = 
+            double pha = 
                 2*Math.PI*(0.5 + trans[(int)Math.floor(i*symF)])/M;
-            double t = 2*Math.PI*transF*i + phase + this.phase;
+            double t = 2*Math.PI*transF*i + pha + this.phase;
             recReal[i] = Math.cos(t) + noise.getNoise();
             recImag[i] = Math.sin(t) + noise.getNoise();
         }

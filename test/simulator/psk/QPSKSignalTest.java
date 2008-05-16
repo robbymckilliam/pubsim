@@ -5,9 +5,9 @@
  * Created on 5 December 2007, 12:10
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
-import simulator.psk.QPSKSignal;
+import simulator.psk.PSKSignal;
 import junit.framework.*;
 import java.util.Random;
 import simulator.GaussianNoise;
@@ -25,7 +25,7 @@ public class QPSKSignalTest extends TestCase {
     }
 
     /**
-     * Test of generateReceivedSignal method, of class simulator.qpsk.QPSKSignal.
+     * Test of generateReceivedSignal method, of class simulator.qpsk.PSKSignal.
      */
     public void testGenerateReceivedSignal() {
         System.out.println("generateReceivedSignal");
@@ -35,7 +35,7 @@ public class QPSKSignalTest extends TestCase {
         double transF = 0;
         double symbF = 4;
         
-        QPSKSignal instance = new QPSKSignal();
+        PSKSignal instance = new PSKSignal();
         instance.setSymbolRate(symbF);
         instance.setCarrierFrequency(transF);
         instance.setLength(n);
@@ -62,7 +62,7 @@ public class QPSKSignalTest extends TestCase {
     }
 
     /**
-     * Test of generateTransmittedQPSKSignal method, of class simulator.qpsk.QPSKSignal.
+     * Test of generateTransmittedQPSKSignal method, of class simulator.qpsk.PSKSignal.
      */
     public void testGenerateTransmittedQPSKSignal() {
         System.out.println("generateTransmittedQPSKSignal");
@@ -73,7 +73,7 @@ public class QPSKSignalTest extends TestCase {
         double symbF = 4;
         double sampF = 10;
         
-        QPSKSignal instance = new QPSKSignal();
+        PSKSignal instance = new PSKSignal();
         instance.setSymbolRate(symbF);
         instance.setCarrierFrequency(transF);
         instance.setLength(n);

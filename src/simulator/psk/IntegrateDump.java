@@ -22,10 +22,10 @@ public class IntegrateDump {
     
     protected int M;
     
-    protected QPSKSignal.SymbolGenerator slist;
+    protected PSKSignal.SymbolGenerator slist;
     
     public IntegrateDump(){
-        slist = new QPSKSignal.SymbolGenerator();
+        slist = new PSKSignal.SymbolGenerator();
     }
             
     /** Set the symbol phase for the current block */

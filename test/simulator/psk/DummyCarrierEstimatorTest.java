@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 14:04
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 import simulator.psk.DummyCarrierEstimator;
 import junit.framework.*;

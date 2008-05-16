@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 11:00
  */
 
-package simulator.qpsk;
+package simulator.psk;
 
 import simulator.psk.IdealisedDigitalVOC;
 import junit.framework.*;

@@ -20,9 +20,11 @@ public class NonCoherentReceiverTest extends TestCase {
         super(testName);
     }
 
+    @Override
     protected void setUp() throws Exception {
     }
 
+    @Override
     protected void tearDown() throws Exception {
     }
 
@@ -36,7 +38,7 @@ public class NonCoherentReceiverTest extends TestCase {
         double[] y = new double[x.length];
         NonCoherentReceiver instance = new NonCoherentReceiver();
         
-        instance.NN(x, y, 16);
+        NonCoherentReceiver.NN(x, y, 16);
         
         System.out.println(" y = " + VectorFunctions.print(y));
         
