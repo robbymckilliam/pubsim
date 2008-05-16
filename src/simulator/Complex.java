@@ -56,9 +56,14 @@ public class Complex extends Object{
         return re + " + " + im + "i";
     }
 
-    /** return abs/modulus/magnitude and angle/phase/argument */
+    /** return abs/modulus/magnitude */
     public double abs()   { return Math.hypot(re, im); }  // Math.sqrt(re*re + im*im)
+    
+    /** Return the angle/phase/argument */
     public double phase() { return Math.atan2(im, re); }  // between -pi and pi
+    
+    /** Return abs/modulus/magnitude */
+    public double abs2()   { return re*re + im*im; }  //
 
     /** return a new Complex object whose value is (this + b) */
     public Complex plus(Complex b) {

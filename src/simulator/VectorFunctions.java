@@ -68,6 +68,16 @@ public class VectorFunctions {
     }
     
     /**
+     * Squared Euclidean distance between two vectors
+     */
+    public static double distance_between2(Complex[] x, Complex[] s){
+        double out = 0.0;
+        for(int i = 0; i < x.length; i++)
+            out += x[i].minus(s[i]).abs2(); 
+        return out;
+    }
+    
+    /**
      * angle between two vectors
      */
     public static double angle_between(double[] x, double[] y){
@@ -161,6 +171,17 @@ public class VectorFunctions {
      * Return a string for the vector
      */
     public static String print(double[] x){
+        String st = new String();
+        for(int i = 0; i < x.length; i++){
+            st = st.concat(" " + x[i]);
+        }
+        return st;
+    }
+    
+    /**
+     * Return a string for the complex vector
+     */
+    public static String print(Complex[] x){
         String st = new String();
         for(int i = 0; i < x.length; i++){
             st = st.concat(" " + x[i]);
