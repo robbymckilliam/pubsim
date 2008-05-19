@@ -11,7 +11,7 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class AnstarBucketTest extends TestCase {
     
@@ -57,7 +57,7 @@ public class AnstarBucketTest extends TestCase {
             v_tester = tester.getLatticePoint();
             AnstarVaughan.project(y,x);
             //System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
-            assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
+            assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.000001, true);
         }
         
         //this is actually a test for the matlab code sent to Warren Smith
