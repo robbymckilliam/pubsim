@@ -1,22 +1,15 @@
 /*
- * Phin2Star.java
- *
- * Created on 12 August 2007, 21:11
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 
 package lattices;
 
-import simulator.*;
-
 /**
- * Nearest point algorithm for the Phin2Star lattice.
- * Works as a specialised version on the period estimation ZnLLS algorithm.
- * O(n^3log(n)).
- * UNDER CONSTRUCTION BY TIM!
- * 
- * @author Tim Mason and Robby McKilliam
+ *
+ * @author Robby McKilliam
  */
-public class Phin2Star implements NearestPointAlgorithmInterface{
+public abstract class Phin2Star implements NearestPointAlgorithmInterface{
     
     /** Dimension of this lattice */
     protected int n;
@@ -32,11 +25,6 @@ public class Phin2Star implements NearestPointAlgorithmInterface{
         v = new double[n+2];
     }
     
-    /** Find the nearest lattice point.  TIM, this is the function
-     * you need to fill in! */
-    @Override
-    public void nearestPoint(double[] y){}
-    
     /**Getter for the nearest point. */
     @Override
     public double[] getLatticePoint(){ return v; }
@@ -46,7 +34,7 @@ public class Phin2Star implements NearestPointAlgorithmInterface{
     public double[] getIndex(){ return u; }
     
     /**
-     * Project a n+2 length vector into Phin2Star space.
+     * Project a n+2 length vector into Phin2StarZnLLS space.
      * y is output, x is input (x & y can be the same array)
      * <p>
      * PRE: x.length <= y.length
@@ -54,7 +42,7 @@ public class Phin2Star implements NearestPointAlgorithmInterface{
     public static void project(double[] x, double[] y){
         AnstarVaughan.project(x,y);
         double sumn2 = sumg2(x.length);
-        double nbar = x.length*(x.length + 1)/2 / x.length;
+        double nbar = (x.length + 1)/2.0;
         double dot = 0.0;
         for(int i = 0; i < x.length; i++)
             dot += y[i]*(i+1-nbar);
@@ -82,4 +70,5 @@ public class Phin2Star implements NearestPointAlgorithmInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+
 }

@@ -14,7 +14,7 @@ import simulator.VectorFunctions;
  * that the vector of indicies, s, is known.
  * @author Robby McKilliam
  */
-public class ClairvoyantCRB {
+public class ClairvoyantCRB implements CRBCalculator {
     
     protected double[] s, x;
     
@@ -41,6 +41,12 @@ public class ClairvoyantCRB {
     /** Return the clairvoyant CRB for the set parameters */
     public double getBound(){
         return var/mag2x;
+    }
+
+    public void setGeometicParameter(double p) {
+    }
+
+    public void setLength(int N) {
     }
     
         

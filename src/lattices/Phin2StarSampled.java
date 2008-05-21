@@ -9,7 +9,7 @@ package lattices;
 import simulator.*;
 
 /**
- * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Phin2Star.
+ * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Phin2StarZnLLS.
  * Based on the pes.SamplingLLS period estimator.  Runs in 0(n^2 logn) assuming
  * that 0(n) samples are used.
  * <p>
@@ -38,7 +38,7 @@ public class Phin2StarSampled extends Phin2Star implements NearestPointAlgorithm
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new AnstarBucket();
+        anstar = new AnstarBucketVaughan();
         anstar.setDimension(n+1);
         
         u = new double[n+2];

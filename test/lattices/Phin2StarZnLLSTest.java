@@ -1,5 +1,5 @@
 /*
- * Phin2StarTest.java
+ * Phin2StarZnLLSTest.java
  * JUnit based test
  *
  * Created on 12 August 2007, 22:11
@@ -14,9 +14,9 @@ import simulator.*;
  *
  * @author Robby McKilliam
  */
-public class Phin2StarTest extends TestCase {
+public class Phin2StarZnLLSTest extends TestCase {
     
-    public Phin2StarTest(String testName) {
+    public Phin2StarZnLLSTest(String testName) {
         super(testName);
     }
 
@@ -27,7 +27,7 @@ public class Phin2StarTest extends TestCase {
         System.out.println("setDimension");
         
         int n = 0;
-        Phin2Star instance = new Phin2Star();
+        Phin2StarZnLLS instance = new Phin2StarZnLLS();
         
         instance.setDimension(n);
         
@@ -42,7 +42,7 @@ public class Phin2StarTest extends TestCase {
         System.out.println("nearestPoint");
         
         double[] y = null;
-        Phin2Star instance = new Phin2Star();
+        Phin2StarZnLLS instance = new Phin2StarZnLLS();
         
         instance.nearestPoint(y);
         
@@ -59,7 +59,7 @@ public class Phin2StarTest extends TestCase {
         double[] x = { 1.0, 1.1, 2.0, 4.0, 5.4 };
         double[] y = new double[x.length];
         
-        Phin2Star.project(x, y);
+        Phin2StarZnLLS.project(x, y);
         
         //calculated in matlab
         double[] expResult = {0.6400, -0.4300, -0.7000, 0.1300, 0.3600};
@@ -86,7 +86,7 @@ public class Phin2StarTest extends TestCase {
                 g[j] = j;
             Anstar.project(g, g);
             //System.out.println(VectorFunctions.print(g));
-            assertEquals(VectorFunctions.sum2(g), Phin2Star.sumg2(i));
+            assertEquals(VectorFunctions.sum2(g), Phin2StarZnLLS.sumg2(i));
         }
             
     }
