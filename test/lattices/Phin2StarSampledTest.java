@@ -27,11 +27,11 @@ public class Phin2StarSampledTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 10;
+        int n = 20;
         Random rand = new Random();
         
         double[] y = new double[n];
-        Phin2StarSampled instance = new Phin2StarSampled(1000);
+        Phin2StarGreedy instance = new Phin2StarGreedy();
         Phin2StarGlued tester = new Phin2StarGlued();
         
         for(int i = 0; i < 100; i++){
@@ -44,6 +44,12 @@ public class Phin2StarSampledTest extends TestCase {
             tester.nearestPoint(y);
             
             double dist = VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint());
+            
+            System.out.println("inst = " + VectorFunctions.print(instance.getIndex()));
+            System.out.println("test = " + VectorFunctions.print(tester.getIndex()));
+            double[] s = VectorFunctions.subtract(instance.getIndex(), tester.getIndex());
+            System.out.println("diff = " + VectorFunctions.print(s));
+            
             System.out.println("inst = " + VectorFunctions.distance_between(instance.getLatticePoint(), y));
             System.out.println("test = " + VectorFunctions.distance_between(tester.getLatticePoint(), y));
             assertEquals(dist < 0.0001, true);
