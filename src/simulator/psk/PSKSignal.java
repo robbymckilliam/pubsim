@@ -21,6 +21,7 @@ public class PSKSignal implements SignalGenerator{
     protected Random random;
     protected double symF;
     protected double transF;
+    protected double sampF;
     protected double phase;
     
     protected int n;
@@ -36,6 +37,9 @@ public class PSKSignal implements SignalGenerator{
     
     public PSKSignal(){
         n = 10;
+        // By default, expect the transmission frequency and symbol rate to
+        // be specified as a fraction of the sampling frequency.
+        sampF = 1;
         random = new Random();
         phase = 0;
     }
@@ -51,8 +55,8 @@ public class PSKSignal implements SignalGenerator{
     public double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++){
             double pha = 
-                2*Math.PI*(0.5 + trans[(int)Math.floor(i*symF)])/M;
-            double t = 2*Math.PI*transF*i + pha + this.phase;
+                2*Math.PI*(0.5 + trans[(int)Math.floor(i*symF/sampF)])/M;
+            double t = 2*Math.PI*transF/sampF*i + pha + this.phase;
             recReal[i] = Math.cos(t) + noise.getNoise();
             recImag[i] = Math.sin(t) + noise.getNoise();
         }
@@ -85,7 +89,7 @@ public class PSKSignal implements SignalGenerator{
     }
     
     protected void setTransmittedSignalLength(){
-        numSymbols = (int) Math.floor(n*symF) + 1;
+        numSymbols = (int) Math.floor(n*symF/sampF) + 1;
         trans = new double[numSymbols];
     }
     
@@ -94,11 +98,19 @@ public class PSKSignal implements SignalGenerator{
     
     /** 
      * Set the symbol timing. 
-     * This is the period of time, in seconds, 
-     * that each QPSK symbol is transmitted.
+     * This is the frequency at which the symbol changes.
      */
     public void setSymbolRate(double F) { 
         symF = F;
+        setTransmittedSignalLength();
+    }
+    
+    /**
+     * Set the sampling timing at the receiver end.
+     * This is the sampling frequency used by the receiver.
+     */
+    public void setSampleRate(double f) { 
+        sampF = f;
         setTransmittedSignalLength();
     }
     
