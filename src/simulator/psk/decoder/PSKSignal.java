@@ -50,6 +50,17 @@ public class PSKSignal implements SignalGenerator{
         setLength(0);
         this.M = M;
     }
+         
+    /**
+     * Set the seed for the random generator used
+     * to generate the transmitted QPSK signal.  
+     */
+    public void setSeed(long seed){
+        random.setSeed(seed);
+    }
+    
+    /** Randomise the seed */ 
+    public void randomSeed(){ random = new Random(); }
     
     /** Set M for M-PSK. */
     public void setM(int M){ this.M = M; }
@@ -64,7 +75,7 @@ public class PSKSignal implements SignalGenerator{
         return null;
     }
     
-    public Complex[] getRecievedSignal(){
+    public Complex[] getReceivedSignal(){
         return y;
     }
     

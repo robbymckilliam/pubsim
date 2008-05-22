@@ -50,9 +50,9 @@ public class SweldensNoncoherent implements PSKReceiver{
             //System.out.print(y[i].phase());
             argy[i] = M/(2*Math.PI)*(y[i].phase() + Math.PI) - 0.5;
         }
-        System.out.println();
+        //System.out.println();
         //System.out.println(VectorFunctions.print(y));
-        System.out.println("argy = " + VectorFunctions.print(argy));
+        //System.out.println("argy = " + VectorFunctions.print(argy));
         
         anstar.nearestPoint(argy);
         

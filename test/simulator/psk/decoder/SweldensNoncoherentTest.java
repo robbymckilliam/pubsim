@@ -50,7 +50,7 @@ public class SweldensNoncoherentTest extends TestCase {
                
         signal.generateReceivedSignal();
         
-        System.out.println(" recsig = " + VectorFunctions.print(signal.getRecievedSignal()));
+        System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
         
         SweldensNoncoherent instance = new SweldensNoncoherent();
         instance.setM(M);
@@ -61,7 +61,7 @@ public class SweldensNoncoherentTest extends TestCase {
             signal.generatePSKSignal();
             signal.generateReceivedSignal();
             
-            double[] result = instance.decode(signal.getRecievedSignal());
+            double[] result = instance.decode(signal.getReceivedSignal());
         
             assertEquals(true, Util.differentialEncodedEqual(signal.getPSKSignal(), result, M));
             

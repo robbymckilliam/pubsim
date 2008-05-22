@@ -54,9 +54,9 @@ public class PSKSignalTest extends TestCase {
                             new Complex(-1.6656, 0.4326)};
         instance.generateReceivedSignal();
         
-        System.out.println(VectorFunctions.print(instance.getRecievedSignal()));
+        System.out.println(VectorFunctions.print(instance.getReceivedSignal()));
         
-        assertEquals(true, VectorFunctions.distance_between2(expr,instance.getRecievedSignal())<0.0001);
+        assertEquals(true, VectorFunctions.distance_between2(expr,instance.getReceivedSignal())<0.0001);
 
     }
 
