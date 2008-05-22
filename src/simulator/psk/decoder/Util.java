@@ -4,6 +4,8 @@
  */
 package simulator.psk.decoder;
 
+import simulator.VectorFunctions;
+
 /**
  * Utility class PSK signals.
  * @author Robby McKilliam
@@ -47,6 +49,45 @@ public class Util{
             if(xdiff != ydiff) return false;
          }
          return true;
+    }
+    
+    /**
+     * Returns the number of symbols errors in the codewords assuming
+     * differential encoding.
+     * @param M for M-PSK
+     */
+    public static int differentialEncodedSymbolErrors(double[] x, double[] y, int M){
+         if(y.length != x.length) 
+             throw new Error("x and y must have equal length");
+         
+         int errors = 0;
+         for(int i = 0; i<x.length-1; i++){
+            int xdiff = mod((int)(x[i+1]-x[i]),M);
+            int ydiff = mod((int)(y[i+1]-y[i]),M);
+            if(xdiff != ydiff) errors++;
+         }
+         return errors;
+    }
+    
+    /**
+     * Returns the number of bit errors in the codewords assuming
+     * differential encoding.  Assumes differential encoding and that
+     * M is a power of 2.  The number of bit errors will be incorrect
+     * if M is not a power of 2.
+     * @param M for M-PSK
+     */
+    public static int differentialEncodedBitErrors(double[] x, double[] y, int M){
+         if(y.length != x.length) 
+             throw new Error("x and y must have equal length");
+         
+         int errors = 0;
+         for(int i = 0; i<x.length-1; i++){
+            int xdiff = mod((int)(x[i+1]-x[i]),M);
+            int ydiff = mod((int)(y[i+1]-y[i]),M);
+            //System.out.println(" xdiff = " + xdiff + ", ydiff = " + ydiff + ", errors = " + mod(xdiff-ydiff, M/2+1));
+            errors += mod(xdiff-ydiff, M/2+1);
+         }
+         return errors;
     }
     
 }
