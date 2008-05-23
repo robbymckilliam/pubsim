@@ -28,7 +28,7 @@ public class Util{
      * Takes x mod y and works for negative numbers.  Ie is not
      * just a remainder like java's % operator.
      */
-    private static int mod(int x, int y){
+    public static int mod(int x, int y){
         int t = x%y;
         if(x < 0) t+=y;
         return t;
@@ -86,6 +86,23 @@ public class Util{
             int ydiff = mod((int)(y[i+1]-y[i]),M);
             //System.out.println(" xdiff = " + xdiff + ", ydiff = " + ydiff + ", errors = " + mod(xdiff-ydiff, M/2+1));
             errors += mod(xdiff-ydiff, M/2+1);
+         }
+         return errors;
+    }
+    
+    /**
+     * Returns the number of bit errors in the codewords.  Assumens that
+     * M is a power of 2.  The number of bit errors will be incorrect
+     * if M is not a power of 2.
+     * @param M for M-PSK
+     */
+    public static int bitErrors(double[] x, double[] y, int M){
+        if(y.length != x.length) 
+             throw new Error("x and y must have equal length");
+         
+         int errors = 0;
+         for(int i = 0; i<x.length-1; i++){
+            errors += mod((int)Math.round(x[i]-y[i]), M/2+1);
          }
          return errors;
     }

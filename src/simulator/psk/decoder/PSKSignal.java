@@ -141,5 +141,12 @@ public class PSKSignal implements SignalGenerator{
     public void setChannel(Complex h){
         this.h.copy(h);
     }
+    
+    /**
+     * Get the current channel being used.
+     */
+    public Complex getChannel(){
+        return h;
+    }
 
 }

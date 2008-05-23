@@ -92,4 +92,15 @@ public class TranslatedNoncoherent implements PSKReceiver, PATSymbol{
         return PAT;
     }
 
+    public int bitErrors(double[] x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /** This is a noncoherent reciever so setting the channel does nothing*/
+    public void setChannel(Complex h) {  }
+
+    public int bitPerCodeword() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
