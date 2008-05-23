@@ -42,31 +42,39 @@ public class Phin2StarZnLLSTest extends TestCase {
     public void testNearestPoint() {
         
         System.out.println("nearestPoint");
-        int n = 10;
+        int n = 9;
         Random rand = new Random();
         
         double[] y = new double[n];
         Phin2StarZnLLS instance = new Phin2StarZnLLS();
-        Phin2StarGlued tester = new Phin2StarGlued();
+        Phin2StarSampled tester = new Phin2StarSampled(5000000);
+        //Phin2StarGlued tester = new Phin2StarGlued();
         
         instance.setDimension(n-2);
         tester.setDimension(n-2);
         
        // for(int i = 0; i < 100; i++){
             for(int j=0; j<n; j++)
-                y[j] = 10 * rand.nextGaussian();
+                y[j] = 9 * rand.nextGaussian();
             
             Phin2StarZnLLS.project(y,y);
             
             instance.nearestPoint(y);
             tester.nearestPoint(y);
             
+            System.out.println("inst pt: " + VectorFunctions.print(instance.getLatticePoint()));
+            System.out.println("test pt: " + VectorFunctions.print(tester.getLatticePoint()));
             
+            System.out.println("inst quant: " + VectorFunctions.print(instance.getIndex()));
+            System.out.println("test quant: " + VectorFunctions.print(tester.getIndex()));
+
+            System.out.println("inst dist: " + VectorFunctions.distance_between(instance.getLatticePoint(), instance.getIndex()));
+            System.out.println("test dist: " + VectorFunctions.distance_between(tester.getLatticePoint(), tester.getIndex()));
             
-            //double dist = VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint());
-            //System.out.println("inst = " + VectorFunctions.distance_between(instance.getLatticePoint(), y));
-            //System.out.println("test = " + VectorFunctions.distance_between(tester.getLatticePoint(), y));
-            //assertEquals(dist < 0.0001, true);
+            double dist = VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint());
+            System.out.println("inst = " + VectorFunctions.distance_between(instance.getLatticePoint(), y));
+            System.out.println("test = " + VectorFunctions.distance_between(tester.getLatticePoint(), y));
+            assertEquals(dist < 0.0001, true);
             
             
         //}

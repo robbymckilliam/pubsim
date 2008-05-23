@@ -173,7 +173,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             //System.out.println("g is " + VectorFunctions.print(g));
             //System.out.println("unsorted_crosses is " + VectorFunctions.print(unsorted_crosses));
 
-            System.out.println("sorted crosses is " + crosses.keySet() + "\n" + crosses.values());
+            //System.out.println("sorted crosses is " + crosses.keySet() + "\n" + crosses.values());
             
             gtz = 0;
             gtg = 0;
@@ -212,27 +212,57 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                 z[nextDim] += Math.signum(g[nextDim]);
                 
                 k = gtz / gtg;
-                if (!valIter.hasNext()) {
-                    // Need to make sure the projection isn't past the end of
-                    // the line segment
-                    if (k > fmax) {
-                        k = fmax;
-                    }
+                // Need to make sure the projection isn't past the ends of
+                // the line segment
+                if (k < fmin) {
+                    k = fmin;
+                }
+                if (k > fmax) {
+                    k = fmax;
                 }
                 dist = k*k*gtg - 2*k*gtz + ztz;
+                double k_plus = k+0.001;
+                double k_minus = k-0.001;
+                double dist_plus = k_plus*k_plus*gtg - 2*k_plus*gtz + ztz;
+                double dist_minus = k_minus*k_minus*gtg - 2*k_minus*gtz + ztz;
+                if (dist_plus < dist || dist_minus < dist) {
+                    //System.out.println("This oughtn't happen -- the distance" +
+                    //                   "should be minimised already.");
+                }
                 if (dist < bestdist) {
+                    //System.out.println("best point found!");
                     bestdist = dist;
                     for (int j = 0; j < N; j++) {
                         bestpoint[j] = z[j] + vstart[j];
+                        v[j] = k*g[j] + vstart[j];
                     }
                 }
                 
-                //System.out.println("k is " + k + "; key was " + ((Double)(keyIter.next())).doubleValue());
-                System.out.println("k is " + k);
+                double key = ((Double)(keyIter.next())).doubleValue();
+                //System.out.println("k is " + k + "; key was " + key);
+                //System.out.println("k is " + k);
+                /*
+                double[] boundary_on_g = new double[N];
+                double[] pos_on_g = new double[N];
+                double[] vor_point = new double[N];
+                for (int j = 0; j < N; j++) {
+                    boundary_on_g[j] = key * g[j] + vstart[j];
+                    pos_on_g[j] = k * g[j] + vstart[j];
+                    vor_point[j] = z[j] + vstart[j];
+                }
+                System.out.println("Boundary on g: " + VectorFunctions.print(boundary_on_g));
+                System.out.println("Pos on g: " + VectorFunctions.print(pos_on_g));
+                System.out.println("Voronoi point: " + VectorFunctions.print(vor_point));
+                System.out.println();
+                */
             }
             
-            System.out.println("best dist is " + bestdist);
-            System.out.println("--");
+            //System.out.println("best dist is " + bestdist);
+            //System.out.println("--");
+        }
+        
+        for (int i = 0; i < N; i++) {
+            u[i] = bestpoint[i];
         }
     }
     
