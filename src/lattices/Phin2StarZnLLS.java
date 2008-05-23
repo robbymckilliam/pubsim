@@ -103,8 +103,10 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         
         bestdist = Double.POSITIVE_INFINITY;
         
-        for (int i = 0; i < N-1; i++) {
+        for (int i = 0; i < N; i++) {
             glueVector(i);
+            //System.out.println("glue vector " + i + ": " + VectorFunctions.print(glue));
+            //System.out.println("|glue vector " + i + "|: " + VectorFunctions.magnitude(glue));
             int numCrosses = 0;
             for (int j = 0; j < N; j++) {
                 translate[j] = y[j] + glue[j];
@@ -114,7 +116,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                 
                 lstart[j] = Math.round(vstart[j]);
                 lend[j] = Math.round(vend[j]);
-                
+
                 numCrosses += Math.abs(lend[j] - lstart[j]);
             }
             //[][0] == distance from vstart that the crossing occurs
@@ -199,7 +201,9 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             if (dist < bestdist) {
                 bestdist = dist;
                 for (int j = 0; j < N; j++) {
-                    bestpoint[j] = z[j] + vstart[j];
+                    //bestpoint[j] = Math.round(z[j] + vstart[j] - glue[j]);
+                    bestpoint[j] = z[j] + vstart[j] - glue[j];
+                    v[j] = k*g[j] + vstart[j] - glue[j];
                 }
             }
             
@@ -229,12 +233,23 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                     //System.out.println("This oughtn't happen -- the distance" +
                     //                   "should be minimised already.");
                 }
+                
+                double[] temp = new double[N];
+                double[] temp2 = new double[N];
+                for (int j = 0; j < N; j++) {
+                    temp[j] = z[j] + vstart[j];
+                    temp2[j] = k*g[j] + vstart[j];
+                }
+                
+                //System.out.println("checking " + VectorFunctions.print(temp) + ", dist is " + dist + ", vect is " + VectorFunctions.print(temp2));
+                
                 if (dist < bestdist) {
-                    //System.out.println("best point found!");
+                    //System.out.println("best point found!  With dist of " + dist);
                     bestdist = dist;
                     for (int j = 0; j < N; j++) {
-                        bestpoint[j] = z[j] + vstart[j];
-                        v[j] = k*g[j] + vstart[j];
+                        //bestpoint[j] = Math.round(z[j] + vstart[j] - glue[j]);
+                        bestpoint[j] = z[j] + vstart[j] - glue[j];
+                        v[j] = k*g[j] + vstart[j] - glue[j];
                     }
                 }
                 
