@@ -105,9 +105,6 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         
         for (int i = 0; i < N; i++) {
             glueVector(i);
-            //System.out.println("glue vector " + i + ": " + VectorFunctions.print(glue));
-            //System.out.println("|glue vector " + i + "|: " + VectorFunctions.magnitude(glue));
-            int numCrosses = 0;
             for (int j = 0; j < N; j++) {
                 translate[j] = y[j] + glue[j];
                 
@@ -116,36 +113,12 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                 
                 lstart[j] = Math.round(vstart[j]);
                 lend[j] = Math.round(vend[j]);
-
-                numCrosses += Math.abs(lend[j] - lstart[j]);
             }
-            //[][0] == distance from vstart that the crossing occurs
-            //[][1] == dimension in which the crossing occurs
-            double[][] unsorted_crosses = new double[numCrosses][2];
+            
             TreeMap crosses = new TreeMap();
-            int count = 0;
             for (int j = 0; j < N; j++) {
                 for (int k = 0; k < Math.abs(lend[j] - lstart[j]); k++) {
-                    /*
-                    // This one shows where the voronoi boundaries occur
-                    // relative to the origin in Zn
-                    crosses[count][0] = (2*lstart[j] + (2*k+1)*Math.signum(g[j]))
-                                         / 2;
-                    */
-                    /*
-                    // This one shows where the voronoi boundaries occur
-                    // relative to the beginning of the line we're searching
-                    // along
-                    crosses[count][0] = ((2*lstart[j] + (2*k+1)*Math.signum(g[j]))
-                                         / 2) - vstart[j];
-                    */
-                    /*
-                    // This one shows how far along g STARTING AT THE FIRST
-                    // LATTICE POINT the voronoi boundaries occur
-                    crosses[count][0] = ((2*k + 1) * Math.signum(g[j]))
-                                         / (2*g[j]);
-                    */
-                    // This one shows how far along g relative to the
+                    // This shows how far along g relative to the
                     // translated beginning of g the voronoi boundaries occur
                     crosses.put(
                                   new Double(
@@ -154,28 +127,8 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                                   ),
                                   new Integer(j)
                                );
-                    unsorted_crosses[count][0] = ((((2*k + 1) * Math.signum(g[j]))
-                                                 / 2) - (vstart[j] - lstart[j]))/g[j];
-                    unsorted_crosses[count][1] = j;
-                    count++;
                 }
             }
-            
-            if (count != numCrosses) {
-                //complain loudly
-                System.err.println("You've somehow miscounted the number of " +
-                                   "voronoi crossings in Phin2StarZnLLS");
-            }
-            
-            //System.out.println("iteration " + i);
-            //System.out.println("vstart is " + VectorFunctions.print(vstart));
-            //System.out.println("vend is " + VectorFunctions.print(vend));
-            //System.out.println("lstart is " + VectorFunctions.print(lstart));
-            //System.out.println("lend is " + VectorFunctions.print(lend));
-            //System.out.println("g is " + VectorFunctions.print(g));
-            //System.out.println("unsorted_crosses is " + VectorFunctions.print(unsorted_crosses));
-
-            //System.out.println("sorted crosses is " + crosses.keySet() + "\n" + crosses.values());
             
             gtz = 0;
             gtg = 0;
@@ -183,8 +136,6 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
            
             for (int j = 0; j < N; j++) {
                 z[j] = lstart[j] - vstart[j];
-                // Is it a problem that I'm taking everything wrt vstart rather
-                // than the origin?  Check this.
                 gtz += g[j] * z[j];
                 gtg += g[j] * g[j];
                 ztz += z[j] * z[j];
@@ -198,60 +149,24 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             }
             dist = k*k*gtg - 2*k*gtz + ztz;
             
-            if (dist < bestdist) {
-                /*
-                //double[] bestpoint_with_glue = new double[N];
-                double[] zn_bestpoint = new double[N];
-                double[] zn_proj = new double[N];
-                double[] proj_with_glue = new double[N];
-                double[] proj = new double[N];
-                */
-                
+            if (dist < bestdist) {               
                 bestdist = dist;
                 for (int j = 0; j < N; j++) {
-                    // This rounding is a source of considerable numerical error
-                    // in the presence of floating point noise if it's rounding
-                    // values with a fractional component of about 0.5, which is
-                    // the case for one glue vector for even N (and potentially
-                    // others for large enough N).
-                    // z[j] + vstart[j] is always an integer and glue[j] is an
-                    // integer divided by N, so we'll try to round
-                    // z[j] + vstart[j] - glue[j] to the correct value (in a
-                    // maximum likelihood sense) first.
-                    bestpoint[j] = Math.round
-                                   (
-                                     N * (z[j] + vstart[j] - glue[j])
-                                   ) / (double)N;
-                    bestpoint[j] = Math.round(bestpoint[j]);
-                    //bestpoint[j] = z[j] + vstart[j] - glue[j];
-                    //bestpoint_with_glue[j] = z[j] + vstart[j];
-                    //zn_bestpoint[j] = Math.round(bestpoint[j]);
+                    // bestpoint is rounded at the very end of the function so
+                    // that the rounding is only performed on the final best
+                    // point found.
+                    bestpoint[j] = z[j] + vstart[j] - glue[j];
                     v[j] = k*g[j] + vstart[j] - glue[j];
                 }
-                
-                /*
-                //project(bestpoint_with_glue, proj_with_glue);
-                project(bestpoint, proj);
-                project(zn_bestpoint, zn_proj);
-                //System.out.println(VectorFunctions.print(bestpoint_with_glue));
-                //System.out.println(VectorFunctions.distance_between(y, proj_with_glue));
-                System.out.println(VectorFunctions.print(zn_bestpoint));
-                System.out.println(VectorFunctions.distance_between(y, zn_proj));
-                System.out.println(VectorFunctions.distance_between(y, proj));
-                if (VectorFunctions.distance_between(proj, zn_proj) > 0.0001) {
-                    System.out.println("ERK");
-                    System.exit(0);
-                }
-                */
             }
             
-            Iterator keyIter = crosses.keySet().iterator();
             Iterator valIter = crosses.values().iterator();
             while (valIter.hasNext()) {
                 int nextDim = ((Integer)(valIter.next())).intValue();
-                gtz += Math.signum(g[nextDim]) * g[nextDim];
-                ztz += 2 * Math.signum(g[nextDim]) * z[nextDim] + 1;
-                z[nextDim] += Math.signum(g[nextDim]);
+                double sign = Math.signum(g[nextDim]);
+                gtz += sign * g[nextDim];
+                ztz += 2 * sign * z[nextDim] + 1;
+                z[nextDim] += sign;
                 
                 k = gtz / gtg;
                 // Need to make sure the projection isn't past the ends of
@@ -263,90 +178,35 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                     k = fmax;
                 }
                 dist = k*k*gtg - 2*k*gtz + ztz;
-                double k_plus = k+0.001;
-                double k_minus = k-0.001;
-                double dist_plus = k_plus*k_plus*gtg - 2*k_plus*gtz + ztz;
-                double dist_minus = k_minus*k_minus*gtg - 2*k_minus*gtz + ztz;
-                if (dist_plus < dist || dist_minus < dist) {
-                    //System.out.println("This oughtn't happen -- the distance" +
-                    //                   "should be minimised already.");
-                }
-                
-                double[] temp = new double[N];
-                double[] temp2 = new double[N];
-                for (int j = 0; j < N; j++) {
-                    temp[j] = z[j] + vstart[j];
-                    temp2[j] = k*g[j] + vstart[j];
-                }
-                
-                //System.out.println("checking " + VectorFunctions.print(temp) + ", dist is " + dist + ", vect is " + VectorFunctions.print(temp2));
                 
                 if (dist < bestdist) {
-                    /*
-                    //double[] bestpoint_with_glue = new double[N];
-                    double[] zn_bestpoint = new double[N];
-                    double[] zn_proj = new double[N];
-                    double[] proj_with_glue = new double[N];
-                    double[] proj = new double[N];
-                    */
-                    
-                    //System.out.println("best point found!  With dist of " + dist);
                     bestdist = dist;
                     for (int j = 0; j < N; j++) {
                         // See comment earlier regarding this line.
-                        bestpoint[j] = Math.round
-                                       (
-                                         N * (z[j] + vstart[j] - glue[j])
-                                       ) / (double)N;
-                        bestpoint[j] = Math.round(bestpoint[j]);
-                        // bestpoint[j] = Math.round(z[j] + vstart[j] - glue[j]);
-                        //bestpoint[j] = z[j] + vstart[j] - glue[j];
-                        //bestpoint_with_glue[j] = z[j] + vstart[j];
-                        //zn_bestpoint[j] = Math.round(bestpoint[j]);
+                        bestpoint[j] = z[j] + vstart[j] - glue[j];
                         v[j] = k*g[j] + vstart[j] - glue[j];
                     }
-                    
-                    /*
-                    //project(bestpoint_with_glue, proj_with_glue);
-                     project(bestpoint, proj);
-                    project(zn_bestpoint, zn_proj);
-                    //System.out.println(VectorFunctions.print(bestpoint_with_glue));
-                    //System.out.println(VectorFunctions.distance_between(y, proj_with_glue));
-                    System.out.println(VectorFunctions.print(zn_bestpoint));
-                    System.out.println(VectorFunctions.distance_between(y, zn_proj));
-                    System.out.println(VectorFunctions.distance_between(y, proj));
-                    if (VectorFunctions.distance_between(proj, zn_proj) > 0.0001) {
-                        System.out.println("ERK");
-                        System.exit(0);
-                    }
-                    */
                 }
-                
-                double key = ((Double)(keyIter.next())).doubleValue();
-                //System.out.println("k is " + k + "; key was " + key);
-                //System.out.println("k is " + k);
-                /*
-                double[] boundary_on_g = new double[N];
-                double[] pos_on_g = new double[N];
-                double[] vor_point = new double[N];
-                for (int j = 0; j < N; j++) {
-                    boundary_on_g[j] = key * g[j] + vstart[j];
-                    pos_on_g[j] = k * g[j] + vstart[j];
-                    vor_point[j] = z[j] + vstart[j];
-                }
-                System.out.println("Boundary on g: " + VectorFunctions.print(boundary_on_g));
-                System.out.println("Pos on g: " + VectorFunctions.print(pos_on_g));
-                System.out.println("Voronoi point: " + VectorFunctions.print(vor_point));
-                System.out.println();
-                */
             }
-            
-            //System.out.println("best dist is " + bestdist);
-            //System.out.println("--");
         }
         
         for (int i = 0; i < N; i++) {
-            u[i] = bestpoint[i];
+            // This rounding is a source of considerable numerical error
+            // in the presence of floating point noise if it's rounding
+            // values with a fractional component of about 0.5, which is
+            // the case for one glue vector for even N (and potentially
+            // others for large enough N).
+            //
+            // bestpoint[i] = z[i] + vstart[i] - glue[i]:
+            // z[i] + vstart[i] is always an integer and glue[i] is an
+            // integer divided by N, so we'll try to round
+            // z[i] + vstart[i] - glue[i] to the correct value (in a
+            // maximum likelihood sense) first.
+            bestpoint[i] = Math.round
+                           (
+                             N * (bestpoint[i])
+                           ) / (double)N;
+            u[i] = Math.round(bestpoint[i]);
         }
     }
     

@@ -40,7 +40,6 @@ public class ZnLLSTest extends TestCase {
             double result = instance.estimateFreq(signal.getReal(), signal.getImag());
             //System.out.println("f = " + result);
             assertEquals(true, Math.abs(result - f)<0.001);
-            System.out.println(i);
         }
         
         n = 21;
@@ -57,7 +56,6 @@ public class ZnLLSTest extends TestCase {
             double result = instance.estimateFreq(signal.getReal(), signal.getImag());
             //System.out.println("f = " + result);
             assertEquals(true, Math.abs(result - f)<0.001);
-            System.out.println(i);
         }
     }
     
