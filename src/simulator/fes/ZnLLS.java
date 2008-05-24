@@ -42,9 +42,27 @@ public class ZnLLS implements FrequencyEstimator{
         
         lattice.nearestPoint(ya);
         
-        // TODO: Determine f and return it
+        // copied directly from GlueAnstarEstimator
+        double f = 0, gtg = 0;
+        double meann = (n-1)/2.0;
+        double[] u = lattice.getIndex();
+        for(int i = 0; i < n; i++){
+            f += (i - meann)*(ya[i]-u[i]);
+            gtg += (i - meann)*(i - meann);
+        }
+        f /= gtg;
+
+        //System.out.println("f = " + f);
         
-        return 0.0;
+        // f is normalised to fs/2, so it should be between 0 and 1
+        while (f < 0) {
+            f++;
+        }
+        while (f >= 1) {
+            f--;
+        }
+        
+        return f;
     }
     
 }

@@ -53,11 +53,11 @@ public class Phin2StarZnLLSTest extends TestCase {
         double[] sampled_proj_u = new double[n];
         double[] glued_proj_u = new double[n];
         Phin2StarZnLLS znlls = new Phin2StarZnLLS();
-        Phin2StarSampled sampled = new Phin2StarSampled(100);
+        //Phin2StarSampled sampled = new Phin2StarSampled(100);
         Phin2StarGlued glued = new Phin2StarGlued();
         
         znlls.setDimension(n-2);
-        sampled.setDimension(n-2);
+        //sampled.setDimension(n-2);
         glued.setDimension(n-2);
         
         for(int i = 0; i < 5000; i++){
@@ -69,7 +69,7 @@ public class Phin2StarZnLLSTest extends TestCase {
             Phin2StarZnLLS.project(y,QgQ1y);
             
             znlls.nearestPoint(QgQ1y);
-            sampled.nearestPoint(QgQ1y);
+            //sampled.nearestPoint(QgQ1y);
             glued.nearestPoint(QgQ1y);
             /*
             System.out.println("QgQ1y: " + VectorFunctions.print(QgQ1y));
@@ -84,12 +84,13 @@ public class Phin2StarZnLLSTest extends TestCase {
                 rounded_u[j] = Math.round(znlls.getIndex()[j]);
             }
             */
-            
+            /*
             System.out.println("znlls u: " + VectorFunctions.print(znlls.getIndex()));
             //System.out.println("rounded u: " + VectorFunctions.print(rounded_u));
-            System.out.println("sampled u: " + VectorFunctions.print(sampled.getIndex()));
+            //System.out.println("sampled u: " + VectorFunctions.print(sampled.getIndex()));
             System.out.println("glued u: " + VectorFunctions.print(glued.getIndex()));
             System.out.println();
+            */
             /*
             System.out.println("|v - u| znlls: " + VectorFunctions.distance_between(znlls.getLatticePoint(), znlls.getIndex()));
             System.out.println("|v - u| sampled: " + VectorFunctions.distance_between(sampled.getLatticePoint(), sampled.getIndex()));
@@ -106,26 +107,30 @@ public class Phin2StarZnLLSTest extends TestCase {
             System.out.println("|QgQ1y - u| glued: " + VectorFunctions.distance_between(QgQ1y, glued.getIndex()));
             System.out.println();
             */
+            /*
             Phin2StarZnLLS.project(znlls.getIndex(), znlls_proj_u);
             //Phin2StarZnLLS.project(rounded_u, rounded_proj_u);
-            Phin2StarZnLLS.project(sampled.getIndex(), sampled_proj_u);
+            //Phin2StarZnLLS.project(sampled.getIndex(), sampled_proj_u);
             Phin2StarZnLLS.project(glued.getIndex(), glued_proj_u);
+            */
             /*
             System.out.println("QgQ1u znlls: " + VectorFunctions.print(znlls_proj_u));
             System.out.println("QgQ1u sampled: " + VectorFunctions.print(sampled_proj_u));
             System.out.println("QgQ1u glued: " + VectorFunctions.print(glued_proj_u));
             System.out.println();
             */
+            
+            /*
             System.out.println("|QgQ1(y - u)| znlls: " + VectorFunctions.distance_between(QgQ1y, znlls_proj_u));
             //System.out.println("|QgQ1(y - u)| rounded: " + VectorFunctions.distance_between(QgQ1y, rounded_proj_u));
-            System.out.println("|QgQ1(y - u)| sampled: " + VectorFunctions.distance_between(QgQ1y, sampled_proj_u));
+            //System.out.println("|QgQ1(y - u)| sampled: " + VectorFunctions.distance_between(QgQ1y, sampled_proj_u));
             System.out.println("|QgQ1(y - u)| glued: " + VectorFunctions.distance_between(QgQ1y, glued_proj_u));
-            
+            */
             System.out.println(i);
             
-            double dist = VectorFunctions.distance_between(znlls.getLatticePoint(), sampled.getLatticePoint());
+            double dist = VectorFunctions.distance_between(znlls.getLatticePoint(), glued.getLatticePoint());
             
-            double diff = VectorFunctions.distance_between(znlls_proj_u, sampled_proj_u);
+            double diff = VectorFunctions.distance_between(znlls_proj_u, glued_proj_u);
             //double diff = VectorFunctions.distance_between(znlls_proj_u, rounded_proj_u);
             
             assertEquals(diff < 0.0001, true);
