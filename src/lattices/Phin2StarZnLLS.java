@@ -86,11 +86,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             g[i] = g[i-1] + 1;
         }
         fmin = 0;
-        if (N % 2 == 0) {
-            fmax = 2;
-        } else {
-            fmax = 1;
-        }
+        fmax = 1;
     }
     
     /** Find the nearest lattice point.  TIM, this is the function
