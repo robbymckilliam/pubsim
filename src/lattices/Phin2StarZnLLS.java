@@ -151,9 +151,11 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                     // bestpoint is rounded at the very end of the function so
                     // that the rounding is only performed on the final best
                     // point found.
-                    bestpoint[j] = z[j] + vstart[j] - glue[j];
+                    //bestpoint[j] = z[j] + vstart[j] - glue[j];
+                    bestpoint[j] = z[j] + vstart[j];
                     v[j] = k*g[j] + vstart[j] - glue[j];
                 }
+                bestpoint[0] -= i;
             }
             
             Iterator valIter = crosses.values().iterator();
@@ -179,9 +181,11 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                     bestdist = dist;
                     for (int j = 0; j < N; j++) {
                         // See comment earlier regarding this line.
-                        bestpoint[j] = z[j] + vstart[j] - glue[j];
+                        //bestpoint[j] = z[j] + vstart[j] - glue[j];
+                        bestpoint[j] = z[j] + vstart[j];
                         v[j] = k*g[j] + vstart[j] - glue[j];
                     }
+                    bestpoint[0] -= i;
                 }
             }
         }
@@ -198,12 +202,13 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             // integer divided by N, so we'll try to round
             // z[i] + vstart[i] - glue[i] to the correct value (in a
             // maximum likelihood sense) first.
-            bestpoint[i] = Math.round
+            /*bestpoint[i] = Math.round
                            (
                              N * (bestpoint[i])
-                           ) / (double)N;
+                           ) / (double)N;*/
             u[i] = Math.round(bestpoint[i]);
         }
+        project(u, v);
     }
     
     /** {@inheritDoc} */
@@ -215,11 +220,18 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
      * vector [i].  See SPLAG pp109.
      */
     protected void glueVector(double i){
-        double j = N - i;
+       /* double j = N - i;
         for(int k = 0; k < j; k++)
             glue[k] = i/N;
         for(int k = (int)j; k < N; k++)
             glue[k] = -j/N;
+        */
+        //this is another set of glue vectors that can be
+        //used.  These are in a line and are sometimes
+        //more convenient than Conway and Sloane's.
+        glue[0] = i*(1.0 - 1.0/(n+2));
+        for(int j = 1; j < n+2; j++)
+            glue[j] = -i*1.0/(n+2);
     }
     
 }

@@ -42,7 +42,7 @@ public class Phin2StarZnLLSTest extends TestCase {
     public void testNearestPoint() {
         
         System.out.println("nearestPoint");
-        int n = 10;
+        int n = 21;
         Random rand = new Random();
         
         double[] y = new double[n];
@@ -64,6 +64,10 @@ public class Phin2StarZnLLSTest extends TestCase {
             znlls.nearestPoint(QgQ1y);
             glued.nearestPoint(QgQ1y);
             
+            Phin2StarZnLLS.project(znlls.getIndex(), znlls_proj_u);
+            Phin2StarZnLLS.project(glued.getIndex(), glued_proj_u);
+            
+            //double diff = VectorFunctions.distance_between(znlls.getLatticePoint(), glued.getLatticePoint());
             double diff = VectorFunctions.distance_between(znlls_proj_u, glued_proj_u);
             
             assertEquals(diff < 0.0001, true);

@@ -24,11 +24,23 @@ public class AnstarAnGlued extends Anstar{
      * vector [i].  See SPLAG pp109.
      */
     protected void glueVector(int i){
+        
+        /*
         int j = n + 1 - i;
         for(int k = 0; k < j; k++)
             g[k] = i/(double)(n+1);
         for(int k = (int)j; k < n + 1; k++)
             g[k] = -j/(double)(n+1);
+        */ 
+        
+        //this is another set of glue vectors that can be
+        //used.  These are in a line and are sometimes
+        //more convenient than Conway and Sloane's.
+        g[0] = i*(1.0 - 1.0/(n+1));
+        for(int j = 1; j < n+1; j++)
+            g[j] = -i*1.0/(n+1);
+         
+        
     }
     
     
@@ -51,6 +63,8 @@ public class AnstarAnGlued extends Anstar{
         
         for(int i = 0; i < n+1; i++){
             glueVector(i);
+            
+            System.out.println(VectorFunctions.print(g));
             
             for(int j = 0; j < n+1; j++)
                 yd[j] = y[j] - g[j];

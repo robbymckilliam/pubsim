@@ -35,7 +35,7 @@ public class AnstarAnGluedTest extends TestCase {
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
-        int n = 30;
+        int n = 8;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;

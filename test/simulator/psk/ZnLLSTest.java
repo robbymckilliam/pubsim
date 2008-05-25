@@ -5,8 +5,6 @@
 
 package simulator.psk;
 
-import simulator.psk.PSKSignal;
-import simulator.psk.ZnLLS;
 import junit.framework.*;
 import simulator.GaussianNoise;
 import simulator.VectorFunctions;
