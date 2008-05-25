@@ -38,8 +38,18 @@ public class ZnLLSTest extends TestCase {
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();
+            
+            // Check real and imag inputs
             double result = instance.estimateFreq(signal.getReal(), signal.getImag());
             //System.out.println("f = " + result);
+            assertEquals(true, Math.abs(result - f)<0.001);
+            
+            // Check phase inputs
+            double[] y = new double[n];
+            for(int j = 0; j < signal.getReal().length; j++) {
+                y[j] = Math.atan2(signal.getImag()[j],signal.getReal()[j])/(2*Math.PI);
+            }
+            result = instance.estimateFreq(signal.getReal(), signal.getImag());
             assertEquals(true, Math.abs(result - f)<0.001);
         }
         
@@ -54,8 +64,18 @@ public class ZnLLSTest extends TestCase {
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();
+            
+            // Check real and imag inputs
             double result = instance.estimateFreq(signal.getReal(), signal.getImag());
             //System.out.println("f = " + result);
+            assertEquals(true, Math.abs(result - f)<0.001);
+            
+            // Check phase inputs
+            double[] y = new double[n];
+            for(int j = 0; j < signal.getReal().length; j++) {
+                y[j] = Math.atan2(signal.getImag()[j],signal.getReal()[j])/(2*Math.PI);
+            }
+            result = instance.estimateFreq(signal.getReal(), signal.getImag());
             assertEquals(true, Math.abs(result - f)<0.001);
         }
     }

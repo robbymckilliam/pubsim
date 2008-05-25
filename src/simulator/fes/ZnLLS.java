@@ -24,16 +24,14 @@ public class ZnLLS implements FrequencyEstimator{
     
     // Used for phase estimation
     protected double f;
-    protected double[] real;
-    protected double[] imag;
+    protected double[] phase_samples;
     
     /** Set the number of samples */
     public void setSize(int n){
         lattice = new Phin2StarZnLLS();
         lattice.setDimension(n-2);
         ya = new double[n];
-        real = new double[n];
-        imag = new double[n];
+        phase_samples = new double[n];
         this.n = n;
     }
     
@@ -47,22 +45,30 @@ public class ZnLLS implements FrequencyEstimator{
             ya[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
         }
         
-        lattice.nearestPoint(ya);
+        return estimateFreq(ya);
+    }
+    
+    /** Run the estimator on phase data */
+    public double estimateFreq(double[] phase_samples) {
+        if (n != phase_samples.length) {
+            setSize(phase_samples.length);
+        }
+        
+        lattice.nearestPoint(phase_samples);
         
         // copied directly from GlueAnstarEstimator
         double f = 0, gtg = 0;
         double meann = (n-1)/2.0;
         double[] u = lattice.getIndex();
         for(int i = 0; i < n; i++){
-            f += (i - meann)*(ya[i]-u[i]);
+            f += (i - meann)*(phase_samples[i]-u[i]);
             gtg += (i - meann)*(i - meann);
         }
         f /= gtg;
         
         // Keep a copy in case phase is requested later
         for (int i = 0; i < n; i++) {
-            this.real[i] = real[i];
-            this.imag[i] = imag[i];
+            this.phase_samples[i] = phase_samples[i];
             this.f = f;
         }
         
@@ -82,24 +88,27 @@ public class ZnLLS implements FrequencyEstimator{
             setSize(real.length);
         }
         
+        for(int i = 0; i < real.length; i++) {
+           ya[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
+        }
+        
+        return estimatePhase(ya);
+    }
+    
+    public double estimatePhase(double[] phase_samples) {
         for (int i = 0; i < n; i++) {
-            if (this.real[i] != real[i] || this.imag[i] != imag[i]) {
-                estimateFreq(real, imag);
+            if (this.phase_samples[i] != phase_samples[i] 
+                  || phase_samples.length != this.phase_samples.length) {
+                estimateFreq(phase_samples);
                 break;
             }
         }
         // By this point, we know that f is set to the frequency for this input
-        
-        for(int i = 0; i < real.length; i++) {
-            ya[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
-        }
-        
-        lattice.nearestPoint(ya);
 
         double phase = 0;
         double[] u = lattice.getIndex();
         for(int i = 0; i < n; i++){
-            phase += (ya[i]-u[i]);
+            phase += (phase_samples[i]-u[i]);
         }
         for (int i = 0; i < n; i++) {
             phase -= f * i;

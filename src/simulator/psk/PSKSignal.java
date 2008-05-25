@@ -54,8 +54,11 @@ public class PSKSignal implements SignalGenerator{
      */
     public double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++){
+            // phase offset associated with each of the M symbols
             double pha = 
                 2*Math.PI*(0.5 + trans[(int)Math.floor(i*symF/sampF)])/M;
+            // phase at the transmitter's end (no noise yet) at each of the
+            // receiver's samples
             double t = 2*Math.PI*transF/sampF*i + pha + this.phase;
             recReal[i] = Math.cos(t) + noise.getNoise();
             recImag[i] = Math.sin(t) + noise.getNoise();
@@ -89,7 +92,7 @@ public class PSKSignal implements SignalGenerator{
     }
     
     protected void setTransmittedSignalLength(){
-        numSymbols = (int) Math.floor(n*symF/sampF) + 1;
+        numSymbols = (int) Math.ceil(n*symF/sampF);
         trans = new double[numSymbols];
     }
     
