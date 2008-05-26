@@ -6,15 +6,15 @@
 
 package simulator.psk;
 
-import simulator.fes.FrequencyEstimator;
+import lattices.Phin2Star;
+import lattices.Phin2StarGlued;
 
 /**
  * Uses the Glued Pn2 lattice point algorithm.  There is no way to
  * efficiently remove the 
  * @author Robby McKilliam
  */
-public class GlueAnstarCarrierEstimator extends lattices.Phin2StarGlued
-        implements CarrierEstimator{
+public class GlueAnstarCarrierEstimator implements CarrierEstimator{
     
     protected int M;
     protected double[] marg;
@@ -23,6 +23,11 @@ public class GlueAnstarCarrierEstimator extends lattices.Phin2StarGlued
     protected double fmin, fmax;
     protected double phase, frequency;
     
+    Phin2Star lattice;
+    
+    public GlueAnstarCarrierEstimator(){
+        lattice = new Phin2StarGlued();
+    }
     
     /** Return the estimated phase */
     public double getPhase(){
@@ -49,7 +54,7 @@ public class GlueAnstarCarrierEstimator extends lattices.Phin2StarGlued
     
     /** Set the number of samples */
     public void setSize(int n){
-        setDimension(n-2);  
+        lattice.setDimension(n-2);  
         marg = new double[n];
         N = n;
     }
@@ -67,13 +72,15 @@ public class GlueAnstarCarrierEstimator extends lattices.Phin2StarGlued
      */
     public void estimateCarrier(double[] arg){
         
-        if(n+2 != arg.length)
+        if(N != arg.length)
             setSize(arg.length);
         
         for(int i = 0; i < arg.length; i++)
             marg[i] = M*arg[i];
         
-        nearestPoint(marg);
+        lattice.nearestPoint(marg);
+        
+        double[] u = lattice.getIndex();
         
         //calculate f from the nearest point
         double f = 0;
@@ -95,7 +102,8 @@ public class GlueAnstarCarrierEstimator extends lattices.Phin2StarGlued
         
     }
     
-     public void nearestPoint(double[] y){
+     /*
+    public void nearestPoint(double[] y){
         if (n != y.length-2)
 	    setDimension(y.length-2);
         
@@ -144,6 +152,6 @@ public class GlueAnstarCarrierEstimator extends lattices.Phin2StarGlued
                 }
             }
         }
-    }
+    }*/
     
 }

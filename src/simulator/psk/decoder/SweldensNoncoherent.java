@@ -48,6 +48,7 @@ public class SweldensNoncoherent implements PSKReceiver{
         //in the range {0,1,...,M-1}
         for(int i = 0; i < T; i++){
             //System.out.print(y[i].phase());
+            //double p = M/(2*Math.PI)*y[i].phase();
             argy[i] = M/(2*Math.PI)*y[i].phase();
         }
         //System.out.println();
@@ -67,7 +68,7 @@ public class SweldensNoncoherent implements PSKReceiver{
     /** This is a noncoherent reciever so setting the channel does nothing*/
     public void setChannel(Complex h) {  }
     
-    public int bitPerCodeword() {
+    public int bitsPerCodeword() {
         return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
     }
 

@@ -73,6 +73,13 @@ public class UtilTest {
         expResult = false;
         result = Util.differentialEncodedEqual(x1, y1, M);
         assertEquals(expResult, result);
+        
+        double[] x2 = {2.0, -2.0, 0.0, 1.0, 2.0, -1.0, 2.0, -1.0, 2.0, 2.0};
+        double[] y2 = {2.0, 2.0, 0.0, 1.0, 2.0, 3.0, 2.0, 3.0, 2.0, 2.0};
+        M = 4;
+        expResult = true;
+        result = Util.differentialEncodedEqual(x2, y2, M);
+        assertEquals(expResult, result);
     }
     
     /**

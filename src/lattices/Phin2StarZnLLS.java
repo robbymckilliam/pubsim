@@ -54,7 +54,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
     // found so far.
     protected double dist;
     protected double bestdist;
-    protected double[] bestpoint;
+    protected double[] bestIndex;
     
     protected double gtz, gtg, ztz;
     
@@ -77,7 +77,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         lcurr = new double[N];
         z = new double[N];
         g = new double[N];
-        bestpoint = new double[N];
+        bestIndex = new double[N];
         g[0] = -(N/2); // Note: integer division contains implicit floor
         if (N % 2 == 0) {
             g[0] += 0.5;
@@ -148,14 +148,14 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             if (dist < bestdist) {               
                 bestdist = dist;
                 for (int j = 0; j < N; j++) {
-                    // bestpoint is rounded at the very end of the function so
+                    // bestIndex is rounded at the very end of the function so
                     // that the rounding is only performed on the final best
                     // point found.
-                    //bestpoint[j] = z[j] + vstart[j] - glue[j];
-                    bestpoint[j] = z[j] + vstart[j];
+                    //bestIndex[j] = z[j] + vstart[j] - glue[j];
+                    bestIndex[j] = z[j] + vstart[j];
                     v[j] = k*g[j] + vstart[j] - glue[j];
                 }
-                bestpoint[0] -= i;
+                bestIndex[0] -= i;
             }
             
             Iterator valIter = crosses.values().iterator();
@@ -181,11 +181,11 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                     bestdist = dist;
                     for (int j = 0; j < N; j++) {
                         // See comment earlier regarding this line.
-                        //bestpoint[j] = z[j] + vstart[j] - glue[j];
-                        bestpoint[j] = z[j] + vstart[j];
+                        //bestIndex[j] = z[j] + vstart[j] - glue[j];
+                        bestIndex[j] = z[j] + vstart[j];
                         v[j] = k*g[j] + vstart[j] - glue[j];
                     }
-                    bestpoint[0] -= i;
+                    bestIndex[0] -= i;
                 }
             }
         }
@@ -197,16 +197,16 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             // the case for one glue vector for even N (and potentially
             // others for large enough N).
             //
-            // bestpoint[i] = z[i] + vstart[i] - glue[i]:
+            // bestIndex[i] = z[i] + vstart[i] - glue[i]:
             // z[i] + vstart[i] is always an integer and glue[i] is an
             // integer divided by N, so we'll try to round
             // z[i] + vstart[i] - glue[i] to the correct value (in a
             // maximum likelihood sense) first.
-            /*bestpoint[i] = Math.round
+            /*bestIndex[i] = Math.round
                            (
-                             N * (bestpoint[i])
+                             N * (bestIndex[i])
                            ) / (double)N;*/
-            u[i] = Math.round(bestpoint[i]);
+            u[i] = Math.round(bestIndex[i]);
         }
         project(u, v);
     }

@@ -45,18 +45,16 @@ public class Phin2StarGreedyTest {
     @Test
     public void nearestPoint() {
         System.out.println("nearestPoint");
-        int n = 10;
+        int n = 12;
         Random rand = new Random();
         
         double[] y = new double[n];
-        Phin2StarSampled instance = new Phin2StarSampled(1000);
-        Phin2StarGlued tester = new Phin2StarGlued();
+        Phin2Star instance = new Phin2StarGreedy();
+        Phin2Star tester = new Phin2StarGlued();
         
         for(int i = 0; i < 100; i++){
             for(int j=0; j<n; j++)
                 y[j] = 10 * rand.nextGaussian();
-            
-            Phin2StarZnLLS.project(y,y);
             
             instance.nearestPoint(y);
             tester.nearestPoint(y);
@@ -64,6 +62,10 @@ public class Phin2StarGreedyTest {
             double dist = VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint());
             System.out.println("inst = " + VectorFunctions.distance_between(instance.getLatticePoint(), y));
             System.out.println("test = " + VectorFunctions.distance_between(tester.getLatticePoint(), y));
+            System.out.println("inst = " + VectorFunctions.print(instance.getIndex()));
+            System.out.println("test = " + VectorFunctions.print(tester.getIndex()));
+            double[] s = VectorFunctions.subtract(instance.getIndex(), tester.getIndex());
+            System.out.println("s = " + VectorFunctions.print(s));
             assertEquals(dist < 0.0001, true);
             
         }

@@ -6,7 +6,7 @@
 
 package simulator.fes;
 
-import lattices.NearestPointAlgorithmInterface;
+import lattices.Phin2Star;
 import lattices.Phin2StarZnLLS;
 
 /**
@@ -20,7 +20,7 @@ public class ZnLLS implements FrequencyEstimator{
     
     protected double[] ya;
     protected int n;
-    protected NearestPointAlgorithmInterface lattice;
+    protected Phin2Star lattice;
     
     // Used for phase estimation
     protected double f;

@@ -27,7 +27,7 @@ public class ZnLLSTest extends TestCase {
         System.out.println("estimateFreq");
         
         int n = 70;
-        int M = 17;
+        int M = 4;
         int iters = 1000;
         double transF = 0.1;
         double symbF = 0.6;

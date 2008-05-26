@@ -30,7 +30,7 @@ public class Util{
      */
     public static int mod(int x, int y){
         int t = x%y;
-        if(x < 0) t+=y;
+        if(t < 0) t+=y;
         return t;
     }
     
@@ -42,7 +42,7 @@ public class Util{
     public static boolean differentialEncodedEqual(double[] x, double[] y, int M){
          if(y.length != x.length) 
              throw new Error("x and y must have equal length");
-         
+
          for(int i = 0; i<x.length-1; i++){
             int xdiff = mod((int)(x[i+1]-x[i]),M);
             int ydiff = mod((int)(y[i+1]-y[i]),M);

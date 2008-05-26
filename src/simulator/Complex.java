@@ -63,7 +63,7 @@ public class Complex extends Object{
     public double phase() { return Math.atan2(im, re); }  // between -pi and pi
     
     /** Return abs/modulus/magnitude */
-    public double abs2()   { return re*re + im*im; }  //
+    public double abs2()   { return re*re + im*im; }
 
     /** return a new Complex object whose value is (this + b) */
     public Complex plus(Complex b) {

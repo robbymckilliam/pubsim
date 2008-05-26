@@ -6,7 +6,6 @@
 package simulator.psk.decoder;
 
 import simulator.Complex;
-import simulator.VectorFunctions;
 
 /**
  * PSK reviever with perfect channel information
@@ -49,7 +48,7 @@ public class KnownCSIReciever implements PSKReceiver{
         return Util.bitErrors(this.x, x, M);
     }
 
-    public int bitPerCodeword() {
+    public int bitsPerCodeword() {
         return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
     

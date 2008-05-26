@@ -57,10 +57,6 @@ public class ZnLLS implements PRIEstimator {
             map.clear();
             glueVector(i);
             
-            
-            //System.out.println();
-            //System.out.println("glue " + i);
-            
             //setup map and variables for this glue vector
             double ztz = 0.0, ztv = 0.0, vtv = 0.0;
             for(int j=0; j<=n; j++){

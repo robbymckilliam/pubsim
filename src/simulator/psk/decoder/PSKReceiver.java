@@ -34,7 +34,7 @@ public interface PSKReceiver {
      * Return the number of bits transmitted per codeword for
      * this reciever
      */
-    int bitPerCodeword();
+    int bitsPerCodeword();
     
     /**
      * Set the channel that the reciever should use.
