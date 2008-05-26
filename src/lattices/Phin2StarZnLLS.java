@@ -50,11 +50,12 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
     // g vector as defined in Robby's confirmation paper, Chapter 6
     protected double[] g;
     
-    // Distance for current iteration, best distance found so far, best point
-    // found so far.
+    // Distance for current iteration, best distance found so far, and the glue
+    // vector number and k value associated with the best point found.
     protected double dist;
     protected double bestdist;
-    protected double[] bestIndex;
+    protected int bestGlue;
+    protected double bestk;
     
     protected double gtz, gtg, ztz;
     
@@ -100,7 +101,6 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         lcurr = new double[N];
         z = new double[N];
         g = new double[N];
-        bestIndex = new double[N];
         g[0] = -(N/2); // Note: integer division contains implicit floor
         if (N % 2 == 0) {
             g[0] += 0.5;
@@ -188,10 +188,8 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             
             if (dist < bestdist) {               
                 bestdist = dist;
-                for (int j = 0; j < N; j++) {
-                    bestIndex[j] = z[j] + translate[j];
-                }
-                bestIndex[0] -= i;
+                bestGlue = i;
+                bestk = k;
             }
             
             Iterator valIter = crosses.values().iterator();
@@ -215,19 +213,22 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                 
                 if (dist < bestdist) {
                     bestdist = dist;
-                    for (int j = 0; j < N; j++) {
-                        bestIndex[j] = z[j] + translate[j];
-                    }
-                    bestIndex[0] -= i;
+                    bestGlue = i;
+                    bestk = k;
                 }
             }
         }
         
+        // Determine index associated with the closest point.
+        glueVector(bestGlue);
         for (int i = 0; i < N; i++) {
-            // Handle any floating point error accumulated during the algorithm
-            u[i] = Math.round(bestIndex[i]);
+            u[i] = Math.round(
+                     y[i] + glue[i] + bestk*g[i]
+                   );
         }
+        u[0] -= bestGlue;
         
+        System.out.println();
         // Get the lattice point by projecting onto Phin2Star
         project(u, v);
     }
