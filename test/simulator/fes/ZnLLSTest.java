@@ -41,7 +41,7 @@ public class ZnLLSTest extends TestCase {
             
             // Check real and imag inputs
             double result = instance.estimateFreq(signal.getReal(), signal.getImag());
-            //System.out.println("f = " + result);
+            //System.out.println("freq = " + result);
             assertEquals(true, Math.abs(result - f)<0.001);
             
             // Check phase inputs
@@ -50,6 +50,7 @@ public class ZnLLSTest extends TestCase {
                 y[j] = Math.atan2(signal.getImag()[j],signal.getReal()[j])/(2*Math.PI);
             }
             result = instance.estimateFreq(signal.getReal(), signal.getImag());
+            //System.out.println("freq = " + result);
             assertEquals(true, Math.abs(result - f)<0.001);
         }
         
@@ -67,7 +68,7 @@ public class ZnLLSTest extends TestCase {
             
             // Check real and imag inputs
             double result = instance.estimateFreq(signal.getReal(), signal.getImag());
-            //System.out.println("f = " + result);
+            //System.out.println("freq = " + result);
             assertEquals(true, Math.abs(result - f)<0.001);
             
             // Check phase inputs
@@ -76,12 +77,65 @@ public class ZnLLSTest extends TestCase {
                 y[j] = Math.atan2(signal.getImag()[j],signal.getReal()[j])/(2*Math.PI);
             }
             result = instance.estimateFreq(signal.getReal(), signal.getImag());
+            //System.out.println("freq = " + result);
             assertEquals(true, Math.abs(result - f)<0.001);
         }
     }
     
+ 
     /**
-     * Test of estimateFreq method, of class simulator.fes.GlueAnstarEstimator.
+     * Test of setMinFreq and setMaxFreq methods, of class
+     * simulator.fes.GlueAnstarEstimator.
+     */
+    public void testMinFreqMaxFreq() {
+        System.out.println("setMinFreq, setMaxFreq");
+        
+        double p = -0.2;
+        int n = 20;
+        ZnLLS instance = new ZnLLS();
+        
+        for (int i = -49; i < 50; i++) {
+            NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
+            signal.setSize(n);
+            signal.setFrequency(i/(double)100);
+            signal.setPhase(p * 2*Math.PI);
+            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            signal.setNoiseGenerator(noise);
+
+            signal.generateReceivedSignal();
+            
+            // Check real and imag inputs
+            instance.setMinFreq((i-1)/(double)100);
+            instance.setMaxFreq((i+1)/(double)100);
+            double result = instance.estimateFreq(signal.getReal(), signal.getImag());
+            //System.out.println("freq = " + result);
+            assertEquals(true, Math.abs(result - (i/(double)100))<0.001);
+        }
+        
+        n = 21;
+        
+        for (int i = -49; i < 50; i++) {
+            NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
+            signal.setSize(n);
+            signal.setFrequency(i/(double)100);
+            signal.setPhase(p * 2*Math.PI);
+            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            signal.setNoiseGenerator(noise);
+
+            signal.generateReceivedSignal();
+            
+            // Check real and imag inputs
+            instance.setMinFreq((i-1)/(double)100);
+            instance.setMaxFreq((i+1)/(double)100);
+            double result = instance.estimateFreq(signal.getReal(), signal.getImag());
+            //System.out.println("freq = " + result);
+            assertEquals(true, Math.abs(result - (i/(double)100))<0.001);
+        }
+    }
+
+    
+    /**
+     * Test of estimatePhase method, of class simulator.fes.GlueAnstarEstimator.
      */
     public void testEstimatePhase() {
         System.out.println("estimatePhase");

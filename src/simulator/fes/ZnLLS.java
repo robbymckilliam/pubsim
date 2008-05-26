@@ -26,13 +26,34 @@ public class ZnLLS implements FrequencyEstimator{
     protected double f;
     protected double[] phase_samples;
     
+    public ZnLLS() {
+        lattice = new Phin2StarZnLLS();
+    }
+    
     /** Set the number of samples */
     public void setSize(int n){
-        lattice = new Phin2StarZnLLS();
         lattice.setDimension(n-2);
         ya = new double[n];
         phase_samples = new double[n];
         this.n = n;
+    }
+    
+    /**
+     * Sets the minimum frequency to look for
+     * @param f Minimum frequency as a fraction of fs/2 to search for.  Valid
+     * range: -0.5 to 0.5
+     */
+    public void setMinFreq(double f) {
+        ((Phin2StarZnLLS)lattice).setMinFreq(f);
+    }
+    
+    /**
+     * Sets the maximum frequency to look for
+     * @param f Maximum frequency as a fraction of fs/2 to search for.  Valid
+     * range: -0.5 to 0.5
+     */
+    public void setMaxFreq(double f) {
+        ((Phin2StarZnLLS)lattice).setMaxFreq(f);
     }
     
     /** Run the estimator on recieved data, @param y */

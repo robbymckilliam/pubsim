@@ -45,7 +45,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
     protected double[] z;
     
     // Distance along the line that we need to search
-    protected int fmin, fmax;
+    protected double fmin, fmax;
     
     // g vector as defined in Robby's confirmation paper, Chapter 6
     protected double[] g;
@@ -60,6 +60,29 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
     
     // Current distance along the line g
     protected double k;
+    
+    public Phin2StarZnLLS() {
+        super();
+        
+        // Distance along g to search.  This is equivalent to searching
+        // frequencies from 0 to -fs/2 and then from fs/2 to 0.  (In terms of
+        // the z domain, think of searching from 1 clockwise around the unit
+        // circle once.)
+        // This has two implications:
+        // 1) The estimated frequency can be determined directly from the
+        //    distance along the line segment that the projection of the nearest
+        //    point is found.  Im other words, if the projection of the nearest 
+        //    point found onto translate + g is at translate + k*g, then k
+        //    uniquely determines the estimated frequency between -fs/2 and
+        //    fs/2.
+        // 2) If some bounds are known on the frequency to be estimated, these
+        //    bounds correspond directly to bounds on the line segment to be
+        //    searched.  Eg, if the frequency is known to be between 0.1 * fs/2
+        //    and 0.2 * fs/2, then we can search between fmin = 0.8 and
+        //    fmax = 0.9
+        fmin = 0;
+        fmax = 1;
+    }
     
     @Override
     public void setDimension(int n){
@@ -85,8 +108,26 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         for (int i = 1; i < N; i++) {
             g[i] = g[i-1] + 1;
         }
-        fmin = 0;
-        fmax = 1;
+    }
+    
+    /**
+     * Sets the minimum frequency to look for in the lattice
+     * @param f Minimum frequency as a fraction of fs/2 to search for.  Valid
+     * range: -0.5 to 0.5
+     */
+    public void setMinFreq(double f) {
+        assert(f >= -0.5 && f < 0.5);
+        fmax = 1 - f;
+    }
+    
+    /**
+     * Sets the maximum frequency to look for in the lattice
+     * @param f Maximum frequency as a fraction of fs/2 to search for.  Valid
+     * range: -0.5 to 0.5
+     */
+    public void setMaxFreq(double f) {
+        assert(f >= -0.5 && f < 0.5);
+        fmin = 1 - f;
     }
     
     /** Find the nearest lattice point.  TIM, this is the function
@@ -104,7 +145,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             for (int j = 0; j < N; j++) {
                 translate[j] = y[j] + glue[j];
                 
-                vstart[j] = translate[j];
+                vstart[j] = translate[j] + fmin * g[j];
                 vend[j] = translate[j] + fmax * g[j];
                 
                 lstart[j] = Math.round(vstart[j]);
@@ -131,7 +172,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             ztz = 0;
            
             for (int j = 0; j < N; j++) {
-                z[j] = lstart[j] - vstart[j];
+                z[j] = lstart[j] - translate[j];
                 gtz += g[j] * z[j];
                 gtg += g[j] * g[j];
                 ztz += z[j] * z[j];
@@ -148,12 +189,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
             if (dist < bestdist) {               
                 bestdist = dist;
                 for (int j = 0; j < N; j++) {
-                    // bestIndex is rounded at the very end of the function so
-                    // that the rounding is only performed on the final best
-                    // point found.
-                    //bestIndex[j] = z[j] + vstart[j] - glue[j];
-                    bestIndex[j] = z[j] + vstart[j];
-                    v[j] = k*g[j] + vstart[j] - glue[j];
+                    bestIndex[j] = z[j] + translate[j];
                 }
                 bestIndex[0] -= i;
             }
@@ -180,10 +216,7 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
                 if (dist < bestdist) {
                     bestdist = dist;
                     for (int j = 0; j < N; j++) {
-                        // See comment earlier regarding this line.
-                        //bestIndex[j] = z[j] + vstart[j] - glue[j];
-                        bestIndex[j] = z[j] + vstart[j];
-                        v[j] = k*g[j] + vstart[j] - glue[j];
+                        bestIndex[j] = z[j] + translate[j];
                     }
                     bestIndex[0] -= i;
                 }
@@ -191,23 +224,11 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         }
         
         for (int i = 0; i < N; i++) {
-            // This rounding is a source of considerable numerical error
-            // in the presence of floating point noise if it's rounding
-            // values with a fractional component of about 0.5, which is
-            // the case for one glue vector for even N (and potentially
-            // others for large enough N).
-            //
-            // bestIndex[i] = z[i] + vstart[i] - glue[i]:
-            // z[i] + vstart[i] is always an integer and glue[i] is an
-            // integer divided by N, so we'll try to round
-            // z[i] + vstart[i] - glue[i] to the correct value (in a
-            // maximum likelihood sense) first.
-            /*bestIndex[i] = Math.round
-                           (
-                             N * (bestIndex[i])
-                           ) / (double)N;*/
+            // Handle any floating point error accumulated during the algorithm
             u[i] = Math.round(bestIndex[i]);
         }
+        
+        // Get the lattice point by projecting onto Phin2Star
         project(u, v);
     }
     
