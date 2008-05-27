@@ -4,7 +4,7 @@
  */
 package simulator.psk.decoder;
 
-import simulator.VectorFunctions;
+import simulator.Complex;
 
 /**
  * Utility class PSK signals.
@@ -105,6 +105,12 @@ public class Util{
             errors += mod((int)Math.round(x[i]-y[i]), M/2+1);
          }
          return errors;
+    }
+    
+    /** Calculate the distance of rx+p to the plane */
+    public static double calculatePlaneDistanceForPilotAndRotation(
+            Complex[] x, Complex[] p, Complex[] h){
+        return 0.0;
     }
     
 }
