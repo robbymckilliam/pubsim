@@ -85,6 +85,18 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         fmax = 1;
     }
     
+    // This is a constructer to allow settings of the fmin and fmax variables
+    // without going via the setMinFreq() and setMaxFreq() functions.  This is
+    // an easy way to set fmin and fmax to -0.5 and 0.5 respective, which is
+    // the branch required by the PSK decoder to work directly from the index.
+    // (This is a bit hacky -- refactoring needs to be done.)
+    public Phin2StarZnLLS(double fmin, double fmax) {
+        super();
+        
+        this.fmin = fmin;
+        this.fmax = fmax;
+    }
+    
     @Override
     public void setDimension(int n){
         this.n = n;
@@ -228,7 +240,6 @@ public class Phin2StarZnLLS extends Phin2Star implements NearestPointAlgorithmIn
         }
         u[0] -= bestGlue;
         
-        System.out.println();
         // Get the lattice point by projecting onto Phin2Star
         project(u, v);
     }

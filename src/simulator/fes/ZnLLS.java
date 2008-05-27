@@ -38,6 +38,10 @@ public class ZnLLS implements FrequencyEstimator{
         this.n = n;
     }
     
+    public double getFrequency() {
+        return f;
+    }
+    
     /**
      * Sets the minimum frequency to look for
      * @param f Minimum frequency as a fraction of fs/2 to search for.  Valid

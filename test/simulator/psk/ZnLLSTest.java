@@ -49,24 +49,30 @@ public class ZnLLSTest extends TestCase {
             sig.generateTransmittedQPSKSignal();
 
             sig.generateReceivedSignal();
+            
 
             double[] rr = sig.getReal();
             double[] ri = sig.getImag();
-
+            
             ZnLLS instance = new ZnLLS();
             instance.setM(M);
-            instance.setSize(n+2);
+            instance.setSize(n);
             instance.setSymbolRate(symbF/sampF);
 
-            System.out.println("data: " + VectorFunctions.print(sig.getTransmittedQPSKSignal()));
-            System.out.println("real = [" + VectorFunctions.print(sig.getReal()) + "];");
-            System.out.println("imag = [ " + VectorFunctions.print(sig.getImag()) + "];");
-
+            //System.out.println("data: " + VectorFunctions.print(sig.getTransmittedQPSKSignal()));
+            //System.out.println("real = [" + VectorFunctions.print(sig.getReal()) + "];");
+            //System.out.println("imag = [ " + VectorFunctions.print(sig.getImag()) + "];");
+            
+            instance.estimateCarrier(rr, ri);
+            assertTrue("carrier freq est dunna match", Math.abs(transF/sampF - instance.getFreqency()) < 0.01);
+            
+            /*
             double[] decoded = instance.decode(rr, ri);
 
             assertTrue("decoded output does not match input", 
                        VectorFunctions.distance_between(sig.getTransmittedQPSKSignal(), decoded) < 0.01
                       );
+            */
         }
     }
     

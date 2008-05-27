@@ -6,21 +6,31 @@ package simulator.psk;
 
 import simulator.VectorFunctions;
 import simulator.psk.decoder.Util;
+import lattices.Phin2Star;
+import lattices.Phin2StarZnLLS;
 
 /**
  *
  * @author Tim
  */
-public class ZnLLS extends simulator.fes.ZnLLS
-        implements CarrierEstimator{
+public class ZnLLS implements CarrierEstimator{
     
     protected int M;
+    protected int N;
     protected double[] marg;
     protected double symF;
     
     protected double fmin, fmax;
     protected double phase, frequency;
     
+    protected Phin2Star lattice;
+    protected simulator.fes.ZnLLS fes;
+    
+    public ZnLLS(){
+        // Force fmin and fmax for the lattice -- this needs refactoring.
+        lattice = new Phin2StarZnLLS(-0.5, 0.5);
+        fes = new simulator.fes.ZnLLS();
+    }
     
     /** Return the estimated phase */
     public double getPhase(){
@@ -47,8 +57,10 @@ public class ZnLLS extends simulator.fes.ZnLLS
     
     /** Set the number of samples */
     public void setSize(int n){
-        super.setSize(n);  
+        lattice.setDimension(n-2);  
+        fes.setSize(n);
         marg = new double[n];
+        N = n;
     }
     
     /** Set to M-ary QPSK */
@@ -79,17 +91,50 @@ public class ZnLLS extends simulator.fes.ZnLLS
             marg[i] = arg[i];
         }
         */
-        
+        /*
         System.out.println("Looking at " + (int)Math.floor(1/symF) + " samples");
         
         setSize((int)Math.floor(1/symF));
         
-        for(int i = 0; i < Math.floor(1/symF); i++)
+ 
+        for(int i = 0; i < Math.floor(1/symF); i++) {
             marg[i] = arg[i];
+        }
         
         System.out.println("Trying to learn from: " + VectorFunctions.print(marg));
         
-        frequency = estimateFreq(marg);      
+        frequency = fes.estimateFreq(marg);
+        */
+        for(int i = 0; i < arg.length; i++) {
+            marg[i] = M*arg[i];
+        }
+        
+        // This has problems when |M * the real frequency| > 0.5, since the
+        // frequency estimator tries to return a value between -0.5 and 0.5
+        // This might be eliminated if the underlying lattice searches only
+        // between fmin = -0.5 and fmax = 0.5 -- check this
+        frequency = fes.estimateFreq(marg)/M;
+        
+        System.out.println(frequency);
+        
+        /*
+        lattice.nearestPoint(marg);
+        
+        double[] u = lattice.getIndex();
+        
+        double f = 0;
+        double sumn = N*(N+1)/2;
+        double sumn2 = N*(N+1)*(2*N+1)/6;
+        for(int i = 0; i < N; i++) {
+            f += (N*(i+1) - sumn)*(marg[i]-u[i]);
+        }
+        f = f/(M*(sumn2*N - sumn*sumn));
+        
+        System.out.println("returned: " + VectorFunctions.print(u));
+        System.out.println("carrier freq est: " + f);
+        
+        frequency = f;
+        */
     }
     
     public double[] decode(double[] real, double[] imag) {
@@ -126,8 +171,8 @@ public class ZnLLS extends simulator.fes.ZnLLS
                 marg[j] = arg[offset + j];
             }
             
-            first[i] = estimatePhase(marg);
-            frequency = f;
+            first[i] = fes.estimatePhase(marg);
+            frequency = fes.getFrequency();
             last[i] = first[i] + frequency*length;
             
             if (i > 0) {
@@ -159,7 +204,7 @@ public class ZnLLS extends simulator.fes.ZnLLS
         System.out.println("Last entries are: " + VectorFunctions.print(last));
         System.out.println("Diff entries are: " + VectorFunctions.print(diff));
         */
-        System.out.println("Decoded: " + VectorFunctions.print(decoded));
+        //System.out.println("Decoded: " + VectorFunctions.print(decoded));
         
         return decoded;
     }
