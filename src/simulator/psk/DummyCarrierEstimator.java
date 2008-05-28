@@ -24,7 +24,7 @@ public class DummyCarrierEstimator implements CarrierEstimator{
      * This does nothing other that calculate the phase
      * for the next block.
      */
-    public void estimateCarrier(double[] y){
+    public void estimateCarrier(double[] real, double[] imag){
         double d = f*n + p;
         p = d - Math.rint(d);
     }

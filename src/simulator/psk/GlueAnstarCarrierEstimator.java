@@ -70,13 +70,13 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
      * solution to the nearest lattice point algorithm to really
      * make this work.
      */
-    public void estimateCarrier(double[] arg){
+    public void estimateCarrier(double[] real, double[] imag){
         
-        if(N != arg.length)
-            setSize(arg.length);
+        if(N != real.length)
+            setSize(real.length);
         
-        for(int i = 0; i < arg.length; i++)
-            marg[i] = M*arg[i];
+        for(int i = 0; i < N; i++)
+            marg[i] = M*Math.atan2(imag[i],real[i])/(2*Math.PI);
         
         lattice.nearestPoint(marg);
         

@@ -20,7 +20,7 @@ public interface CarrierEstimator {
     void setSize(int n);
     
     /** Input is the phase of the reqcieved QPSK signal */
-    void estimateCarrier(double[] y);
+    void estimateCarrier(double[] real, double[] imag);
     
     /** Return the estimated phase */
     double getPhase();
