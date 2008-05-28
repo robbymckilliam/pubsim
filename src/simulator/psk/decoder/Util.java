@@ -109,7 +109,14 @@ public class Util{
     
     /** Calculate the distance of rx+p to the plane */
     public static double calculatePlaneDistanceForPilotAndRotation(
-            Complex[] x, Complex[] p, Complex[] h){
+            Complex[] x, Complex p, Complex h, Complex r){
+        
+        Complex hd = new Complex(0,0);
+        for(int i = 0; i < x.length; i++){
+            Complex xpp = x[i].plus(p);
+            //Complex expp = x[i].times(r).plus(p)
+        }
+        
         return 0.0;
     }
     
