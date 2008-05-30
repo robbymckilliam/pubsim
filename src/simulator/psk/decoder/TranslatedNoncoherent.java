@@ -62,7 +62,7 @@ public class TranslatedNoncoherent implements PSKReceiver, PATSymbol{
                 im = tk*(re-PAT.re()) + PAT.im();
                 
                 s[scount].index = t;
-                s[scount].value = Math.atan2(im, re) + Math.PI;
+                s[scount].value = Math.atan2(im, re);
                 scount++;
             }
         }
@@ -70,7 +70,7 @@ public class TranslatedNoncoherent implements PSKReceiver, PATSymbol{
         Arrays.sort(s);
         
         //calculate the first symbol.  This is when the channel has
-        //value 1 + 0i.
+        //value -1 + 0i.
         
         
         

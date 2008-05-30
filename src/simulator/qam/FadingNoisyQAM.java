@@ -174,10 +174,29 @@ public class FadingNoisyQAM implements SignalGenerator{
     public static int bitErrors(double xr, double xi, 
             double yr, double yi, int M){
         
-        int er = (int)Math.abs(xr - yr);
-        int ei = (int)Math.abs(xi - yi);
+        int er = (int)(Math.abs(xr - yr)/2)%(M/2+1);
+        int ei = (int)(Math.abs(xi - yi)/2)%(M/2+1);
         
-        return er%(M/2+1) + ei%(M/2+1);
+        //System.out.println("xr = " + xr + ", xi = " + xi + ", yr = " + yr + ", yi = " + yi);
+        //System.out.println("er = " + er + ", ei = " + ei);
+        
+        return er + ei;
+    }
+    
+        /** 
+     * Returns the number of bit errors between 
+     * M^2-ary QAM symbols x and y.  
+     * Assumes gray coding.
+     * UNDER CONSTRUCTION
+     */
+    public static int bitErrors(double xr[], double xi[], 
+            double yr[], double yi[], int M){
+        
+        int errors = 0;
+        for(int i = 0; i < xr.length; i++)
+            errors += bitErrors(xr[i], xi[i], yr[i], yi[i], M);
+        
+        return errors;
     }
     
 }
