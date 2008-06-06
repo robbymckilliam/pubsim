@@ -45,11 +45,11 @@ public class PhinaTest {
     public void volume() {
         System.out.println("volume");
         
-        int n = 8;
+        int n = 30;
         int a = 1;
         
         Phina instance = new Phina(a, n);
-        double expResult = Math.sqrt(9);
+        double expResult = Math.sqrt(n+1);
         double result = instance.volume();
         assertEquals(true, Math.abs(expResult-result)<0.00001);
 

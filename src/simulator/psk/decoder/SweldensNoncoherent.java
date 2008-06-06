@@ -40,8 +40,8 @@ public class SweldensNoncoherent implements PSKReceiver{
             p[i] = new Complex();
     }
 
-    /** Implements the Sweldens Noncoherent decoder using the O(nlogn)
-     * nearest point algorithm for An*.
+    /** 
+     * Implements the ML Sweldens Noncoherent decoder O(nlogn)
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
