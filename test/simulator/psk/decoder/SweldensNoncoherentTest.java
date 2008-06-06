@@ -42,10 +42,10 @@ public class SweldensNoncoherentTest extends TestCase {
         PSKSignal signal = new PSKSignal();
         signal.setM(M);
         signal.setLength(T);
-        signal.setChannel(1.0,0.0);
+        signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.0001);
+        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

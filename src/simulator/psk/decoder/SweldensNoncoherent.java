@@ -5,10 +5,9 @@
 
 package simulator.psk.decoder;
 
-import lattices.Anstar;
-import lattices.AnstarNew;
+import java.util.Arrays;
 import simulator.Complex;
-import simulator.VectorFunctions;
+import simulator.IndexedDouble;
 
 /**
  * This is an implementation of Sweldens' noncoherent detector
@@ -17,12 +16,12 @@ import simulator.VectorFunctions;
  */
 public class SweldensNoncoherent implements PSKReceiver{
     
-    double[] argy;
-    Anstar anstar;
+    double[] arg, g;
     int T, M;
+    IndexedDouble[] sorted;
+    Complex[] p;
     
     public SweldensNoncoherent(){
-        anstar = new AnstarNew(); //this is the O(nlogn) An* algorithm
     }
 
     public void setM(int M) {
@@ -31,8 +30,14 @@ public class SweldensNoncoherent implements PSKReceiver{
 
     public void setT(int T) {
         this.T = T;
-        argy = new double[T];
-        anstar.setDimension(T-1);
+        arg = new double[T];
+        g = new double[T];
+        sorted = new IndexedDouble[T];
+        for(int i = 0; i < T; i++)
+            sorted[i] = new IndexedDouble();
+        p = new Complex[T];
+        for(int i = 0; i < T; i++)
+            p[i] = new Complex();
     }
 
     /** Implements the Sweldens Noncoherent decoder using the O(nlogn)
@@ -43,26 +48,45 @@ public class SweldensNoncoherent implements PSKReceiver{
     public double[] decode(Complex[] y) {
         if(y.length != T) setT(y.length);
         
-        //calculate the argument of of y and scale
-        //so that the symbols are given by integers
-        //in the range {0,1,...,M-1}
+        Complex sump = new Complex(0,0);
+        
         for(int i = 0; i < T; i++){
-            //System.out.print(y[i].phase());
-            //double p = M/(2*Math.PI)*y[i].phase();
-            argy[i] = M/(2*Math.PI)*y[i].phase();
+            arg[i] = M/(2*Math.PI)*y[i].phase();
+            g[i] = Math.round(arg[i]);
+            sorted[i].index = i;
+            sorted[i].value = g[i] - arg[i];
+            double etap = 2*Math.PI/M*g[i];
+            p[i] = y[i].conjugate().times(
+                    new Complex(Math.cos(etap), Math.sin(etap)));
+            sump = sump.plus(p[i]);
         }
-        //System.out.println();
-        //System.out.println(VectorFunctions.print(y));
-        //System.out.println("argy = " + VectorFunctions.print(argy));
         
-        anstar.nearestPoint(argy);
+        Arrays.sort(sorted);
         
-        return anstar.getIndex();
+        double ea = 2*Math.PI/M;
+        Complex etam1 = new Complex(Math.cos(ea) - 1, Math.sin(ea));
+        
+        double bestL = sump.abs();
+        int besti = -1;
+        for(int i = 0; i < T; i++){
+            int u = sorted[i].index;
+            sump = sump.plus(p[u].times(etam1));
+            double L = sump.abs();
+            if(L > bestL){
+                bestL = L;
+                besti = i;
+            }
+        }
+        
+        for(int i = 0; i <= besti; i++)
+            g[sorted[i].index] +=  1;
+       
+        return g;
         
     }
 
     public int bitErrors(double[] x) {
-        return Util.differentialEncodedBitErrors(anstar.getIndex(), x, M);
+        return Util.differentialEncodedBitErrors(g, x, M);
     }
 
     /** This is a noncoherent reciever so setting the channel does nothing*/
