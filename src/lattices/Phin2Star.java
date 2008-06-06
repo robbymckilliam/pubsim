@@ -9,14 +9,7 @@ package lattices;
  *
  * @author Robby McKilliam
  */
-public abstract class Phin2Star implements NearestPointAlgorithmInterface{
-    
-    /** Dimension of this lattice */
-    protected int n;
-    
-    /** Storage for the nearest lattice point and
-     *  it's integer index */
-    protected double[] v, u;
+public abstract class Phin2Star extends NearestPointAlgorithm{
     
     @Override
     public void setDimension(int n){

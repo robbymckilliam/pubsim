@@ -16,6 +16,11 @@ public class Dn implements NearestPointAlgorithmInterface{
         this.n = n;
         u = new double[n];
     }
+    
+    @Override
+    public double getDimension() {
+        return n;
+    }
 
     @Override
     public void nearestPoint(double[] y) {
@@ -51,6 +56,10 @@ public class Dn implements NearestPointAlgorithmInterface{
     }
 
     public double inradius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double centerDensity() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

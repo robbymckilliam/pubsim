@@ -19,7 +19,7 @@ import simulator.*;
  * 
  * @author Robby McKilliam
  */
-public class Phin2StarGlued extends Phin2Star implements NearestPointAlgorithmInterface {
+public class Phin2StarGlued extends Phin2Star {
     
     protected Anstar anstar;
     

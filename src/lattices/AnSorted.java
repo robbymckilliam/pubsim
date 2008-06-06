@@ -79,7 +79,15 @@ public class AnSorted implements NearestPointAlgorithmInterface{
     }
 
     public double inradius() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Math.sqrt(2)/2.0;
+    }
+
+    public double getDimension() {
+        return n;
+    }
+
+    public double centerDensity(){
+        return Math.pow(inradius(), getDimension())/volume();
     }
 
 }

@@ -13,6 +13,7 @@ package lattices;
 public interface NearestPointAlgorithmInterface {
     
     void setDimension(int n);
+    double getDimension();
     void nearestPoint(double[] y);
     
     /**Getter for the nearest point. */
@@ -33,6 +34,10 @@ public interface NearestPointAlgorithmInterface {
      */
     double inradius();
     
-    
+    /*
+     * Return the center density:
+     * inradius^n / volume;
+     */
+    double centerDensity();
     
 }

@@ -10,7 +10,7 @@ import simulator.VectorFunctions;
 
 /**
  * Class for the lattice Phina, ie the integer lattice that is that
- * due of the polynomial phase estimation lattices Phina*.  There is 
+ * duel of the polynomial phase estimation lattices Phina*.  There is 
  * no nearest point algorithms for these lattices (yet?).  Currently
  * only the volume method is implemented.
  * @author Robby McKilliam
@@ -18,6 +18,10 @@ import simulator.VectorFunctions;
 public class Phina extends NearestPointAlgorithm{
     
     protected int a;
+    
+    public Phina(int a){
+        this.a = a;
+    }
     
     public Phina(int a,int n){
         this.a = a;
@@ -60,8 +64,14 @@ public class Phina extends NearestPointAlgorithm{
                 
     }
 
+    /** 
+     * This is lower bound on the inradius that is 
+     * valid when n+a is prime and a is less than (n+a)/2.
+     * This is the same as the bound on the Craig lattices.
+     * See page 222-224 of SPLAG.
+     */   
     public double inradius() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Math.sqrt(2*a)/2.0;
     }
     
 
