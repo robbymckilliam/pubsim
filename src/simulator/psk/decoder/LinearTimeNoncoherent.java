@@ -5,7 +5,6 @@
 
 package simulator.psk.decoder;
 
-import java.util.Arrays;
 import simulator.Complex;
 
 /**
@@ -46,7 +45,7 @@ public class LinearTimeNoncoherent implements PSKReceiver{
     /** 
      * Implements the linear time noncoherent decoder using 
      * the real likelihood function rather than the phase based
-     * likelihood function that arises in An* is used. 
+     * likelihood function that arises when An* is used. 
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
@@ -109,6 +108,7 @@ public class LinearTimeNoncoherent implements PSKReceiver{
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {
-        return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        //return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
 }

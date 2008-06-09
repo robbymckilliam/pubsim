@@ -41,14 +41,15 @@ public class SweldensNoncoherent implements PSKReceiver{
     }
 
     /** 
-     * Implements the ML Sweldens Noncoherent decoder O(nlogn)
+     * Implements the ML Sweldens/Mackenthun Noncoherent decoder O(nlogn)
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
     public double[] decode(Complex[] y) {
         if(y.length != T) setT(y.length);
         
-        Complex sump = new Complex(0,0);
+        Complex sump = new Complex();
+        Complex working = new Complex();
         
         for(int i = 0; i < T; i++){
             arg[i] = M/(2*Math.PI)*y[i].phase();
@@ -56,9 +57,9 @@ public class SweldensNoncoherent implements PSKReceiver{
             sorted[i].index = i;
             sorted[i].value = g[i] - arg[i];
             double etap = 2*Math.PI/M*g[i];
-            p[i] = y[i].conjugate().times(
-                    new Complex(Math.cos(etap), Math.sin(etap)));
-            sump = sump.plus(p[i]);
+            working.set(Math.cos(etap), Math.sin(etap));
+            p[i].copy(y[i]).conjugateP().timesP(working);
+            sump.plusP(p[i]);
         }
         
         Arrays.sort(sorted);
@@ -70,7 +71,7 @@ public class SweldensNoncoherent implements PSKReceiver{
         int besti = -1;
         for(int i = 0; i < T; i++){
             int u = sorted[i].index;
-            sump = sump.plus(p[u].times(etam1));
+            sump.plusP(p[u].timesP(etam1));
             double L = sump.abs();
             if(L > bestL){
                 bestL = L;
@@ -93,7 +94,8 @@ public class SweldensNoncoherent implements PSKReceiver{
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {
-        return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        //return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
 
 }

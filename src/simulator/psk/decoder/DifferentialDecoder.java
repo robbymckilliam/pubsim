@@ -45,7 +45,7 @@ public class DifferentialDecoder implements PSKReceiver {
     }
 
     public int bitsPerCodeword() {
-        return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
 
     public void setChannel(Complex h) {

@@ -66,10 +66,14 @@ public class PSKSignal implements SignalGenerator{
     public void setM(int M){ this.M = M; }
 
     public double[] generateReceivedSignal() {
+        //Complex xc = new Complex();
+        //Complex nos = new Complex();
         for(int i=0; i < y.length; i++){
             Complex xc = new Complex(Math.cos(2*Math.PI*x[i]/M), 
                                      Math.sin(2*Math.PI*x[i]/M));
             Complex nos = new Complex(noise.getNoise(), noise.getNoise());
+            //y[i].copy(h).timesP(xc).plusP(nos);
+            //System.out.println(xc + ", " + nos);
             y[i] = h.times(xc).plus(nos);
         }
         return null;
@@ -113,6 +117,8 @@ public class PSKSignal implements SignalGenerator{
 
     public void setLength(int n) {
         y = new Complex[n];
+        for(int i = 0; i < n; i++)
+            y[i] = new Complex();
         x = new double[n];
         T = n;
         
