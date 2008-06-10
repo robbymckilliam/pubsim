@@ -14,14 +14,8 @@ package simulator;
  */
 public class Complex extends Object{
     
-    private double re;   // the real part
-    private double im;   // the imaginary part
-    
-    /** 
-     * Working variable used to avoid memory allocations
-     * for inplace operations.  This is not thread safe!
-     */
-    private static Complex working = new Complex();
+    private final double re;   // the real part
+    private final double im;   // the imaginary part
 
     /** create a new object with the given real and imaginary parts */
     public Complex(double real, double imag) {
@@ -41,19 +35,19 @@ public class Complex extends Object{
         im = 0;
     }
     
-    /** Set the real and imaginary parts */
-    public Complex set(double re, double im){
-        this.re = re;
-        this.im = im;
-        return this;
-    }
-    
-    /** Copy the real and imaginary parts */
-    public Complex copy(Complex c){
-        this.re = c.re;
-        this.im = c.im;
-        return this;
-    }
+//    /** Set the real and imaginary parts */
+//    public Complex set(double re, double im){
+//        this.re = re;
+//        this.im = im;
+//        return this;
+//    }
+//    
+//    /** Copy the real and imaginary parts */
+//    public Complex copy(Complex c){
+//        this.re = c.re;
+//        this.im = c.im;
+//        return this;
+//    }
     
     /** return a string representation of the invoking Complex object */
     @Override
@@ -78,20 +72,20 @@ public class Complex extends Object{
         return new Complex(re + b.re, im + b.im);
     }
     
-    /** Complex addition (this + b) in place */
-    public Complex plusP(Complex b) {
-        return set(re + b.re, im + b.im);
-    }
+//    /** Complex addition (this + b) in place */
+//    public Complex plusP(Complex b) {
+//        return set(re + b.re, im + b.im);
+//    }
 
     /** return a new Complex object whose value is (this - b) */
     public Complex minus(Complex b) {
         return new Complex(re - b.re, im - b.im);
     }
     
-    /** Complex subtraction (this + b) in place */
-    public Complex minusP(Complex b) {
-        return set(re - b.re, im - b.im);
-    }
+//    /** Complex subtraction (this + b) in place */
+//    public Complex minusP(Complex b) {
+//        return set(re - b.re, im - b.im);
+//    }
 
     /** return a new Complex object whose value is (this * b) */
     public Complex times(Complex b) {
@@ -101,12 +95,12 @@ public class Complex extends Object{
         return new Complex(real, imag);
     }
     
-    /** multiply in place */
-    public Complex timesP(Complex b){
-        double real = this.re * b.re - this.im * b.im;
-        double imag = this.re * b.im + this.im * b.re;
-        return set(real, imag);
-    }
+//    /** multiply in place */
+//    public Complex timesP(Complex b){
+//        double real = this.re * b.re - this.im * b.im;
+//        double imag = this.re * b.im + this.im * b.re;
+//        return set(real, imag);
+//    }
 
     /** 
      * scalar multiplication. <br>
@@ -116,22 +110,22 @@ public class Complex extends Object{
         return new Complex(alpha * re, alpha * im);
     }
     
-    /** 
-     * scalar multiplication in place. <br>
-     * return a new object whose value is (this * alpha)
-     */
-    public Complex timesP(double alpha) {
-        return set(alpha * re, alpha * im);
-    }
+//    /** 
+//     * scalar multiplication in place. <br>
+//     * return a new object whose value is (this * alpha)
+//     */
+//    public Complex timesP(double alpha) {
+//        return set(alpha * re, alpha * im);
+//    }
 
 
     /** return a new Complex object whose value is the conjugate of this */
     public Complex conjugate() {  return new Complex(re, -im); }
     
-    /** conjugate in place. */
-    public Complex conjugateP() {  
-        return set(re, -im); 
-    }
+//    /** conjugate in place. */
+//    public Complex conjugateP() {  
+//        return set(re, -im); 
+//    }
 
     /** return a new Complex object whose value is the reciprocal of this */
     public Complex reciprocal() {
@@ -139,11 +133,11 @@ public class Complex extends Object{
         return new Complex(re / scale, -im / scale);
     }
     
-    /** calculate the reciprocal of this Complex in place. */
-    public Complex reciprocalP() {
-        double scale = re*re + im*im;
-        return  set(re / scale, -im / scale);
-    }
+//    /** calculate the reciprocal of this Complex in place. */
+//    public Complex reciprocalP() {
+//        double scale = re*re + im*im;
+//        return  set(re / scale, -im / scale);
+//    }
 
     /** return the real or imaginary part */
     public double re() { return re; }
@@ -155,11 +149,11 @@ public class Complex extends Object{
         return a.times(b.reciprocal());
     }
     
-    /** Calculates a / b in place. */
-    public Complex dividesP(Complex b) {
-        working.copy(b);
-        return this.timesP(working.reciprocalP());
-    }
+//    /** Calculates a / b in place. */
+//    public Complex dividesP(Complex b) {
+//        working.copy(b);
+//        return this.timesP(working.reciprocalP());
+//    }
 
     /** 
      * return a new Complex object whose 

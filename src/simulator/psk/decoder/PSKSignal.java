@@ -117,8 +117,8 @@ public class PSKSignal implements SignalGenerator{
 
     public void setLength(int n) {
         y = new Complex[n];
-        for(int i = 0; i < n; i++)
-            y[i] = new Complex();
+        //for(int i = 0; i < n; i++)
+        //    y[i] = new Complex();
         x = new double[n];
         T = n;
         
@@ -129,7 +129,8 @@ public class PSKSignal implements SignalGenerator{
     
     /** Generate the Rayleigh fading channel */
     public void generateChannel(){
-        h.set(random.nextGaussian(), random.nextGaussian());
+        h = new Complex(random.nextGaussian(), random.nextGaussian());
+        h = h.times(1/h.abs());
     }
     
     /**
@@ -137,7 +138,7 @@ public class PSKSignal implements SignalGenerator{
      * Rayleigh fading channel.
      */
     public void setChannel(double Hr, double Hi){
-        h.set(Hr, Hi);
+        h = new Complex(Hr, Hi);
     }
     
     /**
@@ -145,7 +146,7 @@ public class PSKSignal implements SignalGenerator{
      * Rayleigh fading channel.
      */
     public void setChannel(Complex h){
-        this.h.copy(h);
+        this.h = h;
     }
     
     /**
