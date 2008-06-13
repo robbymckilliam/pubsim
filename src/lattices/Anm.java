@@ -89,7 +89,7 @@ public class Anm extends AnstarVaughan implements NearestPointAlgorithmInterface
     /** {@inheritDoc} */
     @Override
     public double volume(){
-        return Math.sqrt(M/(n+1));
+        return M/Math.sqrt(n+1);
     }
 
 }
