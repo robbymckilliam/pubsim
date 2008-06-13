@@ -50,5 +50,13 @@ public class DifferentialDecoder implements PSKReceiver {
 
     public void setChannel(Complex h) {
     }
+    
+    public int symbolErrors(double[] x) {
+        return Util.differentialEncodedSymbolErrors(this.x, x, M);
+    }
+
+    public boolean codewordError(double[] x) {
+        return Util.differentialEncodedEqual(this.x, x, M);
+    }
 
 }

@@ -111,4 +111,12 @@ public class LinearTimeNoncoherent implements PSKReceiver{
         //return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
         return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
+    
+    public int symbolErrors(double[] x) {
+        return Util.differentialEncodedSymbolErrors(g, x, M);
+    }
+
+    public boolean codewordError(double[] x) {
+        return Util.differentialEncodedEqual(g, x, M);
+    }
 }

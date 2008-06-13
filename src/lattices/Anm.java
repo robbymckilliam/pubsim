@@ -14,7 +14,7 @@ import simulator.IndexedDouble;
  * by Warren Smith.
  * @author Robby
  */
-public class Anm extends AnstarVaughan implements NearestPointAlgorithmInterface{
+public class Anm extends NearestPointAlgorithm{
     
     private IndexedDouble[] z;
     protected int M;
@@ -85,11 +85,37 @@ public class Anm extends AnstarVaughan implements NearestPointAlgorithmInterface
         project(u, v);
            
     }
+         
+    /**
+     * Project a vector into the zero-mean plane
+     * y is output, x is input (x & y can be the same array)
+     * <p>
+     * Pre: y.length >= x.length
+     */
+    public static void project(double[] x, double[] y) {
+	double xbar = 0.0;
+	for (int i = 0; i < x.length; i++)
+	    xbar += x[i];
+	xbar /= x.length;
+	for (int i = 0; i < x.length; i++)
+	    y[i] = x[i] - xbar;
+    }
 
     /** {@inheritDoc} */
     @Override
     public double volume(){
         return M/Math.sqrt(n+1);
+    }
+
+    /** 
+     * This is only valid for some values of m and n.
+     * See: 
+     * Perfect Lattice in Euclidean Spaces
+     * (section on Coxeter lattices)
+     *  
+     */
+    public double inradius() {
+        return Math.sqrt(2.0)/2.0;
     }
 
 }

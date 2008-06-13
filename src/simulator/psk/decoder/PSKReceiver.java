@@ -31,6 +31,17 @@ public interface PSKReceiver {
     int bitErrors(double[] x);
     
     /** 
+     * Calculate the symbol errors between this the recieved
+     * signal and a transmitted signal for this reciever.
+     */
+    int symbolErrors(double[] x);
+    
+    /** 
+     * Return true is the codeword is not equal to x
+     */
+    boolean codewordError(double[] x);
+     
+    /** 
      * Return the number of bits transmitted per codeword for
      * this reciever
      */

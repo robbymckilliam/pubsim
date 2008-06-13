@@ -102,5 +102,13 @@ public class TranslatedNoncoherent implements PSKReceiver, PATSymbol{
     public int bitsPerCodeword() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    public int symbolErrors(double[] x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean codewordError(double[] x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

@@ -249,6 +249,15 @@ public class VectorFunctions {
     }
     
     /**
+     * Return true if every element in the vectors is equal, esle false.
+     */
+    public static boolean equal(double[] x, double[] y){
+        for(int i = 0; i < x.length; i++)
+            if(x[i] != y[i]) return false;
+        return true;
+    }
+    
+    /**
      * Return the distance between the two elements in
      * x that are the fathest apart.
      */
