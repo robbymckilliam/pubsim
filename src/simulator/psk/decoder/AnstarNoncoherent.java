@@ -77,7 +77,7 @@ public class AnstarNoncoherent implements PSKReceiver{
     }
 
     public boolean codewordError(double[] x) {
-        return Util.differentialEncodedEqual(anstar.getIndex(), x, M);
+        return !Util.differentialEncodedEqual(anstar.getIndex(), x, M);
     }
 
 }

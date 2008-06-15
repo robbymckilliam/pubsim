@@ -5,10 +5,10 @@
 
 package simulator.psk.decoder;
 
-import java.util.Vector;
+import java.util.Arrays;
 import lattices.Anm;
-import lattices.AnstarBucketVaughan;
 import simulator.Complex;
+import simulator.IndexedDouble;
 import simulator.VectorFunctions;
 
 /**
@@ -18,7 +18,7 @@ import simulator.VectorFunctions;
 public class CoxeterNoncoherentReciever implements PSKReceiver{
     
     double[] argy, u, v;
-    Anm lattice;
+    IndexedDouble[] z;
     int T, M;
     
     public CoxeterNoncoherentReciever(){
@@ -26,7 +26,6 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
 
     public void setM(int M) {
         this.M = M;
-        lattice = new Anm(M);
         setT(T);
     }
 
@@ -40,7 +39,9 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         argy = new double[T];
         u = new double[T];
         v = new double[T];
-        lattice.setDimension(T-1);
+        z = new IndexedDouble[T];
+        for(int i = 0; i < T; i++)
+            z[i] = new IndexedDouble();
     }
 
     /** Implements the Sweldens Noncoherent decoder using the O(nlogn)
@@ -61,19 +62,44 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         }
         
         //must project to ensure that ambiguities are not found
-        Anm.project(argy, argy);
+        //Anm.project(argy, argy);
+        
+        int sumM = 0;
+        double a = 0, b = 0;
+        for(int i = 0; i < T; i++){
+            u[i] = Math.round(argy[i]);
+            sumM += u[i];
+            z[i].value = argy[i] - u[i];
+            z[i].index = i;
+            a += z[i].value;
+            b += z[i].value * z[i].value;
+        }
+        
+        Arrays.sort(z);
         
         double D = Double.POSITIVE_INFINITY;
-        for(int i = 0; i < M; i++){
-            for(int j = 0; j < T; j++)
-                v[j] = argy[j] + i + 0.5;
-            lattice.nearestPoint(v);
-            double d = VectorFunctions.distance_between2(v, lattice.getLatticePoint());
-            if(d < D){
-                for(int j = 0; j < T; j++)
-                    u[j] = Util.mod((int)Math.round(lattice.getIndex()[j]),M);
+        int m = 0;
+        for(int i = 0; i < M*T; i++){
+            double dist = b - a*a/T;
+            if(dist < D && sumM%M == 0){
+                D = dist;
+                m = i;
             }
+            sumM++;
+            a -= 1;
+            b += -2*z[T - 1 - i%T].value + 1.0;
+            z[T - 1 - i%T].value -= 1.0;
+            
+            //System.out.println("numloops");
+            //System.out.println("T = " + T);
+            //System.out.println("t = " + (T - 1 - i%T));
+            //System.out.println("a = " + a + ", b = " + b + ", dist = " + dist);
         }
+        
+        //System.out.println("m = " + m);
+        
+        for(int i = 0; i < m; i++)
+            u[z[T - 1 - i%T].index] += 1;
         
         return u;
         
@@ -83,7 +109,8 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {
-        return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        //return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        return (int)Math.round((T)*Math.log(M)/Math.log(2));
     }
 
     /** 
@@ -97,18 +124,18 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
          int errors = 0;
          for(int i = 0; i<T-1; i++){
             int xmod = Util.mod((int)Math.round(x[i]), M);
-            int lmod = Util.mod((int)Math.round(lattice.getIndex()[i]), M);
+            int lmod = Util.mod((int)Math.round(u[i]), M);
             errors += Util.mod((int)Math.round(xmod-lmod), M/2+1);
          }
          return errors;
     }
 
     public int symbolErrors(double[] x) {
-        return Util.SymbolErrors(lattice.getIndex(), x, M);
+        return Util.SymbolErrors(u, x, M);
     }
 
     public boolean codewordError(double[] x) {
-        return Util.codewordError(x, lattice.getIndex(), M);
+        return Util.codewordError(x, u, M);
     }
 
 }

@@ -10,6 +10,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.Complex;
 import simulator.NoiseGenerator;
 import simulator.VectorFunctions;
 import static org.junit.Assert.*;
@@ -57,8 +58,6 @@ public class CoxeterNoncoherentRecieverTest {
         
         NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.000001);
         signal.setNoiseGenerator(noise);  
-               
-        signal.generateReceivedSignal();
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
         
@@ -71,7 +70,8 @@ public class CoxeterNoncoherentRecieverTest {
             signal.generatePSKSignal();
             signal.generateReceivedSignal();
             
-            double[] result = instance.decode(signal.getReceivedSignal());
+            Complex[] recsig = signal.getReceivedSignal();
+            double[] result = instance.decode(recsig);
             
             System.out.println(" result = " + VectorFunctions.print(result));
             System.out.println(" expect = " + VectorFunctions.print(signal.getPSKSignal()));

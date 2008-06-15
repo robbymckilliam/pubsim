@@ -102,7 +102,7 @@ public class SweldensNoncoherent implements PSKReceiver{
     }
 
     public boolean codewordError(double[] x) {
-        return Util.differentialEncodedEqual(g, x, M);
+        return !Util.differentialEncodedEqual(g, x, M);
     }
 
 }

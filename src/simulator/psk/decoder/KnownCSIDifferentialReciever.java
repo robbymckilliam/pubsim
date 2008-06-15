@@ -22,4 +22,14 @@ public class KnownCSIDifferentialReciever extends KnownCSIReciever{
         return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
     
+    @Override
+    public int symbolErrors(double[] x) {
+        return Util.differentialEncodedSymbolErrors(this.x, x, M);
+    }
+
+    @Override
+    public boolean codewordError(double[] x) {
+        return !Util.differentialEncodedEqual(this.x, x, M);
+    }
+    
 }

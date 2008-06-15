@@ -44,8 +44,8 @@ public class Util{
              throw new Error("x and y must have equal length");
 
          for(int i = 0; i<x.length-1; i++){
-            int xdiff = mod((int)(x[i+1]-x[i]),M);
-            int ydiff = mod((int)(y[i+1]-y[i]),M);
+            int xdiff = mod((int)Math.round(x[i+1]-x[i]),M);
+            int ydiff = mod((int)Math.round(y[i+1]-y[i]),M);
             if(xdiff != ydiff) return false;
          }
          return true;

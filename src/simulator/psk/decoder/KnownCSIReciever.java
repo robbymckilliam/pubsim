@@ -58,7 +58,7 @@ public class KnownCSIReciever implements PSKReceiver{
     }
 
     public boolean codewordError(double[] x) {
-        return VectorFunctions.equal(this.x, x);
+        return Util.codewordError(this.x, x, M);
     }
     
     

@@ -56,7 +56,7 @@ public class DifferentialDecoder implements PSKReceiver {
     }
 
     public boolean codewordError(double[] x) {
-        return Util.differentialEncodedEqual(this.x, x, M);
+        return !Util.differentialEncodedEqual(this.x, x, M);
     }
 
 }
