@@ -20,8 +20,14 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
     double[] argy, u, v;
     IndexedDouble[] z;
     int T, M;
+    int k;
     
     public CoxeterNoncoherentReciever(){
+        this.k = 1;
+    }
+    
+    public CoxeterNoncoherentReciever(int k){
+        this.k = k;
     }
 
     public void setM(int M) {
@@ -77,11 +83,13 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         
         Arrays.sort(z);
         
+        int mod = k*M - k + 1;
+        System.out.println(mod);
         double D = Double.POSITIVE_INFINITY;
         int m = 0;
-        for(int i = 0; i < M*T; i++){
+        for(int i = 0; i < mod*T; i++){
             double dist = b - a*a/T;
-            if(dist < D && sumM%M == 0){
+            if(dist < D && sumM%(mod) == 0){
                 D = dist;
                 m = i;
             }

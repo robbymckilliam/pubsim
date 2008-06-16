@@ -48,10 +48,11 @@ public class CoxeterCodedPSKSignalTest {
         System.out.println("generatePSKSignal");
         
         int M = 4;
+        int k = 2;
         
-        CoxeterCodedPSKSignal instance = new CoxeterCodedPSKSignal();
+        CoxeterCodedPSKSignal instance = new CoxeterCodedPSKSignal(M,k);
         instance.setM(4);
-        instance.setLength(7);
+        instance.setLength(23);
         instance.setChannel(-0.4326, -1.6656);
         
         NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.0);
@@ -67,7 +68,7 @@ public class CoxeterCodedPSKSignalTest {
         
         System.out.println(sum);
         
-        assertEquals(0, Util.mod(sum, M));
+        assertEquals(0, Util.mod(sum, k*M - k + 1));
 
     }
 

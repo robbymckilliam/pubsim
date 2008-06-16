@@ -48,10 +48,10 @@ public class CoxeterNoncoherentRecieverTest {
         System.out.println("decode");
         int iters = 100;
         int M = 4;
-        int T = 11;
+        int k = 2;
+        int T = 23;
         
-        CoxeterCodedPSKSignal signal = new CoxeterCodedPSKSignal();
-        signal.setM(M);
+        CoxeterCodedPSKSignal signal = new CoxeterCodedPSKSignal(M,k);
         signal.setLength(T);
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
@@ -61,7 +61,7 @@ public class CoxeterNoncoherentRecieverTest {
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
         
-        CoxeterNoncoherentReciever instance = new CoxeterNoncoherentReciever();
+        CoxeterNoncoherentReciever instance = new CoxeterNoncoherentReciever(k);
         instance.setM(M);
         instance.setT(T);
         
