@@ -18,6 +18,14 @@ public class DifferentialDecoder implements PSKReceiver {
     
     double[] x;
     int T, M;
+    
+    public DifferentialDecoder(){
+        setM(4);
+    }
+    
+    public DifferentialDecoder(int M){
+        setM(M);
+    }
 
     public void setM(int M) {
         this.M = M;
@@ -45,7 +53,7 @@ public class DifferentialDecoder implements PSKReceiver {
     }
 
     public int bitsPerCodeword() {
-        return (int)Math.round(T*Math.log(M)/Math.log(2));
+        return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
     }
 
     public void setChannel(Complex h) {

@@ -23,10 +23,17 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
     int k;
     
     public CoxeterNoncoherentReciever(){
+        setM(4);
         this.k = 1;
     }
     
-    public CoxeterNoncoherentReciever(int k){
+    public CoxeterNoncoherentReciever(int M){
+        setM(M);
+        this.k = 1;
+    }
+    
+    public CoxeterNoncoherentReciever(int M, int k){
+        setM(M);
         this.k = k;
     }
 
@@ -70,11 +77,12 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         //must project to ensure that ambiguities are not found
         //Anm.project(argy, argy);
         
-        int sumM = 0;
+        int sumM = 0, sumMod = 0;
         double a = 0, b = 0;
         for(int i = 0; i < T; i++){
             u[i] = Math.round(argy[i]);
             sumM += u[i];
+            sumMod += Util.mod((int)u[i], M);
             z[i].value = argy[i] - u[i];
             z[i].index = i;
             a += z[i].value;
@@ -84,17 +92,19 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         Arrays.sort(z);
         
         int mod = k*M - k + 1;
-        System.out.println(mod);
+       // System.out.println(mod);
         double D = Double.POSITIVE_INFINITY;
         int m = 0;
-        for(int i = 0; i < mod*T; i++){
+        for(int i = 0; i < M*T; i++){
             double dist = b - a*a/T;
-            if(dist < D && sumM%(mod) == 0){
+            if(dist < D && sumMod%mod == 0){
                 D = dist;
                 m = i;
             }
             sumM++;
-            a -= 1;
+            double uc = Util.mod((int)u[i%T]+1, M) - Util.mod((int)u[i%T], M);
+            sumMod += uc;
+            a -= 1.0;
             b += -2*z[T - 1 - i%T].value + 1.0;
             z[T - 1 - i%T].value -= 1.0;
             
@@ -117,8 +127,8 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {
-        //return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
-        return (int)Math.round((T)*Math.log(M)/Math.log(2));
+        return (int)Math.round((T-k-1)*Math.log(M)/Math.log(2));
+        //return (int)Math.round((T)*Math.log(M)/Math.log(2));
     }
 
     /** 
@@ -126,24 +136,27 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
      * It is only used to ensure that parity occurs.
      */
     public int bitErrors(double[] x) {
-        if(x.length != T) 
-             throw new Error("vectors must have length T");
+        if(u.length != x.length) 
+             throw new Error("x and y must have equal length");
          
          int errors = 0;
-         for(int i = 0; i<T-1; i++){
-            int xmod = Util.mod((int)Math.round(x[i]), M);
-            int lmod = Util.mod((int)Math.round(u[i]), M);
-            errors += Util.mod((int)Math.round(xmod-lmod), M/2+1);
+         for(int i = 0; i<x.length-k-1; i++){
+            int xdiff = Util.mod((int)(x[i+1]-x[i]),M);
+            int udiff = Util.mod((int)(u[i+1]-u[i]),M);
+            //System.out.println(" xdiff = " + xdiff + ", ydiff = " + ydiff + ", errors = " + mod(xdiff-ydiff, M/2+1));
+            errors += Util.mod(xdiff-udiff, M/2+1);
          }
          return errors;
     }
 
     public int symbolErrors(double[] x) {
-        return Util.SymbolErrors(u, x, M);
+        //return Util.SymbolErrors(u, x, M);
+        return Util.differentialEncodedSymbolErrors(x, u, M);
     }
 
     public boolean codewordError(double[] x) {
-        return Util.codewordError(x, u, M);
+        //return Util.codewordError(x, u, M);
+        return !Util.differentialEncodedEqual(x, u, M);
     }
 
 }

@@ -21,7 +21,13 @@ public class AnstarNoncoherent implements PSKReceiver{
     int T, M;
     
     public AnstarNoncoherent(){
+        setM(4);
         anstar = new AnstarBucketVaughan(); //this is the O(nlogn) An* algorithm
+    }
+    
+    public AnstarNoncoherent(int M){
+        setM(M);
+        anstar = new AnstarBucketVaughan(); 
     }
 
     public void setM(int M) {
@@ -68,8 +74,8 @@ public class AnstarNoncoherent implements PSKReceiver{
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {
-        //return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
-        return (int)Math.round(T*Math.log(M)/Math.log(2));
+        return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
+        //return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
 
     public int symbolErrors(double[] x) {

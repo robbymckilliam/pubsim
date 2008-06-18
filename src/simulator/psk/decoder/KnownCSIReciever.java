@@ -20,6 +20,14 @@ public class KnownCSIReciever implements PSKReceiver{
     /** The decoded signal */
     double[] x;
     
+    public KnownCSIReciever(){
+        setM(4);
+    }
+    
+    public KnownCSIReciever(int M){
+        setM(M);
+    }
+    
     
     public void setM(int M) {
         this.M = M;

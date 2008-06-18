@@ -48,15 +48,15 @@ public class CoxeterNoncoherentRecieverTest {
         System.out.println("decode");
         int iters = 100;
         int M = 4;
-        int k = 2;
-        int T = 23;
+        int k = 1;
+        int T = 32;
         
         CoxeterCodedPSKSignal signal = new CoxeterCodedPSKSignal(M,k);
         signal.setLength(T);
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.000001);
+        NoiseGenerator noise = new simulator.GaussianNoise(0.0, 0.01);
         signal.setNoiseGenerator(noise);  
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
@@ -77,7 +77,15 @@ public class CoxeterNoncoherentRecieverTest {
             System.out.println(" expect = " + VectorFunctions.print(signal.getPSKSignal()));
             double[] s = VectorFunctions.subtract(signal.getPSKSignal(), result);
             System.out.println("s = " + VectorFunctions.print(s));
-        
+            
+            int sumrec = 0;
+            for(int j = 0; j < T; j++)
+                sumrec += Util.mod((int)result[j], M);
+            
+            System.out.println("sumrec = " + sumrec);
+            
+            System.out.println("biterrs = " + instance.bitErrors(signal.getPSKSignal()));
+            
             assertTrue(!instance.codewordError(signal.getPSKSignal()));
             
         }
