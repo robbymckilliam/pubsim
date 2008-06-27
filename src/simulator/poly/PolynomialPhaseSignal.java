@@ -73,7 +73,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     }
     
     /** Chirp signal have a number of abiguities.  This calcuates
-     * the mse for each parameter after remove ambiguities.
+     * the mse for each parameter after removing ambiguities.
      * 
      * ONLY WORK FOR QUADRATIC CHIRP AT THE MOMENT!
      * 

@@ -46,9 +46,9 @@ public class KnownCSIRecieverTest {
     public void decode() {
         System.out.println("decode");
         
-        int iters = 1;
-        int M = 4;
-        int T = 10;
+        int iters = 1000000;
+        int M = 3;
+        int T = 8;
         
         PSKSignal signal = new PSKSignal();
         signal.setM(M);
@@ -56,13 +56,13 @@ public class KnownCSIRecieverTest {
         //signal.setChannel(-1.0,-1.0);
         signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.0000001);
+        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.01);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();
         
-        KnownCSIReciever instance = new KnownCSIReciever();
-        instance.setM(M);
+        KnownCSIReciever instance = new KnownCSIReciever(M);
+        //instance.setM(M);
         instance.setT(T);
         instance.setChannel(signal.getChannel());
         
@@ -75,10 +75,10 @@ public class KnownCSIRecieverTest {
             double[] res = instance.decode(signal.getReceivedSignal());
             double[] exp = signal.getPSKSignal();
             
-            System.out.println("res = " + VectorFunctions.print(res));
-            System.out.println("exp = " + VectorFunctions.print(exp));
+            //System.out.println("res = " + VectorFunctions.print(res));
+            //System.out.println("exp = " + VectorFunctions.print(exp));
         
-            assertEquals(0, instance.bitErrors(exp));
+            assertFalse(instance.codewordError(exp));
             
         }
     }

@@ -31,6 +31,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
     
     public SparseNoisyPeriodicSignal(){
+            setGeometicParameter(0.5);
             random = new Random();
             transmittedSignal = new double[0];
             recievedSignal = new double[0];

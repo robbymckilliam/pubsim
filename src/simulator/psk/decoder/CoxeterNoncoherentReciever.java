@@ -71,7 +71,7 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         for(int i = 0; i < T; i++){
             //System.out.print(y[i].phase());
             //double p = M/(2*Math.PI)*y[i].phase();
-            argy[i] = M/(2*Math.PI)*y[i].phase();
+            argy[i] = M/(2*Math.PI)*y[i].phase() + M/2.0;
         }
         
         //must project to ensure that ambiguities are not found
@@ -98,26 +98,35 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         for(int i = 0; i < M*T; i++){
             double dist = b - a*a/T;
             if(dist < D && sumMod%mod == 0){
+//                System.out.println();
+//                System.out.println("sumMod = " + sumMod);
+//                System.out.println("sumMod%mod = " + sumMod%mod);
+//                System.out.println("sumMod/mod = " + sumMod/mod);
+//                System.out.println("mod = " + mod);
+//                System.out.println("dist = " + dist);
+//                System.out.println("u = " + VectorFunctions.print(u));
                 D = dist;
                 m = i;
             }
             sumM++;
-            double uc = Util.mod((int)u[i%T]+1, M) - Util.mod((int)u[i%T], M);
+            double uc = Util.mod((int)u[z[T - 1 - i%T].index]+1, M) - Util.mod((int)u[z[T - 1 - i%T].index], M);
             sumMod += uc;
             a -= 1.0;
             b += -2*z[T - 1 - i%T].value + 1.0;
             z[T - 1 - i%T].value -= 1.0;
+            u[z[T - 1 - i%T].index] += 1.0;
             
             //System.out.println("numloops");
-            //System.out.println("T = " + T);
+            //System.out.println("uc = " + uc);
             //System.out.println("t = " + (T - 1 - i%T));
             //System.out.println("a = " + a + ", b = " + b + ", dist = " + dist);
         }
         
-        //System.out.println("m = " + m);
+        for(int i = 0; i < T; i++)
+            u[i] = Math.round(argy[i]);
         
         for(int i = 0; i < m; i++)
-            u[z[T - 1 - i%T].index] += 1;
+            u[z[T - 1 - i%T].index] += 1.0;
         
         return u;
         
@@ -127,7 +136,7 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {
-        return (int)Math.round((T-k-1)*Math.log(M)/Math.log(2));
+        return (int)Math.round((T-k)*Math.log(M)/Math.log(2));
         //return (int)Math.round((T)*Math.log(M)/Math.log(2));
     }
 
@@ -155,8 +164,8 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
     }
 
     public boolean codewordError(double[] x) {
-        //return Util.codewordError(x, u, M);
-        return !Util.differentialEncodedEqual(x, u, M);
+        return Util.codewordError(x, u, M);
+        //return !Util.differentialEncodedEqual(x, u, M);
     }
 
 }

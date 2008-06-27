@@ -1,9 +1,9 @@
 package simulator.pes;
 
+import lattices.Anstar;
 import lattices.AnstarVaughan;
 import lattices.AnstarBucket;
-import lattices.NearestPointAlgorithmInterface;
-import simulator.*;
+import lattices.AnstarBucketVaughan;
 
 /**
  * A modification of the Bresenham estimator which samples the line
@@ -15,7 +15,7 @@ public class SamplingEstimator implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
     protected int n;
-    protected NearestPointAlgorithmInterface lattice;
+    protected Anstar lattice;
     
     public SamplingEstimator(){
     }
@@ -27,7 +27,7 @@ public class SamplingEstimator implements PRIEstimator {
     double[] zeta, fzeta, kappa;
 
     public void setSize(int n) {
-        lattice = new AnstarBucket();
+        lattice = new AnstarBucketVaughan();
 	lattice.setDimension(n-1); // => n = N-1
 	zeta = new double[n];
 	fzeta = new double[n];

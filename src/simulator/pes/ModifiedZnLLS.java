@@ -16,6 +16,7 @@ import simulator.*;
  */
 public class ModifiedZnLLS extends ZnLLS implements PRIEstimator {
     
+    @Override
     public double estimateFreq(double[] y, double fmin, double fmax){
         if (n != y.length-1)
 	    setSize(y.length);

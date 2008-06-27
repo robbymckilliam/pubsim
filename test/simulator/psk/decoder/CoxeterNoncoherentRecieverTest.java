@@ -48,7 +48,7 @@ public class CoxeterNoncoherentRecieverTest {
         System.out.println("decode");
         int iters = 100;
         int M = 4;
-        int k = 1;
+        int k = 5;
         int T = 32;
         
         CoxeterCodedPSKSignal signal = new CoxeterCodedPSKSignal(M,k);
@@ -56,13 +56,12 @@ public class CoxeterNoncoherentRecieverTest {
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.GaussianNoise(0.0, 0.01);
-        signal.setNoiseGenerator(noise);  
+        NoiseGenerator noise = new simulator.GaussianNoise(0.0, 0.05);
+        signal.setNoiseGenerator(noise);
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
         
-        CoxeterNoncoherentReciever instance = new CoxeterNoncoherentReciever(k);
-        instance.setM(M);
+        CoxeterNoncoherentReciever instance = new CoxeterNoncoherentReciever(M,k);
         instance.setT(T);
         
         for(int i = 0; i < iters; i++){
@@ -73,14 +72,14 @@ public class CoxeterNoncoherentRecieverTest {
             Complex[] recsig = signal.getReceivedSignal();
             double[] result = instance.decode(recsig);
             
-            System.out.println(" result = " + VectorFunctions.print(result));
-            System.out.println(" expect = " + VectorFunctions.print(signal.getPSKSignal()));
-            double[] s = VectorFunctions.subtract(signal.getPSKSignal(), result);
-            System.out.println("s = " + VectorFunctions.print(s));
-            
             int sumrec = 0;
             for(int j = 0; j < T; j++)
                 sumrec += Util.mod((int)result[j], M);
+            
+            System.out.println("r = " + VectorFunctions.print(result));
+            System.out.println("e = " + VectorFunctions.print(signal.getPSKSignal()));
+            double[] s = VectorFunctions.subtract(signal.getPSKSignal(), result);
+            System.out.println("s = " + VectorFunctions.print(s));
             
             System.out.println("sumrec = " + sumrec);
             
@@ -97,12 +96,6 @@ public class CoxeterNoncoherentRecieverTest {
     @Test
     public void bitErrors() {
         System.out.println("bitErrors");
-        double[] x = null;
-        CoxeterNoncoherentReciever instance = new CoxeterNoncoherentReciever();
-        int expResult = 0;
-        int result = instance.bitErrors(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -112,12 +105,6 @@ public class CoxeterNoncoherentRecieverTest {
     @Test
     public void symbolErrors() {
         System.out.println("symbolErrors");
-        double[] x = null;
-        CoxeterNoncoherentReciever instance = new CoxeterNoncoherentReciever();
-        int expResult = 0;
-        int result = instance.symbolErrors(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
@@ -127,12 +114,6 @@ public class CoxeterNoncoherentRecieverTest {
     @Test
     public void codewordError() {
         System.out.println("codewordError");
-        double[] x = null;
-        CoxeterNoncoherentReciever instance = new CoxeterNoncoherentReciever();
-        boolean expResult = false;
-        boolean result = instance.codewordError(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
