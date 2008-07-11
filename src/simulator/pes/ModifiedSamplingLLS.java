@@ -7,7 +7,6 @@
 package simulator.pes;
 
 import lattices.AnstarVaughan;
-import simulator.*;
 
 /**
  * Version of the SamplingEstimator that uses the modified liklihood
@@ -25,6 +24,7 @@ public class ModifiedSamplingLLS extends SamplingEstimator implements PRIEstimat
         NUM_SAMPLES = samples;
     }
     
+    @Override
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length-1)
 	    setSize(y.length);
