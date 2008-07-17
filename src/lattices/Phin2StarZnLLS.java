@@ -14,7 +14,6 @@ import java.util.TreeMap;
  * Nearest point algorithm for the Phin2StarZnLLS lattice.
  * Works as a specialised version on the period estimation ZnLLS algorithm.
  * O(n^3log(n)).
- * UNDER CONSTRUCTION BY TIM!
  * 
  * @author Tim Mason and Robby McKilliam
  */

@@ -31,7 +31,7 @@ public class Phin2StarSampledTest extends TestCase {
         Random rand = new Random();
         
         double[] y = new double[n];
-        Phin2StarGreedy instance = new Phin2StarGreedy();
+        Phin2StarSampled instance = new Phin2StarSampled();
         Phin2StarGlued tester = new Phin2StarGlued();
         
         for(int i = 0; i < 100; i++){

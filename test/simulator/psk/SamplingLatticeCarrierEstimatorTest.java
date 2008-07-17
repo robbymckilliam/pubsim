@@ -28,11 +28,10 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
     public void testEstimateFreq() {
         System.out.println("estimateFreq");
         
-        int n = 11;
+        int n = 40;
         int M = 4;
-        double transF = 1.0;
-        double symbF = 4;
-        double sampF = 20;
+        double transF = 0.02;
+        double symbF = 0.18;
         double phase = 0.3;
         
         PSKSignal sig = new PSKSignal();
@@ -42,7 +41,7 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
         sig.setLength(n);
         sig.setM(M);
         
-        GaussianNoise noise = new GaussianNoise(0, 0.0001);
+        GaussianNoise noise = new GaussianNoise(0, 0.00001);
         sig.setNoiseGenerator(noise);
         
         sig.generateTransmittedQPSKSignal();
@@ -52,12 +51,16 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
         double[] rr = sig.getReal();
         double[] ri = sig.getImag();
         
-        SamplingLatticeCarrierEstimator instance = new SamplingLatticeCarrierEstimator(100);
+        SamplingLatticeCarrierEstimator instance = new SamplingLatticeCarrierEstimator();
         instance.setM(M);
         instance.setSize(n);
         
-        double result = sampF*instance.estimateFreq(rr, ri);
-        assertEquals(transF,result);
+        //UNDER CONSTRUCTION
+        instance.estimateCarrier(rr, ri);
+        double result = instance.getFreqency();
+        System.out.println("res = " + result);
+        assertTrue(Math.abs(transF-result)<0.01);
+        //assertEquals(transF, result);
     }
     
 }

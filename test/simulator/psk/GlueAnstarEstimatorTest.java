@@ -28,13 +28,10 @@ public class GlueAnstarEstimatorTest extends TestCase {
     public void testEstimateCarrierFreq() {
         System.out.println("estimateFreq");
         
-        int n = 15;
+        int n = 30;
         int M = 4;
-        double transF = 0.1;
-        double fmin = 0.07;
-        double fmax = 0.13;
-        double symbF = 0.23;
-        double sampF = 1;
+        double transF = 0.02;
+        double symbF = 0.18;
         double phase = 0.3;
         
         PSKSignal sig = new PSKSignal();
@@ -44,7 +41,7 @@ public class GlueAnstarEstimatorTest extends TestCase {
         sig.setLength(n);
         sig.setM(M);
         
-        GaussianNoise noise = new GaussianNoise(0, 1);
+        GaussianNoise noise = new GaussianNoise(0, 0.00001);
         sig.setNoiseGenerator(noise);
         
         sig.generateTransmittedQPSKSignal();
@@ -59,9 +56,10 @@ public class GlueAnstarEstimatorTest extends TestCase {
         instance.setSize(n);
         
         //UNDER CONSTRUCTION
-        //instance.estimateCarrier(ri);
-        //double result = sampF*instance.estimateCarrierFrequency(rr, ri, fmin, fmax);
-        //assertEquals(true, Math.abs(transF-result)<0.01);
+        instance.estimateCarrier(rr, ri);
+        double result = instance.getFreqency();
+        System.out.println("res = " + result);
+        assertTrue(Math.abs(transF-result)<0.01);
         //assertEquals(transF, result);
         
     }

@@ -8,6 +8,7 @@ package simulator.psk;
 
 import lattices.Phin2Star;
 import lattices.Phin2StarGlued;
+import lattices.Phin2StarSampled;
 
 /**
  * Uses the Glued Pn2 lattice point algorithm.  There is no way to
@@ -23,10 +24,11 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
     protected double fmin, fmax;
     protected double phase, frequency;
     
-    Phin2Star lattice;
+    protected Phin2Star lattice;
     
     public GlueAnstarCarrierEstimator(){
         lattice = new Phin2StarGlued();
+        //lattice = new Phin2StarSampled(100);
     }
     
     /** Return the estimated phase */
