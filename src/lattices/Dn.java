@@ -1,5 +1,6 @@
 package lattices;
 
+import Jama.Matrix;
 import simulator.VectorFunctions;
 
 /**
@@ -60,6 +61,10 @@ public class Dn implements NearestPointAlgorithmInterface{
     }
 
     public double centerDensity() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Matrix getGeneratorMatrix() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

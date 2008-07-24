@@ -5,6 +5,8 @@
 
 package lattices;
 
+import Jama.Matrix;
+
 /**
  * Abstract class for any Anstar algorithm
  * @author robertm
@@ -33,6 +35,10 @@ public abstract class Anstar extends NearestPointAlgorithm {
 	xbar /= x.length;
 	for (int i = 0; i < x.length; i++)
 	    y[i] = x[i] - xbar;
+    }
+    
+    public Matrix getGeneratorMatrix() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 

@@ -5,6 +5,7 @@
 
 package lattices;
 
+import Jama.Matrix;
 import java.util.Arrays;
 import simulator.IndexedDouble;
 
@@ -116,6 +117,10 @@ public class Anm extends NearestPointAlgorithm{
      */
     public double inradius() {
         return Math.sqrt(2.0)/2.0;
+    }
+
+    public Matrix getGeneratorMatrix() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

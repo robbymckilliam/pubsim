@@ -395,6 +395,25 @@ public class VectorFunctions {
         return det;
     }
     
+    /** Swap columns i and j in a matrix inplace */
+    public static void swapColumns(Matrix B, int i, int j){
+        int n  = B.getColumnDimension();
+        for(int t = 0; t < n; t++){
+            double temp = B.get(t, i);
+            B.set(t, i, B.get(t,j));
+            B.set(t, j, temp);
+        }
+    }
+    
+        /** Swap columns i and j in a matrix inplace */
+    public static void swapRows(Matrix B, int i, int j){
+        int n  = B.getRowDimension();
+        for(int t = 0; t < n; t++){
+            double temp = B.get(i, t);
+            B.set(i, t, B.get(j,t));
+            B.set(j, t, temp);
+        }
+    }
     
     
 }

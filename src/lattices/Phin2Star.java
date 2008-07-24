@@ -5,6 +5,8 @@
 
 package lattices;
 
+import Jama.Matrix;
+
 /**
  *
  * @author Robby McKilliam
@@ -60,6 +62,10 @@ public abstract class Phin2Star extends NearestPointAlgorithm{
     }
 
     public double inradius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public Matrix getGeneratorMatrix() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

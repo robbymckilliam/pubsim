@@ -6,6 +6,7 @@
 
 package lattices;
 
+import Jama.Matrix;
 import simulator.VectorFunctions;
 
 /**
@@ -174,6 +175,10 @@ public class PhinaStar extends NearestPointAlgorithm{
      */
     public double[] getg(){
         return g;
+    }
+
+    public Matrix getGeneratorMatrix() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

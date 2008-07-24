@@ -322,4 +322,48 @@ public class VectorFunctionsTest extends TestCase {
 
     }
     
+        /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testSwapColumns() {
+        System.out.println("testSwapColumns");
+        
+        Matrix mat = Matrix.identity(4, 3);
+        Matrix matCopy = mat.copy();
+        VectorFunctions.swapColumns(mat, 0,1);
+        
+        //System.out.println(VectorFunctions.print(mat));
+        //System.out.println(VectorFunctions.print(matCopy));
+        
+        int j0 = 0;
+        int j1 = 1;
+        for(int i = 0; i < mat.getRowDimension(); i++){
+            assertEquals(mat.get(i, j0), matCopy.get(i, j1));
+            assertEquals(mat.get(i, j1), matCopy.get(i, j0));
+        }
+        
+    }
+    
+            /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testSwapRows() {
+        System.out.println("testSwapRows");
+        
+        Matrix mat = Matrix.identity(3, 4);
+        Matrix matCopy = mat.copy();
+        VectorFunctions.swapRows(mat, 0,1);
+        
+        System.out.println(VectorFunctions.print(mat));
+        System.out.println(VectorFunctions.print(matCopy));
+        
+        int j0 = 0;
+        int j1 = 1;
+        for(int i = 0; i < mat.getColumnDimension(); i++){
+            assertEquals(mat.get(j0, i), matCopy.get(j1, i));
+            assertEquals(mat.get(j1, i), matCopy.get(j0, i));
+        }
+        
+    }
+    
 }

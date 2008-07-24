@@ -73,6 +73,10 @@ public class Phina extends NearestPointAlgorithm{
     public double inradius() {
         return Math.sqrt(2*a)/2.0;
     }
+
+    public Matrix getGeneratorMatrix() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 
 }

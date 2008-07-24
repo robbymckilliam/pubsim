@@ -1,5 +1,6 @@
 package lattices;
 
+import Jama.Matrix;
 import java.util.Arrays;
 import simulator.IndexedDouble;
 import simulator.VectorFunctions;
@@ -88,6 +89,10 @@ public class AnSorted implements NearestPointAlgorithmInterface{
 
     public double centerDensity(){
         return Math.pow(inradius(), getDimension())/volume();
+    }
+
+    public Matrix getGeneratorMatrix() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

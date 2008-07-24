@@ -6,6 +6,8 @@
 
 package lattices;
 
+import Jama.Matrix;
+
 /**
  * Nearest point algorithm for the square lattice Zn.
  * You probably never want to use this, it's just here
@@ -52,6 +54,10 @@ public class Zn implements NearestPointAlgorithmInterface {
 
     public double centerDensity() {
         return 1.0;
+    }
+
+    public Matrix getGeneratorMatrix() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
