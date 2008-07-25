@@ -6,6 +6,7 @@ package lattices.reduction;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
+import javax.vecmath.Vector2d;
 import simulator.VectorFunctions;
 
 /**
@@ -57,14 +58,16 @@ public class LLL implements LatticeReduction{
                 }
                 
                 VectorFunctions.swapColumns(Bcopy, j, j+1);
-                VectorFunctions.swapRows(M, j, j+1);
+                VectorFunctions.swapColumns(M, j, j+1);
                 
                 //this should be replaced with a Givens rotation
                 Jama.QRDecomposition QRt = new QRDecomposition(Bcopy);
                 R = QRt.getR();
+//                
+//                System.out.println(VectorFunctions.print(R));
+                
 //                Matrix G = Matrix.identity(n, n);
-//                double d = 1.0/
-//                        Math.sqrt(rj1j1*rj1j1 + R.get(j, j+1)*R.get(j, j+1));
+//                double d = Math.sqrt(rj1j1*rj1j1 + R.get(j, j+1)*R.get(j, j+1));
 //                G.set(j, j, R.get(j+1,j+1)/d);
 //                G.set(j, j+1, -R.get(j,j+1)/d);
 //                G.set(j+1, j, R.get(j,j+1)/d);
@@ -74,14 +77,18 @@ public class LLL implements LatticeReduction{
 //                VectorFunctions.swapRows(R, j, j+1);
 //                VectorFunctions.swapColumns(R, j, j+1);                
                 
-                if(j > 0) j = j - 1;
+                if(j > 0) j--;
                 
             }else{
-                j = j + 1;
+                j++;
             }
         }
         
-        return hermite.reduce(Bcopy);
+        Bcopy = hermite.reduce(Bcopy);
+        M = M.times(hermite.getUnimodularMatrix());
+        //M = hermite.getUnimodularMatrix().times(M);
+        
+        return Bcopy;
     }
 
     /** {@inheritDoc} */

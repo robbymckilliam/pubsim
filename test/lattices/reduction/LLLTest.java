@@ -111,8 +111,8 @@ public class LLLTest {
     @Test
     public void reduceIsLovasReduced() {
         System.out.println("reduceIsLovasReduced");
-        int n = 4;
-        Matrix B = Matrix.random(7, n);
+        int n = 11;
+        Matrix B = Matrix.random(n, n);
 //        B = B.times(100);
 //        for(int i = 0; i < B.getRowDimension(); i++){
 //            for(int j = 0; j < B.getColumnDimension(); j++){
@@ -126,16 +126,24 @@ public class LLLTest {
         Matrix R = QR.getR();
         System.out.println(VectorFunctions.print(R));
         for(int j = 0; j < n-1; j++){
-            //this is the Hermite reduction criteria
+            //this is the Lovas reduction criteria
+            System.out.println("j = " + j);
             assertTrue( R.get(j,j)*R.get(j,j) <= 2*R.get(j+1,j+1)*R.get(j+1,j+1) );
         }
+        
     }
     
     @Test
     public void testUnimodularMatrix() {
         System.out.println("testUnimodularMatrix");
-        int n = 5;
+        int n = 4;
         Matrix B = Matrix.random(n, n);
+//        B = B.times(100);
+//        for(int i = 0; i < B.getRowDimension(); i++){
+//            for(int j = 0; j < B.getColumnDimension(); j++){
+//                B.set(i, j, Math.round(B.get(i,j)));
+//            }
+//        }
         LLL instance = new LLL();
         Matrix redB = instance.reduce(B);
         Matrix M = instance.getUnimodularMatrix();
@@ -145,6 +153,33 @@ public class LLLTest {
         System.out.println(VectorFunctions.print(M));
         System.out.println(VectorFunctions.print(BM));
         assertTrue(redB.minus(BM).normF() < 0.0001);
+        
+    }
+    
+    @Test
+    public void reducesReducesAnStar() {
+        System.out.println("reduceReducesAnStar");
+        int n = 5;  
+        Matrix on = new Matrix(n,n);
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                on.set(i,j,1.0/n);
+            }
+        }
+        Matrix B = Matrix.identity(n, n).minus(on);
+        
+        LLL instance = new LLL();
+        Matrix result = instance.reduce(B);
+        System.out.println(VectorFunctions.print(result));
+        Jama.QRDecomposition QR = new QRDecomposition(result);
+        Matrix R = QR.getR();
+        System.out.println(VectorFunctions.print(R));
+        for(int j = 0; j < n-1; j++){
+            //this is the Lovas reduction criteria
+            System.out.println("j = " + j);
+            assertTrue( R.get(j,j)*R.get(j,j) <= 2*R.get(j+1,j+1)*R.get(j+1,j+1) );
+        }
+        
     }
     
 }

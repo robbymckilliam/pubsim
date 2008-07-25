@@ -116,10 +116,12 @@ public class HermiteTest {
         Matrix redB = instance.reduce(B);
         Matrix M = instance.getUnimodularMatrix();
         Matrix BM = B.times(M);
+        Matrix redBM = redB.times(M);
         System.out.println(VectorFunctions.print(B));
         System.out.println(VectorFunctions.print(redB));
         System.out.println(VectorFunctions.print(M));
         System.out.println(VectorFunctions.print(BM));
+        System.out.println(VectorFunctions.print(redBM));
         assertTrue(redB.minus(BM).normF() < 0.0001);
     }
 
