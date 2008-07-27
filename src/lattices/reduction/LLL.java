@@ -6,7 +6,6 @@ package lattices.reduction;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
-import javax.vecmath.Vector2d;
 import simulator.VectorFunctions;
 
 /**
