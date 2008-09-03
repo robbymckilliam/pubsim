@@ -57,7 +57,7 @@ public class AnstarBucket extends Anstar {
         
         double D = b - a*a/(n+1);
         int m = 0;
-        for(int i = 0; i < n+1; i++){
+        for(int i = 0; i < n; i++){
             IntListIterator itr = buckets[i].iterator();
             while(itr.hasNext()){
                 int ind = itr.next();

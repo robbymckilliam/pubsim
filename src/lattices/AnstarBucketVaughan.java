@@ -53,7 +53,7 @@ public class AnstarBucketVaughan extends Anstar {
         
         double D = b - a*a/(n+1);
         int m = 0;
-        for(int i = 0; i < n+1; i++){
+        for(int i = 0; i < n; i++){
             int t = bucket[i];
             while(t != -1){
                 a -= 1;

@@ -40,8 +40,7 @@ public class FastSelection {
     }
     
     /**
-     * @return the collection of elements that come before
-     * the kth.
+     * @return the kth element
      */
     public Object getElement(){
         return elem;
