@@ -5,37 +5,47 @@
 
 package lattices;
 
+import Jama.Matrix;
 import java.util.Random;
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import simulator.VectorFunctions;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author Robby McKilliam
+ * @author harprobey
  */
-public class AnmBucketTest extends TestCase {
-    
-    public AnmBucketTest(String testName) {
-        super(testName);
-    }            
+public class AnmGluedTest {
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    public AnmGluedTest() {
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
     }
 
     /**
-     * Test of nearestPoint method, of class AnmBucket.
+     * Test of nearestPoint method, of class AnmGlued.
      */
-    public void testNearestPoint() {
-        System.out.println("nearestPoint");
-        
-        int numTrials = 10000;
+    @Test
+    public void nearestPoint() {
+         int numTrials = 10000;
         int n = 100;
         int M = 25;
         Random rand = new Random();
@@ -44,7 +54,7 @@ public class AnmBucketTest extends TestCase {
         double[] v_tester = null;
         double[] x = new double[n];
         
-        AnmBucket instance = new AnmBucket(M);
+        AnmGlued instance = new AnmGlued(M);
         AnmSorted tester = new AnmSorted(M);
         /*
         double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
@@ -87,45 +97,34 @@ public class AnmBucketTest extends TestCase {
             
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         }
-        
     }
 
-    /**
-     * Test of nearestMultM method, of class AnmBucket.
-     */
-    public void testNearestMultM() {
-        System.out.println("nearestMultM");
-        double v = 1.0;
-        int M = 4;
-        int expResult = 0;
-        int result = AnmBucket.nearestMultM(v, M);
-        assertEquals(expResult, result);
-        
-        v = 3;
-        M = 4;
-        expResult = 4;
-        result = AnmBucket.nearestMultM(v, M);
-        assertEquals(expResult, result);
-    }
-    
-    /**
-     * Test of nearestMultM method, of class AnmBucket.
-     */
-    public void testNearestMultInRange() {
-        System.out.println("nearestMultM");
-        double v = 1.0;
-        int M = 4;
-        int expResult = 12;
-        int result = AnmBucket.nearestMultInRange(v, 10, 20, M);
-        assertEquals(expResult, result);
-
-        v = 30;
-        M = 4;
-        expResult = 20;
-        result = AnmBucket.nearestMultInRange(v, 10, 20, M);
-        assertEquals(expResult, result);
-
-        
-    }
+//    /**
+//     * Test of inradius method, of class AnmGlued.
+//     */
+//    @Test
+//    public void inradius() {
+//        System.out.println("inradius");
+//        AnmGlued instance = null;
+//        double expResult = 0.0;
+//        double result = instance.inradius();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of getGeneratorMatrix method, of class AnmGlued.
+//     */
+//    @Test
+//    public void getGeneratorMatrix() {
+//        System.out.println("getGeneratorMatrix");
+//        AnmGlued instance = null;
+//        Matrix expResult = null;
+//        Matrix result = instance.getGeneratorMatrix();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//   }
 
 }

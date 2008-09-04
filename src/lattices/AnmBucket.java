@@ -16,7 +16,7 @@ import simulator.IndexedDouble;
  * idea suggested by Warren.
  * @author Robby McKilliam
  */
-public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
+public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterface{
 
     private IndexedDoubleList[] buckets;
     private ListElem[] bes;
@@ -86,7 +86,7 @@ public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
             //approximate value of z[i] in the bucket
             //this is modified to decrease the
             //approximation to it's minimum possible. 
-            double za = 0.5 - i/numBuckets;
+            //double za = 0.5 - i/numBuckets;
             
             //get the first modularly admissble index in the bucket
             //int j = nearestMultM(k) - k;
@@ -94,18 +94,18 @@ public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
             //if(j < 0) j+=M;
             
             //calculate the polynomial approximation
-            double p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
+            //double p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
             
             //test the first modularly admissible point in the
             //bucket if it can be better than the current best point
-            if(p < D){
+            if( /*p < D &&*/ j >= 0 && j < buckets[i].size()){
             
                 fselect.select(j, buckets[i]);
-
-                if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
+                
+              //  if(!fselect.smallest().isEmpty() || j == 0){
                     double ad = a;
                     double bd = b;
-                    Iterator itr = fselect.beforeAndIncluding().iterator();
+                    Iterator itr = fselect.smallest().iterator();
                     while(itr.hasNext()){
                         int ind = ((IndexedDouble)itr.next()).index;
                         ad -= 1;
@@ -117,7 +117,7 @@ public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
                         m = j;
                         bestbucket = i;
                     }
-                }
+                //}
             }
             
             //get the last modularly admissble index in the bucket
@@ -126,18 +126,18 @@ public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
             //if(j > buckets[i].size()) j-=M;
             
             //calculate the polynomial approximation
-            p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
+           // p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
             
             //test the last modularly admissible point in the
             //bucket if it can be better than the current best point
-            if(p < D){
+            if(/*p < D &&*/ j >= 0 && j < buckets[i].size() ){
             
                 fselect.select(j, buckets[i]);
 
-                if(!fselect.beforeAndIncluding().isEmpty() || j == 0){
+             //   if(!fselect.smallest().isEmpty() || j == 0){
                     double ad = a;
                     double bd = b;
-                    Iterator itr = fselect.beforeAndIncluding().iterator();
+                    Iterator itr = fselect.smallest().iterator();
                     while(itr.hasNext()){
                         int ind = ((IndexedDouble)itr.next()).index;
                         ad -= 1;
@@ -149,7 +149,7 @@ public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
                         m = j;
                         bestbucket = i;
                     }
-                }       
+               // }       
             }
             
             //add all the indices on for the next bucket
@@ -178,7 +178,7 @@ public class AnmBucket extends Anm implements NearestPointAlgorithmInterface{
         //fast select the best element of the best bucket and add the
         //previous elements
         fselect.select(m, buckets[bestbucket]);
-        Iterator itr = fselect.beforeAndIncluding().iterator();
+        Iterator itr = fselect.smallest().iterator();
         while(itr.hasNext())
             u[((IndexedDouble)itr.next()).index]++;
         

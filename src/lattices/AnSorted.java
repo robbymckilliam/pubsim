@@ -12,9 +12,9 @@ import simulator.VectorFunctions;
  */
 public class AnSorted implements NearestPointAlgorithmInterface{
 
-    double[] u;
-    IndexedDouble[] z;
-    int n;
+    protected double[] u;
+    protected IndexedDouble[] z;
+    protected int n;
     
     @Override
     public void setDimension(int n) {

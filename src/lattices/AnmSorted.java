@@ -15,13 +15,13 @@ import simulator.IndexedDouble;
  * by Warren Smith.
  * @author Robby
  */
-public class Anm extends NearestPointAlgorithm{
+public class AnmSorted extends NearestPointAlgorithm{
     
     private IndexedDouble[] z;
     protected int M;
     
     /** Constructor can set the m part of A_{n/m}. */
-    public Anm(int M){
+    public AnmSorted(int M){
         setM(M);
     }
     
