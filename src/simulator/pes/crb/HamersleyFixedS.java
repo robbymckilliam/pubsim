@@ -6,6 +6,8 @@
 package simulator.pes.crb;
 
 import Jama.Matrix;
+import java.util.Iterator;
+import lattices.decoder.ZnWithinSphere;
 import simulator.VectorFunctions;
 
 /**
@@ -19,7 +21,7 @@ import simulator.VectorFunctions;
 public class HamersleyFixedS extends ClairvoyantCRB{
     
     int N;
-    double sts, sm, st1;
+    double sts, st1;
     
     /** Set the vector of indicies */
     @Override
@@ -29,26 +31,50 @@ public class HamersleyFixedS extends ClairvoyantCRB{
         st1 = VectorFunctions.sum(s);
         N = s.length;
         
-        //last element in s is the biggest, we will use this.
-        sm = s[s.length-1];
     }
     
     /** Return the Hamerley-Chapmin-Robbins bound for the set parameters */
     @Override
     public double getBound(){
         
-        //set the numerator matrix
         Matrix num = new Matrix(2,2);
-        num.set(0,0, N/var); num.set(0,1, T/var);
-        num.set(1,0, T/var); num.set(1,1, Math.expm1(T*T/var));
-        
-        //set the numerator matrix
         Matrix den = new Matrix(3,3);
-        den.set(0,0, sts/var); den.set(0,1, st1/var); den.set(0,2, T*sm/var);
-        den.set(1,0, st1/var); den.set(1,1, N/var); den.set(1,2, T/var);
-        den.set(2,1, T*sm/var); den.set(2,1, T/var); den.set(2,2, Math.expm1(T*T/var));
         
-        return VectorFunctions.stableDet(num)/VectorFunctions.stableDet(den);
+        System.out.println(N);
+        System.out.println(2*Math.sqrt(sts));
+        
+        ZnWithinSphere deltas = new ZnWithinSphere(N, 2*Math.sqrt(sts));
+        
+        double B = Double.NEGATIVE_INFINITY;
+        Iterator itr = deltas.iterator();
+        while(itr.hasNext()){
+            
+            double[] delta = (double[]) itr.next();
+            
+            //System.out.println(VectorFunctions.print(delta));
+            
+            
+            double dt1 = VectorFunctions.sum(delta);
+            double dts = VectorFunctions.dot(delta, s);
+            double magd = VectorFunctions.magnitude(delta);
+            double dtd = VectorFunctions.sum2(delta);
+            
+            //set the numerator matrix
+            num.set(0,0, N/var); num.set(0,1, T*dt1/(var*magd));
+            num.set(1,0, T*dt1/(var*magd)); num.set(1,1, Math.expm1(T*T/var));
+
+            //set the numerator matrix
+            den.set(0,0, sts/var); den.set(0,1, st1/var); den.set(0,2, T*dts/(var*magd));
+            den.set(1,0, st1/var); den.set(1,1, N/var); den.set(1,2, T*dt1/(var*magd));
+            den.set(2,1, T*dts/(var*magd)); den.set(2,1, T*dt1/(var*magd)); den.set(2,2, Math.expm1(T*T*dtd/var)/dtd);
+            
+            double bound = VectorFunctions.stableDet(num)/VectorFunctions.stableDet(den);
+            if(bound > B && Math.abs(VectorFunctions.sum(delta)) > 0.5){
+                B = bound;
+            }
+        }
+        
+        return B;
     }
 
 }

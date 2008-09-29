@@ -9,7 +9,7 @@ package simulator.pes.crb;
  *
  * @author Robby McKilliam
  */
-public interface CRBCalculator {
+public interface BoundCalculator {
 
     /**
      * Return the clairvoyant CRB for the set parameters

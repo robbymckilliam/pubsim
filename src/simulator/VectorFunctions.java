@@ -221,6 +221,17 @@ public class VectorFunctions {
         return st;
     }
     
+    /**
+     * Return a string for the int[]
+     */
+    public static String print(int[] x) {
+        String st = new String();
+        for (int i = 0; i < x.length; i++) {
+            st = st.concat(" " + x[i]);
+        }
+        return st;
+    }
+    
       /**
      * Return a string for the complex vector
      */
