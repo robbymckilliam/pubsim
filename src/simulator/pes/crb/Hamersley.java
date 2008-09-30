@@ -14,7 +14,7 @@ import simulator.VectorFunctions;
  * distributed.
  * @author Robby McKilliam
  */
-public class Hamersley extends ClairvoyantCRB implements CRBCalculator{
+public class Hamersley extends ClairvoyantCRB implements BoundCalculator{
     
     int N;
     double p;

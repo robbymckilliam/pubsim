@@ -61,7 +61,7 @@ public class HamersleyFixedS extends ClairvoyantCRB{
             
             //set the numerator matrix
             num.set(0,0, N/var); num.set(0,1, T*dt1/(var*magd));
-            num.set(1,0, T*dt1/(var*magd)); num.set(1,1, Math.expm1(T*T/var));
+            num.set(1,0, T*dt1/(var*magd)); num.set(1,1, Math.expm1(T*T*dtd/var)/dtd);
 
             //set the numerator matrix
             den.set(0,0, sts/var); den.set(0,1, st1/var); den.set(0,2, T*dts/(var*magd));
