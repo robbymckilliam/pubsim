@@ -15,9 +15,9 @@ import simulator.Util;
  */
 public class Hamersley implements BoundCalculator {
 
-    int N;
-    double var, amplitude, ntn, nt1;
-    double[] narray;
+    protected int N;
+    protected double var, amplitude, ntn, nt1;
+    protected double[] narray;
     
     /** Constructor.  The amplitude defaults to 1. */
     public Hamersley(){
@@ -48,7 +48,7 @@ public class Hamersley implements BoundCalculator {
         double dets = N/(ntn*N - nt1*nt1);
         double v = amplitude/Math.sqrt(var);
         
-        IntFunc func = new IntFunc();
+        dPoverP func = new dPoverP();
         func.setv(v);
         
         Integration intg = new Integration(func, -0.5, 0.5);
@@ -56,7 +56,7 @@ public class Hamersley implements BoundCalculator {
         return dets/intg.gaussQuad(1000);
     }
     
-    protected class IntFunc implements IntegralFunction {
+    protected class dPoverP implements IntegralFunction {
         
         double v = 0.0;
         
