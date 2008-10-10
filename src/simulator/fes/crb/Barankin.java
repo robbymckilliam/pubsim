@@ -20,6 +20,8 @@ public class Barankin extends Hamersley implements BoundCalculator {
 
     Vector<TestPoint> testPoints;
     
+    static int INTERGRATION_SAMPLES = 400;
+    
     /** Constructor.  The amplitude defaults to 1. */
     public Barankin(){
         testPoints = new Vector<Barankin.TestPoint>();
@@ -57,7 +59,7 @@ public class Barankin extends Hamersley implements BoundCalculator {
         dPOverP func = new dPOverP();
         func.setv(v);        
         Integration intg = new Integration(func, -0.5, 0.5);
-        double Bint = intg.gaussQuad(100);
+        double Bint = intg.gaussQuad(INTERGRATION_SAMPLES);
         
         /** Set the CRB part of the matrix */
         J.set(0, 0, ntn * Bint); J.set(0, 1, nt1 * Bint);
@@ -71,9 +73,9 @@ public class Barankin extends Hamersley implements BoundCalculator {
             for(int j = 0; j < 2; j++){
                 double sum = 0.0;
                 for(int n = 1; n < N; n++){
-                    double t = testPoints.get(i-2).f * n + testPoints.get(i-2).t;
+                    double t = testPoints.get(i-2).f * n + testPoints.get(i-2).t;              
                     funcRB.setTranslation(t);
-                    sum += Math.pow(n, 1-j) * intg.gaussQuad(100);
+                    sum += Math.pow(n, 1-j) * intg.gaussQuad(INTERGRATION_SAMPLES);
                 }
                 J.set(i, j, -sum);
                 J.set(j, i, -sum);
@@ -89,9 +91,9 @@ public class Barankin extends Hamersley implements BoundCalculator {
                 double prod = 1.0;
                 for(int n = 1; n < N; n++){
                     double t1 = testPoints.get(i-2).f * n + testPoints.get(i-2).t;
-                    double t2 = testPoints.get(j-2).f * n + testPoints.get(j-2).t;     
+                    double t2 = testPoints.get(j-2).f * n + testPoints.get(j-2).t;                 
                     funcB.setTranslations(t1, t2);
-                    prod *= intg.gaussQuad(100);
+                    prod *= intg.gaussQuad(INTERGRATION_SAMPLES);
                 }
                 J.set(i, j, prod);
                 J.set(j, i, prod);

@@ -9,7 +9,6 @@ import java.util.Iterator;
 
 /**
  * This runs the fast selection algorithm of Blum, Rivest and Tarjan.
- * UNDER CONSTRUCTION
  * @author Robby McKilliam
  */
 public class FastSelection {
