@@ -8,47 +8,16 @@ package simulator.fes.crb;
 import Jama.Matrix;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
-import java.util.Vector;
-import simulator.Util;
 import simulator.VectorFunctions;
 
 /**
- * Calculates Barankin type bounds for fes.
+ * Barankin-type bound motivated by 
+ * "A Lower Bound on the Mean-Square Error in Random Parameter Estimation"
+ * by Weiss and Weinstein 
  * @author Robby McKilliam
  */
-public class Barankin extends Hamersley implements BoundCalculator {
-
-    protected Vector<TestPoint> testPoints;
+public class Weinstein extends Barankin implements BoundCalculator{
     
-    protected static int INTERGRATION_SAMPLES = 200;
-    
-    /** Constructor.  The amplitude defaults to 1. */
-    public Barankin(){
-        testPoints = new Vector<Barankin.TestPoint>();
-        setAmplitude(1.0);
-    }
-    
-    /** 
-     * Add a freqency and phase value as a test point to the
-     * Barankin bound.
-     */
-    public void addTestPoint(double f, double t){
-        testPoints.add(new TestPoint(f, t));
-    }
-
-    /** 
-     * Adds test points that have rational frequency.  These
-     * are conjectured to be the best test points to use.
-     */
-    public void setNumberOfTestPoints(int t){
-        testPoints.clear();
-        for(int r = 2; r < t+2; r+=2){
-            addTestPoint(1.0/r, -1.0/(2.0*r));
-        }
-        for(int r = 3; r < t+2; r+=2){
-            addTestPoint(1.0/r, 0.0);
-        }
-    }
     
     @Override
     public double getBound() {
@@ -66,7 +35,7 @@ public class Barankin extends Hamersley implements BoundCalculator {
         J.set(1, 0, nt1 * Bint); J.set(1, 1, N * Bint);
         
         //now regular/Barankin parts
-        dPPtOverP funcRB = new dPPtOverP();
+        dPPptPmtOverSqrtP funcRB = new dPPptPmtOverSqrtP();
         funcRB.setv(v);
         intg.setIntegrationFunction(funcRB);
         for(int i = 2; i < J.getRowDimension(); i++){
@@ -77,47 +46,61 @@ public class Barankin extends Hamersley implements BoundCalculator {
                     funcRB.setTranslation(t);
                     sum += Math.pow(n, 1-j) * intg.gaussQuad(INTERGRATION_SAMPLES);
                 }
+                if(1-j == 0) sum = 0;
                 J.set(i, j, -sum);
                 J.set(j, i, -sum);
             }
         }
         
         //compute the Barankin parts
-        PtPtOverP funcB = new PtPtOverP();
+        PiPj funcB = new PiPj();
         funcB.setv(v);
         intg.setIntegrationFunction(funcB);
         for(int i = 2; i < J.getRowDimension(); i++){
             for(int j = i; j < J.getColumnDimension() ; j++){
-                double prod = 1.0;
+                double prod1 = 1.0, prod2 = 1.0, prod3 = 1.0, prod4 = 1.0;
                 for(int n = 1; n <= N; n++){
                     double t1 = testPoints.get(i-2).f * n + testPoints.get(i-2).t;
                     double t2 = testPoints.get(j-2).f * n + testPoints.get(j-2).t;                 
                     funcB.setTranslations(t1, t2);
-                    prod *= intg.gaussQuad(INTERGRATION_SAMPLES);
+                    prod1 *= intg.gaussQuad(INTERGRATION_SAMPLES);
+                    funcB.setTranslations(-t1, t2);
+                    prod2 *= intg.gaussQuad(INTERGRATION_SAMPLES);
+                    funcB.setTranslations(t1, -t2);
+                    prod3 *= intg.gaussQuad(INTERGRATION_SAMPLES);
+                    funcB.setTranslations(-t1, -t2);
+                    prod4 *= intg.gaussQuad(INTERGRATION_SAMPLES);
+                    
                 }
-                J.set(i, j, prod);
-                J.set(j, i, prod);
+                double eval = prod1 - prod2 - prod3 + prod4;
+                if(i != j) eval = 0;
+                J.set(i, j, eval);
+                J.set(j, i, eval);
             }
         }
         
         System.out.println(VectorFunctions.print(J));
-        
         
         Matrix Jnum = J.getMatrix(1, J.getRowDimension()-1, 1, J.getColumnDimension()-1);
         
         return Jnum.det()/J.det();
     }
     
-    /** Test point for the Barankin bound */
-    protected class TestPoint{
-        public double f, t;
-        public TestPoint(double f, double t){
-            this.f = f;
-            this.t = t;
+    protected class PiPj extends PtPtOverP implements IntegralFunction {
+        
+        @Override
+         public double function(double x) {
+            
+            double ft1 = Math.sqrt(Pdf(x + t1, v));
+            double ft2 = Math.sqrt(Pdf(x + t2, v));
+            
+            return ft1*ft2;
+            
         }
+        
     }
-    
-    protected class dPPtOverP extends dPOverP implements IntegralFunction {
+        
+    protected class dPPptPmtOverSqrtP extends dPOverP implements IntegralFunction {
         
         protected double t;
         
@@ -129,34 +112,10 @@ public class Barankin extends Hamersley implements BoundCalculator {
          public double function(double x) {
             
             double fd = dPdf(x, v);
-            double ft = Pdf(x - t, v);
-            double f = Pdf(x, v);
+            double ft = Math.sqrt(Pdf(x + t, v)) - Math.sqrt(Pdf(x - t, v));
+            double f = Math.sqrt(Pdf(x, v));
             
             return fd*ft/f;
-            //return fd*ft;
-            
-        }
-        
-    }
-    
-    protected class PtPtOverP extends dPOverP implements IntegralFunction {
-        
-        protected double t1, t2;
-        
-        public void setTranslations(double t1, double t2){
-            this.t1 = t1;
-            this.t2 = t2;
-        }
-        
-        @Override
-         public double function(double x) {
-            
-            double ft1 = Pdf(x - t1, v);
-            double ft2 = Pdf(x - t2, v);
-            double f = Pdf(x, v);
-            
-            return ft1*ft2/f;
-            //return ft1*ft2;
             
         }
         

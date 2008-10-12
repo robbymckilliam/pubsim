@@ -10,15 +10,14 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Robby McKilliam
  */
-public class BarankinTest {
+public class WeinsteinTest {
 
-    public BarankinTest() {
+    public WeinsteinTest() {
     }
 
     @BeforeClass
@@ -38,21 +37,20 @@ public class BarankinTest {
     }
 
     /**
-     * Test of getBound method, of class Barankin.
+     * Test of getBound method, of class Weinstein.
      */
     @Test
-    public void getBound() {
-        int N = 5;
+    public void testGetBound() {
+        int N = 6;
         System.out.println("getBound");
-        Barankin instance = new Barankin();
+        Weinstein instance = new Weinstein();
         instance.setN(N);
         instance.setAmplitude(1.0);
         instance.setVariance(1.0);
         
-        instance.setNumberOfTestPoints(1);
+        instance.setNumberOfTestPoints(3);
         
         instance.getBound();
-        
     }
 
 }
