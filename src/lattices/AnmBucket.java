@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import simulator.FastSelection;
 import simulator.IndexedDouble;
+import simulator.Util;
 
 /**
  * This is an O(n) bucket A_{n/m} nearest point
@@ -90,7 +91,8 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             
             //get the first modularly admissble index in the bucket
             //int j = nearestMultM(k) - k;
-            int j = M*(int)Math.ceil(((double)k)/M) - k;
+            //int j = M*(int)Math.ceil(((double)k)/M) - k;
+            int j = M - Util.mod(k, M);
             //if(j < 0) j+=M;
             
             //calculate the polynomial approximation
@@ -98,7 +100,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             
             //test the first modularly admissible point in the
             //bucket if it can be better than the current best point
-            if( /*p < D &&*/ j >= 0 && j < buckets[i].size()){
+            if( /*p < D &&*/ j > 0 && j <= buckets[i].size()){
             
                 fselect.select(j, buckets[i]);
                 
@@ -122,7 +124,8 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             
             //get the last modularly admissble index in the bucket
             //j = nearestMultM(k + buckets[i].size()) - k;
-            j = M*(int)Math.floor(((double)k + buckets[i].size())/M) - k;
+            //j = M*(int)Math.floor(((double)k + buckets[i].size())/M) - k;
+            j = buckets[i].size() - Util.mod(buckets[i].size() + k, M);
             //if(j > buckets[i].size()) j-=M;
             
             //calculate the polynomial approximation
@@ -130,7 +133,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             
             //test the last modularly admissible point in the
             //bucket if it can be better than the current best point
-            if(/*p < D &&*/ j >= 0 && j < buckets[i].size() ){
+            if(/*p < D &&*/ j > 0 && j <= buckets[i].size() ){
             
                 fselect.select(j, buckets[i]);
 

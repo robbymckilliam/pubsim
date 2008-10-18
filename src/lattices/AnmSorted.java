@@ -8,12 +8,13 @@ package lattices;
 import Jama.Matrix;
 import java.util.Arrays;
 import simulator.IndexedDouble;
+import simulator.Util;
 
 /**
  * Implementation of the O(n log(n)) algorithm to find the nearest
  * lattice point in the Coxeter lattice A_{n/m}.  This was suggested
  * by Warren Smith.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class AnmSorted extends NearestPointAlgorithm{
     
@@ -52,15 +53,16 @@ public class AnmSorted extends NearestPointAlgorithm{
         if (n != y.length-1)
 	    setDimension(y.length-1);
         
-        int sumM = 0;
+        int gamma = 0;
         double a = 0, b = 0;
         for(int i = 0; i < n + 1; i++){
-            sumM += Math.round(y[i]);
+            gamma += Math.round(y[i]);
             z[i].value = y[i] - Math.round(y[i]);
             z[i].index = i;
             a += z[i].value;
             b += z[i].value * z[i].value;
         }
+        gamma = Util.mod(gamma, M);
         
         Arrays.sort(z);
         
@@ -68,11 +70,11 @@ public class AnmSorted extends NearestPointAlgorithm{
         int m = 0;
         for(int i = 0; i < n+1; i++){
             double dist = b - a*a/(n+1);
-            if(dist < D && sumM%M == 0){
+            if(dist < D && gamma == 0){
                 D = dist;
                 m = i;
             }
-            sumM++;
+            gamma = Util.mod(gamma + 1, M);
             a -= 1;
             b += -2*z[n-i].value + 1;
         }

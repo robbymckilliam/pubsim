@@ -43,6 +43,12 @@ public class UtilTest {
     @Test
     public void testMod() {
         System.out.println("mod");
+        assertTrue(Util.mod(3, 2) == 1 );
+        assertTrue(Util.mod(4, 2) == 0 );
+        assertTrue(Util.mod(-1, 2) == 1 );
+        assertTrue(Util.mod(-5, 2) == 1 );
+        
+        assertTrue(Util.mod(-1, 5) == 4 );
 
     }
 
