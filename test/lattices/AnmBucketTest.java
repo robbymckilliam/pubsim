@@ -5,6 +5,7 @@
 
 package lattices;
 
+import java.util.Date;
 import java.util.Random;
 import junit.framework.TestCase;
 import simulator.VectorFunctions;
@@ -35,7 +36,7 @@ public class AnmBucketTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int numTrials = 10000;
+        int numTrials = 100;
         int n = 100;
         int M = 25;
         Random rand = new Random();
@@ -89,6 +90,7 @@ public class AnmBucketTest extends TestCase {
         }
         
     }
+    
 
     /**
      * Test of nearestMultM method, of class AnmBucket.
