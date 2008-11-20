@@ -6,7 +6,7 @@
 package lattices;
 
 import junit.framework.TestCase;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 import simulator.NoiseVector;
 import simulator.VectorFunctions;
 

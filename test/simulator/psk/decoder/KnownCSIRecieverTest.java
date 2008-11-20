@@ -56,7 +56,7 @@ public class KnownCSIRecieverTest {
         //signal.setChannel(-1.0,-1.0);
         signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.01);
+        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.01);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

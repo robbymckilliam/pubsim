@@ -10,7 +10,7 @@ package simulator.psk;
 import simulator.psk.GlueAnstarCarrierEstimator;
 import simulator.psk.PSKSignal;
 import junit.framework.*;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 
 /**
  *

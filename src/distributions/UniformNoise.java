@@ -4,8 +4,9 @@
  * Created on 7 May 2007, 12:40
  */
 
-package simulator;
+package distributions;
 
+import simulator.*;
 import java.util.Random;
 
 /**

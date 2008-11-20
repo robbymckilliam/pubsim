@@ -7,7 +7,7 @@ package lattices;
 
 import junit.framework.TestCase;
 import simulator.NoiseVector;
-import simulator.UniformNoise;
+import distributions.UniformNoise;
 import simulator.VectorFunctions;
 
 /**

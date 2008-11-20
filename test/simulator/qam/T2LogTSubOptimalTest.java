@@ -10,7 +10,7 @@ package simulator.qam;
 import junit.framework.*;
 import java.util.TreeMap;
 import simulator.VectorFunctions;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 
 /**
  *

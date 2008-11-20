@@ -55,7 +55,7 @@ public class DifferentialDecoderTest {
         //signal.setChannel(-1.0,-1.0);
         signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.00001);
+        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.00001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

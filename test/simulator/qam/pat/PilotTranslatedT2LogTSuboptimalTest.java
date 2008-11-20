@@ -11,7 +11,7 @@ import simulator.qam.pat.PilotTranslatedFadingNoisyQAM;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 

@@ -8,7 +8,7 @@
 package simulator.qam.pat;
 
 import junit.framework.*;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 
 /**
  *

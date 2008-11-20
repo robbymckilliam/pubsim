@@ -7,6 +7,7 @@
 
 package simulator;
 
+import distributions.UniformNoise;
 import junit.framework.*;
 import java.util.Random;
 

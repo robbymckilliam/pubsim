@@ -7,6 +7,7 @@
 
 package simulator.pes;
 
+import distributions.GaussianNoise;
 import junit.framework.*;
 import java.util.TreeMap;
 import simulator.*;
@@ -35,7 +36,7 @@ public class ZnLLSTest extends TestCase {
         ZnLLS instance = new ZnLLS();
         
         double noisestd = 0.01;
-        GaussianNoise noise = new simulator.GaussianNoise(0.0,noisestd*noisestd);
+        GaussianNoise noise = new distributions.GaussianNoise(0.0,noisestd*noisestd);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);

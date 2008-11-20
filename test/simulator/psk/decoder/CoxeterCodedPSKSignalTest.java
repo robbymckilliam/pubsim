@@ -55,7 +55,7 @@ public class CoxeterCodedPSKSignalTest {
         instance.setLength(32);
         instance.setChannel(-0.4326, -1.6656);
         
-        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.0);
+        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.0);
         instance.setNoiseGenerator(noise); 
                
         instance.generatePSKSignal();

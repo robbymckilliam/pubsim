@@ -9,7 +9,7 @@ package simulator.qam.pat;
 
 import simulator.qam.pat.PilotAssistedFadingNoisyQAM;
 import simulator.qam.pat.PATReceiver;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 
 import junit.framework.*;
 

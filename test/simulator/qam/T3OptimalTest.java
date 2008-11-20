@@ -9,7 +9,7 @@ package simulator.qam;
 
 import junit.framework.*;
 import simulator.VectorFunctions;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 
 /**
  *

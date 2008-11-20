@@ -10,7 +10,7 @@ package simulator.psk;
 import simulator.psk.PSKSignal;
 import junit.framework.*;
 import java.util.Random;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 import simulator.NoiseGenerator;
 import simulator.SignalGenerator;
 

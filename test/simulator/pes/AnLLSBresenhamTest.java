@@ -7,6 +7,7 @@
 
 package simulator.pes;
 
+import distributions.GaussianNoise;
 import junit.framework.*;
 import simulator.*;
 
@@ -35,7 +36,7 @@ public class AnLLSBresenhamTest extends TestCase {
         AnLLSBresenham instance = new AnLLSBresenham();
         
         double noisestd = Math.pow(10, (0.0 + 0.05*5));
-        GaussianNoise noise = new simulator.GaussianNoise(0.0,noisestd*noisestd);
+        GaussianNoise noise = new distributions.GaussianNoise(0.0,noisestd*noisestd);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);

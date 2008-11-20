@@ -8,7 +8,7 @@ package simulator.qam.pat;
 import simulator.qam.pat.PilotTranslatedT3Optimal;
 import simulator.qam.pat.PilotTranslatedFadingNoisyQAM;
 import junit.framework.TestCase;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 import simulator.VectorFunctions;
 
 /**

@@ -34,7 +34,7 @@ public class ZnLLSTest extends TestCase {
             signal.setSize(n);
             signal.setFrequency(f);
             signal.setPhase(p * 2*Math.PI);
-            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.001);
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();
@@ -61,7 +61,7 @@ public class ZnLLSTest extends TestCase {
             signal.setSize(n);
             signal.setFrequency(f);
             signal.setPhase(p * 2*Math.PI);
-            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.001);
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();
@@ -99,7 +99,7 @@ public class ZnLLSTest extends TestCase {
             signal.setSize(n);
             signal.setFrequency(i/(double)100);
             signal.setPhase(p * 2*Math.PI);
-            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.001);
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();
@@ -119,7 +119,7 @@ public class ZnLLSTest extends TestCase {
             signal.setSize(n);
             signal.setFrequency(i/(double)100);
             signal.setPhase(p * 2*Math.PI);
-            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.001);
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();
@@ -151,7 +151,7 @@ public class ZnLLSTest extends TestCase {
             signal.setSize(n);
             signal.setFrequency(f);
             signal.setPhase(p * 2*Math.PI);
-            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.001);
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();
@@ -167,7 +167,7 @@ public class ZnLLSTest extends TestCase {
             signal.setSize(n);
             signal.setFrequency(f);
             signal.setPhase(p * 2*Math.PI);
-            simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.001);
+            distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.001);
             signal.setNoiseGenerator(noise);
 
             signal.generateReceivedSignal();

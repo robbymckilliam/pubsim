@@ -56,7 +56,7 @@ public class LinearTimeNoncoherentTest {
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.UniformNoise(0.0, 0.001);
+        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

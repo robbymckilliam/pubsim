@@ -30,7 +30,7 @@ public class SamplingLatticeEstimatorTest extends TestCase {
         NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
         signal.setSize(n);
         signal.setFrequency(f);
-        simulator.GaussianNoise noise = new simulator.GaussianNoise(0.0,0.0001);
+        distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.0001);
         signal.setNoiseGenerator(noise);
         
         signal.generateReceivedSignal();

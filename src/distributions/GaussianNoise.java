@@ -6,8 +6,9 @@
  * Created on 13 April 2007, 15:40
  */
 
-package simulator;
+package distributions;
 
+import simulator.*;
 import java.util.Random;
 
 /**
@@ -32,11 +33,13 @@ public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGener
         random = new Random();
     }
     
+    @Override
     public void setVariance(double variance){
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
     }
 
+    @Override
     public void setSeed(long seed){
         random.setSeed(seed);
     }

@@ -6,7 +6,7 @@
 package simulator.psk;
 
 import junit.framework.*;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 import simulator.VectorFunctions;
 
 

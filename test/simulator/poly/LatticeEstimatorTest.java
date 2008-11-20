@@ -6,7 +6,7 @@
 package simulator.poly;
 
 import junit.framework.TestCase;
-import simulator.GaussianNoise;
+import distributions.GaussianNoise;
 import simulator.VectorFunctions;
 
 /**

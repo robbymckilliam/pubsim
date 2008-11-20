@@ -7,6 +7,7 @@
 
 package simulator.pes;
 
+import distributions.GaussianNoise;
 import junit.framework.*;
 import simulator.*;
 
@@ -120,7 +121,7 @@ public class AnLLSTest extends TestCase {
         double T = 1.0;
         AnLLS instance = new AnLLS();
         
-        GaussianNoise noise = new simulator.GaussianNoise(0.0,0.01*0.01);
+        GaussianNoise noise = new distributions.GaussianNoise(0.0,0.01*0.01);
         
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);

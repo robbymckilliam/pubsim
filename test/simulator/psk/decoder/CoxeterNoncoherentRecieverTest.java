@@ -56,7 +56,7 @@ public class CoxeterNoncoherentRecieverTest {
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        NoiseGenerator noise = new simulator.GaussianNoise(0.0, 0.05);
+        NoiseGenerator noise = new distributions.GaussianNoise(0.0, 0.05);
         signal.setNoiseGenerator(noise);
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
