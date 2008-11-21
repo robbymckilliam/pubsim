@@ -51,6 +51,21 @@ public class UtilTest {
         assertTrue(Util.mod(-1, 5) == 4 );
 
     }
+    
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testFactorial() {
+        System.out.println("factorial");
+        assertTrue(Util.factorial(0) == 1 );
+        assertTrue(Util.factorial(1) == 1 );
+        assertTrue(Util.factorial(2) == 2 );
+        assertTrue(Util.factorial(3) == 6 );
+        assertTrue(Util.factorial(4) == 24 );
+
+
+    }
 
     /**
      * Test of erf method, of class Util.

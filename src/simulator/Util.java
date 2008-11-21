@@ -46,5 +46,13 @@ public class Util {
         return 2.0/Math.sqrt(Math.PI)*sum;
         
     }
+    
+    /** Factorial */
+    public static long factorial(int i){
+        long ret = 1; 
+        for(int j = 1; j <= i; j++)
+            ret *= j;
+        return ret;
+    }
 
 }

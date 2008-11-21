@@ -8,6 +8,7 @@ package simulator.poly;
 import Jama.Matrix;
 import lattices.PhinaStarEfficient;
 import simulator.VectorFunctions;
+import simulator.Util;
 
 /**
  * Runs the PhinaStarEfficient nearest lattice point algorithm to
@@ -86,10 +87,11 @@ public class LatticeEstimator implements PolynomialPhaseEstimator{
         
         double[] p = params.getColumnPackedCopy();
         
-        for(int i = 0; i < a; i++)
-            p[i] -= Math.round(p[i]);
+        for(int i = 0; i < a; i++){
+            p[i] = Math.IEEEremainder(p[i], 1.0/Util.factorial(i));
+            //p[i] *= 2*Math.PI;
+        }
         
-        //System.out.println("f = " + f)
         return p;
     }
 
