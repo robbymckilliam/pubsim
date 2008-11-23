@@ -38,7 +38,16 @@ public abstract class Anstar extends NearestPointAlgorithm {
     }
     
     public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Matrix on = new Matrix(n+1,n+1);
+        for(int i = 0; i < n+1; i++){
+            for(int j = 0; j < n; j++){
+                if(i == j)
+                    on.set(i,j,1.0 - 1.0/(n+1));
+                else
+                    on.set(i,j,-1.0/(n+1));
+            }
+        }
+        return on;
     }
     
 

@@ -6,6 +6,7 @@
 
 package simulator.fes;
 
+import lattices.LatticeAndNearestPointAlgorithm;
 import lattices.NearestPointAlgorithmInterface;
 import lattices.Phin2StarGlued;
 
@@ -18,7 +19,7 @@ public class GlueAnstarEstimator implements FrequencyEstimator {
     
     protected double[] ya;
     protected int n;
-    protected NearestPointAlgorithmInterface lattice;
+    protected LatticeAndNearestPointAlgorithm lattice;
     
     /** Set the number of samples */
     @Override

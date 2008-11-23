@@ -38,23 +38,7 @@ public class Phina extends NearestPointAlgorithm{
 
     public double volume() {
         
-        double[] cv  = {1, -1};
-        double[] bv = {1, -1};
-        for(int i = 0; i < a-1; i++){
-            bv = VectorFunctions.conv(cv, bv);
-        }
-        
-        //System.out.println(VectorFunctions.print(bv));
-        
-        Matrix gen = new Matrix(n,n + a);
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < i; j++)
-                gen.set(i,j,0.0);
-            for(int j = i; j < i + bv.length; j++)
-                gen.set(i,j,bv[j-i]);
-            for(int j = i + bv.length; j < n + a; j++)
-                gen.set(i,j,0.0);
-        }
+        Matrix gen = getGeneratorMatrix();
         
         //System.out.println(VectorFunctions.print(gen));
         
@@ -75,7 +59,24 @@ public class Phina extends NearestPointAlgorithm{
     }
 
     public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        double[] cv  = {1, -1};
+        double[] bv = {1, -1};
+        for(int i = 0; i < a-1; i++){
+            bv = VectorFunctions.conv(cv, bv);
+        }
+        
+        Matrix gen = new Matrix(n,n + a);
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < i; j++)
+                gen.set(i,j,0.0);
+            for(int j = i; j < i + bv.length; j++)
+                gen.set(i,j,bv[j-i]);
+            for(int j = i + bv.length; j < n + a; j++)
+                gen.set(i,j,0.0);
+        }
+        
+        return gen;
     }
     
 

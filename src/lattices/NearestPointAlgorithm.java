@@ -19,7 +19,7 @@ import java.util.Random;
  * @author Robby McKilliam
  */
 public abstract class NearestPointAlgorithm 
-    implements NearestPointAlgorithmInterface{
+    implements LatticeAndNearestPointAlgorithm{
     
     /** The dimension of the lattice */
     protected int n;
@@ -71,7 +71,7 @@ public abstract class NearestPointAlgorithm
         Random rand = new Random();
         double[] y = new double[n];
         
-        NearestPointAlgorithmInterface instance = new AnmBucket(M);
+        LatticeAndNearestPointAlgorithm instance = new AnmBucket(M);
         /*
         double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
         

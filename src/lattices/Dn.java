@@ -7,7 +7,7 @@ import simulator.VectorFunctions;
  * Nearest point algorithm for the lattice Dn.
  * @author Robby McKilliam
  */
-public class Dn implements NearestPointAlgorithmInterface{
+public class Dn implements NearestPointAlgorithmInterface, Lattice{
 
     double[] u;
     int n;

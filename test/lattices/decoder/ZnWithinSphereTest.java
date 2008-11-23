@@ -16,8 +16,8 @@ import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author robertm
+ * 
+ * @author Robby McKilliam
  */
 public class ZnWithinSphereTest {
    

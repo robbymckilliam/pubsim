@@ -54,6 +54,9 @@ public class PnaEfficientTest extends TestCase {
         System.out.println(" Anstar u = " + VectorFunctions.print(pn2g.getIndex()));
         assertEquals(true, VectorFunctions.distance_between(pn2.getLatticePoint(), pn2g.getLatticePoint())<0.00001);
         
+        
+        
+        
     }
 
     /**
@@ -125,5 +128,7 @@ public class PnaEfficientTest extends TestCase {
         assertEquals(true, Math.abs(pna.inradius() - expres)<0.0001);
         
     }
+    
+    
     
 }

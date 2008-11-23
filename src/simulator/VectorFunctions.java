@@ -360,6 +360,20 @@ public class VectorFunctions {
             }
         }
     }
+    
+        /** 
+     * y and x and vector, M is a matrix.
+     * Performs y = M*x.  
+     * PRE: x.length = m, y.length = n, M is n by m matrix
+     */
+    public static void matrixMultVector(Matrix M, double[] x, double[] y) {
+        for (int n = 0; n < y.length; n++) {
+            y[n] = 0;
+            for (int m = 0; m < x.length; m++) {
+                y[n] += M.get(n,m) * x[m];
+            }
+        }
+    }
 
     /** 
      * Project y parallel to x and return in yp.
@@ -462,6 +476,16 @@ public class VectorFunctions {
         }
 
         return det;
+    }
+    
+    /** Returns vector of length n of random integer in the range -M to M-1 */ 
+    public static double[] randomIntegerVector(int n, int M) {
+        double[] u = new double[n];
+        Random r = new Random();
+        for (int t = 0; t < n; t++) {
+            u[t] = r.nextInt(2*M) - M;
+        }
+        return u;
     }
 
     /** Swap columns i and j in a matrix inplace */

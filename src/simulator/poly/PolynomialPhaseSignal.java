@@ -51,6 +51,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
         this.n = n;
         real = new double[n];
         imag = new double[n];
+        
     }
 
     @Override
@@ -80,6 +81,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
      * @param t is the true parameter values
      * @param e is the estimated values
      * @return MSE between t and e for each parameter in an array
+     * @deprecated
      */
     public static double[] disambiguateMSE(double[] t, double[] e){
         double[] p = new double[t.length];

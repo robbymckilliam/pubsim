@@ -14,7 +14,7 @@ import Jama.Matrix;
  * for completeness.
  * @author Robby McKilliam
  */
-public class Zn implements NearestPointAlgorithmInterface {
+public class Zn implements NearestPointAlgorithmInterface, Lattice {
     
     protected double[] x;
     protected int n;
@@ -57,7 +57,7 @@ public class Zn implements NearestPointAlgorithmInterface {
     }
 
     public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Matrix.identity(n, n);
     }
     
 }

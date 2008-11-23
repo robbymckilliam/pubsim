@@ -7,6 +7,7 @@
 
 package lattices;
 
+import Jama.Matrix;
 import junit.framework.*;
 import simulator.VectorFunctions;
 
@@ -120,6 +121,23 @@ public class PnaTest extends TestCase {
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);
+        
+    }
+    
+    /**
+     * Test of inradius method, of class lattices.PhinaStarEfficient.
+     */
+    public void testgetGeneratorMatrix() {
+        System.out.println("inradius");
+        
+        int n = 5;
+        int a = 3;
+        PhinaStar pna = new PhinaStar(a, n-a);
+        
+        Matrix G = pna.getGeneratorMatrix();
+        
+        //Matrix sub = G.getMatrix()
+        System.out.println(VectorFunctions.print(G));
         
     }
     
