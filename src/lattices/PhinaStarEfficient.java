@@ -6,6 +6,7 @@
 
 package lattices;
 
+import simulator.Util;
 import Jama.Matrix;
 import simulator.VectorFunctions;
 
@@ -69,7 +70,10 @@ public class PhinaStarEfficient extends PhinaStar {
         
         double Dmin = Double.POSITIVE_INFINITY;
         if(a > 1){       
-            double magg = Math.sqrt(gtg);
+            //This step length is motivated by the ambiguity of
+            //polynomial phase estiamtion.  I have not formally
+            //worked it out in terms of lattices.
+            double magg = 2*Math.sqrt(gtg)/Util.factorial(a);
             //double step = magg/Math.pow(n,a);
             double step = magg/Math.pow(n,a);
             for(double s = 0; s < magg; s+=step){

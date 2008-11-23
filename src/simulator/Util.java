@@ -54,5 +54,12 @@ public class Util {
             ret *= j;
         return ret;
     }
+    
+    /** 
+     * This is just a wrapper for Math.IEEEremainder
+     */
+    public static double modPart(double x, double m){
+        return Math.IEEEremainder(x, m);
+    }
 
 }

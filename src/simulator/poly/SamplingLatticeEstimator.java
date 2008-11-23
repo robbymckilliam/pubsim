@@ -19,7 +19,7 @@ import simulator.Util;
  */
 public class SamplingLatticeEstimator implements PolynomialPhaseEstimator{
     
-    protected double[] ya, gparams;
+    protected double[] ya, p;
     protected int n, a;
     protected PhinaStarEfficient lattice;
     protected Matrix M, K;
@@ -37,7 +37,7 @@ public class SamplingLatticeEstimator implements PolynomialPhaseEstimator{
     public void setSize(int n) {
         lattice.setDimension(n-a);  
         ya = new double[n];
-        gparams = new double[a];
+        p = new double[a];
         this.n = n;
         
         M = lattice.getMMatrix();
@@ -47,10 +47,6 @@ public class SamplingLatticeEstimator implements PolynomialPhaseEstimator{
     }
    
 
-    /** 
-     *  This is not complete.  I am only returning the parameter of
-     *  largest order.  Need to fill the parameter array.
-     */
     @Override
     public double[] estimate(double[] real, double[] imag) {
         if(n != real.length)
@@ -62,19 +58,27 @@ public class SamplingLatticeEstimator implements PolynomialPhaseEstimator{
         lattice.nearestPoint(ya);
         double[] u = lattice.getIndex();
         
-        Matrix ymu = new Matrix(ya.length, 1);
+        double[] ymu = new double[ya.length];
         for (int i = 0; i < ya.length; i++) {
-            ymu.set(i, 0, ya[i] - u[i]);
+            ymu[i] = ya[i] - u[i];
         }
-
-        Matrix params = K.times(ymu);
         
-        double[] p = params.getColumnPackedCopy();
+        //compute the parameters
+        VectorFunctions.matrixMultVector(K, ymu, p); 
         
-        for(int i = 0; i < a; i++){
-            p[i] = Math.IEEEremainder(p[i], 1.0/Util.factorial(i));
-            //p[i] *= 2*Math.PI;
+        
+        //System.out.println("p = " + VectorFunctions.print(p));
+        
+        //Round the parameters back to
+        //allowable ranges.  Care needs to be taken
+        //here as the parameters are not independent.
+        for(int i = a-1; i > 0; i--){
+            double val = Math.IEEEremainder(p[i], 1.0/Util.factorial(i));
+            p[i-1] -= p[i] - val;
+            p[i] = val;
+            //p[j] *= 2*Math.PI;
         }
+        p[0] = Math.IEEEremainder(p[0], 1.0);
         
         return p;
     }

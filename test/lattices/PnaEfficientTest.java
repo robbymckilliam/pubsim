@@ -7,6 +7,9 @@
 
 package lattices;
 
+import Jama.Matrix;
+import java.util.Random;
+import javax.vecmath.Vector2d;
 import junit.framework.*;
 import simulator.VectorFunctions;
 
@@ -26,6 +29,7 @@ public class PnaEfficientTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
+        // test vs An*
         double[] y = {-1, 0, 0.1, 5, -2};
         PhinaStarEfficient pn1 = new PhinaStarEfficient(1);
         AnstarVaughan ans = new AnstarVaughan();
@@ -39,6 +43,8 @@ public class PnaEfficientTest extends TestCase {
         System.out.println(" Anstar u = " + VectorFunctions.print(ans.getIndex()));
         assertEquals(true, VectorFunctions.distance_between(pn1.getLatticePoint(), ans.getLatticePoint())<0.00001);
         
+        
+        // test vs glue vector algorithm for Frequency estimation lattice
         double[] y1 = {-1, 0, 0.1, 5, -2};
         PhinaStarEfficient pn2 = new PhinaStarEfficient(2);
         Phin2StarGlued pn2g = new Phin2StarGlued();
@@ -54,7 +60,31 @@ public class PnaEfficientTest extends TestCase {
         System.out.println(" Anstar u = " + VectorFunctions.print(pn2g.getIndex()));
         assertEquals(true, VectorFunctions.distance_between(pn2.getLatticePoint(), pn2g.getLatticePoint())<0.00001);
         
-        
+        //run nearest point test by making small deviations (del) to lattice points.
+        int iters = 10;
+        Random r = new Random();
+        int a = 3;
+        double del = 0.0001;
+        for(int t = 0; t < iters; t++){
+            int n = r.nextInt(10) + 5;
+            PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
+            Matrix G = pna.getGeneratorMatrix();
+            
+           // System.out.println("G is " + G.getRowDimension() + " by " + G.getColumnDimension());
+            double[] x = new double[G.getRowDimension()];
+            double[] xdel = new double[G.getRowDimension()];
+            double[] u = VectorFunctions.randomIntegerVector(n-a, 1000);
+            
+            //System.out.println("u is length " + u.length + ", x is length"  + x.length);
+            
+            VectorFunctions.matrixMultVector(G, u, x);
+            for(int i = 0; i < x.length; i++){
+                xdel[i] = x[i] +  r.nextGaussian()*del;
+            }
+            pna.nearestPoint(xdel);
+            assertEquals(true, VectorFunctions.distance_between(pna.getLatticePoint(), x)<0.00001);
+            
+        }
         
         
     }
