@@ -7,6 +7,8 @@ package lattices.decoder;
 
 import Jama.Matrix;
 import lattices.Lattice;
+import lattices.reduction.LLL;
+import lattices.reduction.LatticeReduction;
 import simulator.VectorFunctions;
 
 /**
@@ -19,8 +21,10 @@ import simulator.VectorFunctions;
 public class Babai implements GeneralNearestPointAlgorithm {
 
     protected Matrix G;
-    protected double[] u, x;
+    protected double[] u, x, uh;
     protected int n, m;
+    LatticeReduction lll;
+    Matrix B, U, R, Q;
     
     public Babai(){
         
@@ -35,27 +39,37 @@ public class Babai implements GeneralNearestPointAlgorithm {
         m = G.getRowDimension();
         n = G.getColumnDimension();
         u = new double[n];
+        uh = new double[n];
         x = new double[m];
+        
+        lll = new LLL();
+        B = lll.reduce(G);
+        U = lll.getUnimodularMatrix();
+        Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
+        R = QR.getR();
+        Q = QR.getQ();
+        
     }
 
     public void nearestPoint(double[] y) {
         if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
         
-        System.arraycopy(y, 0, x, 0, m);
+        VectorFunctions.matrixMultVector(Q.transpose(), y, x);
         
-        for(int i = 0; i < n; i ++){
-            double ytb = 0.0, btb = 0.0;
-            for(int j = 0; j < m; j ++){
-                ytb += x[j]*G.get(j, i);
-                btb += G.get(j, i)*G.get(j, i);
+        for(int i = n-1; i >= 0; i--){
+            double rsum = 0.0;
+            for(int j = n-1; j > i; j--){
+                rsum += R.get(i, j)*uh[j];
             }
-            u[i] = Math.round(ytb/btb);  
-            for(int j = 0; j < m; j ++)
-                x[j] -= u[i]*G.get(j, i);
+            uh[i] = Math.round((x[i] - rsum)/R.get(i,i));
         }
         
-        //x = G.times(new Matrix(u, m)).getRowPackedCopy();
+        //System.out.println(VectorFunctions.print(R));
+        //System.out.println(VectorFunctions.print(Q));
+        //System.out.println(VectorFunctions.print(Q));
+        
+        VectorFunctions.matrixMultVector(U, uh, u);
         VectorFunctions.matrixMultVector(G, u, x);
               
     }

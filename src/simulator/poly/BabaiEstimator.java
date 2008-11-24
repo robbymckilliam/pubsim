@@ -8,7 +8,7 @@ import Jama.Matrix;
 import simulator.Util;
 import lattices.PhinaStarEfficient;
 import lattices.decoder.Babai;
-import lattices.decoder.BabaiLLL;
+import simulator.VectorFunctions;
 
 /**
  * Uses the Babai nearest plane algorithm
@@ -16,7 +16,7 @@ import lattices.decoder.BabaiLLL;
  */
 public class BabaiEstimator implements PolynomialPhaseEstimator {
 
-    protected double[] ya,  gparams;
+    protected double[] ya,  p;
     protected int n,  a;
     protected PhinaStarEfficient lattice;
     protected Babai babai;
@@ -28,7 +28,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
      */
     public BabaiEstimator(int a) {
         lattice = new PhinaStarEfficient(a);
-        babai = new BabaiLLL();
+        babai = new Babai();
         this.a = a;
     }
 
@@ -38,7 +38,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         babai.setLattice(lattice);
 
         ya = new double[n];
-        gparams = new double[a];
+        p = new double[a];
         this.n = n;
 
         M = lattice.getMMatrix();
@@ -62,24 +62,30 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         babai.nearestPoint(ya);
         double[] u = babai.getIndex();
 
-        //u is only of length n-a, we extend it to
-        //length n by appending zeros
-        Matrix ymu = new Matrix(ya.length, 1);
-        for (int i = 0; i < ya.length-a; i++) {
-            ymu.set(i, 0, ya[i] - u[i]);
+        double[] ymu = new double[ya.length];
+        for (int i = 0; i < u.length; i++) {
+            ymu[i] = ya[i] - u[i];
         }
-        for (int i = ya.length-a; i < ya.length; i++) {
-            ymu.set(i, 0, ya[i]);
+        for (int i = u.length; i < ya.length; i++) {
+            ymu[i] = ya[i];
         }
 
-        Matrix params = K.times(ymu);
-
-        double[] p = params.getColumnPackedCopy();
-
-        for (int i = 0; i < a; i++) {
-            p[i] = Math.IEEEremainder(p[i], 1.0 / Util.factorial(i));
-        //p[i] *= 2*Math.PI;
+        //compute the parameters
+        VectorFunctions.matrixMultVector(K, ymu, p); 
+        
+        
+        //System.out.println("p = " + VectorFunctions.print(p));
+        
+        //Round the parameters back to
+        //allowable ranges.  Care needs to be taken
+        //here as the parameters are not independent.
+        for(int i = a-1; i > 0; i--){
+            double val = Math.IEEEremainder(p[i], 1.0/Util.factorial(i));
+            p[i-1] -= p[i] - val;
+            p[i] = val;
+            //p[j] *= 2*Math.PI;
         }
+        p[0] = Math.IEEEremainder(p[0], 1.0);
 
         return p;
     }

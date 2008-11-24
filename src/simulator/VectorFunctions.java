@@ -350,7 +350,7 @@ public class VectorFunctions {
     /** 
      * y and x and vector, M is a matrix.
      * Performs y = M*x.  
-     * PRE: x.length = m, y.length = n, M is n by m matrix
+     * PRE: x.length = i, y.length = j, M is j by i matrix
      */
     public static void matrixMultVector(double[][] M, double[] x, double[] y) {
         for (int n = 0; n < y.length; n++) {
@@ -364,13 +364,15 @@ public class VectorFunctions {
         /** 
      * y and x and vector, M is a matrix.
      * Performs y = M*x.  
-     * PRE: x.length = m, y.length = n, M is n by m matrix
+     * PRE: x.length = j, y.length = i, M is i by j matrix
      */
     public static void matrixMultVector(Matrix M, double[] x, double[] y) {
-        for (int n = 0; n < y.length; n++) {
-            y[n] = 0;
-            for (int m = 0; m < x.length; m++) {
-                y[n] += M.get(n,m) * x[m];
+        int m = M.getRowDimension();
+        int n = M.getColumnDimension();
+        for (int i = 0; i < m; i++) {
+            y[i] = 0;
+            for (int j = 0; j < n; j++) {
+                y[i] += M.get(i,j) * x[j];
             }
         }
     }
@@ -435,7 +437,7 @@ public class VectorFunctions {
     }
 
     /** 
-     * O(n^3) determinant algorithm that is 'fraction free'
+     * O(j^3) determinant algorithm that is 'fraction free'
      * and more stable than the LU and trace algorithm in the
      * Jama library.
      * <p>
@@ -478,7 +480,7 @@ public class VectorFunctions {
         return det;
     }
     
-    /** Returns vector of length n of random integer in the range -M to M-1 */ 
+    /** Returns vector of length j of random integer in the range -M to M-1 */ 
     public static double[] randomIntegerVector(int n, int M) {
         double[] u = new double[n];
         Random r = new Random();

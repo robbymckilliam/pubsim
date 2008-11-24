@@ -45,12 +45,6 @@ public class LLL implements LatticeReduction{
                 
                 double k = Math.round( R.get(j, j+1) / rjj );
                 
-                System.out.println("j = " + j);
-                System.out.println("k = " + k);
-                
-                System.out.println("B = " + VectorFunctions.print(Bcopy));
-                System.out.println("R = " + VectorFunctions.print(R));
-                
                 for(int t = 0; t < n; t++){
                     double rval = R.get(t,j+1) - k*R.get(t,j);
                     R.set(t, j+1, rval);
@@ -82,9 +76,9 @@ public class LLL implements LatticeReduction{
 //                G.set(j + 1, j, -b * d);
 //                G.set(j + 1, j + 1, a * d);
 //
-
-                System.out.println("B = " + VectorFunctions.print(Bcopy));
-                System.out.println("R = " + VectorFunctions.print(R));
+//
+//                System.out.println("B = " + VectorFunctions.print(Bcopy));
+//                System.out.println("R = " + VectorFunctions.print(R));
 //                System.out.println("G = " + VectorFunctions.print(G));
 //                System.out.println("GR = " + VectorFunctions.print(G.times(R)));
 ////                

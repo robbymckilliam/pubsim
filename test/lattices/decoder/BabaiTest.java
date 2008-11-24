@@ -48,7 +48,7 @@ public class BabaiTest {
         System.out.println("nearestPoint");
         double[] y = {1, 2, 3, 4};
         Babai instance = new Babai();
-        GeneralLattice lattice = new GeneralLattice(Matrix.random(5, 6));
+        GeneralLattice lattice = new GeneralLattice(Matrix.random(6, 5));
         instance.setLattice(lattice);
         
         boolean caught = false;
@@ -85,6 +85,10 @@ public class BabaiTest {
         double[] xtest = babai.getLatticePoint();
         double[] utest = babai.getIndex();
         
+        
+        System.out.println(VectorFunctions.print(xtrue));
+        System.out.println(VectorFunctions.print(xtest));
+        
         assertTrue(VectorFunctions.distance_between(utest, utrue) < 0.00001);
         assertTrue(VectorFunctions.distance_between(xtest, xtrue) < 0.00001);
         assertTrue(VectorFunctions.distance_between(utest, xtrue) < 0.00001);
@@ -96,35 +100,8 @@ public class BabaiTest {
      * Test a column matrix.
      */
     @Test
-    public void testOneColumn() {
-        System.out.println("testOneColumn");
-        double[] y = {1.1, 2.2, 3.9};
-        double[] g = {2, 2, 2};
-        Babai babai = new Babai();
-        
-        Matrix G = new Matrix(g, 3);
-        
-        System.out.println(VectorFunctions.print(G));
-        
-        GeneralLattice lattice = new GeneralLattice(G);
-        
-        babai.setLattice(lattice);
-        
-        babai.nearestPoint(y);
-        double[] utest = babai.getIndex();
-        
-        double uvals = Math.round(2*(1.1 + 2.2 + 3.9)/(2.0*(2.0 + 2.0 + 2.0)));
-        
-        assertEquals(utest[0], uvals);
-       
-    }
-    
-    /** 
-     * Test a column matrix.
-     */
-    @Test
     public void testSmallDeviations() {
-        System.out.println("testOneColumn");
+        System.out.println("testSmallDeviations");
     
         //run nearest point test by making small deviations (del) to lattice points.
         int iters = 10;
