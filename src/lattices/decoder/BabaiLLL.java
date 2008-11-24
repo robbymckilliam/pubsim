@@ -43,7 +43,7 @@ public class BabaiLLL extends Babai{
         R = lll.reduce(G);
         U = lll.getUnimodularMatrix();
         
-       // System.out.println("R = \n" + VectorFunctions.print(R));
+        //System.out.println("R = \n" + VectorFunctions.print(R));
         //System.out.println("U = \n" + VectorFunctions.print(U));
         
     }
@@ -53,13 +53,17 @@ public class BabaiLLL extends Babai{
         if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
         
+        System.arraycopy(y, 0, x, 0, m);
+        
         for(int i = 0; i < n; i ++){
             double ytb = 0.0, btb = 0.0;
             for(int j = 0; j < m; j ++){
-                ytb += y[j]*R.get(j, i);
+                ytb += x[j]*R.get(j, i);
                 btb += R.get(j, i)*R.get(j, i);
             }
-            uh[i] = Math.round(ytb/btb);    
+            uh[i] = Math.round(ytb/btb);   
+            for(int j = 0; j < m; j ++)
+                x[j] -= uh[i]*R.get(j, i);
         }
         
         //System.out.println("uh + " + VectorFunctions.print(uh));

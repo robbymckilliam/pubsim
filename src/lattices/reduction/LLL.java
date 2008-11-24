@@ -33,7 +33,7 @@ public class LLL implements LatticeReduction{
         //set the unimodular matrix
         M = Matrix.identity(n, n);
         
-        simulator.QRDecomposition QR = new simulator.QRDecomposition(Bcopy);
+        Jama.QRDecomposition QR = new Jama.QRDecomposition(Bcopy);
         Matrix R = QR.getR();
         int j = 0;
         while( j < n-1 ){
@@ -44,6 +44,12 @@ public class LLL implements LatticeReduction{
             if( rjj*rjj > 2 * rj1j1*rj1j1 ){
                 
                 double k = Math.round( R.get(j, j+1) / rjj );
+                
+                System.out.println("j = " + j);
+                System.out.println("k = " + k);
+                
+                System.out.println("B = " + VectorFunctions.print(Bcopy));
+                System.out.println("R = " + VectorFunctions.print(R));
                 
                 for(int t = 0; t < n; t++){
                     double rval = R.get(t,j+1) - k*R.get(t,j);
@@ -58,24 +64,35 @@ public class LLL implements LatticeReduction{
                 
                 VectorFunctions.swapColumns(Bcopy, j, j+1);
                 VectorFunctions.swapColumns(M, j, j+1);
+               
                 
                 //this should be replaced with a Givens rotation
-                simulator.QRDecomposition QRt = new simulator.QRDecomposition(Bcopy);
+                Jama.QRDecomposition QRt = new Jama.QRDecomposition(Bcopy);
                 R = QRt.getR();
-//                
-                //System.out.println(VectorFunctions.print(R));
                 
+//                VectorFunctions.swapColumns(R, j, j+1);
+//
+//                double a = R.get(j, j);
+//                double b = R.get(j+1, j);
+//                double d = 1.0 / Math.sqrt(a*a + b*b);
+//
 //                Matrix G = Matrix.identity(n, n);
-//                double d = Math.sqrt(rj1j1*rj1j1 + R.get(j, j+1)*R.get(j, j+1));
-//                G.set(j, j, R.get(j+1,j+1)/d);
-//                G.set(j, j+1, -R.get(j,j+1)/d);
-//                G.set(j+1, j, R.get(j,j+1)/d);
-//                G.set(j+1, j+1, R.get(j+1,j+1)/d);
-//                
+//                G.set(j, j, a * d);
+//                G.set(j, j + 1, b * d);
+//                G.set(j + 1, j, -b * d);
+//                G.set(j + 1, j + 1, a * d);
+//
+
+                System.out.println("B = " + VectorFunctions.print(Bcopy));
+                System.out.println("R = " + VectorFunctions.print(R));
+//                System.out.println("G = " + VectorFunctions.print(G));
+//                System.out.println("GR = " + VectorFunctions.print(G.times(R)));
+////                
 //                R = G.times(R);
-//                VectorFunctions.swapRows(R, j, j+1);
-//                VectorFunctions.swapColumns(R, j, j+1);                
-                //System.out.println("j = " + j);
+                
+                
+                
+                
                 if(j > 0) j--;
                 
             }else{

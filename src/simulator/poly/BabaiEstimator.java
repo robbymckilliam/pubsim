@@ -5,11 +5,10 @@
 package simulator.poly;
 
 import Jama.Matrix;
-import java.security.Timestamp;
-import lattices.PhinaStar;
 import simulator.Util;
 import lattices.PhinaStarEfficient;
 import lattices.decoder.Babai;
+import lattices.decoder.BabaiLLL;
 
 /**
  * Uses the Babai nearest plane algorithm
@@ -29,7 +28,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
      */
     public BabaiEstimator(int a) {
         lattice = new PhinaStarEfficient(a);
-        babai = new Babai();
+        babai = new BabaiLLL();
         this.a = a;
     }
 

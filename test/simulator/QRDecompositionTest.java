@@ -78,6 +78,14 @@ public class QRDecompositionTest {
         Matrix Bt = Q.times(R);
         assertTrue(Bt.minus(B).normF() < 0.00001);
         
+        for(int i = 1; i < Q.getColumnDimension(); i++){
+            double mag = VectorFunctions.magnitude(Q.getMatrix(0, m-1, i, i).getColumnPackedCopy());
+            assertTrue(Math.abs(mag - 1.0) < 0.00001);
+        }
+        
+        assertTrue(Q.transpose().times(Q).minus(Matrix.identity(n, n)).normF() < 0.00001);
+        
+        
     }
 
 }

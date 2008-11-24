@@ -42,13 +42,17 @@ public class Babai implements GeneralNearestPointAlgorithm {
         if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
         
+        System.arraycopy(y, 0, x, 0, m);
+        
         for(int i = 0; i < n; i ++){
             double ytb = 0.0, btb = 0.0;
             for(int j = 0; j < m; j ++){
-                ytb += y[j]*G.get(j, i);
+                ytb += x[j]*G.get(j, i);
                 btb += G.get(j, i)*G.get(j, i);
             }
-            u[i] = Math.round(ytb/btb);    
+            u[i] = Math.round(ytb/btb);  
+            for(int j = 0; j < m; j ++)
+                x[j] -= u[i]*G.get(j, i);
         }
         
         //x = G.times(new Matrix(u, m)).getRowPackedCopy();

@@ -5,6 +5,7 @@
 package lattices.reduction;
 
 import Jama.Matrix;
+import simulator.VectorFunctions;
 
 /**
  * The Hermite lattice reduction algorithm.
@@ -33,7 +34,7 @@ public class Hermite implements LatticeReduction{
         simulator.QRDecomposition QR = new simulator.QRDecomposition(Bcopy);
         Matrix R = QR.getR();
         
-        //System.out.print(VectorFunctions.print(R));
+        //System.out.println("Hermite R = \n" + VectorFunctions.print(R));
         
         for(int j = 0; j < n; j++){
             for(int i = j-1; i >= 0; i--){
