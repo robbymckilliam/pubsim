@@ -5,7 +5,6 @@
 package lattices.reduction;
 
 import Jama.Matrix;
-import Jama.QRDecomposition;
 import simulator.VectorFunctions;
 
 /**
@@ -29,11 +28,12 @@ public class LLL implements LatticeReduction{
         
         //this is the dimension of the lattice.  Need to check this!
         int n = B.getColumnDimension();
+        int m = B.getRowDimension();
         
         //set the unimodular matrix
         M = Matrix.identity(n, n);
         
-        Jama.QRDecomposition QR = new Jama.QRDecomposition(Bcopy);
+        simulator.QRDecomposition QR = new simulator.QRDecomposition(Bcopy);
         Matrix R = QR.getR();
         int j = 0;
         while( j < n-1 ){
@@ -51,7 +51,7 @@ public class LLL implements LatticeReduction{
                     double mval = M.get(t,j+1) - k*M.get(t,j);
                     M.set(t, j+1, mval);
                 }
-                for(int t = 0; t < B.getRowDimension(); t++){
+                for(int t = 0; t < m; t++){
                     double bval = Bcopy.get(t,j+1) - k*Bcopy.get(t,j);
                     Bcopy.set(t, j+1, bval);
                 }
@@ -60,10 +60,10 @@ public class LLL implements LatticeReduction{
                 VectorFunctions.swapColumns(M, j, j+1);
                 
                 //this should be replaced with a Givens rotation
-                Jama.QRDecomposition QRt = new QRDecomposition(Bcopy);
+                simulator.QRDecomposition QRt = new simulator.QRDecomposition(Bcopy);
                 R = QRt.getR();
 //                
-//                System.out.println(VectorFunctions.print(R));
+                //System.out.println(VectorFunctions.print(R));
                 
 //                Matrix G = Matrix.identity(n, n);
 //                double d = Math.sqrt(rj1j1*rj1j1 + R.get(j, j+1)*R.get(j, j+1));
@@ -75,7 +75,7 @@ public class LLL implements LatticeReduction{
 //                R = G.times(R);
 //                VectorFunctions.swapRows(R, j, j+1);
 //                VectorFunctions.swapColumns(R, j, j+1);                
-                
+                //System.out.println("j = " + j);
                 if(j > 0) j--;
                 
             }else{

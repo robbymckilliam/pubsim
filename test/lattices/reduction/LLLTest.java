@@ -6,7 +6,9 @@
 package lattices.reduction;
 
 import Jama.Matrix;
-import Jama.QRDecomposition;
+import lattices.Anstar;
+import lattices.AnstarBucketVaughan;
+import lattices.PhinaStarEfficient;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -72,15 +74,19 @@ public class LLLTest {
     @Test
     public void reduceIsHermiteReduced() {
         System.out.println("reduceIsHermiteReduced");
-        int n = 10;
-        Matrix B = Matrix.random(n, n);
+        int n = 3;
+        int m = 5;
+        
+        Matrix B = Matrix.random(m, n);
+        while(B.rank() != n) B = Matrix.random(m, n);
+        
         LLL instance = new LLL();
         Matrix result = instance.reduce(B);
         System.out.println(VectorFunctions.print(result));
-        Jama.QRDecomposition QR = new QRDecomposition(result);
+        simulator.QRDecomposition QR = new simulator.QRDecomposition(result);
         Matrix R = QR.getR();
         System.out.println(VectorFunctions.print(R));
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < m; i++){
             for(int j = i+1; j < n; j++){
                 //this is the Hermite reduction criteria
                 assertTrue( 2*Math.abs(R.get(i,j)) <= Math.abs(R.get(i, i)) );
@@ -111,8 +117,9 @@ public class LLLTest {
     @Test
     public void reduceIsLovasReduced() {
         System.out.println("reduceIsLovasReduced");
-        int n = 11;
-        Matrix B = Matrix.random(n, n);
+        int m = 11;
+        int n = 8;
+        Matrix B = Matrix.random(m, n);
 //        B = B.times(100);
 //        for(int i = 0; i < B.getRowDimension(); i++){
 //            for(int j = 0; j < B.getColumnDimension(); j++){
@@ -122,7 +129,7 @@ public class LLLTest {
         LLL instance = new LLL();
         Matrix result = instance.reduce(B);
         System.out.println(VectorFunctions.print(result));
-        Jama.QRDecomposition QR = new QRDecomposition(result);
+        simulator.QRDecomposition QR = new simulator.QRDecomposition(result);
         Matrix R = QR.getR();
         System.out.println(VectorFunctions.print(R));
         for(int j = 0; j < n-1; j++){
@@ -136,8 +143,11 @@ public class LLLTest {
     @Test
     public void testUnimodularMatrix() {
         System.out.println("testUnimodularMatrix");
-        int n = 4;
-        Matrix B = Matrix.random(n, n);
+        int n = 3;
+        int m = 4;
+        
+        
+        Matrix B = Matrix.random(m, n);
 //        B = B.times(100);
 //        for(int i = 0; i < B.getRowDimension(); i++){
 //            for(int j = 0; j < B.getColumnDimension(); j++){
@@ -157,28 +167,56 @@ public class LLLTest {
     }
     
     @Test
-    public void reducesReducesAnStar() {
-        System.out.println("reduceReducesAnStar");
+    public void reducesAnStar() {
+        System.out.println("reducesAnStar");
+        int m = 6;
         int n = 5;  
-        Matrix on = new Matrix(n,n);
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                on.set(i,j,1.0/n);
-            }
-        }
-        Matrix B = Matrix.identity(n, n).minus(on);
+        Anstar anstar = new AnstarBucketVaughan();
+        anstar.setDimension(n);
+        Matrix B = anstar.getGeneratorMatrix();
+        
+        System.out.println(VectorFunctions.print(B));
         
         LLL instance = new LLL();
         Matrix result = instance.reduce(B);
         System.out.println(VectorFunctions.print(result));
-        Jama.QRDecomposition QR = new QRDecomposition(result);
+        simulator.QRDecomposition QR = new simulator.QRDecomposition(result);
         Matrix R = QR.getR();
-        System.out.println(VectorFunctions.print(R));
+        System.out.println("R = " + VectorFunctions.print(R));
         for(int j = 0; j < n-1; j++){
             //this is the Lovas reduction criteria
             System.out.println("j = " + j);
             assertTrue( R.get(j,j)*R.get(j,j) <= 2*R.get(j+1,j+1)*R.get(j+1,j+1) );
         }
+        
+        System.out.println(VectorFunctions.print(instance.getUnimodularMatrix()));
+        
+    }
+    
+    @Test
+    public void reducesPhinaStar() {
+        System.out.println("reducesPhinaStar");
+        int m = 10;  
+        int a = 3;
+        int n = m - a;
+        PhinaStarEfficient lattice = new PhinaStarEfficient(a, n);
+        Matrix B = lattice.getGeneratorMatrix();
+        
+        System.out.println(VectorFunctions.print(B));
+        
+        LLL instance = new LLL();
+        Matrix result = instance.reduce(B);
+        System.out.println(VectorFunctions.print(result));
+        simulator.QRDecomposition QR = new simulator.QRDecomposition(result);
+        Matrix R = QR.getR();
+        System.out.println("R = " + VectorFunctions.print(R));
+        for(int j = 0; j < n-1; j++){
+            //this is the Lovas reduction criteria
+            System.out.println("j = " + j);
+            assertTrue( R.get(j,j)*R.get(j,j) <= 2*R.get(j+1,j+1)*R.get(j+1,j+1) );
+        }
+        
+        System.out.println(VectorFunctions.print(instance.getUnimodularMatrix()));
         
     }
     

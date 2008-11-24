@@ -82,7 +82,7 @@ public class HermiteTest {
     @Test
     public void reduceReturnsEqualSizeMatrix() {
         System.out.println("reduceReturnsEqualSizeMatrix");
-        Matrix B = Matrix.random(10, 9);
+        Matrix B = Matrix.random(10, 8);
         Hermite instance = new Hermite();
         Matrix result = instance.reduce(B);
         //System.out.println(VectorFunctions.print(result));

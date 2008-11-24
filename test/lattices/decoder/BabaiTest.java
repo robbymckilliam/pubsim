@@ -6,10 +6,9 @@
 package lattices.decoder;
 
 import Jama.Matrix;
-import lattices.Anstar;
-import lattices.AnstarBucket;
+import java.util.Random;
 import lattices.GeneralLattice;
-import lattices.Lattice;
+import lattices.PhinaStarEfficient;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,7 +20,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class BabaiTest {
 
@@ -119,5 +118,46 @@ public class BabaiTest {
         assertEquals(utest[0], uvals);
        
     }
+    
+    /** 
+     * Test a column matrix.
+     */
+    @Test
+    public void testSmallDeviations() {
+        System.out.println("testOneColumn");
+    
+        //run nearest point test by making small deviations (del) to lattice points.
+        int iters = 10;
+        Random r = new Random();
+        int a = 3;
+        double del = 0.0001;
+        for(int t = 0; t < iters; t++){
+            int n = r.nextInt(10) + 5;
+            PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
+            Matrix G = pna.getGeneratorMatrix();
+            
+            Babai babai = new Babai();
+            babai.setLattice(pna);
+            
+           // System.out.println("G is " + G.getRowDimension() + " by " + G.getColumnDimension());
+            double[] x = new double[G.getRowDimension()];
+            double[] xdel = new double[G.getRowDimension()];
+            double[] u = VectorFunctions.randomIntegerVector(n-a, 1000);
+            
+            //System.out.println("u is length " + u.length + ", x is length"  + x.length);
+            
+            VectorFunctions.matrixMultVector(G, u, x);
+            for(int i = 0; i < x.length; i++){
+                xdel[i] = x[i] +  r.nextGaussian()*del;
+            }
+            
+            babai.nearestPoint(xdel);
+            double dist = VectorFunctions.distance_between(babai.getLatticePoint(), x);
+            System.out.println(dist);
+            assertEquals(true, dist<0.00001);
+            
+        }
+    }
+    
 
 }

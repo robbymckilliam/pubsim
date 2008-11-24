@@ -18,9 +18,9 @@ import simulator.VectorFunctions;
  */
 public class Babai implements GeneralNearestPointAlgorithm {
 
-    Matrix G;
-    double[] u, x;
-    int n, m;
+    protected Matrix G;
+    protected double[] u, x;
+    protected int n, m;
     
     public Babai(){
         
@@ -32,19 +32,19 @@ public class Babai implements GeneralNearestPointAlgorithm {
     
     public void setLattice(Lattice L) {
         G = L.getGeneratorMatrix().copy();
-        n = G.getRowDimension();
-        m = G.getColumnDimension();
-        u = new double[m];
-        x = new double[n];
+        m = G.getRowDimension();
+        n = G.getColumnDimension();
+        u = new double[n];
+        x = new double[m];
     }
 
     public void nearestPoint(double[] y) {
-        if(n != y.length)
+        if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
         
-        for(int i = 0; i < m; i ++){
+        for(int i = 0; i < n; i ++){
             double ytb = 0.0, btb = 0.0;
-            for(int j = 0; j < n; j ++){
+            for(int j = 0; j < m; j ++){
                 ytb += y[j]*G.get(j, i);
                 btb += G.get(j, i)*G.get(j, i);
             }

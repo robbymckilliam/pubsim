@@ -7,7 +7,7 @@ package lattices.decoder;
 
 import lattices.Anstar;
 import lattices.AnstarBucket;
-import lattices.Lattice;
+import lattices.PhinaStarEfficient;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,6 +64,11 @@ public class BabaiLLLTest {
         babai.nearestPoint(y);
         double[] xtest = babai.getLatticePoint();
         double[] utest = babai.getIndex();
+       
+//        System.out.println("xtrue + " + VectorFunctions.print(xtrue));
+//        System.out.println("utrue + " + VectorFunctions.print(utrue));
+//        System.out.println("xtest + " + VectorFunctions.print(xtest));
+//        System.out.println("utest + " + VectorFunctions.print(utest));
         
         assertTrue(VectorFunctions.distance_between(utest, utrue) < 0.00001);
         assertTrue(VectorFunctions.distance_between(xtest, xtrue) < 0.00001);
@@ -91,6 +96,42 @@ public class BabaiLLLTest {
         babai.setLattice(lattice);
         
         Anstar.project(y, y);
+        
+        lattice.nearestPoint(y);
+        double[] xtrue = lattice.getLatticePoint();
+        double[] utrue = lattice.getIndex();
+        
+        babai.nearestPoint(y);
+        double[] xtest = babai.getLatticePoint();
+        double[] utest = babai.getIndex();
+        
+        System.out.println(VectorFunctions.print(xtest));
+        System.out.println(VectorFunctions.print(xtrue));
+        
+        assertTrue(VectorFunctions.distance_between(xtest, xtrue) < 1);
+       
+    }
+    
+        /** 
+     * Babai's algorithm should work perfectly for Zn.
+     * This tests that it does.
+     */
+    @Test
+    public void correctForSmallErrorPhinaStar() {
+        System.out.println("correctForSmallErrorPhinaStar");
+        double[] y = {1.1, 2.2, 3.9, -7.1, -1.49, 5.6, 7.8, -4.3, 100, 11};
+        BabaiLLL babai = new BabaiLLL();
+        
+        int m = y.length;
+        int a = 3;
+        int n = m-a;
+        
+        //construc the integer lattice
+        PhinaStarEfficient lattice = new PhinaStarEfficient(a, n);
+        
+        System.out.println(VectorFunctions.print(lattice.getGeneratorMatrix()));
+        
+        babai.setLattice(lattice);
         
         lattice.nearestPoint(y);
         double[] xtrue = lattice.getLatticePoint();
