@@ -344,7 +344,7 @@ public class VectorFunctionsTest extends TestCase {
         
     }
     
-            /**
+    /**
      * Test of min method, of class simulator.VectorFunctions.
      */
     public void testSwapRows() {
@@ -363,6 +363,30 @@ public class VectorFunctionsTest extends TestCase {
             assertEquals(mat.get(j0, i), matCopy.get(j1, i));
             assertEquals(mat.get(j1, i), matCopy.get(j0, i));
         }
+        
+    }
+    
+    /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testGivensRotation() {
+        System.out.println("testGivensRotation");
+        
+        Matrix M = Matrix.random(5, 5);
+        double pdet = M.det();
+        
+        System.out.println(VectorFunctions.print(M));
+        
+        
+        int m1 = 0, m2 = 1;
+        int n = 0;
+        VectorFunctions.givensRotate(M, m1, m2, n);
+        
+         System.out.println(VectorFunctions.print(M));
+        
+        assertTrue(Math.abs(M.get(m2, n)) < 0.00000001);
+        assertTrue(Math.abs(M.det() - pdet)< 0.00000001);
+        
         
     }
     

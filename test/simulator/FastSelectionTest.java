@@ -43,7 +43,7 @@ public class FastSelectionTest {
     public void setUp() {
         int length = 1500;
         
-        double[] A = VectorFunctions.random(length);
+        double[] A = VectorFunctions.randomGaussian(length);
         Vector<Double> Ac = new Vector<Double>();
         for(int i = 0; i < A.length; i++)
             Ac.add(A[i]);
@@ -118,7 +118,7 @@ public class FastSelectionTest {
         
         for(int j = 1; j < iters; j++){
         
-            double[] A = VectorFunctions.random(iters*10);
+            double[] A = VectorFunctions.randomGaussian(iters*10);
             int L = 0;
             int R = A.length - 1;
             int K = r.nextInt(A.length);
@@ -135,7 +135,7 @@ public class FastSelectionTest {
         
         for(int j = 1; j < iters; j++){
         
-            double[] A = VectorFunctions.random(iters*10);
+            double[] A = VectorFunctions.randomGaussian(iters*10);
             Double[] Ac = new Double[A.length];
             for(int i = 0; i < A.length; i++)
                 Ac[i] = new Double(A[i]);

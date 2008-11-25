@@ -140,13 +140,52 @@ public class VectorFunctions {
      * Return a vector of zero mean var = 1 gaussian
      * noise.
      */
-    public static double[] random(int length) {
+    public static double[] randomGaussian(int length) {
         double[] x = new double[length];
         Random r = new Random();
         for (int i = 0; i < length; i++) {
             x[i] = r.nextGaussian();
         }
         return x;
+    }
+    
+    /**
+     * Return a vector of  gaussian noise.
+     */
+    public static double[] randomGaussian   (int length, double mean, double var) {
+        double[] x = new double[length];
+        Random r = new Random();
+        double std = Math.sqrt(var);
+        for (int i = 0; i < length; i++) {
+            x[i] = r.nextGaussian()*std + mean;
+        }
+        return x;
+    }
+    
+    /**
+     * Apply a Given's rotation to matrix M.  The rotation will
+     * make M[m2,n] = 0.  It affects the rows m1 and m2 in M.
+     * In this implementation m2 > m1 so it's only applicable to
+     * lower triangular matrixes.
+     */
+    public static void givensRotate(Matrix M, int m1, int m2, int n){
+        if(n > M.getColumnDimension()-1 || m2 > M.getRowDimension())
+            throw new RuntimeException("Given's rotation parameters outside matrix size.");
+        if(m1 >= m2)
+            throw new RuntimeException("This Given's implementation requires m1 < m2");
+        
+        double a = M.get(m1, n);
+        double b = M.get(m2, n);
+        double d = 1.0 / Math.sqrt(a*a + b*b);
+        double c = a*d;
+        double s = b*d;
+        
+        for(int i = 0; i < M.getColumnDimension(); i++){
+            double v1 = M.get(m1, i);
+            double v2 = M.get(m2, i);
+            M.set(m1, i, c*v1 + s*v2);
+            M.set(m2, i, -s*v1 + c*v2);
+        }
     }
 
     /**
@@ -480,7 +519,7 @@ public class VectorFunctions {
         return det;
     }
     
-    /** Returns vector of length j of random integer in the range -M to M-1 */ 
+    /** Returns vector of length j of randomGaussian integer in the range -M to M-1 */ 
     public static double[] randomIntegerVector(int n, int M) {
         double[] u = new double[n];
         Random r = new Random();

@@ -60,33 +60,32 @@ public class LLL implements LatticeReduction{
                 VectorFunctions.swapColumns(M, j, j+1);
                
                 
-                //this should be replaced with a Givens rotation
-                Jama.QRDecomposition QRt = new Jama.QRDecomposition(Bcopy);
-                R = QRt.getR();
+                //QR decomposition version.  Superceeded by Given's rotation
+//                Jama.QRDecomposition QRt = new Jama.QRDecomposition(Bcopy);
+//                R = QRt.getR();
                 
-//                VectorFunctions.swapColumns(R, j, j+1);
-//
+                
+                VectorFunctions.swapColumns(R, j, j+1);
+
+                VectorFunctions.givensRotate(R, j, j+1, j);
+                
 //                double a = R.get(j, j);
 //                double b = R.get(j+1, j);
 //                double d = 1.0 / Math.sqrt(a*a + b*b);
-//
+                
 //                Matrix G = Matrix.identity(n, n);
 //                G.set(j, j, a * d);
 //                G.set(j, j + 1, b * d);
 //                G.set(j + 1, j, -b * d);
 //                G.set(j + 1, j + 1, a * d);
-//
-//
-//                System.out.println("B = " + VectorFunctions.print(Bcopy));
-//                System.out.println("R = " + VectorFunctions.print(R));
-//                System.out.println("G = " + VectorFunctions.print(G));
-//                System.out.println("GR = " + VectorFunctions.print(G.times(R)));
-////                
-//                R = G.times(R);
+
+                //System.out.println("B = " + VectorFunctions.print(Bcopy));
+                //System.out.println("R = " + VectorFunctions.print(R));
+                //System.out.println("G = " + VectorFunctions.print(G));
+                //System.out.println("GR = " + VectorFunctions.print(G.times(R)));
                 
-                
-                
-                
+               // R = G.times(R);
+                        
                 if(j > 0) j--;
                 
             }else{

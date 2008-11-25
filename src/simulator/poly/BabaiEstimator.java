@@ -8,6 +8,7 @@ import Jama.Matrix;
 import simulator.Util;
 import lattices.PhinaStarEfficient;
 import lattices.decoder.Babai;
+import lattices.decoder.GeneralNearestPointAlgorithm;
 import simulator.VectorFunctions;
 
 /**
@@ -19,23 +20,27 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     protected double[] ya,  p;
     protected int n,  a;
     protected PhinaStarEfficient lattice;
-    protected Babai babai;
+    protected GeneralNearestPointAlgorithm npalgorithm;
     protected Matrix M,  K;
 
+    //Here for inheritance purposes.  You can't call this.
+    protected BabaiEstimator() {
+    }
+    
     /** 
      * You must set the polynomial order in the constructor
      * @param a = polynomial order
      */
     public BabaiEstimator(int a) {
         lattice = new PhinaStarEfficient(a);
-        babai = new Babai();
+        npalgorithm = new Babai();
         this.a = a;
     }
 
     @Override
     public void setSize(int n) {
         lattice.setDimension(n - a);
-        babai.setLattice(lattice);
+        npalgorithm.setLattice(lattice);
 
         ya = new double[n];
         p = new double[a];
@@ -59,8 +64,8 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         for (int i = 0; i < real.length; i++) {
             ya[i] = Math.atan2(imag[i], real[i]) / (2 * Math.PI);
         }
-        babai.nearestPoint(ya);
-        double[] u = babai.getIndex();
+        npalgorithm.nearestPoint(ya);
+        double[] u = npalgorithm.getIndex();
 
         double[] ymu = new double[ya.length];
         for (int i = 0; i < u.length; i++) {
