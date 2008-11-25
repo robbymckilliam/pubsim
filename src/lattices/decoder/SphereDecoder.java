@@ -52,8 +52,7 @@ public class SphereDecoder extends Babai
         Q = QR.getQ();
         
     }
-    
-    
+       
     @Override
     public void nearestPoint(double[] y) {
         if(m != y.length)
@@ -72,11 +71,10 @@ public class SphereDecoder extends Babai
         
         decode(k, 0);
         
-        //compute index u = Uuh so that Gu is Babai
-        //point
+        //compute index u = Uuh so that Gu is nearest point
         VectorFunctions.matrixMultVector(U, ubest, u);
         
-        //compute Babai point
+        //compute nearest point
         VectorFunctions.matrixMultVector(G, u, x);
         
     }
@@ -88,7 +86,6 @@ public class SphereDecoder extends Babai
     protected void decode(int k, double d){
         //return if this is already not the closest point 
         if(d > D){
-            //System.out.println("RETURN");
             return;
         }
         
@@ -102,20 +99,9 @@ public class SphereDecoder extends Babai
         //set least possible ut[k]
         ut[k] = Math.ceil((-Math.sqrt(D - d) + yr[k] - rsum)/R.get(k,k));
         
-        //System.out.println("ut["+ k+ "] = " + ut[k]);
-        //System.out.println("rsum = " + rsum);
-        //System.out.println("R["+ k+ "] = " + R.get(k,k));
-        //System.out.println("d = " + d);
-        //System.out.println("next = " + (Math.sqrt(D - d) + yr[k] - rsum)/R.get(k,k));
-        
-        
         while(ut[k] <= (Math.sqrt(D - d) + yr[k] - rsum)/R.get(k,k) ){
             double kd = R.get(k, k)*ut[k] + rsum - yr[k];
             double sumd = d + kd*kd;
-            
-            //System.out.println("ut["+ k+ "] = " + ut[k]);
-           // System.out.println("kd^2 = " + kd*kd);
-            //System.out.println("sumd = " + sumd);
             
             //if this is not the first element then recurse
             if( k > 0)
@@ -124,15 +110,12 @@ public class SphereDecoder extends Babai
             //an update
             else{
                 if(sumd <= D){
-                    //System.out.println("STORE");
                     System.arraycopy(ut, 0, ubest, 0, n);
                     D = sumd;
                 }
             }
             ut[k]++;
         }
-        
-        //System.out.println("RETURN");
         
     }
 
