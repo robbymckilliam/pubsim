@@ -5,6 +5,7 @@
 
 package simulator.poly;
 
+import distributions.GaussianNoise;
 import junit.framework.TestCase;
 import simulator.VectorFunctions;
 
@@ -30,6 +31,7 @@ public class PolynomialPhaseSignalTest extends TestCase {
         PolynomialPhaseSignal instance = new PolynomialPhaseSignal();
         instance.setLength(n);
         instance.setParameters(params);
+        instance.setNoiseGenerator(new GaussianNoise(0, 0.0));
         
         //these are taken from matlab
         double[] expreal = {1.0000, -0.3090, 1.0000, 0.8090, -0.8090};
@@ -37,8 +39,8 @@ public class PolynomialPhaseSignalTest extends TestCase {
         
         instance.generateReceivedSignal();
         
-        //System.out.println("real = " + VectorFunctions.print(instance.getReal()));
-        //System.out.println("imag = " + VectorFunctions.print(instance.getImag()));
+        System.out.println("real = " + VectorFunctions.print(instance.getReal()));
+        System.out.println("imag = " + VectorFunctions.print(instance.getImag()));
         
         assertEquals(VectorFunctions.distance_between(expreal, instance.getReal())<0.001, true);
         assertEquals(VectorFunctions.distance_between(expimag, instance.getImag())<0.001, true);

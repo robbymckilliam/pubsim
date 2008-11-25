@@ -20,7 +20,7 @@ public class LatticeEstimatorTest extends TestCase {
     }            
 
     /**
-     * Test of estimate method, of class LatticeEstimator.
+     * Test of estimate method, of class SamplingLatticeEstimator.
      */
     public void testEstimate() {
         System.out.println("estimate");
@@ -37,7 +37,7 @@ public class LatticeEstimatorTest extends TestCase {
         
         gen.generateReceivedSignal();
         
-        LatticeEstimator instance = new LatticeEstimator(params.length);
+        SamplingLatticeEstimator instance = new SamplingLatticeEstimator(params.length);
         double[] res = instance.estimate(gen.getReal(), gen.getImag());
         
         double[] mse = PolynomialPhaseSignal.disambiguateMSE(params, res);

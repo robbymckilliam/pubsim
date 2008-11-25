@@ -20,11 +20,45 @@ import simulator.VectorFunctions;
  */
 public class Babai implements GeneralNearestPointAlgorithm {
 
+    /** Generator matrix of the lattice */
     protected Matrix G;
-    protected double[] u, x, uh;
+    
+    /** Index of the Babai point. x = Gu */
+    protected double[] u; 
+    
+    /** The Babai point */
+    protected double[] x;
+    
+    /** 
+     * Index of Babai point in LLL reduced basis.
+     * x = GUuh
+     */
+    protected double[] uh; 
+    
+    /** 
+     * Point y in triangular reference frame.
+     * yr = Q'y
+     */
+    protected double[] yr;
+    
+    /** LLL reduced basis matrix. G = BU */
+    Matrix B; 
+    
+    /** 
+     * Unimodular transform between G and it's LLL
+     * reduction B. G = BU
+     */
+    Matrix U; 
+    
+    /** R component of B = QR */
+    Matrix R;
+    
+    /** Q component of B = QR */       
+    Matrix Q;
+    
     protected int n, m;
     LatticeReduction lll;
-    Matrix B, U, R, Q;
+    
     
     public Babai(){
         
@@ -41,6 +75,7 @@ public class Babai implements GeneralNearestPointAlgorithm {
         u = new double[n];
         uh = new double[n];
         x = new double[m];
+        yr = new double[n];
         
         lll = new LLL();
         B = lll.reduce(G);
@@ -55,22 +90,7 @@ public class Babai implements GeneralNearestPointAlgorithm {
         if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
         
-        VectorFunctions.matrixMultVector(Q.transpose(), y, x);
-        
-        for(int i = n-1; i >= 0; i--){
-            double rsum = 0.0;
-            for(int j = n-1; j > i; j--){
-                rsum += R.get(i, j)*uh[j];
-            }
-            uh[i] = Math.round((x[i] - rsum)/R.get(i,i));
-        }
-        
-        //System.out.println(VectorFunctions.print(R));
-        //System.out.println(VectorFunctions.print(Q));
-        //System.out.println(VectorFunctions.print(Q));
-        
-        VectorFunctions.matrixMultVector(U, uh, u);
-        VectorFunctions.matrixMultVector(G, u, x);
+        computeBabaiPoint(y);
               
     }
 
@@ -82,6 +102,31 @@ public class Babai implements GeneralNearestPointAlgorithm {
         return u;
     }
 
+    //compute the babai
+    protected void computeBabaiPoint(double[] y) {
+        
+         VectorFunctions.matrixMultVector(Q.transpose(), y, yr);
+
+        for (int i = n - 1; i >= 0; i--) {
+            double rsum = 0.0;
+            for (int j = n - 1; j > i; j--) {
+                rsum += R.get(i, j) * uh[j];
+            }
+            uh[i] = Math.round((yr[i] - rsum) / R.get(i, i));
+        }
+
+        //System.out.println(VectorFunctions.print(R));
+        //System.out.println(VectorFunctions.print(Q));
+        //System.out.println(VectorFunctions.print(Q));
+        
+        //compute index u = Uuh so that Gu is Babai
+        //point
+        VectorFunctions.matrixMultVector(U, uh, u);
+        
+        //compute Babai point
+        VectorFunctions.matrixMultVector(G, u, x);
+
+    }
     
 
 }
