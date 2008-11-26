@@ -63,7 +63,9 @@ public class SphereDecoder extends Babai
         //compute the Babai point in the triangular frame
         VectorFunctions.matrixMultVector(R, uh, xr);
         
-        //compute the radius squared of the sphere we are decoding in
+        //compute the radius squared of the sphere we are decoding in.
+        //Multiply by DELTA to avoid numerical error causing the 
+        //Babai point to be rejected.
         D = VectorFunctions.distance_between2(yr, xr) * DELTA;
         
         //current element being decoded
@@ -81,7 +83,7 @@ public class SphereDecoder extends Babai
     
     /** 
      * Recursive decode function to test nearest plane
-     * for a particular dimension/elenent
+     * for a particular dimension/element
      */
     protected void decode(int k, double d){
         //return if this is already not the closest point 
@@ -107,7 +109,7 @@ public class SphereDecoder extends Babai
             if( k > 0)
                 decode(k-1, sumd);
             //otherwise check if this is the best point so far encounted
-            //an update
+            //and update if required
             else{
                 if(sumd <= D){
                     System.arraycopy(ut, 0, ubest, 0, n);
