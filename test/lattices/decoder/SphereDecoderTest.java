@@ -6,7 +6,10 @@
 package lattices.decoder;
 
 import Jama.Matrix;
+import lattices.Anstar;
+import lattices.AnstarBucketVaughan;
 import lattices.GeneralLattice;
+import lattices.Phin2StarGlued;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -121,10 +124,75 @@ public class SphereDecoderTest {
             double decdist = VectorFunctions.distance_between2(y, decoder.getLatticePoint());
             double babdist = VectorFunctions.distance_between2(y, babai.getLatticePoint());
             
-            System.out.println(decdist);
-            System.out.println(babdist);
+            //System.out.println(decdist);
+            //System.out.println(babdist);
             
             assertTrue(decdist <= babdist);
+            
+        }
+    }
+    
+    /** 
+     * The sphere decoded point should be better than 
+     * or equal to the Babai point.
+     */
+    @Test
+    public void correctForAnStar() {
+        System.out.println("correctForAnStar");
+        
+        SphereDecoder decoder = new SphereDecoder();
+       
+        int iters = 10;
+        int n = 7;
+        
+        Anstar anstar = new AnstarBucketVaughan();
+        anstar.setDimension(n);
+        
+        decoder.setLattice(anstar);
+        
+        for(int t = 0; t < iters; t++){
+            
+            double[] y = VectorFunctions.randomGaussian(n+1, 0.0, 100.0);
+            decoder.nearestPoint(y);
+            anstar.nearestPoint(y);
+            
+            double decdist = VectorFunctions.distance_between2(anstar.getLatticePoint(), decoder.getLatticePoint());
+            
+            assertTrue(decdist <= 0.000001);
+            
+        }
+    }
+    
+    /** 
+     * The sphere decoded point should be better than 
+     * or equal to the Babai point.
+     */
+    @Test
+    public void correctForPhin2Star() {
+        System.out.println("correctForPhin2Star");
+        
+        SphereDecoder decoder = new SphereDecoder();
+       
+        int iters = 10;
+        int n = 6;
+        
+        Phin2StarGlued lattice = new Phin2StarGlued();
+        lattice.setDimension(n);
+        
+        decoder.setLattice(lattice);
+        
+        for(int t = 0; t < iters; t++){
+            
+            double[] y = VectorFunctions.randomGaussian(n+2, 0.0, 100.0);
+            decoder.nearestPoint(y);
+            lattice.nearestPoint(y);
+            
+            double decdist = VectorFunctions.distance_between2(lattice.getLatticePoint(), decoder.getLatticePoint());
+            
+            assertTrue(decdist <= 0.000001);
+            
+            System.out.println(decdist);
+
             
         }
     }

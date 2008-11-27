@@ -22,6 +22,7 @@ public class SphereDecoderEstimator extends BabaiEstimator {
     public SphereDecoderEstimator(int a) {
         lattice = new PhinaStarEfficient(a);
         npalgorithm = new SphereDecoder();
+        //npalgorithm = new PolySphereDecoder();
         this.a = a;
     }
 

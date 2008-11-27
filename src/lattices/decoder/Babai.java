@@ -42,22 +42,22 @@ public class Babai implements GeneralNearestPointAlgorithm {
     protected double[] yr;
     
     /** LLL reduced basis matrix. G = BU */
-    Matrix B; 
+    protected Matrix B; 
     
     /** 
      * Unimodular transform between G and it's LLL
      * reduction B. G = BU
      */
-    Matrix U; 
+    protected Matrix U; 
     
     /** R component of B = QR */
-    Matrix R;
+    protected Matrix R;
     
     /** Q component of B = QR */       
-    Matrix Q;
+    protected Matrix Q;
     
     protected int n, m;
-    LatticeReduction lll;
+    protected LatticeReduction lll;
     
     
     public Babai(){

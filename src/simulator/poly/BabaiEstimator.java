@@ -91,6 +91,21 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
             //p[j] *= 2*Math.PI;
         }
         p[0] = Math.IEEEremainder(p[0], 1.0);
+        
+//        SphereDecoder ambiguityRemover = new SphereDecoder();
+//        Lattice Klat = new GeneralLattice(K.getMatrix(0, a-1 , K.getColumnDimension()-a, K.getColumnDimension()-1));
+//        ambiguityRemover.setLattice(Klat);
+//        ambiguityRemover.nearestPoint(p);
+//        
+//        double[] subp = ambiguityRemover.getLatticePoint();
+//        //System.out.println("K = " + VectorFunctions.print(K.getMatrix(0, a-1, 0, a-1)));
+//        System.out.println("ind = " + VectorFunctions.print(ambiguityRemover.getIndex()));
+//        System.out.println("subp = " + VectorFunctions.print(subp));
+//        System.out.println("pb = " + VectorFunctions.print(p));
+//        for(int i = 0; i < p.length; i++){
+//            p[i] -= subp[i];
+//        }
+//        System.out.println("pa = " + VectorFunctions.print(p));
 
         return p;
     }

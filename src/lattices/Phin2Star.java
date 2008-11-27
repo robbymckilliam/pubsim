@@ -66,7 +66,29 @@ public abstract class Phin2Star extends NearestPointAlgorithm{
     }
     
     public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        Matrix M = getMMatrix();
+        Matrix Mt = M.transpose();
+        Matrix K = (Mt.times(M)).inverse().times(Mt);
+        Matrix G = Matrix.identity(n+2, n+2).minus(M.times(K));
+        
+        return G.getMatrix(0, n+2-1, 0, n-1);
+        
+    }
+    
+    /** 
+     * This is the matrix M in most of my papers
+     * M = [1, n, n^2, ..., n^a]
+     */
+    public Matrix getMMatrix(){
+        Matrix M = new Matrix(n+2, 2);
+        
+        for(int i = 0; i < n+2; i++){
+            for(int j = 0; j < 2; j++){
+                M.set(i, j, Math.pow(i+1, j));
+            }
+        }      
+        return M;
     }
     
 

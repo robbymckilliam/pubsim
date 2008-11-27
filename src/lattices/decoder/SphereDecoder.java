@@ -26,7 +26,7 @@ public class SphereDecoder extends Babai
     protected double[] xr;
     
     //1 + small number to avoid numerical errors in branches.
-    double DELTA = 1.00001;
+    protected double DELTA = 1.00001;
     
     @Override
     public void setLattice(Lattice L) {
