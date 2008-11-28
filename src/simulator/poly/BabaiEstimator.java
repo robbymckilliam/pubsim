@@ -5,11 +5,14 @@
 package simulator.poly;
 
 import Jama.Matrix;
-import simulator.Util;
+import lattices.GeneralLattice;
+import lattices.Lattice;
 import lattices.PhinaStarEfficient;
 import lattices.decoder.Babai;
 import lattices.decoder.GeneralNearestPointAlgorithm;
+import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
+import simulator.Util;
 
 /**
  * Uses the Babai nearest plane algorithm
@@ -21,7 +24,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     protected int n,  a;
     protected PhinaStarEfficient lattice;
     protected GeneralNearestPointAlgorithm npalgorithm;
-    protected Matrix M,  K;
+    protected Matrix M,  K, ambM;
 
     //Here for inheritance purposes.  You can't call this.
     protected BabaiEstimator() {
@@ -49,6 +52,13 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         M = lattice.getMMatrix();
         Matrix Mt = M.transpose();
         K = Mt.times(M).inverse().times(Mt);
+        
+//        ambM = new Matrix(n, a);
+//        for(int i = 0; i < n; i++){
+//            for(int j = 0; j < a; j++){
+//                ambM.set(i, j, Math.pow(i+1, j)/Util.factorial(j));
+//            }
+//        }      
 
     }
 
@@ -84,18 +94,21 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         //Round the parameters back to
         //allowable ranges.  Care needs to be taken
         //here as the parameters are not independent.
-        for(int i = a-1; i > 0; i--){
-            double val = Math.IEEEremainder(p[i], 1.0/Util.factorial(i));
-            p[i-1] -= p[i] - val;
-            p[i] = val;
-            //p[j] *= 2*Math.PI;
-        }
-        p[0] = Math.IEEEremainder(p[0], 1.0);
+//        for(int i = a-1; i > 0; i--){
+//            double val = Math.IEEEremainder(p[i], 1.0/Util.factorial(i));
+//            p[i-1] -= p[i] - val;
+//            p[i] = val;
+//            //p[j] *= 2*Math.PI;
+//        }
+//        p[0] = Math.IEEEremainder(p[0], 1.0);
         
+//        Lattice Klat = new GeneralLattice(ambM);
 //        SphereDecoder ambiguityRemover = new SphereDecoder();
-//        Lattice Klat = new GeneralLattice(K.getMatrix(0, a-1 , K.getColumnDimension()-a, K.getColumnDimension()-1));
 //        ambiguityRemover.setLattice(Klat);
-//        ambiguityRemover.nearestPoint(p);
+//        double[] Mp = new double[n];
+//        VectorFunctions.matrixMultVector(M, p, Mp);
+//        ambiguityRemover.nearestPoint(Mp);
+//        
 //        
 //        double[] subp = ambiguityRemover.getLatticePoint();
 //        //System.out.println("K = " + VectorFunctions.print(K.getMatrix(0, a-1, 0, a-1)));
