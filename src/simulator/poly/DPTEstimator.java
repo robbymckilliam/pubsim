@@ -58,5 +58,9 @@ public class DPTEstimator implements PolynomialPhaseEstimator{
         return trans;
     }
 
+    public double[] error(double[] real, double[] imag, double[] truth) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 }

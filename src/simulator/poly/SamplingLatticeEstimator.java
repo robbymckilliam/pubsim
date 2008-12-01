@@ -83,4 +83,8 @@ public class SamplingLatticeEstimator implements PolynomialPhaseEstimator{
         return p;
     }
 
+    public double[] error(double[] real, double[] imag, double[] truth) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

@@ -25,6 +25,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     protected PhinaStarEfficient lattice;
     protected GeneralNearestPointAlgorithm npalgorithm;
     protected Matrix M,  K, ambM;
+    protected AmbiguityRemover ambiguityRemover;
 
     //Here for inheritance purposes.  You can't call this.
     protected BabaiEstimator() {
@@ -44,6 +45,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     public void setSize(int n) {
         lattice.setDimension(n - a);
         npalgorithm.setLattice(lattice);
+        ambiguityRemover = new AmbiguityRemover(a);
 
         ya = new double[n];
         p = new double[a];
@@ -53,13 +55,6 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         Matrix Mt = M.transpose();
         K = Mt.times(M).inverse().times(Mt);
         
-//        ambM = new Matrix(n, a);
-//        for(int i = 0; i < n; i++){
-//            for(int j = 0; j < a; j++){
-//                ambM.set(i, j, Math.pow(i+1, j)/Util.factorial(j));
-//            }
-//        }      
-
     }
 
     /** 
@@ -87,39 +82,44 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
 
         //compute the parameters
         VectorFunctions.matrixMultVector(K, ymu, p); 
+        //double[] pa = ambiguityRemover.disambiguate(p);
         
-        
-        //System.out.println("p = " + VectorFunctions.print(p));
+        //System.out.println("est = " + VectorFunctions.print(est));
+        //System.out.println("est = " + VectorFunctions.print(pa));
         
         //Round the parameters back to
         //allowable ranges.  Care needs to be taken
         //here as the parameters are not independent.
 //        for(int i = a-1; i > 0; i--){
-//            double val = Math.IEEEremainder(p[i], 1.0/Util.factorial(i));
-//            p[i-1] -= p[i] - val;
-//            p[i] = val;
-//            //p[j] *= 2*Math.PI;
+//            double val = Math.IEEEremainder(est[i], 1.0/Util.factorial(i));
+//            est[i-1] -= est[i] - val;
+//            est[i] = val;
+//            //est[j] *= 2*Math.PI;
 //        }
-//        p[0] = Math.IEEEremainder(p[0], 1.0);
+//        est[0] = Math.IEEEremainder(est[0], 1.0);
         
-//        Lattice Klat = new GeneralLattice(ambM);
-//        SphereDecoder ambiguityRemover = new SphereDecoder();
-//        ambiguityRemover.setLattice(Klat);
-//        double[] Mp = new double[n];
-//        VectorFunctions.matrixMultVector(M, p, Mp);
-//        ambiguityRemover.nearestPoint(Mp);
-//        
-//        
-//        double[] subp = ambiguityRemover.getLatticePoint();
-//        //System.out.println("K = " + VectorFunctions.print(K.getMatrix(0, a-1, 0, a-1)));
-//        System.out.println("ind = " + VectorFunctions.print(ambiguityRemover.getIndex()));
-//        System.out.println("subp = " + VectorFunctions.print(subp));
-//        System.out.println("pb = " + VectorFunctions.print(p));
-//        for(int i = 0; i < p.length; i++){
-//            p[i] -= subp[i];
-//        }
-//        System.out.println("pa = " + VectorFunctions.print(p));
-
-        return p;
+        return ambiguityRemover.disambiguate(p);
     }
+
+
+    /**
+     * Run the estimator and return the Returns the square error wrapped modulo the the ambiguity
+     * region between the estimate and the truth.
+     */
+    public double[] error(double[] real, double[] imag, double[] truth){
+        
+        double[] est = estimate(real, imag);
+        double[] err = new double[est.length];
+        
+        for (int i = 0; i < err.length; i++) {
+            err[i] = est[i] - truth[i];
+        }
+        err = ambiguityRemover.disambiguate(err);
+        for (int i = 0; i < err.length; i++) {
+            err[i] = err[i]*err[i];
+        }
+        return err;
+    }
+
+
 }

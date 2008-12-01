@@ -200,6 +200,16 @@ public class VectorFunctions {
     }
 
     /**
+     * Return a vector of length n with zeros everywhere
+     * excepect the e[i] = 1.0
+     */
+    public static double[] eVector(int i, int n) {
+        double[] e = new double[n];
+        e[i] = 1.0;
+        return e;
+    }
+
+    /**
      * Return the mean value of a vector
      */
     public static double mean(double[] x) {

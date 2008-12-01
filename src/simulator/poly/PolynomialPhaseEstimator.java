@@ -19,15 +19,12 @@ public interface PolynomialPhaseEstimator{
      * Returns an array of polynomial parameters.
      */
     public double[] estimate(double[] real, double[] imag);
-    
-    /** 
-     * This uses a nearest lattice point approach to remove the
-     * ambiguities inherent in polynomial phase estimation
-     */
-    public class AmbiguityRemover{
-        
-        
-        
-    }
 
+    /**
+     * Run the estimator and return the square error
+     * wrapped modulo the the ambiguity region between
+     * the estimate and the truth.
+     */
+    public double[] error(double[] real, double[] imag, double[] truth);
+    
 }
