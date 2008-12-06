@@ -38,6 +38,32 @@ public class VectorFunctions {
     }
 
     /**
+     * Zero padded Fourier Transform. Pads so that the resulting transform is p times
+     * the length of x.
+     * This is not a FFT and requires O(N^2) operations.
+     * UNTESTED!
+     */
+    public static Complex[] PaddedFT(Complex[] x, double p) {
+
+        int N = (int) (x.length*p);
+        Complex[] X = new Complex[N];
+        int t = (x.length - N)/2;
+
+        for (int k = 0; k < N; k++) {
+            X[k] = new Complex(0,0);
+            for (int m = 0; m < N; m++) {
+                double re = Math.cos(k * m * 2 * Math.PI / N);
+                double im = Math.sin(k * m * 2 * Math.PI / N);
+                Complex ejw = new Complex(re, im);
+                if(m - t >= 0)
+                    X[k] = X[k].plus(x[m-t].times(ejw));
+            }
+        }
+
+        return X;
+    }
+
+    /**
      * Return the magnitude squared of the Fourier
      * tranform of @param x.
      */
@@ -145,6 +171,19 @@ public class VectorFunctions {
         Random r = new Random();
         for (int i = 0; i < length; i++) {
             x[i] = r.nextGaussian();
+        }
+        return x;
+    }
+
+    /**
+     * Return a vector of zero mean var = 1 complex
+     * noise i.e. Raylieh noise.
+     */
+    public static Complex[] randomComplex(int length) {
+        Complex[] x = new Complex[length];
+        Random r = new Random();
+        for (int i = 0; i < length; i++) {
+            x[i] = new Complex(r.nextGaussian(), r.nextGaussian());
         }
         return x;
     }

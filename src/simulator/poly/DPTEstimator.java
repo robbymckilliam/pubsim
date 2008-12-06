@@ -18,6 +18,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator{
     protected Complex[] z;
     protected double[] p;
     protected int a, n;
+    protected double tau;
 
     public DPTEstimator(int a){
         this.a = a;
@@ -28,6 +29,12 @@ public class DPTEstimator implements PolynomialPhaseEstimator{
         z = new Complex[n];
         p = new double[a];
         this.n = n;
+
+        //set the tau parameter for the PPT
+        tau = ((double)n)/a;
+        if(a >= 4)
+            tau = ((double)n)/(a+2);
+
     }
 
     public double[] estimate(double[] real, double[] imag) {
@@ -44,15 +51,50 @@ public class DPTEstimator implements PolynomialPhaseEstimator{
     }
 
     /**
+     * Estimate the parameter of order M from x.
+     * @param x : the signal
+     * @param M: order of parameter to estimate
+     * @return the estimated parameter
+     */
+    protected double estimateM(Complex[] x, int M){
+        double p = 0;
+
+
+
+        return p;
+    }
+
+    /**
      * Compute the polynomial phase transform of order m of z
      * with lag tor.
      */
-    protected Complex[] PPT(int m, int tor, Complex[] y){
-        Complex[] trans = new Complex[y.length];
+    protected Complex[] PPT(int m, Complex[] y){
+        Complex[] trans = y;
 
-        double prod = 1;
-        for(int i = 0; i < a; i++){
-            
+        for(int i = 2; i <= m; i++){
+            trans = PPT2(trans);
+        }
+
+        return trans;
+    }
+
+    /**
+     * Compute the second order PPT.  This is used to
+     * compute the PPT of higher orders.
+     * @param y
+     * @return
+     */
+    protected Complex[] PPT2(Complex[] y){
+        Complex[] trans = new Complex[y.length];
+        int t = (int)Math.round(tau);
+
+        //System.out.print("t = " + t);
+
+        for(int i = 0; i < trans.length; i++){
+            if(i - t >= 0)
+                trans[i] = y[i].times(y[i-t].conjugate());
+            else
+                trans[i] = new Complex(0,0);
         }
 
         return trans;
