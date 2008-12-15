@@ -66,7 +66,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator{
 
     /**
      * Compute the polynomial phase transform of order m of z
-     * with lag tor.
+     * with lag tau.
      */
     protected Complex[] PPT(int m, Complex[] y){
         Complex[] trans = y;
