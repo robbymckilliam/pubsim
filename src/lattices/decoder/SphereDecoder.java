@@ -25,8 +25,8 @@ public class SphereDecoder extends Babai
     
     protected double[] xr;
     
-    //1 + small number to avoid numerical errors in branches.
-    protected double DELTA = 1.00001;
+    //small number to avoid numerical errors in branches.
+    protected double DELTA = 0.000001;
     
     @Override
     public void setLattice(Lattice L) {
@@ -64,9 +64,9 @@ public class SphereDecoder extends Babai
         VectorFunctions.matrixMultVector(R, uh, xr);
         
         //compute the radius squared of the sphere we are decoding in.
-        //Multiply by DELTA to avoid numerical error causing the 
+        //Add DELTA to avoid numerical error causing the
         //Babai point to be rejected.
-        D = VectorFunctions.distance_between2(yr, xr) * DELTA;
+        D = VectorFunctions.distance_between2(yr, xr) + DELTA;
         
         //current element being decoded
         int k = n-1;
