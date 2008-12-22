@@ -152,6 +152,18 @@ public class VectorFunctions {
     }
 
     /**
+     * Return the sum of a vector
+     */
+    public static Complex sum(Complex[] x) {
+        double outr = 0.0, outi = 0.0;
+        for (int i = 0; i < x.length; i++) {
+            outr += x[i].re();
+            outi += x[i].im();
+        }
+        return new Complex(outr, outi);
+    }
+
+    /**
      * Return the vector with each element rounded to
      * the nearest integer.
      * Pre: x.length = y.length

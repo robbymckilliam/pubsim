@@ -5,7 +5,7 @@
 
 package simulator.poly;
 
-import javax.vecmath.Vector2d;
+import distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,45 +40,30 @@ public class DPTEstimatorTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of estimate method, of class DPTEstimator.
-     */
-    @Test
-    public void testEstimate() {
-        System.out.println("estimate");
-        double[] real = null;
-        double[] imag = null;
-        DPTEstimator instance = null;
-        double[] expResult = null;
-        double[] result = instance.estimate(real, imag);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of PPT method, of class DPTEstimator.
      */
-    @Test
-    public void PPTHasFirstMElementsZero() {
-        int m = 4;
-        int n = 10;
-        Complex[] y = VectorFunctions.randomComplex(n);
-        DPTEstimator instance = new DPTEstimator(m);
-        instance.setSize(n);
-        Complex[] result = instance.PPT(m, y);
-        //System.out.print(VectorFunctions.print(result));
-        for(int i = 0; i <= 2; i++){
-            assertTrue(result[i].re() == 0.0);
-            assertTrue(result[i].im() == 0.0);
-        }
-    }
+//    @Test
+//    public void PPTHasFirstMElementsZero() {
+//        int m = 4;
+//        int n = 10;
+//        Complex[] y = VectorFunctions.randomComplex(n);
+//        DPTEstimator instance = new DPTEstimator(m);
+//        instance.setSize(n);
+//        Complex[] result = instance.PPT(m, y);
+//        //System.out.print(VectorFunctions.print(result));
+//        for(int i = 0; i <= 2; i++){
+//            assertTrue(result[i].re() == 0.0);
+//            assertTrue(result[i].im() == 0.0);
+//        }
+//    }
 
     /**
      * Test of PPT2 method, of class DPTEstimator.
      */
     @Test
-    public void PPT2HasFirstElementZeroAndLastElementCorrect() {
+    public void PPT2HasLastElementCorrect() {
         System.out.println("PPT2");
         int m = 3;
         int n = 10;
@@ -86,16 +71,75 @@ public class DPTEstimatorTest {
         DPTEstimator instance = new DPTEstimator(m);
         instance.setSize(n);
         Complex[] result = instance.PPT2(y);
-        //System.out.print(VectorFunctions.print(result));
+        System.out.print(VectorFunctions.print(result));
 
         //test first element is zero
-        assertTrue(result[0].re() == 0.0);
-        assertTrue(result[0].im() == 0.0);
+        //assertTrue(result[0].re() == 0.0);
+        //assertTrue(result[0].im() == 0.0);
 
         //test last element
-        Complex last = y[n-1].times(y[n - 1 - (int)Math.round((double)n)/m].conjugate());
-        assertTrue(result[n-1].im() == last.im());
-        assertTrue(result[n-1].re() == last.re());
+        Complex last = y[n-1].times(y[n - 1 - (int)Math.round(0.2*n)].conjugate());
+        assertTrue(result[result.length-1].im() == last.im());
+        assertTrue(result[result.length-1].re() == last.re());
     }
+
+    /**
+     * Test of estimate method, of class DPTEstimator.
+     */
+    @Test
+    public void testHighestOrderParameter() {
+        System.out.println("testHighestOrderParameter");
+        
+        int n = 60;
+        double[] params = {0.3, 0.1, 0.02};
+        int a = params.length;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
+        siggen.setLength(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.0001));
+
+        siggen.generateReceivedSignal();
+
+        DPTEstimator inst = new DPTEstimator(params.length);
+        inst.setSize(n);
+
+        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
+
+        System.out.println(p[a-1]);
+
+        assertTrue(Math.abs(p[a-1] - params[a-1]) < 0.0001);
+
+    }
+
+        /**
+     * Test of estimate method, of class DPTEstimator.
+     */
+    @Test
+    public void testEstimate() {
+        System.out.println("testEstimate");
+
+        int n = 24;
+        double[] params = {0.11, 0.05002, 0.0205, 0.0001};
+        int a = params.length;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
+        siggen.setLength(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.0001));
+
+        siggen.generateReceivedSignal();
+
+        DPTEstimator inst = new DPTEstimator(params.length);
+        inst.setSize(n);
+
+        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
+
+        System.out.println(VectorFunctions.print(p));
+
+        assertTrue(VectorFunctions.distance_between(p, params) < 0.001);
+
+    }
+
 
 }
