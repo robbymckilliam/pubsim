@@ -20,6 +20,14 @@ public class Util {
         if(t < 0) t+=y;
         return t;
     }
+
+    /**
+     * Returns the centered fractional part of x.
+     * i.e. x - round(x);
+     */
+    public static double centeredFracPart(double x){
+        return x - Math.round(x);
+    }
     
     /** The desired accuracy of the erf function */
     public static double ERF_TOLERANCE = 0.0000001;

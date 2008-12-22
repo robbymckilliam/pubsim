@@ -40,49 +40,20 @@ public class KitchenEstimatorTest {
     }
 
     /**
-     * Test of setSize method, of class KitchenEstimator.
-     */
-    @Test
-    public void testSetSize() {
-        System.out.println("setSize");
-        int n = 0;
-        KitchenEstimator instance = null;
-        instance.setSize(n);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of estimate method, of class KitchenEstimator.
      */
     @Test
     public void testEstimate() {
-        System.out.println("estimate");
-        double[] real = null;
-        double[] imag = null;
-        KitchenEstimator instance = null;
-        double[] expResult = null;
-        double[] result = instance.estimate(real, imag);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of estimateM method, of class KitchenEstimator.
-     */
-    @Test
-    public void testHighestOrderParameter() {
-        System.out.println("testHighestOrderParameter");
+        System.out.println("testEstimate");
 
         int n = 20;
-        double[] params = {0.1, 0.1};
+        double[] params = {0.1, 0.2, 0.05};
         int a = params.length;
 
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
         siggen.setLength(n);
         siggen.setParameters(params);
-        siggen.setNoiseGenerator(new GaussianNoise(0, 0.001));
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.000001));
 
         siggen.generateReceivedSignal();
 
@@ -93,25 +64,36 @@ public class KitchenEstimatorTest {
 
         System.out.println(VectorFunctions.print(p));
 
-        assertTrue(Math.abs(p[a-1] - params[a-1])< 0.00001);
-
+        assertTrue(VectorFunctions.distance_between(p, params) < 0.001);
     }
 
     /**
-     * Test of error method, of class KitchenEstimator.
+     * Test of estimateM method, of class KitchenEstimator.
      */
     @Test
-    public void testError() {
-        System.out.println("error");
-        double[] real = null;
-        double[] imag = null;
-        double[] truth = null;
-        KitchenEstimator instance = null;
-        double[] expResult = null;
-        double[] result = instance.error(real, imag, truth);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testHighestOrderParameter() {
+        System.out.println("testHighestOrderParameter");
+
+        int n = 20;
+        double[] params = {0.1, 0.2, 0.05};
+        int a = params.length;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
+        siggen.setLength(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.000001));
+
+        siggen.generateReceivedSignal();
+
+        KitchenEstimator inst = new KitchenEstimator(a);
+        inst.setSize(n);
+
+        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
+
+        System.out.println(VectorFunctions.print(p));
+
+        assertTrue(Math.abs(p[a-1] - params[a-1])< 0.0001);
+
     }
 
 }

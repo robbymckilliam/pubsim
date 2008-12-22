@@ -240,6 +240,30 @@ public class VectorFunctions {
     }
 
     /**
+     * Compute the mth difference of a vector.
+     * i.e. the mth psuedoderivative.
+     */
+    public static double[] mthDifference(double[] y, int m){
+        double[] d = y;
+        for(int i = 1; i<=m; i++){
+            d = firstDifference(d);
+        }
+        return d;
+    }
+
+    /**
+     * Compute the first difference of a vector.
+     * i.e. psuedoderivative.
+     */
+    public static double[] firstDifference(double[] y){
+        double[] d = new double[y.length - 1];
+        for(int i = 0; i < d.length; i++){
+            d[i] = y[i+1] - y[i];
+        }
+        return d;
+    }
+
+    /**
      * Return the squared sum of a vector
      */
     public static double sum2(double[] x) {

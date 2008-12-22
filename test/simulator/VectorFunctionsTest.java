@@ -73,6 +73,36 @@ public class VectorFunctionsTest extends TestCase {
     }
 
     /**
+     * Test of distance_between method, of class simulator.VectorFunctions.
+     */
+    public void testFirstDifference() {
+        System.out.println("testFirstDifference");
+
+        double[] x = {0, 1, 3};
+
+        double[] expResult = {1, 2};
+        double[] result = VectorFunctions.firstDifference(x);
+        assertTrue(VectorFunctions.distance_between(result, expResult) < 0.00000001);
+
+    }
+
+    /**
+     * Test of distance_between method, of class simulator.VectorFunctions.
+     */
+    public void testmthDifference() {
+        System.out.println("testmthDifference");
+
+        //test the second difference
+        double[] x = {0, 1, 3, 2};
+        //double[] expResult = {1, 2, -1};
+        double[] expResult = {1, -3};
+        
+        double[] result = VectorFunctions.mthDifference(x, 2);
+        assertTrue(VectorFunctions.distance_between(result, expResult) < 0.00000001);
+
+    }
+
+    /**
      * Test of angle_between method, of class simulator.VectorFunctions.
      */
     public void testAngle_between() {
