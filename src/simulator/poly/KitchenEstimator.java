@@ -22,10 +22,12 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
     protected double[] y, p;
     protected int a, N;
 
-    public KitchenEstimator(int a){
-        this.a = a;
-    }
+    protected AmbiguityRemover ambiguityRemover;
 
+    public KitchenEstimator(int a) {
+        this.a = a;
+        ambiguityRemover = new AmbiguityRemover(a);
+    }
 
     public void setSize(int n) {
         this.N = n;
@@ -48,7 +50,7 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
             }
         }
         
-        return p;
+        return ambiguityRemover.disambiguate(p);
     }
 
     /** Estimate the Mth order parameter */
@@ -56,8 +58,8 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
 
         double[] d = VectorFunctions.mthDifference(y, M);
 
-        System.out.println("y = " + VectorFunctions.print(y));
-        System.out.println("d = " + VectorFunctions.print(d));
+        //System.out.println("y = " + VectorFunctions.print(y));
+        //System.out.println("d = " + VectorFunctions.print(d));
 
         //compute the denominator
         double dprod = 1.0;
@@ -67,7 +69,7 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
         double Mfac = Util.factorial(M);
         double fprod = Util.factorial(2*M + 1)/( Mfac*Mfac*dprod );
 
-        System.out.println("fprod = " + 1/fprod);
+        //System.out.println("fprod = " + 1/fprod);
 
         double aM = 0.0;
         for(int j = 0; j < d.length; j++){
@@ -76,21 +78,31 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
             for(int i = 1; i <= M; i++)
                 prod *= (j + i)*(d.length - j - 1 + i);
 
-            System.out.println(prod);
+            //System.out.println(prod);
 
             aM += Util.centeredFracPart(d[j])*prod;
 
         }
 
-        System.out.println();
-        System.out.println("aM = " + aM);
+        //System.out.println();
+        //System.out.println("aM = " + aM);
 
         return fprod * aM / Mfac;
     }
 
 
     public double[] error(double[] real, double[] imag, double[] truth) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        double[] est = estimate(real, imag);
+        double[] err = new double[est.length];
+
+        for (int i = 0; i < err.length; i++) {
+            err[i] = est[i] - truth[i];
+        }
+        err = ambiguityRemover.disambiguate(err);
+        for (int i = 0; i < err.length; i++) {
+            err[i] = err[i]*err[i];
+        }
+        return err;
     }
 
 }
