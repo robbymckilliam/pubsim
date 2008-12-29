@@ -42,11 +42,11 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         num_samples = 4 * n;
 
         //set the tau parameter for the PPT
-        //tau = ((double) n) / (a-1);
-        //if (a >= 4) {
-        //    tau = ((double) n) / (a + 1);
-        // }
-        tau = Math.round(0.2 * n);
+        tau = Math.round(((double) n) / (a-1));
+        if (a > 4) {
+            tau = Math.round(((double) n) / (a + 1));
+         }
+       // tau = Math.round(0.2 * n);
 
     }
 

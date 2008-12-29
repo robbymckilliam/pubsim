@@ -5,6 +5,7 @@
 
 package simulator.poly;
 
+import java.util.Random;
 import simulator.NoiseGenerator;
 import simulator.SignalGenerator;
 import simulator.VectorFunctions;
@@ -72,16 +73,32 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     public void setParameters(double[] p){
         this.params = p;
     }
+
+    RandomParameterGenerator pgen = new RandomParameterGenerator(0);
+    /**
+     * Generates parameters of a polynomial phase signal of order a
+     * that are uniformly distributed in the identifiable range.  See:
+     * R. G. McKilliam, I. V. L. Clarkson, "Identifiability and aliasing
+     * of polynomial phase signals", working paper.
+     */
+    public void generateRandomParameters(int a){
+        if(pgen.getOrder() != a)
+            pgen = new RandomParameterGenerator(a);
+        this.params = pgen.generateParameters();
+    }
+
+    public double[] getParameters(){
+        return params;
+    }
     
     /** Chirp signal have a number of abiguities.  This calcuates
      * the mse for each parameter after removing ambiguities.
-     * 
-     * ONLY WORK FOR QUADRATIC CHIRP AT THE MOMENT!
-     * 
+     * This only works for linear Chirp, use AmbiguityRemover
+     * for the general case.
      * @param t is the true parameter values
      * @param e is the estimated values
      * @return MSE between t and e for each parameter in an array
-     * @deprecated
+     * @deprecated Use AmbiguityRemover instead
      */
     public static double[] disambiguateMSE(double[] t, double[] e){
         double[] p = new double[t.length];
@@ -107,6 +124,31 @@ public class PolynomialPhaseSignal implements SignalGenerator{
         }
         
         return MSE;
+    }
+
+    public static class RandomParameterGenerator{
+        protected AmbiguityRemover ambr;
+        protected int a;
+        protected double[] p;
+        protected Random rand;
+
+        public RandomParameterGenerator(int a){
+            this.a = a;
+            ambr = new AmbiguityRemover(a);
+            p = new double[a];
+            rand = new Random();
+        }
+
+        public int getOrder() { return a; }
+
+        public double[] generateParameters(){
+            for(int i = 0; i < a; i++)
+                p[i] = rand.nextDouble();
+
+            return ambr.disambiguate(p);
+        }
+
+
     }
 
 }

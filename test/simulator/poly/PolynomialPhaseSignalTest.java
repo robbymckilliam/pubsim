@@ -25,7 +25,7 @@ public class PolynomialPhaseSignalTest extends TestCase {
     public void testGenerateReceivedSignal() {
         System.out.println("generateReceivedSignal");
         
-        int n = 5;
+        int n = 4;
         double[] params = {1, 0.1, 0.2};
         
         PolynomialPhaseSignal instance = new PolynomialPhaseSignal();
@@ -34,8 +34,8 @@ public class PolynomialPhaseSignalTest extends TestCase {
         instance.setNoiseGenerator(new GaussianNoise(0, 0.0));
         
         //these are taken from matlab
-        double[] expreal = {1.0000, -0.3090, 1.0000, 0.8090, -0.8090};
-        double[] expimag = {-0.0000, 0.9511, -0.0000, 0.5878, -0.5878};
+        double[] expreal = {-0.3090, 1.0000, 0.8090, -0.8090};
+        double[] expimag = {0.9511, -0.0000, 0.5878, -0.5878};
         
         instance.generateReceivedSignal();
         
@@ -45,6 +45,21 @@ public class PolynomialPhaseSignalTest extends TestCase {
         assertEquals(VectorFunctions.distance_between(expreal, instance.getReal())<0.001, true);
         assertEquals(VectorFunctions.distance_between(expimag, instance.getImag())<0.001, true);
         
+    }
+
+        /**
+     * Test of generateReceivedSignal method, of class PolynomialPhaseSignal.
+     */
+    public void testGenerateRandomParameters() {
+        System.out.println("testGenerateRandomParameters");
+        int a = 2;
+        PolynomialPhaseSignal.RandomParameterGenerator pgen
+                = new PolynomialPhaseSignal.RandomParameterGenerator(a);
+
+        double[] p = pgen.generateParameters();
+
+        System.out.println(VectorFunctions.print(p));
+
     }
 
 }

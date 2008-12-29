@@ -5,7 +5,6 @@
 package simulator.poly;
 
 import Jama.Matrix;
-import javax.vecmath.Vector2d;
 import lattices.GeneralLattice;
 import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
