@@ -99,4 +99,10 @@ public class AmbiguityRemover {
         }
         return this.p;
     }
+
+    /** Return the volume of the identifiable region */
+    public double getRegionVolume(){
+        Matrix Mt = M.transpose();
+        return Math.sqrt(Mt.times(M).det());
+    }
 }

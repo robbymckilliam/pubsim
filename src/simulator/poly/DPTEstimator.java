@@ -227,4 +227,19 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         }
         return err;
     }
+
+    /**
+     * Returns the volume of the functional regions of
+     * the DPT estimator.  This is just for comparison
+     * with the identifiable region.
+     * @return volume of functional region
+     */
+    public static double volumeOfFunctionalRegion(double tau, int a){
+        int m = a-1;
+        double prod = 1.0;
+        for(int k = 2; k <= m; k++){
+            prod *= 1.0/( Util.factorial(k) * Math.pow(tau, k-1) );
+        }
+        return prod;
+    }
 }
