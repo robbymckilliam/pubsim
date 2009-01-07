@@ -17,7 +17,7 @@ import simulator.Util;
  * idea suggested by Warren.
  * @author Robby McKilliam
  */
-public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterface{
+public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterface {
 
     private IndexedDoubleList[] buckets;
     private ListElem[] bes;
