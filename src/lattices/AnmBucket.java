@@ -19,9 +19,9 @@ import simulator.Util;
  */
 public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterface {
 
-    private IndexedDoubleList[] buckets;
-    private ListElem[] bes;
-    private double[] z;
+    protected IndexedDoubleList[] buckets;
+    protected ListElem[] bes;
+    protected double[] z;
     
     protected int numBuckets;
     
