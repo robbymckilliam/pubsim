@@ -102,9 +102,11 @@ public class AnmLinear extends AnmBucket {
             int g = M - Util.mod(k, M);
             int p = buckets[i].size() - Util.mod(buckets[i].size() + k, M);
 
+            System.out.println("g = " + g + ", p = " + p);
+
             if(g >= 0 && g <= R)
                 FastSelection.FloydRivestSelect(L, R, g, w);
-            if(p >= 0 && p <= R)
+            if(p > g && p <= R)
                 FastSelection.FloydRivestSelect(L+g+1, R, p, w);
 
             //
@@ -117,7 +119,7 @@ public class AnmLinear extends AnmBucket {
                     }
                 }
                 a -= 1;
-                b += -2*w[t + L].value + 1;
+                b += 2*w[t + L].value + 1;
                 k++;
             }
 
@@ -129,13 +131,18 @@ public class AnmLinear extends AnmBucket {
         for(int i = 0; i < n + 1; i++)
             u[i] = Math.round(y[i]);
 
+        System.out.println("m = " + m);
+
         //add all the buckets before the best on
         for(int t = 0; t < m; t++){
+            System.out.print(w[t].index + ", ");
             u[w[t].index]++;
         }
 
         //project index to nearest lattice point
         AnstarVaughan.project(u, v);
+
+        System.out.println();
 
     }
     

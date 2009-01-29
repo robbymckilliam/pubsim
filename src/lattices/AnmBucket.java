@@ -97,6 +97,9 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             
             //calculate the polynomial approximation
             //double p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
+
+            System.out.print("g = " + j);
+
             
             //test the first modularly admissible point in the
             //bucket if it can be better than the current best point
@@ -127,6 +130,8 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             //j = M*(int)Math.floor(((double)k + buckets[i].size())/M) - k;
             j = buckets[i].size() - Util.mod(buckets[i].size() + k, M);
             //if(j > buckets[i].size()) j-=M;
+
+            System.out.println(", p = " + j);
             
             //calculate the polynomial approximation
            // p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
@@ -174,17 +179,24 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
         //add all the buckets before the best on
         for(int i = 0; i < bestbucket; i++){
             IndexedDoubleListIterator itr = buckets[i].iterator();
-            while(itr.hasNext())
-                u[itr.next().index]++;
+            while(itr.hasNext()){
+                int ind = ((IndexedDouble)itr.next()).index;
+                System.out.print(ind + ", ");
+                u[ind]++;
+            }
         }
         
         //fast select the best element of the best bucket and add the
         //previous elements
         fselect.select(m, buckets[bestbucket]);
         Iterator itr = fselect.smallest().iterator();
-        while(itr.hasNext())
-            u[((IndexedDouble)itr.next()).index]++;
-        
+        while(itr.hasNext()){
+            int ind = ((IndexedDouble)itr.next()).index;
+            System.out.print(ind + ", ");
+            u[ind]++;
+        }
+
+
         //project index to nearest lattice point
         AnstarVaughan.project(u, v);
         
