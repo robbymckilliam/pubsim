@@ -46,9 +46,9 @@ public class AnmLinearTest {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
 
-        int numTrials = 2;
-        int n = 9;
-        int M = n/3;
+        int numTrials = 100;
+        int n = 100;
+        int M = n/4;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;

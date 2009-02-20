@@ -98,7 +98,8 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             //calculate the polynomial approximation
             //double p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
 
-            System.out.print("g = " + j);
+            //System.out.println("bucketsize = " + buckets[i].size());
+            //System.out.println("g = " + j);
 
             
             //test the first modularly admissible point in the
@@ -117,6 +118,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
                         bd += -2*z[ind] + 1;   
                     }
                     double dist = bd - ad*ad/(n+1);
+                    //System.out.println("dist = " + dist);
                     if(dist < D){
                         D = dist;
                         m = j;
@@ -131,7 +133,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             j = buckets[i].size() - Util.mod(buckets[i].size() + k, M);
             //if(j > buckets[i].size()) j-=M;
 
-            System.out.println(", p = " + j);
+            //System.out.println(", p = " + j);
             
             //calculate the polynomial approximation
            // p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
@@ -152,6 +154,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
                         bd += -2*z[ind] + 1;   
                     }
                     double dist = bd - ad*ad/(n+1);
+                    //System.out.println("dist = " + dist);
                     if(dist < D){
                         D = dist;
                         m = j;
@@ -181,7 +184,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
             IndexedDoubleListIterator itr = buckets[i].iterator();
             while(itr.hasNext()){
                 int ind = ((IndexedDouble)itr.next()).index;
-                System.out.print(ind + ", ");
+                //System.out.print(ind + ", ");
                 u[ind]++;
             }
         }
@@ -192,7 +195,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithmInterfa
         Iterator itr = fselect.smallest().iterator();
         while(itr.hasNext()){
             int ind = ((IndexedDouble)itr.next()).index;
-            System.out.print(ind + ", ");
+            //System.out.print(ind + ", ");
             u[ind]++;
         }
 

@@ -38,7 +38,7 @@ public class AnmBucketTest extends TestCase {
         
         int numTrials = 100;
         int n = 100;
-        int M = 25;
+        int M = 20;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;
