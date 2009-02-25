@@ -37,7 +37,7 @@ public class PeriodogramEstimator implements FrequencyEstimator{
         this.n = n;
     }
     
-    static double calculatePeriodogram(double[] real, double[] imag, double f) {
+    public static double calculatePeriodogram(double[] real, double[] imag, double f) {
         double sumur = 0, sumui = 0;
         for (int i = 0; i < real.length; i++) {
             double cosf =  Math.cos(-2 * Math.PI * f * i);
