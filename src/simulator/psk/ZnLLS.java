@@ -1,5 +1,5 @@
 /*
- * ZnLLS.java
+ * ZnLLSOld.java
  */
 
 package simulator.psk;
@@ -7,7 +7,7 @@ package simulator.psk;
 import simulator.VectorFunctions;
 import simulator.psk.decoder.Util;
 import lattices.Phin2Star;
-import lattices.Phin2StarZnLLS;
+import lattices.Phin2StarZnLLSOld;
 
 /**
  *
@@ -24,12 +24,12 @@ public class ZnLLS implements CarrierEstimator{
     protected double phase, frequency;
     
     protected Phin2Star lattice;
-    protected simulator.fes.ZnLLS fes;
+    protected simulator.fes.ZnLLSOld fes;
     
     public ZnLLS(){
         // Force fmin and fmax for the lattice -- this needs refactoring.
-        lattice = new Phin2StarZnLLS(-0.5, 0.5);
-        fes = new simulator.fes.ZnLLS();
+        lattice = new Phin2StarZnLLSOld(-0.5, 0.5);
+        fes = new simulator.fes.ZnLLSOld();
     }
     
     /** Return the estimated phase */

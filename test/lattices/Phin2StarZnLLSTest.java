@@ -25,15 +25,10 @@ public class Phin2StarZnLLSTest extends TestCase {
      * Test of setDimension method, of class simulator.PhinStar2.
      */
     public void testSetDimension() {
-        System.out.println("setDimension");
-        
-        int n = 0;
-        Phin2StarZnLLS instance = new Phin2StarZnLLS();
-        
-        instance.setDimension(n);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        System.out.println("setDimension");        
+        int n = 5;
+        Phin2StarZnLLS instance = new Phin2StarZnLLS();        
+        instance.setDimension(5);
     }
 
     /**
@@ -42,13 +37,11 @@ public class Phin2StarZnLLSTest extends TestCase {
     public void testNearestPoint() {
         
         System.out.println("nearestPoint");
-        int n = 21;
+        int n = 34;
         Random rand = new Random();
         
         double[] y = new double[n];
         double[] QgQ1y = new double[n];
-        double[] znlls_proj_u = new double[n];
-        double[] glued_proj_u = new double[n];
         Phin2StarZnLLS znlls = new Phin2StarZnLLS();
         Phin2StarGlued glued = new Phin2StarGlued();
         
@@ -57,34 +50,22 @@ public class Phin2StarZnLLSTest extends TestCase {
         
         for(int i = 0; i < 100; i++){
             for(int j=0; j<n; j++)
-                y[j] = 10 * rand.nextGaussian();
+                y[j] = 100 * rand.nextGaussian();
         
             Phin2StarZnLLS.project(y,QgQ1y);
             
             znlls.nearestPoint(QgQ1y);
             glued.nearestPoint(QgQ1y);
             
-            Phin2StarZnLLS.project(znlls.getIndex(), znlls_proj_u);
-            Phin2StarZnLLS.project(glued.getIndex(), glued_proj_u);
+            double diff = VectorFunctions.distance_between(znlls.getLatticePoint(), glued.getLatticePoint());
+
+            //System.out.println(diff);
             
-            //double diff = VectorFunctions.distance_between(znlls.getLatticePoint(), glued.getLatticePoint());
-            double diff = VectorFunctions.distance_between(znlls_proj_u, glued_proj_u);
-            
-            assertEquals(diff < 0.0001, true);
+            assertEquals(diff < 0.000001, true);
             
             
         }
         
-        /*
-        System.out.println("nearestPoint");
-        
-        double[] y = null;
-        Phin2StarZnLLS instance = new Phin2StarZnLLS();
-        
-        instance.nearestPoint(y);
-        */
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
     
 }

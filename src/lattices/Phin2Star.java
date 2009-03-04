@@ -47,18 +47,8 @@ public abstract class Phin2Star extends NearestPointAlgorithm{
     
     /** {@inheritDoc} */
     @Override
-    public double volume(){ return 0;}
-    
-    /** 
-     * Return the magnitude squared of the vector g with n elements.
-     * See Chapter 6 of Robby's confirmation report.
-     */
-    public static double sumg2(int n){
-        double f = Math.floor(n/2.0);
-        double sum = f*(f + 1)*(2*f + 1)/3.0;
-        if(n%2 == 0)
-            sum += n/4.0 - f*(f+1);
-        return sum;
+    public double volume(){ 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public double inradius() {
@@ -89,6 +79,31 @@ public abstract class Phin2Star extends NearestPointAlgorithm{
             }
         }      
         return M;
+    }
+
+    /** 
+     * Return the vector g = Qn which is used
+     * regularly for this lattice
+     * @param n is g.length
+     * @return g
+     */
+    public static double[] getgVector(int n){
+        double[] g = new double[n];
+        for(int i = 0; i < n; i++)
+            g[i] = (i+1.0-(n+1.0)/2.0);
+        return g;
+    }
+
+    /**
+     * Return the magnitude squared of the vector g
+     * See Chapter 6 of Robby's confirmation report.
+     */
+    public static double sumg2(int n){
+        double f = Math.floor(n/2.0);
+        double sum = f*(f + 1)*(2*f + 1)/3.0;
+        if(n%2 == 0)
+            sum += n/4.0 - f*(f+1);
+        return sum;
     }
     
 

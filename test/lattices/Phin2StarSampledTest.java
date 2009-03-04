@@ -38,7 +38,7 @@ public class Phin2StarSampledTest extends TestCase {
             for(int j=0; j<n; j++)
                 y[j] = 10 * rand.nextGaussian();
             
-            Phin2StarZnLLS.project(y,y);
+            Phin2StarZnLLSOld.project(y,y);
             
             instance.nearestPoint(y);
             tester.nearestPoint(y);
