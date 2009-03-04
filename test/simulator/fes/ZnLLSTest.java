@@ -27,7 +27,7 @@ public class ZnLLSTest extends TestCase {
         double f = 0.14;
         double p = -0.2;
         int n = 20;
-        ZnLLSOld instance = new ZnLLSOld();
+        ZnLLS instance = new ZnLLS();
         
         for (int i = 0; i < iters/2; i++) {
             NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
@@ -92,7 +92,7 @@ public class ZnLLSTest extends TestCase {
         
         double p = -0.2;
         int n = 20;
-        ZnLLSOld instance = new ZnLLSOld();
+        ZnLLS instance = new ZnLLS();
         
         for (int i = -49; i < 50; i++) {
             NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
@@ -144,7 +144,7 @@ public class ZnLLSTest extends TestCase {
         double f = 0.14;
         double p = -0.2;
         int n = 20;
-        ZnLLSOld instance = new ZnLLSOld();
+        ZnLLS instance = new ZnLLS();
         
         for (int i = 0; i < iters/2; i++) {
             NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
