@@ -56,36 +56,6 @@ public class Hamersley implements BoundCalculator {
         return dets/intg.gaussQuad(1000);
     }
     
-    /** Returns the value of the PDF of the pahse noise */
-    protected static double Pdf(double x, double v){
-            double pi = Math.PI;
-            double cx = Math.cos(2*pi*x);
-            double sx = Math.sin(2*pi*x);
-            
-            double p1 = v*cx;
-            double p2 = Math.exp( -v*v/2 * sx*sx);
-            double p3 = Math.sqrt(pi/2) * ( 1.0 + Util.erf( v/Math.sqrt(2)*cx ) );
-
-            return Math.exp(-v*v/2) + p1*p2*p3;
-    }
-    
-    /** Returns the derivative of the PDF of the pahse noise */
-    protected static double dPdf(double x, double v){
-            double pi = Math.PI;
-            double cx = Math.cos(2*pi*x);
-            double sx = Math.sin(2*pi*x);
-            
-            double p1 = v*cx;
-            double p2 = Math.exp( -v*v/2 * sx*sx);
-            double p3 = Math.sqrt(pi/2) * ( 1.0 + Util.erf( v/Math.sqrt(2)*cx ) );
-            
-            double dp1 = -v*2*pi*sx;
-            double dp2 = -2*pi*v*v * cx * sx * Math.exp(-v*v/2 * sx*sx);
-            double dp3 = -v*2* pi * sx * Math.exp(-v*v/2 * cx*cx);
-
-            return dp1*p2*p3 + p1*dp2*p3 + p1*p2*dp3;
-    }
-    
     
     protected class dPOverP implements IntegralFunction {
         
@@ -97,8 +67,8 @@ public class Hamersley implements BoundCalculator {
 
         public double function(double x) {
             
-            double fd = dPdf(x, v);
-            double f = Pdf(x, v);
+            double fd = distributions.circular.ProjectedNormalDistribution.dPdf(x, v);
+            double f = distributions.circular.ProjectedNormalDistribution.Pdf(x, v);
 
             return fd*fd/f;
             

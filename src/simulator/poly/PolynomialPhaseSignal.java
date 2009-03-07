@@ -6,7 +6,7 @@
 package simulator.poly;
 
 import java.util.Random;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import simulator.SignalGenerator;
 import simulator.VectorFunctions;
 

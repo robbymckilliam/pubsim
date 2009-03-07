@@ -10,7 +10,7 @@ package simulator.fes;
 import junit.framework.*;
 import simulator.SignalGenerator;
 import distributions.UniformNoise;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import java.util.Random;
 
 /**

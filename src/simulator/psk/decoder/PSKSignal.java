@@ -7,7 +7,7 @@ package simulator.psk.decoder;
 
 import java.util.Random;
 import simulator.Complex;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import simulator.SignalGenerator;
 
 /**

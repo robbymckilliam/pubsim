@@ -6,7 +6,7 @@
 package simulator.psk.decoder;
 
 import junit.framework.TestCase;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import simulator.VectorFunctions;
 
 /**

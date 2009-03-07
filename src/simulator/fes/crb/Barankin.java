@@ -128,9 +128,9 @@ public class Barankin extends Hamersley implements BoundCalculator {
         @Override
          public double function(double x) {
             
-            double fd = dPdf(x, v);
-            double ft = Pdf(x - t, v);
-            double f = Pdf(x, v);
+            double fd = distributions.circular.ProjectedNormalDistribution.dPdf(x, v);
+            double ft = distributions.circular.ProjectedNormalDistribution.Pdf(x - t, v);
+            double f = distributions.circular.ProjectedNormalDistribution.Pdf(x, v);
             
             return fd*ft/f;
             //return fd*ft;
@@ -151,9 +151,9 @@ public class Barankin extends Hamersley implements BoundCalculator {
         @Override
          public double function(double x) {
             
-            double ft1 = Pdf(x - t1, v);
-            double ft2 = Pdf(x - t2, v);
-            double f = Pdf(x, v);
+            double ft1 = distributions.circular.ProjectedNormalDistribution.Pdf(x - t1, v);
+            double ft2 = distributions.circular.ProjectedNormalDistribution.Pdf(x - t2, v);
+            double f = distributions.circular.ProjectedNormalDistribution.Pdf(x, v);
             
             return ft1*ft2/f;
             //return ft1*ft2;

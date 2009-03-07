@@ -6,6 +6,7 @@
 
 package simulator;
 
+import distributions.NoiseGenerator;
 import java.util.Random;
 
 /**

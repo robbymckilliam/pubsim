@@ -10,7 +10,7 @@ package simulator.qam;
 import junit.framework.*;
 import simulator.SignalGenerator;
 import distributions.GaussianNoise;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import java.util.Random;
 import simulator.VectorFunctions;
 

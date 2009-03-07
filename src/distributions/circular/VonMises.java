@@ -6,7 +6,7 @@
 package distributions.circular;
 
 import java.util.Random;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 
 /**
  * von Mises distribution of

@@ -6,6 +6,8 @@
 
 package simulator;
 
+import distributions.NoiseGenerator;
+
 /**
  * Generates a vector of iid noise
  * @author Robby McKilliam

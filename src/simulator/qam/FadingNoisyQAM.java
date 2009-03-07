@@ -7,7 +7,7 @@
 package simulator.qam;
 
 import simulator.SignalGenerator;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import java.util.Random;
 
 /**

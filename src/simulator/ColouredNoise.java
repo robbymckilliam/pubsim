@@ -6,6 +6,8 @@
 
 package simulator;
 
+import distributions.NoiseGenerator;
+
 /**
  * Creates a coloured noise sequence.  Use setCorrelationMatrix to
  * set the correlation matrix.  The matrix is just a double[][].

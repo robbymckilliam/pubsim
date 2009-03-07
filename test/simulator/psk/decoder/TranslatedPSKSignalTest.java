@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import simulator.Complex;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import simulator.VectorFunctions;
 
 /**

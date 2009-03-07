@@ -6,6 +6,8 @@
 
 package simulator;
 
+import distributions.NoiseGenerator;
+
 /**
  * Interface for the generation recieved signals
  * @author Robby McKillam

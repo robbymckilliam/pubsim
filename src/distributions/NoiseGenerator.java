@@ -4,7 +4,7 @@
  * Created on 13 April 2007, 15:08
  */
 
-package simulator;
+package distributions;
 
 /**
  * Interface for the generation of noise with

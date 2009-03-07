@@ -91,8 +91,8 @@ public class Weinstein extends Barankin implements BoundCalculator{
         @Override
          public double function(double x) {
             
-            double ft1 = Math.sqrt(Pdf(x + t1, v));
-            double ft2 = Math.sqrt(Pdf(x + t2, v));
+            double ft1 = Math.sqrt(distributions.circular.ProjectedNormalDistribution.Pdf(x + t1, v));
+            double ft2 = Math.sqrt(distributions.circular.ProjectedNormalDistribution.Pdf(x + t2, v));
             
             return ft1*ft2;
             
@@ -111,9 +111,10 @@ public class Weinstein extends Barankin implements BoundCalculator{
         @Override
          public double function(double x) {
             
-            double fd = dPdf(x, v);
-            double ft = Math.sqrt(Pdf(x + t, v)) - Math.sqrt(Pdf(x - t, v));
-            double f = Math.sqrt(Pdf(x, v));
+            double fd = distributions.circular.ProjectedNormalDistribution.dPdf(x, v);
+            double ft = Math.sqrt(distributions.circular.ProjectedNormalDistribution.Pdf(x + t, v))
+                    - Math.sqrt(distributions.circular.ProjectedNormalDistribution.Pdf(x - t, v));
+            double f = Math.sqrt(distributions.circular.ProjectedNormalDistribution.Pdf(x, v));
             
             return fd*ft/f;
             

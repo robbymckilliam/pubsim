@@ -8,7 +8,7 @@ package simulator.psk;
 
 import java.util.LinkedList;
 import java.util.Random;
-import simulator.NoiseGenerator;
+import distributions.NoiseGenerator;
 import simulator.SignalGenerator;
 
 /**

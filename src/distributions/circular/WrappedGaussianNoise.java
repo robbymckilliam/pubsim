@@ -6,6 +6,7 @@
 
 package distributions.circular;
 
+import distributions.NoiseGenerator;
 import simulator.*;
 import distributions.GaussianNoise;
 
