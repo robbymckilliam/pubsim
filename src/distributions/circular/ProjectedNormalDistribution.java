@@ -119,9 +119,9 @@ public class ProjectedNormalDistribution implements NoiseGenerator{
      * See Quinn, "Estimating the mode of a phase distribution", Asilomar, 2007
      */
     public static double getWrappedVariance(double v){
-        int INTEGRAL_STEPS = 1000;
+        int INTEGRAL_STEPS = 10000;
         Integration intg = new Integration(new VarianceCalculator(v), -0.5, 0.5);
-        return intg.gaussQuad(INTEGRAL_STEPS);
+        return intg.trapezium(INTEGRAL_STEPS);
     }
 
     protected static class VarianceCalculator implements IntegralFunction {
