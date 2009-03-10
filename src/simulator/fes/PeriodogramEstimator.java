@@ -57,7 +57,7 @@ public class PeriodogramEstimator implements FrequencyEstimator{
 
 	double maxp = 0;
 	double fhat= 0.0;
-        double fstep = 0.5/num_samples;
+        double fstep = 1.0/num_samples;
 	for (double f = -0.5; f <= 0.5; f += fstep) {
 	    double p = calculatePeriodogram(real, imag, f);
 	    if (p > maxp) {

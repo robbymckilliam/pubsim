@@ -31,6 +31,7 @@ public class PeriodogramEstimatorTest extends TestCase {
         
         NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
         signal.setFrequency(f);
+        signal.setLength(64);
         distributions.GaussianNoise noise = new distributions.GaussianNoise(0.0,0.001);
         signal.setNoiseGenerator(noise);
         
