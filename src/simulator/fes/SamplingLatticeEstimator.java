@@ -5,7 +5,6 @@
  */
 
 package simulator.fes;
-import lattices.LatticeAndNearestPointAlgorithm;
 import lattices.Phin2StarSampled;
 
 /**
@@ -14,52 +13,15 @@ import lattices.Phin2StarSampled;
  * period estimator.
  * @author Robby McKilliam
  */
-public class SamplingLatticeEstimator implements FrequencyEstimator {
-    
-    protected int n;
-    protected LatticeAndNearestPointAlgorithm lattice;
-    protected double[] y;
-    protected int samples;
-    
-    public SamplingLatticeEstimator() { }
-    
-    /**Constructor that sets the number of samples used */
-    public SamplingLatticeEstimator(int samples) { this.samples = samples; }
-    
-    /** Set the number of samples */
-    @Override
-    public void setSize(int n){
-        lattice = new Phin2StarSampled(samples);
-        lattice.setDimension(n-2);  
-        y = new double[n];
-        this.n = n;
+public class SamplingLatticeEstimator extends LatticeEstimator
+        implements FrequencyEstimator {
+
+    /** Don't use this */
+    protected SamplingLatticeEstimator(){
     }
     
-        /** Run the estimator on recieved data, @param y */
-    @Override
-    public double estimateFreq(double[] real, double[] imag){
-        if(n+2 != real.length)
-            setSize(real.length);
-        
-        for(int i = 0; i < real.length; i++)
-            y[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
-        
-        lattice.nearestPoint(y);
-        
-        //calculate f from the nearest point
-        double f = 0;
-        double sumn = n*(n+1)/2;
-        double sumn2 = n*(n+1)*(2*n+1)/6;
-        double[] u = lattice.getIndex();
-        for(int i = 0; i < n; i++)
-            f += (n*(i+1) - sumn)*(y[i]-u[i]);
-        
-        f /= (sumn2*n - sumn*sumn);
-
-        //System.out.println("f = " + f);
-        
-        return f;
-        
+    public SamplingLatticeEstimator(int numsamples){
+        lattice = new Phin2StarSampled(numsamples);
     }
    
 }
