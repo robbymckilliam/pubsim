@@ -48,14 +48,14 @@ public abstract class LatticeEstimator implements FrequencyEstimator{
 
         //calculate f from the nearest point
         double f = 0;
-        double N = n;   //avoid integer arithmetic overflows for n >= 1024!
-        double sumn = N*(N+1)/2.0;
-        double sumn2 = N*(N+1)*(2.0*N+1)/6.0;
+        double N = n;
+        double sumn = N*(N+1)/2;
+        double sumn2 = N*(N+1)*(2*N+1)/6;
         double[] u = lattice.getIndex();
         for(int i = 0; i < n; i++)
             f += (N*(i+1) - sumn)*(y[i]-u[i]);
 
-        f /= (sumn2*n - sumn*sumn);
+        f /= (sumn2*N - sumn*sumn);
 
         //System.out.println("f = " + f);
 
