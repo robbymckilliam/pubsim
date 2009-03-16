@@ -4,7 +4,7 @@
  * Created on 23 October 2007, 15:28
  */
 
-package simulator;
+package distributions;
 
 import distributions.NoiseGenerator;
 import java.util.Random;
