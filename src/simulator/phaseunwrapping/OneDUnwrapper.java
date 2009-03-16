@@ -35,29 +35,14 @@ public class OneDUnwrapper {
         Matrix P = new Matrix(N*w, num_params);
         Matrix Y = new Matrix(N*w, N*w);
 
-        //compute K matrix
-        for(int p = 0; p < m; p++){
-            for(int i = p*(N-w+1); i < (p+1)*(N-w+1); i++){
-                for(int j = i - p*(N-w+1); j < i - p*(N-w+1) + w; j++){
-                    //System.out.println(i + ", " + j);
-                    K.set(i, j, Math.pow(j+1, p));
-                }
-            }
-            //System.out.println(VectorFunctions.print(K));
-        }
+        //construct matricies such that
+        // K(y - u) = M p
+        constructK(N, K);
+        constructM(N, M);
 
-        //compute M matrix
-        for(int p = 0; p < m; p++){
-            for(int i = 0; i < (N-w+1); i++){
-                int jp = p;
-                for(int j = 2*i; j < 2*i + m ; j++){
-                    //System.out.println((i + 1) + ", " + j);
-                    M.set(i+p*(N-w+1), j, sumMtoNpow(i+1, i+w, jp));
-                    jp++;
-                }
-            }
-            //System.out.println(VectorFunctions.print(M));
-        }
+        //construct matricies such that sum
+        //of squares fucntion is
+        // || Y(y-u) - P p ||^2
 
         for(int i = 0; i < N; i++){
             for( int k = i*w; k < i*(w+1); k++){
@@ -86,6 +71,34 @@ public class OneDUnwrapper {
             sum += Math.pow(m, P);
         }
         return sum;
+    }
+
+    protected void constructK(int N, Matrix K) {
+        //compute K matrix
+        for (int p = 0; p < m; p++) {
+            for (int i = p * (N - w + 1); i < (p + 1) * (N - w + 1); i++) {
+                for (int j = i - p * (N - w + 1); j < i - p * (N - w + 1) + w; j++) {
+                    //System.out.println(i + ", " + j);
+                    K.set(i, j, Math.pow(j + 1, p));
+                }
+            }
+            //System.out.println(VectorFunctions.print(K));
+        }
+    }
+
+    protected void constructM(int N, Matrix M) {
+        //compute M matrix
+        for (int p = 0; p < m; p++) {
+            for (int i = 0; i < (N - w + 1); i++) {
+                int jp = p;
+                for (int j = 2 * i; j < 2 * i + m; j++) {
+                    //System.out.println((i + 1) + ", " + j);
+                    M.set(i + p * (N - w + 1), j, sumMtoNpow(i + 1, i + w, jp));
+                    jp++;
+                }
+            }
+            //System.out.println(VectorFunctions.print(M));
+        }
     }
 
 }
