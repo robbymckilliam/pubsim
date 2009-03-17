@@ -6,6 +6,9 @@
 package simulator.phaseunwrapping;
 
 import Jama.Matrix;
+import lattices.GeneralLattice;
+import lattices.decoder.BabaiNoLLL;
+import lattices.decoder.GeneralNearestPointAlgorithm;
 import simulator.VectorFunctions;
 
 /**
@@ -16,6 +19,7 @@ public class OneDUnwrapper {
 
     int m, w, N;
     Matrix B;
+    GeneralNearestPointAlgorithm decoder;
 
     protected OneDUnwrapper(){
     }
@@ -24,7 +28,19 @@ public class OneDUnwrapper {
     public OneDUnwrapper(int approx_order, int approx_size){
         m = approx_order;
         w = approx_size;
+        if( (w & 1) == 0 ) throw new Error("approx_size must be odd for now");
     }
+
+    public double[] unwrap(double[] y){
+        if(N != y.length) setSize(y.length);
+        double[] By = VectorFunctions.matrixMultVector(B, y);
+        double[] fts = VectorFunctions.matrixMultVector(Proj, y);
+        System.out.println(VectorFunctions.print(fts));
+        decoder.nearestPoint(By);
+        return decoder.getIndex();
+    }
+
+    private Matrix Proj;
 
     public void setSize(int N){
         this.N = N;
@@ -32,32 +48,37 @@ public class OneDUnwrapper {
         int num_params = m*(N-w+1);
         Matrix M = new Matrix(num_params, num_params);
         Matrix K = new Matrix(num_params, N);
-        Matrix P = new Matrix(N*w, num_params);
-        Matrix Y = new Matrix(N*w, N*w);
+        Matrix P = new Matrix((N-w+1)*w, num_params);
+        Matrix Y = new Matrix((N-w+1)*w, N);
 
-        //construct matricies such that
+        //construct matricies K and M such that
         // K(y - u) = M p
         constructK(N, K);
         constructM(N, M);
 
-        //construct matricies such that sum
+        //System.out.println(VectorFunctions.print(K));
+        //System.out.println(VectorFunctions.print(M));
+
+        //construct matricies Y and P such that sum
         //of squares fucntion is
         // || Y(y-u) - P p ||^2
+        constructP(N, num_params, P);
+        constructY(N, num_params, Y);
 
-        for(int i = 0; i < N; i++){
-            for( int k = i*w; k < i*(w+1); k++){
-                for(int j = i-1; j < (i+1) ; j++){
-                    //if(j > -1 && j < (N-w+1))
+        //compute the matrix B = Y - P inv(M'M) M' K
+        Matrix Mt = M.transpose();
+        Matrix MtMinv = Mt.times(M).inverse();
+        B = Y.minus(P.times(MtMinv).times(Mt).times(K));
 
-                }
-            }
-        }
-        //compute the P matrix
+        decoder = new BabaiNoLLL(new GeneralLattice(B));
 
-        System.out.println(VectorFunctions.print(P));
-
-
-
+        Proj = MtMinv.times(Mt).times(K);
+        //System.out.println(VectorFunctions.print(Proj));
+        //System.out.println(VectorFunctions.print(M));
+        //System.out.println(VectorFunctions.print(MtM));
+        //System.out.println(VectorFunctions.print(MtM.inverse()));
+        //System.out.println(VectorFunctions.print(B));
+        
     }
 
 
@@ -71,6 +92,20 @@ public class OneDUnwrapper {
             sum += Math.pow(m, P);
         }
         return sum;
+    }
+
+    protected void constructP(int N, int num_params, Matrix P) {
+        int foff = (w - 1) / 2;
+        int rowi = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = i - foff - 1; j < i + foff; j++) {
+                if (2 * j >= 0 && 2 * j + 1 < num_params) {
+                    P.set(rowi, 2 * j, 1.0);
+                    P.set(rowi, 2 * j + 1, i + 1);
+                    rowi++;
+                }
+            }
+        }
     }
 
     protected void constructK(int N, Matrix K) {
@@ -98,6 +133,22 @@ public class OneDUnwrapper {
                 }
             }
             //System.out.println(VectorFunctions.print(M));
+        }
+    }
+
+    protected void constructY(int N, int num_params, Matrix Y) {
+        int foff = (w - 1) / 2;
+        int rowi = 0;
+        int coli = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = i - foff - 1; j < i + foff; j++) {
+                if (2 * j >= 0 && 2 * j + 1 < num_params) {
+                    Y.set(rowi, coli, 1.0);
+                    rowi++;
+                }
+            }
+            coli++;
+            //System.out.println(VectorFunctions.print(Y));
         }
     }
 

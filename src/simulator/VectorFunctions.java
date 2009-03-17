@@ -485,7 +485,7 @@ public class VectorFunctions {
         }
     }
     
-        /** 
+    /**
      * y and x and vector, M is a matrix.
      * Performs y = M*x.  
      * PRE: x.length = j, y.length = i, M is i by j matrix
@@ -499,6 +499,28 @@ public class VectorFunctions {
                 y[i] += M.get(i,j) * x[j];
             }
         }
+    }
+
+    /**
+     * y and x and vector, M is a matrix.
+     * Performs y = M*x.
+     * PRE: x.length = j, y.length = i, M is i by j matrix
+     */
+    public static double[] matrixMultVector(Matrix M, double[] x) {
+        double[] y = new double[M.getRowDimension()];
+        matrixMultVector(M, x, y);
+        return y;
+    }
+
+   /**
+     * returns the vector  x - round(x)
+     */
+    public static double[] wrap(double[] x) {
+        double[] y = new double[x.length];
+        for(int i = 0; i < y.length; i++){
+            y[i] = x[i] - Math.round(x[i]);
+        }
+        return y;
     }
 
     /** 

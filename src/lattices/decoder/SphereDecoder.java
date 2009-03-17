@@ -5,6 +5,7 @@
 
 package lattices.decoder;
 
+import javax.sound.midi.SysexMessage;
 import lattices.Lattice;
 import lattices.reduction.LLL;
 import simulator.VectorFunctions;
@@ -27,6 +28,14 @@ public class SphereDecoder extends Babai
     
     //small number to avoid numerical errors in branches.
     protected double DELTA = 0.000001;
+
+    public SphereDecoder(){
+        super();
+    }
+
+    public SphereDecoder(Lattice L){
+        super(L);
+    }
     
     @Override
     public void setLattice(Lattice L) {
@@ -50,7 +59,7 @@ public class SphereDecoder extends Babai
         simulator.QRDecomposition QR = new simulator.QRDecomposition(B);
         R = QR.getR();
         Q = QR.getQ();
-        
+
     }
        
     @Override

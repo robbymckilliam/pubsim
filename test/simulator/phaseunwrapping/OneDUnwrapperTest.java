@@ -10,6 +10,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
 /**
@@ -47,6 +48,44 @@ public class OneDUnwrapperTest {
         OneDUnwrapper instance = new OneDUnwrapper(2, 3);
         instance.setSize(N);
         // TODO review the generated test code and remove the default call to fail.
+    }
+
+    /**
+     * Test of setSize method, of class OneDUnwrapper.
+     */
+    @Test
+    public void testUnwrap() {
+        System.out.println("testUnwrap");
+        int N = 10;
+        OneDUnwrapper instance = new OneDUnwrapper(2, 3);
+        instance.setSize(N);
+        //double[] y = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+        double[] y = {   1.0000,
+    0.8100,
+    0.6400,
+    0.4900,
+    0.3600,
+    0.2500,
+    0.1600,
+    0.0900,
+    0.0400,
+    0.0100,
+         0,
+    0.0100,
+    0.0400,
+    0.0900,
+    0.1600,
+    0.2500,
+    0.3600,
+    0.4900,
+    0.6400,
+    0.8100,
+    1.0000};
+        y = VectorFunctions.wrap(y);
+        double[] u = instance.unwrap(y);
+        System.out.println(VectorFunctions.print(y));
+        System.out.println(VectorFunctions.print(u));
+
     }
 
 }
