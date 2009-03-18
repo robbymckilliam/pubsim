@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simulator.phaseunwrapping;
+package simulator.phaseunwrapping.oned;
 
 import Jama.Matrix;
 import lattices.GeneralLattice;
@@ -12,20 +12,29 @@ import lattices.decoder.GeneralNearestPointAlgorithm;
 import simulator.VectorFunctions;
 
 /**
+ * The most general of the 1D unwrappers.  You can set
+ * window size and polynomial order.  The appropriate basis
+ * matrix is then created.  One issue is that the matrix
+ * operations generally contain numerical errors that make
+ * LLL reduction do strange things.  Currently this uses
+ * BabaiNoLLL to approximate the nearest point.
+ *
+ * UNDER CONTRUCTION.  Matrices are properly generated for
+ * all parameters yet.
  *
  * @author Robby McKilliam
  */
-public class OneDUnwrapper {
+public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
 
     int m, w, N;
     Matrix B;
     GeneralNearestPointAlgorithm decoder;
 
-    protected OneDUnwrapper(){
+    protected GeneralOneDUnwrapper(){
     }
 
 
-    public OneDUnwrapper(int approx_order, int approx_size){
+    public GeneralOneDUnwrapper(int approx_order, int approx_size){
         m = approx_order;
         w = approx_size;
         if( (w & 1) == 0 ) throw new Error("approx_size must be odd for now");
@@ -56,14 +65,17 @@ public class OneDUnwrapper {
         constructK(N, K);
         constructM(N, M);
 
-        //System.out.println(VectorFunctions.print(K));
-        //System.out.println(VectorFunctions.print(M));
+        System.out.println("K = \n" + VectorFunctions.print(K));
+        System.out.println("M = \n" + VectorFunctions.print(M));
 
         //construct matricies Y and P such that sum
         //of squares fucntion is
         // || Y(y-u) - P p ||^2
         constructP(N, num_params, P);
         constructY(N, num_params, Y);
+
+        System.out.println("P = \n" + VectorFunctions.print(P));
+        System.out.println("Y = \n" + VectorFunctions.print(Y));
 
         //compute the matrix B = Y - P inv(M'M) M' K
         Matrix Mt = M.transpose();
@@ -95,7 +107,7 @@ public class OneDUnwrapper {
     }
 
     protected void constructP(int N, int num_params, Matrix P) {
-        int foff = (w - 1) / 2;
+        int foff = w / 2;
         int rowi = 0;
         for (int i = 0; i < N; i++) {
             for (int j = i - foff - 1; j < i + foff; j++) {
@@ -137,7 +149,7 @@ public class OneDUnwrapper {
     }
 
     protected void constructY(int N, int num_params, Matrix Y) {
-        int foff = (w - 1) / 2;
+        int foff = w / 2;
         int rowi = 0;
         int coli = 0;
         for (int i = 0; i < N; i++) {

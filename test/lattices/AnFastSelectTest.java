@@ -47,7 +47,7 @@ public class AnFastSelectTest {
         System.out.println("nearestPoint");
         
         int numTrials = 10000;
-        int n = 6;
+        int n = 30;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;

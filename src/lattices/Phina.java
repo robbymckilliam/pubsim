@@ -42,7 +42,7 @@ public class Phina extends NearestPointAlgorithm{
         
         //System.out.println(VectorFunctions.print(gen));
         
-        Matrix gram = gen.times(gen.transpose());
+        Matrix gram = gen.transpose().times(gen);
         
         return Math.sqrt(gram.det());
                 
@@ -66,14 +66,14 @@ public class Phina extends NearestPointAlgorithm{
             bv = VectorFunctions.conv(cv, bv);
         }
         
-        Matrix gen = new Matrix(n,n + a);
+        Matrix gen = new Matrix(n+a, n);
         for(int i = 0; i < n; i++){
             for(int j = 0; j < i; j++)
-                gen.set(i,j,0.0);
+                gen.set(j,i,0.0);
             for(int j = i; j < i + bv.length; j++)
-                gen.set(i,j,bv[j-i]);
+                gen.set(j,i,bv[j-i]);
             for(int j = i + bv.length; j < n + a; j++)
-                gen.set(i,j,0.0);
+                gen.set(j,i,0.0);
         }
         
         return gen;

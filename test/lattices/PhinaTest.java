@@ -5,11 +5,13 @@
 
 package lattices;
 
+import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
 /**
@@ -52,6 +54,23 @@ public class PhinaTest {
         double expResult = Math.sqrt(n+1);
         double result = instance.volume();
         assertEquals(true, Math.abs(expResult-result)<0.00001);
+
+    }
+
+        /**
+     * Test of volume method, of class Phina.
+     */
+    @Test
+    public void generatorMatrix() {
+        System.out.println("generatorMatrix");
+
+        int n = 10;
+        int a = 2;
+
+        Phina instance = new Phina(a, n);
+        Matrix M = instance.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(M));
+        System.out.println(VectorFunctions.print(M.transpose().times(M)));
 
     }
 

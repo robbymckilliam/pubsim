@@ -57,8 +57,14 @@ public class Phin2StarTest {
      */
     @Test
     public void testVolume() {
-        System.out.println("volume");
-        fail("The test case is a prototype.");
+        int n = 20;
+        int a = 3;
+
+        Phina dual = new Phina(a, n);
+        PhinaStar lat = new PhinaStar(a, n);
+        double vol = lat.volume();
+        double dvol = dual.volume();
+        assertEquals(1.0/dvol, vol, 0.00001);
     }
 
     /**

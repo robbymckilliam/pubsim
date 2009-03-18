@@ -10,11 +10,10 @@ import simulator.VectorFunctions;
  * method described by Conway and Sloane.
  * @author Robby McKilliam
  */
-public class AnSorted implements LatticeAndNearestPointAlgorithm{
+public class AnSorted extends An
+        implements LatticeAndNearestPointAlgorithm{
 
-    protected double[] u;
     protected IndexedDouble[] z;
-    protected int n;
     
     @Override
     public void setDimension(int n) {
@@ -46,53 +45,6 @@ public class AnSorted implements LatticeAndNearestPointAlgorithm{
             u[z[i].index] -= Math.signum(m);
         //System.out.println(VectorFunctions.print(u));
     }
-
-    @Override
-    public double[] getLatticePoint() {
-        return u;
-    }
-
-    @Override
-    public double[] getIndex() {
-        return u;
-    }
-
-    @Override
-    public double volume() {
-        return n+1;
-    }
     
-    /** 
-     * Returns glue vector [i] for An.
-     * See SPLAG pp109.  This is not an
-     * efficient implementation.  It
-     * allocates memory.  This is
-     * here for testing purposes.
-     */
-    public double[] getGlueVector(double i){
-        double[] g = new double[n+1];
-        double j = n + 1 - i;
-        for(int k = 0; k < j; k++)
-            g[k] = i/(n+1);
-        for(int k = (int)j; k < n + 1; k++)
-            g[k] = -j/(n+1);
-        return g;
-    }
-
-    public double inradius() {
-        return Math.sqrt(2)/2.0;
-    }
-
-    public double getDimension() {
-        return n;
-    }
-
-    public double centerDensity(){
-        return Math.pow(inradius(), getDimension())/volume();
-    }
-
-    public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
 }

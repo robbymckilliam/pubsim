@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simulator.phaseunwrapping;
+package simulator.phaseunwrapping.oned;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,11 +15,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author robertm
+ * @author Robby
  */
-public class OneDUnwrapperTest {
+public class An1DUnwrapperTest {
 
-    public OneDUnwrapperTest() {
+    public An1DUnwrapperTest() {
     }
 
     @BeforeClass
@@ -39,28 +39,16 @@ public class OneDUnwrapperTest {
     }
 
     /**
-     * Test of setSize method, of class OneDUnwrapper.
-     */
-    @Test
-    public void testSetSize() {
-        System.out.println("setSize");
-        int N = 7;
-        OneDUnwrapper instance = new OneDUnwrapper(2, 3);
-        instance.setSize(N);
-        // TODO review the generated test code and remove the default call to fail.
-    }
-
-    /**
-     * Test of setSize method, of class OneDUnwrapper.
+     * Test of unwrap method, of class An1DUnwrapper.
      */
     @Test
     public void testUnwrap() {
-        System.out.println("testUnwrap");
+       System.out.println("testUnwrap");
         int N = 10;
-        OneDUnwrapper instance = new OneDUnwrapper(2, 3);
-        instance.setSize(N);
+        An1DUnwrapper instance = new An1DUnwrapper();
+        //instance.setSize(N);
         //double[] y = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
-        double[] y = {   1.0000,
+        double[] y = {         1.0000,
     0.8100,
     0.6400,
     0.4900,
@@ -85,7 +73,19 @@ public class OneDUnwrapperTest {
         double[] u = instance.unwrap(y);
         System.out.println(VectorFunctions.print(y));
         System.out.println(VectorFunctions.print(u));
+    }
 
+    /**
+     * Test of setSize method, of class An1DUnwrapper.
+     */
+    @Test
+    public void testSetSize() {
+        System.out.println("setSize");
+        int N = 0;
+        An1DUnwrapper instance = new An1DUnwrapper();
+        instance.setSize(N);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }

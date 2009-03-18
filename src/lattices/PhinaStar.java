@@ -153,8 +153,8 @@ public class PhinaStar extends NearestPointAlgorithm{
     /** {@inheritDoc} */
     @Override
     public double volume(){
-        Phina dual = new Phina(a, n);
-        return 1.0/dual.volume();
+        Matrix M = getGeneratorMatrix();
+        return Math.sqrt(M.transpose().times(M).det());
     }
     
     /** 

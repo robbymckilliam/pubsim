@@ -8,7 +8,6 @@
 
 package distributions;
 
-import simulator.*;
 import java.util.Random;
 
 /**

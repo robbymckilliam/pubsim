@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
 /**
@@ -74,8 +75,10 @@ public class AnstarTest {
     @Test
     public void testGetGeneratorMatrix() {
         System.out.println("getGeneratorMatrix");
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Anstar instance = new AnstarAnGlued();
+        instance.setDimension(4);
+        Matrix result = instance.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(result));
     }
 
     /**
