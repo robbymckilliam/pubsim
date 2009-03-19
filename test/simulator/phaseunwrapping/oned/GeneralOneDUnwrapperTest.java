@@ -45,7 +45,7 @@ public class GeneralOneDUnwrapperTest {
     @Test
     public void testSetSize() {
         System.out.println("setSize");
-        int N = 8;
+        int N = 5;
         GeneralOneDUnwrapper instance = new GeneralOneDUnwrapper(2, 5);
         instance.setSize(N);
         // TODO review the generated test code and remove the default call to fail.

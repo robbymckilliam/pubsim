@@ -7,6 +7,7 @@ package simulator.phaseunwrapping.oned;
 
 import Jama.Matrix;
 import lattices.GeneralLattice;
+import lattices.decoder.Babai;
 import lattices.decoder.BabaiNoLLL;
 import lattices.decoder.GeneralNearestPointAlgorithm;
 import simulator.VectorFunctions;
@@ -29,6 +30,7 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
     int m, w, N;
     Matrix B;
     GeneralNearestPointAlgorithm decoder;
+    double[] u;
 
     protected GeneralOneDUnwrapper(){
     }
@@ -43,16 +45,18 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
     public double[] unwrap(double[] y){
         if(N != y.length) setSize(y.length);
         double[] By = VectorFunctions.matrixMultVector(B, y);
-        double[] fts = VectorFunctions.matrixMultVector(Proj, y);
-        System.out.println(VectorFunctions.print(fts));
         decoder.nearestPoint(By);
-        return decoder.getIndex();
+        System.arraycopy(decoder.getIndex(), 0, u, 0, decoder.getIndex().length);
+        u[N-1] = 0.0;
+        u[N-2] = 0.0;
+        return u;
     }
 
     private Matrix Proj;
 
     public void setSize(int N){
         this.N = N;
+        u = new double[N];
 
         int num_params = m*(N-w+1);
         Matrix M = new Matrix(num_params, num_params);
@@ -60,36 +64,22 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
         Matrix P = new Matrix((N-w+1)*w, num_params);
         Matrix Y = new Matrix((N-w+1)*w, N);
 
-        //construct matricies K and M such that
-        // K(y - u) = M p
-        constructK(N, K);
-        constructM(N, M);
-
-        System.out.println("K = \n" + VectorFunctions.print(K));
-        System.out.println("M = \n" + VectorFunctions.print(M));
-
         //construct matricies Y and P such that sum
         //of squares fucntion is
         // || Y(y-u) - P p ||^2
         constructP(N, num_params, P);
         constructY(N, num_params, Y);
 
-        System.out.println("P = \n" + VectorFunctions.print(P));
-        System.out.println("Y = \n" + VectorFunctions.print(Y));
+        Matrix Pt = P.transpose();
+        Matrix PtPinv = Pt.times(P).inverse();
+        B = Y.minus(P.times(PtPinv).times(Pt).times(Y));
 
-        //compute the matrix B = Y - P inv(M'M) M' K
-        Matrix Mt = M.transpose();
-        Matrix MtMinv = Mt.times(M).inverse();
-        B = Y.minus(P.times(MtMinv).times(Mt).times(K));
-
+        //System.out.println("B = \n" + VectorFunctions.print(B));
+        
+        B = B.getMatrix(0,B.getRowDimension()-1, 0, N-3);
+        //Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
+        //System.out.println("R = \n" + VectorFunctions.print(QR.getR()));
         decoder = new BabaiNoLLL(new GeneralLattice(B));
-
-        Proj = MtMinv.times(Mt).times(K);
-        //System.out.println(VectorFunctions.print(Proj));
-        //System.out.println(VectorFunctions.print(M));
-        //System.out.println(VectorFunctions.print(MtM));
-        //System.out.println(VectorFunctions.print(MtM.inverse()));
-        //System.out.println(VectorFunctions.print(B));
         
     }
 

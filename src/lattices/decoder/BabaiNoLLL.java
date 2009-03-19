@@ -40,7 +40,7 @@ public class BabaiNoLLL extends Babai
         R = QR.getR();
         Q = QR.getQ();
 
-        System.out.println(VectorFunctions.print(R));
+        //System.out.println(VectorFunctions.print(R));
 
 
     }
