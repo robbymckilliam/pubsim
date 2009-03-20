@@ -7,6 +7,10 @@ package simulator.phaseunwrapping.twod;
 
 import Jama.Matrix;
 import java.util.Vector;
+import lattices.GeneralLattice;
+import lattices.decoder.Babai;
+import lattices.decoder.GeneralNearestPointAlgorithm;
+import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
 
 /**
@@ -18,13 +22,35 @@ public class FirstOrderUnwrapper implements TwoDUnwrapperInterface{
     protected int N, M;
     Vector<Double[]> Yv, Pv;
     Matrix Y, P, B;
+    GeneralNearestPointAlgorithm decoder;
 
     public double[][] unwrap(double[][] y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        double[][] u = unwrapIntegers(y);
+        double[][] yunwrapped = new double[M][N];
+        for(int m = 0; m < M; m++){
+            for(int n = 0; n < N; n++){
+                yunwrapped[m][n] = y[m][n] - u[m][n];
+            }
+        }
+        return yunwrapped;
     }
 
     public double[][] unwrapIntegers(double[][] y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Matrix D = new Matrix(y);
+        if(M != y.length || N != y[0].length) setSize(y.length, y[0].length);
+        double[] ypacked = D.getRowPackedCopy();
+        //System.out.println(VectorFunctions.print(ypacked));
+        double[] By = VectorFunctions.matrixMultVector(B, ypacked);
+        //System.out.println(VectorFunctions.print(By));
+        decoder.nearestPoint(By);
+        double[] u = new double[M*N];
+        System.arraycopy(decoder.getIndex(), 0, u, 1, decoder.getIndex().length);
+        //u[0] = 0.0;
+        //u[u.length-1] = 0.0;
+        //u[u.length-2] = 0.0;
+        //u[u.length-3] = 0.0;
+        System.out.println("u = " + VectorFunctions.print(VectorFunctions.packRowiseToMatrix(u, M)));
+        return VectorFunctions.packRowiseToMatrix(u, M);
     }
 
     public void setSize(int M, int N) {
@@ -49,13 +75,20 @@ public class FirstOrderUnwrapper implements TwoDUnwrapperInterface{
         Matrix PtPinv = Pt.times(P).inverse();
         B = Y.minus(P.times(PtPinv).times(Pt).times(Y));
 
-        System.out.println(VectorFunctions.print(B));
+        //System.out.println(VectorFunctions.print(B));
         //Matrix BtB = B.transpose().times(B);
         //System.out.println(VectorFunctions.print(B.transpose().times(B)));
         Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
         B = QR.getR();
-        B = B.getMatrix(0, M*N-3, 0, M*N-3);
-        System.out.println(VectorFunctions.print(B));
+        B = B.getMatrix(0, M*N-3, 0, M*N-1);
+        //System.out.println(VectorFunctions.print(B));
+
+        //Removed the first and last two columns from B.  This
+        //is a little abitrary.  I am only doing this after
+        //observing the rref, and am not sure why the matrix
+        //has this form.
+        decoder = new SphereDecoder(new GeneralLattice(
+                B.getMatrix(0, M*N-3, 1, M*N-3)));
 
     }
 

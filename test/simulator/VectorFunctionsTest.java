@@ -417,7 +417,20 @@ public class VectorFunctionsTest extends TestCase {
         assertTrue(Math.abs(M.get(m2, n)) < 0.00000001);
         assertTrue(Math.abs(M.det() - pdet)< 0.00000001);
         
-        
+    }
+
+    public void testPackRowiseToMatrix(){
+        System.out.println("packRowiseToMatrix");
+        double[] y = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        double[][] testu = { {1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+        double[][] u = VectorFunctions.packRowiseToMatrix(y, 2);
+
+        for(int m = 0; m < 2; m++){
+            for(int n = 0; n < 5; n++){
+                assertEquals(testu[m][n], u[m][n], 0.0000001);
+            }
+        }
+
     }
     
 }

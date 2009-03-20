@@ -389,6 +389,26 @@ public class VectorFunctions {
     }
 
     /**
+     * Packs the vector y rowise into a double[M][N]
+     * where N = y.length/numrows;  Zero pads if numrows does
+     * not divide y.length;
+     */
+    public static double[][] packRowiseToMatrix(double[] y, int numrows){
+        int M = numrows;
+        int N = y.length/M;
+        double[][] u = new double[M][N];
+        int i = 0;
+        for(int m = 0; m < M; m++){
+            for(int n = 0; n < N; n++){
+                if(i < y.length)
+                    u[m][n] = y[i];
+                i++;
+            }
+        }
+        return u;
+    }
+
+    /**
      * Convolution of two vectors.  This
      * allocates the required memory
      */
@@ -521,6 +541,16 @@ public class VectorFunctions {
             y[i] = x[i] - Math.round(x[i]);
         }
         return y;
+    }
+
+    /**
+     * sets y = x - round(x)
+     */
+    public static void wrap(double[] x, double[] y) {
+        int len = Math.min(y.length, x.length);
+        for(int i = 0; i < len; i++){
+            y[i] = x[i] - Math.round(x[i]);
+        }
     }
 
     /** 

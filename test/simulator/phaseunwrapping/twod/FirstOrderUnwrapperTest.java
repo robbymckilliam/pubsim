@@ -5,13 +5,13 @@
 
 package simulator.phaseunwrapping.twod;
 
-import Jama.Matrix;
-import java.util.Vector;
+import distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
 /**
@@ -44,14 +44,20 @@ public class FirstOrderUnwrapperTest {
      */
     @Test
     public void testUnwrap() {
-        System.out.println("unwrap");
-        double[][] y = null;
+        System.out.println("testUnwrap");
+        int N = 12;
+        int M = 12;
         FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
-        double[][] expResult = null;
-        double[][] result = instance.unwrap(y);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setSize(M, N);
+        
+        GaussianPulse gaussp = new GaussianPulse(M, N, 2.0, 0.05);
+        gaussp.setNoiseGenerator(new GaussianNoise(0.0, 0.001));
+        gaussp.generateData();
+        double[][] yw = gaussp.getWrappedData();
+        double[][] y = instance.unwrap(yw);
+        System.out.println("yw = " + VectorFunctions.print(yw));
+        System.out.println("i = " + VectorFunctions.print(gaussp.getWrappedIntegers()));
+        System.out.println("y = " + VectorFunctions.print(y));
     }
 
     /**
@@ -82,64 +88,5 @@ public class FirstOrderUnwrapperTest {
 
     }
 
-    /**
-     * Test of constructMatricesForParameter method, of class FirstOrderUnwrapper.
-     */
-    @Test
-    public void testConstructMatricesForParameter() {
-        System.out.println("constructMatricesForParameter");
-        int m = 0;
-        int n = 0;
-        FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
-        instance.constructMatricesForParameter(m, n);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of copyVectorToMatrix method, of class FirstOrderUnwrapper.
-     */
-    @Test
-    public void testCopyVectorToMatrix() {
-        System.out.println("copyVectorToMatrix");
-        Vector<Double[]> v = null;
-        Matrix expResult = null;
-        Matrix result = FirstOrderUnwrapper.copyVectorToMatrix(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of returnPIndex method, of class FirstOrderUnwrapper.
-     */
-    @Test
-    public void testReturnPIndex() {
-        System.out.println("returnPIndex");
-        int m = 0;
-        int n = 0;
-        FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
-        int expResult = 0;
-        int result = instance.returnPIndex(m, n);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of returnYIndex method, of class FirstOrderUnwrapper.
-     */
-    @Test
-    public void testReturnYIndex() {
-        System.out.println("returnYIndex");
-        int m = 0;
-        int n = 0;
-        FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
-        int expResult = 0;
-        int result = instance.returnYIndex(m, n);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
 }

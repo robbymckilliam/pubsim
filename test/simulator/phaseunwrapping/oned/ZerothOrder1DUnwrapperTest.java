@@ -5,6 +5,7 @@
 
 package simulator.phaseunwrapping.oned;
 
+import distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -90,9 +91,13 @@ public class ZerothOrder1DUnwrapperTest {
     1.6743,
     1.7996,
     2.2757};
-        y = VectorFunctions.wrap(y);
+    GaussianPulse gaussp = new GaussianPulse(20, 2.0, 0.1);
+    gaussp.setNoiseGenerator(new GaussianNoise(0.0, 0.001));
+    gaussp.generateData();
+        y = gaussp.getWrappedData();
         double[] u = instance.unwrap(y);
         System.out.println(VectorFunctions.print(y));
+        System.out.println(VectorFunctions.print(gaussp.getTrueData()));
         System.out.println(VectorFunctions.print(u));
     }
 

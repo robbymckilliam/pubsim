@@ -10,6 +10,7 @@ import lattices.GeneralLattice;
 import lattices.decoder.Babai;
 import lattices.decoder.BabaiNoLLL;
 import lattices.decoder.GeneralNearestPointAlgorithm;
+import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
 
 /**
@@ -76,10 +77,10 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
 
         //System.out.println("B = \n" + VectorFunctions.print(B));
         
-        B = B.getMatrix(0,B.getRowDimension()-1, 0, N-3);
         //Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
         //System.out.println("R = \n" + VectorFunctions.print(QR.getR()));
-        decoder = new BabaiNoLLL(new GeneralLattice(B));
+        decoder = new SphereDecoder(new GeneralLattice(
+                B.getMatrix(0,B.getRowDimension()-1, 0, N-3)));
         
     }
 
@@ -107,34 +108,6 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
                     rowi++;
                 }
             }
-        }
-    }
-
-    protected void constructK(int N, Matrix K) {
-        //compute K matrix
-        for (int p = 0; p < m; p++) {
-            for (int i = p * (N - w + 1); i < (p + 1) * (N - w + 1); i++) {
-                for (int j = i - p * (N - w + 1); j < i - p * (N - w + 1) + w; j++) {
-                    //System.out.println(i + ", " + j);
-                    K.set(i, j, Math.pow(j + 1, p));
-                }
-            }
-            //System.out.println(VectorFunctions.print(K));
-        }
-    }
-
-    protected void constructM(int N, Matrix M) {
-        //compute M matrix
-        for (int p = 0; p < m; p++) {
-            for (int i = 0; i < (N - w + 1); i++) {
-                int jp = p;
-                for (int j = 2 * i; j < 2 * i + m; j++) {
-                    //System.out.println((i + 1) + ", " + j);
-                    M.set(i + p * (N - w + 1), j, sumMtoNpow(i + 1, i + w, jp));
-                    jp++;
-                }
-            }
-            //System.out.println(VectorFunctions.print(M));
         }
     }
 

@@ -42,11 +42,10 @@ public class ZerothOrder1DUnwrapper implements OneDUnwrapperInterface {
             B.set(n,n, 1);
             B.set(n,n+1, -1);
         }
-        B = B.getMatrix(0, N-2, 0, N-2);
 
         System.out.println(VectorFunctions.print(B));
 
-        decoder = new BabaiNoLLL(new GeneralLattice(B));
+        decoder = new BabaiNoLLL(new GeneralLattice(B.getMatrix(0, N-2, 0, N-2)));
         
     }
 
