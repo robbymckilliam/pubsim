@@ -45,13 +45,13 @@ public class FirstOrderUnwrapperTest {
     @Test
     public void testUnwrap() {
         System.out.println("testUnwrap");
-        int N = 12;
-        int M = 12;
+        int N = 5;
+        int M = 5;
         FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
         instance.setSize(M, N);
         
         GaussianPulse gaussp = new GaussianPulse(M, N, 2.0, 0.05);
-        gaussp.setNoiseGenerator(new GaussianNoise(0.0, 0.001));
+        gaussp.setNoiseGenerator(new GaussianNoise(0.0, 0.01));
         gaussp.generateData();
         double[][] yw = gaussp.getWrappedData();
         double[][] y = instance.unwrap(yw);
@@ -61,28 +61,13 @@ public class FirstOrderUnwrapperTest {
     }
 
     /**
-     * Test of unwrapIntegers method, of class FirstOrderUnwrapper.
-     */
-    @Test
-    public void testUnwrapIntegers() {
-        System.out.println("unwrapIntegers");
-        double[][] y = null;
-        FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
-        double[][] expResult = null;
-        double[][] result = instance.unwrapIntegers(y);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of setSize method, of class FirstOrderUnwrapper.
      */
     @Test
     public void testSetSize() {
         System.out.println("setSize");
-        int M = 4;
-        int N = 4;
+        int M = 3;
+        int N = 3;
         FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
         instance.setSize(M, N);
 

@@ -83,6 +83,7 @@ public class FirstOrderUnwrapper implements TwoDUnwrapperInterface{
         B = B.getMatrix(0, M*N-3, 0, M*N-1);
         //System.out.println(VectorFunctions.print(B));
 
+        //System.out.println(VectorFunctions.print(B.getMatrix(0, M*N-3, 1, M*N-3)));
         //Removed the first and last two columns from B.  This
         //is a little abitrary.  I am only doing this after
         //observing the rref, and am not sure why the matrix

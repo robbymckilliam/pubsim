@@ -65,21 +65,5 @@ public class T3OptimalTest extends TestCase {
                 instance.getReal(), instance.getImag()));
     }
 
-
-    /**
-     * Test of project method, of class simulator.qam.T3Optimal.
-     */
-    public void testProject() {
-        System.out.println("project");
-        
-        double[] x = null;
-        double[] y = null;
-        T3Optimal instance = new T3Optimal();
-        
-        instance.project(x, y);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }
