@@ -10,7 +10,6 @@ import java.util.Vector;
 import lattices.GeneralLattice;
 import lattices.decoder.Babai;
 import lattices.decoder.GeneralNearestPointAlgorithm;
-import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
 
 /**
@@ -88,7 +87,7 @@ public class FirstOrderUnwrapper implements TwoDUnwrapperInterface{
         //is a little abitrary.  I am only doing this after
         //observing the rref, and am not sure why the matrix
         //has this form.
-        decoder = new SphereDecoder(new GeneralLattice(
+        decoder = new Babai(new GeneralLattice(
                 B.getMatrix(0, M*N-3, 1, M*N-3)));
 
     }
