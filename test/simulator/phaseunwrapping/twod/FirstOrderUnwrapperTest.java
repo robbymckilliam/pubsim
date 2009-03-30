@@ -5,12 +5,15 @@
 
 package simulator.phaseunwrapping.twod;
 
+import Jama.Matrix;
 import distributions.GaussianNoise;
+import distributions.NoiseGenerator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.omg.CORBA.MARSHAL;
 import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -43,10 +46,10 @@ public class FirstOrderUnwrapperTest {
      * Test of unwrap method, of class FirstOrderUnwrapper.
      */
     @Test
-    public void testUnwrap() {
-        System.out.println("testUnwrap");
-        int N = 11;
-        int M = 11;
+    public void testGaussUnwrap() {
+        System.out.println("testGaussUnwrap");
+        int N = 9;
+        int M = 8;
         FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
         instance.setSize(M, N);
         
@@ -57,6 +60,42 @@ public class FirstOrderUnwrapperTest {
         double[][] y = instance.unwrap(yw);
         System.out.println("yw = " + VectorFunctions.print(yw));
         System.out.println("i = " + VectorFunctions.print(gaussp.getWrappedIntegers()));
+        System.out.println("y = " + VectorFunctions.print(y));
+    }
+
+        /**
+     * Test of unwrap method, of class FirstOrderUnwrapper.
+     */
+    @Test
+    public void testCrazyHillUnwrap() {
+        System.out.println("testUnwrap");
+        int N = 25;
+        int M = 12;
+        FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
+        //instance.setSize(M, N);
+
+        double[] ywvec =
+        {0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,        0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,
+        0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.2500,    0.2500,   0.2500,    0.2500,    0.2500,    0.4000,    0.4000,         0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,
+       -0.4000,  -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,    0.3000,    0.3000,   0.3000,    0.3000,    0.3000,   -0.4000,   -0.4000,     -0.4000,   -0.4000,   -0.4000,  -0.4000,   -0.4000,  -0.4000,   -0.4000,   -0.4000,   -0.4000,
+       -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,    0.3500,    0.3500,   0.3500,    0.3500,    0.3500,   -0.2000,   -0.2000,  -0.2000,   -0.2000,   -0.2000,  -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,
+             0,         0,         0,         0,         0,         0,         0,         0,         0,    0.4000,    0.4000,  0.4000,    0.4000,    0.4000,         0,         0,  0,         0,         0,         0,         0,         0,         0,         0,         0,
+        0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.4500,    0.4500,    0.4500,    0.4500,    0.4500,    0.2000,    0.2000,0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,
+        0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,   -0.5000,   -0.5000,   -0.5000,   -0.5000,   -0.5000,    0.4000,    0.4000,0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,
+       -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4500,   -0.4500,   -0.4500,   -0.4500,   -0.4500,   -0.4000,   -0.4000,-0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,
+       -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.4000,   -0.2000,   -0.2000,-0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,   -0.2000,
+             0,         0,         0,         0,         0,         0,         0,         0,         0,         0,         0,         0,         0,         0,         0,         0,  0,         0,         0,         0,         0,         0,         0,         0,         0,
+        0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,     0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,    0.2000,
+        0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,        0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000};
+
+        //add a bit of noise
+        NoiseGenerator noise = new GaussianNoise(0.0, 0.01);
+        for(int i = 0; i < ywvec.length; i++)
+            ywvec[i] += noise.getNoise();
+
+        double[][] yw = VectorFunctions.packRowiseToMatrix(ywvec, M);
+        double[][] y = instance.unwrap(yw);
+        System.out.println("yw = " + VectorFunctions.print(yw));
         System.out.println("y = " + VectorFunctions.print(y));
     }
 

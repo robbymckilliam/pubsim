@@ -5,7 +5,6 @@
 
 package lattices.decoder;
 
-import javax.sound.midi.SysexMessage;
 import lattices.Lattice;
 import lattices.reduction.LLL;
 import simulator.VectorFunctions;
