@@ -5,7 +5,6 @@
 
 package simulator.phaseunwrapping.twod;
 
-import Jama.Matrix;
 import distributions.GaussianNoise;
 import distributions.NoiseGenerator;
 import org.junit.After;
@@ -13,7 +12,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.omg.CORBA.MARSHAL;
 import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -68,7 +66,7 @@ public class FirstOrderUnwrapperTest {
      */
     @Test
     public void testCrazyHillUnwrap() {
-        System.out.println("testUnwrap");
+        System.out.println("testCrazyHillUnwrap");
         int N = 25;
         int M = 12;
         FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
@@ -97,21 +95,6 @@ public class FirstOrderUnwrapperTest {
         double[][] y = instance.unwrap(yw);
         System.out.println("yw = " + VectorFunctions.print(yw));
         System.out.println("y = " + VectorFunctions.print(y));
-    }
-
-    /**
-     * Test of unwrapIntegers method, of class FirstOrderUnwrapper.
-     */
-    @Test
-    public void testUnwrapIntegers() {
-        System.out.println("unwrapIntegers");
-        double[][] y = null;
-        FirstOrderUnwrapper instance = new FirstOrderUnwrapper();
-        double[][] expResult = null;
-        double[][] result = instance.unwrapIntegers(y);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
