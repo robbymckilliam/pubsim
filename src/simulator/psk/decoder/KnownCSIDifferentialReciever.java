@@ -11,6 +11,14 @@ package simulator.psk.decoder;
  */
 public class KnownCSIDifferentialReciever extends KnownCSIReciever{
 
+    public KnownCSIDifferentialReciever(){
+        setM(4);
+    }
+
+    public KnownCSIDifferentialReciever(int M){
+        setM(M);
+    }
+
     @Override
     public int bitErrors(double[] x) {
         return Util.differentialEncodedBitErrors(this.x, x, M);
