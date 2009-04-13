@@ -11,7 +11,7 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class LatticeEstimatorTest extends TestCase {
     

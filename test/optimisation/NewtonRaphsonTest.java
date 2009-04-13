@@ -48,7 +48,7 @@ public class NewtonRaphsonTest {
         x.set(0,0, -5);
         //simple quadratic function y = -x^2
         NewtonRaphson instance = new NewtonRaphson(
-                new NewtonRaphsonFunction() {
+                new FunctionAndDerivatives() {
 
             public double value(Matrix x) {
                 double v = x.get(0, 0);
@@ -84,7 +84,7 @@ public class NewtonRaphsonTest {
         x.set(1,0, 20);
         //simple quadratic function z = -x1*x1 - x2*x2
         NewtonRaphson instance = new NewtonRaphson(
-                new NewtonRaphsonFunction() {
+                new FunctionAndDerivatives() {
 
             public double value(Matrix x) {
                 double x1 = x.get(0, 0);

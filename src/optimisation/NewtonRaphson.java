@@ -18,13 +18,13 @@ public class NewtonRaphson {
     /** Tolerance to aim for between iterations */
     double tolerance = 1e-10;
 
-    NewtonRaphsonFunction f;
+    FunctionAndDerivatives f;
 
-    public NewtonRaphson(NewtonRaphsonFunction f){
+    public NewtonRaphson(FunctionAndDerivatives f){
         this.f = f;
     }
 
-    public NewtonRaphson(NewtonRaphsonFunction f,
+    public NewtonRaphson(FunctionAndDerivatives f,
             int max_iterations, double tolerance){
         this.f = f;
         this.max_iterations = max_iterations;

@@ -11,7 +11,7 @@ import Jama.Matrix;
  * Includes a Hessian and
  * @author Robby McKilliam
  */
-public interface NewtonRaphsonFunction extends MultivariateFunction{
+public interface FunctionAndDerivatives extends MultivariateFunction{
 
     double value(Matrix x);
 
