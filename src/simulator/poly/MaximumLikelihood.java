@@ -6,7 +6,13 @@
 package simulator.poly;
 
 import Jama.Matrix;
-import optimisation.FunctionAndDerivatives;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Iterator;
+import lattices.util.PointInParallelepiped;
+import optimisation.AutoDerivativeFunction;
+import optimisation.NewtonRaphson;
+import simulator.VectorFunctions;
 
 /**
  * Implements a (approximate) maximum likelihood estimator for
@@ -18,28 +24,74 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
 
     int a;
     int N;
+    int samples = 100;
+    protected AmbiguityRemover ambiguityRemover;
 
     //Here for inheritance purposes.  You can't call this.
     protected MaximumLikelihood() {
     }
-
+    
+    /**
+     * @param a : polynomail order
+     */
     public MaximumLikelihood(int a){
         this.a = a;
     }
 
+    /**
+     * @param a : polynomail order
+     * @param samples : number of samples used per parameter in ML search.
+     * Deafult samples = 100
+     */
+    public MaximumLikelihood(int a, int samples){
+        this.a = a;
+        this.samples = samples;
+    }
+
+    @Override
     public void setSize(int n) {
+        ambiguityRemover = new AmbiguityRemover(a);
         N = n;
     }
 
-    public double[] estimate(double[] real, double[] imag) {     
-        throw new UnsupportedOperationException("Not supported yet.");
+    public double[] estimate(double[] real, double[] imag) {
+
+        PolynomialPhaseLikelihood func
+                = new PolynomialPhaseLikelihood(real, imag);
+        NewtonRaphson newtonRaphson
+                = new NewtonRaphson(func);
+        PointInParallelepiped points
+                = new PointInParallelepiped(ambiguityRemover.getBasisMatrix(),
+                                            samples);
+
+        Matrix p = null;
+        double D = Double.NEGATIVE_INFINITY;
+        while(points.hasMoreElements()){
+            Matrix pt = newtonRaphson.maximise(points.nextElement());
+            //System.out.println("here");
+            double dist = func.value(pt);
+            if(dist > D)
+                p = pt.copy();
+        }
+
+        return ambiguityRemover.disambiguate(VectorFunctions.unpackRowise(p));
     }
 
     public double[] error(double[] real, double[] imag, double[] truth) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        double[] est = estimate(real, imag);
+        double[] err = new double[est.length];
+
+        for (int i = 0; i < err.length; i++) {
+            err[i] = est[i] - truth[i];
+        }
+        err = ambiguityRemover.disambiguate(err);
+        for (int i = 0; i < err.length; i++) {
+            err[i] = err[i]*err[i];
+        }
+        return err;
     }
 
-    public static class PolynomialPhaseLikelihood implements FunctionAndDerivatives{
+    public static class PolynomialPhaseLikelihood extends AutoDerivativeFunction {
 
         double[] yr, yi;
         int N;
@@ -77,30 +129,31 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
             return val;
         }
 
-        public Matrix hessian(Matrix x) {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-
-        public Matrix gradient(Matrix x) {
-            int M = x.getRowDimension();
-            Matrix g = new Matrix(N, 1);
-            for(int i = 0; i < N; i++){
-                double val = 0.0;
-                for(int n = 0; n < N; n++){
-                    double phase = 0.0;
-                    for(int m = 0; m < M; m++){
-                        double p = x.get(m, 0);
-                        phase += p * Math.pow(n+1, m);
-                    }
-                    double real = Math.cos(2*Math.PI*phase);
-                    double imag = Math.sin(2*Math.PI*phase);
-                    val += (yr[n] - real);
-                    val += (yi[n] - imag);
-                }
-            }
-            return g;
-        }
+//        public Matrix hessian(Matrix x) {
+//            throw new UnsupportedOperationException("Not supported yet.");
+//        }
+//
+//        public Matrix gradient(Matrix x) {
+//            int M = x.getRowDimension();
+//            Matrix g = new Matrix(N, 1);
+//            for(int i = 0; i < N; i++){
+//                double val = 0.0;
+//                for(int n = 0; n < N; n++){
+//                    double phase = 0.0;
+//                    for(int m = 0; m < M; m++){
+//                        double p = x.get(m, 0);
+//                        phase += p * Math.pow(n+1, m);
+//                    }
+//                    double real = Math.cos(2*Math.PI*phase);
+//                    double imag = Math.sin(2*Math.PI*phase);
+//                    val += (yr[n] - real);
+//                    val += (yi[n] - imag);
+//                }
+//            }
+//            return g;
+//        }
 
     }
+
 
 }

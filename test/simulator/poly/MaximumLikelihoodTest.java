@@ -6,6 +6,7 @@
 package simulator.poly;
 
 import Jama.Matrix;
+import distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,9 +40,6 @@ public class MaximumLikelihoodTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of setSize method, of class MaximumLikelihood.
-     */
     @Test
     public void testPolyFunctionValue() {
         System.out.println("testPolyFunctionValue");
@@ -51,10 +49,37 @@ public class MaximumLikelihoodTest {
         Matrix P = VectorFunctions.columnMatrix(p);
         MaximumLikelihood.PolynomialPhaseLikelihood func
                 = new MaximumLikelihood.PolynomialPhaseLikelihood(yr, yi);
+        //calculated in Matlab
         double expr = 3.055198893365938;
         double res = func.value(P);
         assertEquals(res, expr, 0.000001);
         
+    }
+
+    /**
+     * Test of estimate method, of class MaximumLikelihood.
+     */
+    @Test
+    public void testEstimate() {
+        int n = 15;
+        double[] params = {0.1, 0.1};
+        int a = params.length;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
+        siggen.setLength(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.000001));
+
+        siggen.generateReceivedSignal();
+
+        MaximumLikelihood inst = new MaximumLikelihood(params.length, 40);
+        inst.setSize(n);
+
+        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
+
+        System.out.println(VectorFunctions.print(p));
+
+        assertTrue(VectorFunctions.distance_between(p, params) < 0.0001);
     }
 
 }

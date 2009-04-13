@@ -409,6 +409,40 @@ public class VectorFunctions {
     }
 
     /**
+     * Packs the matrix rowise into a double[]
+     */
+    public static double[] unpackRowise(Matrix B){
+        int M = B.getRowDimension();
+        int N = B.getColumnDimension();
+        double[] y = new double[M*N];
+        int i = 0;
+        for(int m = 0; m < M; m++){
+            for(int n = 0; n < N; n++){
+                y[i] = B.get(m,n);
+                i++;
+            }
+        }
+        return y;
+    }
+
+    /**
+     * Packs the matrix columnwise into a double[]
+     */
+    public static double[] unpackColumnwise(Matrix B){
+        int M = B.getRowDimension();
+        int N = B.getColumnDimension();
+        double[] y = new double[M*N];
+        int i = 0;
+        for(int n = 0; n < N; n++){
+            for(int m = 0; m < M; m++){
+                y[i] = B.get(m,n);
+                i++;
+            }
+        }
+        return y;
+    }
+
+    /**
      * Convolution of two vectors.  This
      * allocates the required memory
      */

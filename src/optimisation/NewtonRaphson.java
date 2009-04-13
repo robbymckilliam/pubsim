@@ -31,7 +31,7 @@ public class NewtonRaphson {
         this.tolerance = tolerance;
     }
 
-    public Matrix optimise(Matrix x){
+    public Matrix maximise(Matrix x){
 
         double e = Double.POSITIVE_INFINITY;
         int itr = 0;

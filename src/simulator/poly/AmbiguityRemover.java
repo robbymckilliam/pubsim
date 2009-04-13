@@ -105,4 +105,9 @@ public class AmbiguityRemover {
         Matrix Mt = M.transpose();
         return Math.sqrt(Mt.times(M).det());
     }
+
+    /** Return the basis matrix for the ambiguity lattice */
+    public Matrix getBasisMatrix(){
+        return M;
+    }
 }

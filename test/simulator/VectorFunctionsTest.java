@@ -432,5 +432,31 @@ public class VectorFunctionsTest extends TestCase {
         }
 
     }
+
+    public void testunpackRowise(){
+        System.out.println("testunpackRowise");
+        double[][] testB = { {1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+        double[] expres = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        Matrix B = Matrix.constructWithCopy(testB);
+        double[] res = VectorFunctions.unpackRowise(B);
+        for(int n = 0; n < res.length; n++){
+            assertEquals(res[n],expres[n] , 0.0000001);
+        }
+
+    }
+
+    public void testunpackColumnwise(){
+        System.out.println("testunpackColumnwise");
+        double[][] testB = { {1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+        double[] expres = { 1, 6, 2, 7, 3, 8, 4, 9, 5, 10};
+        Matrix B = Matrix.constructWithCopy(testB);
+        double[] res = VectorFunctions.unpackColumnwise(B);
+        for(int n = 0; n < res.length; n++){
+            assertEquals(res[n],expres[n] , 0.0000001);
+        }
+
+    }
+
+   
     
 }

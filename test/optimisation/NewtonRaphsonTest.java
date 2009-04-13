@@ -67,7 +67,7 @@ public class NewtonRaphsonTest {
             }
         });
         double expResult = 0.0;
-        Matrix resultM = instance.optimise(x);
+        Matrix resultM = instance.maximise(x);
         double result = resultM.get(0,0);
         assertEquals(expResult, result, 0.00000001);
 
@@ -107,7 +107,7 @@ public class NewtonRaphsonTest {
         Matrix exp = new Matrix(2,1);
         x.set(0,0, 0.0);
         x.set(1,0, 0.0);
-        Matrix res = instance.optimise(x);
+        Matrix res = instance.maximise(x);
         assertEquals(exp.minus(res).normF(), 0.0, 0.00000001);
 
     }

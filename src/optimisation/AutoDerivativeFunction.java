@@ -6,8 +6,6 @@
 package optimisation;
 
 import Jama.Matrix;
-import javax.vecmath.Vector2d;
-import simulator.VectorFunctions;
 
 /**
  * Only requires writting the value(.) function.  The gradient and
@@ -25,7 +23,7 @@ public abstract class AutoDerivativeFunction implements FunctionAndDerivatives{
      * problems.  This will depend quite alot on how rapidly the function
      * changes, i.e. the magnitude of the second derivative.
      */
-    double interval = 1e-5;
+    protected double interval = 1e-5;
 
     public AutoDerivativeFunction(){};
 
