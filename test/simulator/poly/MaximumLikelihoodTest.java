@@ -50,7 +50,7 @@ public class MaximumLikelihoodTest {
         MaximumLikelihood.PolynomialPhaseLikelihood func
                 = new MaximumLikelihood.PolynomialPhaseLikelihood(yr, yi);
         //calculated in Matlab
-        double expr = 3.055198893365938;
+        double expr = -3.055198893365938;
         double res = func.value(P);
         assertEquals(res, expr, 0.000001);
         
@@ -61,18 +61,18 @@ public class MaximumLikelihoodTest {
      */
     @Test
     public void testEstimate() {
-        int n = 15;
-        double[] params = {0.1, 0.1};
+        int n = 50;
+        double[] params = {0.1, 0.1, 0.1};
         int a = params.length;
 
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
         siggen.setLength(n);
         siggen.setParameters(params);
-        siggen.setNoiseGenerator(new GaussianNoise(0, 0.000001));
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.01));
 
         siggen.generateReceivedSignal();
 
-        MaximumLikelihood inst = new MaximumLikelihood(params.length, 40);
+        MaximumLikelihood inst = new MaximumLikelihood(params.length);
         inst.setSize(n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());

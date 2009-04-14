@@ -36,6 +36,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
      */
     public MaximumLikelihood(int a){
         this.a = a;
+        ambiguityRemover = new AmbiguityRemover(a);
     }
 
     /**
@@ -46,20 +47,37 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     public MaximumLikelihood(int a, int samples){
         this.a = a;
         this.samples = samples;
+        ambiguityRemover = new AmbiguityRemover(a);
+    }
+    
+    /**
+     * @param samples : number of samples used per parameter in ML search.
+     */
+    public void setSamples(int samples){
+        this.samples = samples;
     }
 
     @Override
     public void setSize(int n) {
-        ambiguityRemover = new AmbiguityRemover(a);
         N = n;
     }
 
+    public int getOrder() {
+        return a;
+    }
+
     public double[] estimate(double[] real, double[] imag) {
+        if (N != real.length) {
+            setSize(real.length);
+        }
 
         PolynomialPhaseLikelihood func
                 = new PolynomialPhaseLikelihood(real, imag);
         NewtonRaphson newtonRaphson
                 = new NewtonRaphson(func);
+
+        //System.out.println(ambiguityRemover.getBasisMatrix()==null);
+
         PointInParallelepiped points
                 = new PointInParallelepiped(ambiguityRemover.getBasisMatrix(),
                                             samples);
@@ -67,13 +85,23 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         Matrix p = null;
         double D = Double.NEGATIVE_INFINITY;
         while(points.hasMoreElements()){
-            Matrix pt = newtonRaphson.maximise(points.nextElement());
+            //Matrix pt = newtonRaphson.maximise(points.nextElement());
             //System.out.println("here");
+            Matrix pt = points.nextElement();
             double dist = func.value(pt);
-            if(dist > D)
+            if(dist > D){
+                D = dist;
                 p = pt.copy();
+                //System.out.println(VectorFunctions.print(pt));
+            }
         }
-
+        //double[] parray = {0.1,0.1};
+        //double dist = func.value(VectorFunctions.columnMatrix(parray));
+        //p = VectorFunctions.columnMatrix(parray);
+        p = newtonRaphson.maximise(p);
+        //System.out.println(dist);
+        //System.out.println(D);
+        //System.out.println(VectorFunctions.print(p));
         return ambiguityRemover.disambiguate(VectorFunctions.unpackRowise(p));
     }
 
@@ -105,6 +133,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
             this.yr = yr;
             this.yi = yi;
             N = yr.length;
+            interval = 1e-6;
         }
 
         /**
@@ -126,7 +155,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
                 val += (yr[n] - real)*(yr[n] - real);
                 val += (yi[n] - imag)*(yi[n] - imag);
             }
-            return val;
+            return -val;
         }
 
 //        public Matrix hessian(Matrix x) {

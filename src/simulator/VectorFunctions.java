@@ -356,13 +356,13 @@ public class VectorFunctions {
         return st;
     }
     
-      /**
+    /**
      * Return a string for the complex vector
      */
     public static String print(Object[] x) {
         String st = new String();
         for (int i = 0; i < x.length; i++) {
-            st = st.concat(" " + x[i]);
+            st = st.concat(" " + x[i].toString());
         }
         return st;
     }
