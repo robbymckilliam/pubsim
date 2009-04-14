@@ -35,6 +35,10 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
         p = new double[a];
     }
 
+    public int getOrder() {
+        return a;
+    }
+
     public double[] estimate(double[] real, double[] imag) {
         if(N != real.length)
             setSize(real.length);

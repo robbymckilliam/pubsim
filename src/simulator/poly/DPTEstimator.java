@@ -242,4 +242,8 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         }
         return prod;
     }
+
+    public int getOrder() {
+        return a;
+    }
 }

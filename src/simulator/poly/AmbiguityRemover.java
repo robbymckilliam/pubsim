@@ -77,7 +77,6 @@ public class AmbiguityRemover {
         for (int i = 0; i < r.length; i++) {
             r[i] /= c.length;
         }
-
         return r;
     }
 
@@ -100,14 +99,14 @@ public class AmbiguityRemover {
         return this.p;
     }
 
+    /** Return the basis matrix for the ambiguity lattice */
+    public Matrix getBasisMatrix(){
+        return M;
+    }
+    
     /** Return the volume of the identifiable region */
     public double getRegionVolume(){
         Matrix Mt = M.transpose();
         return Math.sqrt(Mt.times(M).det());
-    }
-
-    /** Return the basis matrix for the ambiguity lattice */
-    public Matrix getBasisMatrix(){
-        return M;
     }
 }

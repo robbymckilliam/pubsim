@@ -13,6 +13,12 @@ public interface PolynomialPhaseEstimator{
     
     /** Set the number of samples */
     public void setSize(int n);
+
+    /** 
+     * Return the order of this estimator.
+     * This is the number of parameters.
+     */
+    public int getOrder();
     
     /** 
      * Run the estimator on recieved real and imaginary signal.

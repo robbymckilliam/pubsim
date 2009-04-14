@@ -121,5 +121,9 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         return err;
     }
 
+    public int getOrder() {
+        return a;
+    }
+
 
 }
