@@ -87,6 +87,14 @@ public class PolynomialPhaseSignal implements SignalGenerator{
         this.params = pgen.generateParameters();
     }
 
+    public void generateRandomParameters(){
+        if(params == null) throw new RuntimeException("Length of params not defined");
+        if(pgen.getOrder() != params.length)
+            pgen = new RandomParameterGenerator(params.length);
+        this.params = pgen.generateParameters();
+    }
+
+    /** Return the true value of the parameters */
     public double[] getParameters(){
         return params;
     }
@@ -145,7 +153,10 @@ public class PolynomialPhaseSignal implements SignalGenerator{
             for(int i = 0; i < a; i++)
                 p[i] = rand.nextDouble();
 
-            return ambr.disambiguate(p);
+//            VectorFunctions.matrixMultVector(ambr.getBasisMatrix(), p);
+//            System.out.println("p = " + VectorFunctions.print(p));
+//            System.out.println("B = " + VectorFunctions.print(ambr.getBasisMatrix()));
+            return ambr.disambiguate(VectorFunctions.matrixMultVector(ambr.getBasisMatrix(), p));
         }
 
 
