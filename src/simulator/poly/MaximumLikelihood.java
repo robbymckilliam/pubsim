@@ -25,19 +25,11 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
 
     int a;
     int N;
-    int samples = 100;
+    int samples[];
     protected AmbiguityRemover ambiguityRemover;
 
     //Here for inheritance purposes.  You can't call this.
     protected MaximumLikelihood() {
-    }
-    
-    /**
-     * @param a : polynomail order
-     */
-    public MaximumLikelihood(int a){
-        this.a = a;
-        ambiguityRemover = new AmbiguityRemover(a);
     }
 
     /**
@@ -47,6 +39,19 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
      */
     public MaximumLikelihood(int a, int samples){
         this.a = a;
+        this.samples = new int[a];
+        for(int i = 0; i < a; i++)
+            this.samples[i] = samples;
+        ambiguityRemover = new AmbiguityRemover(a);
+    }
+
+    /**
+     * @param a : polynomail order
+     * @param samples : number of samples used per parameter in ML search.
+     * Deafult samples = 100
+     */
+    public MaximumLikelihood(int a, int[] samples){
+        this.a = a;
         this.samples = samples;
         ambiguityRemover = new AmbiguityRemover(a);
     }
@@ -54,7 +59,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     /**
      * @param samples : number of samples used per parameter in ML search.
      */
-    public void setSamples(int samples){
+    public void setSamples(int[] samples){
         this.samples = samples;
     }
 

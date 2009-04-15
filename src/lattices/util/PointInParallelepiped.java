@@ -8,6 +8,7 @@ package lattices.util;
 import Jama.Matrix;
 import java.util.Enumeration;
 import lattices.Lattice;
+import simulator.VectorFunctions;
 
 /**
  * Return a set of point uniformly (kind of) distributed in the
@@ -17,23 +18,23 @@ import lattices.Lattice;
  */
 public class PointInParallelepiped implements Enumeration<Matrix>{
 
-    Matrix u;
-    boolean finished = false;
-    int c, N;
-    Matrix B;
-    int samples;
-    int counter = 0;
+    protected Matrix u;
+    protected boolean finished = false;
+    protected int N;
+    protected Matrix B;
+    protected int counter = 0;
+
+    private int[] samples;
+    private int sampleproduct;
+
+    protected PointInParallelepiped(){}
 
     /**
      * @param L is the lattice
      * @param samples is the number of samples used per dimension
      */
     public PointInParallelepiped(Lattice L, int samples){
-        B = L.getGeneratorMatrix();
-        this.samples = samples;
-        N = B.getColumnDimension();
-        u = new Matrix(N, 1);
-        c = N - 1;
+        init(L.getGeneratorMatrix(), samples);
     }
 
     /**
@@ -41,31 +42,70 @@ public class PointInParallelepiped implements Enumeration<Matrix>{
      * @param samples is the number of samples used per dimension
      */
     public PointInParallelepiped(Matrix B, int samples){
-        this.B = B;
-        this.samples = samples;
-        N = B.getColumnDimension();
-        u = new Matrix(N, 1);
-        c = N - 1;
+        init(B, samples);
     }
 
+        /**
+     * @param L is the lattice
+     * @param samples is the number of samples used per dimension
+     */
+    public PointInParallelepiped(Lattice L, int[] samples){
+        init(L.getGeneratorMatrix(), samples);
+    }
+
+    /**
+     * @param B the generator matrix for the lattice
+     * @param samples is the number of samples used per dimension
+     */
+    public PointInParallelepiped(Matrix B, int[] samples){
+        init(B, samples);
+    }
+
+    private void init(Matrix B, int samples){
+        this.B = B;
+        N = B.getColumnDimension();
+        this.samples = new int[N];
+        u = new Matrix(N, 1);
+        sampleproduct = 1;
+        for(int i = 0; i < N; i++){
+            this.samples[i]  = samples;
+            sampleproduct *= samples;
+        }
+    }
+
+    private void init(Matrix B, int[] samples){
+        this.B = B;
+        //System.out.println(VectorFunctions.print(samples));
+        N = B.getColumnDimension();
+        this.samples = new int[N];
+        u = new Matrix(N, 1);
+        sampleproduct = 1;
+        for(int i = 0; i < N; i++){
+            this.samples[i]  = samples[i];
+            sampleproduct *= this.samples[i];
+        }
+    }
+
+    @Override
     public boolean hasMoreElements() {
         return !finished;
     }
 
+    @Override
     public Matrix nextElement() {
         addto(0);
         counter++;
-        if(counter >= Math.pow(samples, N)) finished = true;
+        if(counter >= sampleproduct) finished = true;
         return B.times(u);
     }
 
     protected void addto(int i){
-        if(u.get(i, 0) >= 1.0 - 1.0/samples){
+        if(u.get(i, 0) >= 1.0 - 1.0/samples[i]){
             u.set(i, 0, 0.0);
             if(i+1 < N)
                 addto(i+1);
         }else{
-            u.set(i, 0, u.get(i, 0) + 1.0/samples);
+            u.set(i, 0, u.get(i, 0) + 1.0/samples[i]);
         }
     }
 
