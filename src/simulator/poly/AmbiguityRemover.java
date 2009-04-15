@@ -5,6 +5,7 @@
 package simulator.poly;
 
 import Jama.Matrix;
+import java.io.Serializable;
 import lattices.GeneralLattice;
 import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
@@ -14,7 +15,7 @@ import simulator.VectorFunctions;
  * ambiguities inherent in polynomial phase estimation.
  * @author Robby McKilliam
  */
-public class AmbiguityRemover {
+public class AmbiguityRemover implements Serializable{
 
     protected int a;
     protected Matrix M;

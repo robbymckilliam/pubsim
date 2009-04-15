@@ -5,11 +5,13 @@
 
 package simulator.poly;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Robby McKilliam
  */
-public interface PolynomialPhaseEstimator{
+public interface PolynomialPhaseEstimator extends Serializable{
     
     /** Set the number of samples */
     public void setSize(int n);

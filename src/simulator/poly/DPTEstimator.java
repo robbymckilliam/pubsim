@@ -5,6 +5,7 @@
 package simulator.poly;
 
 import Jama.Matrix;
+import java.io.Serializable;
 import simulator.Complex;
 import simulator.Util;
 import simulator.VectorFunctions;

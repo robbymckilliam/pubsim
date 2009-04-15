@@ -11,6 +11,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import lattices.util.PointInParallelepiped;
 import optimisation.AutoDerivativeFunction;
+import optimisation.FunctionAndDerivatives;
 import optimisation.NewtonRaphson;
 import simulator.VectorFunctions;
 
@@ -119,17 +120,18 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         return err;
     }
 
-    public static class PolynomialPhaseLikelihood extends AutoDerivativeFunction {
+    public static class PolynomialPhaseLikelihoodAutoDerivative
+            extends AutoDerivativeFunction {
 
         double[] yr, yi;
         int N;
 
-        protected PolynomialPhaseLikelihood(){}
+        protected PolynomialPhaseLikelihoodAutoDerivative(){}
 
         /**
          * @param y  is the recieved signal
          */
-        public PolynomialPhaseLikelihood(double[] yr, double[] yi){
+        public PolynomialPhaseLikelihoodAutoDerivative(double[] yr, double[] yi){
             this.yr = yr;
             this.yi = yi;
             N = yr.length;
@@ -157,32 +159,100 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
             }
             return -val;
         }
-
-//        public Matrix hessian(Matrix x) {
-//            throw new UnsupportedOperationException("Not supported yet.");
-//        }
-//
-//        public Matrix gradient(Matrix x) {
-//            int M = x.getRowDimension();
-//            Matrix g = new Matrix(N, 1);
-//            for(int i = 0; i < N; i++){
-//                double val = 0.0;
-//                for(int n = 0; n < N; n++){
-//                    double phase = 0.0;
-//                    for(int m = 0; m < M; m++){
-//                        double p = x.get(m, 0);
-//                        phase += p * Math.pow(n+1, m);
-//                    }
-//                    double real = Math.cos(2*Math.PI*phase);
-//                    double imag = Math.sin(2*Math.PI*phase);
-//                    val += (yr[n] - real);
-//                    val += (yi[n] - imag);
-//                }
-//            }
-//            return g;
-//        }
-
     }
 
+    public static class PolynomialPhaseLikelihood
+            implements FunctionAndDerivatives{
+
+        double[] yr, yi;
+        double[] ymag, yphase;
+        double[] spdiff, cpdiff;
+        int N;
+
+         /**
+         * @param y  is the recieved signal
+         */
+        public PolynomialPhaseLikelihood(double[] yr, double[] yi){
+            N = yr.length;
+            this.yr = yr;
+            this.yi = yi;
+            ymag = new double[N];
+            yphase = new double[N];
+            spdiff = new double[N];
+            cpdiff = new double[N];
+            for(int n = 0; n < N; n++){
+                ymag[n] = Math.sqrt(yr[n]*yr[n] + yi[n]*yi[n]);
+                yphase[n] = Math.atan2(yi[n], yr[n]);
+            }
+            N = yr.length;
+        }
+
+        public double value(Matrix x) {
+            int M = x.getRowDimension();
+            double val = 0.0;
+            for(int n = 0; n < N; n++){
+                double phase = 0.0;
+                for(int m = 0; m < M; m++){
+                    double p = x.get(m, 0);
+                    phase += p * Math.pow(n+1, m);
+                }
+                double real = Math.cos(2*Math.PI*phase);
+                double imag = Math.sin(2*Math.PI*phase);
+                val += (yr[n] - real)*(yr[n] - real);
+                val += (yi[n] - imag)*(yi[n] - imag);
+            }
+            return -val;
+        }
+
+        public Matrix hessian(Matrix x) {
+            int M = x.getRowDimension();
+            //precompute required sin values
+            for(int n = 0; n < N; n++){
+                double phase = 0.0;
+                for(int m = 0; m < M; m++){
+                    phase += x.get(m, 0)*Math.pow((n+1), m);
+                }
+                cpdiff[n] = Math.cos(2*Math.PI * phase - yphase[n]);
+            }
+            //compute hessian elements
+            Matrix H = new Matrix(M, M);
+            for(int m = 0; m < M; m++){
+                for(int k = 0; k < M; k++){
+                    double grad2 = 0.0;
+                    for(int n = 0; n < N; n++){
+                        grad2 += ymag[n] * Math.pow((n+1), m) *
+                                Math.pow((n+1), k) * cpdiff[n];
+                    }
+                    grad2 *= -8*Math.PI*Math.PI;
+                    H.set(m,k, grad2);
+                }
+            }
+            return H;
+        }
+
+        public Matrix gradient(Matrix x) {
+            int M = x.getRowDimension();
+            //precompute required sin values
+            for(int n = 0; n < N; n++){
+                double phase = 0.0;
+                for(int m = 0; m < M; m++){
+                    phase += x.get(m, 0)*Math.pow((n+1), m);
+                }
+                spdiff[n] = Math.sin(2*Math.PI * phase - yphase[n]);
+            }
+            //compute gradients
+            Matrix g = new Matrix(M, 1);
+            for(int m = 0; m < M; m++){
+                double grad = 0.0;
+                for(int n = 0; n < N; n++){
+                    grad += ymag[n] * Math.pow((n+1), m) * spdiff[n];
+                }
+                grad *= -4*Math.PI;
+                g.set(m,0, grad);
+            }
+            return g;
+        }
+        
+    }
 
 }

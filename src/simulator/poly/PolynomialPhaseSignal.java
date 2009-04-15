@@ -7,6 +7,7 @@ package simulator.poly;
 
 import java.util.Random;
 import distributions.NoiseGenerator;
+import java.io.Serializable;
 import simulator.SignalGenerator;
 import simulator.VectorFunctions;
 
@@ -134,7 +135,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
         return MSE;
     }
 
-    public static class RandomParameterGenerator{
+    public static class RandomParameterGenerator implements Serializable{
         protected AmbiguityRemover ambr;
         protected int a;
         protected double[] p;
@@ -156,7 +157,8 @@ public class PolynomialPhaseSignal implements SignalGenerator{
 //            VectorFunctions.matrixMultVector(ambr.getBasisMatrix(), p);
 //            System.out.println("p = " + VectorFunctions.print(p));
 //            System.out.println("B = " + VectorFunctions.print(ambr.getBasisMatrix()));
-            return ambr.disambiguate(VectorFunctions.matrixMultVector(ambr.getBasisMatrix(), p));
+            return ambr.disambiguate(VectorFunctions.matrixMultVector(
+                                                ambr.getBasisMatrix(), p));
         }
 
 

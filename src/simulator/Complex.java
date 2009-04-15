@@ -6,13 +6,15 @@
 
 package simulator;
 
+import java.io.Serializable;
+
 /**
  * Basic complex functions.  I nicked this from 
  * http://www.cs.princeton.edu/introcs/97data/Complex.java.html 
  * <p>
  * @author Robby McKilliam
  */
-public class Complex extends Object{
+public class Complex extends Object implements Serializable{
     
     private final double re;   // the real part
     private final double im;   // the imaginary part

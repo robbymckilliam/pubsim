@@ -7,12 +7,13 @@
 package simulator;
 
 import distributions.NoiseGenerator;
+import java.io.Serializable;
 
 /**
  * Interface for the generation recieved signals
  * @author Robby McKillam
  */
-public interface SignalGenerator {
+public interface SignalGenerator extends Serializable {
     public double[] generateReceivedSignal();
     public void setNoiseGenerator(NoiseGenerator noise);
     public NoiseGenerator getNoiseGenerator();

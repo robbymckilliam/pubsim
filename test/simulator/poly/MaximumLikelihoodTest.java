@@ -17,7 +17,7 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class MaximumLikelihoodTest {
 
@@ -56,19 +56,61 @@ public class MaximumLikelihoodTest {
         
     }
 
+    @Test
+    public void testPolyFunctionGradient() {
+        System.out.println("testPolyFunctionGradient");
+        double[] yr = {0.1, 0.1, 0.1};
+        double[] yi = {0.1, 0.1, 0.1};
+        double[] p = {0.1, 0.1, 0.1};
+        Matrix P = VectorFunctions.columnMatrix(p);
+        MaximumLikelihood.PolynomialPhaseLikelihood func
+                = new MaximumLikelihood.PolynomialPhaseLikelihood(yr, yi);
+        MaximumLikelihood.PolynomialPhaseLikelihoodAutoDerivative funcA
+                = new MaximumLikelihood.PolynomialPhaseLikelihoodAutoDerivative(yr, yi);
+        //calculated in Matlab
+        Matrix gf = func.gradient(P);
+        Matrix gfA = funcA.gradient(P);
+        //System.out.println("gf = " + VectorFunctions.print(gf));
+        //System.out.println("gfA = " + VectorFunctions.print(gfA));
+        for(int i = 0; i < gf.getRowDimension(); i ++)
+            assertEquals(gfA.get(i,0), gf.get(i,0), 0.00001);
+
+    }
+
+    @Test
+    public void testPolyFunctionHessian() {
+        System.out.println("testPolyFunctionHessian");
+        double[] yr = {0.1, 0.1, 0.1};
+        double[] yi = {0.1, 0.1, 0.1};
+        double[] p = {0.1, 0.1, 0.1};
+        Matrix P = VectorFunctions.columnMatrix(p);
+        MaximumLikelihood.PolynomialPhaseLikelihood func
+                = new MaximumLikelihood.PolynomialPhaseLikelihood(yr, yi);
+        MaximumLikelihood.PolynomialPhaseLikelihoodAutoDerivative funcA
+                = new MaximumLikelihood.PolynomialPhaseLikelihoodAutoDerivative(yr, yi);
+        //calculated in Matlab
+        Matrix Hf = func.hessian(P);
+        Matrix HfA = funcA.hessian(P);
+        //System.out.println("gf = " + VectorFunctions.print(Hf));
+        //System.out.println("gfA = " + VectorFunctions.print(HfA));
+        assertEquals(0.0, Hf.minus(HfA).normF(), 0.01);
+        
+
+    }
+
     /**
      * Test of estimate method, of class MaximumLikelihood.
      */
     @Test
     public void testEstimate() {
-        int n = 50;
+        int n = 10;
         double[] params = {0.1, 0.1, 0.1};
         int a = params.length;
 
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
         siggen.setLength(n);
         siggen.setParameters(params);
-        siggen.setNoiseGenerator(new GaussianNoise(0, 0.01));
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 
         siggen.generateReceivedSignal();
 
