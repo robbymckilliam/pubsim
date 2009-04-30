@@ -5,59 +5,64 @@
 
 package simulator.fes;
 
+import flanagan.complex.Complex;
+
+
 /**
  * Implementation of the Quinn and Fernandes frequency estimator
  *
  * @author Robby McKilliam
  */
-public class QuinnFernades implements FrequencyEstimator{
-
-    int n;
-
-    int num_samples;
-
-    /**Max number of iterations for the Newton step */
-    static final int MAX_ITER = 15;
-
-    /**Step variable for the Newton step */
-    static final double EPSILON = 1e-10;
+public class QuinnFernades extends PeriodogramFFTEstimator
+        implements FrequencyEstimator{
 
     protected QuinnFernades(){
     }
 
-    /**
-     * Contructor that sets the number of samples to be taken of
-     * of the periodogram for the initial coarse search.
+    /** Contructor that sets the number of samples to be taken of
+     * the periodogram.
      */
-    public QuinnFernades(int samples){
-        num_samples = samples;
+    public QuinnFernades(int oversampled) {
+        this.oversampled = oversampled;
     }
 
-    /** Set the number of samples */
-    public void setSize(int n){
-        this.n = n;
-    }
-
-    /** Run the estimator on recieved data, @param y */
-    public double estimateFreq(double[] real, double[] imag){
-        if (n != real.length)
+    @Override
+    public double estimateFreq(double[] real, double[] imag) {
+        if (n != real.length) {
             setSize(real.length);
-
-        // Coarse search
-        double maxp = 0;
-        double fhat= 0.0;
-            double fstep = 0.5/num_samples;
-        for (double f = -0.5; f <= 0.5; f += fstep) {
-            double p = PeriodogramEstimator.calculatePeriodogram(real, imag, f);
-            if (p > maxp) {
-            maxp = p;
-            fhat = f;
-            }
         }
 
-        //UNDER CONSTRUCTION
+        for (int i = 0; i < n; i++) {
+            sig[i] = new Complex(real[i], imag[i]);
+        }
+        for (int i = n; i < sig.length; i++) {
+            sig[i] = new Complex(0.0, 0.0);
+        }
 
-        return fhat;
+        fft.setData(sig);
+        fft.transform();
+        Complex[] ft = fft.getTransformedDataAsComplex();
+
+        //note that the FFT is generally defined with exp(-jw) but
+        //periodogram has exp(jw) so freq are -ve here.
+        double maxp = 0;
+        double fhat = 0.0;
+        double f = 0.0;
+        double fstep = 1.0 / ft.length;
+        for (int i = 0; i < ft.length; i++) {
+            double p = ft[i].squareAbs();
+            if (p > maxp) {
+                maxp = p;
+                fhat = f;
+            }
+            f-=fstep;
+        }
+
+        //Now implements QuinnFernandes iterations.
+
+        //System.out.println(fhat);
+
+        return fhat - Math.round(fhat);
     }
 
 
