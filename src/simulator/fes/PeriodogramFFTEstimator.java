@@ -22,10 +22,10 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
     protected Complex[] sig;
 
     /**Max number of iterations for the Newton step */
-    static final int MAX_ITER = 15;
+    protected static final int MAX_ITER = 15;
 
     /**Step variable for the Newton step */
-    static final double EPSILON = 1e-10;
+    protected static final double EPSILON = 1e-10;
 
     /** oversampling defaults to 4 as per Rife and Borstyn */
     public PeriodogramFFTEstimator() {
