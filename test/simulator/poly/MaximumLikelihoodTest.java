@@ -114,7 +114,7 @@ public class MaximumLikelihoodTest {
 
         siggen.generateReceivedSignal();
 
-        MaximumLikelihood inst = new MaximumLikelihood(params.length);
+        MaximumLikelihood inst = new MaximumLikelihood(params.length, 100);
         inst.setSize(n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());

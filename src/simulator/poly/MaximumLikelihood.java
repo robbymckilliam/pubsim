@@ -6,9 +6,6 @@
 package simulator.poly;
 
 import Jama.Matrix;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Iterator;
 import lattices.util.PointInParallelepiped;
 import optimisation.AutoDerivativeFunction;
 import optimisation.FunctionAndDerivatives;

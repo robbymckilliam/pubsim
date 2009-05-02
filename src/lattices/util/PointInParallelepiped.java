@@ -8,7 +8,6 @@ package lattices.util;
 import Jama.Matrix;
 import java.util.Enumeration;
 import lattices.Lattice;
-import simulator.VectorFunctions;
 
 /**
  * Return a set of point uniformly (kind of) distributed in the
