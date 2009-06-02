@@ -29,7 +29,7 @@ public class WrappedGaussianNoise extends GaussianNoise implements NoiseGenerato
     /** Returns an instance of wrapped Gaussian noise */
     @Override
     public double getNoise(){
-        double gauss = stdDeviation * random.nextGaussian() + mean;
+        double gauss = stdDeviation * random.gaussian() + mean;
         return Math.IEEEremainder(gauss, 2*Math.PI);
     }
     
@@ -51,7 +51,7 @@ public class WrappedGaussianNoise extends GaussianNoise implements NoiseGenerato
         /** Returns an instance of wrapped Gaussian noise */
         @Override
         public double getNoise(){
-            double gauss = stdDeviation * random.nextGaussian() + mean;
+            double gauss = stdDeviation * random.gaussian() + mean;
             return Math.IEEEremainder(gauss, 1.0);
         }
         

@@ -8,7 +8,9 @@
 
 package distributions;
 
-import java.util.Random;
+import rngpack.RandomElement;
+import rngpack.RandomSeedable;
+import rngpack.Ranlux;
 
 /**
  * Creates single gaussian variables
@@ -29,7 +31,7 @@ public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGener
         this.mean = mean;
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
-        random = new Random();
+        random = new Ranlux();
     }
     
     @Override
@@ -37,14 +39,9 @@ public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGener
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
     }
-
-    @Override
-    public void setSeed(long seed){
-        random.setSeed(seed);
-    }
     
     /** Returns an instance of gaussian noise */
     public double getNoise(){
-        return stdDeviation * random.nextGaussian() + mean;
+        return stdDeviation * random.gaussian() + mean;
     }
 }

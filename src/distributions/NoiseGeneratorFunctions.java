@@ -7,7 +7,9 @@
 package distributions;
 
 import distributions.NoiseGenerator;
-import java.util.Random;
+import rngpack.RandomElement;
+import rngpack.RandomSeedable;
+import rngpack.Ranlux;
 
 /**
  * Class that contains some standard functions for noise generators
@@ -19,7 +21,7 @@ public abstract class NoiseGeneratorFunctions
     protected double mean;
     protected double stdDeviation;
     protected double variance;
-    protected Random random;
+    protected RandomElement random;
 
     public double getMean(){ return mean; }
 
@@ -36,14 +38,14 @@ public abstract class NoiseGeneratorFunctions
     
     
     public NoiseGeneratorFunctions(){
-        random = new Random();
+        random = new Ranlux();
     }
     
     /** Randomise the seed for the internal Random */ 
-    public void randomSeed(){ random = new Random(); }
+    public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
     
     /** Set the seed for the internal Random */
-    public void setSeed(long seed) { random.setSeed(seed); }
+    public void setSeed(long seed) { random = new Ranlux(seed); }
     
     
 }

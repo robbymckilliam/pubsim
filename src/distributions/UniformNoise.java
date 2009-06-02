@@ -6,8 +6,9 @@
 
 package distributions;
 
-import simulator.*;
-import java.util.Random;
+import rngpack.RandomElement;
+import rngpack.RandomSeedable;
+import rngpack.Ranlux;
 
 /**
  *
@@ -31,9 +32,10 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
         variance = 1.0;
         stdDeviation = 1.0;
         range = Math.pow(3*variance/2.0, 1.0/3);
-        random = new Random();
+        random = new Ranlux();
     }
 
+    @Override
     public void setVariance(double variance){
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
@@ -50,13 +52,9 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
         stdDeviation = Math.sqrt(variance);
     }
     
-    public void setSeed(long seed){
-        random.setSeed(seed);
-    }
-    
     /** Returns a uniformly distributed value */
     public double getNoise(){
-        return mean + range * (random.nextDouble() - 0.5);
+        return mean + range * (random.raw() - 0.5);
     }
     
 }
