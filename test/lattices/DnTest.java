@@ -5,6 +5,7 @@
 
 package lattices;
 
+import Jama.Matrix;
 import junit.framework.TestCase;
 import distributions.GaussianNoise;
 import lattices.decoder.SphereDecoder;
@@ -55,7 +56,11 @@ public class DnTest extends TestCase {
         int n = 5;
 
         Dn instance = new Dn(n);
-        System.out.println(VectorFunctions.print(instance.getGeneratorMatrix()));
+        Matrix G = instance.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(G));
+
+        System.out.println(G.det());
+
     }
 
 

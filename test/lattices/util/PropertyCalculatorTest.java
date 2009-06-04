@@ -40,7 +40,7 @@ public class PropertyCalculatorTest {
     public void tearDown() {
     }
 
-    int samples = 30;
+    int samples = 50;
 
     /**
      * Test of properties for Zn lattice
@@ -49,7 +49,7 @@ public class PropertyCalculatorTest {
     public void testZn() {
         int N = 3;
         PropertyCalculator prop = new PropertyCalculator(new Zn(N), samples);
-        assertEquals(prop.outRadius()*prop.outRadius(), N*0.5*0.5, 0.00001);
+        assertEquals(N*0.5*0.5, prop.outRadius()*prop.outRadius(), 0.0001);
         assertEquals(1.0/12.0, prop.dimensionalessSecondMoment(), 0.001);
 
     }
@@ -64,7 +64,7 @@ public class PropertyCalculatorTest {
         //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 
         double I =  N/12.0 + N/(6.0*(N+1));
-        //assertEquals(I, prop.normalisedSecondMoment(), 0.001);
+        assertEquals(I, prop.normalisedSecondMoment(), 0.001);
 
         double G = I/Math.pow(N+1, 1.0/N)/N;
         assertEquals(G, prop.dimensionalessSecondMoment(), 0.001);
@@ -81,7 +81,7 @@ public class PropertyCalculatorTest {
         //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 
         double I =  N/12.0 + 1/(2.0*(N+1));
-        //assertEquals(I, prop.normalisedSecondMoment(), 0.001);
+        assertEquals(I, prop.normalisedSecondMoment(), 0.001);
 
         double G = I/Math.pow(2, 2.0/N)/N;
         assertEquals(G, prop.dimensionalessSecondMoment(), 0.001);

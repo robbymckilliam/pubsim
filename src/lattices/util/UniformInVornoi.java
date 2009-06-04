@@ -25,6 +25,7 @@ public class UniformInVornoi  implements PointInVoronoi{
     private int numsamples = 1000, count = 0;
     protected NearestPointAlgorithmInterface decoder;
     private NoiseVector nv;
+    Matrix B;
 
 
     protected UniformInVornoi() {}
@@ -35,6 +36,7 @@ public class UniformInVornoi  implements PointInVoronoi{
      * @param samples is the number of samples used per dimension
      */
     public UniformInVornoi(Lattice L, int samples){
+        B = L.getGeneratorMatrix();
         decoder = new SphereDecoder(L);
         numsamples = samples;
         initNoiseVector(L.getDimension());
@@ -46,6 +48,7 @@ public class UniformInVornoi  implements PointInVoronoi{
      * @param samples is the number of samples used per dimension
      */
     public UniformInVornoi(LatticeAndNearestPointAlgorithm L, int samples){
+        B = L.getGeneratorMatrix();
         decoder = L;
         numsamples = samples;
         initNoiseVector(L.getDimension());
@@ -63,12 +66,14 @@ public class UniformInVornoi  implements PointInVoronoi{
      * @return return the next element as a double[] rather than a Matrix
      */
     public double[] nextElementDouble() {
-        double[]  p = nv.generateReceivedSignal();
+        count++;
+        double[] p = VectorFunctions.matrixMultVector(B, nv.generateReceivedSignal());
         decoder.nearestPoint(p);
         return  VectorFunctions.subtract(p, decoder.getLatticePoint());
     }
 
     protected void initNoiseVector(int N) {
+        //System.out.println("N = " + N);
         UniformNoise noise = new UniformNoise();
         noise.setRange(1.0);
         nv = new NoiseVector(noise, N);
