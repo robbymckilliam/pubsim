@@ -2,16 +2,23 @@ package lattices;
 
 import Jama.Matrix;
 import simulator.VectorFunctions;
+import simulator.Util;
 
 /**
  * Nearest point algorithm for the lattice Dn.
  * @author Robby McKilliam
  */
-public class Dn implements NearestPointAlgorithmInterface, Lattice{
+public class Dn implements LatticeAndNearestPointAlgorithm{
 
     double[] u;
     int n;
-    
+
+    protected Dn(){}
+
+    public Dn(int n){
+        setDimension(n);
+    }
+
     @Override
     public void setDimension(int n) {
         this.n = n;
@@ -19,7 +26,7 @@ public class Dn implements NearestPointAlgorithmInterface, Lattice{
     }
     
     @Override
-    public double getDimension() {
+    public int getDimension() {
         return n;
     }
 
@@ -30,12 +37,15 @@ public class Dn implements NearestPointAlgorithmInterface, Lattice{
         
         VectorFunctions.round(y, u);
         int m = (int)Math.rint(VectorFunctions.sum(u));
-        if( m%2 == 1){
+        if( Util.mod(m, 2) == 1){
             int k = 0;
-            double D = Double.POSITIVE_INFINITY;
+            double D = Double.NEGATIVE_INFINITY;
             for(int i = 0; i < n; i++){
-                if( Math.abs(y[i] - u[i]) < D)
+                double d = Math.abs(y[i] - u[i]);
+                if( d > D){
                     k = i;
+                    D = d;
+                }
             }
             u[k] += Math.signum(y[k] - u[k]);
         }
@@ -65,7 +75,12 @@ public class Dn implements NearestPointAlgorithmInterface, Lattice{
     }
 
     public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Matrix B = new Matrix(n, n);
+        B.set(0, 0, -1); B.set(1, 0, -1);
+        for(int j = 1; j < n; j++){
+            B.set(j-1, j, 1); B.set(j, j, -1);
+        }
+        return B;
     }
 
 }

@@ -17,6 +17,10 @@ import simulator.VectorFunctions;
  */
 public class AnFastSelect extends AnSorted {
 
+    public AnFastSelect(int n){
+        setDimension(n);
+    }
+
     @Override
     public void nearestPoint(double[] y) {
         if (n != y.length-1)

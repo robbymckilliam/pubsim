@@ -23,6 +23,12 @@ public class NoiseVector implements SignalGenerator{
         n = 1;
         iidsignal = new double[1];
     }
+
+    /** Default constructor set length of vector to 1 */
+    public NoiseVector(NoiseGenerator noise, int length){
+        setNoiseGenerator(noise);
+        setLength(n);
+    }
     
     /** {@inheritDoc} */
     public void setLength(int n){ this.n = n; }

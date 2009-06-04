@@ -5,6 +5,7 @@
 
 package lattices.decoder;
 
+import lattices.util.ZnWithinSphere;
 import java.util.Collection;
 import java.util.Iterator;
 import org.junit.After;

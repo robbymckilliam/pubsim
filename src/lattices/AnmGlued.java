@@ -63,8 +63,7 @@ public class AnmGlued extends NearestPointAlgorithm {
         u = new double[n+1];
         v = new double[n+1];
         yd = new double[n+1];
-        an = new AnFastSelect();
-        an.setDimension(n);
+        an = new AnFastSelect(n);
     }
 
     public void nearestPoint(double[] y) {

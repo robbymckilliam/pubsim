@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices.decoder;
+package lattices.util;
 
 import java.util.Collection;
 import java.util.Iterator;

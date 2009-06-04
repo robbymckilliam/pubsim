@@ -49,8 +49,7 @@ public class AnstarAnGlued extends Anstar{
         g = new double[n+1];
         yd = new double[n+1];
         v = new double[n+1];
-        an = new AnSorted();
-        an.setDimension(n);
+        an = new AnFastSelect(n);
     }
     
     /** Simple nearest point algorithm based on glue vectors */

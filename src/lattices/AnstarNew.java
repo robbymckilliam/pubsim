@@ -13,7 +13,7 @@ import java.util.Arrays;
  * This is a new, simpler and faster version of the AnstarVaughan algorithm.
  * Geometrically it searches along the line $\bm{1} r$ where 
  * $r \in [0, 1]$ in the lattice Zn.
- * @author Robby
+ * @author Robby McKilliam
  */
 public class AnstarNew extends Anstar{
     

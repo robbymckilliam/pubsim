@@ -17,23 +17,15 @@ public class GeneralLattice implements Lattice{
     /** The generator matrix for the lattice */
     protected Matrix B;
     
-    public GeneralLattice(){
+    protected GeneralLattice(){
     }
     
     public GeneralLattice(Matrix B){
-        setGeneratorMatrix(B);
+        this.B = B;
     }
     
     public GeneralLattice(double[][] B){
-        setGeneratorMatrix(B);
-    }
-    
-    public void setGeneratorMatrix(double[][] B){
         this.B = new Matrix(B);
-    }
-    
-    public void setGeneratorMatrix(Matrix B){
-        this.B = B;
     }
 
     public Matrix getGeneratorMatrix() {
@@ -56,7 +48,7 @@ public class GeneralLattice implements Lattice{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public double getDimension() {
+    public int getDimension() {
         return B.rank();
     }
 

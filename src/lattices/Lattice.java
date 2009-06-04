@@ -33,7 +33,7 @@ public interface Lattice {
     
     void setDimension(int n);
     
-    double getDimension();
+    int getDimension();
     
     /**
      * Return the generator matrix for this latttice

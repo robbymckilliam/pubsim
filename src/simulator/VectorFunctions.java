@@ -119,7 +119,7 @@ public class VectorFunctions {
     }
 
     /**
-     * vector subtraction
+     * vector subtraction x - y
      */
     public static double[] subtract(double[] x, double[] y) {
         double[] out = new double[x.length];
@@ -130,7 +130,7 @@ public class VectorFunctions {
     }
 
     /**
-     * vector addition
+     * vector addition x + y
      */
     public static double[] add(double[] x, double[] y) {
         double[] out = new double[x.length];

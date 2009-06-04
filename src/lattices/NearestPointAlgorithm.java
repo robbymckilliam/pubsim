@@ -52,7 +52,7 @@ public abstract class NearestPointAlgorithm
      * Don't use this abstract class if you don't intend n to
      * be the dimension of your lattice.
      */
-    public double getDimension(){ return n; }
+    public int getDimension(){ return n; }
     
     
     

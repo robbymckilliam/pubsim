@@ -7,7 +7,7 @@ package simulator.pes.crb;
 
 import Jama.Matrix;
 import java.util.Iterator;
-import lattices.decoder.ZnWithinSphere;
+import lattices.util.ZnWithinSphere;
 import simulator.VectorFunctions;
 
 /**

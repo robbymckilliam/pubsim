@@ -19,6 +19,8 @@ public abstract class An implements LatticeAndNearestPointAlgorithm {
     protected double[] u;
     protected int n;
 
+    protected An() {}
+
     @Override
     public double[] getLatticePoint() {
         return u;
@@ -31,14 +33,14 @@ public abstract class An implements LatticeAndNearestPointAlgorithm {
 
     @Override
     public double volume() {
-        return n+1;
+        return Math.sqrt(n+1);
     }
 
    public double inradius() {
         return Math.sqrt(2)/2.0;
     }
 
-    public double getDimension() {
+    public int getDimension() {
         return n;
     }
 

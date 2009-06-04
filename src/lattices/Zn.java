@@ -14,11 +14,15 @@ import Jama.Matrix;
  * for completeness.
  * @author Robby McKilliam
  */
-public class Zn implements NearestPointAlgorithmInterface, Lattice {
+public class Zn implements LatticeAndNearestPointAlgorithm {
     
     protected double[] x;
     protected int n;
-    
+
+    public Zn(int n){
+        setDimension(n);
+    }
+
     @Override
     public void setDimension(int n){
         this.n =  n;
@@ -48,7 +52,7 @@ public class Zn implements NearestPointAlgorithmInterface, Lattice {
         return 1.0;
     }
 
-    public double getDimension() {
+    public int getDimension() {
         return n;
     }
 

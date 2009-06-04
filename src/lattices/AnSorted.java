@@ -1,6 +1,5 @@
 package lattices;
 
-import Jama.Matrix;
 import java.util.Arrays;
 import simulator.IndexedDouble;
 import simulator.VectorFunctions;
@@ -14,6 +13,12 @@ public class AnSorted extends An
         implements LatticeAndNearestPointAlgorithm{
 
     protected IndexedDouble[] z;
+
+    protected AnSorted() {}
+
+    public AnSorted(int n){
+        setDimension(n);
+    }
     
     @Override
     public void setDimension(int n) {

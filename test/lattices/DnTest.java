@@ -7,6 +7,7 @@ package lattices;
 
 import junit.framework.TestCase;
 import distributions.GaussianNoise;
+import lattices.decoder.SphereDecoder;
 import simulator.NoiseVector;
 import simulator.VectorFunctions;
 
@@ -26,19 +27,16 @@ public class DnTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 3;
+        int n = 7;
         int iters = 100;
-        
-        //this test using the fact that A_3 = D_3, but need to rotate
-        //the point in A_3 into a space in R^4 to test.
         
         GaussianNoise noise = new GaussianNoise(0.0, 1000.0);
         NoiseVector siggen = new NoiseVector();
         siggen.setNoiseGenerator(noise);
         siggen.setLength(n);
         
-        Dn instance = new Dn();
-        AnSorted tester = new AnSorted();
+        Dn instance = new Dn(n);
+        SphereDecoder tester = new SphereDecoder(instance);
         
         for(int i = 0; i < iters; i++){
             double[] y = siggen.generateReceivedSignal();
@@ -47,5 +45,18 @@ public class DnTest extends TestCase {
             assertEquals(VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint())<0.0001, true);
         }
     }
+
+        /**
+     * Test of nearestPoint method, of class Dn.
+     */
+    public void testGeneratorMatrix() {
+        System.out.println("testGeneratorMatrix");
+
+        int n = 5;
+
+        Dn instance = new Dn(n);
+        System.out.println(VectorFunctions.print(instance.getGeneratorMatrix()));
+    }
+
 
 }

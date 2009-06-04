@@ -35,8 +35,7 @@ public class An1DUnwrapper implements OneDUnwrapperInterface{
 
     public void setSize(int N) {
         this.N = N;
-        lattice = new AnFastSelect();
-        lattice.setDimension(N-1);
+        lattice = new AnFastSelect(N-1);
     }
 
 }
