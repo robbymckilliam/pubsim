@@ -16,7 +16,7 @@ import simulator.Util;
  * by Warren Smith.
  * @author Robby McKilliam
  */
-public class AnmSorted extends NearestPointAlgorithm{
+public class AnmSorted extends NearestPointAlgorithmStandardNumenclature{
     
     private IndexedDouble[] z;
     protected int M;

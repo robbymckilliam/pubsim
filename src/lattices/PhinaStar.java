@@ -15,7 +15,7 @@ import simulator.VectorFunctions;
  * in n but exponential in alpha.
  * @author Robby McKilliam
  */
-public class PhinaStar extends NearestPointAlgorithm{
+public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
     
     protected int a;
     protected double[] g, yt, yp;

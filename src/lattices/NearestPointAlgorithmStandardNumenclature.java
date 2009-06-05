@@ -5,6 +5,7 @@
 
 package lattices;
 
+import Jama.Matrix;
 import java.util.Date;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ import java.util.Random;
  *      n is the dimension of this lattice.
  * @author Robby McKilliam
  */
-public abstract class NearestPointAlgorithm 
+public abstract class NearestPointAlgorithmStandardNumenclature
     implements LatticeAndNearestPointAlgorithm{
     
     /** The dimension of the lattice */
@@ -106,6 +107,11 @@ public abstract class NearestPointAlgorithm
         
         //assertTrue(true);
         
+    }
+
+    public double volume() {
+        Matrix B = getGeneratorMatrix();
+        return Math.sqrt((B.transpose().times(B)).det());
     }
 
 }

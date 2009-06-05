@@ -72,8 +72,7 @@ public class BabaiTest {
         double[] y = {1.1, 2.2, 3.9, -4.1, -100.49};
         Babai babai = new Babai();
         //construc the integer lattice
-        Zn lattice = new Zn();
-        lattice.setDimension(y.length);
+        Zn lattice = new Zn(y.length);
         
         babai.setLattice(lattice);
         

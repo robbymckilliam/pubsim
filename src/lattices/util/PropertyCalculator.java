@@ -48,16 +48,19 @@ public class PropertyCalculator {
      * (i.e. using the fundamental parralelipided).  If you write the integral
      * down it becomes clear that the change of variables occurs with a
      * Jacobian that is equal to the volume, hence cancellation.
+     *
+     * Really, I think that Conway and Sloane got this a little wrong.  The
+     * normalised second moment should be I = U/vol^(2/n + 1) then it is scale
+     * independent.  The the dimensionless second moment is then I/n
      */
      public double normalisedSecondMoment() {
-        return sm/numpoints;
+        return sm/numpoints/Math.pow(vol, 2.0/N);
     }
 
     public double secondMoment() {return sm/numpoints*vol;}
 
     public double dimensionalessSecondMoment() {
-        double pvol = Math.pow(vol, 2.0/N);
-        return normalisedSecondMoment()/pvol/N;
+        return normalisedSecondMoment()/N;
     }
 
 

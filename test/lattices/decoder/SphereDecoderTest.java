@@ -72,8 +72,7 @@ public class SphereDecoderTest {
         double[] y = {1.49, 1.49, 1.49, 1.49, 1.49};
         SphereDecoder decoder = new SphereDecoder();
         //construc the integer lattice
-        Zn lattice = new Zn();
-        lattice.setDimension(y.length);
+        Zn lattice = new Zn(y.length);
         
         decoder.setLattice(lattice);
         

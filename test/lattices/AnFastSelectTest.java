@@ -53,7 +53,7 @@ public class AnFastSelectTest {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[n];
-        AnFastSelect instance = new AnFastSelect();
+        AnFastSelect instance = new AnFastSelect(n-1);
         AnSorted tester = new AnSorted();
         
         instance.setDimension(n - 1);

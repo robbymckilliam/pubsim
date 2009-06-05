@@ -22,15 +22,19 @@ public class Phin2StarSampled extends Phin2Star implements NearestPointAlgorithm
     protected int num_samples;
     Anstar anstar;
     
-    protected double[] g, vt, ut, y; 
+    protected double[] g, vt, ut, y;
+
+    public Phin2StarSampled() {}
     
     /** Default constructor.  Uses 100 samples */
-    public Phin2StarSampled() {
+    public Phin2StarSampled(int n) {
+        setDimension(n);
         num_samples = 100;
     }
     
     /** Default constructor sets the number of samples */
-    public Phin2StarSampled(int samples) {
+    public Phin2StarSampled(int n, int samples) {
+        setDimension(n);
         num_samples = samples;
     }
     

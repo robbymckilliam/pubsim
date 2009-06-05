@@ -19,6 +19,12 @@ public class Phin2StarZnLLS extends
     double[] g, glue, z, x;
     Anstar anstar;
 
+    public Phin2StarZnLLS() {};
+
+    public Phin2StarZnLLS(int n){
+        setDimension(n);
+    }
+
     public void nearestPoint(double[] y) {
         if (n != y.length-2)
             setDimension(y.length-2);

@@ -10,7 +10,7 @@ import Jama.Matrix;
  * Abstract class for any Anstar algorithm
  * @author robertm
  */
-public abstract class Anstar extends NearestPointAlgorithm {
+public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
 
     public double volume() {
         return Math.sqrt(1.0 / (n + 1));

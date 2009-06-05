@@ -15,7 +15,7 @@ import simulator.VectorFunctions;
  * only the volume method is implemented.
  * @author Robby McKilliam
  */
-public class Phina extends NearestPointAlgorithm{
+public class Phina extends NearestPointAlgorithmStandardNumenclature{
     
     protected int a;
     

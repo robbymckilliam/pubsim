@@ -7,6 +7,8 @@ package lattices.util;
 
 import lattices.AnFastSelect;
 import lattices.Dn;
+import lattices.Phin2StarGlued;
+import lattices.Phin2StarZnLLS;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,7 +42,7 @@ public class PropertyCalculatorTest {
     public void tearDown() {
     }
 
-    int samples = 50;
+    int samples = 20;
 
     /**
      * Test of properties for Zn lattice
@@ -59,15 +61,14 @@ public class PropertyCalculatorTest {
      */
     @Test
     public void testAn() {
-        int N =4;
-        PropertyCalculator prop = new PropertyCalculator(new AnFastSelect(N), samples);
+        int N =6;
+        //PropertyCalculator prop = new PropertyCalculator(new AnFastSelect(N), samples);
         //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 
-        double I =  N/12.0 + N/(6.0*(N+1));
-        assertEquals(I, prop.normalisedSecondMoment(), 0.001);
-
-        double G = I/Math.pow(N+1, 1.0/N)/N;
-        assertEquals(G, prop.dimensionalessSecondMoment(), 0.001);
+        double I =  (N/12.0 + N/(6.0*(N+1)))/Math.pow(N+1, 1.0/N);
+        double G = I/N;
+        //assertEquals(G, prop.dimensionalessSecondMoment(), 0.001);
+        System.out.println(G);
 
     }
 
@@ -76,15 +77,28 @@ public class PropertyCalculatorTest {
      */
     @Test
     public void testDn() {
-        int N = 4;
-        PropertyCalculator prop = new PropertyCalculator(new Dn(N), samples);
+        int N = 6;
+        //PropertyCalculator prop = new PropertyCalculator(new Dn(N), samples);
         //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 
         double I =  N/12.0 + 1/(2.0*(N+1));
-        assertEquals(I, prop.normalisedSecondMoment(), 0.001);
-
         double G = I/Math.pow(2, 2.0/N)/N;
-        assertEquals(G, prop.dimensionalessSecondMoment(), 0.001);
+        //assertEquals(G, prop.dimensionalessSecondMoment(), 0.001);
+        System.out.println(G);
+
+    }
+
+    /**
+     * Test of properties for Zn lattice
+     */
+    @Test
+    public void testPhiStar() {
+        int N = 6;
+        PropertyCalculator prop = new PropertyCalculator(new Phin2StarZnLLS(N), samples);
+        //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
+
+        System.out.println(prop.dimensionalessSecondMoment());
+        System.out.println(prop.coveringRadius());
 
     }
 

@@ -33,7 +33,7 @@ public class GeneralLattice implements Lattice{
     }
 
     public double volume() {
-        return Math.sqrt(B.times(B.transpose()).det());
+        return Math.sqrt((B.transpose().times(B)).det());
     }
 
     public double inradius() {

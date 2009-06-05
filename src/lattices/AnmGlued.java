@@ -10,7 +10,7 @@ import simulator.VectorFunctions;
  * This algorithm was known by Conway and Sloane.
  * @author Robby McKilliam
  */
-public class AnmGlued extends NearestPointAlgorithm {
+public class AnmGlued extends NearestPointAlgorithmStandardNumenclature {
     
     protected double[] g, yd; 
     protected int M;

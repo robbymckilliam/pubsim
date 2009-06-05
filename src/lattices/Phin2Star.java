@@ -11,7 +11,7 @@ import Jama.Matrix;
  *
  * @author Robby McKilliam
  */
-public abstract class Phin2Star extends NearestPointAlgorithm{
+public abstract class Phin2Star extends NearestPointAlgorithmStandardNumenclature{
     
     @Override
     public void setDimension(int n){
@@ -43,12 +43,6 @@ public abstract class Phin2Star extends NearestPointAlgorithm{
             dot += y[i]*(i+1-nbar);
         for(int i = 0; i < x.length; i++)
             y[i] = y[i] - dot/sumn2 * (i+1-nbar);
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public double volume(){ 
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public double inradius() {

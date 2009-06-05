@@ -24,8 +24,7 @@ public class GlueAnstarEstimator implements FrequencyEstimator {
     /** Set the number of samples */
     @Override
     public void setSize(int n){
-        lattice = new Phin2StarGlued();
-        lattice.setDimension(n-2);  
+        lattice = new Phin2StarGlued(n-2);
         ya = new double[n];
         this.n = n;
     }

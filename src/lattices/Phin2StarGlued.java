@@ -24,13 +24,19 @@ public class Phin2StarGlued extends Phin2Star {
     protected Anstar anstar;
     
     protected double[] g, vt, yt, y, ut;
+
+    public Phin2StarGlued(){}
+
+    public Phin2StarGlued(int n){
+        setDimension(n);
+    }
     
     @Override
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new AnstarBucket();
-        anstar.setDimension(n+2);
+        anstar = new AnstarBucketVaughan();
+        anstar.setDimension(n+1);
         
         g = new double[n+2];
         v = new double[n+2];
