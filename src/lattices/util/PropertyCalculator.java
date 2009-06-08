@@ -15,7 +15,7 @@ import simulator.VectorFunctions;
  */
 public class PropertyCalculator {
 
-    private PointInVoronoi points;
+    private PointEnumerator points;
     private double outradius = Double.NEGATIVE_INFINITY;
     private double sm = 0.0;
     private double vol, N;
@@ -27,6 +27,27 @@ public class PropertyCalculator {
         N = L.getDimension();
         while(points.hasMoreElements()){
             calculateProperty(points.nextElementDouble());
+
+        }
+    }
+
+    /**
+     * Print percentage complete to System.out while running.  Value of print boolean
+     * does not matter.
+     */
+    public PropertyCalculator(LatticeAndNearestPointAlgorithm L, int samples, boolean print){
+        points = new UniformInVornoi(L, samples);
+        vol = L.volume();
+        N = L.getDimension();
+        int oldper = 0;
+        while(points.hasMoreElements()){
+            calculateProperty(points.nextElementDouble());
+            int p = (int)points.percentageComplete();
+            if(p == oldper){
+                System.out.println(p + "%");
+                System.out.flush();
+                oldper = p + 5;
+            }
         }
     }
 

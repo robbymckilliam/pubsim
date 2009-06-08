@@ -20,7 +20,7 @@ import simulator.VectorFunctions;
  * uniformly generate noise.
  * @author Robby McKilliam
  */
-public class UniformInVornoi  implements PointInVoronoi{
+public class UniformInVornoi  implements PointEnumerator{
     
     private int numsamples = 1000, count = 0;
     protected NearestPointAlgorithmInterface decoder;
@@ -77,6 +77,10 @@ public class UniformInVornoi  implements PointInVoronoi{
         UniformNoise noise = new UniformNoise();
         noise.setRange(1.0);
         nv = new NoiseVector(noise, N);
+    }
+
+    public double percentageComplete() {
+        return (100.0 * count) / numsamples;
     }
 
 

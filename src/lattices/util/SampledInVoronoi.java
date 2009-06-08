@@ -21,7 +21,7 @@ import simulator.VectorFunctions;
  * number generator will work better than this.
  * @author Robby McKilliam
  */
-public class SampledInVoronoi implements PointInVoronoi{
+public class SampledInVoronoi implements PointEnumerator{
 
 
     protected NearestPointAlgorithmInterface decoder;
@@ -65,5 +65,9 @@ public class SampledInVoronoi implements PointInVoronoi{
         double[]  p = ppoints.nextElement().getColumnPackedCopy();
         decoder.nearestPoint(p);
         return  VectorFunctions.subtract(p, decoder.getLatticePoint());
+    }
+
+    public double percentageComplete() {
+        return ppoints.percentageComplete();
     }
 }

@@ -15,7 +15,7 @@ import lattices.Lattice;
  * generator matrix and u in [0,1]^N.
  * @author Robby McKilliam
  */
-public class PointInParallelepiped implements Enumeration<Matrix>{
+public class PointInParallelepiped implements PointEnumerator{
 
     protected Matrix u;
     protected boolean finished = false;
@@ -97,6 +97,17 @@ public class PointInParallelepiped implements Enumeration<Matrix>{
         if(counter >= sampleproduct) finished = true;
         return B.times(u);
     }
+    
+    /**
+     * Return value between 0 and 100 that indicates
+     * the percentage of elements that have been returned.
+     * This is just useful for feedback when the number of
+     * element is very large.
+     * @return a % in [0, 100]
+     */
+    public double percentageComplete(){
+        return (100.0*counter)/sampleproduct;
+    }
 
     protected void addto(int i){
         if(u.get(i, 0) >= 1.0 - 1.0/samples[i]){
@@ -106,6 +117,10 @@ public class PointInParallelepiped implements Enumeration<Matrix>{
         }else{
             u.set(i, 0, u.get(i, 0) + 1.0/samples[i]);
         }
+    }
+
+    public double[] nextElementDouble() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

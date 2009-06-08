@@ -44,7 +44,7 @@ public abstract class Phin2Star extends NearestPointAlgorithmStandardNumenclatur
         for(int i = 0; i < x.length; i++)
             y[i] = y[i] - dot/sumn2 * (i+1-nbar);
     }
-
+    
     public double inradius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -61,8 +61,8 @@ public abstract class Phin2Star extends NearestPointAlgorithmStandardNumenclatur
     }
     
     /** 
-     * This is the matrix M in most of my papers
-     * M = [1, n, n^2, ..., n^a]
+     * This is the Vandermonde matrix M in most of my papers
+     * M = [1, n, n^2, ..., n^a].
      */
     public Matrix getMMatrix(){
         Matrix M = new Matrix(n+2, 2);

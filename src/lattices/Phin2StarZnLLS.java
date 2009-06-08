@@ -5,7 +5,6 @@
 
 package lattices;
 
-import Jama.Matrix;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
