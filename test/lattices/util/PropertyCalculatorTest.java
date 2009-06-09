@@ -124,10 +124,10 @@ public class PropertyCalculatorTest {
     @Test
     public void testPhi2Star() {
         System.out.println("testPhi2Star");
-        int N = 12;
+        int N = 6;
         //construct a lattice 2Dn
 
-        PropertyCalculator prop = new PropertyCalculator(new Phin2StarZnLLS(N), samples, true);
+        PropertyCalculator prop = new PropertyCalculator(new Phin2StarZnLLS(N), 0.00001);
         //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 
         System.out.println(prop.dimensionalessSecondMoment());

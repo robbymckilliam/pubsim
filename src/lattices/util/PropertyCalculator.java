@@ -36,7 +36,7 @@ public class PropertyCalculator {
      * does not matter.
      */
     public PropertyCalculator(LatticeAndNearestPointAlgorithm L, int samples, boolean print){
-        points = new UniformInVornoi(L, samples);
+        points = new SampledInVoronoi(L, samples);
         vol = L.volume();
         N = L.getDimension();
         int oldper = 0;
@@ -47,6 +47,32 @@ public class PropertyCalculator {
                 System.out.println(p + "%");
                 System.out.flush();
                 oldper = p + 5;
+            }
+        }
+    }
+
+    /**
+     * Runs with points generated in uniformly (psuedoranomly) in the Voronoi region.
+     * Stops after 100 consecutive points don't change the dimensionless second moment
+     * by more than the tolerance.  This is unlikely to perform sensibly though, the convergence
+     * of calculating the Voronoi region this way is very slow!  If we could somehow compute
+     * something above and something below (but both converge) it would be better.
+     */
+    public PropertyCalculator(LatticeAndNearestPointAlgorithm L, double tolerance){
+        points = new UniformInVornoi(L, Integer.MAX_VALUE);
+        vol = L.volume();
+        N = L.getDimension();
+        double oldG = 0;
+        int count = 0;
+        while(count < 100){
+            calculateProperty(points.nextElementDouble());
+            double G = dimensionalessSecondMoment();
+            System.out.println(Math.abs(G - oldG));
+            if(Math.abs(G - oldG) < tolerance){
+                    count++;
+            }else{
+                oldG = G;
+                count = 0;
             }
         }
     }
