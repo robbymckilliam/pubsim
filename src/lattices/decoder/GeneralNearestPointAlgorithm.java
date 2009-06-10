@@ -9,12 +9,13 @@ import lattices.Lattice;
 import lattices.NearestPointAlgorithmInterface;
 
 /**
- * INterface for the general nearest point algorithms in the decoder package
+ * Interface for the general nearest point algorithms in the decoder package
  * @author Robby McKilliam
  */
 public interface GeneralNearestPointAlgorithm 
         extends NearestPointAlgorithmInterface {
-    
+
+    /**@deprecated*/
     public void setLattice(Lattice G);
     
 }
