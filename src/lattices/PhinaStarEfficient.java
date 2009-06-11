@@ -55,8 +55,7 @@ public class PhinaStarEfficient extends PhinaStar {
         createg();
         gtg = VectorFunctions.sum2(g);
         if( a == 1 ) {
-            anstar = new AnstarBucket();
-            anstar.setDimension(n);
+            anstar = new AnstarBucket(n);
         }
     }
     

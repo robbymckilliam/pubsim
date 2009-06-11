@@ -21,6 +21,10 @@ public class AnstarBucket extends Anstar {
     private ListElem[] ints;
     private double[] z;
 
+    public AnstarBucket(int n){
+        setDimension(n);
+    }
+
     @Override
     public void setDimension(int n) {
         this.n = n;

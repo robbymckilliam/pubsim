@@ -55,7 +55,8 @@ public class BandedDecoder implements GeneralNearestPointAlgorithm{
     }
 
     public void setLattice(Lattice G) {
-        throw new UnsupportedOperationException("This is not supported.  Set the lattice in the constructor");
+        throw new UnsupportedOperationException("This is not supported. " +
+                "Set the lattice in the constructor");
     }
 
     public void nearestPoint(double[] y) {

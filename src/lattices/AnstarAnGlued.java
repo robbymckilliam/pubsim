@@ -18,7 +18,11 @@ public class AnstarAnGlued extends Anstar{
 
     private double[] g, yd;
     private AnSorted an;
-    
+
+    public AnstarAnGlued(int n){
+        setDimension(n);
+    }
+
     /** 
      * Sets protected variable g to the glue
      * vector [i].  See SPLAG pp109.

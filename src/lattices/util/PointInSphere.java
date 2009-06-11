@@ -6,6 +6,7 @@
 package lattices.util;
 
 import Jama.Matrix;
+import java.util.concurrent.LinkedBlockingQueue;
 import lattices.Lattice;
 import simulator.VectorFunctions;
 
@@ -13,6 +14,8 @@ import simulator.VectorFunctions;
  *  Returns all the points of a lattice in a sphere of given
  * radius.  The sphere does not have to be centered at
  * the origin.
+ * This uses a producer/consumer threaded pattern
+ * but perhaps it could be better implemented.
  * @author Robby McKilliam
  */
 public class PointInSphere implements PointEnumerator{
@@ -53,27 +56,35 @@ public class PointInSphere implements PointEnumerator{
         simulator.QRDecomposition QR = new simulator.QRDecomposition(M);
         R = QR.getR();
         Q = QR.getQ();
-        D = radius;
+        D = radius*radius;
         //compute the center in the triangular frame
         y = VectorFunctions.matrixMultVector(Q.transpose(), center);
         u = new double[n];
 
-        System.out.println("M = " + VectorFunctions.print(M));
-        System.out.println("R = " + VectorFunctions.print(R));
-        System.out.println("Q = " + VectorFunctions.print(Q));
+        //System.out.println("M = " + VectorFunctions.print(M));
+        ///System.out.println("R = " + VectorFunctions.print(R));
+        //System.out.println("Q = " + VectorFunctions.print(Q));
 
         //start thread to compute points.
         dthread = new DecodeThread();
-        dthread.setPriority(Thread.MAX_PRIORITY);
+        //dthread.setPriority(Thread.MAX_PRIORITY);
         dthread.start();
 
     }
 
-    public double[] nextElementDouble() {
-        double[] r = VectorFunctions.matrixMultVector(M, u);
-        //compute the next point
-        dthread.resume();
-        //block this thread until it completes.
+    protected LinkedBlockingQueue<Matrix> queue = new
+            LinkedBlockingQueue<Matrix>(1000);
+
+    Matrix r;
+    public Matrix nextElement() {
+        //while the queue is empty, yield the main thread
+        while(queue.isEmpty())
+            Thread.yield();
+        try{
+            r = M.times(queue.take());
+        }catch(InterruptedException e){
+            throw new RuntimeException("Taking from linked queue interrupted");
+        }
         return r;
     }
 
@@ -123,10 +134,11 @@ public class PointInSphere implements PointEnumerator{
                 //and update if required
                 else{
                     if(sumd <= D){
-                        //System.out.println("*** u = " + VectorFunctions.print(u));
-                        //System.out.flush();
-                        suspend();
-                       //System.arraycopy(u, 0, ubest, 0, n);
+                        //System.out.println("*** u = " + VectorFunctions.print
+                        queue.add(VectorFunctions.columnMatrix(u));
+                        //while the queue is a bit big, yield this thread
+                        while(queue.size() >= 990)
+                            yield();
                     }
                 }
                 u[k]++;
@@ -139,11 +151,12 @@ public class PointInSphere implements PointEnumerator{
     }
 
     public boolean hasMoreElements() {
-        return dthread.isAlive();
+        //System.out.println(dthread.isAlive() + ", " + !queue.isEmpty());
+        return dthread.isAlive() || !queue.isEmpty();
     }
 
-    public Matrix nextElement() {
-        return VectorFunctions.columnMatrix(nextElementDouble());
+    public double[] nextElementDouble() {
+        return nextElement().getColumnPackedCopy();
     }
 
 }
