@@ -112,16 +112,20 @@ public class ConstrainedSphereDecoder2Test {
     }
 
     /**
-     * Test of nearestPoint method, of class ConstrainedSphereDecoder2.
+     * Test of countNonNull method, of class ConstrainedSphereDecoder2.
      */
     @Test
-    public void testNearestPoint() {
-        System.out.println("nearestPoint");
-        double[] y = null;
-        ConstrainedSphereDecoder2 instance = null;
-        instance.nearestPoint(y);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testcopyIntoConstraints() {
+        System.out.println("copyIntoConstraints");
+        Double[] d = new Double[5];
+        d[1] = new Double(1.0);
+        d[3] = new Double(3.0);
+        double[] v = new double[3];
+        v[0] = 0.0; v[1] = 2.0; v[2] = 4.0;
+        double[] u = new double[5];
+        ConstrainedSphereDecoder2.copyIntoConstraints(d, v, u);
+        for(int i = 0; i < d.length; i++)
+            assertEquals(u[i], (double)i, 0.00001);
     }
 
     @Test

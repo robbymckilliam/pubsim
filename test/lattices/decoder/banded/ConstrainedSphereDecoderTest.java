@@ -97,8 +97,8 @@ public class ConstrainedSphereDecoderTest {
             double decdist = VectorFunctions.distance_between2(y, decoder.getLatticePoint());
             double sddist = VectorFunctions.distance_between2(y, sd.getLatticePoint());
 
-            //System.out.println(decdist);
-            //System.out.println(babdist);
+            //System.out.println(VectorFunctions.print(decoder.getIndex()));
+            //System.out.println(VectorFunctions.print(sd.getIndex()));
 
             assertEquals(decdist, sddist, 0.000001);
 
@@ -114,27 +114,31 @@ public class ConstrainedSphereDecoderTest {
         int iters = 10;
         int n = 5;
         int m = 6;
+        Double[] c = new Double[n];
+        c[0] = new Double(1.0);
+        c[2] = new Double(2.0);
         for(int t = 0; t < iters; t++){
 
             GeneralLattice lattice = new GeneralLattice(Matrix.random(m, n));
 
-            SphereDecoder sd = new SphereDecoder(lattice);
+            ConstrainedSphereDecoder decoder =
+                new ConstrainedSphereDecoder(lattice, c, 2.0);
 
             //just guessing radius here!
-            ConstrainedSphereDecoder decoder =
-                new ConstrainedSphereDecoder(lattice, new Double[n], 2.0);
+            ConstrainedSphereDecoder2 decoder2 =
+                new ConstrainedSphereDecoder2(lattice, c, 2.0);
 
-            double[] y = VectorFunctions.randomGaussian(m, 0.0, 1.0);
+            double[] y = VectorFunctions.randomGaussian(m, 0.0, 100.0);
             decoder.nearestPoint(y);
-            sd.nearestPoint(y);
+            decoder2.nearestPoint(y);
 
             double decdist = VectorFunctions.distance_between2(y, decoder.getLatticePoint());
-            double sddist = VectorFunctions.distance_between2(y, sd.getLatticePoint());
+            double dec2dist = VectorFunctions.distance_between2(y, decoder2.getLatticePoint());
 
-            //System.out.println(decdist);
-            //System.out.println(babdist);
+            System.out.println(VectorFunctions.print(decoder.getIndex()));
+            System.out.println(VectorFunctions.print(decoder2.getIndex()));
 
-            assertEquals(decdist, sddist, 0.000001);
+            assertEquals(decdist, dec2dist, 0.000001);
 
         }
     }

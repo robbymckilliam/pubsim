@@ -21,6 +21,8 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
 
     Double[] c;
     double[] ysub;
+    double[] uret;
+    Matrix M;
 
     /**
      * @param L The lattice to decode
@@ -33,12 +35,12 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
         c = constraints;
 
         //strip the matrix based on the constraints.
-        Matrix M = L.getGeneratorMatrix();
+        M = L.getGeneratorMatrix();
         G = M.getMatrix(0, M.getRowDimension()-1, getNullIndices(c));
         m = G.getRowDimension();
         n = G.getColumnDimension();
 
-        u = new double[n];
+        u = new double[M.getColumnDimension()];
         ut = new double[n];
         x = new double[m];
         yr = new double[n];
@@ -51,13 +53,16 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
         }else{
             ysub = new double[m];
         }
-        //System.out.print(ysub.length);
+        //System.out.print(VectorFunctions.print(G));
 
         //CAREFULL!  This version of the sphere decoder requires R to
         //have positive diagonal entries.
         simulator.QRDecomposition QR = new simulator.QRDecomposition(G);
         R = QR.getR();
         Q = QR.getQ();
+
+        System.out.println(VectorFunctions.print(R));
+        System.out.println(VectorFunctions.print(Q));
 
     }
 
@@ -69,18 +74,38 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
 
         //System.out.print(y.length);
         double[] yt = VectorFunctions.subtract(y, ysub);
+        System.out.println(VectorFunctions.print(yt));
 
         //compute y in the triangular frame
         VectorFunctions.matrixMultVector(Q.transpose(), yt, yr);
+        System.out.println(VectorFunctions.print(yr));
 
         //current element being decoded
         int k = n-1;
 
         decode(k, 0);
 
+        //combine the constraints and u
+        copyIntoConstraints(c, ubest, u);
         //compute nearest point
-        VectorFunctions.matrixMultVector(G, ubest, x);
+        VectorFunctions.matrixMultVector(M, u, x);
 
+    }
+
+     /**
+      * Copy a vector of values into the nulls in the constraints.
+      * The results is stored in u.
+      */
+    public static void copyIntoConstraints(Double[] c, double[] v, double[] u){
+        int count = 0;
+        for(int i = 0; i < c.length; i++){
+            if(c[i]==null){
+                u[i] = v[count];
+                count++;
+            }else{
+                u[i] = c[i].doubleValue();
+            }
+        }
     }
 
     /** Return the indices of this array that are non null */

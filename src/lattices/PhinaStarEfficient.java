@@ -7,7 +7,6 @@
 package lattices;
 
 import simulator.Util;
-import Jama.Matrix;
 import simulator.VectorFunctions;
 
 /**
