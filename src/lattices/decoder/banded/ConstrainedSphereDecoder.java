@@ -34,11 +34,6 @@ public class ConstrainedSphereDecoder extends SphereDecoder
         D = radius*radius + DELTA;
         c = constraints;
 
-        u = new double[n];
-        x = new double[m];
-        yr = new double[n];
-        ubest = new double[n];
-
         G = L.getGeneratorMatrix().copy();
         m = G.getRowDimension();
         n = G.getColumnDimension();
@@ -46,6 +41,11 @@ public class ConstrainedSphereDecoder extends SphereDecoder
         if(n != c.length)
             throw new RuntimeException("The constraints are not the same" +
                     "dimension as the lattice!");
+
+        u = new double[n];
+        x = new double[m];
+        yr = new double[n];
+        ubest = new double[n];
         
         //CAREFULL!  This version of the sphere decoder requires R to
         //have positive diagonal entries.
@@ -125,7 +125,7 @@ public class ConstrainedSphereDecoder extends SphereDecoder
 
     @Override
     public double[] getLatticePoint() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return x;
     }
 
     @Override

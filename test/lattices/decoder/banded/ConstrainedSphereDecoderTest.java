@@ -7,16 +7,18 @@ package lattices.decoder.banded;
 
 import Jama.Matrix;
 import lattices.GeneralLattice;
+import lattices.decoder.SphereDecoder;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class ConstrainedSphereDecoderTest {
 
@@ -69,6 +71,72 @@ public class ConstrainedSphereDecoderTest {
 
         assertTrue(caught);
 
+    }
+
+        @Test
+    public void sameAsSphereDecoderWhenNoConstraints() {
+        System.out.println("sameAsSphereDecoderWhenNoConstraints");
+
+        int iters = 10;
+        int n = 5;
+        int m = 6;
+        for(int t = 0; t < iters; t++){
+
+            GeneralLattice lattice = new GeneralLattice(Matrix.random(m, n));
+
+            SphereDecoder sd = new SphereDecoder(lattice);
+
+            //just guessing radius here!
+            ConstrainedSphereDecoder decoder =
+                new ConstrainedSphereDecoder(lattice, new Double[n], 2.0);
+
+            double[] y = VectorFunctions.randomGaussian(m, 0.0, 1.0);
+            decoder.nearestPoint(y);
+            sd.nearestPoint(y);
+
+            double decdist = VectorFunctions.distance_between2(y, decoder.getLatticePoint());
+            double sddist = VectorFunctions.distance_between2(y, sd.getLatticePoint());
+
+            //System.out.println(decdist);
+            //System.out.println(babdist);
+
+            assertEquals(decdist, sddist, 0.000001);
+
+        }
+    }
+
+    @Test
+    public void bothConstrainedOutputSame() {
+        System.out.println("bothConstrainedOutputSame");
+
+        //UNDER CONSTRUCTION.
+
+        int iters = 10;
+        int n = 5;
+        int m = 6;
+        for(int t = 0; t < iters; t++){
+
+            GeneralLattice lattice = new GeneralLattice(Matrix.random(m, n));
+
+            SphereDecoder sd = new SphereDecoder(lattice);
+
+            //just guessing radius here!
+            ConstrainedSphereDecoder decoder =
+                new ConstrainedSphereDecoder(lattice, new Double[n], 2.0);
+
+            double[] y = VectorFunctions.randomGaussian(m, 0.0, 1.0);
+            decoder.nearestPoint(y);
+            sd.nearestPoint(y);
+
+            double decdist = VectorFunctions.distance_between2(y, decoder.getLatticePoint());
+            double sddist = VectorFunctions.distance_between2(y, sd.getLatticePoint());
+
+            //System.out.println(decdist);
+            //System.out.println(babdist);
+
+            assertEquals(decdist, sddist, 0.000001);
+
+        }
     }
 
     

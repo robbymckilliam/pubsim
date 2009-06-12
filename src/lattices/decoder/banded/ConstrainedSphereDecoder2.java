@@ -32,23 +32,54 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
         D = radius*radius + DELTA;
         c = constraints;
 
+        //strip the matrix based on the constraints.
+        Matrix M = L.getGeneratorMatrix();
+        G = M.getMatrix(0, M.getRowDimension()-1, getNullIndices(c));
+        m = G.getRowDimension();
+        n = G.getColumnDimension();
+
         u = new double[n];
+        ut = new double[n];
         x = new double[m];
         yr = new double[n];
         ubest = new double[n];
-        ysub = new double[n];
 
-        //strip the matrix based on the constraints.
-        Matrix M = L.getGeneratorMatrix();
-        G = M.getMatrix(0, M.getRowDimension()-1, getNonNullIndices(c));
-        m = G.getRowDimension();
-        n = G.getColumnDimension();
+        //compute the vector we want to subtract from y each time
+        if(stripNulls(c).length > 0){
+            Matrix Md = M.getMatrix(0, M.getRowDimension()-1, getNonNullIndices(c));
+            ysub = VectorFunctions.matrixMultVector(Md, stripNulls(c));
+        }else{
+            ysub = new double[m];
+        }
+        //System.out.print(ysub.length);
 
         //CAREFULL!  This version of the sphere decoder requires R to
         //have positive diagonal entries.
         simulator.QRDecomposition QR = new simulator.QRDecomposition(G);
         R = QR.getR();
         Q = QR.getQ();
+
+    }
+
+     @Override
+    public void nearestPoint(double[] y) {
+        if(m != y.length)
+            throw new RuntimeException("Point y and Generator" +
+                    " matrix are of different dimension!");
+
+        //System.out.print(y.length);
+        double[] yt = VectorFunctions.subtract(y, ysub);
+
+        //compute y in the triangular frame
+        VectorFunctions.matrixMultVector(Q.transpose(), yt, yr);
+
+        //current element being decoded
+        int k = n-1;
+
+        decode(k, 0);
+
+        //compute nearest point
+        VectorFunctions.matrixMultVector(G, ubest, x);
 
     }
 
@@ -65,6 +96,18 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
         return r;
     }
 
+    /** Return the indices of this array that are non null */
+    public static int[] getNullIndices(Object[] d){
+        int[] r = new int[countNull(d)];
+        int count = 0;
+        for(int i = 0; i < d.length; i++){
+            if(d[i] == null){
+                r[count] = i;
+                count++;
+            }
+        }
+        return r;
+    }
 
     /**
      * Strips the nulls from a Double[] and returns a compacted
@@ -94,25 +137,6 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
     /** Returns the number of non nulls in an array */
     public static int countNonNull(Object[] c){
         return c.length - countNull(c);
-    }
-
-    @Override
-    public void nearestPoint(double[] y) {
-        if(m != y.length)
-            throw new RuntimeException("Point y and Generator" +
-                    " matrix are of different dimension!");
-
-        //compute y in the triangular frame
-        VectorFunctions.matrixMultVector(Q.transpose(), y, yr);
-
-        //current element being decoded
-        int k = n-1;
-
-        decode(k, 0);
-
-        //compute nearest point
-        VectorFunctions.matrixMultVector(G, ubest, x);
-
     }
 
 }
