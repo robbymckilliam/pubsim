@@ -8,8 +8,6 @@
 
 package distributions;
 
-import rngpack.RandomElement;
-import rngpack.RandomSeedable;
 import rngpack.Ranlux;
 
 /**

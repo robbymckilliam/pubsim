@@ -13,7 +13,7 @@ import java.util.TreeMap;
  * @author Robby McKilliam
  */
 public class Phin2StarZnLLS extends
-        Phin2Star implements NearestPointAlgorithmInterface {
+        Phin2Star implements NearestPointAlgorithm {
 
     double[] g, glue, z, x;
     Anstar anstar;

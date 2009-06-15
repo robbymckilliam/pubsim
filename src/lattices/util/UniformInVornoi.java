@@ -10,7 +10,7 @@ import distributions.UniformNoise;
 import java.util.Enumeration;
 import lattices.Lattice;
 import lattices.LatticeAndNearestPointAlgorithm;
-import lattices.NearestPointAlgorithmInterface;
+import lattices.NearestPointAlgorithm;
 import lattices.decoder.SphereDecoder;
 import simulator.NoiseVector;
 import simulator.VectorFunctions;
@@ -23,7 +23,7 @@ import simulator.VectorFunctions;
 public class UniformInVornoi  implements PointEnumerator{
     
     private int numsamples = 1000, count = 0;
-    protected NearestPointAlgorithmInterface decoder;
+    protected NearestPointAlgorithm decoder;
     private NoiseVector nv;
     Matrix B;
 

@@ -42,7 +42,7 @@ public class AnstarBucketTest extends TestCase {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[n];
-        AnstarBucket instance = new AnstarBucket();
+        AnstarBucket instance = new AnstarBucket(n-1);
         AnstarVaughan tester = new AnstarVaughan();
         
         instance.setDimension(n - 1);

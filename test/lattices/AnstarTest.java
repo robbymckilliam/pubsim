@@ -75,7 +75,7 @@ public class AnstarTest {
     @Test
     public void testGetGeneratorMatrix() {
         System.out.println("getGeneratorMatrix");
-        Anstar instance = new AnstarAnGlued();
+        Anstar instance = new AnstarAnGlued(4);
         instance.setDimension(4);
         Matrix result = instance.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(result));

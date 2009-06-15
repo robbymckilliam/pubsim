@@ -6,7 +6,9 @@
 package simulator;
 
 import Jama.Matrix;
+import java.util.Date;
 import java.util.Random;
+import rngpack.Ranlux;
 
 /**
  * Miscelaneous functions to run on double arrays
@@ -736,6 +738,39 @@ public class VectorFunctions {
             M.set(0, n, x[n]);
         }
         return M;
+    }
+
+     /**
+      * Generate a banded matrix with random elements.  The
+      * elements are Gaussian distributed zero mean and
+      * variance 1.
+      * @param m Number of rows
+      * @param n Number of columns
+      * @param rb Length of the band along rows
+      * @param cb length of the band along columns
+      * @return Banded matrix
+      */
+    public static Matrix randomBandedMatrix(int m, int n, int rb, int cb){
+        rngpack.Ranlux rand = new Ranlux(new Date());
+        Matrix M = new Matrix(m, n);
+        for(int j = -cb; j <= rb; j++){
+            for(int i = 0; i < Math.min(m,n); i++){
+                if(i+j >= 0 && i+j < m)
+                    M.set(i+j, i, rand.gaussian());
+            }
+        }
+        return M;
+    }
+    
+    /**
+     * Returns a square upper triangular banded matrix
+     * @param m Number of rows
+     * @param n Number of columns
+     * @param band Length of the band along rows
+     * @return upper triangular banded matrix
+     */
+    public static Matrix randomBandedMatrix(int n, int band){
+        return randomBandedMatrix(n, n, 0, band - 1);
     }
 
 }

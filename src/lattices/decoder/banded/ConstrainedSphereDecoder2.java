@@ -12,8 +12,13 @@ import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
 
 /**
- * This is another constrained sphere decoder.  It is a more simple
- * (and sensible) way to do this.
+ * This is another constrained sphere decoder.  Conceptually this
+ * is more simple, but it's probably less flexible.
+ * It's real use is just to test the other ConstrainedSphereDecoder.
+ * The sphere radius works differently between this and the other one.
+ * The distance here is the sphere radius of a smaller size decoder.
+ * The other one includes the constraints in the sphere distance.
+ * Because of this the other one is probably easier to use.
  * @author Robby McKilliam
  */
 public class ConstrainedSphereDecoder2 extends SphereDecoder
@@ -83,6 +88,7 @@ public class ConstrainedSphereDecoder2 extends SphereDecoder
         //current element being decoded
         int k = n-1;
 
+        //start the normal sphere decoder but
         decode(k, 0);
 
         //combine the constraints and u

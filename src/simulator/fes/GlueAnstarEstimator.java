@@ -7,7 +7,7 @@
 package simulator.fes;
 
 import lattices.LatticeAndNearestPointAlgorithm;
-import lattices.NearestPointAlgorithmInterface;
+import lattices.NearestPointAlgorithm;
 import lattices.Phin2StarGlued;
 
 /**

@@ -457,6 +457,22 @@ public class VectorFunctionsTest extends TestCase {
 
     }
 
+    public void testrandomBandedMatrix(){
+        System.out.println("testrandomBandedMatrix");
+        int m = 10; int n = 8;
+        int rb = 2; int cb = 2;
+        Matrix M = VectorFunctions.randomBandedMatrix(m, n, rb, cb);
+        System.out.println(VectorFunctions.print(M));
+
+        //QRDecomposition QR = new QRDecomposition(M);
+        //System.out.println(VectorFunctions.print(QR.getR()));
+        //System.out.println(VectorFunctions.print(QR.getQ()));
+
+        M = VectorFunctions.randomBandedMatrix(n, cb);
+        System.out.println(VectorFunctions.print(M));
+
+    }
+
    
     
 }

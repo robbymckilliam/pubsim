@@ -9,7 +9,7 @@ import Jama.Matrix;
 import java.util.Enumeration;
 import lattices.Lattice;
 import lattices.LatticeAndNearestPointAlgorithm;
-import lattices.NearestPointAlgorithmInterface;
+import lattices.NearestPointAlgorithm;
 import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
 
@@ -24,7 +24,7 @@ import simulator.VectorFunctions;
 public class SampledInVoronoi implements PointEnumerator{
 
 
-    protected NearestPointAlgorithmInterface decoder;
+    protected NearestPointAlgorithm decoder;
     protected PointInParallelepiped ppoints;
 
 

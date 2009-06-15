@@ -18,7 +18,7 @@ import lattices.decoder.SphereDecoder;
 public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice
     implements LatticeAndNearestPointAlgorithm {
 
-    private NearestPointAlgorithmInterface decoder;
+    private NearestPointAlgorithm decoder;
 
     public GeneralLatticeAndNearestPointAlgorithm(Matrix B){
         this.B = B;

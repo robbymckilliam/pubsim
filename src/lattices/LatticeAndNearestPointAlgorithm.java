@@ -10,6 +10,6 @@ package lattices;
  * @author Robby
  */
 public interface LatticeAndNearestPointAlgorithm 
-    extends Lattice, NearestPointAlgorithmInterface {
+    extends Lattice, NearestPointAlgorithm {
 
 }

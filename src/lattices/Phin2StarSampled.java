@@ -17,7 +17,7 @@ import simulator.*;
  * 
  * @author Robby McKilliam
  */
-public class Phin2StarSampled extends Phin2Star implements NearestPointAlgorithmInterface {
+public class Phin2StarSampled extends Phin2Star implements NearestPointAlgorithm {
     
     protected int num_samples;
     Anstar anstar;

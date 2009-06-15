@@ -19,7 +19,7 @@ import java.util.TreeMap;
  * 
  * @author Tim Mason and Robby McKilliam
  */
-public class Phin2StarZnLLSOld extends Phin2Star implements NearestPointAlgorithmInterface{
+public class Phin2StarZnLLSOld extends Phin2Star implements NearestPointAlgorithm{
     
     // dimension of the integer lattice we're searching in
     int N;

@@ -41,11 +41,11 @@ public class AnstarAnGluedTest extends TestCase {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[n];
-        Anstar tester = new AnstarBucket();
-        Anstar instance = new AnstarAnGlued();
+        Anstar tester = new AnstarBucket(n-1);
+        Anstar instance = new AnstarAnGlued(n-1);
         
-        instance.setDimension(n - 1);
-        tester.setDimension(n - 1);
+        //instance.setDimension(n - 1);
+        //tester.setDimension(n - 1);
         for(int i=0; i<50; i++){
             for(int k = 0; k < n; k++){
                 y[k] = ( rand.nextGaussian() - 0.5 )*10.0;

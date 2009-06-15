@@ -84,8 +84,8 @@ public class ShatErrorTesterLLS extends SamplingEstimator implements PRIEstimato
      */
     @Override
     public void setSize(int n) {
-        lattice = new AnstarBucket();
-	lattice.setDimension(n-1); // => n = N-1
+        lattice = new AnstarBucket(n-1);
+	//lattice.setDimension(n-1); // => n = N-1
 	zeta = new double[n];
 	fzeta = new double[n];
 	kappa = new double[n];

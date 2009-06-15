@@ -10,7 +10,7 @@ package lattices;
  *
  * @author Robby McKilliam
  */
-public interface NearestPointAlgorithmInterface {
+public interface NearestPointAlgorithm {
     
     void nearestPoint(double[] y);
     

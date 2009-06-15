@@ -55,6 +55,11 @@ public class ConstrainedSphereDecoder extends SphereDecoder
 
     }
 
+    /** Set the constraints for this decoder */
+    public void setConstraint(Double[] c){
+        this.c = c;
+    }
+
     @Override
     public void nearestPoint(double[] y) {
         if(m != y.length)
@@ -92,6 +97,8 @@ public class ConstrainedSphereDecoder extends SphereDecoder
             rsum += u[i]*R.get(k, i);
         }
 
+        //System.out.println(VectorFunctions.print(u));
+
         //check if this index is constrained
         if(c[k] != null){
             u[k] = c[k].doubleValue();
@@ -118,6 +125,7 @@ public class ConstrainedSphereDecoder extends SphereDecoder
             //and update if required
             if (sumd <= D) {
                 System.arraycopy(u, 0, ubest, 0, n);
+                //System.out.println("**** ubest = " + VectorFunctions.print(ubest));
                 D = sumd;
             }
         }
@@ -137,19 +145,6 @@ public class ConstrainedSphereDecoder extends SphereDecoder
     public void setLattice(Lattice G) {
         throw new UnsupportedOperationException("This is not supported. " +
                 "Set the lattice in the constructor");
-    }
-
-    /**
-     * Stores a double value and a boolean to indicate
-     * the decoder constraints.
-     */
-    public static class Constraint{
-        public final double u;
-        public final boolean contrained;
-        public Constraint(double u, boolean constrained){
-            this.u = u;
-            this.contrained = constrained;
-        }
     }
 
 }

@@ -122,13 +122,13 @@ public class ConstrainedSphereDecoderTest {
             GeneralLattice lattice = new GeneralLattice(Matrix.random(m, n));
 
             ConstrainedSphereDecoder decoder =
-                new ConstrainedSphereDecoder(lattice, c, 2.0);
+                new ConstrainedSphereDecoder(lattice, c, 100.0);
 
             //just guessing radius here!
             ConstrainedSphereDecoder2 decoder2 =
                 new ConstrainedSphereDecoder2(lattice, c, 2.0);
 
-            double[] y = VectorFunctions.randomGaussian(m, 0.0, 100.0);
+            double[] y = VectorFunctions.randomGaussian(m, 0.0, 10.0);
             decoder.nearestPoint(y);
             decoder2.nearestPoint(y);
 
