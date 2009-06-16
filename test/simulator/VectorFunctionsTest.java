@@ -302,11 +302,65 @@ public class VectorFunctionsTest extends TestCase {
         int start = 1;
         int end = 4;
         double[] x = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};
-        double[] exp = {-11.0, -11.0, 1.0 };
+        double[] exp = {-11.0, -11.0, 1.0, 2.0 };
 
         double[] res = VectorFunctions.getSubVector(x, start, end);
         System.out.println(VectorFunctions.print(res));
         assertVectorsEqual(exp, res);
+
+    }
+
+    /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testFillVector() {
+        System.out.println("fillVector");
+
+        int start = 1;
+        double[] x = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};
+        double[] f = {3.0, 3.0, 3.0 };
+        double[] exp = {-1.0, 3.0, 3.0, 3.0, 2.0, 9.0, 1.0};
+
+        VectorFunctions.fillVector(x, f, start);
+        //System.out.println(VectorFunctions.print(x));
+        assertVectorsEqual(exp, x);
+
+        int start1 = 4;
+        double[] x1 = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};
+        double[] f1 = {3.0, 3.0, 3.0, 3.0 };
+        double[] exp1 = {-1.0, -11.0, -11.0, 1.0, 3.0, 3.0, 3.0};
+
+        VectorFunctions.fillVector(x1, f1, start1);
+        //System.out.println(VectorFunctions.print(x1));
+        assertVectorsEqual(exp1, x1);
+
+        int start2 = 3;
+        Double[] x2 = new Double[20];
+        Double[] exp2 = new Double[20];
+        Double[] f2 = new Double[3];
+        for(int i = 0; i < f.length; i++){
+            f2[i] = new Double(1.0);
+            exp2[i+start2] = new Double(1.0);
+        }
+        VectorFunctions.fillVector(x2, f2, start2);
+        assertArrayEquals(exp2, x2);
+
+    }
+
+        /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testFillEnd() {
+        System.out.println("fillVector");
+
+        int start = 1;
+        double[] x = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};
+        double[] f = {3.0, 3.0, 3.0 };
+        double[] exp =  {-1.0, -11.0, -11.0, 1.0, 3.0, 3.0, 3.0};
+
+        VectorFunctions.fillEnd(x, f);
+        System.out.println(VectorFunctions.print(x));
+        assertVectorsEqual(exp, x);
 
     }
     

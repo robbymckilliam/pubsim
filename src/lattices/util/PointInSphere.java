@@ -75,17 +75,38 @@ public class PointInSphere implements PointEnumerator{
     protected LinkedBlockingQueue<Matrix> queue = new
             LinkedBlockingQueue<Matrix>(1000);
 
-    Matrix r;
+    Matrix r, uret;
     public Matrix nextElement() {
         //while the queue is empty, yield the main thread
         while(queue.isEmpty())
             Thread.yield();
         try{
-            r = M.times(queue.take());
+            uret = queue.take();
+            r = M.times(uret);
         }catch(InterruptedException e){
             throw new RuntimeException("Taking from linked queue interrupted");
         }
         return r;
+    }
+
+    /**
+     * Returns the index of the previously returned lattice point.
+     * This does not iterate through the points (does not remove
+     * from the enumeration).
+     * @return index
+     */
+    public Matrix getElementIndex(){
+        return uret;
+    }
+
+    /**
+     * Returns the index of the previously returned lattice point.
+     * This does not iterate through the points (does not remove
+     * from the enumeration).
+     * @return index
+     */
+    public double[] getElementIndexDouble(){
+        return uret.getColumnPackedCopy();
     }
 
     /**

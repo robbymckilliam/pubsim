@@ -47,9 +47,9 @@ public class BandedDecoderTest {
         System.out.println("sameAsSphereDecoder");
 
         int iters = 10;
-        int n = 7;
+        int n = 5;
 
-        int band = 3;
+        int band = 2;
 
         for(int t = 0; t < iters; t++){
 
@@ -61,17 +61,17 @@ public class BandedDecoderTest {
             //just guessing radius here!
             BandedDecoder decoder = new BandedDecoder(lattice, band);
 
-            double[] y = VectorFunctions.randomGaussian(n, 0.0, 1.0);
+            double[] y = VectorFunctions.randomGaussian(n, 0.0, 10.0);
             decoder.nearestPoint(y);
             sd.nearestPoint(y);
 
             double decdist = VectorFunctions.distance_between2(y, decoder.getLatticePoint());
             double sddist = VectorFunctions.distance_between2(y, sd.getLatticePoint());
+            System.out.println("****");
+            System.out.println(VectorFunctions.print(sd.getIndex()));
+            System.out.println(VectorFunctions.print(decoder.getIndex()));
 
-            //System.out.println(decdist);
-            //System.out.println(babdist);
-
-            assertEquals(decdist, sddist, 0.000001);
+            assertEquals(sddist, decdist, 0.000001);
 
         }
     }

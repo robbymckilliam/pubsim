@@ -364,7 +364,10 @@ public class VectorFunctions {
     public static String print(Object[] x) {
         String st = new String();
         for (int i = 0; i < x.length; i++) {
-            st = st.concat(" " + x[i].toString());
+            if(x[i] != null)
+                st = st.concat(" " + x[i].toString());
+            else
+                st = st.concat(" null");
         }
         return st;
     }
@@ -638,11 +641,9 @@ public class VectorFunctions {
      * Return the elements in x between indicies start and end.
      */
     public static double[] getSubVector(double[] x, int start, int end) {
-        int len = end - start;
+        int len = end - start + 1;
         double[] d = new double[len];
-        for (int i = 0; i < len; i++) {
-            d[i] = x[start + i];
-        }
+        System.arraycopy(x, start, d, 0, len);
         return d;
     }
 
@@ -650,12 +651,68 @@ public class VectorFunctions {
      * Return the elements in x between indicies start and end.
      */
     public static Double[] getSubVector(Double[] x, int start, int end) {
-        int len = end - start;
+        int len = end - start + 1;
         Double[] d = new Double[len];
-        for (int i = 0; i < len; i++) {
-            d[i] = new Double(x[start + i].doubleValue());
-        }
+        System.arraycopy(x, start, d, 0, len);
         return d;
+    }
+
+    /** Convert a double[] to a Double[] */
+    public static Double[] doubleArrayToDoubleArray(double[] d){
+        Double[] D = new Double[d.length];
+        for(int i = 0; i < d.length; i++)
+            D[i] = new Double(d[i]);
+        return D;
+    }
+
+    /**
+     * Copies f into x starting at start.  This modifies x.
+     * @param start must be >= 0
+     */
+    public static void fillVector(double[] x, double[] f, int start) {
+        if(start < 0)
+            throw new ArrayIndexOutOfBoundsException("start must be >= 0");
+        System.arraycopy(f, 0, x, start, Math.min(x.length - start, f.length));
+    }
+
+     /**
+      * Copies f into x starting at start.  This modifies x.
+      * @param start must be >= 0
+      */
+    public static void fillVector(Object[] x, Object[] f, int start) {
+        if(start < 0)
+            throw new ArrayIndexOutOfBoundsException("start must be >= 0");
+        System.arraycopy(f, 0, x, start, Math.min(x.length - start, f.length));
+    }
+
+    /**
+     * Places f into the last elements of x.  Modifies x.
+     * f.length must be <= x.length
+     */
+    public static void fillEnd(double[] x, double[] f) {
+        fillVector(x, f, x.length - f.length);
+    }
+
+     /**
+     * Places f into the last elements of x.  Modifies x.
+     * f.length must be <= x.length
+     */
+    public static void fillEnd(Object[] x, Object[] f) {
+        fillVector(x, f, x.length - f.length);
+    }
+
+   /**
+     * Places f into the first element of x.  Modifies x.
+     */
+    public static void fillStart(double[] x, double[] f) {
+        fillVector(x, f, 0);
+    }
+
+    /**
+     * Places f into the first element of x.  Modifies x.
+     */
+    public static void fillStart(Object[] x, Object[] f) {
+        fillVector(x, f, 0);
     }
 
     /** 

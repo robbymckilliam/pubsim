@@ -28,7 +28,7 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
 
     protected SubMatrix M;
     protected int band;
-    protected double[] u, x;
+    protected double[] u, x, ubest, xbest;
     protected int n, b1n, b2n;
 
     protected ConstrainedNearestPointAlgorithm b1, b2;
@@ -63,6 +63,8 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
         this.band = band;
         u = new double[n];
         x = new double[n];
+        ubest = new double[n];
+        xbest = new double[n];
 
         b1n = (int)Math.floor((n + band - 1)/2.0);
         b2n = (int)Math.ceil((n + band - 1)/2.0);
@@ -77,11 +79,16 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
 
     public void nearestPoint(double[] y) {
         
-        double D = Double.POSITIVE_INFINITY;
         //get the three relavant sublattices matrices.
         SubMatrix sm1 = M.getSubMatrix(0, b1n-1, 0, b1n-1);
         SubMatrix sm2 = M.getSubMatrix(n - b2n, n-1, n - b2n, n-1);
         SubMatrix midM = M.getSubMatrix(n - b2n, b1n-1, n - b2n, b1n-1);
+
+         System.out.println("****");
+        System.out.println(VectorFunctions.print(M.getJamaMatrix()));
+        System.out.println(VectorFunctions.print(sm1.getJamaMatrix()));
+        System.out.println(VectorFunctions.print(sm2.getJamaMatrix()));
+        System.out.println(VectorFunctions.print(midM.getJamaMatrix()));
 
         //if(sm1.getColumnDimension() == band){
             b1 = new ConstrainedSphereDecoder(
@@ -91,44 +98,87 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
         //}
 
         //if(sm2.getColumnDimension() == band){
-            b1 = new ConstrainedSphereDecoder(
+            b2 = new ConstrainedSphereDecoder(
                     new GeneralLattice(sm2.getJamaMatrix()));
         //}else{
-        //    b1 = new BandedDecoder(sm2, band);
+        //    b2 = new BandedDecoder(sm2, band);
         //}
 
         double[] y1 = VectorFunctions.getSubVector(y, 0, b1n-1);
+
+        //System.out.println("y.length = " + y1.length + ", b1n = " + b1n);
+        //System.out.println(VectorFunctions.print(y1));
+        //System.out.println(VectorFunctions.print(sm1.getJamaMatrix()));
+
         b1.nearestPoint(y1);
         double d1 = VectorFunctions.distance_between2(y1, b1.getLatticePoint());
         double[] y2 = VectorFunctions.getSubVector(y, n - b2n, n-1);
         b2.nearestPoint(y2);
         double d2 = VectorFunctions.distance_between2(y2, b2.getLatticePoint());
 
+        //upper bound on distance
+        double D = d1 + d2;
+
+        System.out.println("D = " + D);
+
+        double[] ymid = VectorFunctions.getSubVector(y, n - b2n, b1n-1);
         Cpoints = new PointInSphere(new GeneralLattice(midM.getJamaMatrix()),
-                Math.sqrt(d1 + d2));
+                Math.sqrt(D), ymid);
+
+        //System.out.println("****");
+        //System.out.println(VectorFunctions.print(y));
+        //System.out.println(VectorFunctions.print(y1));
+        //System.out.println(VectorFunctions.print(y2));
+        System.out.println(VectorFunctions.print(ymid));
+
+        System.out.println(VectorFunctions.print(b1.getIndex()));
+        System.out.println(VectorFunctions.print(b2.getIndex()));
 
         while(Cpoints.hasMoreElements()){
+            Cpoints.nextElement();
+            Double[] Ccs = VectorFunctions.doubleArrayToDoubleArray(
+                    Cpoints.getElementIndexDouble());
+
             Double[] c1 = VectorFunctions.getSubVector(c, 0, b1n-1);
+            VectorFunctions.fillEnd(c1, Ccs);
+            b1.setConstraints(c1);
+            b1.nearestPoint(y1);
 
             Double[] c2 = VectorFunctions.getSubVector(c, n - b2n, n-1);
+            VectorFunctions.fillStart(c2, Ccs);
+            b2.setConstraints(c2);
+            b2.nearestPoint(y2);
+
+
+            VectorFunctions.fillStart(u, b1.getIndex());
+            VectorFunctions.fillEnd(u, b2.getIndex());
+            VectorFunctions.matrixMultVector(M.getJamaMatrix(), u, x);
+
+            System.out.println("c1 = " + VectorFunctions.print(c1));
+            //System.out.println("c2 = " + VectorFunctions.print(c2));
+
+            double d = VectorFunctions.distance_between2(y, x);
+
+             System.out.println("u = " + VectorFunctions.print(u));
+            System.out.println("d = " + d);
+
+            if(d < D){
+                System.arraycopy(u, 0, ubest, 0, n);
+                System.arraycopy(x, 0, xbest, 0, n);
+                D = d;
+                //System.out.println("D = " + D);
+            }
+
         }
 
     }
 
-    /**
-     * Find the nearest point given constraints on index vector.
-     * Returns the distance squared to the nearest point.
-     */
-    protected double nearestPoint(double[] y, Double[] c) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public double[] getLatticePoint() {
-        return x;
+        return xbest;
     }
 
     public double[] getIndex() {
-        return u;
+        return ubest;
     }
 
     public void setConstraints(Double[] c) {
