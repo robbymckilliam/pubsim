@@ -11,6 +11,7 @@ import Jama.Matrix;
 import junit.framework.*;
 import javax.vecmath.GVector;
 import java.util.Random;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -20,6 +21,27 @@ public class VectorFunctionsTest extends TestCase {
     
     public VectorFunctionsTest(String testName) {
         super(testName);
+    }
+
+    /**
+     * Asserts that two vector have equal elements.
+     * @param tol tolerance for how close doubles must be to each other
+     * to be considered equal
+     */
+    private void assertVectorsEqual(double[] x, double[] y, double tol){
+        if(x.length != y.length)
+            fail("Vectors are not the same length!");
+        for(int i = 0; i < x.length; i++){
+            assertEquals(x[i], y[i], tol);
+        }
+    }
+
+    /** 
+     * Asserts that two vector have equal elements. Sets a
+     * default tolerance of  0.0000001.
+     */
+    private void assertVectorsEqual(double[] x, double[] y){
+        assertVectorsEqual(x, y, 0.0000001);
     }
 
     /**
@@ -269,6 +291,23 @@ public class VectorFunctionsTest extends TestCase {
         double expResult = 20.0;
         double result = VectorFunctions.maxDistance(x);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testgetSubVector() {
+        System.out.println("subVector");
+
+        int start = 1;
+        int end = 4;
+        double[] x = {-1.0, -11.0, -11.0, 1.0, 2.0, 9.0, 1.0};
+        double[] exp = {-11.0, -11.0, 1.0 };
+
+        double[] res = VectorFunctions.getSubVector(x, start, end);
+        System.out.println(VectorFunctions.print(res));
+        assertVectorsEqual(exp, res);
+
     }
     
     /**

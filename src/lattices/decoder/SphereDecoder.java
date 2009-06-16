@@ -47,7 +47,7 @@ public class SphereDecoder extends Babai
         yr = new double[n];
         ut = new double[n];
         ubest = new double[n];
-        xr = new double[m];
+        xr = new double[n];
         
         lll = new LLL();
         B = lll.reduce(G);
@@ -65,16 +65,16 @@ public class SphereDecoder extends Babai
     public void nearestPoint(double[] y) {
         if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
-        
+
+        //this will store the nearest point in the variable x
         computeBabaiPoint(y);
-        
-        //compute the Babai point in the triangular frame
-        VectorFunctions.matrixMultVector(R, uh, xr);
         
         //compute the radius squared of the sphere we are decoding in.
         //Add DELTA to avoid numerical error causing the
         //Babai point to be rejected.
-        D = VectorFunctions.distance_between2(yr, xr) + DELTA;
+        D = VectorFunctions.distance_between2(y, x) + DELTA;
+
+        //System.out.println(" sd D = " + D);
         
         //current element being decoded
         int k = n-1;

@@ -83,10 +83,7 @@ public class Babai implements GeneralNearestPointAlgorithm {
         Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
         R = QR.getR();
         Q = QR.getQ();
-
-        System.out.println(VectorFunctions.print(R));
-
-        
+      
     }
 
     public void nearestPoint(double[] y) {

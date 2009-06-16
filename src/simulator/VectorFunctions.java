@@ -11,7 +11,7 @@ import java.util.Random;
 import rngpack.Ranlux;
 
 /**
- * Miscelaneous functions to run on double arrays
+ * Miscelaneous functions to run on arrays/vectors/matrices.
  * @author Robby McKilliam
  */
 public class VectorFunctions {
@@ -632,6 +632,30 @@ public class VectorFunctions {
         for (int i = 0; i < x.length; i++) {
             y[i] = x[i] / d;
         }
+    }
+
+    /**
+     * Return the elements in x between indicies start and end.
+     */
+    public static double[] getSubVector(double[] x, int start, int end) {
+        int len = end - start;
+        double[] d = new double[len];
+        for (int i = 0; i < len; i++) {
+            d[i] = x[start + i];
+        }
+        return d;
+    }
+
+       /**
+     * Return the elements in x between indicies start and end.
+     */
+    public static Double[] getSubVector(Double[] x, int start, int end) {
+        int len = end - start;
+        Double[] d = new Double[len];
+        for (int i = 0; i < len; i++) {
+            d[i] = new Double(x[start + i].doubleValue());
+        }
+        return d;
     }
 
     /** 
