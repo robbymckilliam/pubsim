@@ -115,4 +115,8 @@ public class ConstrainedBabai implements ConstrainedNearestPointAlgorithm{
         return u;
     }
 
+    public void nearestPoint(double[] y, double D) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

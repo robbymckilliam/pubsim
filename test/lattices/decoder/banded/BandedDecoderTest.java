@@ -67,9 +67,9 @@ public class BandedDecoderTest {
 
             double decdist = VectorFunctions.distance_between2(y, decoder.getLatticePoint());
             double sddist = VectorFunctions.distance_between2(y, sd.getLatticePoint());
-            System.out.println("****");
-            System.out.println(VectorFunctions.print(sd.getIndex()));
-            System.out.println(VectorFunctions.print(decoder.getIndex()));
+            System.out.println();
+            System.out.println(VectorFunctions.print(sd.getIndex()) + ", dist = " + sddist);
+            System.out.println(VectorFunctions.print(decoder.getIndex()) + ", dist = " + decdist);
 
             assertEquals(sddist, decdist, 0.000001);
 

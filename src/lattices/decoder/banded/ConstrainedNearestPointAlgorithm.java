@@ -22,4 +22,9 @@ public interface ConstrainedNearestPointAlgorithm
      */
     void setConstraints(Double[] c);
 
+    /**
+     * Run this nearest point algorithm with D as square radius squared 
+     */
+    void nearestPoint(double[] y, double D);
+
 }

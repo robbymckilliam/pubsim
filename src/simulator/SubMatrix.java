@@ -31,7 +31,7 @@ public class SubMatrix  implements Serializable{
     }
 
     protected SubMatrix(Jama.Matrix M, int offm, int lastm, int offn, int lastn){
-        System.out.println(offm + ", " + lastm + ", " + offn + ", " + lastn);
+        //System.out.println(offm + ", " + lastm + ", " + offn + ", " + lastn);
         this.offm = offm;
         this.offn = offn;
         this.lastm = lastm;

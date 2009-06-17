@@ -793,6 +793,13 @@ public class VectorFunctions {
         }
     }
 
+    /** Swap all columns from i to i+len - 1 and j to j + len - 1 in a matrix inplace */
+    public static void swapColumns(Matrix B, int i, int j, int len) {
+        for(int t = 0; t < len; t++){
+            swapColumns(B, i+t, j+t);
+        }
+    }
+
     /** Swap columns i and j in a matrix inplace */
     public static void swapRows(Matrix B, int i, int j) {
         int n = B.getColumnDimension();

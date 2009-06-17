@@ -92,6 +92,30 @@ public class ConstrainedSphereDecoder extends ConstrainedBabai
 
     }
 
+    /** Run this nearest point algorithm with D as square radius squared */
+    public void nearestPoint(double[] y, double D) {
+        if(m != y.length)
+            throw new RuntimeException("Point y and Generator" +
+                    " matrix are of different dimension!");
+
+        //set max distance
+        this.D = D;
+
+        //compute y in triangular frame
+        VectorFunctions.matrixMultVector(Q.transpose(), y, yr);
+
+        //System.out.println(" const D = " + D);
+
+        //current element being decoded
+        int k = n-1;
+
+        decode(k, 0);
+
+        //compute nearest point
+        VectorFunctions.matrixMultVector(G, u, x);
+
+    }
+
     /**
      * Recursive decode function to test nearest plane
      * for a particular dimension/element

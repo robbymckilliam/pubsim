@@ -61,7 +61,9 @@ public class PointInSphere implements PointEnumerator{
         y = VectorFunctions.matrixMultVector(Q.transpose(), center);
         u = new double[n];
 
-        //System.out.println("M = " + VectorFunctions.print(M));
+        System.out.println("M = \n" + VectorFunctions.print(M));
+        System.out.println("y = " + VectorFunctions.print(center));
+        System.out.println("d = " + radius);
         ///System.out.println("R = " + VectorFunctions.print(R));
         //System.out.println("Q = " + VectorFunctions.print(Q));
 

@@ -5,6 +5,7 @@
 
 package lattices.decoder.banded;
 
+import Jama.Matrix;
 import lattices.GeneralLattice;
 import lattices.Lattice;
 import lattices.util.PointInSphere;
@@ -33,6 +34,7 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
 
     protected ConstrainedNearestPointAlgorithm b1, b2;
     protected PointInSphere Cpoints;
+    Matrix midM, midQ;
 
     //constraints.
     Double[] c;
@@ -59,18 +61,60 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
 
     private void init(SubMatrix L, int band){
         M = L;
-        n = M.getRowDimension();
+        n = M.getColumnDimension();
         this.band = band;
         u = new double[n];
         x = new double[n];
         ubest = new double[n];
         xbest = new double[n];
 
-        b1n = (int)Math.floor((n + band - 1)/2.0);
-        b2n = (int)Math.ceil((n + band - 1)/2.0);
+        //uses the fact that integers division rounds down
+        int t = n + band - 1;
+        b1n = t/2;
+        if(t % 2 == 0)
+            b2n = t/2;
+        else
+            b2n = t/2 + 1;
 
-        System.out.println(b1n);
-        System.out.println(b2n);
+        System.out.println(b1n + ", " + b2n);
+        //System.out.println(b2n);
+
+         //get the three relavant sublattices matrices.
+        SubMatrix sm1 = M.getSubMatrix(0, b1n-1, 0, b1n-1);
+        SubMatrix sm2 = M.getSubMatrix(n - b2n, n-1, n - b2n, n-1);
+        //SubMatrix midM = M.getSubMatrix(n - b2n, b1n-1, n - b2n, b1n-1);
+
+       // System.out.println("****");
+        //System.out.println(VectorFunctions.print(M.getJamaMatrix()));
+        //System.out.println(VectorFunctions.print(sm1.getJamaMatrix()));
+        //System.out.println(VectorFunctions.print(sm2.getJamaMatrix()));
+
+        //if(b1n == band){
+            //System.out.println(" b1 is sphere");
+            b1 = new ConstrainedSphereDecoder(
+                    new GeneralLattice(sm1.getJamaMatrix()));
+        //}else{
+        //    b1 = new BandedDecoder(sm1, band);
+        //}
+
+        //if(b2n == band){
+            //System.out.println(" b2 is sphere");
+            b2 = new ConstrainedSphereDecoder(
+                    new GeneralLattice(sm2.getJamaMatrix()));
+        //}else{
+        //    b2 = new BandedDecoder(sm2, band);
+        //}
+
+        //this is to get the QR'd mid matrix, potentially, this could
+        //be done better
+        Matrix Mtemp = M.getJamaMatrix().copy();
+        VectorFunctions.swapColumns(Mtemp, n - b2n, n - band + 1 , band-1);
+        //System.out.println("Mtemp = \n" + VectorFunctions.print(Mtemp));
+        simulator.QRDecomposition QR = new simulator.QRDecomposition(Mtemp);
+        midM = QR.getR().getMatrix(n - band + 1, n-1, n - band + 1, n-1);
+        midQ = QR.getQ();
+
+        //System.out.print(VectorFunctions.print(midM));
 
         //set no constraints by default
         c = new Double[n];
@@ -79,60 +123,35 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
 
     public void nearestPoint(double[] y) {
         
-        //get the three relavant sublattices matrices.
-        SubMatrix sm1 = M.getSubMatrix(0, b1n-1, 0, b1n-1);
-        SubMatrix sm2 = M.getSubMatrix(n - b2n, n-1, n - b2n, n-1);
-        SubMatrix midM = M.getSubMatrix(n - b2n, b1n-1, n - b2n, b1n-1);
-
-         System.out.println("****");
-        System.out.println(VectorFunctions.print(M.getJamaMatrix()));
-        System.out.println(VectorFunctions.print(sm1.getJamaMatrix()));
-        System.out.println(VectorFunctions.print(sm2.getJamaMatrix()));
-        System.out.println(VectorFunctions.print(midM.getJamaMatrix()));
-
-        //if(sm1.getColumnDimension() == band){
-            b1 = new ConstrainedSphereDecoder(
-                    new GeneralLattice(sm1.getJamaMatrix()));
-        //}else{
-        //    b1 = new BandedDecoder(sm1, band);
-        //}
-
-        //if(sm2.getColumnDimension() == band){
-            b2 = new ConstrainedSphereDecoder(
-                    new GeneralLattice(sm2.getJamaMatrix()));
-        //}else{
-        //    b2 = new BandedDecoder(sm2, band);
-        //}
-
         double[] y1 = VectorFunctions.getSubVector(y, 0, b1n-1);
-
-        //System.out.println("y.length = " + y1.length + ", b1n = " + b1n);
-        //System.out.println(VectorFunctions.print(y1));
-        //System.out.println(VectorFunctions.print(sm1.getJamaMatrix()));
-
         b1.nearestPoint(y1);
         double d1 = VectorFunctions.distance_between2(y1, b1.getLatticePoint());
         double[] y2 = VectorFunctions.getSubVector(y, n - b2n, n-1);
         b2.nearestPoint(y2);
         double d2 = VectorFunctions.distance_between2(y2, b2.getLatticePoint());
 
-        //upper bound on distance
-        double D = d1 + d2;
+        //current distance
+        double D = n*(d1 + d2);
 
-        System.out.println("D = " + D);
-
-        double[] ymid = VectorFunctions.getSubVector(y, n - b2n, b1n-1);
-        Cpoints = new PointInSphere(new GeneralLattice(midM.getJamaMatrix()),
+        double[] yt = VectorFunctions.matrixMultVector(midQ.transpose(), y);
+        double[] ymid = VectorFunctions.getSubVector(yt, n - band + 1, n-1);
+        Cpoints = new PointInSphere(new GeneralLattice(midM),
                 Math.sqrt(D), ymid);
+
+        //System.out.println("D = " + D);
+
+        //System.out.println("y.length = " + y1.length + ", b1n = " + b1n);
+        //System.out.println(VectorFunctions.print(y1));
+        //System.out.println(VectorFunctions.print(sm1.getJamaMatrix()));
 
         //System.out.println("****");
         //System.out.println(VectorFunctions.print(y));
         //System.out.println(VectorFunctions.print(y1));
         //System.out.println(VectorFunctions.print(y2));
-        System.out.println(VectorFunctions.print(ymid));
+       // System.out.println(VectorFunctions.print(ymid));
 
-        System.out.println(VectorFunctions.print(b1.getIndex()));
-        System.out.println(VectorFunctions.print(b2.getIndex()));
+        //System.out.println(VectorFunctions.print(b1.getIndex()));
+        //System.out.println(VectorFunctions.print(b2.getIndex()));
 
         while(Cpoints.hasMoreElements()){
             Cpoints.nextElement();
@@ -142,12 +161,12 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
             Double[] c1 = VectorFunctions.getSubVector(c, 0, b1n-1);
             VectorFunctions.fillEnd(c1, Ccs);
             b1.setConstraints(c1);
-            b1.nearestPoint(y1);
+            b1.nearestPoint(y1, D);
 
             Double[] c2 = VectorFunctions.getSubVector(c, n - b2n, n-1);
             VectorFunctions.fillStart(c2, Ccs);
             b2.setConstraints(c2);
-            b2.nearestPoint(y2);
+            b2.nearestPoint(y2, D);
 
 
             VectorFunctions.fillStart(u, b1.getIndex());
@@ -159,14 +178,14 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
 
             double d = VectorFunctions.distance_between2(y, x);
 
-             System.out.println("u = " + VectorFunctions.print(u));
+            System.out.println("u = " + VectorFunctions.print(u));
             System.out.println("d = " + d);
 
             if(d < D){
                 System.arraycopy(u, 0, ubest, 0, n);
                 System.arraycopy(x, 0, xbest, 0, n);
                 D = d;
-                //System.out.println("D = " + D);
+                System.out.println("D = " + D);
             }
 
         }
@@ -186,6 +205,10 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
             throw new RuntimeException("The constraints are not the same" +
                     "dimension as the lattice!");
         this.c = c;
+    }
+
+    public void nearestPoint(double[] y, double D) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     
