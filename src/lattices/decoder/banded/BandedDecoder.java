@@ -69,19 +69,18 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
         xbest = new double[n];
 
         //uses the fact that integers division rounds down
-        int t = n + band - 1;
-        b1n = t/2;
-        if(t % 2 == 0)
-            b2n = t/2;
+        b1n = n/2;
+        if(n % 2 == 0)
+            b2n = n/2;
         else
-            b2n = t/2 + 1;
+            b2n = n/2 + 1;
 
-        System.out.println(b1n + ", " + b2n);
+        //System.out.println(b1n + ", " + b2n);
         //System.out.println(b2n);
 
          //get the three relavant sublattices matrices.
         SubMatrix sm1 = M.getSubMatrix(0, b1n-1, 0, b1n-1);
-        SubMatrix sm2 = M.getSubMatrix(n - b2n, n-1, n - b2n, n-1);
+        SubMatrix sm2 = M.getSubMatrix(b1n, n-1, b1n, n-1);
         //SubMatrix midM = M.getSubMatrix(n - b2n, b1n-1, n - b2n, b1n-1);
 
        // System.out.println("****");
@@ -108,7 +107,7 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
         //this is to get the QR'd mid matrix, potentially, this could
         //be done better
         Matrix Mtemp = M.getJamaMatrix().copy();
-        VectorFunctions.swapColumns(Mtemp, n - b2n, n - band + 1 , band-1);
+        VectorFunctions.swapColumns(Mtemp, b1n, n - band + 1 , band-1);
         //System.out.println("Mtemp = \n" + VectorFunctions.print(Mtemp));
         simulator.QRDecomposition QR = new simulator.QRDecomposition(Mtemp);
         midM = QR.getR().getMatrix(n - band + 1, n-1, n - band + 1, n-1);
@@ -159,11 +158,19 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
                     Cpoints.getElementIndexDouble());
 
             Double[] c1 = VectorFunctions.getSubVector(c, 0, b1n-1);
-            VectorFunctions.fillEnd(c1, Ccs);
+            Matrix tmpM = M.getSubMatrix(
+                    b1n - band + 1, b1n-1, b1n, band + b1n - 2).getJamaMatrix();
+            double[] tmpc = VectorFunctions.DoubleArrayTodoubleArray(Ccs);
+            double[] tmpsub = VectorFunctions.matrixMultVector(tmpM, tmpc);
+            double[] ys = new double[y1.length];
+            for(int i = 0; i < tmpsub.length; i++){
+                ys[ys.length - tmpsub.length + i] 
+                        = y1[ys.length - tmpsub.length + i] - tmpsub[i];
+            }
             b1.setConstraints(c1);
-            b1.nearestPoint(y1, D);
+            b1.nearestPoint(ys, D);
 
-            Double[] c2 = VectorFunctions.getSubVector(c, n - b2n, n-1);
+            Double[] c2 = VectorFunctions.getSubVector(c, b1n, n-1);
             VectorFunctions.fillStart(c2, Ccs);
             b2.setConstraints(c2);
             b2.nearestPoint(y2, D);
@@ -174,7 +181,7 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
             VectorFunctions.matrixMultVector(M.getJamaMatrix(), u, x);
 
             System.out.println("c1 = " + VectorFunctions.print(c1));
-            //System.out.println("c2 = " + VectorFunctions.print(c2));
+            System.out.println("c2 = " + VectorFunctions.print(c2));
 
             double d = VectorFunctions.distance_between2(y, x);
 

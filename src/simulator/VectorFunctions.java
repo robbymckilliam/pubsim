@@ -666,6 +666,21 @@ public class VectorFunctions {
     }
 
     /**
+     * Convert a Double[] to a double[].
+     * nulls are silently converted to 0's
+     */
+    public static double[] DoubleArrayTodoubleArray(Double[] D){
+        double[] d = new double[D.length];
+        for(int i = 0; i < D.length; i++){
+            if(D[i] == null)
+                d[i] = 0.0;
+            else
+                d[i] = D[i].doubleValue();
+        }
+        return d;
+    }
+
+    /**
      * Copies f into x starting at start.  This modifies x.
      * @param start must be >= 0
      */
