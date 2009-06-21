@@ -91,5 +91,10 @@ public class NoisyPhaseSignals implements SignalGenerator{
         return trans.length;
     }
 
+    /** Return the true location of the sensor. */
+    public Point2 getLocation(){
+        return x;
+    }
+
 
 }
