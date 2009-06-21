@@ -6,7 +6,6 @@
 
 package distributions;
 
-import distributions.NoiseGenerator;
 import rngpack.RandomElement;
 import rngpack.RandomSeedable;
 import rngpack.Ranlux;
