@@ -69,10 +69,26 @@ public class NoisyPhaseSignals implements SignalGenerator{
                     x.getColumnPackedCopy(), trans[n].point().getColumnPackedCopy());
             double T = trans[n].wavelength();
             double nd = dist/T + noise.getNoise();
-            d[n] = nd - Math.rint(nd);
+            d[n] = T*(nd - Math.rint(nd));
         }
         return d;
     }
+
+    /** Generate the recived signal for location x */
+    public double[] generateReceivedSignal(Point2 x) {
+        for(int n = 0; n < N; n++){
+            double dist = VectorFunctions.distance_between(
+                    x.getColumnPackedCopy(), trans[n].point().getColumnPackedCopy());
+            double T = trans[n].wavelength();
+            double nd = dist/T + noise.getNoise();
+            d[n] = T*(nd - Math.rint(nd));
+        }
+        return d;
+    }
+
+    /*public void setLocation(Point2 x){
+        this.x = x;
+    }*/
 
     public void setNoiseGenerator(NoiseGenerator noise) {
         this.noise = noise;

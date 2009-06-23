@@ -17,6 +17,14 @@ public class Point2 extends Matrix{
         super(2, 1);
     }
 
+    public Point2(Matrix x){
+        super(2, 1);
+        if(x.getRowDimension() != 2 || x.getColumnDimension() != 1)
+            throw new ArrayIndexOutOfBoundsException("Must for matrix of size 2x1");
+        set(0, 0, x.get(0, 0));
+        set(1, 0, x.get(1, 0));
+    }
+
     public Point2(double x, double y){
         super(2, 1);
         set(0, 0, x);

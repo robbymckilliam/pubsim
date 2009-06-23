@@ -38,6 +38,7 @@ public abstract class NoiseGeneratorFunctions
     
     public NoiseGeneratorFunctions(){
         random = new Ranlux();
+        randomSeed();
     }
     
     /** Randomise the seed for the internal Random */ 
