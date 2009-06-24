@@ -5,58 +5,55 @@
 
 package simulator.location.twod;
 
-import Jama.Matrix;
 import distributions.UniformNoise;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import optimisation.AutoDerivativeFunction;
 import simulator.Point2;
-import simulator.location.twod.NoisyPhaseSignals;
 
 /**
  * Computes the value of the objective function for
  * 2D location estimation.  This is what we wish to
  * maximise to find the location estimate.
+ * You can fix the value of the unwrapping variable
+ * here.  This is usefull for the purpose of
+ * Newton's method.
  * This computes the negative sum of squares error.
  * @author Robby McKilliam
  */
-public class ObjectiveFunction extends AutoDerivativeFunction{
+public class ObjectiveFunctionFixedUnwrapping extends ObjectiveFunction{
 
-    protected Transmitter[] trans;
-    protected double[] phi;
-    protected int N;
+    double[] u;
 
     /**
      * Constructor takes array of Transmitters
      * and any array of measured phases to each
      * transmitter.
+     * @param phi phase measured by each transmitter
+     * @param u integer unwrapping variables
      */
-    public ObjectiveFunction(Transmitter[] trans, double[] phi){
-        this.trans = trans;
-        this.phi = phi;
-        N = trans.length;
+    public ObjectiveFunctionFixedUnwrapping(Transmitter[] trans, double[] phi, double[] u){
+        super(trans, phi);
+        this.u = u;
+        if(u.length != N || phi.length != N){
+            throw new ArrayIndexOutOfBoundsException("trans, phi and u arrays must be the same length.");
+        }
     }
 
+    @Override
     public double value(Point2 x){
         double ret = 0.0;
         for(int n = 0; n < N; n++){
             Point2 p = trans[n].point();
             double T = trans[n].wavelength();
             double dist = p.minus(x).normF();
-            double err = T*(dist/T - Math.rint(dist/T)) - phi[n];
+            double err = T*u[n] + phi[n] - dist;
             ret += err*err;
         }
         //System.out.println(-ret);
         return -ret;
     }
-
-    public double value(Matrix x) {
-        return value(new Point2(x));
-    }
-
-
 
     /** Draws a PNG image of a randomly generated objective function */
     public static void main(String[] args) throws Exception{
@@ -81,7 +78,8 @@ public class ObjectiveFunction extends AutoDerivativeFunction{
         sig.setNoiseGenerator(new UniformNoise(0,0));
 
         double[] d = sig.generateReceivedSignal();
-        ObjectiveFunction ofunc = new ObjectiveFunction(sig.getTransmitters(), d);
+        double[] u = new double[N];
+        ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(sig.getTransmitters(), d, u);
 
         BufferedImage im = new BufferedImage(imwidth, imheight, BufferedImage.TYPE_USHORT_GRAY);
         int i = 0;
@@ -90,7 +88,8 @@ public class ObjectiveFunction extends AutoDerivativeFunction{
             j = 0;
             for(double y = ymin; y <ymax;  y += stepy){
                 double val = ofunc.value(new Point2(x, y));
-                im.setRGB(i, j, (int)(10000*val*val));
+                //System.out.println(val);
+                im.setRGB(i, j, (int)(1000*val*val));
                 j++;
             }
             i++;

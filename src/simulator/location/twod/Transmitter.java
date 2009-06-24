@@ -7,12 +7,13 @@ package simulator.location.twod;
 
 import distributions.NoiseGenerator;
 import simulator.Point2;
+import simulator.VectorFunctions;
 
 /**
  * A Point2 and wavelength T.  This defines the
  * position and wavelength of a transmitter.
  */
-public class Transmitter{
+public class Transmitter extends Object {
     protected Point2 p;
     protected double w;
     public Transmitter(Point2 p, double w){
@@ -36,6 +37,11 @@ public class Transmitter{
     public Transmitter(NoiseGenerator pgen, NoiseGenerator wgen){
         p = new Point2(pgen.getNoise(), pgen.getNoise());
         w = wgen.getNoise();
+    }
+
+    @Override
+    public String toString() {
+        return "w = " + w + ",\np = " + VectorFunctions.print(p);
     }
 
 }

@@ -128,6 +128,90 @@ public class UtilTest {
         
         
     }
+
+        /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testCircleIntersections() {
+        System.out.println("circleIntersections");
+
+        Point2 c1 = new Point2(0, 0);
+        double r1 = 0.5;
+        Point2 c2 = new Point2(1.0, 0);
+        double r2 = 0.5;
+        Point2[] ret = Util.circleIntersections(c1, r1, c2, r2);
+
+        assertTrue(ret[0].equals(new Point2(0.5,0.0), 0.0000001));
+        assertTrue(ret[1].equals(new Point2(0.5,0.0), 0.0000001));
+
+        c1 = new Point2(0, 0);
+        r1 = 2.0;
+        c2 = new Point2(1.75, 0);
+        r2 = 2.0;
+        ret = Util.circleIntersections(c1, r1, c2, r2);
+
+        //System.out.print(VectorFunctions.print(ret[0]));
+        //System.out.print(VectorFunctions.print(ret[1]));
+
+        assertTrue(ret[0].equals(new Point2(0.875,-1.80), 0.01));
+        assertTrue(ret[1].equals(new Point2(0.875,1.80), 0.01));
+
+    }
+
+   /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void convertAtan2Angle() {
+        System.out.println("convertAtan2Angle");
+
+        assertEquals(1.7, Util.convertAtan2Angle(1.7), 0.0000001);
+        assertEquals(Math.PI + 3*Math.PI/4.0, Util.convertAtan2Angle(-Math.PI/4.0), 0.0000001);
+
+    }
+
+
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testRoundToHalfInt() {
+        System.out.println("roundToHalfInt");
+
+        assertEquals(1.5, Util.roundToHalfInt(1.7), 0.0000001);
+        assertEquals(1.5, Util.roundToHalfInt(1.1), 0.0000001);
+        assertEquals(-1.5, Util.roundToHalfInt(-1.1), 0.0000001);
+
+    }
+
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testFloorToHalfInt() {
+        System.out.println("floorToHalfInt");
+
+        assertEquals(1.5, Util.floorToHalfInt(1.7), 0.0000001);
+        assertEquals(1.5, Util.floorToHalfInt(2.1), 0.0000001);
+        assertEquals(-2.5, Util.floorToHalfInt(-2.4), 0.0000001);
+        assertEquals(-2.5, Util.floorToHalfInt(-1.6), 0.0000001);
+
+    }
+
+        /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testCeilToHalfInt() {
+        System.out.println("ceilToHalfInt");
+
+        assertEquals(2.5, Util.ceilToHalfInt(1.7), 0.0000001);
+        assertEquals(2.5, Util.ceilToHalfInt(2.1), 0.0000001);
+        assertEquals(-1.5, Util.ceilToHalfInt(-2.4), 0.0000001);
+        assertEquals(-1.5, Util.ceilToHalfInt(-1.6), 0.0000001);
+
+    }
     
     
 }

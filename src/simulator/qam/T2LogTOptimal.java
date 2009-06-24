@@ -6,9 +6,7 @@
 
 package simulator.qam;
 
-import java.util.*;
 import java.util.TreeMap;
-import simulator.VectorFunctions;
 
 /**
  * The faster O(T^2 log(T)) GLRT-optimal non-coherent QAM
