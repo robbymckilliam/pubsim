@@ -19,12 +19,12 @@ import simulator.VectorFunctions;
  * Newton's method will converge correctly is another matter.
  * @author Robby McKilliam
  */
-public class NearSetLocationEstimator implements PhaseBasedLocationEstimator{
+public class NearSetLocationEstimator 
+        extends PhaseBasedLocationEstimatorNumenclature
+        implements PhaseBasedLocationEstimator{
 
-    protected Transmitter[] trans;
-    Point2 loc;
-    double D;
-    int N;
+    protected double D;
+    protected int N;
 
     /**
      *
@@ -85,24 +85,12 @@ public class NearSetLocationEstimator implements PhaseBasedLocationEstimator{
         NewtonRaphson opt = new NewtonRaphson(ofunc);
         Point2 xopt = new Point2(opt.maximise(x));
         double L = ofunc.value(xopt);
-        if (L > Lbest) {
+        double maxD = maxDistanceToTransmitters(new Point2(xopt), trans);
+        if (L > Lbest && maxD < D) {
             Lbest = L;
             loc = new Point2(xopt);
             System.out.print("L = " + Lbest + "loc = " + VectorFunctions.print(loc));
         }
-    }
-
-    /** Compute the unwrapping at a location x */
-    protected double[] computeUnwrapping(Point2 x){
-        double[] u = new double[N];
-        for( int n = 0; n < N; n++){
-            Transmitter t = trans[n];
-            Point2 p = t.point();
-            double T = t.wavelength();
-            double dist = p.minus(x).normF();
-            u[n] = dist/T - Math.rint(dist/T);
-        }
-        return u;
     }
 
     protected IndexedDouble[] computeSortedTransitions(Transmitter tran, double rad){
@@ -137,9 +125,5 @@ public class NearSetLocationEstimator implements PhaseBasedLocationEstimator{
         return ret;
     }
 
-
-    public Point2 getLocation() {
-        return loc;
-    }
 
 }

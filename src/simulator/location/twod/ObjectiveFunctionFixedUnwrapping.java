@@ -5,9 +5,12 @@
 
 package simulator.location.twod;
 
+import distributions.GaussianNoise;
 import distributions.UniformNoise;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import simulator.Point2;
@@ -58,42 +61,47 @@ public class ObjectiveFunctionFixedUnwrapping extends ObjectiveFunction{
     /** Draws a PNG image of a randomly generated objective function */
     public static void main(String[] args) throws Exception{
 
-        double xmin = -3.0;
-        double ymin = -3.0;
-        double xmax = 3.0;
-        double ymax = 3.0;
-        double stepx = 0.005;
-        double stepy = 0.005;
+        double xmin = -4.0;
+        double ymin = -4.0;
+        double xmax = 4.0;
+        double ymax = 4.0;
+        double stepx = 0.01;
+        double stepy = 0.01;
         
         int imwidth = (int)((xmax - xmin)/stepx) + 1;
         int imheight = (int)((ymax - ymin)/stepy) + 1;
 
-        UniformNoise pnoise = new UniformNoise(0, 4);
-        UniformNoise fnoise = new UniformNoise(3, 0.0);
+        UniformNoise pnoise = new UniformNoise(0, 1000);
+        UniformNoise fnoise = new UniformNoise(0.5, 0.0);
         fnoise.setRange(0.6);
         Point2 loc = new Point2(0,0);
         int N = 4;
 
         NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, N, pnoise, fnoise);
-        sig.setNoiseGenerator(new UniformNoise(0,0));
+        sig.setNoiseGenerator(new GaussianNoise(0,0.001));
 
         double[] d = sig.generateReceivedSignal();
         double[] u = new double[N];
-        ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(sig.getTransmitters(), d, u);
+        ObjectiveFunction ofunc = new ObjectiveFunction(sig.getTransmitters(), d);
+        //ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(sig.getTransmitters(), d, u);
 
-        BufferedImage im = new BufferedImage(imwidth, imheight, BufferedImage.TYPE_USHORT_GRAY);
+        BufferedImage im = new BufferedImage(imwidth, imheight, BufferedImage.TYPE_BYTE_GRAY);
+        File file = new File("picfile.csv");
+        BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
         int i = 0;
         int j = 0;
-        for(double x = xmin; x <xmax;  x += stepx){
-            j = 0;
-            for(double y = ymin; y <ymax;  y += stepy){
+        for(double y = ymin; y <ymax;  y += stepy){
+            i = 0;
+            for(double x = xmin; x <xmax;  x += stepx){
                 double val = ofunc.value(new Point2(x, y));
-                //System.out.println(val);
-                im.setRGB(i, j, (int)(1000*val*val));
-                j++;
+                writer.write(val + ", ");
+                im.setRGB(i, j, (int)(1000*Math.abs(val)));
+                i++;
             }
-            i++;
+            writer.newLine();
+            j++;
         }
+        writer.close();
 
         try {
             File outputfile = new File("saved.png");

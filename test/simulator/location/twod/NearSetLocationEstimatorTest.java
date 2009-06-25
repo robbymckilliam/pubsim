@@ -5,6 +5,7 @@
 
 package simulator.location.twod;
 
+import distributions.GaussianNoise;
 import distributions.UniformNoise;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -56,7 +57,7 @@ public class NearSetLocationEstimatorTest {
         double maxdist = 8;
 
         NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, N, pnoise, fnoise);
-        sig.setNoiseGenerator(new UniformNoise(0,0));
+        sig.setNoiseGenerator(new GaussianNoise(0,0));
         Transmitter[] trans = sig.getTransmitters();
 
         double[] phi = sig.generateReceivedSignal();
