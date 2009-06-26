@@ -16,7 +16,7 @@ import simulator.Point2;
  */
 public class SphereDecoderLocationEstimator implements PhaseBasedLocationEstimator{
 
-    public Point2 computeLocation(double[] d) {
+    public Point2 estimateLocation(double[] d) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

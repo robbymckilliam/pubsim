@@ -38,15 +38,15 @@ public class NearSetLocationEstimator
     }
 
     /** Compute the location given phases from each transmitter */
-    public Point2 computeLocation(double[] phi) {
+    public Point2 estimateLocation(double[] phi) {
 
         double Lbest = Double.NEGATIVE_INFINITY;
 
         for( int n = 0; n < N; n++){
             Transmitter t = trans[n];
-            System.out.println(t);
+            //System.out.println(t);
             double maxk = Util.floorToHalfInt(D/t.wavelength());
-            System.out.println("maxk = " + maxk + ", t.w = " + t.wavelength());
+            //System.out.println("maxk = " + maxk + ", t.w = " + t.wavelength());
             for(double k = 0.5; k < maxk; k += 1.0){
 
                 Point2 p = t.point();
@@ -55,9 +55,9 @@ public class NearSetLocationEstimator
                 Point2 x = new Point2(p.getX()+k*T, p.getY());
                 double[] u = computeUnwrapping(x);
                 u[n] = k+0.5;
-                testPoint(phi, u, x, Lbest);
+                Lbest = testPoint(phi, u, x, Lbest);
                 u[n] = k-0.5;
-                testPoint(phi, u, x, Lbest);
+                Lbest = testPoint(phi, u, x, Lbest);
 
                 IndexedDouble[] sorted = computeSortedTransitions(t, k*T);
                 //System.out.println(VectorFunctions.print(sorted));
@@ -66,11 +66,11 @@ public class NearSetLocationEstimator
 
                     //phony test
                     Point2 tx = new Point2(p.getX()+k*T*Math.cos(s.value), p.getY()+k*T*Math.sin(s.value));
-                    computeUnwrapping(x);
+                    u = computeUnwrapping(tx);
                     u[n] = k+0.5;
-                    testPoint(phi, u, x, Lbest);
+                    Lbest = testPoint(phi, u, tx, Lbest);
                     u[n] = k-0.5;
-                    testPoint(phi, u, x, Lbest);
+                    Lbest = testPoint(phi, u, tx, Lbest);
 
                 }
             }
@@ -79,18 +79,25 @@ public class NearSetLocationEstimator
         return loc;
     }
 
-    private void testPoint(double[] phi, double[] u, Point2 x, double Lbest) {
+    private double testPoint(double[] phi, double[] u, Point2 x, double Lbest) {
         //climb the objective function using Newton's method with this unwrapping
         ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(trans, phi, u);
         NewtonRaphson opt = new NewtonRaphson(ofunc);
-        Point2 xopt = new Point2(opt.maximise(x));
+        Point2 xopt = null;
+        try{
+            xopt = new Point2(opt.maximise(x));
+        }catch(Exception e){
+            //if there is an exception, just use the point x
+            xopt = new Point2(x);
+        }
         double L = ofunc.value(xopt);
         double maxD = maxDistanceToTransmitters(new Point2(xopt), trans);
         if (L > Lbest && maxD < D) {
             Lbest = L;
             loc = new Point2(xopt);
-            System.out.print("L = " + Lbest + "loc = " + VectorFunctions.print(loc));
+            //System.out.print("L = " + Lbest + "loc = " + VectorFunctions.print(loc));
         }
+        return Lbest;
     }
 
     protected IndexedDouble[] computeSortedTransitions(Transmitter tran, double rad){

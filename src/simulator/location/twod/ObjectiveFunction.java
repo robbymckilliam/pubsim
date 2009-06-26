@@ -13,7 +13,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import optimisation.AutoDerivativeFunction;
 import simulator.Point2;
-import simulator.location.twod.NoisyPhaseSignals;
 
 /**
  * Computes the value of the objective function for

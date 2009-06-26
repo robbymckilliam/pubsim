@@ -43,28 +43,29 @@ public class NearSetLocationEstimatorTest {
     }
 
     /**
-     * Test of computeLocation method, of class NearSetLocationEstimator.
+     * Test of estimateLocation method, of class NearSetLocationEstimator.
      */
     @Test
     public void testComputeLocation() {
         System.out.println("computeLocation");
 
-        UniformNoise pnoise = new UniformNoise(0, 4);
-        UniformNoise fnoise = new UniformNoise(3, 0.0);
+        UniformNoise pnoise = new UniformNoise(0, 2);
+        UniformNoise fnoise = new UniformNoise(1, 0.0);
         fnoise.setRange(0.6);
         Point2 loc = new Point2(0,0);
         int N = 4;
         double maxdist = 8;
 
         NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, N, pnoise, fnoise);
-        sig.setNoiseGenerator(new GaussianNoise(0,0));
+        sig.setNoiseGenerator(new GaussianNoise(0,0.0001));
         Transmitter[] trans = sig.getTransmitters();
 
         double[] phi = sig.generateReceivedSignal();
 
         NearSetLocationEstimator instance = new NearSetLocationEstimator(trans, maxdist);
-        Point2 result = instance.computeLocation(phi);
-        System.out.print("loc = " + VectorFunctions.print(result));
+        Point2 result = instance.estimateLocation(phi);
+        System.out.print("result = \n" + VectorFunctions.print(result));
+        assertTrue(loc.equals(result, 0.01));
 
     }
 

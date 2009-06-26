@@ -17,7 +17,7 @@ public interface PhaseBasedLocationEstimator {
      * Estimate the location given phases d.
      * @return the estimated location.
      */
-    public Point2 computeLocation(double[] d);
+    public Point2 estimateLocation(double[] d);
 
     /**
      * @return Get the previously computed location

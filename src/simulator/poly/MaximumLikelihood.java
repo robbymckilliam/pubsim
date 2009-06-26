@@ -101,7 +101,11 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         //double[] parray = {0.1,0.1};
         //double dist = func.value(VectorFunctions.columnMatrix(parray));
         //p = VectorFunctions.columnMatrix(parray);
-        p = newtonRaphson.maximise(p);
+        try{
+            p = newtonRaphson.maximise(p);
+        }catch(Exception e){
+            throw new ArithmeticException(e.getMessage());
+        }
         //System.out.println(dist);
         //System.out.println(D);
         //System.out.println(VectorFunctions.print(p));

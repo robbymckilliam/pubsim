@@ -6,6 +6,7 @@
 package optimisation;
 
 import Jama.Matrix;
+import simulator.VectorFunctions;
 
 /**
  * Only requires writting the value(.) function.  The gradient and
@@ -36,6 +37,7 @@ public abstract class AutoDerivativeFunction implements FunctionAndDerivatives{
      * Makes the assumption that x is a column vector!
      */
     public Matrix hessian(Matrix x){
+        //System.out.println(VectorFunctions.print(x));
         int p = x.getRowDimension();
         Matrix H = new Matrix(p, p);
         for(int n = 0; n < p; n++){

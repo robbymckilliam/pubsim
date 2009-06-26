@@ -329,6 +329,7 @@ public class VectorFunctions {
      * Return a string for the vector
      */
     public static String print(double[] x) {
+        if(x == null) return "null";
         String st = new String();
         for (int i = 0; i < x.length; i++) {
             st = st.concat(" " + x[i]);
@@ -340,6 +341,7 @@ public class VectorFunctions {
      * Return a string for the complex vector
      */
     public static String print(Complex[] x) {
+        if(x == null) return "null";
         String st = new String();
         for (int i = 0; i < x.length; i++) {
             st = st.concat(" " + x[i]);
@@ -351,6 +353,7 @@ public class VectorFunctions {
      * Return a string for the int[]
      */
     public static String print(int[] x) {
+        if(x == null) return "null";
         String st = new String();
         for (int i = 0; i < x.length; i++) {
             st = st.concat(" " + x[i]);
@@ -376,6 +379,7 @@ public class VectorFunctions {
      * Return a string for the vector
      */
     public static String print(double[][] M) {
+        if(M == null) return "null";
         String st = new String();
         for (int m = 0; m < M.length; m++) {
             for (int n = 0; n < M[0].length; n++) {
@@ -390,6 +394,7 @@ public class VectorFunctions {
      * Return a string for the vector
      */
     public static String print(Matrix mat) {
+        if(mat == null) return "null";
         return print(mat.getArray());
     }
 
