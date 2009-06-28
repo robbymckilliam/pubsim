@@ -26,26 +26,10 @@ public class NoisyPhaseSignals implements SignalGenerator{
     Transmitter[] trans;
 
     /**
-     * Randomly generate transmitters.
-     * @param x the sensor position
-     * @param number of transitters
-     * @param
-     */
-    public NoisyPhaseSignals(Point2 x, int N, NoiseGenerator pgen,
-            NoiseGenerator fgen){
-        Transmitter[] trns = new
-                Transmitter[N];
-        for(int n = 0; n < N; n++)
-            trns[n] = new Transmitter(pgen, fgen);
-        init(x, trns);
-    }
-
-    /**
      * @param x the sensor position
      * @param trans the position and frequency of transmitters.
      */
-    public NoisyPhaseSignals(Point2 x,
-            Transmitter[] trans){
+    public NoisyPhaseSignals(Point2 x, Transmitter[] trans){
         init(x, trans);
     }
 

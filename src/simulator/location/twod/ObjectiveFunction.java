@@ -76,7 +76,7 @@ public class ObjectiveFunction extends AutoDerivativeFunction{
         Point2 loc = new Point2(0,0);
         int N = 4;
 
-        NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, N, pnoise, fnoise);
+        NoisyPhaseSignals sig =  new NoisyPhaseSignals(loc, Transmitter.getRandomArray(N, pnoise, fnoise));
         sig.setNoiseGenerator(new UniformNoise(0,0));
 
         double[] d = sig.generateReceivedSignal();

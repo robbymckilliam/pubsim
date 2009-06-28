@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import lattices.Zn;
 import simulator.Point2;
 
 /**
@@ -71,13 +72,14 @@ public class ObjectiveFunctionFixedUnwrapping extends ObjectiveFunction{
         int imwidth = (int)((xmax - xmin)/stepx) + 1;
         int imheight = (int)((ymax - ymin)/stepy) + 1;
 
-        UniformNoise pnoise = new UniformNoise(0, 1000);
-        UniformNoise fnoise = new UniformNoise(0.5, 0.0);
+        UniformNoise pnoise = new UniformNoise(0, 4);
+        UniformNoise fnoise = new UniformNoise(3, 0.0);
         fnoise.setRange(0.6);
         Point2 loc = new Point2(0,0);
         int N = 4;
 
-        NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, N, pnoise, fnoise);
+        //NoisyPhaseSignals sig =  new NoisyPhaseSignals(loc, Transmitter.getRandomArray(N, pnoise, fnoise));
+        NoisyPhaseSignals sig = new NoisyPhaseSignals(loc,Transmitter.getLatticeArray(new Zn(2), 2.0, new Point2(0.5,0.5), fnoise));
         sig.setNoiseGenerator(new GaussianNoise(0,0.001));
 
         double[] d = sig.generateReceivedSignal();

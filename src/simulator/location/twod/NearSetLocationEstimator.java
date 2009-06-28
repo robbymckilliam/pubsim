@@ -45,30 +45,35 @@ public class NearSetLocationEstimator
         for( int n = 0; n < N; n++){
             Transmitter t = trans[n];
             //System.out.println(t);
-            double maxk = Util.floorToHalfInt(D/t.wavelength());
+            double maxk = Math.max(Util.ceilToHalfInt(D/t.wavelength()), 0.5);
             //System.out.println("maxk = " + maxk + ", t.w = " + t.wavelength());
-            for(double k = 0.5; k < maxk; k += 1.0){
+            for(double k = 0.5; k <= maxk; k += 1.0){
 
                 Point2 p = t.point();
                 double T = t.wavelength();
                 //This is the starting point for the iteration
-                Point2 x = new Point2(p.getX()+k*T, p.getY());
-                double[] u = computeUnwrapping(x);
-                u[n] = k+0.5;
-                Lbest = testPoint(phi, u, x, Lbest);
-                u[n] = k-0.5;
-                Lbest = testPoint(phi, u, x, Lbest);
+//                Point2 x = new Point2(p.getX()+k*T, p.getY());
+//                double[] u = computeUnwrapping(x);
+//                if(k < maxk){
+//                    u[n] = k+0.5;
+//                    Lbest = testPoint(phi, u, x, Lbest);
+//                }
+//                u[n] = k-0.5;
+//                Lbest = testPoint(phi, u, x, Lbest);
 
                 IndexedDouble[] sorted = computeSortedTransitions(t, k*T);
                 //System.out.println(VectorFunctions.print(sorted));
-                for( IndexedDouble s : sorted){
+                for( int s = 0; s < sorted.length; s++){
                     //u[s.index]
+                    double angle = (sorted[s].value - sorted[(s+1)%sorted.length].value)/2.0;
 
                     //phony test
-                    Point2 tx = new Point2(p.getX()+k*T*Math.cos(s.value), p.getY()+k*T*Math.sin(s.value));
-                    u = computeUnwrapping(tx);
-                    u[n] = k+0.5;
-                    Lbest = testPoint(phi, u, tx, Lbest);
+                    Point2 tx = new Point2(p.getX()+k*T*Math.cos(angle), p.getY()+k*T*Math.sin(angle));
+                    double[] u = computeUnwrapping(tx);
+                    if(k < maxk){
+                        u[n] = k+0.5;
+                        Lbest = testPoint(phi, u, tx, Lbest);
+                    }
                     u[n] = k-0.5;
                     Lbest = testPoint(phi, u, tx, Lbest);
 
@@ -113,6 +118,7 @@ public class NearSetLocationEstimator
                 double T = t.wavelength();
 
                 //compute the min and max radius circles that intersect
+                //double Amaxk = Math.max(Util.floorToHalfInt(D/t.wavelength()), 0.5);
                 double mink = Util.ceilToHalfInt( (tdist - rad)/T );
                 double maxk = Util.floorToHalfInt( (tdist + 2*rad)/T );
 
