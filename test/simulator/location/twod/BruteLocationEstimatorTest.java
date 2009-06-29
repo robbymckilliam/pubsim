@@ -48,12 +48,13 @@ public class BruteLocationEstimatorTest {
     public void testComputeLocation() {
         System.out.println("computeLocation");
         UniformNoise pnoise = new UniformNoise(0, 4);
-        UniformNoise fnoise = new UniformNoise(3, 0.0);
+        UniformNoise fnoise = new UniformNoise(1, 0.0);
         fnoise.setRange(0.6);
         Point2 loc = new Point2(0,0);
         int N = 4;
 
-        NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, N, pnoise, fnoise);
+        NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, 
+                Transmitter.getRandomArray(N, pnoise, fnoise));
         sig.setNoiseGenerator(new GaussianNoise(0,0.000001));
         Transmitter[] trans = sig.getTransmitters();
 

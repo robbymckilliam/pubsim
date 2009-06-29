@@ -87,7 +87,7 @@ public class NearSetLocationEstimator
     private double testPoint(double[] phi, double[] u, Point2 x, double Lbest) {
         //climb the objective function using Newton's method with this unwrapping
         ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(trans, phi, u);
-        NewtonRaphson opt = new NewtonRaphson(ofunc);
+        NewtonRaphson opt = new NewtonRaphson(ofunc, 4, 0.0000001);
         Point2 xopt = null;
         try{
             xopt = new Point2(opt.maximise(x));

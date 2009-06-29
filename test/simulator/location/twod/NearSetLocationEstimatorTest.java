@@ -54,10 +54,11 @@ public class NearSetLocationEstimatorTest {
         fnoise.setRange(0.6);
         Point2 loc = new Point2(0,0);
         int N = 4;
-        double maxdist = 8;
+        double maxdist = 4;
 
-        NoisyPhaseSignals sig = new NoisyPhaseSignals(loc, N, pnoise, fnoise);
-        sig.setNoiseGenerator(new GaussianNoise(0,0.0001));
+        NoisyPhaseSignals sig = new NoisyPhaseSignals(loc,
+                Transmitter.getRandomArray(N, pnoise, fnoise));
+        sig.setNoiseGenerator(new GaussianNoise(0,0.000001));
         Transmitter[] trans = sig.getTransmitters();
 
         double[] phi = sig.generateReceivedSignal();
@@ -95,20 +96,6 @@ public class NearSetLocationEstimatorTest {
         NearSetLocationEstimator instance = null;
         IndexedDouble[] expResult = null;
         IndexedDouble[] result = instance.computeSortedTransitions(tran, rad);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getLocation method, of class NearSetLocationEstimator.
-     */
-    @Test
-    public void testGetLocation() {
-        System.out.println("getLocation");
-        NearSetLocationEstimator instance = null;
-        Point2 expResult = null;
-        Point2 result = instance.getLocation();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

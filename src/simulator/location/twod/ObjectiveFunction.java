@@ -43,8 +43,8 @@ public class ObjectiveFunction extends AutoDerivativeFunction{
         for(int n = 0; n < N; n++){
             Point2 p = trans[n].point();
             double T = trans[n].wavelength();
-            double dist = p.minus(x).normF();
-            double err = T*(dist/T - Math.rint(dist/T)) - phi[n];
+            double dist = p.minus(x).normF() - phi[n];
+            double err = T*(dist/T - Math.round(dist/T));
             ret += err*err;
         }
         //System.out.println(-ret);
