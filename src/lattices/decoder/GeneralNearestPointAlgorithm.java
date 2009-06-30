@@ -15,7 +15,10 @@ import lattices.NearestPointAlgorithm;
 public interface GeneralNearestPointAlgorithm 
         extends NearestPointAlgorithm {
 
-    /**@deprecated*/
+    /**
+     * Preferably set the lattice in the constructor not with setLattice.
+     * @deprecated
+     */
     public void setLattice(Lattice G);
     
 }

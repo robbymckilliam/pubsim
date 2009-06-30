@@ -12,7 +12,7 @@ import java.util.Enumeration;
  * Interface for generating points (ie Matrix of double[]).
  * @author Robby McKilliam
  */
-public interface PointEnumerator extends Enumeration<Matrix>{
+public interface PointEnumerator extends Enumeration<Matrix>, Iterable<Matrix>{
 
     /**
      * @return return the next element as a double[] rather than a Matrix
@@ -20,5 +20,7 @@ public interface PointEnumerator extends Enumeration<Matrix>{
     double[] nextElementDouble();
 
     double percentageComplete();
+
+
 
 }

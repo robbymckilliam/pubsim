@@ -21,8 +21,9 @@ import simulator.VectorFunctions;
  * number generator will work better than this.
  * @author Robby McKilliam
  */
-public class SampledInVoronoi implements PointEnumerator{
-
+public class SampledInVoronoi  
+        extends AbstractPointEnumerator
+        implements PointEnumerator{
 
     protected NearestPointAlgorithm decoder;
     protected PointInParallelepiped ppoints;

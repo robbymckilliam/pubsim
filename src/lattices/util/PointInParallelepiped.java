@@ -7,6 +7,7 @@ package lattices.util;
 
 import Jama.Matrix;
 import java.util.Enumeration;
+import java.util.Iterator;
 import lattices.Lattice;
 
 /**
@@ -15,8 +16,10 @@ import lattices.Lattice;
  * generator matrix and u in [0,1]^N.
  * @author Robby McKilliam
  */
-public class PointInParallelepiped implements PointEnumerator{
-
+public class PointInParallelepiped
+        extends AbstractPointEnumerator
+        implements PointEnumerator{
+    
     protected Matrix u;
     protected boolean finished = false;
     protected int N;

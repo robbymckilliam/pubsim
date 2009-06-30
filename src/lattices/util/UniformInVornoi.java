@@ -20,7 +20,9 @@ import simulator.VectorFunctions;
  * uniformly generate noise.
  * @author Robby McKilliam
  */
-public class UniformInVornoi  implements PointEnumerator{
+public class UniformInVornoi 
+        extends AbstractPointEnumerator
+        implements PointEnumerator{
     
     private int numsamples = 1000, count = 0;
     protected NearestPointAlgorithm decoder;

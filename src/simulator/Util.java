@@ -105,8 +105,8 @@ public class Util {
     }
 
    /**
-     * Returns s.
-     * Returns an array of  Point2 objects.
+     * Return the angles with respect to c1 where the intersections occur between
+    *  circles c1 and c2.
      * Return null if the circles don't intersect.
      */
     public static double[] circleIntersectionAngles(Point2 c1, double r1, Point2 c2, double r2){

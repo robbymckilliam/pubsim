@@ -19,19 +19,19 @@ import simulator.VectorFunctions;
  * Newton's method will converge correctly is another matter.
  * @author Robby McKilliam
  */
-public class NearSetLocationEstimator 
+public class NearSetLocationEstimatorMaxDistance
         extends PhaseBasedLocationEstimatorNumenclature
         implements PhaseBasedLocationEstimator{
 
-    protected double D;
-    protected int N;
+    private final double D;
+    private final int N;
 
     /**
      *
      * @param trans Array of transmitters
      * @param maxDistance maximum distance location can be from any transmitter
      */
-    public NearSetLocationEstimator(Transmitter[] trans, double maxDistance){
+    public NearSetLocationEstimatorMaxDistance(Transmitter[] trans, double maxDistance){
         this.trans = trans;
         D = maxDistance;
         N = trans.length;
@@ -84,7 +84,7 @@ public class NearSetLocationEstimator
         return loc;
     }
 
-    private double testPoint(double[] phi, double[] u, Point2 x, double Lbest) {
+    protected double testPoint(double[] phi, double[] u, Point2 x, double Lbest) {
         //climb the objective function using Newton's method with this unwrapping
         ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(trans, phi, u);
         NewtonRaphson opt = new NewtonRaphson(ofunc, 4, 0.0000001);

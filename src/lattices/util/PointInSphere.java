@@ -18,7 +18,9 @@ import simulator.VectorFunctions;
  * but perhaps it could be better implemented.
  * @author Robby McKilliam
  */
-public class PointInSphere implements PointEnumerator{
+public class PointInSphere 
+        extends AbstractPointEnumerator
+        implements PointEnumerator{
 
     Matrix M, R, Q;
     double[] y, u;
@@ -52,6 +54,8 @@ public class PointInSphere implements PointEnumerator{
         n = M.getColumnDimension();
         if(m != center.length)
             throw new ArrayIndexOutOfBoundsException("center is not the correct dimension");
+
+        //System.out.println(VectorFunctions.print(center));
 
         simulator.QRDecomposition QR = new simulator.QRDecomposition(M);
         R = QR.getR();

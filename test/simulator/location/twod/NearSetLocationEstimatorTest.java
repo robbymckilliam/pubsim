@@ -63,7 +63,7 @@ public class NearSetLocationEstimatorTest {
 
         double[] phi = sig.generateReceivedSignal();
 
-        NearSetLocationEstimator instance = new NearSetLocationEstimator(trans, maxdist);
+        NearSetLocationEstimatorMaxDistance instance = new NearSetLocationEstimatorMaxDistance(trans, maxdist);
         Point2 result = instance.estimateLocation(phi);
         System.out.print("result = \n" + VectorFunctions.print(result));
         assertTrue(loc.equals(result, 0.01));
@@ -77,7 +77,7 @@ public class NearSetLocationEstimatorTest {
     public void testComputeUnwrapping() {
         System.out.println("computeUnwrapping");
         Point2 x = null;
-        NearSetLocationEstimator instance = null;
+        NearSetLocationEstimatorMaxDistance instance = null;
         double[] expResult = null;
         double[] result = instance.computeUnwrapping(x);
         assertEquals(expResult, result);
@@ -93,7 +93,7 @@ public class NearSetLocationEstimatorTest {
         System.out.println("computeSortedTransitions");
         Transmitter tran = null;
         double rad = 0.0;
-        NearSetLocationEstimator instance = null;
+        NearSetLocationEstimatorMaxDistance instance = null;
         IndexedDouble[] expResult = null;
         IndexedDouble[] result = instance.computeSortedTransitions(tran, rad);
         assertEquals(expResult, result);

@@ -30,7 +30,8 @@ public interface Lattice {
      * inradius^n / volume;
      */
     double centerDensity();
-    
+
+    /**@deprecated */
     void setDimension(int n);
     
     int getDimension();

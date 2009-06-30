@@ -47,6 +47,10 @@ public class Point2 extends Matrix{
         return get(1,0);
     }
 
+    public double magnitude(){
+        return normF();
+    }
+
     public boolean equals(Point2 p){
         return get(0,0) == p.get(0,0) && get(1,0) == p.get(1,0);
     }

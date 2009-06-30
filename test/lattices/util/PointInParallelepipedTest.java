@@ -49,8 +49,8 @@ public class PointInParallelepipedTest {
         PointInParallelepiped instance
                 = new PointInParallelepiped(B, 4);
 
-        while(instance.hasMoreElements()){
-            System.out.print(VectorFunctions.print(instance.nextElement().transpose()));
+        for(Matrix M : instance){
+            System.out.print(VectorFunctions.print(M.transpose()));
         }
     }
 

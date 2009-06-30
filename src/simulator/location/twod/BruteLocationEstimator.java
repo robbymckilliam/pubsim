@@ -6,6 +6,7 @@
 package simulator.location.twod;
 
 import Jama.Matrix;
+import lattices.util.AbstractPointEnumerator;
 import lattices.util.PointEnumerator;
 import lattices.util.RestartablePointEnumerator;
 import optimisation.NewtonRaphson;
@@ -46,8 +47,7 @@ public class BruteLocationEstimator
         points.restart();
         double Lbest = Double.NEGATIVE_INFINITY;
         ObjectiveFunction ofunc = new ObjectiveFunction(trans, phi);
-        while(points.hasMoreElements()){
-            Point2 p = new Point2(points.nextElement());
+        for(Matrix p : points){
             double L = ofunc.value(p);
             //System.out.print("L = " + Lbest + "\np = " + VectorFunctions.print(p));
             if (L > Lbest) {
@@ -73,7 +73,9 @@ public class BruteLocationEstimator
 
 
     /** Generate points inside a square of given size */
-    public static class PointsInSquare implements RestartablePointEnumerator{
+    public static class PointsInSquare 
+            extends AbstractPointEnumerator
+            implements RestartablePointEnumerator{
 
         protected double min, max, step;
         protected double x, y;
