@@ -1,7 +1,10 @@
 
 
-package lattices;
+package lattices.Anm;
 
+import lattices.*;
+import lattices.An.AnFastSelect;
+import lattices.An.AnSorted;
 import Jama.Matrix;
 import simulator.VectorFunctions;
 

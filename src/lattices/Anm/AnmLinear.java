@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anm;
 
+import lattices.Anstar.AnstarVaughan;
+import lattices.*;
 import simulator.FastSelection;
 import simulator.IndexedDouble;
 import simulator.Util;

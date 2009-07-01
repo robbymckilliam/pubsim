@@ -5,6 +5,7 @@
 
 package lattices;
 
+import lattices.An.AnSorted;
 import junit.framework.TestCase;
 import simulator.NoiseVector;
 import distributions.UniformNoise;
@@ -49,7 +50,7 @@ public class AnSortedTest extends TestCase {
         siggen.setNoiseGenerator(noise);
         siggen.setLength(n);
         
-        AnSorted instance = new AnSorted();
+        AnSorted instance = new AnSorted(n-1);
         //instance.setDimension(n - 1);
         
         for(int i = 0; i < iters; i++){

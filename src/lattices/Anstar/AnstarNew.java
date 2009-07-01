@@ -4,7 +4,7 @@
  * Created on 14 November 2007, 09:46
  */
 
-package lattices;
+package lattices.Anstar;
 
 import simulator.IndexedDouble;
 import java.util.Arrays;

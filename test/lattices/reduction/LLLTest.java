@@ -6,8 +6,8 @@
 package lattices.reduction;
 
 import Jama.Matrix;
-import lattices.Anstar;
-import lattices.AnstarBucketVaughan;
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarBucketVaughan;
 import lattices.PhinaStarEfficient;
 import org.junit.After;
 import org.junit.AfterClass;

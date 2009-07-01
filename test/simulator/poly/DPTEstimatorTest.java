@@ -78,9 +78,9 @@ public class DPTEstimatorTest {
         //assertTrue(result[0].im() == 0.0);
 
         //test last element
-        Complex last = y[n-1].times(y[n - 1 - (int)Math.round(0.2*n)].conjugate());
-        assertTrue(result[result.length-1].im() == last.im());
-        assertTrue(result[result.length-1].re() == last.re());
+        Complex last = y[n-1].times(y[n - 1 - (int)Math.round(n/2.0)].conjugate());
+        assertEquals(last.im(), result[result.length-1].im(), 0.0000001);
+        assertEquals(last.re(), result[result.length-1].re(), 0.0000001);
     }
 
     /**
@@ -91,13 +91,13 @@ public class DPTEstimatorTest {
         System.out.println("testHighestOrderParameter");
         
         int n = 60;
-        double[] params = {0.3, 0.1, 0.02};
+        double[] params = {0.3, 0.1, 0.002};
         int a = params.length;
 
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
         siggen.setLength(n);
         siggen.setParameters(params);
-        siggen.setNoiseGenerator(new GaussianNoise(0, 0.0001));
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 
         siggen.generateReceivedSignal();
 
@@ -126,7 +126,7 @@ public class DPTEstimatorTest {
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
         siggen.setLength(n);
         siggen.setParameters(params);
-        siggen.setNoiseGenerator(new GaussianNoise(0, 0.0001));
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 
         siggen.generateReceivedSignal();
 

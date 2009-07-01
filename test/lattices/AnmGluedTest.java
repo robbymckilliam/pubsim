@@ -5,6 +5,9 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarVaughan;
+import lattices.Anm.AnmGlued;
+import lattices.Anm.AnmSorted;
 import Jama.Matrix;
 import java.util.Random;
 import org.junit.After;

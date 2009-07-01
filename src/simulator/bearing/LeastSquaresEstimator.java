@@ -5,8 +5,8 @@
 
 package simulator.bearing;
 
-import lattices.Anstar;
-import lattices.AnstarBucketVaughan;
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarBucketVaughan;
 
 /**
  * Least squares phase unwrapping estimator based on the lattice

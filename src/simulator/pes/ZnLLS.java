@@ -7,7 +7,7 @@
 package simulator.pes;
 
 import java.util.TreeMap;
-import lattices.AnstarVaughan;
+import lattices.Anstar.AnstarVaughan;
 import simulator.*;
 
 /**

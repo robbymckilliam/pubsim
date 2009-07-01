@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anstar;
 
 /**
  * Implementation of the O(n) Anstar bucket sorting algorithm

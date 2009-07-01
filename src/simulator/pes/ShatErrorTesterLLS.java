@@ -6,8 +6,8 @@
 
 package simulator.pes;
 
-import lattices.AnstarVaughan;
-import lattices.AnstarBucket;
+import lattices.Anstar.AnstarVaughan;
+import lattices.Anstar.AnstarBucket;
 import simulator.*;
 
 /**

@@ -5,6 +5,8 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarBucketWithArray;
+import lattices.Anstar.AnstarVaughan;
 import java.util.Random;
 import junit.framework.TestCase;
 import simulator.VectorFunctions;

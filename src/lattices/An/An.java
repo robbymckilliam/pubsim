@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.An;
 
+import lattices.*;
 import Jama.Matrix;
 import simulator.Util;
 

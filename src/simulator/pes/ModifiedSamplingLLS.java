@@ -6,7 +6,7 @@
 
 package simulator.pes;
 
-import lattices.AnstarVaughan;
+import lattices.Anstar.AnstarVaughan;
 
 /**
  * Version of the SamplingEstimator that uses the modified liklihood

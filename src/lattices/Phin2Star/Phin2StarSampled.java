@@ -6,6 +6,8 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarBucketVaughan;
+import lattices.Anstar.Anstar;
 import simulator.*;
 
 /**

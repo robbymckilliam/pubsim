@@ -7,7 +7,7 @@
 package simulator.pes;
 
 import java.util.Random;
-import lattices.AnstarVaughan;
+import lattices.Anstar.AnstarVaughan;
 import simulator.*;
 
 /**

@@ -5,7 +5,7 @@
 
 package lattices.util;
 
-import lattices.AnFastSelect;
+import lattices.An.AnFastSelect;
 import lattices.Dn;
 import lattices.Phin2StarZnLLS;
 import org.junit.After;

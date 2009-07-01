@@ -6,8 +6,8 @@
 package lattices.decoder;
 
 import Jama.Matrix;
-import lattices.Anstar;
-import lattices.AnstarBucketVaughan;
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarBucketVaughan;
 import lattices.GeneralLattice;
 import lattices.Phin2StarGlued;
 import lattices.Zn;

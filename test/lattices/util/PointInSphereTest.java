@@ -6,8 +6,8 @@
 package lattices.util;
 
 import Jama.Matrix;
-import lattices.Anstar;
-import lattices.AnstarBucket;
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarBucket;
 import lattices.GeneralLattice;
 import lattices.Zn;
 import org.junit.After;

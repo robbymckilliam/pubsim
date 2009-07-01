@@ -5,6 +5,9 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarVaughan;
+import lattices.An.AnSorted;
+import lattices.An.AnIntegerBabai;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -53,8 +56,8 @@ public class AnIntegerBabaiTest {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[n];
-        AnIntegerBabai instance = new AnIntegerBabai();
-        AnSorted tester = new AnSorted();
+        AnIntegerBabai instance = new AnIntegerBabai(n - 1);
+        AnSorted tester = new AnSorted(n - 1);
 
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);

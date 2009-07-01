@@ -1,6 +1,6 @@
 package simulator.pes;
 
-import lattices.AnstarVaughan;
+import lattices.Anstar.AnstarVaughan;
 import simulator.*;
 
 // A modifed periodogram estimator, designed to behave more like the MLE.

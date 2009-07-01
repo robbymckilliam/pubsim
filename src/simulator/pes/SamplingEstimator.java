@@ -1,9 +1,9 @@
 package simulator.pes;
 
-import lattices.Anstar;
-import lattices.AnstarVaughan;
-import lattices.AnstarBucket;
-import lattices.AnstarBucketVaughan;
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarVaughan;
+import lattices.Anstar.AnstarBucket;
+import lattices.Anstar.AnstarBucketVaughan;
 
 /**
  * A modification of the Bresenham estimator which samples the line

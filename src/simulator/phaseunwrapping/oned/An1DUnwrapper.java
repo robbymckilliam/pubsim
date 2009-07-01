@@ -5,8 +5,8 @@
 
 package simulator.phaseunwrapping.oned;
 
-import lattices.An;
-import lattices.AnFastSelect;
+import lattices.An.An;
+import lattices.An.AnFastSelect;
 import lattices.decoder.GeneralNearestPointAlgorithm;
 import simulator.VectorFunctions;
 

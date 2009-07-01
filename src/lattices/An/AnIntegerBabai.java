@@ -3,7 +3,10 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.An;
+
+import lattices.Anstar.Anstar;
+import lattices.*;
 
 /**
  * Ridiculously simple linear time nearest point
@@ -13,6 +16,10 @@ package lattices;
 public class AnIntegerBabai extends An {
 
     double[] v, yp;
+
+    public AnIntegerBabai(int n){
+        setDimension(n);
+    }
 
     public void setDimension(int n) {
         this.n = n;

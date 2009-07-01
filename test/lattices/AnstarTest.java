@@ -5,6 +5,8 @@
 
 package lattices;
 
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarAnGlued;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;

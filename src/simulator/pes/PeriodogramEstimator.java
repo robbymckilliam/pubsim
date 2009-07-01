@@ -1,6 +1,6 @@
 package simulator.pes;
 
-import lattices.AnstarVaughan;
+import lattices.Anstar.AnstarVaughan;
 import simulator.*;
 
 // Implementation of Fogel & Gavish's periodogram estimator.

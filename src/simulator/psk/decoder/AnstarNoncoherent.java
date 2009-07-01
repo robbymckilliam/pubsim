@@ -5,8 +5,8 @@
 
 package simulator.psk.decoder;
 
-import lattices.Anstar;
-import lattices.AnstarBucketVaughan;
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarBucketVaughan;
 import simulator.Complex;
 
 /**

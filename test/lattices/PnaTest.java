@@ -7,6 +7,7 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarVaughan;
 import Jama.Matrix;
 import junit.framework.*;
 import simulator.VectorFunctions;

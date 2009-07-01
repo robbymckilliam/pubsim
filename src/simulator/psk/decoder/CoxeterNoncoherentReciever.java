@@ -6,7 +6,7 @@
 package simulator.psk.decoder;
 
 import java.util.Arrays;
-import lattices.AnmSorted;
+import lattices.Anm.AnmSorted;
 import simulator.Complex;
 import simulator.IndexedDouble;
 import simulator.VectorFunctions;

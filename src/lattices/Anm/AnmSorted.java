@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anm;
 
+import lattices.*;
 import Jama.Matrix;
 import java.util.Arrays;
 import simulator.IndexedDouble;

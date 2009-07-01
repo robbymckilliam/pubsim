@@ -7,6 +7,7 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarVaughan;
 import Jama.Matrix;
 import java.util.Random;
 import javax.vecmath.Vector2d;

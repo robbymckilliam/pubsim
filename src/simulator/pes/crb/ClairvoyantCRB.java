@@ -5,7 +5,7 @@
 
 package simulator.pes.crb;
 
-import lattices.Anstar;
+import lattices.Anstar.Anstar;
 import simulator.VectorFunctions;
 
 /**

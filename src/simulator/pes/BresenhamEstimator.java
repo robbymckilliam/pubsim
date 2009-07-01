@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.vecmath.GVector;
-import lattices.AnstarVaughan;
+import lattices.Anstar.AnstarVaughan;
 import simulator.*;
 
 /**

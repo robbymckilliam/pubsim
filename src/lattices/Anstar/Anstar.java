@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package lattices;
+package lattices.Anstar;
 
+import lattices.*;
 import Jama.Matrix;
 
 /**

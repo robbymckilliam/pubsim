@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.An;
 
+import lattices.Anstar.Anstar;
+import lattices.*;
 import java.util.Arrays;
 import simulator.FastSelection;
 import simulator.VectorFunctions;

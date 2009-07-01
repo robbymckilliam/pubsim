@@ -5,6 +5,9 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarVaughan;
+import lattices.Anm.AnmBucket;
+import lattices.Anm.AnmSorted;
 import java.util.Date;
 import java.util.Random;
 import junit.framework.TestCase;

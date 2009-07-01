@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anstar;
 
+import lattices.An.AnFastSelect;
+import lattices.An.AnSorted;
 import simulator.VectorFunctions;
 
 /**

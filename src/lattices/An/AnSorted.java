@@ -1,5 +1,7 @@
-package lattices;
+package lattices.An;
 
+import lattices.Anstar.Anstar;
+import lattices.*;
 import java.util.Arrays;
 import simulator.IndexedDouble;
 import simulator.VectorFunctions;

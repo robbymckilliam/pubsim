@@ -5,6 +5,7 @@
 
 package lattices;
 
+import lattices.Anm.AnmBucket;
 import Jama.Matrix;
 import java.util.Date;
 import java.util.Random;

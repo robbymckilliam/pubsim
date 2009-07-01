@@ -1,4 +1,4 @@
-package lattices;
+package lattices.Anstar;
 
 import simulator.*;
 

@@ -5,6 +5,9 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarVaughan;
+import lattices.An.AnSorted;
+import lattices.An.AnFastSelect;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -54,7 +57,7 @@ public class AnFastSelectTest {
         double[] v_tester = null;
         double[] x = new double[n];
         AnFastSelect instance = new AnFastSelect(n-1);
-        AnSorted tester = new AnSorted();
+        AnSorted tester = new AnSorted(n - 1);
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);

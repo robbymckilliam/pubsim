@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anstar;
 
 /**
  * This is Vaughan's practical interpretation of the Anstar Bucket

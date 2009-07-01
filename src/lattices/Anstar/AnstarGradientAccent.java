@@ -4,7 +4,7 @@
  * Created on 9 December 2007, 12:49
  */
 
-package lattices;
+package lattices.Anstar;
 
 import simulator.VectorFunctions;
 

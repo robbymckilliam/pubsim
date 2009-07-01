@@ -5,6 +5,9 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarVaughan;
+import lattices.Anm.AnmLinear;
+import lattices.Anm.AnmBucket;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;

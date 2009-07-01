@@ -7,6 +7,8 @@
 
 package lattices;
 
+import lattices.Anstar.AnstarGradientAccent;
+import lattices.Anstar.AnstarVaughan;
 import java.util.Random;
 import junit.framework.*;
 import simulator.VectorFunctions;

@@ -6,6 +6,8 @@
 
 package lattices;
 
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarBucket;
 import simulator.Util;
 import simulator.VectorFunctions;
 
