@@ -9,7 +9,7 @@ package simulator;
  * Utility class for common math operations etc.
  * @author Robby McKilliam
  */
-public class Util {
+public final class Util {
     
     /** 
      * Takes x mod y and works for negative numbers.  Ie is not
@@ -183,5 +183,25 @@ public class Util {
         return Math.ceil(x + 0.5) - 0.5;
     }
 
+    private static final double[] quadraticResult = new double[2];
+    /**
+     * Solves the quadratic equation.
+     * Returns null if solution is complex.
+     * Returns the solution in vector of length two.  Least result is
+     * the first element.
+     */
+    public static double[] solveQuadratic(double c1, double c2, double c3){
+        double b24ac = c2*c2 - 4*c1*c3;
+        //solution is complex and the line does not pass through the sphere
+        if(b24ac < 0.0) return null;
+
+        double sol1 = (-c2 - Math.sqrt(b24ac))/(2*c1);
+        double sol2 = (-c2 + Math.sqrt(b24ac))/(2*c1);
+
+        quadraticResult[0] = Math.min(sol1, sol2);
+        quadraticResult[1] = Math.max(sol1, sol2);
+
+        return quadraticResult;
+    }
 
 }

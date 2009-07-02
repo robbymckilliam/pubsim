@@ -14,7 +14,7 @@ import rngpack.Ranlux;
  * Miscelaneous functions to run on arrays/vectors/matrices.
  * @author Robby McKilliam
  */
-public class VectorFunctions {
+public final class VectorFunctions {
 
     /**
      * A slow Fourier Tranform.  It will work on
