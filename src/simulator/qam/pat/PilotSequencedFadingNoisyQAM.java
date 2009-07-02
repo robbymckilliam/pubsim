@@ -17,12 +17,10 @@ import simulator.qam.FadingNoisyQAM;
 public class PilotSequencedFadingNoisyQAM extends FadingNoisyQAM
         implements SignalGenerator {
     
-     /** {@inheritDoc} */
     public PilotSequencedFadingNoisyQAM() {
         super();
     }
     
-     /** {@inheritDoc} */
     public PilotSequencedFadingNoisyQAM(int M) {
         super(M);
     }

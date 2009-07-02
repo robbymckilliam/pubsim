@@ -52,8 +52,8 @@ public class FastSelection {
      * and return the kth element.  This is setup with the
      * intetion of you casting the object to the type you
      * want later.  I can't be bothered with generics atm.
-     * @param k: get the kth element
-     * @param c: the collection to select from
+     * @param k get the kth element
+     * @param c the collection to select from
      * @return the kth element
      * 
      * Note:  If k=1, then this returns the first element.

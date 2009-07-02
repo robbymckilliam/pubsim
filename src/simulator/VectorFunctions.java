@@ -132,6 +132,18 @@ public class VectorFunctions {
     }
 
     /**
+     * vector subtraction x - y.  Stores result in res. Does not
+     * allocate memory.
+     * Requires res.length == y.length == x.length.
+     */
+    public static void subtract(double[] x, double[] y, double[] res) {
+        double[] out = new double[x.length];
+        for (int i = 0; i < x.length; i++) {
+            res[i] = x[i] - y[i];
+        }
+    }
+
+    /**
      * vector addition x + y
      */
     public static double[] add(double[] x, double[] y) {
@@ -872,8 +884,7 @@ public class VectorFunctions {
     
     /**
      * Returns a square upper triangular banded matrix
-     * @param m Number of rows
-     * @param n Number of columns
+     * @param n Number of rows
      * @param band Length of the band along rows
      * @return upper triangular banded matrix
      */

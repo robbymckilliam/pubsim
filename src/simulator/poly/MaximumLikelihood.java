@@ -134,8 +134,9 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
 
         protected PolynomialPhaseLikelihoodAutoDerivative(){}
 
-        /**
-         * @param y  is the recieved signal
+         /**
+         * @param yr real part of signal
+          * @param yi complex part of signal
          */
         public PolynomialPhaseLikelihoodAutoDerivative(double[] yr, double[] yi){
             this.yr = yr;
@@ -176,7 +177,8 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         int N;
 
          /**
-         * @param y  is the recieved signal
+         * @param yr real part of signal
+          * @param yi complex part of signal
          */
         public PolynomialPhaseLikelihood(double[] yr, double[] yi){
             N = yr.length;

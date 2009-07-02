@@ -58,7 +58,6 @@ public class VonMises implements NoiseGenerator{
     /**
      * Generates von Mises noise using an algorithm of Best and Fisher.
      * See Mardia, Directional Statistics, p43.
-     * @return
      */
     public double getNoise() {
         double a = 1 + Math.sqrt(1 + 4*kappa*kappa);

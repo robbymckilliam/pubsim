@@ -19,12 +19,10 @@ import simulator.SignalGenerator;
 public class PilotTranslatedFadingNoisyQAM extends FadingNoisyQAM
         implements SignalGenerator, PATSymbol{
     
-     /** {@inheritDoc} */
     public PilotTranslatedFadingNoisyQAM() {
         super();
     }
     
-     /** {@inheritDoc} */
     public PilotTranslatedFadingNoisyQAM(int M) {
         super(M);
     }

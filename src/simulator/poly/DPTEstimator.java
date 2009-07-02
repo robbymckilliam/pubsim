@@ -83,8 +83,8 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
      * This uses a coarse (discrete) search of the periodogram and
      * then Newton Raphson to climb to the peak.  This is very similar
      * to the periodogram method for the frequency estimator.
-     * @param x : the signal
-     * @param M: order of parameter to estimate
+     * @param x the signal
+     * @param M order of parameter to estimate
      * @return the estimated parameter
      */
     protected double estimateM(Complex[] x, int M) {
@@ -181,7 +181,6 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
      * Compute the second order PPT.  This is used to
      * compute the PPT of higher orders.
      * @param y
-     * @return
      */
     protected Complex[] PPT2(Complex[] y) {
         //System.out.println("tau = " + tau);

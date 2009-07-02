@@ -145,7 +145,6 @@ public class Util {
      * Return atan2 in the range [0, 2pi] rather than [-pi,pi]
      * @param y
      * @param x
-     * @return
      */
     public static double atan2_0_to_2PI(double y, double x){
         double a = Math.atan2(y, x);
@@ -155,7 +154,6 @@ public class Util {
     /**
      * Convert an angle in [-pi,pi] to [0,2pi] interval
      * @param a
-     * @return
      */
     public static double convertAtan2Angle(double a){
          if(a < 0){

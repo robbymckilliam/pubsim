@@ -55,7 +55,6 @@ public class Transmitter extends Object {
      * @param y translation of the lattice
      * @param radius radius of the sphere
      * @param wgen generator for transmitter wavelengths.
-     * @return
      */
     public static Transmitter[] getLatticeArray(Lattice L, double radius, Point2 y, NoiseGenerator wgen){
         PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
@@ -74,7 +73,6 @@ public class Transmitter extends Object {
      * @param radius radius of the sphere
      * @param ngen generator for position noise.
      * @param wgen generator for transmitter wavelengths.
-     * @return
      */
     public static Transmitter[] getNoisyLatticeArray(Lattice L, double radius, Point2 y, NoiseGenerator ngen, NoiseGenerator wgen){
         PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
@@ -91,7 +89,6 @@ public class Transmitter extends Object {
      * @param N number of transmitters to generate
      * @param pgen generator for transmitter position.
      * @param wgen generator for transmitter wavelengths.
-     * @return
      */
     public static Transmitter[] getRandomArray(int N, NoiseGenerator pgen, NoiseGenerator wgen){
         Transmitter[] tvec = new Transmitter[N];
