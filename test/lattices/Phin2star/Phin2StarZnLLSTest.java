@@ -5,12 +5,10 @@
  * Created on 12 August 2007, 22:11
  */
 
-package lattices;
+package lattices.Phin2star;
 
 import java.util.Random;
 import junit.framework.*;
-import lattices.Phin2Star.Phin2StarGlued;
-import lattices.Phin2Star.Phin2StarZnLLS;
 import simulator.*;
 
 /**

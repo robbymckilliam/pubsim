@@ -11,6 +11,7 @@ import lattices.Anstar.AnstarVaughan;
 import Jama.Matrix;
 import junit.framework.*;
 import simulator.VectorFunctions;
+import lattices.Phin2star.Phin2StarGlued;
 
 /**
  *

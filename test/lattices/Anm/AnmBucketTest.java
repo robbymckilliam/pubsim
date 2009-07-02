@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anm;
 
 import lattices.Anstar.AnstarVaughan;
 import lattices.Anm.AnmBucket;

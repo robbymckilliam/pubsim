@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices.Phin2Star;
+package lattices.Phin2star;
 
 import lattices.Anstar.AnstarVaughan;
 import Jama.Matrix;

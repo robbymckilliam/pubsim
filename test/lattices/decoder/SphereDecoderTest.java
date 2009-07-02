@@ -9,7 +9,7 @@ import Jama.Matrix;
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.GeneralLattice;
-import lattices.Phin2StarGlued;
+import lattices.Phin2star.Phin2StarGlued;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;

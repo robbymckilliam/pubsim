@@ -5,7 +5,7 @@
  */
 
 package simulator.fes;
-import lattices.Phin2Star.Phin2StarSampled;
+import lattices.Phin2star.Phin2StarSampled;
 
 /**
  * Simple and fast suboptimal (but perharps can be made optimal)

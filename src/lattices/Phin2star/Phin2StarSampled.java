@@ -4,7 +4,7 @@
  * Created on 18 August 2007, 12:53
  */
 
-package lattices.Phin2Star;
+package lattices.Phin2star;
 
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.Anstar.Anstar;

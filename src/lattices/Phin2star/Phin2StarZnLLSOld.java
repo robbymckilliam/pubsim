@@ -4,7 +4,7 @@
  * Created on 12 August 2007, 21:11
  */
 
-package lattices.Phin2Star;
+package lattices.Phin2star;
 
 import java.util.Iterator;
 import java.util.TreeMap;

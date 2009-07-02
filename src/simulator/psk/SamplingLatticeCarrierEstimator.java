@@ -6,7 +6,7 @@
 
 package simulator.psk;
 
-import lattices.Phin2Star.Phin2StarSampled;
+import lattices.Phin2star.Phin2StarSampled;
 
 /**
  *

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anm;
 
 import junit.framework.TestCase;
 

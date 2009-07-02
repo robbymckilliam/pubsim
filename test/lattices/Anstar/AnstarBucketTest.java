@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anstar;
 
-import lattices.Anstar.AnstarBucketWithArray;
+import lattices.Anstar.AnstarBucket;
 import lattices.Anstar.AnstarVaughan;
 import java.util.Random;
 import junit.framework.TestCase;
@@ -13,11 +13,11 @@ import simulator.VectorFunctions;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
-public class AnstarBucketWithArrayTest extends TestCase {
+public class AnstarBucketTest extends TestCase {
     
-    public AnstarBucketWithArrayTest(String testName) {
+    public AnstarBucketTest(String testName) {
         super(testName);
     }            
 
@@ -32,33 +32,34 @@ public class AnstarBucketWithArrayTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class AnstarBucketWithArray.
+     * Test of nearestPoint method, of class AnstarBucket.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 1000;
+        int numTrials = 10000;
+        int n = 34;
         Random rand = new Random();
         double[] y = new double[n];
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[n];
-        AnstarBucketWithArray instance = new AnstarBucketWithArray();
+        AnstarBucket instance = new AnstarBucket(n-1);
         AnstarVaughan tester = new AnstarVaughan();
         
         instance.setDimension(n - 1);
         tester.setDimension(n - 1);
-        for(int i=0; i<50; i++){
+        for(int i=0; i<numTrials; i++){
             for(int k = 0; k < n; k++){
-                y[k] = ( rand.nextGaussian() - 0.5 )*10.0;
+                y[k] = rand.nextGaussian()*10.0;
             }
             instance.nearestPoint(y);
             tester.nearestPoint(y);
             v_instance = instance.getLatticePoint();
             v_tester = tester.getLatticePoint();
             AnstarVaughan.project(y,x);
-            System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
-            assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
+            //System.out.println(VectorFunctions.distance_between(v_instance, v_tester));
+            assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.000001, true);
         }
         
         //this is actually a test for the matlab code sent to Warren Smith

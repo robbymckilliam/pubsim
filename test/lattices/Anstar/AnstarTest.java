@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Anstar;
 
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarAnGlued;

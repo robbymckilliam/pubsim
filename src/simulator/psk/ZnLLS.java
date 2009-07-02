@@ -5,8 +5,8 @@
 package simulator.psk;
 
 import simulator.psk.decoder.Util;
-import lattices.Phin2Star.Phin2Star;
-import lattices.Phin2Star.Phin2StarZnLLSOld;
+import lattices.Phin2star.Phin2Star;
+import lattices.Phin2star.Phin2StarZnLLSOld;
 
 /**
  *

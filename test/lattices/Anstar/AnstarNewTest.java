@@ -5,7 +5,7 @@
  * Created on 14 November 2007, 10:16
  */
 
-package lattices;
+package lattices.Anstar;
 
 import lattices.Anstar.AnstarNew;
 import lattices.Anstar.AnstarVaughan;

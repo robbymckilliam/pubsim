@@ -6,8 +6,8 @@
 
 package simulator.fes;
 
-import lattices.Phin2Star.Phin2Star;
-import lattices.Phin2Star.Phin2StarZnLLSOld;
+import lattices.Phin2star.Phin2Star;
+import lattices.Phin2star.Phin2StarZnLLSOld;
 
 /**
  * Use the faster O(n^3 log(n)) Pn2 nearest point algorithm that

@@ -8,6 +8,7 @@
 package lattices;
 
 import lattices.Anstar.AnstarVaughan;
+import lattices.Phin2star.Phin2StarGlued;
 import Jama.Matrix;
 import java.util.Random;
 import javax.vecmath.Vector2d;

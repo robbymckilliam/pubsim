@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Phin2star;
 
-import lattices.Phin2Star.Phin2Star;
+import lattices.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

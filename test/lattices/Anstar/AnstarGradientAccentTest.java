@@ -5,7 +5,7 @@
  * Created on 11 December 2007, 16:25
  */
 
-package lattices;
+package lattices.Anstar;
 
 import lattices.Anstar.AnstarGradientAccent;
 import lattices.Anstar.AnstarVaughan;

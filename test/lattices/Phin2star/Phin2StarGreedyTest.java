@@ -3,12 +3,9 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Phin2star;
 
 import java.util.Random;
-import lattices.Phin2Star.Phin2Star;
-import lattices.Phin2Star.Phin2StarGlued;
-import lattices.Phin2Star.Phin2StarGreedy;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
