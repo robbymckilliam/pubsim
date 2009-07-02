@@ -4,11 +4,11 @@
  * Created on 12 August 2007, 21:11
  */
 
-package lattices;
+package lattices.Phin2Star;
 
-import simulator.*;
 import java.util.Iterator;
 import java.util.TreeMap;
+import lattices.NearestPointAlgorithm;
 
 /**
  * Nearest point algorithm for the Phin2StarZnLLSOld lattice.

@@ -9,6 +9,8 @@ package lattices;
 
 import java.util.Random;
 import junit.framework.*;
+import lattices.Phin2Star.Phin2StarGlued;
+import lattices.Phin2Star.Phin2StarZnLLS;
 import simulator.*;
 
 /**

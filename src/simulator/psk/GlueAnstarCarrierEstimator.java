@@ -6,9 +6,8 @@
 
 package simulator.psk;
 
-import lattices.Phin2Star;
-import lattices.Phin2StarGlued;
-import lattices.Phin2StarSampled;
+import lattices.Phin2Star.Phin2Star;
+import lattices.Phin2Star.Phin2StarGlued;
 
 /**
  * Uses the Glued Pn2 lattice point algorithm.  There is no way to

@@ -6,7 +6,7 @@
 package simulator.fes;
 
 import Jama.Matrix;
-import lattices.Phin2Star;
+import lattices.Phin2Star.Phin2Star;
 
 /**
  * Abstract class for the frequency estimators that use the Phina2Star

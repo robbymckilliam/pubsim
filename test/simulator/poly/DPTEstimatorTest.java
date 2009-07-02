@@ -78,7 +78,7 @@ public class DPTEstimatorTest {
         //assertTrue(result[0].im() == 0.0);
 
         //test last element
-        Complex last = y[n-1].times(y[n - 1 - (int)Math.round(n/2.0)].conjugate());
+        Complex last = y[n-1].times(y[n - 1 - (int)Math.round(n/((double)m-1))].conjugate());
         assertEquals(last.im(), result[result.length-1].im(), 0.0000001);
         assertEquals(last.re(), result[result.length-1].re(), 0.0000001);
     }

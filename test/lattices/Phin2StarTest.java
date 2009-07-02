@@ -5,7 +5,7 @@
 
 package lattices;
 
-import Jama.Matrix;
+import lattices.Phin2Star.Phin2Star;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

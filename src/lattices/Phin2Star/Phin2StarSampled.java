@@ -4,10 +4,11 @@
  * Created on 18 August 2007, 12:53
  */
 
-package lattices;
+package lattices.Phin2Star;
 
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.Anstar.Anstar;
+import lattices.NearestPointAlgorithm;
 import simulator.*;
 
 /**

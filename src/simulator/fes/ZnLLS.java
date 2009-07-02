@@ -5,7 +5,7 @@
 
 package simulator.fes;
 
-import lattices.Phin2StarZnLLS;
+import lattices.Phin2Star.Phin2StarZnLLS;
 
 /**
  * O(N^3log(N)) version of the LSPU estimator.

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Phin2Star;
 
 /**
  * Experimental nearest point algorithm for Phin2* that uses

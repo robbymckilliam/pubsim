@@ -4,10 +4,9 @@
 
 package simulator.psk;
 
-import simulator.VectorFunctions;
 import simulator.psk.decoder.Util;
-import lattices.Phin2Star;
-import lattices.Phin2StarZnLLSOld;
+import lattices.Phin2Star.Phin2Star;
+import lattices.Phin2Star.Phin2StarZnLLSOld;
 
 /**
  *

@@ -4,11 +4,10 @@
  * Created on 12 August 2007, 20:15
  */
 
-package lattices;
+package lattices.Phin2Star;
 
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.Anstar.Anstar;
-import simulator.*;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the

@@ -3,12 +3,13 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Phin2Star;
 
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.Anstar.Anstar;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import lattices.NearestPointAlgorithm;
 
 /**
  * O(N^3log(N)) version of the nearest point algorithm for Pn*.

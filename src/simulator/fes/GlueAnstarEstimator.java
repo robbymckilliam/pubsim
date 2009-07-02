@@ -7,8 +7,7 @@
 package simulator.fes;
 
 import lattices.LatticeAndNearestPointAlgorithm;
-import lattices.NearestPointAlgorithm;
-import lattices.Phin2StarGlued;
+import lattices.Phin2Star.Phin2StarGlued;
 
 /**
  * Frequency estimator that uses Pn1 glue vector algorithm to solve the nearest

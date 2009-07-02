@@ -3,10 +3,11 @@
  * and open the template in the editor.
  */
 
-package lattices;
+package lattices.Phin2Star;
 
 import lattices.Anstar.AnstarVaughan;
 import Jama.Matrix;
+import lattices.NearestPointAlgorithmStandardNumenclature;
 
 /**
  *
