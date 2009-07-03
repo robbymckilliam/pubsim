@@ -47,11 +47,11 @@ public class NSphereForLines extends NSphere
     }
 
     public double minParam() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return min;
     }
 
     public double maxParam() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return max;
     }
 
 }

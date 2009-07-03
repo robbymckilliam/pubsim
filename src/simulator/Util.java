@@ -183,25 +183,26 @@ public final class Util {
         return Math.ceil(x + 0.5) - 0.5;
     }
 
-    private static final double[] quadraticResult = new double[2];
     /**
-     * Solves the quadratic equation.
+     * Solves the quadratic equation
+     * ax^2 + bx + c = 0
      * Returns null if solution is complex.
      * Returns the solution in vector of length two.  Least result is
      * the first element.
      */
-    public static double[] solveQuadratic(double c1, double c2, double c3){
-        double b24ac = c2*c2 - 4*c1*c3;
+    public static double[] solveQuadratic(double a, double b, double c){
+        double[] result = new double[2];
+        double b24ac = b*b - 4*a*c;
         //solution is complex and the line does not pass through the sphere
         if(b24ac < 0.0) return null;
 
-        double sol1 = (-c2 - Math.sqrt(b24ac))/(2*c1);
-        double sol2 = (-c2 + Math.sqrt(b24ac))/(2*c1);
+        double sol1 = (-b - Math.sqrt(b24ac))/(2*a);
+        double sol2 = (-b + Math.sqrt(b24ac))/(2*a);
 
-        quadraticResult[0] = Math.min(sol1, sol2);
-        quadraticResult[1] = Math.max(sol1, sol2);
+        result[0] = Math.min(sol1, sol2);
+        result[1] = Math.max(sol1, sol2);
 
-        return quadraticResult;
+        return result;
     }
 
 }

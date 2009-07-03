@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static simulator.Util.solveQuadratic;
 
 /**
  *
@@ -212,6 +213,32 @@ public class UtilTest {
         assertEquals(-1.5, Util.ceilToHalfInt(-1.6), 0.0000001);
 
     }
-    
+
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testsolveQuadratic() {
+        System.out.println("ceilToHalfInt");
+
+        double a, b, c;
+        double[] test;
+
+        a = 1; b = 0; c = -4;
+        test = solveQuadratic(a, b, c);
+        assertEquals(test[0], -2.0, 0.0000001);
+        assertEquals(test[1], 2, 0.00000001);
+
+        a = 1; b = 2; c = 1;
+        test = solveQuadratic(a, b, c);
+        assertEquals(test[0], -1.0, 0.0000001);
+        assertEquals(test[1], -1.0, 0.00000001);
+
+        a = 1; b = -2; c = 1;
+        test = solveQuadratic(a, b, c);
+        assertEquals(test[0], 1.0, 0.0000001);
+        assertEquals(test[1], 1.0, 0.00000001);
+
+    }
     
 }

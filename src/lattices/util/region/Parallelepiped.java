@@ -8,7 +8,6 @@ package lattices.util.region;
 import Jama.Matrix;
 import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctions.subtract;
-import static simulator.VectorFunctions.print;
 
 /**
  *
