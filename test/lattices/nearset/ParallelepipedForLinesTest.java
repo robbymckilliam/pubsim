@@ -43,7 +43,7 @@ public class ParallelepipedForLinesTest {
      */
     @Test
     public void testLinePassesThroughSquare() {
-        System.out.println("linePassesThrough");
+        System.out.println("linePassesThroughSquare");
 
         int n = 2;
         Matrix M = Matrix.identity(n, n);
@@ -64,7 +64,31 @@ public class ParallelepipedForLinesTest {
         R = new ParallelepipedForLines(M);
         assertTrue(R.linePassesThrough(m2, c2));
         assertEquals(0.0, R.minParam(), 0.00000001);
-        assertEquals(Math.sqrt(2.0), R.maxParam(), 0.00000001);
+        assertEquals(1.0, R.maxParam(), 0.00000001);
+
+    }
+
+        /**
+     * Test of linePassesThrough method, of class ParallelepipedForLines.
+     */
+    @Test
+    public void testLinePassesThroughParallelepiped() {
+        System.out.println("LinePassesThroughParallelepiped");
+
+        int n = 2;
+        Matrix M = Matrix.identity(n, n);
+        M.set(0,1, 1.0);
+        double[] m = {1.0,0.0};
+        double[] c = {0.0,0.5};
+        ParallelepipedForLines R = new ParallelepipedForLines(M);
+        assertTrue(R.linePassesThrough(m, c));
+        assertEquals(0.5, R.minParam(), 0.00000001);
+        assertEquals(1.5, R.maxParam(), 0.00000001);
+
+        double[] m1 = {1.0,0.0};
+        double[] c1 = {0.0,1.5};
+        R = new ParallelepipedForLines(M);
+        assertFalse(R.linePassesThrough(m1, c1));
 
     }
 
