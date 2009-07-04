@@ -17,6 +17,13 @@ public class AnstarBucketVaughan extends Anstar {
     private int[] link;
     private double[] z;
 
+    public AnstarBucketVaughan(){
+    }
+
+    public AnstarBucketVaughan(int N){
+        setDimension(N);
+    }
+
     @Override
     public void setDimension(int n) {
         this.n = n;

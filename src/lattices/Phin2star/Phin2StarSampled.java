@@ -45,8 +45,7 @@ public class Phin2StarSampled extends Phin2Star implements NearestPointAlgorithm
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new AnstarBucketVaughan();
-        anstar.setDimension(n+1);
+        anstar = new AnstarBucketVaughan(n+1);
         
         u = new double[n+2];
         v = new double[n+2];

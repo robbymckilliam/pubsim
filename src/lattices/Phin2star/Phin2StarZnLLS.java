@@ -100,8 +100,7 @@ public class Phin2StarZnLLS extends
         z = new double[n+2];
         x = new double[n+2];
 
-        anstar = new AnstarBucketVaughan();
-        anstar.setDimension(n+1);
+        anstar = new AnstarBucketVaughan(n+1);
     }
 
 }

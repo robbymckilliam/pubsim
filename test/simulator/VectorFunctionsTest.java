@@ -525,6 +525,19 @@ public class VectorFunctionsTest extends TestCase {
         }
 
     }
+    
+    public void testPackRowiseToArray(){
+        System.out.println("packRowiseToArray");
+        double[] expy = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        double[] y = new double[expy.length];
+        double[][] testu = { {1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+        VectorFunctions.packRowiseToArray(new Matrix(testu), y);
+
+        for(int m = 0; m < y.length; m++){
+            assertEquals(y[m], expy[m], 0.00000001);
+        }
+
+    }
 
     public void testunpackRowise(){
         System.out.println("testunpackRowise");

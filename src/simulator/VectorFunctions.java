@@ -9,6 +9,7 @@ import Jama.Matrix;
 import java.util.Date;
 import java.util.Random;
 import rngpack.Ranlux;
+import static simulator.Range.range;
 
 /**
  * Miscelaneous functions to run on arrays/vectors/matrices.
@@ -150,6 +151,17 @@ public final class VectorFunctions {
         double[] out = new double[x.length];
         for (int i = 0; i < x.length; i++) {
             out[i] = x[i] + y[i];
+        }
+        return out;
+    }
+
+    /**
+     * Return a vector of length N with all elements equal to 1.0
+     */
+    public static double[] ones(int N) {
+        double[] out = new double[N];
+        for (int i = 0; i < N; i++) {
+            out[i] = 1.0;
         }
         return out;
     }
@@ -428,6 +440,26 @@ public final class VectorFunctions {
             }
         }
         return u;
+    }
+
+    /**
+     * Packs the matrix M rowise into a double[] y.
+     * Assumes that y is preallocated with y.length being
+     * greater than the number of element in M.
+     */
+    public static void packRowiseToArray(Matrix Mat, double[] y){
+        int M = Mat.getRowDimension();
+        int N = Mat.getColumnDimension();
+        if(y.length < M*N)
+            throw new ArrayIndexOutOfBoundsException("y.length must be " +
+                    "greater than the number of elements in the matrix");
+        int count = 0;
+        for(int m = 0; m < M; m++){
+            for(int n = 0; n < N; n++){
+                y[count] = Mat.get(m,n);
+                count++;
+            }
+        }
     }
 
     /**
@@ -850,6 +882,7 @@ public final class VectorFunctions {
         }
         return M;
     }
+   
 
      /** Construct a row matrix (vector) from a double[] */
     public static Matrix rowMatrix(double[] x){

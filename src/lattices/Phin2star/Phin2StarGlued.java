@@ -36,8 +36,7 @@ public class Phin2StarGlued extends Phin2Star {
     public void setDimension(int n){
         this.n = n;
         
-        anstar = new AnstarBucketVaughan();
-        anstar.setDimension(n+1);
+        anstar = new AnstarBucketVaughan(n+1);
         
         g = new double[n+2];
         v = new double[n+2];
