@@ -46,8 +46,8 @@ public class NearestInZnToLineTest {
     }
 
     @Test
-    public void compute(){
-        System.out.println("compute");
+    public void zeroForLineThroughOrigin(){
+        System.out.println("zeroForLineThroughOrigin");
         int N = 10;
         double[] m = randomGaussian(N);
         double[] c = new double[N];
