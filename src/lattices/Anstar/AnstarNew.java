@@ -18,6 +18,12 @@ import java.util.Arrays;
 public class AnstarNew extends Anstar{
     
     private IndexedDouble[] z;
+
+    public AnstarNew(){}
+
+    public AnstarNew(int N){
+        setDimension(N);
+    }
     
     @Override
     public void setDimension(int n){

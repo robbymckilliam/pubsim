@@ -7,6 +7,7 @@ package lattices.nearset;
 
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
+import lattices.Anstar.AnstarNew;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -69,20 +70,23 @@ public class NearestInZnToLineTest {
         int N = 10;
 
         double[] ones = ones(N);
+
+        System.out.println("ones = " + print(ones));
+
         NearestInZnToLine inst = new NearestInZnToLine(N);
-        AnstarBucketVaughan anstar = new AnstarBucketVaughan(N-1);
+        AnstarNew anstar = new AnstarNew(N-1);
 
         for(int k : range(10)){
 
             double[] y = randomGaussian(N);
-            inst.compute(y, ones, 0, 1.0);
+            inst.compute(y, ones, 0.0, 1.0);
 
             double[] u = inst.nearestPoint();
             anstar.nearestPoint(y);
             Anstar.project(u, u);
 
-            System.out.println("inst = " + distance_between(u, y));
-            System.out.println("anst = " + distance_between(anstar.getLatticePoint(), y));
+            //System.out.println("inst = " + distance_between(u, y));
+            //System.out.println("anst = " + distance_between(anstar.getLatticePoint(), y));
 
             for(int n = 0; n < N; n++){
                 assertEquals(u[n], anstar.getLatticePoint()[n], 0.00000001);

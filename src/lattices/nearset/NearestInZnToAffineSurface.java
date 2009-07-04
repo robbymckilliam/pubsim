@@ -69,6 +69,29 @@ public class NearestInZnToAffineSurface
 
     }
 
+    protected class NearestToLine
+            implements NearestToAffineSurface {
+
+        public NearestToLine(int N){
+            
+        }
+
+        public void compute(double[] c, Matrix P, RegionForLines R) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        public double[] nearestPoint() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        public double[] nearestParams() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        
+
+    }
+
     public double[] nearestPoint() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

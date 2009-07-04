@@ -19,7 +19,7 @@ public class LeastSquaresEstimator implements BearingEstimator{
     protected Anstar anstar;
     protected double[] ymod1, u;
     
-    public LeastSquaresEstimator(int N){
+    public LeastSquaresEstimator(){
         anstar = new AnstarBucketVaughan();
     }
     
