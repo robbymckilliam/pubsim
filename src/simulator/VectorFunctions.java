@@ -214,6 +214,18 @@ public final class VectorFunctions {
     }
 
     /**
+     * Return the floor of each element in the vector
+     * the nearest integer.
+     * Pre: x.length = y.length
+     */
+    public static void floor(double[] x, double[] y) {
+        for (int i = 0; i < x.length; i++) {
+            y[i] = Math.floor(x[i]);
+        }
+    }
+
+
+    /**
      * Return a vector of zero mean var = 1 gaussian
      * noise.
      */
@@ -715,6 +727,16 @@ public final class VectorFunctions {
      */
     public static void copy(double[] x, double[] y){
         System.arraycopy(x, 0, y, 0, x.length);
+    }
+
+    /**
+     * Compute x modulo the parallelepiped contructed
+     * by the columns of P
+     */
+    public static void moduloParallelepiped(double[] x, Matrix P){
+        Matrix invP = P.inverse();
+        double[] p = matrixMultVector(invP, x);
+
     }
 
        /**

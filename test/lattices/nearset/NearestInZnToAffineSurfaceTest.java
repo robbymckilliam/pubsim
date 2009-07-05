@@ -109,7 +109,7 @@ public class NearestInZnToAffineSurfaceTest {
         //int iters = 100;
         int N = 10;
         Matrix P = Phin2Star.getMMatrix(N-2);
-        RegionForLines R = new ParallelepipedForLines(P.times(1));
+        RegionForLines R = new ParallelepipedForLines(P);
         Matrix Pt = P.transpose();
         Matrix K = (Pt.times(P)).inverse().times(Pt);
         Matrix G = Matrix.identity(N, N).minus(P.times(K));
@@ -118,6 +118,7 @@ public class NearestInZnToAffineSurfaceTest {
         Phin2Star test = new Phin2StarZnLLS(N-2);
 
         double[] c = randomGaussian(N, 0.0, 10.0);
+        Phin2Star.project(c, c);
 
         test.nearestPoint(c);
         inst.compute(c, P, R);
