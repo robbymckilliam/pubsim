@@ -7,13 +7,15 @@ package lattices.nearset;
 
 import lattices.util.region.NSphere;
 import static simulator.Util.solveQuadratic;
+import lattices.util.region.Region;
 
 /**
  *
  * @author Robby McKilliam
  */
-public class NSphereForLines extends NSphere
-                                implements RegionForLines {
+public class NSphereForLines
+        extends NSphere
+        implements RegionForLines, Region {
 
     protected double min;
     protected double max;
@@ -39,9 +41,10 @@ public class NSphereForLines extends NSphere
         }
 
         double[] res = solveQuadratic(c1, c2, c3);
+        if(res == null) return false;
+
         min = res[0];
         max = res[1];
-
         return true;
 
     }

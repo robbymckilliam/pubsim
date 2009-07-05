@@ -12,7 +12,7 @@ import static simulator.VectorFunctions.distance_between;
  * An N dimensional sphere
  * @author Robby McKilliam
  */
-public class NSphere implements Region {
+public class NSphere implements Region, BoundingBox {
 
     protected double[] center;
     protected double radius;
@@ -38,6 +38,14 @@ public class NSphere implements Region {
 
     public int dimension() {
         return center.length;
+    }
+
+    public double minInCoordinate(int n) {
+        return center[n] - radius;
+    }
+
+    public double maxInCoordinate(int n) {
+        return center[n] + radius;
     }
 
 }

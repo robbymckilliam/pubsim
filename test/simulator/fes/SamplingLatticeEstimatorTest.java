@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class SamplingLatticeEstimatorTest extends TestCase {
     

@@ -13,7 +13,7 @@ import static simulator.VectorFunctions.subtract;
  *
  * @author Robby McKilliam
  */
-public class Parallelepiped implements Region {
+public class Parallelepiped implements Region, BoundingBox {
 
     protected Matrix M;
     protected Matrix invM;
@@ -46,6 +46,7 @@ public class Parallelepiped implements Region {
     }
 
     private double[] diff, p;
+    private double[] maxbounds, minbounds;
     private void init(Matrix M, double[] t){
         if(M.getRowDimension() != t.length)
             throw new ArrayIndexOutOfBoundsException("t.length must be equal to the row dimension");
@@ -54,6 +55,25 @@ public class Parallelepiped implements Region {
         this.t = t;
         diff = new double[M.getRowDimension()];
         p = new double[M.getColumnDimension()];
+        computeBoundingBox();
+    }
+
+    /** 
+     * Compute the min and max values for each
+     * coordinate in the parallelepiped.
+     */
+    private void computeBoundingBox() {
+        maxbounds = new double[M.getRowDimension()];
+        minbounds = new double[M.getRowDimension()];
+        for(int m = 0; m < M.getRowDimension(); m++){
+            for(int n = 0; n < M.getColumnDimension(); n++){
+                double val = M.get(m, n);
+                if(val > 0)
+                    maxbounds[m] += val;
+                else
+                    minbounds[m] +=val;
+            }
+        }
     }
 
     public boolean within(double[] y) {
@@ -89,6 +109,14 @@ public class Parallelepiped implements Region {
     /** Same as dimension. */
     public int columnDimension() {
         return dimension();
+    }
+
+    public double minInCoordinate(int n) {
+        return minbounds[n];
+    }
+
+    public double maxInCoordinate(int n) {
+        return maxbounds[n];
     }
 
 }

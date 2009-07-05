@@ -49,8 +49,7 @@ public class NearestInZnToLine
         double ctc = 0;
         double utc = 0;
         for(int n = 0; n < N; n++){
-            double y = rmin*m[n] + c[n];
-            u[n] = Math.round(y);
+            u[n] = Math.round(rmin*m[n] + c[n]);
             double r = (u[n] + 0.5*Math.signum(m[n]) - c[n])/m[n];
             map.put(new Double(r), new Integer(n));
             utu += u[n]*u[n];

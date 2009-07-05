@@ -7,6 +7,7 @@ package lattices.nearset;
 
 import Jama.Matrix;
 import lattices.util.region.Parallelepiped;
+import lattices.util.region.Region;
 import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctions.subtract;
 
@@ -17,7 +18,7 @@ import static simulator.VectorFunctions.subtract;
  */
 public class ParallelepipedForLines 
         extends Parallelepiped
-        implements RegionForLines {
+        implements RegionForLines , Region{
 
     /**
      * Parallelepiped defined by the column vectors in matrix M.

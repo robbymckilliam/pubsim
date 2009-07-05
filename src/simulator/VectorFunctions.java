@@ -145,6 +145,18 @@ public final class VectorFunctions {
     }
 
     /**
+     * vector addition x + y.  Stores result in res. Does not
+     * allocate memory.
+     * Requires res.length == y.length == x.length.
+     */
+    public static void add(double[] x, double[] y, double[] res) {
+        double[] out = new double[x.length];
+        for (int i = 0; i < x.length; i++) {
+            res[i] = x[i] + y[i];
+        }
+    }
+
+    /**
      * vector addition x + y
      */
     public static double[] add(double[] x, double[] y) {
@@ -154,6 +166,7 @@ public final class VectorFunctions {
         }
         return out;
     }
+
 
     /**
      * Return a vector of length N with all elements equal to 1.0
@@ -694,6 +707,14 @@ public final class VectorFunctions {
         double[] d = new double[len];
         System.arraycopy(x, start, d, 0, len);
         return d;
+    }
+
+    /**
+     * Copy x to y.  Assumes y.length > x.length.
+     * This uses System.arraycopy.
+     */
+    public static void copy(double[] x, double[] y){
+        System.arraycopy(x, 0, y, 0, x.length);
     }
 
        /**

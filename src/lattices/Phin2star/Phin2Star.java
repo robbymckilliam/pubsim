@@ -51,29 +51,39 @@ public abstract class Phin2Star extends NearestPointAlgorithmStandardNumenclatur
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public Matrix getGeneratorMatrix() {
-        
-        Matrix M = getMMatrix();
+    public Matrix getGeneratorMatrix() {      
+        return getGeneratorMatrix(n);      
+    }
+
+    public static Matrix getGeneratorMatrix(int n) {
+        Matrix M = getMMatrix(n);
         Matrix Mt = M.transpose();
         Matrix K = (Mt.times(M)).inverse().times(Mt);
         Matrix G = Matrix.identity(n+2, n+2).minus(M.times(K));
-        
+
         return G.getMatrix(0, n+2-1, 0, n-1);
-        
     }
     
     /** 
      * This is the Vandermonde matrix M in most of my papers
      * M = [1, n, n^2, ..., n^a].
      */
-    public Matrix getMMatrix(){
+    public Matrix getMMatrix(){    
+        return getMMatrix(n);
+    }
+
+    /**
+     * This is the Vandermonde matrix M in most of my papers
+     * M = [1, n, n^2, ..., n^a].
+     */
+    public static Matrix getMMatrix(int n){
         Matrix M = new Matrix(n+2, 2);
-        
+
         for(int i = 0; i < n+2; i++){
             for(int j = 0; j < 2; j++){
                 M.set(i, j, Math.pow(i+1, j));
             }
-        }      
+        }
         return M;
     }
 

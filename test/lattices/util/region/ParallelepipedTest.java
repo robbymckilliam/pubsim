@@ -17,7 +17,7 @@ import static simulator.VectorFunctions.add;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class ParallelepipedTest {
 
@@ -66,6 +66,51 @@ public class ParallelepipedTest {
         R = new Parallelepiped(M, t);
         y = add(matrixMultVector(M, p2), t);
         assertFalse(R.within(y));
+
+    }
+
+        /**
+     * Test of within method, of class Parallelepiped.
+     */
+    @Test
+    public void testBoundingBox() {
+        System.out.println("BoundingBox");
+        int M = 4;
+        int N  = 4;
+        Matrix Mat = Matrix.identity(M, N);
+        Parallelepiped R = new Parallelepiped(Mat);
+        for(int m = 0; m < M; m++){
+            assertEquals(1.0, R.maxInCoordinate(m), 0.000000001);
+            assertEquals(0.0, R.minInCoordinate(m), 0.000000001);
+        }
+
+        M = 6;
+        N  = 4;
+        Mat = Matrix.identity(M, N);
+        R = new Parallelepiped(Mat);
+        for(int m = 0; m < N; m++){
+            assertEquals(1.0, R.maxInCoordinate(m), 0.000000001);
+            assertEquals(0.0, R.minInCoordinate(m), 0.000000001);
+        }
+        for(int m = N; m < M; m++){
+            assertEquals(0.0, R.maxInCoordinate(m), 0.000000001);
+            assertEquals(0.0, R.minInCoordinate(m), 0.000000001);
+        }
+
+        M = 6;
+        N  = 4;
+        Mat = Matrix.identity(M, N);
+        Mat.set(5, 3, -3.0);
+        Mat.set(4, 1, -3.0);
+        R = new Parallelepiped(Mat);
+        for(int m = 0; m < N; m++){
+            assertEquals(1.0, R.maxInCoordinate(m), 0.000000001);
+            assertEquals(0.0, R.minInCoordinate(m), 0.000000001);
+        }
+        for(int m = N; m < M; m++){
+            assertEquals(0.0, R.maxInCoordinate(m), 0.000000001);
+            assertEquals(-3.0, R.minInCoordinate(m), 0.000000001);
+        }
 
     }
 

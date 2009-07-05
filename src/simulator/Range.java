@@ -25,6 +25,7 @@ import java.util.Iterator;
  */
 public class Range {
 
+    /** Iterate from start to stop with step */
     public static Iterable<Integer> range(final int start, final int stop, final int step) {
         if (step <= 0) {
             throw new IllegalArgumentException("step > 0 isrequired!");
@@ -56,14 +57,17 @@ public class Range {
         };
     }
 
+    /** Iterate from start to stop with step = 1 */
     public static Iterable<Integer> range(final int start, final int stop) {
         return range(start, stop, 1);
     }
 
+    /** Iterate from 0 to stop with step = 1 */
     public static Iterable<Integer> range(final int stop) {
         return range(0, stop, 1);
     }
 
+    /** Iterate from start to stop with step */
     public static Iterable<Double> range(final double start, final double stop, final double step) {
         if (step <= 0) {
             throw new IllegalArgumentException("step > 0 isrequired!");
@@ -95,10 +99,12 @@ public class Range {
         };
     }
 
+    /** Iterate from start to stop with step = 1 */
     public static Iterable<Double> range(final double start, final double stop) {
         return range(start, stop, 1);
     }
 
+    /** Iterate from 0 to stop with step = 1 */
     public static Iterable<Double> range(final double stop) {
         return range(0, stop, 1);
     }

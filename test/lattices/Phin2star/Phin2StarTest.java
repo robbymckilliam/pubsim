@@ -5,6 +5,7 @@
 
 package lattices.Phin2star;
 
+import Jama.Matrix;
 import lattices.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,19 +41,6 @@ public class Phin2StarTest {
     }
 
     /**
-     * Test of project method, of class Phin2Star.
-     */
-    @Test
-    public void testProject() {
-        System.out.println("project");
-        double[] x = null;
-        double[] y = null;
-        Phin2Star.project(x, y);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of volume method, of class Phin2Star.
      */
     @Test
@@ -67,31 +55,35 @@ public class Phin2StarTest {
         assertEquals(1.0/dvol, vol, 0.00001);
     }
 
-    /**
-     * Test of inradius method, of class Phin2Star.
-     */
-    @Test
-    public void testInradius() {
-        System.out.println("inradius");
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getGeneratorMatrix method, of class Phin2Star.
-     */
-    @Test
-    public void testGetGeneratorMatrix() {
-        System.out.println("getGeneratorMatrix");
-        fail("The test case is a prototype.");
-    }
+//    /**
+//     * Test of inradius method, of class Phin2Star.
+//     */
+//    @Test
+//    public void testInradius() {
+//        System.out.println("inradius");
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of getGeneratorMatrix method, of class Phin2Star.
+//     */
+//    @Test
+//    public void testGetGeneratorMatrix() {
+//        System.out.println("getGeneratorMatrix");
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of getMMatrix method, of class Phin2Star.
      */
     @Test
     public void testGetMMatrix() {
-        System.out.println("getMMatrix");
-        fail("The test case is a prototype.");
+        int N = 10;
+        Matrix M = Phin2Star.getMMatrix(N-2);
+        for(int n = 0; n < n; n++){
+            assertEquals(1.0, M.get(n, 0), 0.000000001);
+            assertEquals(n+1, M.get(n, 0), 0.000000001);
+        }
     }
 
     /**

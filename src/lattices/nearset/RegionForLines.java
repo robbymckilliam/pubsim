@@ -4,13 +4,15 @@
  */
 
 package lattices.nearset;
+import lattices.util.region.Region;
+import lattices.util.region.BoundingBox;
 
 /**
  * Represents a region with the abilty to compute where
  * a parameterised line passes through it.
  * @author Robby McKilliam
  */
-public interface RegionForLines extends lattices.util.region.Region{
+public interface RegionForLines extends Region, BoundingBox{
 
     /**
      * Returns true if the line rm + c passes through the region

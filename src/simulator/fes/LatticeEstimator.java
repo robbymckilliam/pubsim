@@ -18,7 +18,7 @@ public abstract class LatticeEstimator implements FrequencyEstimator{
     protected int n;
     protected Phin2Star lattice;
     protected double[] y;
-    protected Matrix K;
+    //protected Matrix K;
 
     @Override
     public void setSize(int n) {
@@ -28,9 +28,9 @@ public abstract class LatticeEstimator implements FrequencyEstimator{
         y = new double[n];
         //p = new double[a];
 
-        Matrix M = lattice.getMMatrix();
-        Matrix Mt = M.transpose();
-        K = Mt.times(M).inverse().times(Mt);
+        //Matrix M = lattice.getMMatrix();
+        //Matrix Mt = M.transpose();
+        //K = Mt.times(M).inverse().times(Mt);
 
     }
 
@@ -59,7 +59,7 @@ public abstract class LatticeEstimator implements FrequencyEstimator{
 
         //System.out.println("f = " + f);
 
-        return f;
+        return f - Math.round(f);
 
     }
 
