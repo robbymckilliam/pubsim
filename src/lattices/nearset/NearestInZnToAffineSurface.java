@@ -140,8 +140,8 @@ public class NearestInZnToAffineSurface
             //this is a slow version at the moment.
             double[] uminusc = subtract(ut, ccopy);
              double[] p = matrixMultVector(invP, uminusc);
-            double L = P.times(columnMatrix(p)).
-                                    minus(columnMatrix(uminusc)).normF();
+            double L = (P.times(columnMatrix(p)).
+                                    minus(columnMatrix(uminusc))).normF();
 
             if(L < Lbest){
                     Lbest = L;
@@ -161,11 +161,12 @@ public class NearestInZnToAffineSurface
                 //this is a slow version at the moment.
                 uminusc = subtract(ut, ccopy);
                 p = matrixMultVector(invP, uminusc);
-                L = P.times(columnMatrix(p)).
-                                        minus(columnMatrix(uminusc)).normF();
+                L = (P.times(columnMatrix(p)).
+                                    minus(columnMatrix(uminusc))).normF();
 
                 //System.out.println(print(ut));
                 //System.out.println((L));
+                //System.out.println("L = " + L );
 
                 if(L < Lbest){
                     Lbest = L;

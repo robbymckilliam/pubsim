@@ -6,7 +6,6 @@
 package lattices.nearset;
 
 import Jama.Matrix;
-import javax.sound.midi.SysexMessage;
 import lattices.Phin2star.Phin2Star;
 import lattices.Phin2star.Phin2StarZnLLS;
 import org.junit.After;
@@ -20,6 +19,7 @@ import static simulator.VectorFunctions.columnMatrix;
 import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctions.print;
 import static simulator.VectorFunctions.distance_between;
+import static simulator.VectorFunctions.distance_between2;
 
 /**
  *
@@ -107,9 +107,9 @@ public class NearestInZnToAffineSurfaceTest {
         System.out.println("sameAsFrequencyEstimationLattice");
 
         //int iters = 100;
-        int N = 5;
+        int N = 10;
         Matrix P = Phin2Star.getMMatrix(N-2);
-        RegionForLines R = new ParallelepipedForLines(P);
+        RegionForLines R = new ParallelepipedForLines(P.times(1));
         Matrix Pt = P.transpose();
         Matrix K = (Pt.times(P)).inverse().times(Pt);
         Matrix G = Matrix.identity(N, N).minus(P.times(K));
@@ -117,7 +117,7 @@ public class NearestInZnToAffineSurfaceTest {
         NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(N);
         Phin2Star test = new Phin2StarZnLLS(N-2);
 
-        double[] c = randomGaussian(N, 0.0, 1000.0);
+        double[] c = randomGaussian(N, 0.0, 10.0);
 
         test.nearestPoint(c);
         inst.compute(c, P, R);
@@ -125,11 +125,12 @@ public class NearestInZnToAffineSurfaceTest {
         double[] instp = matrixMultVector(G, inst.nearestPoint());
         double[] testp = test.getLatticePoint();
 
+        System.out.println(print( inst.nearestPoint()));
         System.out.println(print(instp));
         System.out.println(print(testp));
 
-        System.out.println(distance_between(instp, c));
-        System.out.println(distance_between(testp, c));
+        System.out.println(distance_between(instp, matrixMultVector(G,c)));
+        System.out.println(distance_between(testp, matrixMultVector(G, c)));
 
         for(int n = 0; n < N; n++){
                 assertEquals(testp[n], instp[n], 0.00000001);
