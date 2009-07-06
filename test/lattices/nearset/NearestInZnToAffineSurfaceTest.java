@@ -22,7 +22,6 @@ import static simulator.VectorFunctions.columnMatrix;
 import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctions.print;
 import static simulator.VectorFunctions.distance_between;
-import static simulator.VectorFunctions.moduloParallelepiped;
 
 /**
  *
@@ -214,7 +213,7 @@ public class NearestInZnToAffineSurfaceTest {
 
         int iters = 100;
 
-        int N = 6;
+        int N = 7;
         int a = 4;
 
         Matrix scaler = new Matrix(a,a);

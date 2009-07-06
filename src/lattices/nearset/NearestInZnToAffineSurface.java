@@ -91,16 +91,11 @@ public class NearestInZnToAffineSurface
 
                         //System.out.println(print(u));
 
-                    }
-                    
-                    u[n] = null;
-                    
+                    }                   
+                    u[n] = null;                 
                 }
-
             }
-
-        }
-        
+        }       
     }
 
     protected class NearestToLine
