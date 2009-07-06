@@ -16,29 +16,29 @@ import static simulator.VectorFunctions.packRowiseToArray;
  * @author Robby McKilliam
  */
 public class NearestInZnToLine
-        implements NearestToAffineSurface {
+        extends NearestToAffineSurface {
 
     private final double[] m, u, ubest, rret;
     private final int N;
     private double rbest;
 
-    public NearestInZnToLine(int N){
-        m = new double[N];
+    public NearestInZnToLine(Matrix P, RegionForLines R){
+        super(P,R);
+        if(P.getColumnDimension() != 1 )
+            throw new ArrayIndexOutOfBoundsException("P must be a column vector.");
+        N = P.getRowDimension();
+        m = P.getRowPackedCopy();
         u = new double[N];
         ubest = new double[N];
         rret = new double[1];
-        this.N = N;
     }
 
-    public void compute(double[] c, Matrix P, RegionForLines R) {
-        if(P.getColumnDimension() != 1 )
-            throw new ArrayIndexOutOfBoundsException("P must be a column vector.");
-        packRowiseToArray(P, m);
+    public void compute(double[] c) {
         R.linePassesThrough(m, c);
         compute(c, m, R.minParam(), R.maxParam());
     }
 
-    public void compute(double[] c, double[] m, double rmin, double rmax) {
+    protected void compute(double[] c, double[] m, double rmin, double rmax) {
 
         //compute dot products and map
         TreeMap<Double, Integer> map = new TreeMap<Double, Integer>();

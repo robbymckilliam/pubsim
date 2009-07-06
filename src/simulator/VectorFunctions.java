@@ -224,6 +224,35 @@ public final class VectorFunctions {
         }
     }
 
+    /**
+     * Return the floor of each element in the vector
+     * the nearest integer.
+     */
+    public static double[] floor(double[] x) {
+        double[] y = new double[x.length];
+        floor(x, y);
+        return y;
+    }
+
+    /**
+     * Return the x - floor(x).
+     */
+    public static double[] fracpart(double[] x) {
+        double[] y = new double[x.length];
+        fracpart(x, y);
+        return y;
+    }
+
+    /**
+     * Return the x - floor(x) into y.
+     * Pre: x.length = y.length
+     */
+    public static void fracpart(double[] x, double[] y) {
+        for (int i = 0; i < x.length; i++) {
+            y[i] = x[i] - Math.floor(x[i]);
+        }
+    }
+
 
     /**
      * Return a vector of zero mean var = 1 gaussian
@@ -730,13 +759,14 @@ public final class VectorFunctions {
     }
 
     /**
-     * Compute x modulo the parallelepiped contructed
-     * by the columns of P
+     * Return x modulo the parallelepiped contructed
+     * by the columns of P.
      */
-    public static void moduloParallelepiped(double[] x, Matrix P){
+    public static double[] moduloParallelepiped(double[] x, Matrix P){
         Matrix invP = P.inverse();
         double[] p = matrixMultVector(invP, x);
-
+        fracpart(p, p);
+        return matrixMultVector(P, p);
     }
 
        /**

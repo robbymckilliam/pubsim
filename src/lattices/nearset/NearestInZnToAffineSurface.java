@@ -22,43 +22,44 @@ import static simulator.Util.ceilToHalfInt;
 
 
 /**
- * Compute the neares point in the integer lattice Zn to an
+ * Compute the nearest point in the integer lattice Zn to an
  * affine surface that lies in a specified region.
  * @author Robby McKilliam
  */
 public class NearestInZnToAffineSurface
-        implements NearestToAffineSurface {
+        extends NearestToAffineSurface {
 
     private final int N;
     private final Double[] u;
     private final double[] ubest;
-    private double[] pbest;
+    private final double[] pbest;
+    private final Matrix invP;
+
     private double[] ccopy;
-    private double Lbest = Double.POSITIVE_INFINITY;
-    private NearestToLine lineSearch;
+    private final Matrix Pcopy;
+    private double Lbest;
 
-    protected RegionForLines R;
-    protected Matrix P;
-
-    public NearestInZnToAffineSurface(int N){
-        this.N = N;
+    public NearestInZnToAffineSurface(Matrix P, RegionForLines R){
+        super(P, R);
+        N = P.getRowDimension();
         u = new Double[N];
         ubest = new double[N];
+        pbest = new double[P.getColumnDimension()];
+        invP = P.inverse();
+        Pcopy = P;
     }
 
-    public void compute(double[] c, Matrix P, RegionForLines R) {
-        this.R = R;
-        this.P = P;
+    public void compute(double[] c) {
+        Lbest = Double.POSITIVE_INFINITY;
         ccopy = c;
-        pbest = new double[P.getColumnDimension()];
-        lineSearch = new NearestToLine(N);
         decode(c, P);
+        round( add( matrixMultVector(P, pbest) , c ), ubest );
     }
 
     protected void decode(double[] c, Matrix P){
 
         if(P.getColumnDimension() == 1){
-             lineSearch.compute(c, P, R);
+             (new NearestToLine(P, R)).compute(c);
         }else{
             
             for(int n = 0; n < N; n++){
@@ -67,16 +68,18 @@ public class NearestInZnToAffineSurface
                     double kmin = ceilToHalfInt(R.minInCoordinate(n));
                     double kmax = floorToHalfInt(R.maxInCoordinate(n));
 
+                    //System.out.println("kmin = " + kmin + ", kmax = " + kmax);
+
+                    Matrix Pnew = P.getMatrix(0, N-1, 1, P.getColumnDimension()-1).minus(
+                    P.getMatrix(0, N-1, 0, 0).times(
+                    P.getMatrix(n,n, 1, P.getColumnDimension()-1)).times(
+                    1.0/P.get(n, 0)));
+
                     for( double k : range(kmin, kmax) ) {
 
                         double[] cnew = columnMatrix(c).plus(
                                 P.getMatrix(0, N-1, 0, 0).times(
                                 (k - c[n])/P.get(n,0))).getColumnPackedCopy();
-
-                        Matrix Pnew = P.getMatrix(0, N-1, 1, P.getColumnDimension()-1).minus(
-                                P.getMatrix(0, N-1, 0, 0).times(
-                                P.getMatrix(n,n, 1, P.getColumnDimension()-1)).times(
-                                1.0/P.get(n, 0)));
 
                         //System.out.println(print(cnew));
                         //System.out.println(print(Pnew));
@@ -89,40 +92,35 @@ public class NearestInZnToAffineSurface
                         //System.out.println(print(u));
 
                     }
+                    
+                    u[n] = null;
+                    
                 }
-
-                u[n] = null;
 
             }
 
         }
-
-        round( add( matrixMultVector(P, pbest) , c ), ubest );
         
     }
 
     protected class NearestToLine
-            implements NearestToAffineSurface {
+            extends NearestToAffineSurface {
 
         private final double[] m;
         private final double[] ut;
-        private final Matrix invP;
 
-        public NearestToLine(int N){
-            m = new double[N];
+        public NearestToLine(Matrix P, RegionForLines R){
+            super(P, R);
+            m = P.getColumnPackedCopy();
             ut = new double[N];
-            invP = P.inverse();
         }
 
-        public void compute(double[] c, Matrix P, RegionForLines R) {
-            if(P.getColumnDimension() != 1 )
-                throw new ArrayIndexOutOfBoundsException("P must be a column vector.");
-            packRowiseToArray(P, m);
+        public void compute(double[] c) {
             if( R.linePassesThrough(m, c) == false ) return;
             compute(c, m, R.minParam(), R.maxParam());
         }
 
-        public void compute(double[] c, double[] m, double rmin, double rmax) {
+        protected void compute(double[] c, double[] m, double rmin, double rmax) {
 
             //compute dot products and map
             TreeMap<Double, Integer> map = new TreeMap<Double, Integer>();
@@ -138,10 +136,20 @@ public class NearestInZnToAffineSurface
 
             //compute best (thus far) parameter p and distance L
             //this is a slow version at the moment.
+
+            //System.out.println(print(Pcopy));
+
             double[] uminusc = subtract(ut, ccopy);
-             double[] p = matrixMultVector(invP, uminusc);
-            double L = (P.times(columnMatrix(p)).
+            double[] p = matrixMultVector(invP, uminusc);
+            
+            //System.out.println(print(p));
+            
+            double L = (Pcopy.times(columnMatrix(p)).
                                     minus(columnMatrix(uminusc))).normF();
+
+            //System.out.println(print(ut));
+            //System.out.println((L));
+            //System.out.println("L = " + L );
 
             if(L < Lbest){
                     Lbest = L;
@@ -161,7 +169,7 @@ public class NearestInZnToAffineSurface
                 //this is a slow version at the moment.
                 uminusc = subtract(ut, ccopy);
                 p = matrixMultVector(invP, uminusc);
-                L = (P.times(columnMatrix(p)).
+                L = (Pcopy.times(columnMatrix(p)).
                                     minus(columnMatrix(uminusc))).normF();
 
                 //System.out.println(print(ut));

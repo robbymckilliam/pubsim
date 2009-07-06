@@ -11,6 +11,7 @@ import Jama.Matrix;
 import junit.framework.*;
 import javax.vecmath.GVector;
 import java.util.Random;
+import static simulator.VectorFunctions.*;
 import static org.junit.Assert.*;
 
 /**
@@ -28,7 +29,7 @@ public class VectorFunctionsTest extends TestCase {
      * @param tol tolerance for how close doubles must be to each other
      * to be considered equal
      */
-    private void assertVectorsEqual(double[] x, double[] y, double tol){
+    public static void assertVectorsEqual(double[] x, double[] y, double tol){
         if(x.length != y.length)
             fail("Vectors are not the same length!");
         for(int i = 0; i < x.length; i++){
@@ -40,7 +41,7 @@ public class VectorFunctionsTest extends TestCase {
      * Asserts that two vector have equal elements. Sets a
      * default tolerance of  0.0000001.
      */
-    private void assertVectorsEqual(double[] x, double[] y){
+    public static void assertVectorsEqual(double[] x, double[] y){
         assertVectorsEqual(x, y, 0.0000001);
     }
 
@@ -56,7 +57,7 @@ public class VectorFunctionsTest extends TestCase {
         double[] expXi = {0, 1, 0, -1};
         double[] expXr = {10,1,-4 ,1};
         
-        VectorFunctions.slowFT(x, Xi, Xr);   
+        slowFT(x, Xi, Xr);   
         
         for(int i = 0; i < x.length; i++){
             assertEquals(true, Math.abs(expXi[i] - Xi[i]) < 0.00001);
@@ -235,6 +236,16 @@ public class VectorFunctionsTest extends TestCase {
         double expResult = 4.0;
         double result = VectorFunctions.max(x);
         assertEquals(expResult, result);
+    }
+
+    public void testmoduloParalellepiped() {
+        System.out.println("moduloParalellepiped");
+
+        double[] x = {1.1,4.2,2.1,3.6,-5.1};
+        double[] exp = VectorFunctions.fracpart(x);
+        Matrix P = Matrix.identity(x.length, x.length);
+        double[] res = moduloParallelepiped(x, P);
+        assertVectorsEqual(exp, res);
     }
 
     /**

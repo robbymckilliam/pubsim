@@ -66,6 +66,8 @@ public class Parallelepiped implements Region, BoundingBox {
         maxbounds = new double[M.getRowDimension()];
         minbounds = new double[M.getRowDimension()];
         for(int m = 0; m < M.getRowDimension(); m++){
+            maxbounds[m] = t[m];
+            minbounds[m] = t[m];
             for(int n = 0; n < M.getColumnDimension(); n++){
                 double val = M.get(m, n);
                 if(val > 0)

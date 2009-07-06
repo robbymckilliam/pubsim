@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static simulator.VectorFunctions.randomGaussian;
 import static simulator.VectorFunctions.distance_between;
+import static simulator.VectorFunctions.columnMatrix;
 import static simulator.VectorFunctions.print;
 import static simulator.VectorFunctions.ones;
 import static simulator.Range.range;
@@ -51,8 +52,9 @@ public class NearestInZnToLineTest {
         int N = 10;
         double[] m = randomGaussian(N);
         double[] c = new double[N];
+        RegionForLines R = new NSphereForLines(1, c);
 
-        NearestInZnToLine inst = new NearestInZnToLine(N);
+        NearestInZnToLine inst = new NearestInZnToLine(columnMatrix(m), R);
         inst.compute(c, m, -10.0, 10.0);
 
         double[] u = inst.nearestPoint();
@@ -70,10 +72,11 @@ public class NearestInZnToLineTest {
         int N = 10;
 
         double[] ones = ones(N);
+        RegionForLines R = new NSphereForLines(1, N);
 
         System.out.println("ones = " + print(ones));
 
-        NearestInZnToLine inst = new NearestInZnToLine(N);
+        NearestInZnToLine inst = new NearestInZnToLine(columnMatrix(ones), R);
         AnstarNew anstar = new AnstarNew(N-1);
 
         for(int k : range(10)){

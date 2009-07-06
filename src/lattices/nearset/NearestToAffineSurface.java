@@ -11,8 +11,16 @@ import Jama.Matrix;
  * NearestInSet computer for affine surfaces.
  * @author Robby McKilliam
  */
-public interface NearestToAffineSurface 
-    extends NearestInSet{
+public abstract class NearestToAffineSurface
+    implements NearestInSet{
+
+    protected final Matrix P;
+    protected final RegionForLines R;
+
+    public NearestToAffineSurface(Matrix P, RegionForLines R){
+        this.P = P;
+        this.R = R;
+    }
 
     /**
      * Computes the nearest point and the nearest params
@@ -22,6 +30,6 @@ public interface NearestToAffineSurface
      * @param P
      * @param R
      */
-    public void compute(double[] c, Matrix P, RegionForLines R);
+    public abstract void compute(double[] c);
 
 }

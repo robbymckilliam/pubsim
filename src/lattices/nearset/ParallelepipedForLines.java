@@ -84,7 +84,7 @@ public class ParallelepipedForLines
             }
         }
 
-        //System.out.println(min + ", " + max);
+        //System.out.println("min = " + min + ", max = " + max);
 
         if(min > max) return false;
         else return true;
