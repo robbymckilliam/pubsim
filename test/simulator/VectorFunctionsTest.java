@@ -574,6 +574,64 @@ public class VectorFunctionsTest extends TestCase {
 
     }
 
+    public void testGetColumn(){
+        System.out.println("getColumn");
+        double[] y = {2, 7};
+        double[][] testu = { {1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+        double[] u = getColumn(1, new Matrix(testu));
+
+        System.out.println(print(u));
+
+        assertVectorsEqual(u, y);
+
+    }
+
+    public void testGetRow(){
+        System.out.println("getRow");
+        double[] y = {6, 7, 8, 9, 10};
+        double[][] testu = { {1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+        double[] u = getRow(1, new Matrix(testu));
+
+        System.out.println(print(u));
+
+        assertVectorsEqual(u, y);
+
+    }
+
+    public void testOrthogonalise(){
+        System.out.println("orthogonalise");
+        double[][] testu = { {1, 1, 1, 1, 1}, {1, 2, 3, 4, 5}};
+        Matrix A = new Matrix(testu).transpose();
+        //System.out.println("A = \n" + print(A));
+        A = orthogonalise(A);
+        //System.out.println("Ap = \n" + print(A));
+        double[][] exp = { {1, 1, 1, 1, 1}, {-2, -1, 0, 1, 2}};
+        Matrix Aexp = new Matrix(exp).transpose();
+        //System.out.println("Aexp = \n" + print(Aexp));
+        assertTrue(A.minus(Aexp).normF() < 0.0000001);
+
+        double[][] testu2 = { {1, 1, 1, 1, 1}, 
+                                        {1, 2, 3, 4, 5},
+                                        {1, 1, 2, 2, 3}};
+        Matrix A2 = new Matrix(testu2).transpose();
+        System.out.println("A2 = \n" + print(A2));
+        A2 = orthogonalise(A2);
+        System.out.println("A2p = \n" + print(A2));
+        double[][] exp2 = { {1, 1, 1, 1, 1}, {-2, -1, 0, 1, 2}};
+        Matrix Aexp2 = new Matrix(exp2).transpose();
+        //System.out.println("Aexp = \n" + print(Aexp));
+        //assertTrue(A2.minus(Aexp2).normF() < 0.0000001);
+    }
+
+    public void testColumnSquareSum(){
+        System.out.println("columnSquareSum");
+        double[][] testu = { {1, 1, 1, 1, 1}, {1, 2, 3, 4, 5}};
+        Matrix A = new Matrix(testu);
+        double[] out = columnSquareSum(A);
+        double[] exp = { 1+1, 1+2*2, 1+3*3,1+4*4,1+5*5};
+        assertVectorsEqual(exp, out);
+    }
+
     public void testrandomBandedMatrix(){
         System.out.println("testrandomBandedMatrix");
         int m = 10; int n = 8;

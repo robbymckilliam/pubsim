@@ -158,7 +158,7 @@ public class NearestInZnToAffineSurfaceTest {
 
         int iters = 100;
 
-        int N = 10;
+        int N = 15;
         int a = 3;
 
         Matrix scaler = new Matrix(a,a);
@@ -204,60 +204,60 @@ public class NearestInZnToAffineSurfaceTest {
         //}
     }
 
-     /**
-     * Test of compute method, of class NearestInZnToAffineSurface.
-     */
-    @Test
-    public void sameAsPolyEst4() {
-        System.out.println("sameAsPolyEst4");
-
-        int iters = 100;
-
-        int N = 7;
-        int a = 4;
-
-        Matrix scaler = new Matrix(a,a);
-        for(int i = 0; i < a; i ++){
-            scaler.set(i,i, -1.0/simulator.Util.factorial(i));
-        }
-
-        SphereDecoder test = new SphereDecoder(new PhinaStar(a, N-a));
-
-        Matrix P = PhinaStar.getMMatrix(a, N-a);
-        Matrix Pt = P.transpose();
-        Matrix K = (Pt.times(P)).inverse().times(Pt);
-        Matrix G = Matrix.identity(N, N).minus(P.times(K));
-
-        //for( int i = 0; i < iters; i++){
-
-            //NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(N);
-
-            double[] c = randomGaussian(N, 0.0, 1000.0);
-            //Phin2Star.project(c, c);
-
-            RegionForLines R = new ParallelepipedForLines(P.times(scaler), c);
-            //RegionForLines R = new NSphereForLines(2*N*N*N, c);
-
-            //System.out.println(print(c));
-            NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(P.times(-1.0), R);
-
-            test.nearestPoint(c);
-            inst.compute(c);
-
-            double[] instp = matrixMultVector(G, inst.nearestPoint());
-            double[] testp = test.getLatticePoint();
-
-            //System.out.println(print( inst.nearestPoint()));
-            System.out.println(print(instp));
-            System.out.println(print(testp));
-
-            System.out.println(distance_between(instp, matrixMultVector(G,c)));
-            System.out.println(distance_between(testp, matrixMultVector(G, c)));
-
-            VectorFunctionsTest.assertVectorsEqual(testp, instp);
-
-        //}
-    }
+//     /**
+//     * Test of compute method, of class NearestInZnToAffineSurface.
+//     */
+//    @Test
+//    public void sameAsPolyEst4() {
+//        System.out.println("sameAsPolyEst4");
+//
+//        int iters = 100;
+//
+//        int N = 7;
+//        int a = 4;
+//
+//        Matrix scaler = new Matrix(a,a);
+//        for(int i = 0; i < a; i ++){
+//            scaler.set(i,i, -1.0/simulator.Util.factorial(i));
+//        }
+//
+//        SphereDecoder test = new SphereDecoder(new PhinaStar(a, N-a));
+//
+//        Matrix P = PhinaStar.getMMatrix(a, N-a);
+//        Matrix Pt = P.transpose();
+//        Matrix K = (Pt.times(P)).inverse().times(Pt);
+//        Matrix G = Matrix.identity(N, N).minus(P.times(K));
+//
+//        //for( int i = 0; i < iters; i++){
+//
+//            //NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(N);
+//
+//            double[] c = randomGaussian(N, 0.0, 1000.0);
+//            //Phin2Star.project(c, c);
+//
+//            RegionForLines R = new ParallelepipedForLines(P.times(scaler), c);
+//            //RegionForLines R = new NSphereForLines(2*N*N*N, c);
+//
+//            //System.out.println(print(c));
+//            NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(P.times(-1.0), R);
+//
+//            test.nearestPoint(c);
+//            inst.compute(c);
+//
+//            double[] instp = matrixMultVector(G, inst.nearestPoint());
+//            double[] testp = test.getLatticePoint();
+//
+//            //System.out.println(print( inst.nearestPoint()));
+//            System.out.println(print(instp));
+//            System.out.println(print(testp));
+//
+//            System.out.println(distance_between(instp, matrixMultVector(G,c)));
+//            System.out.println(distance_between(testp, matrixMultVector(G, c)));
+//
+//            VectorFunctionsTest.assertVectorsEqual(testp, instp);
+//
+//        //}
+//    }
 
 
 }

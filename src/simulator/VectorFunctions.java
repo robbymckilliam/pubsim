@@ -674,6 +674,44 @@ public final class VectorFunctions {
         return y;
     }
 
+    /**
+     * Return column j of the matrix M.
+     * PRE: x.length >= #rows in M
+     */
+    public static void getColumn(int j, Matrix M, double[] x) {
+        for(int m = 0; m < M.getRowDimension(); m++){
+            x[m] = M.get(m, j);
+        }
+    }
+
+    /**
+     * Return column j of the matrix M.
+     */
+    public static double[] getColumn(int j, Matrix M) {
+        double[] x = new double[M.getRowDimension()];
+        getColumn(j, M, x);
+        return x;
+    }
+
+    /**
+     * Return row j of the matrix M.
+     * PRE: x.length >= #rows in M
+     */
+    public static void getRow(int j, Matrix M, double[] x) {
+        for(int m = 0; m < M.getColumnDimension(); m++){
+            x[m] = M.get(j, m);
+        }
+    }
+
+    /**
+     * Return row j of the matrix M.
+     */
+    public static double[] getRow(int j, Matrix M) {
+        double[] x = new double[M.getColumnDimension()];
+        getRow(j, M, x);
+        return x;
+    }
+
    /**
      * returns the vector  x - round(x)
      */
@@ -717,6 +755,45 @@ public final class VectorFunctions {
         for (int i = 0; i < x.length; i++) {
             yp[i] = y[i] - xty / xtx * x[i];
         }
+    }
+
+
+    /**
+     * Return orthogonalised version of A.  All the columns
+     * in the returned matrix will be orthogonal.
+     */
+    public static Matrix orthogonalise(Matrix A){
+        int N = A.getColumnDimension();
+        double[][] mat = A.transpose().getArrayCopy();
+        //for all columns
+        for(int n = 1; n < N; n++){
+            for(int m = 0; m < n; m++){
+                //System.out.println("mat[n] = " + print(mat[n]));
+                //System.out.println("mat[m] = " + print(mat[m]));
+                projectOrthogonal(mat[m], mat[n], mat[n]);
+                //System.out.println("mat[n] proj = " + print(mat[n]));
+            }
+        }
+        return (new Matrix(mat)).transpose();
+    }
+
+    /**
+     * Return a vector containing the magnitude squared
+     * of the column vectors of the Matrix A.
+     */
+    public static double[] columnSquareSum(Matrix A){
+        int N = A.getColumnDimension();
+        int M = A.getRowDimension();
+        double[] ret = new double[N];
+        //for all columns
+        for(int n = 0; n < N; n++){
+            ret[n] = 0.0;
+            for(int m = 0; m < M; m++){
+                double d = A.get(m,n);
+                ret[n] += d*d;
+            }
+        }
+        return ret;
     }
 
     /** 

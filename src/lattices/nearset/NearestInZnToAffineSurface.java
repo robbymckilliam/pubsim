@@ -8,14 +8,21 @@ package lattices.nearset;
 import Jama.Matrix;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import simulator.VectorFunctions;
 import static simulator.VectorFunctions.print;
 import static simulator.VectorFunctions.packRowiseToArray;
+import static simulator.VectorFunctions.dot;
 import static simulator.VectorFunctions.subtract;
 import static simulator.VectorFunctions.copy;
 import static simulator.VectorFunctions.add;
 import static simulator.VectorFunctions.round;
 import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctions.columnMatrix;
+import static simulator.VectorFunctions.getColumn;
+import static simulator.VectorFunctions.getRow;
+import static simulator.VectorFunctions.sum2;
+import static simulator.VectorFunctions.orthogonalise;
+import static simulator.VectorFunctions.columnSquareSum;
 import static simulator.Range.range;
 import static simulator.Util.floorToHalfInt;
 import static simulator.Util.ceilToHalfInt;
@@ -39,6 +46,11 @@ public class NearestInZnToAffineSurface
     private final Matrix Pcopy;
     private double Lbest;
 
+    //variables for fast recursive update
+    private final Matrix Portho;
+    private final double[] pnpn;
+    private final double[] umcpn;
+
     public NearestInZnToAffineSurface(Matrix P, RegionForLines R){
         super(P, R);
         N = P.getRowDimension();
@@ -47,6 +59,9 @@ public class NearestInZnToAffineSurface
         pbest = new double[P.getColumnDimension()];
         invP = P.inverse();
         Pcopy = P;
+        Portho = orthogonalise(P);
+        pnpn = columnSquareSum(Portho);
+        umcpn = new double[P.getColumnDimension()];
     }
 
     public void compute(double[] c) {
@@ -130,21 +145,24 @@ public class NearestInZnToAffineSurface
             }
 
             //compute best (thus far) parameter p and distance L
-            //this is a slow version at the moment.
+            double[] umc = subtract(ut, ccopy);
+            double[] p = matrixMultVector(invP, umc);
+            matrixMultVector(Portho.transpose(), umc, umcpn);
+            double umcmag = sum2(umc);
+            //System.out.println("Ltest = " + L );
 
-            //System.out.println(print(Pcopy));
+            double L = umcmag;
+            for(int i = 0; i < p.length; i++){
+                L -= (umcpn[i]*umcpn[i])/pnpn[i];
+            }
 
-            double[] uminusc = subtract(ut, ccopy);
-            double[] p = matrixMultVector(invP, uminusc);
+            //System.out.println("Ltest = " + L*L );
             
-            //System.out.println(print(p));
+            //L = (Pcopy.times(columnMatrix(p)).
+            //                        minus(columnMatrix(umc))).normF();
+            //L= L*L;
             
-            double L = (Pcopy.times(columnMatrix(p)).
-                                    minus(columnMatrix(uminusc))).normF();
-
-            //System.out.println(print(ut));
-            //System.out.println((L));
-            //System.out.println("L = " + L );
+            //System.out.println("L = " + L*L );
 
             if(L < Lbest){
                     Lbest = L;
@@ -158,17 +176,29 @@ public class NearestInZnToAffineSurface
 
                 //update dot products
                 double s = Math.signum(m[n]);
-                ut[n] += s;
                 
-                //compute the parameter p and distance L
-                //this is a slow version at the moment.
-                uminusc = subtract(ut, ccopy);
-                p = matrixMultVector(invP, uminusc);
-                L = (Pcopy.times(columnMatrix(p)).
-                                    minus(columnMatrix(uminusc))).normF();
+                //update p
+                for(int i = 0; i < p.length; i++)
+                    p[i] += s*invP.get(i, n);
 
-                //System.out.println(print(ut));
-                //System.out.println((L));
+                //update dot products
+                umcmag += 2*s* (ut[n] - ccopy[n]) + 1;
+                for(int i = 0; i < p.length; i++){
+                    umcpn[i] += s*Portho.get(n, i);
+                }
+
+                //compute new L
+                L = umcmag;
+                for(int i = 0; i < p.length; i++){
+                    L -= (umcpn[i]*umcpn[i])/pnpn[i];
+                }
+
+                ut[n] += s;
+
+                //umc = subtract(ut, ccopy);
+                //L = (Pcopy.times(columnMatrix(p)).
+                //                    minus(columnMatrix(umc))).normF();
+                //L = L*L;
                 //System.out.println("L = " + L );
 
                 if(L < Lbest){
