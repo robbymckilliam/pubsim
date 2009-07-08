@@ -149,7 +149,6 @@ public class NearestInZnToAffineSurface
             double[] p = matrixMultVector(invP, umc);
             matrixMultVector(Portho.transpose(), umc, umcpn);
             double umcmag = sum2(umc);
-            //System.out.println("Ltest = " + L );
 
             double L = umcmag;
             for(int i = 0; i < p.length; i++){

@@ -8,29 +8,37 @@ package lattices.nearset;
 import Jama.Matrix;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import static simulator.VectorFunctions.packRowiseToArray;
+import static simulator.VectorFunctions.min;
 
 /**
  * Compute the nearest point in the integer lattice to the line
  * rm + c.
  * @author Robby McKilliam
  */
-public class NearestInZnToLine
+public class NearestToLineInRectangularLattice
         extends NearestToAffineSurface {
 
-    private final double[] m, u, ubest, rret;
+    private final double[] m, u, ubest, rret, d;
     private final int N;
     private double rbest;
 
-    public NearestInZnToLine(Matrix P, RegionForLines R){
+    /**
+     * Computes the nearest point to a line in the rectangular lattice.  The generator
+     * matrix is diagonal with entries given in the vector d.
+     * @param d Entries in diagonal generator matrix.  All entries must be positive
+     */
+    public NearestToLineInRectangularLattice(Matrix P, RegionForLines R, double[] d){
         super(P,R);
         if(P.getColumnDimension() != 1 )
             throw new ArrayIndexOutOfBoundsException("P must be a column vector.");
+        if(min(d) < 0)
+            throw new RuntimeException("Entries in d must be positive.");
         N = P.getRowDimension();
         m = P.getRowPackedCopy();
         u = new double[N];
         ubest = new double[N];
         rret = new double[1];
+        this.d = d;
     }
 
     public void compute(double[] c) {
@@ -46,12 +54,12 @@ public class NearestInZnToLine
         double beta = 0;
         double gamma = 0;
         for(int n = 0; n < N; n++){
-            u[n] = Math.round(rmin*m[n] + c[n]);
-            double r = (u[n] + 0.5*Math.signum(m[n]) - c[n])/m[n];
+            u[n] = Math.round((rmin*m[n] + c[n])/d[n]);
+            double r = ( d[n]*(u[n] + 0.5*Math.signum(m[n])) - c[n])/m[n];
             map.put(new Double(r), new Integer(n));
-            double umc = u[n] - c[n];
-            alpha += m[n]*umc;
-            beta += umc*umc;
+            double dumc = d[n]*u[n] - c[n];
+            alpha += m[n]*dumc;
+            beta += dumc*dumc;
             gamma += m[n]*m[n];
         }
 
@@ -66,8 +74,8 @@ public class NearestInZnToLine
 
             //update dot products
             double s = Math.signum(m[n]);
-            alpha += s*m[n];
-            beta += 2*s*(u[n] - c[n]) + 1;
+            alpha += s*d[n]*m[n];
+            beta += 2*s*d[n]*(d[n]*u[n] - c[n]) + d[n]*d[n];
             u[n] += s;
 
             //compute new parameter r and distance L
@@ -79,7 +87,7 @@ public class NearestInZnToLine
                 rbest = r;
             }
 
-            r = (u[n] + 0.5*s - c[n])/m[n];
+            r = ( d[n]*(u[n] + 0.5*s) - c[n])/m[n];
             if( r < rmax )
                 map.put(new Double(r), new Integer(n));
 
