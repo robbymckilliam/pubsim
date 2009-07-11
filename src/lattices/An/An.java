@@ -84,4 +84,12 @@ public abstract class An implements LatticeAndNearestPointAlgorithm {
         return g;
     }
 
+    /**
+     * Return the convering radius for this lattice
+     */
+    @Override
+    public double coveringRadius(){
+        throw new UnsupportedOperationException("Covering radius not supported");
+    }
+
 }

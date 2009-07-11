@@ -52,4 +52,8 @@ public class GeneralLattice implements Lattice{
         return B.rank();
     }
 
+    public double coveringRadius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

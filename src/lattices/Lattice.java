@@ -21,9 +21,14 @@ public interface Lattice {
     double volume();
 
     /**
-     * Return the inradius for this lattice
+     * Return the in radius for this lattice
      */
     double inradius();
+
+    /**
+     * Return the convering radius for this lattice
+     */
+    double coveringRadius();
     
     /*
      * Return the center density:

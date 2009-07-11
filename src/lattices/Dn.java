@@ -70,6 +70,7 @@ public class Dn implements LatticeAndNearestPointAlgorithm{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+
     public double centerDensity() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -81,6 +82,10 @@ public class Dn implements LatticeAndNearestPointAlgorithm{
             B.set(j-1, j, 1); B.set(j, j, -1);
         }
         return B;
+    }
+
+    public double coveringRadius() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

@@ -63,5 +63,9 @@ public class Zn implements LatticeAndNearestPointAlgorithm {
     public Matrix getGeneratorMatrix() {
         return Matrix.identity(n, n);
     }
+
+    public double coveringRadius() {
+        return Math.sqrt(0.5);
+    }
     
 }

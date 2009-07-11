@@ -40,6 +40,14 @@ public abstract class NearestPointAlgorithmStandardNumenclature
     /**Getter for the interger vector. */
     @Override
     public double[] getIndex() {return u;}
+
+    /**
+     * Return the convering radius for this lattice
+     */
+    @Override
+    public double coveringRadius(){
+        throw new UnsupportedOperationException("Covering radius not supported");
+    }
     
     /*
      * Return the center density:

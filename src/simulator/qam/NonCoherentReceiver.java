@@ -107,7 +107,7 @@ public class NonCoherentReceiver {
      * for QAM receivers.  This is detailed in Dan's paper.
      * PRE: y1.length == y2.length == 2*real.length
      */
-    protected static void createPlane(double[] real, double[] imag,
+    public static void createPlane(double[] real, double[] imag,
             double[] y1, double[] y2){
         for(int i = 0; i < real.length; i++){
             y1[2*i] = real[i];
@@ -123,7 +123,7 @@ public class NonCoherentReceiver {
      * parts.
      * PRE: y.length == 2*real.length == 2*imag.length
      */
-    protected static void toRealImag(double[] y, double[] real, double[] imag){
+    public static void toRealImag(double[] y, double[] real, double[] imag){
         for(int i = 0; i < real.length; i++){
             real[i] = y[2*i];
             imag[i] = y[2*i + 1];
