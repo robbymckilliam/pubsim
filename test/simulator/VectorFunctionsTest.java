@@ -95,6 +95,14 @@ public class VectorFunctionsTest extends TestCase {
   
     }
 
+    public static void testMultiplyInPlace(){
+        System.out.println("multiplyInPlace");
+        double[] x = {2, 2, 2};
+        multiplyInPlace(x, 0.5);
+        for(double v : x)
+            assertEquals(1.0, v, 0.0000001);
+    }
+
     /**
      * Test of distance_between method, of class simulator.VectorFunctions.
      */

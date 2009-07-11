@@ -16,6 +16,8 @@ import static simulator.VectorFunctions.randomGaussian;
 import static simulator.VectorFunctions.distance_between;
 import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctionsTest.assertVectorsEqual;
+import static simulator.VectorFunctions.round;
+import static simulator.VectorFunctions.add;
 
 /**
  *
@@ -47,8 +49,8 @@ public class HexagonalTest {
      * Test of nearestPoint method, of class Hexagonal.
      */
     @Test
-    public void testNearestPoint() {
-        System.out.println("nearestPoint");
+    public void testInsideCoveringRadius() {
+        System.out.println("InsideCoveringRadius");
 
         int iters = 1000;
         Hexagonal instance = new Hexagonal();
@@ -59,6 +61,33 @@ public class HexagonalTest {
             instance.nearestPoint(x);
 
             assertTrue(distance_between(x, instance.getLatticePoint()) <= instance.coveringRadius());
+
+        }
+
+    }
+
+    /**
+     * Test of nearestPoint method, of class Hexagonal.
+     */
+    @Test
+    public void testNearestPoint() {
+        System.out.println("NearestPoint");
+
+        int iters = 1000;
+        Hexagonal instance = new Hexagonal();
+        Matrix M = instance.getGeneratorMatrix();
+        double[] x = new double[2];
+        double[] u = new double[2];
+
+        for(int i = 0; i < iters; i++){
+            
+            round( randomGaussian(2, 0, 1000), u );
+            x = matrixMultVector(instance.getGeneratorMatrix(), u);
+            add(x, randomGaussian(2, 0, 0.0001), x);
+            instance.nearestPoint(x);
+            //round(ret, ret);
+
+            assertVectorsEqual(u, instance.getIndex());
 
         }
 

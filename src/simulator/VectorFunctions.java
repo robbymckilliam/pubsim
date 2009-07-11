@@ -66,6 +66,15 @@ public final class VectorFunctions {
         return X;
     }
 
+    /** multiple all elements in x by s in place */
+    public static void multiplyInPlace(double[] x, double s){
+        for(int n = 0; n < x.length; n++){
+            x[n] *= s;
+        }
+    }
+
+
+
     /**
      * Return the magnitude squared of the Fourier
      * tranform of @param x.
@@ -157,6 +166,17 @@ public final class VectorFunctions {
     }
 
     /**
+     * Return x*s into vector res.
+     * Requires res.length == x.length.
+     */
+    public static void times(double[] x, double s, double[] res) {
+        double[] out = new double[x.length];
+        for (int i = 0; i < x.length; i++) {
+            res[i] = x[i]*s;
+        }
+    }
+
+    /**
      * vector addition x + y
      */
     public static double[] add(double[] x, double[] y) {
@@ -165,6 +185,17 @@ public final class VectorFunctions {
             out[i] = x[i] + y[i];
         }
         return out;
+    }
+
+
+    /**
+     * calculate x mod m for each element in x in place.
+     * Assumes that the element in x are integers.
+     */
+    public static void modInPlace(double[] x, int m) {
+        for (int i = 0; i < x.length; i++) {
+            x[i] = simulator.Util.mod((int)x[i], m);
+        }
     }
 
 
