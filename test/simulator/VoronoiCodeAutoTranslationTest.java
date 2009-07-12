@@ -45,17 +45,51 @@ public class VoronoiCodeAutoTranslationTest {
      * Conway and Sloane.
      */
     @Test
-    public void test16Hex() {
-        System.out.println("test16Hex");
+    public void test8Hex() {
+        System.out.println("test8Hex");
         Hexagonal lattice = new Hexagonal();
-        double r = 4;
-        VoronoiCodeAutoTranslation inst = 
-                new VoronoiCodeAutoTranslation(lattice, 4);
-        //System.out.println(print(inst.getTranslation()));
-        double[] exp = {-0.25, 0.0};
-        assertVectorsEqual(exp, inst.getTranslation(), 0.00001);
+        int r = 3;
+        VoronoiCodeAutoTranslation inst =
+                new VoronoiCodeAutoTranslation(lattice, r);
+        System.out.println(print(inst.getTranslation()));
+        System.out.print("pow = " + inst.averagePower());
 
     }
 
+    /**
+     * This should return [-1/4, 0] or [1/4, 0] as per
+     * Conway and Sloane.
+     */
+    @Test
+    public void test16Hex() {
+        System.out.println("test16Hex");
+        Hexagonal lattice = new Hexagonal();
+        int r = 4;
+        VoronoiCodeAutoTranslation inst = 
+                new VoronoiCodeAutoTranslation(lattice, r);
+        System.out.println(print(inst.getTranslation()));
+        double[] exp = {-0.25, 0.0};
+        assertVectorsEqual(exp, inst.getTranslation(), 0.00001);
+        assertEquals(2.1875,inst.averagePower(), 0.00001);
+
+    }
+
+    /**
+     * This should return [-1/4, 0] or [1/4, 0] as per
+     * Conway and Sloane.
+     */
+    @Test
+    public void test32Hex() {
+        System.out.println("test32Hex");
+        Hexagonal lattice = new Hexagonal();
+        int r = 5;
+        VoronoiCodeAutoTranslation inst =
+                new VoronoiCodeAutoTranslation(lattice, r);
+        System.out.println(print(inst.getTranslation()));
+        System.out.print("pow = " + inst.averagePower());
+        //double[] exp = {-0.25, 0.0};
+        //assertVectorsEqual(exp, inst.getTranslation(), 0.00001);
+
+    }
 
 }

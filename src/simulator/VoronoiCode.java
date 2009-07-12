@@ -7,13 +7,14 @@ package simulator;
 
 import Jama.Matrix;
 import lattices.LatticeAndNearestPointAlgorithm;
+import lattices.util.IntegerVectors;
 import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctions.multiplyInPlace;
-import static simulator.VectorFunctions.times;
 import static simulator.VectorFunctions.modInPlace;
 import static simulator.VectorFunctions.round;
 import static simulator.VectorFunctions.subtract;
 import static simulator.VectorFunctions.add;
+import static simulator.VectorFunctions.sum2;
 
 /**
  * Implements Conway and Sloane's Voronoi codes.
@@ -27,10 +28,13 @@ public class VoronoiCode {
     protected final double[] a;
 
     /** scale */
-    protected int r;
+    protected final int r;
+
+    /** */
+    protected final int N, M;
 
     //generator matrix for the lattice
-    private final Matrix M, invM;
+    private final Matrix B, invB;
 
     //some memory
     private final double[] x, u, c;
@@ -45,23 +49,27 @@ public class VoronoiCode {
         this.lattice = lattice;
         a = trans;
         r = scale;
-        M = lattice.getGeneratorMatrix();
-        invM = M.inverse();
-        x = new double[M.getRowDimension()];
-        c = new double[M.getRowDimension()];
-        u = new double[M.getColumnDimension()];
+        B = lattice.getGeneratorMatrix();
+        M = B.getRowDimension();
+        N = B.getColumnDimension();
+        invB = B.inverse();
+        x = new double[B.getRowDimension()];
+        c = new double[B.getRowDimension()];
+        u = new double[B.getColumnDimension()];
     }
 
     /** Voronoi code without a translation */
     protected VoronoiCode(LatticeAndNearestPointAlgorithm lattice, int scale){
         this.lattice = lattice;
         r = scale;
-        M = lattice.getGeneratorMatrix();
-        a = new double[M.getRowDimension()];
-        invM = M.inverse();
-        x = new double[M.getRowDimension()];
-        c = new double[M.getRowDimension()];
-        u = new double[M.getColumnDimension()];
+        B = lattice.getGeneratorMatrix();
+        M = B.getRowDimension();
+        N = B.getColumnDimension();
+        a = new double[B.getRowDimension()];
+        invB = B.inverse();
+        x = new double[B.getRowDimension()];
+        c = new double[B.getRowDimension()];
+        u = new double[B.getColumnDimension()];
     }
 
     /**
@@ -69,7 +77,7 @@ public class VoronoiCode {
      * @return code that is a translated lattice point.
      */
     public double[] encode(double[] u){
-        matrixMultVector(M, u, x);
+        matrixMultVector(B, u, x);
         subtract(x, a, x);
         multiplyInPlace(x, 1.0/r);
         lattice.nearestPoint(x);
@@ -86,10 +94,21 @@ public class VoronoiCode {
     public double[] decode(double[] x){
        lattice.nearestPoint(x);
        add(lattice.getLatticePoint(), a, c);
-       matrixMultVector(invM, c, u);
+       matrixMultVector(invB, c, u);
        round(u, u);
        modInPlace(u, r);
        return u;
+    }
+
+    /** Compute the average power of the codewords */
+    public double averagePower(){
+        double pow = 0.0;
+        IntegerVectors ints = new IntegerVectors(B.getColumnDimension(), r);
+        for( Matrix U : ints){
+            double[] x= encode(U.getColumnPackedCopy());
+            pow += sum2(x);
+        }
+        return pow/Math.pow(r, M);
     }
 
 }

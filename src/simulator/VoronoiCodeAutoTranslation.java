@@ -26,7 +26,6 @@ import static simulator.VectorFunctions.print;
 public class VoronoiCodeAutoTranslation
         extends VoronoiCode {
 
-    private final int N;
     private final double tol = 0.00001;
 
     //you should probably leave this as a prime to try to avoid
@@ -41,8 +40,6 @@ public class VoronoiCodeAutoTranslation
         //procautionary.
         a[0] += 0.000001;
 
-        N = a.length;
-
         //iterate
         double[] anext = computeMean();
         double itercount = 0;
@@ -55,7 +52,7 @@ public class VoronoiCodeAutoTranslation
 
     protected double[] computeMean(){
         IntegerVectors ints = new IntegerVectors(N, r);
-        double[] mean = new double[N];
+        double[] mean = new double[M];
         for( Matrix U : ints){
             double[] x= encode(U.getColumnPackedCopy());
             add(x, mean, mean);
