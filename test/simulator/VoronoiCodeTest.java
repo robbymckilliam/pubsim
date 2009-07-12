@@ -5,16 +5,17 @@
 
 package simulator;
 
+import Jama.Matrix;
 import lattices.Hexagonal;
+import lattices.util.IntegerVectors;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import static simulator.VectorFunctions.print;
-import static simulator.VectorFunctions.add;
 import static simulator.VectorFunctions.randomGaussian;
+import static simulator.VectorFunctions.add;
 import static simulator.VectorFunctionsTest.assertVectorsEqual;
 
 /**
@@ -68,8 +69,8 @@ public class VoronoiCodeTest {
      * Test of decode method, of class VoronoiCode.
      */
     @Test
-    public void testDecode() {
-        System.out.println("decode");
+    public void testDecodeNoNoise() {
+        System.out.println("decode no noise");
         double[] a = {-0.25,0.0};
         VoronoiCode code = new VoronoiCode(new Hexagonal(), a, 2);
         double[] u= {0, 0};
@@ -84,7 +85,26 @@ public class VoronoiCodeTest {
         double[] u4= {1, 1};
         double[] x4 = code.encode(u4);
         assertVectorsEqual(u4, code.decode(x4));
+    }
 
+    /**
+     * Test of decode method, of class VoronoiCode.
+     */
+    @Test
+    public void testDecodeWithNoise() {
+        System.out.println("decode with noise");
+        double[] a = {-0.25,0.0};
+        int r = 4;
+        VoronoiCode code = new VoronoiCode(new Hexagonal(), a, r);
+        IntegerVectors Us = new IntegerVectors(2, r);
+        for( Matrix U : Us ){
+            double[] u=U.getColumnPackedCopy();
+            double[] x = code.encode(u);
+            //System.out.println(print(x));
+            add( randomGaussian(2, 0.0, 0.00001), x, x);
+            //System.out.println(print(x));
+            assertVectorsEqual(u, code.decode(x));
+        }
     }
 
 }
