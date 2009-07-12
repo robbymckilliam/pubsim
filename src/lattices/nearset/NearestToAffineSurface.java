@@ -27,8 +27,6 @@ public abstract class NearestToAffineSurface
      * for the affine surface Pp + c with parameters p within
      * the region R. i.e p \in R.
      * @param c
-     * @param P
-     * @param R
      */
     public abstract void compute(double[] c);
 
