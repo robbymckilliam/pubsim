@@ -52,6 +52,18 @@ public class VoronoiCode {
         u = new double[M.getColumnDimension()];
     }
 
+    /** Voronoi code without a translation */
+    protected VoronoiCode(LatticeAndNearestPointAlgorithm lattice, int scale){
+        this.lattice = lattice;
+        r = scale;
+        M = lattice.getGeneratorMatrix();
+        a = new double[M.getRowDimension()];
+        invM = M.inverse();
+        x = new double[M.getRowDimension()];
+        c = new double[M.getRowDimension()];
+        u = new double[M.getColumnDimension()];
+    }
+
     /**
      * @param u codeword (index) with elements in  {0,1, 2, ..., r-1}
      * @return code that is a translated lattice point.
