@@ -27,12 +27,16 @@ public class FadingNoisyHex implements SignalGenerator{
     protected Random random;
     protected final HexagonalCode hex;
     
-    /** Parameter is the Hex size */
+    /**
+     * @param M Constellation size
+     * @param N Block length
+     */
     public FadingNoisyHex(int M, int N) {
         random = new Random();
         setLength(N);
         hex = new HexagonalCode(M);
         this.M = M;
+        generateChannel();
     }
     
     /** Set the number of QAM symbols transmitted, i.e. block length. */
