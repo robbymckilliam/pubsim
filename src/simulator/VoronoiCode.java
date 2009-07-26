@@ -111,4 +111,8 @@ public class VoronoiCode {
         return pow/Math.pow(r, M);
     }
 
+    public double[] getTranslation() {
+        return a;
+    }
+
 }

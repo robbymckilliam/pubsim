@@ -61,8 +61,4 @@ public class VoronoiCodeAutoTranslation
         return mean;
     }
 
-    public double[] getTranslation(){
-        return a;
-    }
-
 }
