@@ -18,7 +18,7 @@ public interface HexReciever {
      * Get the real part of the decoded Hex signal.
      * Call decode first.
      */
-    public double[] getReal();
+    public double[] getReal(); 
 
     /**
      * Get the imaginary part of the decoded Hex signal.
