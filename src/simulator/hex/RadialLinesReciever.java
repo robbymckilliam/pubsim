@@ -29,7 +29,7 @@ public class RadialLinesReciever implements HexReciever {
     }
 
     public double[] getImag() {
-        return ui;
+        return ui; 
     }
 
 

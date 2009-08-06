@@ -17,7 +17,7 @@ public class HexagonalCode
         extends VoronoiCodeAutoTranslation {
 
     public HexagonalCode(int M){
-        super(new Hexagonal(), M);
+        super(new Hexagonal(), M); 
     }
 
 }
