@@ -6,7 +6,6 @@
 package simulator.hex;
 
 import lattices.Hexagonal;
-import simulator.VoronoiCode;
 import simulator.VoronoiCodeAutoTranslation;
 
 /**
