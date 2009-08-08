@@ -11,7 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
 import java.util.Vector;
-import lattices.Anm.AnmSorted;
+import lattices.Anm.AnmLinear;
+import lattices.Anstar.AnstarBucketVaughan;
 import static simulator.Range.range;
 
 /**
@@ -28,16 +29,20 @@ public class LatticeTimingTest {
 
         System.out.println("timingTest");
 
-        int numTrials = 100000;
+        int numTrials = 10000;
         GaussianNoise rand = new GaussianNoise(0.0, 1000.0);
         Vector<Double> timearray = new Vector<Double>();
 
-        for(int n : range(4, 1024, 16) ){
+        int nstart = 4;
+        int nend = 1020;
+        int nstep = 16;
 
-            int M = n/4;
+        for(int n : range(nstart, nend, nstep) ){
+
+            int M = 1;
             double[] y = new double[n];
 
-            LatticeAndNearestPointAlgorithm lattice = new AnmSorted(M);
+            LatticeAndNearestPointAlgorithm lattice = new AnmLinear(M);
             lattice.setDimension(n - 1);
 
             Date timer = new Date();
@@ -57,10 +62,10 @@ public class LatticeTimingTest {
             //assertTrue(true);
         }
 
-        File file = new File( "AnmSorted" );
+        File file = new File( "AnmLinearm1" );
         BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
         int count = 0;
-        for(int n : range(4, 1024, 16)){
+        for(int n : range(nstart, nend, nstep)){
             writer.write(
                     n
                     + "\t" + timearray.get(count).toString().replace('E', 'e'));
