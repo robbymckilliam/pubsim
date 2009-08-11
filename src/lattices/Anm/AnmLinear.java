@@ -75,7 +75,8 @@ public class AnmLinear extends AnmBucket {
             k += Math.round(y[i]);
             bes[i].elem.value = -z[i];
             bes[i].elem.index = i;
-            int bi = numBuckets - 1 - (int)(Math.floor(numBuckets*(z[i]+0.5)));
+            //int bi = numBuckets - 1 - (int)(Math.floor(numBuckets*(z[i]+0.5)));
+            int bi = (int)(Math.ceil(numBuckets*(0.5 - z[i]))) - 1;
             buckets[bi].add(bes[i]);
             a += z[i];
             b += z[i] * z[i];
