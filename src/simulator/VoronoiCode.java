@@ -115,4 +115,10 @@ public class VoronoiCode {
         return a;
     }
 
+    /**
+     * Return the scale used for this Voronoi code.
+     * This is the multiplier for codeword boundary.
+     */
+    public double getScale(){ return r; }
+
 }

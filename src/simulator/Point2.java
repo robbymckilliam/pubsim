@@ -61,4 +61,15 @@ public class Point2 extends Matrix{
         return b1 && b2;
     }
 
+    /** Dot (inner) product between two points */
+    public static double dot(Point2 a, Point2 b){
+        return a.getX()*b.getX() + a.getY()*b.getY();
+    }
+
+    /** return a string representation of the invoking Complex object */
+    @Override
+    public String toString() {
+        return "( " + getX() + ", " + getY() + " )";
+    }
+
 }

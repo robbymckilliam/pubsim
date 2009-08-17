@@ -31,7 +31,7 @@ public class FadingNoisyHex implements SignalGenerator{
      * @param M Constellation size
      * @param N Block length
      */
-    public FadingNoisyHex(int M, int N) {
+    public FadingNoisyHex(int N, int M) {
         random = new Random();
         setLength(N);
         hex = new HexagonalCode(M);

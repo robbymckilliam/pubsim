@@ -10,7 +10,7 @@ import static simulator.VectorFunctions.matrixMultVector;
 import static simulator.VectorFunctions.round;
 
 /**
- * The hexangonal lattice with genortor matrix
+ * The hexangonal lattice with genertor matrix
  * [1 1/2; 0 sqrt(3)/2]
  * @author Robby McKilliam
  */

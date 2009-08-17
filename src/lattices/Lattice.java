@@ -36,7 +36,11 @@ public interface Lattice {
      */
     double centerDensity();
 
-    /**@deprecated */
+    /**
+     * Set/reset the dimension of this lattice.
+     * There are reasonable arguments for this method being deprecated
+     * (i.e. it's mutable).
+     */
     void setDimension(int n);
     
     int getDimension();
