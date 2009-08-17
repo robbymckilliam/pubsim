@@ -22,7 +22,7 @@ import static simulator.qam.NonCoherentReceiver.toRealImag;
 public class RadialLinesReciever implements HexReciever {
 
     protected final double[] ur, ui;
-    protected final Complex[] x;
+    protected final Point2[] x;
     protected final double[] y1, y2;
     protected final double[] d1, d2;
     protected final int N;
@@ -40,7 +40,7 @@ public class RadialLinesReciever implements HexReciever {
         y2 = new double[2*N];
         d1 = new double[N];
         d2 = new double[N];
-        x = new Complex[N];
+        x = new Point2[N];
         this.N = N;
     }
 
@@ -52,7 +52,7 @@ public class RadialLinesReciever implements HexReciever {
         y2 = new double[2*N];
         d1 = new double[N];
         d2 = new double[N];
-        x = new Complex[N];
+        x = new Point2[N];
         this.N = N;
     }
 
@@ -104,12 +104,12 @@ public class RadialLinesReciever implements HexReciever {
                 }
 
                 //array of Complex numbers representing constellation points.
-                x[n] = new Complex(starthex[0], starthex[1]);
+                x[n] = new Point2(starthex[0], starthex[1]);
 
                 //compute likelihood variables
                 ar += starthex[0]*rreal[n] + starthex[1]*rimag[n];
                 ai += starthex[0]*rimag[n] - starthex[1]*rreal[n];
-                b += x[n].abs2();
+                b += x[n].magnitude2();
 
             }
 
@@ -146,16 +146,16 @@ public class RadialLinesReciever implements HexReciever {
 
                 //update x
                 //System.out.println(VectorFunctions.print(x));
-                x[n] = x[n].plus(new Complex(pr, pi));
+                x[n].plusEquals(new Point2(pr, pi));
 
                 //compute next intersected boundary
                 DoubleAndPoint2AndIndex dpnext = nextHexangonalNearPoint(d1[n],
-                        d2[n], x[n].re(), x[n].im());
+                        d2[n], x[n].getX(), x[n].getY());
                 dpnext.index = n;
                 //If this is within the outer Voronoi code boundary add the
                 //next point to the map
-                double nextx = (x[n].re() + dpnext.point.getX())/hex.getScale();
-                double nexty = (x[n].im() + dpnext.point.getY())/hex.getScale();
+                double nextx = (x[n].getX() + dpnext.point.getX())/hex.getScale();
+                double nexty = (x[n].getY() + dpnext.point.getY())/hex.getScale();
                 hexnp.nearestPoint(nextx, nexty);
                 if(dpnext.value < rmax
                     && VectorFunctions.sum2(hexnp.getLatticePoint()) <= 0.01){
@@ -209,7 +209,7 @@ public class RadialLinesReciever implements HexReciever {
                     };
 
     /** Class to contain an Integer index a Double and a Point2 */
-    public static class DoubleAndPoint2AndIndex{
+    public static class DoubleAndPoint2AndIndex implements Comparable{
         public Integer index;
         public Double value;
         public Point2 point;
@@ -218,6 +218,13 @@ public class RadialLinesReciever implements HexReciever {
         public String toString() {
             return index + ", " + value + ", " + point;
         }
+
+        @Override
+        public int compareTo(Object o) {
+            DoubleAndPoint2AndIndex co = (DoubleAndPoint2AndIndex) o;
+            return Double.compare(value, co.value);
+        }
+
     }
 
     /**

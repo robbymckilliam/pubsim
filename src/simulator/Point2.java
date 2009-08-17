@@ -51,6 +51,13 @@ public class Point2 extends Matrix{
         return normF();
     }
 
+    /**
+     * @return x^2 + y^2
+     */
+    public double magnitude2(){
+        return getX()*getX() + getY()*getY();
+    }
+
     public boolean equals(Point2 p){
         return get(0,0) == p.get(0,0) && get(1,0) == p.get(1,0);
     }
