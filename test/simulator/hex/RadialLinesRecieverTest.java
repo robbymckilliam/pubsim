@@ -75,7 +75,7 @@ public class RadialLinesRecieverTest {
     public void decodeSymbolsCorrectly() {
         System.out.println("decodeSymbolsCorrectly");
 
-        int N = 3;
+        int N = 4;
         int M = 4;
         RadialLinesReciever rec = new RadialLinesReciever(N, M);
 
@@ -94,6 +94,9 @@ public class RadialLinesRecieverTest {
         double[] uit = signal.getTransmittedImagCodeword();
         double[] ur = rec.getReal();
         double[] ui = rec.getImag();
+
+        System.out.println(print(yr));
+        System.out.println(print(yi));
 
         System.out.println(print(urt));
         System.out.println(print(uit));

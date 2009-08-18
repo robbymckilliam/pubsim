@@ -76,7 +76,7 @@ public abstract class LineHexReciever implements HexReciever{
      * Compute the next crossed point in the hexagonal code.  Line is d1, d2
      * and current hexagonal code point is c1, c2.
      */
-    protected static DoubleAndPoint2AndIndex nextHexangonalNearPoint(
+    public static DoubleAndPoint2AndIndex nextHexangonalNearPoint(
             double d1, double d2,
             double c1, double c2){
 
