@@ -45,41 +45,11 @@ public class RadialLinesRecieverTest {
      * Test of nextHexangonalNearPoint method, of class RadialLinesReciever.
      */
     @Test
-    public void testNextHexangonalNearPoint() {
-        System.out.println("nextHexangonalNearPoint");
-        double d1 = 1.0;
-        double d2 = 0.0;
-        double c1 = 0.0;
-        double c2 = 0.0;
-        double expr = 0.5;
-        RadialLinesReciever.DoubleAndPoint2AndIndex dp
-            = RadialLinesReciever.nextHexangonalNearPoint(d1, d2, c1, c2);       
-        assertEquals(expr, dp.value, 0.0000001);
-
-        //System.out.println(dp.value);
-        //System.out.println(dp.point);
-
-        d1 = 0.5;
-        d2 = Math.sqrt(3)/2;
-        expr = 0.5;
-        dp = RadialLinesReciever.nextHexangonalNearPoint(d1, d2, c1, c2);
-        assertEquals(expr, dp.value, 0.0000001);
-
-        //System.out.println(dp.value);
-        //System.out.println(dp.point);
-
-    }
-
-    /**
-     * Test of nextHexangonalNearPoint method, of class RadialLinesReciever.
-     */
-    @Test
     public void correctlyReturnCodewordNearestOrigin() {
         System.out.println("correctlyReturnCodewordNearestOrigin");
         
         int N = 5;
-        RadialLinesReciever rec = new RadialLinesReciever(N,
-                new HexagonalCode(2));
+        RadialLinesReciever rec = new RadialLinesReciever(N,2);
 
         double[] yr = new double[N];
         double[] yi = new double[N];

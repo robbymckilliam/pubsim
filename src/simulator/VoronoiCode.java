@@ -121,4 +121,7 @@ public class VoronoiCode {
      */
     public double getScale(){ return r; }
 
+    /** Return the lattice used for this Voronoi code */
+    public LatticeAndNearestPointAlgorithm getLattice(){ return lattice; }
+
 }

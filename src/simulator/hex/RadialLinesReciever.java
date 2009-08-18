@@ -19,41 +19,18 @@ import static simulator.qam.NonCoherentReceiver.toRealImag;
  * is a Voronoi code.
  * @author Robby McKilliam
  */
-public class RadialLinesReciever implements HexReciever {
+public class RadialLinesReciever extends LineHexReciever
+        implements HexReciever {
 
-    protected final double[] ur, ui;
-    protected final Point2[] x;
-    protected final double[] y1, y2;
-    protected final double[] d1, d2;
-    protected final int N;
-    protected final HexagonalCode hex;
-    protected final int numL = 4;
+    private final Point2[] x;
+    private final int numL = 4;
 
     //these get used during decode operation.
     private final Hexagonal hexnp = new Hexagonal();
 
-    public RadialLinesReciever(int N, HexagonalCode hex){
-        this.hex = hex;
-        ur = new double[N];
-        ui = new double[N];
-        y1 = new double[2*N];
-        y2 = new double[2*N];
-        d1 = new double[N];
-        d2 = new double[N];
-        x = new Point2[N];
-        this.N = N;
-    }
-
     public RadialLinesReciever(int N, int scale){
-        this.hex = new HexagonalCode(scale);
-        ur = new double[N];
-        ui = new double[N];
-        y1 = new double[2*N];
-        y2 = new double[2*N];
-        d1 = new double[N];
-        d2 = new double[N];
+        super(N, scale);
         x = new Point2[N];
-        this.N = N;
     }
 
     public void decode(double[] rreal, double[] rimag) {
@@ -194,78 +171,6 @@ public class RadialLinesReciever implements HexReciever {
         System.out.println(Lopt);
 
     }
-
-    /**
-     * Array containing 6 boundaries of a hexagon.  This is the position
-     * of the relavant vectors of the hexagonal lattice
-     */
-    protected static final Point2[] hexagonalBoundaries = {
-                        new Point2(1.0,0.0),
-                        new Point2(-1.0,0.0),
-                        new Point2( 0.5, Math.sqrt(3.0)/2.0 ),
-                        new Point2( -0.5, Math.sqrt(3.0)/2.0 ),
-                        new Point2( -0.5, -Math.sqrt(3.0)/2.0 ),
-                        new Point2( 0.5, -Math.sqrt(3.0)/2.0 )
-                    };
-
-    /** Class to contain an Integer index a Double and a Point2 */
-    public static class DoubleAndPoint2AndIndex implements Comparable{
-        public Integer index;
-        public Double value;
-        public Point2 point;
-
-        @Override
-        public String toString() {
-            return index + ", " + value + ", " + point;
-        }
-
-        @Override
-        public int compareTo(Object o) {
-            DoubleAndPoint2AndIndex co = (DoubleAndPoint2AndIndex) o;
-            return Double.compare(value, co.value);
-        }
-
-    }
-
-    /**
-     * Compute the next crossed point in the hexagonal code.  Line is d1, d2
-     * and current hexagonal code point is c1, c2.
-     */
-    protected static DoubleAndPoint2AndIndex nextHexangonalNearPoint(
-            double d1, double d2,
-            double c1, double c2){
-
-        Point2 c = new Point2(c1, c2);
-        Point2 d = new Point2(d1, d2);
-
-        double rmin = Point2.dot(c,d)/Point2.dot(d,d);
-
-        DoubleAndPoint2AndIndex dp = new DoubleAndPoint2AndIndex();
-        dp.value = Double.POSITIVE_INFINITY;
-        for(int n = 0; n < hexagonalBoundaries.length; n++){
-            Point2 v = hexagonalBoundaries[n];
-            double cv = Point2.dot(c, v);
-            double dv = Point2.dot(d, v);
-            double vv = Point2.dot(v, v);
-            double rnextp = (cv + vv)/dv;
-            double r = (cv + vv/2.0)/dv;
-            if(rnextp > rmin && r < dp.value){
-                dp.value = r;
-                dp.point = v;
-            }
-        }
-        return dp;       
-    }
-
-
-    public double[] getReal() {
-        return ur;
-    }
-
-    public double[] getImag() {
-        return ui;
-    }
-
 
 
 }
