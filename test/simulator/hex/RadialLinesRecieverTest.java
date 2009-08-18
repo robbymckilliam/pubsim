@@ -76,7 +76,7 @@ public class RadialLinesRecieverTest {
         System.out.println("decodeSymbolsCorrectly");
 
         int N = 20;
-        int M = 4;
+        int M = 8;
         RadialLinesReciever rec = new RadialLinesReciever(N, M);
 
         FadingNoisyHex signal = new FadingNoisyHex(N, M);
