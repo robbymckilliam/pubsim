@@ -50,8 +50,7 @@ public class PilotAssistedFadingNoisyQAM extends FadingNoisyQAM
      * which is a pilot symbol.
      * PRE: xr.length == xi.length == yr.length == yi.length
      */
-    @Override
-    public double symbolErrorRate(double[] xr, double[] xi, 
+    public static double symbolErrorRate(double[] xr, double[] xi,
                                     double[] yr, double[] yi){
         double ers = 0;
         for(int i = 1; i < xr.length; i++)
