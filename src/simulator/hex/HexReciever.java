@@ -5,11 +5,12 @@
 
 package simulator.hex;
 
+
 /**
  *
  * @author Robby McKilliam
  */
-public interface HexReciever {
+public interface HexReciever extends java.io.Serializable {
 
     /**Decode the Hex signal*/
     public void decode(double[] rreal, double[] rimag);

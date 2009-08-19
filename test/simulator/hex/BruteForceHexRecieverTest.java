@@ -11,18 +11,16 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import simulator.Point2;
 import simulator.VectorFunctionsTest;
 import static simulator.VectorFunctions.print;
 
 /**
  *
- * @author Robby McKilliam
+ * @author robertm
  */
-public class RadialLinesRecieverTest {
+public class BruteForceHexRecieverTest {
 
-    public RadialLinesRecieverTest() {
+    public BruteForceHexRecieverTest() {
     }
 
     @BeforeClass
@@ -42,45 +40,18 @@ public class RadialLinesRecieverTest {
     }
 
     /**
-     * Test of nextHexangonalNearPoint method, of class RadialLinesReciever.
+     * Test of decode method, of class BruteForceHexReciever.
      */
     @Test
-    public void correctlyReturnCodewordNearestOrigin() {
-        System.out.println("correctlyReturnCodewordNearestOrigin");
-        
-        int N = 5;
-        RadialLinesReciever rec = new RadialLinesReciever(N,2);
+    public void testDecode() {
+        System.out.println("testDecode");
 
-        double[] yr = new double[N];
-        double[] yi = new double[N];
-
-        rec.decode(yr, yi);
-        
-        double[] ur = rec.getReal();
-        double[] ui = rec.getImag();
-        //System.out.println(print(rec.getReal()));
-        //System.out.println(print(rec.getImag()));
-
-        for(int n = 0; n < N; n++){
-            assertEquals(0.0, ur[n], 0.0000001);
-            assertEquals(0.0, ui[n], 0.0000001);
-        }
-
-    }
-
-    /**
-     * Test of nextHexangonalNearPoint method, of class RadialLinesReciever.
-     */
-    @Test
-    public void decodeSymbolsCorrectly() {
-        System.out.println("decodeSymbolsCorrectly");
-
-        int N = 5;
+        int N = 3;
         int M = 4;
-        RadialLinesReciever rec = new RadialLinesReciever(N, M);
+        BruteForceHexReciever rec = new BruteForceHexReciever(N, M);
 
         FadingNoisyHex signal = new FadingNoisyHex(N, M);
-        signal.setChannel(0.0, 1.0);
+        signal.setChannel(1.0, 0.0);
         signal.setNoiseGenerator(new GaussianNoise(0.0, 0.0001));
 
         signal.generateCodeword();
@@ -105,7 +76,6 @@ public class RadialLinesRecieverTest {
 
         VectorFunctionsTest.assertVectorsEqual(urt, ur);
         VectorFunctionsTest.assertVectorsEqual(uit, ui);
-
     }
 
 

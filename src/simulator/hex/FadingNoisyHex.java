@@ -150,12 +150,12 @@ public class FadingNoisyHex implements SignalGenerator{
      * two QAM blocks x and y. 
      * PRE: xr.length == xi.length == yr.length == yi.length
      */
-    public double symbolErrorRate(double[] xr, double[] xi, 
+    public static double symbolErrors(double[] xr, double[] xi,
                                     double[] yr, double[] yi){
         double ers = 0;
         for(int i = 0; i < xr.length; i++)
-            if( Math.round(xr[i] - yr[i]) != 0.0 
-                || Math.round(xi[i] - yi[i]) != 0.0 ) ers++;
+            if( Math.round(xr[i] - yr[i]) != 0.0
+                || Math.round(xi[i] - yi[i]) !=  0.0 ) ers++;
         
         return ers/xr.length;
     }

@@ -20,7 +20,7 @@ import static simulator.VectorFunctions.sum2;
  * Implements Conway and Sloane's Voronoi codes.
  * @author Robby McKilliam
  */
-public class VoronoiCode {
+public class VoronoiCode implements java.io.Serializable{
 
     LatticeAndNearestPointAlgorithm lattice;
 
