@@ -124,4 +124,10 @@ public class VoronoiCode implements java.io.Serializable{
     /** Return the lattice used for this Voronoi code */
     public LatticeAndNearestPointAlgorithm getLattice(){ return lattice; }
 
+    /**
+     * Dimension that the constellation lies in.  This is the same as
+     * the dimension of the lattice or rank of it's generator matrix.
+     */
+    public int getDimension() { return N; }
+
 }
