@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package simulator.hex;
+package simulator.qam.hex;
 
+import simulator.qam.hex.FadingNoisyHex;
+import simulator.qam.hex.RadialLinesReciever;
 import distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;

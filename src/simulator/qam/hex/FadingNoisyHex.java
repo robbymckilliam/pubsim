@@ -4,7 +4,7 @@
  * Created on 13 September 2007, 18:08
  */
 
-package simulator.hex;
+package simulator.qam.hex;
 
 import simulator.SignalGenerator;
 import distributions.NoiseGenerator;

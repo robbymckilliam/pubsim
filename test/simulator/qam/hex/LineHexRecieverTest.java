@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simulator.hex;
+package simulator.qam.hex;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import simulator.hex.LineHexReciever.DoubleAndPoint2AndIndex;
+import simulator.qam.hex.LineHexReciever.DoubleAndPoint2AndIndex;
 
 /**
  *

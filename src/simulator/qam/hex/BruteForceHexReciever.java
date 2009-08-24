@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simulator.hex;
+package simulator.qam.hex;
 
 import Jama.Matrix;
 import lattices.util.IntegerVectors;
