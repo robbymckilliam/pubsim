@@ -43,6 +43,7 @@ public abstract class NoiseGeneratorFunctions
     
     /** Randomise the seed for the internal Random */ 
     public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
+
     
     /** Set the seed for the internal Random */
     public void setSeed(long seed) { random = new Ranlux(seed); }

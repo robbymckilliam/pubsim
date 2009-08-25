@@ -23,7 +23,7 @@ public class RadialLinesReciever extends LineHexReciever
         implements HexReciever {
 
     private final Point2[] x;
-    private final int numL = 4;
+    private final int numL = 3;
 
     //these get used during decode operation.
     private final Hexagonal hexnp = new Hexagonal();
@@ -48,8 +48,6 @@ public class RadialLinesReciever extends LineHexReciever
         double[] startcode = hex.decode(0.0,0.0);
         //hex constellation point closest to origin
         double[] starthex = hex.encode(startcode);
-
-//        System.out.println("starthex = " + VectorFunctions.print(starthex));
 
         for(double theta = 0.0; theta < 2*Math.PI; theta+=thetastep)
         //double theta = 0.0;
@@ -95,24 +93,6 @@ public class RadialLinesReciever extends LineHexReciever
             //make rmax go out to the boundary
             rmax *= hex.getScale();
 
-//            System.out.println();
-//
-//            System.out.println(VectorFunctions.print(d1));
-//            System.out.println(VectorFunctions.print(d2));
-
-            ///////////////////////////
-//            double im = 0;
-//            double re = 0;
-//            double xmag = 0;
-//            for(int i = 0; i < x.length; i++){
-//                re += x[i].getX()*rreal[i] + x[i].getY()*rimag[i];
-//                im += x[i].getX()*rimag[i] - x[i].getY()*rreal[i];
-//                xmag += x[i].magnitude2();
-//            }
-//            double tL = (re*re + im*im)/xmag;
-//            System.out.println("tL = " + tL);
-            ////////////////////////////////////////
-
             //test the point current point (it's at the origin)
             double L = (ar*ar + ai*ai)/b;
             //System.out.println("L = " + L);
@@ -142,25 +122,6 @@ public class RadialLinesReciever extends LineHexReciever
 
                 //update x
                 x[n].plusEquals(new Point2(pr, pi));
-//                System.out.println(VectorFunctions.print(x));
-//                for(int i = 0; i < x.length; i++){
-//                    double[] dpoint = hex.decode(x[i].getX(), x[i].getY());
-//                    System.out.print(dpoint[0] + ", " + dpoint[1] + ", ");
-//                }
-//                System.out.println();
-
-                ///////////////////////
-//                im = 0;
-//                re = 0;
-//                xmag = 0;
-//                for(int i = 0; i < x.length; i++){
-//                    re += x[i].getX()*rreal[i] + x[i].getY()*rimag[i];
-//                    im += x[i].getX()*rimag[i] - x[i].getY()*rreal[i];
-//                    xmag += x[i].magnitude2();
-//                }
-//                tL = (re*re + im*im)/xmag;
-//                System.out.println("tL = " + tL);
-                ///////////////////////////
 
                 //compute next intersected boundary
                 DoubleAndPoint2AndIndex dpnext = nextHexangonalNearPoint(d1[n],

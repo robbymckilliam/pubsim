@@ -14,7 +14,7 @@ import java.io.Serializable;
  * <p>
  * @author Robby McKilliam
  */
-public class Complex extends Object implements Serializable{
+public class Complex extends Object implements Serializable, Field<Complex>, Comparable<Complex>{
     
     private final double re;   // the real part
     private final double im;   // the imaginary part
@@ -194,6 +194,30 @@ public class Complex extends Object implements Serializable{
     /** Test if this complex number is equal to c */
     public boolean equals(Complex c){
         return c.re == re && c.im == im;
+    }
+
+    public Complex add(Complex that) {
+        return this.plus(that);
+    }
+
+    public Complex multiply(Complex that) {
+        return this.times(that);
+    }
+
+    public Complex subtract(Complex that) {
+        return this.minus(that);
+    }
+
+    public Complex divide(Complex that) {
+        return this.divides(that);
+    }
+
+    /**
+     * Compares complex numbers based on magnitude.
+     * This is not strictly natural, but it is useful.
+     */
+    public int compareTo(Complex o) {
+        return Double.compare(abs2(), o.abs2());
     }
     
 }
