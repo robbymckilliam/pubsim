@@ -240,5 +240,18 @@ public class UtilTest {
         assertEquals(test[1], 1.0, 0.00000001);
 
     }
+
+        /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testlog2() {
+        System.out.println("testlog2");
+
+        assertEquals(Util.log2(2), 1.0, 0.0000001);
+        assertEquals(Util.log2(4), 2.0, 0.0000001);
+        assertEquals(Util.log2(8), 3.0, 0.0000001);
+
+    }
     
 }

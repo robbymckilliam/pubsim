@@ -9,6 +9,7 @@ package simulator.qam;
 import simulator.SignalGenerator;
 import distributions.NoiseGenerator;
 import java.util.Random;
+import simulator.Complex;
 
 /**
  * Creates a Rayleigh fading QAM symbol with gaussian noise.
@@ -148,6 +149,11 @@ public class FadingNoisyQAM implements SignalGenerator{
     public void setChannel(double Hr, double Hi){
         this.Hr = Hr;
         this.Hi = Hi;
+    }
+
+    /** Get the complex channel coefficient */
+    public Complex getChannel(){
+        return new Complex(Hr, Hi);
     }
     
     /** 

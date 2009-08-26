@@ -6,12 +6,16 @@
 
 package simulator.qam;
 
+import java.io.Serializable;
+
+import simulator.Complex;
+
 /**
  * Interface for an QAM receiver.  Should implement
  * some algorithm for decoding.
  * @author Robby McKilliam
  */
-public interface QAMReceiver {
+public interface QAMReceiver extends Serializable{
     
     /** Set the size of the QAM array */
     public void setQAMSize(int M);
@@ -36,5 +40,10 @@ public interface QAMReceiver {
      * Call decode first.
      */
     public double[] getImag();
+
+    /**
+     * @param h complex channel coefficient
+     */
+    public void setChannel(Complex h);
     
 }

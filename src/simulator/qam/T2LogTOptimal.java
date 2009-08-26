@@ -7,6 +7,7 @@
 package simulator.qam;
 
 import java.util.TreeMap;
+import simulator.Complex;
 
 /**
  * The faster O(T^2 log(T)) GLRT-optimal non-coherent QAM
@@ -183,6 +184,11 @@ public class T2LogTOptimal extends NonCoherentReceiver implements  QAMReceiver {
      */
     public double[] getImag(){
         return dimag;
+    }
+
+    public void setChannel(Complex h) {
+        //do nothing.  This is a noncoherent detector.  The channel will
+        //be estimated.
     }
  
 }

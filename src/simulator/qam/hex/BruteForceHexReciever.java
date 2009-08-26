@@ -7,6 +7,7 @@ package simulator.qam.hex;
 
 import Jama.Matrix;
 import lattices.util.IntegerVectors;
+import simulator.Complex;
 
 /**
  * Tests all codewords to find the ML estimate.  This has
@@ -65,6 +66,11 @@ public class BruteForceHexReciever implements HexReciever{
             xmag += x[0]*x[0] + x[1]*x[1];
         }
         return (re*re + im*im)/xmag;
+    }
+
+    public void setChannel(Complex h) {
+        //do nothing.  This is a noncoherent detector.  The channel will
+        //be estimated.
     }
 
 }

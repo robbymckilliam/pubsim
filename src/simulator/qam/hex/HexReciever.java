@@ -5,6 +5,7 @@
 
 package simulator.qam.hex;
 
+import simulator.Complex;
 
 /**
  *
@@ -26,6 +27,11 @@ public interface HexReciever extends java.io.Serializable {
      * Call decode first.
      */
     public double[] getImag();
+
+    /**
+     * @param h complex channel coefficient
+     */
+    public void setChannel(Complex h);
 
 
 }

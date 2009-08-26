@@ -80,4 +80,8 @@ public class PATReceiver implements QAMReceiver, PATSymbol {
         return PAT;
     }
 
+    public void setChannel(Complex h) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

@@ -7,6 +7,7 @@ package simulator.qam.hex;
 
 import lattices.Hexagonal;
 import simulator.VoronoiCodeAutoTranslation;
+import simulator.Complex;
 
 /**
  *
@@ -30,6 +31,18 @@ public class HexagonalCode
     public double[] encode(double r, double i){
         temp[0] = r;
         temp[1] = i;
+        return encode(temp);
+    }
+
+    public double[] decode(Complex x){
+        temp[0] = x.re();
+        temp[1] = x.im();
+        return decode(temp);
+    }
+
+    public double[] encode(Complex x){
+        temp[0] = x.re();
+        temp[1] = x.im();
         return encode(temp);
     }
 

@@ -6,6 +6,7 @@
 
 package simulator.qam;
 import simulator.VectorFunctions;
+import simulator.Complex;
 
 /**
  * Optimal algorithm proposed by Dan.  Runs in O(T^3) time.
@@ -45,6 +46,11 @@ public class T3Optimal extends NonCoherentReceiver implements  QAMReceiver {
         dreal = new double[T];
         dimag = new double[T];
         
+    }
+
+    public void setChannel(Complex h) {
+        //do nothing.  This is a noncoherent detector.  The channel will
+        //be estimated.
     }
     
     /**Decode the QAM signal*/

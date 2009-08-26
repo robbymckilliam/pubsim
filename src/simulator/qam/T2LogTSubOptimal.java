@@ -8,6 +8,7 @@ package simulator.qam;
 
 import java.util.TreeMap;
 import simulator.VectorFunctions;
+import simulator.Complex;
 
 /**
  * Dan's O(T^2 log(T)) suboptimal noncoherent QAM
@@ -60,6 +61,11 @@ public class T2LogTSubOptimal extends NonCoherentReceiver implements  QAMReceive
         dimag = new double[T];
         
         map = new TreeMap();
+    }
+
+    public void setChannel(Complex h) {
+        //do nothing.  This is a noncoherent detector.  The channel will
+        //be estimated.
     }
     
     /** Decode the QAM signal */

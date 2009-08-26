@@ -5,6 +5,7 @@
 
 package simulator.qam.hex;
 
+import simulator.Complex;
 import simulator.Point2;
 
 /**
@@ -109,6 +110,11 @@ public abstract class LineHexReciever implements HexReciever{
 
     public double[] getImag() {
         return ui;
+    }
+
+    public void setChannel(Complex h) {
+        //do nothing.  This is a noncoherent detector.  The channel will
+        //be estimated.
     }
 
 
