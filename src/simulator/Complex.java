@@ -16,8 +16,8 @@ import java.io.Serializable;
  */
 public class Complex extends Object implements Serializable, Field<Complex>, Comparable<Complex>{
     
-    private final double re;   // the real part
-    private final double im;   // the imaginary part
+    protected double re;   // the real part
+    protected double im;   // the imaginary part
 
     /** create a new object with the given real and imaginary parts */
     public Complex(double real, double imag) {
