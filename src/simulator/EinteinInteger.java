@@ -7,6 +7,7 @@ package simulator;
 
 import Jama.Matrix;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Vector;
 import lattices.Hexagonal;
 import lattices.util.PointInSphere;
@@ -44,6 +45,28 @@ public class EinteinInteger extends Complex {
         return (this.abs2() - 1.0) < tol;
     }
 
+    /**
+     * Return true if the two integers are a = u*b where u is a unit integer
+     */
+    public static boolean equivalentIdeal(EinteinInteger a, EinteinInteger b){
+        for( EinteinInteger u : units() ){
+            if(a.equals(u.times(b))) return true;
+        }
+        return false;
+    }
+
+    /** Return an container with all of the units */
+    public static Vector<EinteinInteger> units() {
+        final Vector<EinteinInteger> units = new Vector<EinteinInteger>();
+        units.add(new EinteinInteger(1.0, 0.0));
+        units.add(new EinteinInteger(0.5, Math.sqrt(3)/2.0));
+        units.add(new EinteinInteger(-0.5, Math.sqrt(3)/2.0));
+        units.add(new EinteinInteger(-1.0, 0.0));
+        units.add(new EinteinInteger(-0.5, -Math.sqrt(3)/2.0));
+        units.add(new EinteinInteger(0.5, -Math.sqrt(3)/2.0));
+        return units;
+    }
+
     public boolean isZero(){
         return (this.abs2()) < tol;
     }
@@ -77,7 +100,10 @@ public class EinteinInteger extends Complex {
     }
 
     /**
-     * Factorise this integer
+     * Factorise this integer.  This uses a sphere decoder to work out
+     * which points to test.  The implementation of the sphere decoder
+     * here uses a thread an this can cause problems.  It's recommended
+     * that you use factorise(array) instead.
      * @return Collection of factors
      */
     public Collection<EinteinInteger> factorise() {
@@ -85,7 +111,7 @@ public class EinteinInteger extends Complex {
         double[] origin = {0.0,0.0};
         PointInSphere points = new PointInSphere(hex_lattice, this.abs(), origin);
 
-        System.out.println("this = " + this);
+        //System.out.println("this = " + this);
 
         //  If this is a unit return an empty set of factors
         if(this.isUnit()) return factors;
@@ -100,8 +126,8 @@ public class EinteinInteger extends Complex {
             if( divides(i, this) && !i.isUnit() && !i.isZero() ){
                 EinteinInteger div = new EinteinInteger(this.divide(i));
                 if( !div.isUnit() && !div.isZero() ){
-                    System.out.println("i = " + i);
-                    System.out.println("div = " + div);
+                    //System.out.println("i = " + i);
+                    //System.out.println("div = " + div);
                     factors.addAll(i.factorise());
                     factors.addAll(div.factorise());
                     prime = false;
@@ -114,5 +140,48 @@ public class EinteinInteger extends Complex {
 
         return factors;
     }
+    
+    /**
+     * Factorise this integer.  Assumes that the integer is contained in ring
+     * and ring contains all of the element of magnitude less than ring.
+     * Aslo assumes that ring has been sorted in ascending order of magnitude.
+     *
+     * This is much faster than the other version.
+     * @return Collection of factors
+     */
+    public Collection<EinteinInteger> factorise(EinteinInteger[] ring) {
+        Collection<EinteinInteger> factors = new Vector<EinteinInteger>();
+
+        //System.out.println("this = " + this);
+
+        //  If this is a unit return an empty set of factors
+        if(this.isUnit()) return factors;
+
+        //Test all the integers who's magnitude is less that this one
+        //to see if it divides
+        boolean prime = true;
+        for( int p = 0; p < ring.length; p++ ){
+            EinteinInteger i = ring[p];
+            if(ring[p].abs() > this.abs()) break;
+            //if there are two factors, then factorise them and
+            //add their factors to this collection.
+            if( divides(i, this) && !i.isUnit() && !i.isZero() ){
+                EinteinInteger div = new EinteinInteger(this.divide(i));
+                if( !div.isUnit() && !div.isZero() ){
+                    //System.out.println("i = " + i);
+                    //System.out.println("div = " + div);
+                    factors.addAll(i.factorise(ring));
+                    factors.addAll(div.factorise(ring));
+                    prime = false;
+                    break;
+                }
+            }
+        }
+        //if no divisors this is prime so add it to the list of factors.
+        if(prime) factors.add(this);
+
+        return factors;
+    }
+
 
 }

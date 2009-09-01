@@ -5,6 +5,10 @@
 
 package simulator;
 
+import Jama.Matrix;
+import java.util.Arrays;
+import lattices.Hexagonal;
+import lattices.util.PointInSphere;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -150,6 +154,91 @@ public class EinteinIntegerTest {
 
         a = new EinteinInteger(8.0, 0.0);
         System.out.println(a.factorise());
+
+        a = new EinteinInteger(2.0, 0.0);
+        System.out.println(a.factorise());
+
+        //a = new EinteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0);
+        //System.out.println(a.factorise());
+
+        //a = new EinteinInteger(4.5, 33.7749907475931);
+        //System.out.println(a.factorise());
+
+        //a = new EinteinInteger(-13.0, -29.444863728670914);
+        //System.out.println(a.factorise());
+
+    }
+
+    /**
+     * Test of factorise(EinteinInteger[]) method, of class EinteinInteger.
+     */
+    @Test
+    public void testFactoriseWithArrayArg() {
+        System.out.println("factorise");
+
+        double maxmag = (new EinteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0)).abs();
+        double[] origin = {0.0,0.0};
+        PointInSphere points = new PointInSphere(new Hexagonal(), maxmag, origin);
+        int count = 0;
+        for( Matrix p : points ) count++;
+        EinteinInteger[] ring = new EinteinInteger[count];
+        points = new PointInSphere(new Hexagonal(), maxmag, origin);
+        count = 0;
+        for( Matrix p : points ) {
+            ring[count] = EinteinInteger.fromMatrix(p);
+            count++;
+        }
+        Arrays.sort(ring);
+
+        EinteinInteger a = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
+        System.out.println(a.factorise(ring));
+
+        a = new EinteinInteger(4.0, 0.0);
+        System.out.println(a.factorise(ring));
+
+        a = new EinteinInteger(8.0, 0.0);
+        System.out.println(a.factorise(ring));
+
+        a = new EinteinInteger(2.0, 0.0);
+        System.out.println(a.factorise(ring));
+
+        a = new EinteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0);
+        System.out.println(a.factorise(ring));
+
+        a = new EinteinInteger(4.5, 33.7749907475931);
+        System.out.println(a.factorise(ring));
+
+        a = new EinteinInteger(-13.0, -29.444863728670914);
+        System.out.println(a.factorise(ring));
+
+    }
+
+    /**
+     * Test of factorise method, of class EinteinInteger.
+     */
+    @Test
+    public void testEquivalentIdeal() {
+        System.out.println("equivalentIdeal");
+        EinteinInteger a = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
+        EinteinInteger b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+
+        a = new EinteinInteger(0.5, Math.sqrt(3)/2.0);
+        b = new EinteinInteger(1.0, 0.0);
+        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+
+        a = new EinteinInteger(-0.5, Math.sqrt(3)/2.0);
+        b = new EinteinInteger(1.0, 0.0);
+        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+
+        a = new EinteinInteger(-0.5, Math.sqrt(3)/2.0);
+        b = new EinteinInteger(0.5, Math.sqrt(3)/2.0);
+        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+
+        a = new EinteinInteger(-0.5, Math.sqrt(3)/2.0);
+        b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertFalse(EinteinInteger.equivalentIdeal(a, b));
+
 
     }
 
