@@ -86,22 +86,22 @@ public class HexAmbiguityCalculatorTest {
     }
 
     /**
-     * Test of möbiusFunction method, of class HexAmbiguityCalculator.
+     * Test of mobiusFunction method, of class HexAmbiguityCalculator.
      */
     @Test
-    public void testmöbiusFunction() {
-        System.out.println("möbiusFunction");
+    public void testmobiusFunction() {
+        System.out.println("mobiusFunction");
         Vector<EinteinInteger> mset = new Vector<EinteinInteger>();
         mset.add(new EinteinInteger(1.0, 0.0));
-        assertEquals(1, HexAmbiguityCalculator.möbiusFunction(mset));
+        assertEquals(1, HexAmbiguityCalculator.mobiusFunction(mset));
 
         mset = new Vector<EinteinInteger>();
         mset.add(new EinteinInteger(2.0, 0.0));
-        assertEquals(-1, HexAmbiguityCalculator.möbiusFunction(mset));
+        assertEquals(-1, HexAmbiguityCalculator.mobiusFunction(mset));
 
         mset = new Vector<EinteinInteger>();
         mset.addAll(new EinteinInteger(4.0, 0.0).factorise());
-        assertEquals(0, HexAmbiguityCalculator.möbiusFunction(mset));
+        assertEquals(0, HexAmbiguityCalculator.mobiusFunction(mset));
 
     }
 

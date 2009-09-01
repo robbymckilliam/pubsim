@@ -25,7 +25,7 @@ public class HexAmbiguityCalculator {
 
     private final int r;
     private final double scale;
-    private final Vector<MöbiusAndNumDivisors> mset = new Vector<MöbiusAndNumDivisors>();
+    private final Vector<MobiusAndNumDivisors> mset = new Vector<MobiusAndNumDivisors>();
 
     private final Iterable<EinteinInteger> code;
     private final Iterable<EinteinInteger> ring;
@@ -116,23 +116,32 @@ public class HexAmbiguityCalculator {
 //        System.out.println(ringsize);
 //
 //        setup mset with enough memory.
-//        mset = new Vector<MöbiusAndNumDivisors>(ringsize*codesize);
+//        mset = new Vector<MobiusAndNumDivisors>(ringsize*codesize);
         
 
-        //compute the Möbius and divisors array
+        //compute the Mobius and divisors array
+        int lastpercent = 0;
         for( int re = 0; re < ringa.length; re++ ){
             if(!ringa[re].isUnit()){
                 int numdivs = 0;
                 for( EinteinInteger c : code ){
                     if( EinteinInteger.divides(ringa[re], c)) numdivs++;
                 }
-                //System.out.println(new MöbiusAndNumDivisors(ringa[re].factorise(ringa), numdivs));
-                mset.add(new MöbiusAndNumDivisors(ringa[re].factorise(ringa), numdivs));
+                //System.out.println(new MobiusAndNumDivisors(ringa[re].factorise(ringa), numdivs));
+                mset.add(new MobiusAndNumDivisors(ringa[re].factorise(ringa), numdivs));
             }
+
+            int percentComplete = (int)(100*(((double)re)/ringa.length));
+            if( percentComplete > lastpercent){
+                System.out.println(percentComplete + "% ");
+                //System.out.flush();
+                lastpercent = percentComplete;
+            }
+
         }
 
         System.out.println(mset.size());
-        //for( MöbiusAndNumDivisors m : mset ) System.out.println(m);
+        //for( MobiusAndNumDivisors m : mset ) System.out.println(m);
         System.out.println("***********************************************");
 
     }
@@ -140,39 +149,40 @@ public class HexAmbiguityCalculator {
 
     public long upperBoundAmbiguousCodewords(int N){
         long ambs = 0;
-        for( MöbiusAndNumDivisors m : mset ){
-            ambs -= (long)(m.möbius * Math.pow(m.numDivisors, N));
+        for( MobiusAndNumDivisors m : mset ){
+            ambs -= (long)(m.mobius * Math.pow(m.numDivisors, N));
         }
         return ambs;
     }
 
     public double upperBoundBLER(int N){
-        return upperBoundAmbiguousCodewords(N)/Math.pow(r*r, N);
+        return Math.exp( Math.log(upperBoundAmbiguousCodewords(N))
+                                                    - N*Math.log(r*r) );
     }
 
 
     /**
-     * Class to hold the Möbius number and the number of codeword divisors
+     * Class to hold the Mobius number and the number of codeword divisors
      * for a particular Gaussian integer.
      */
-    public class MöbiusAndNumDivisors{
-        public final int möbius;
+    public class MobiusAndNumDivisors{
+        public final int mobius;
         public final int numDivisors;
-        public MöbiusAndNumDivisors(Collection<EinteinInteger> factors, int d){
-            möbius = möbiusFunction(factors);
+        public MobiusAndNumDivisors(Collection<EinteinInteger> factors, int d){
+            mobius = mobiusFunction(factors);
             numDivisors = d;
         }
 
         /** return a string representation of the invoking Complex object */
         @Override
         public String toString() {
-            return möbius + ", " + numDivisors;
+            return mobius + ", " + numDivisors;
         }
 
     }
 
-    //Compute the Möbius function from a collection of factors.
-    public static int möbiusFunction(Collection<EinteinInteger> factors){
+    //Compute the Mobius function from a collection of factors.
+    public static int mobiusFunction(Collection<EinteinInteger> factors){
 
         //if there is only one element and it is a unit then return 1
         if(factors.size() == 1){
