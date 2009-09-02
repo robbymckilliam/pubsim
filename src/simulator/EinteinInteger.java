@@ -144,7 +144,7 @@ public class EinteinInteger extends Complex {
     /**
      * Factorise this integer.  Assumes that the integer is contained in ring
      * and ring contains all of the element of magnitude less than ring.
-     * Aslo assumes that ring has been sorted in ascending order of magnitude.
+     * Also assumes that ring has been sorted in ascending order of magnitude.
      *
      * This is much faster than the other version.
      * @return Collection of factors

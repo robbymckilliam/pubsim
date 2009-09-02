@@ -47,41 +47,9 @@ public class HexAmbiguityCalculatorTest {
         System.out.println("upperBoundAmbiguousCodewords");
         HexAmbiguityCalculator instance = new HexAmbiguityCalculator(16, 16);
 
-        int N = 3;
-        System.out.println(N);
-        System.out.println(instance.upperBoundAmbiguousCodewords(N));
-        System.out.println(instance.upperBoundBLER(N));
-        System.out.println();
+        for( int N = 3; N <= 30; N++)
+            System.out.println(N + " " + instance.upperBoundBLER(N));
 
-        N = 5;
-        System.out.println(N);
-        System.out.println(instance.upperBoundAmbiguousCodewords(N));
-        System.out.println(instance.upperBoundBLER(N));
-        System.out.println();
-
-        N = 7;
-        System.out.println(N);
-        System.out.println(instance.upperBoundAmbiguousCodewords(N));
-        System.out.println(instance.upperBoundBLER(N));
-        System.out.println();
-
-        N = 10;
-        System.out.println(N);
-        System.out.println(instance.upperBoundAmbiguousCodewords(N));
-        System.out.println(instance.upperBoundBLER(N));
-        System.out.println();
-
-        N = 15;
-        System.out.println(N);
-        System.out.println(instance.upperBoundAmbiguousCodewords(N));
-        System.out.println(instance.upperBoundBLER(N));
-        System.out.println();
-
-        N = 20;
-        System.out.println(N);
-        System.out.println(instance.upperBoundAmbiguousCodewords(N));
-        System.out.println(instance.upperBoundBLER(N));
-        System.out.println();
 
     }
 

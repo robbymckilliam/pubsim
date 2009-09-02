@@ -147,10 +147,10 @@ public class HexAmbiguityCalculator {
     }
 
 
-    public long upperBoundAmbiguousCodewords(int N){
-        long ambs = 0;
+    public double upperBoundAmbiguousCodewords(int N){
+        double ambs = 0;
         for( MobiusAndNumDivisors m : mset ){
-            ambs -= (long)(m.mobius * Math.pow(m.numDivisors, N));
+            ambs -= (m.mobius * Math.pow(m.numDivisors, N));
         }
         return ambs;
     }
