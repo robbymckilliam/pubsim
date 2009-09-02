@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Vector;
 import lattices.Hexagonal;
 import lattices.util.IntegerVectors;
-import simulator.EinteinInteger;
+import simulator.EisensteinInteger;
 import lattices.util.PointInSphere;
 import simulator.qam.hex.HexagonalCode;
 
@@ -27,8 +27,8 @@ public class HexAmbiguityCalculator {
     private final double scale;
     private final Vector<MobiusAndNumDivisors> mset = new Vector<MobiusAndNumDivisors>();
 
-    private final Iterable<EinteinInteger> code;
-    private final Iterable<EinteinInteger> ring;
+    private final Iterable<EisensteinInteger> code;
+    private final Iterable<EisensteinInteger> ring;
 
     /**
      *
@@ -42,19 +42,19 @@ public class HexAmbiguityCalculator {
         this.scale = transcale;
 
         //make an iterable for the scaled hex codewords
-        code = new Iterable<EinteinInteger>() {
+        code = new Iterable<EisensteinInteger>() {
             HexagonalCode hex = new HexagonalCode(r);
-            public Iterator<EinteinInteger> iterator() {
-                return new Iterator<EinteinInteger>() {
+            public Iterator<EisensteinInteger> iterator() {
+                return new Iterator<EisensteinInteger>() {
                     IntegerVectors intvecs = new IntegerVectors(2, r);
                     public boolean hasNext() {
                         return intvecs.hasMoreElements();
                     }
-                    public EinteinInteger next() {
+                    public EisensteinInteger next() {
                         intvecs.nextElement();
                         double[] i = intvecs.nextElementDouble();
                         double[] d = hex.encode(i);
-                        return new EinteinInteger(scale*d[0], scale*d[1]);
+                        return new EisensteinInteger(scale*d[0], scale*d[1]);
                     }
                     public void remove() {
                         throw new UnsupportedOperationException("Not supported yet.");
@@ -63,29 +63,29 @@ public class HexAmbiguityCalculator {
             }
         };
 
-        //for( EinteinInteger c : code ) System.out.println(c);
+        //for( EisensteinInteger c : code ) System.out.println(c);
         System.out.println("***********************************************");
 
         //get the magnitude of the maximum magnitude codeword.
         double magmax = Double.NEGATIVE_INFINITY;
-        for( EinteinInteger p : code ){
+        for( EisensteinInteger p : code ){
             double mag = p.abs();
             if(mag > magmax) magmax = mag;
         }
         final double maxMag = magmax;
 
         //make an iterable for Eintien integers of sufficiently small magnitude
-        ring = new Iterable<EinteinInteger>() {
+        ring = new Iterable<EisensteinInteger>() {
             final double[] origin = {0.0,0.0};
-            public Iterator<EinteinInteger> iterator() {
-                return new Iterator<EinteinInteger>() {
+            public Iterator<EisensteinInteger> iterator() {
+                return new Iterator<EisensteinInteger>() {
                     PointInSphere points = new PointInSphere(new Hexagonal(), maxMag, origin);
                     public boolean hasNext() {
                         return points.hasMoreElements();
                     }
-                    public EinteinInteger next() {
+                    public EisensteinInteger next() {
                         double[] d = points.nextElementDouble();
-                        return new EinteinInteger(d[0], d[1]);
+                        return new EisensteinInteger(d[0], d[1]);
                     }
                     public void remove() {
                         throw new UnsupportedOperationException("Not supported yet.");
@@ -95,22 +95,22 @@ public class HexAmbiguityCalculator {
         };
 
         int ringsize = 0;
-        for( EinteinInteger re : ring ) ringsize++;
-        EinteinInteger[] ringa = new EinteinInteger[ringsize];
+        for( EisensteinInteger re : ring ) ringsize++;
+        EisensteinInteger[] ringa = new EisensteinInteger[ringsize];
         int count = 0;
-        for( EinteinInteger re : ring ){ 
+        for( EisensteinInteger re : ring ){
             ringa[count] = re;
             count++;
         }
         Arrays.sort(ringa);
 
-        //for( EinteinInteger re : ring ) System.out.println(re);
+        //for( EisensteinInteger re : ring ) System.out.println(re);
         System.out.println("***********************************************");
 
 //        int ringsize = 0;
-//        for( EinteinInteger re : ring ) ringsize++;
+//        for( EisensteinInteger re : ring ) ringsize++;
 //        int codesize = 0;
-//        for( EinteinInteger c : code ) codesize++;
+//        for( EisensteinInteger c : code ) codesize++;
 //
 //        System.out.println(codesize);
 //        System.out.println(ringsize);
@@ -124,8 +124,8 @@ public class HexAmbiguityCalculator {
         for( int re = 0; re < ringa.length; re++ ){
             if(!ringa[re].isUnit()){
                 int numdivs = 0;
-                for( EinteinInteger c : code ){
-                    if( EinteinInteger.divides(ringa[re], c)) numdivs++;
+                for( EisensteinInteger c : code ){
+                    if( EisensteinInteger.divides(ringa[re], c)) numdivs++;
                 }
                 //System.out.println(new MobiusAndNumDivisors(ringa[re].factorise(ringa), numdivs));
                 mset.add(new MobiusAndNumDivisors(ringa[re].factorise(ringa), numdivs));
@@ -168,7 +168,7 @@ public class HexAmbiguityCalculator {
     public class MobiusAndNumDivisors{
         public final int mobius;
         public final int numDivisors;
-        public MobiusAndNumDivisors(Collection<EinteinInteger> factors, int d){
+        public MobiusAndNumDivisors(Collection<EisensteinInteger> factors, int d){
             mobius = mobiusFunction(factors);
             numDivisors = d;
         }
@@ -182,7 +182,7 @@ public class HexAmbiguityCalculator {
     }
 
     //Compute the Mobius function from a collection of factors.
-    public static int mobiusFunction(Collection<EinteinInteger> factors){
+    public static int mobiusFunction(Collection<EisensteinInteger> factors){
 
         //if there is only one element and it is a unit then return 1
         if(factors.size() == 1){
@@ -190,14 +190,14 @@ public class HexAmbiguityCalculator {
         }
 
         //copy this to an array, java's iterators are a bit crap.
-        EinteinInteger[] farray =
-                factors.toArray(new EinteinInteger[factors.size()]);
+        EisensteinInteger[] farray =
+                factors.toArray(new EisensteinInteger[factors.size()]);
 
         //System.out.println(factors);
 
         for(int f1 = 0; f1 < farray.length; f1++){
             for(int f2 = f1+1; f2 < farray.length; f2++){
-                if(EinteinInteger.equivalentIdeal(farray[f1], farray[f2]))
+                if(EisensteinInteger.equivalentIdeal(farray[f1], farray[f2]))
                     return 0;
             }
         }

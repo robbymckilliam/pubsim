@@ -11,7 +11,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import simulator.EinteinInteger;
+import simulator.EisensteinInteger;
 import static org.junit.Assert.*;
 
 /**
@@ -45,7 +45,7 @@ public class HexAmbiguityCalculatorTest {
     @Test
     public void testUpperBoundAmbiguousCodewords() {
         System.out.println("upperBoundAmbiguousCodewords");
-        HexAmbiguityCalculator instance = new HexAmbiguityCalculator(16, 16);
+        HexAmbiguityCalculator instance = new HexAmbiguityCalculator(4, 4);
 
         for( int N = 3; N <= 30; N++)
             System.out.println(N + " " + instance.upperBoundBLER(N));
@@ -59,16 +59,16 @@ public class HexAmbiguityCalculatorTest {
     @Test
     public void testmobiusFunction() {
         System.out.println("mobiusFunction");
-        Vector<EinteinInteger> mset = new Vector<EinteinInteger>();
-        mset.add(new EinteinInteger(1.0, 0.0));
+        Vector<EisensteinInteger> mset = new Vector<EisensteinInteger>();
+        mset.add(new EisensteinInteger(1.0, 0.0));
         assertEquals(1, HexAmbiguityCalculator.mobiusFunction(mset));
 
-        mset = new Vector<EinteinInteger>();
-        mset.add(new EinteinInteger(2.0, 0.0));
+        mset = new Vector<EisensteinInteger>();
+        mset.add(new EisensteinInteger(2.0, 0.0));
         assertEquals(-1, HexAmbiguityCalculator.mobiusFunction(mset));
 
-        mset = new Vector<EinteinInteger>();
-        mset.addAll(new EinteinInteger(4.0, 0.0).factorise());
+        mset = new Vector<EisensteinInteger>();
+        mset.addAll(new EisensteinInteger(4.0, 0.0).factorise());
         assertEquals(0, HexAmbiguityCalculator.mobiusFunction(mset));
 
     }

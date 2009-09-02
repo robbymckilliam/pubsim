@@ -42,64 +42,64 @@ public class EinteinIntegerTest {
     }
 
     /**
-     * Test of isUnit method, of class EinteinInteger.
+     * Test of isUnit method, of class EisensteinInteger.
      */
     @Test
     public void testIsUnit() {
         System.out.println("isUnit");
-        EinteinInteger instance = new EinteinInteger(1.0, 0.0);
+        EisensteinInteger instance = new EisensteinInteger(1.0, 0.0);
         assertEquals(true, instance.isUnit());
-        instance = new EinteinInteger(0.5, Math.sqrt(3)/2.0);
+        instance = new EisensteinInteger(0.5, Math.sqrt(3)/2.0);
         assertEquals(true, instance.isUnit());
-        instance = new EinteinInteger(2.0, Math.sqrt(3)/2.0);
+        instance = new EisensteinInteger(2.0, Math.sqrt(3)/2.0);
         assertEquals(false, instance.isUnit());
     }
 
     /**
-     * Test of toArray method, of class EinteinInteger.
+     * Test of toArray method, of class EisensteinInteger.
      */
     @Test
     public void testToArray() {
         System.out.println("toArray");
-        EinteinInteger instance = new EinteinInteger(1.0, 0.0);
+        EisensteinInteger instance = new EisensteinInteger(1.0, 0.0);
         double[] expResult = {1.0, 0.0};
-        double[] result = EinteinInteger.toArray(instance);
+        double[] result = EisensteinInteger.toArray(instance);
         VectorFunctionsTest.assertVectorsEqual(expResult, result);
     }
 
     /**
-     * Test of fromArray method, of class EinteinInteger.
+     * Test of fromArray method, of class EisensteinInteger.
      */
     @Test
     public void testFromArray() {
         System.out.println("fromArray");
         double[] a =  {1.0, 0.0};
-        EinteinInteger expResult= new EinteinInteger(1.0, 0.0);
-        EinteinInteger result = EinteinInteger.fromArray(a);
+        EisensteinInteger expResult= new EisensteinInteger(1.0, 0.0);
+        EisensteinInteger result = EisensteinInteger.fromArray(a);
 
         assertTrue(expResult.equals(result));
     }
 
     /**
-     * Test of fromArray method, of class EinteinInteger.
+     * Test of fromArray method, of class EisensteinInteger.
      */
     @Test
     public void testFromMatrix() {
         System.out.println("fromMatrix");
         Point2 p = new Point2(1.0,0.0);
-        EinteinInteger expResult= new EinteinInteger(1.0, 0.0);
-        EinteinInteger result = EinteinInteger.fromMatrix(p);
+        EisensteinInteger expResult= new EisensteinInteger(1.0, 0.0);
+        EisensteinInteger result = EisensteinInteger.fromMatrix(p);
 
         assertTrue(expResult.equals(result));
     }
 
     /**
-     * Test of equals method, of class EinteinInteger.
+     * Test of equals method, of class EisensteinInteger.
      */
     @Test
     public void testEquals() {
         System.out.println("equals");
-        EinteinInteger instance = new EinteinInteger(0.5, Math.sqrt(3)/2.0);
+        EisensteinInteger instance = new EisensteinInteger(0.5, Math.sqrt(3)/2.0);
 
         //System.out.println(instance);
 
@@ -108,136 +108,136 @@ public class EinteinIntegerTest {
     }
 
     /**
-     * Test of isInteger method, of class EinteinInteger.
+     * Test of isInteger method, of class EisensteinInteger.
      */
     @Test
     public void testIsInteger() {
         System.out.println("isInteger");
-        assertFalse(EinteinInteger.isInteger(new Complex(-2.0, Math.sqrt(3)/2.0)));
-        assertTrue(EinteinInteger.isInteger(new Complex(2.5, Math.sqrt(3)/2.0)));
+        assertFalse(EisensteinInteger.isInteger(new Complex(-2.0, Math.sqrt(3)/2.0)));
+        assertTrue(EisensteinInteger.isInteger(new Complex(2.5, Math.sqrt(3)/2.0)));
     }
 
     /**
-     * Test of divides method, of class EinteinInteger.
+     * Test of divides method, of class EisensteinInteger.
      */
     @Test
     public void testDivides() {
         System.out.println("divides");
-        EinteinInteger a = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        EinteinInteger b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        assertTrue(EinteinInteger.divides(a, b));
+        EisensteinInteger a = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        EisensteinInteger b = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertTrue(EisensteinInteger.divides(a, b));
 
-        a = new EinteinInteger(1.5, Math.sqrt(3)/2.0);
-        b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        assertFalse(EinteinInteger.divides(a, b));
+        a = new EisensteinInteger(1.5, Math.sqrt(3)/2.0);
+        b = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertFalse(EisensteinInteger.divides(a, b));
 
-        a = new EinteinInteger(1.0, 0.0);
-        b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        assertTrue(EinteinInteger.divides(a, b));
+        a = new EisensteinInteger(1.0, 0.0);
+        b = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertTrue(EisensteinInteger.divides(a, b));
 
-        a = new EinteinInteger(-2.5, -Math.sqrt(3)/2.0);
-        b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        assertTrue(EinteinInteger.divides(a, b));
+        a = new EisensteinInteger(-2.5, -Math.sqrt(3)/2.0);
+        b = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertTrue(EisensteinInteger.divides(a, b));
     }
 
     /**
-     * Test of factorise method, of class EinteinInteger.
+     * Test of factorise method, of class EisensteinInteger.
      */
     @Test
     public void testFactorise() {
         System.out.println("factorise");
-        EinteinInteger a = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
+        EisensteinInteger a = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
         System.out.println(a.factorise());
 
-        a = new EinteinInteger(4.0, 0.0);
+        a = new EisensteinInteger(4.0, 0.0);
         System.out.println(a.factorise());
 
-        a = new EinteinInteger(8.0, 0.0);
+        a = new EisensteinInteger(8.0, 0.0);
         System.out.println(a.factorise());
 
-        a = new EinteinInteger(2.0, 0.0);
+        a = new EisensteinInteger(2.0, 0.0);
         System.out.println(a.factorise());
 
-        //a = new EinteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0);
+        //a = new EisensteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0);
         //System.out.println(a.factorise());
 
-        //a = new EinteinInteger(4.5, 33.7749907475931);
+        //a = new EisensteinInteger(4.5, 33.7749907475931);
         //System.out.println(a.factorise());
 
-        //a = new EinteinInteger(-13.0, -29.444863728670914);
+        //a = new EisensteinInteger(-13.0, -29.444863728670914);
         //System.out.println(a.factorise());
 
     }
 
     /**
-     * Test of factorise(EinteinInteger[]) method, of class EinteinInteger.
+     * Test of factorise(EisensteinInteger[]) method, of class EisensteinInteger.
      */
     @Test
     public void testFactoriseWithArrayArg() {
         System.out.println("factorise");
 
-        double maxmag = (new EinteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0)).abs();
+        double maxmag = (new EisensteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0)).abs();
         double[] origin = {0.0,0.0};
         PointInSphere points = new PointInSphere(new Hexagonal(), maxmag, origin);
         int count = 0;
         for( Matrix p : points ) count++;
-        EinteinInteger[] ring = new EinteinInteger[count];
+        EisensteinInteger[] ring = new EisensteinInteger[count];
         points = new PointInSphere(new Hexagonal(), maxmag, origin);
         count = 0;
         for( Matrix p : points ) {
-            ring[count] = EinteinInteger.fromMatrix(p);
+            ring[count] = EisensteinInteger.fromMatrix(p);
             count++;
         }
         Arrays.sort(ring);
 
-        EinteinInteger a = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
+        EisensteinInteger a = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
         System.out.println(a.factorise(ring));
 
-        a = new EinteinInteger(4.0, 0.0);
+        a = new EisensteinInteger(4.0, 0.0);
         System.out.println(a.factorise(ring));
 
-        a = new EinteinInteger(8.0, 0.0);
+        a = new EisensteinInteger(8.0, 0.0);
         System.out.println(a.factorise(ring));
 
-        a = new EinteinInteger(2.0, 0.0);
+        a = new EisensteinInteger(2.0, 0.0);
         System.out.println(a.factorise(ring));
 
-        a = new EinteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0);
+        a = new EisensteinInteger(31.0 + 51/2.0, 51*Math.sqrt(3)/2.0);
         System.out.println(a.factorise(ring));
 
-        a = new EinteinInteger(4.5, 33.7749907475931);
+        a = new EisensteinInteger(4.5, 33.7749907475931);
         System.out.println(a.factorise(ring));
 
-        a = new EinteinInteger(-13.0, -29.444863728670914);
+        a = new EisensteinInteger(-13.0, -29.444863728670914);
         System.out.println(a.factorise(ring));
 
     }
 
     /**
-     * Test of factorise method, of class EinteinInteger.
+     * Test of factorise method, of class EisensteinInteger.
      */
     @Test
     public void testEquivalentIdeal() {
         System.out.println("equivalentIdeal");
-        EinteinInteger a = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        EinteinInteger b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+        EisensteinInteger a = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        EisensteinInteger b = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertTrue(EisensteinInteger.equivalentIdeal(a, b));
 
-        a = new EinteinInteger(0.5, Math.sqrt(3)/2.0);
-        b = new EinteinInteger(1.0, 0.0);
-        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+        a = new EisensteinInteger(0.5, Math.sqrt(3)/2.0);
+        b = new EisensteinInteger(1.0, 0.0);
+        assertTrue(EisensteinInteger.equivalentIdeal(a, b));
 
-        a = new EinteinInteger(-0.5, Math.sqrt(3)/2.0);
-        b = new EinteinInteger(1.0, 0.0);
-        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+        a = new EisensteinInteger(-0.5, Math.sqrt(3)/2.0);
+        b = new EisensteinInteger(1.0, 0.0);
+        assertTrue(EisensteinInteger.equivalentIdeal(a, b));
 
-        a = new EinteinInteger(-0.5, Math.sqrt(3)/2.0);
-        b = new EinteinInteger(0.5, Math.sqrt(3)/2.0);
-        assertTrue(EinteinInteger.equivalentIdeal(a, b));
+        a = new EisensteinInteger(-0.5, Math.sqrt(3)/2.0);
+        b = new EisensteinInteger(0.5, Math.sqrt(3)/2.0);
+        assertTrue(EisensteinInteger.equivalentIdeal(a, b));
 
-        a = new EinteinInteger(-0.5, Math.sqrt(3)/2.0);
-        b = new EinteinInteger(2.5, Math.sqrt(3)/2.0);
-        assertFalse(EinteinInteger.equivalentIdeal(a, b));
+        a = new EisensteinInteger(-0.5, Math.sqrt(3)/2.0);
+        b = new EisensteinInteger(2.5, Math.sqrt(3)/2.0);
+        assertFalse(EisensteinInteger.equivalentIdeal(a, b));
 
 
     }

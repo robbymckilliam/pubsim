@@ -16,7 +16,7 @@ import lattices.util.PointInSphere;
  *
  * @author Robby McKilliam
  */
-public class EinteinInteger extends Complex {
+public class EisensteinInteger extends Complex {
 
     /** Hexagonal lattice for doing rounding etc */
     protected final static Hexagonal hex_lattice = new Hexagonal();
@@ -24,7 +24,7 @@ public class EinteinInteger extends Complex {
     /** Tolerance when testing equality */
     private static final double tol = 0.0000001;
 
-    public EinteinInteger(double x, double y){
+    public EisensteinInteger(double x, double y){
         double[] a = {x, y};
         hex_lattice.nearestPoint(a);
         double[] r = hex_lattice.getLatticePoint();
@@ -32,7 +32,7 @@ public class EinteinInteger extends Complex {
         this.im = r[1];
     }
 
-    public EinteinInteger(Complex x){
+    public EisensteinInteger(Complex x){
         double[] a = {x.re(), x.im()};
         hex_lattice.nearestPoint(a);
         double[] r = hex_lattice.getLatticePoint();
@@ -48,22 +48,22 @@ public class EinteinInteger extends Complex {
     /**
      * Return true if the two integers are a = u*b where u is a unit integer
      */
-    public static boolean equivalentIdeal(EinteinInteger a, EinteinInteger b){
-        for( EinteinInteger u : units() ){
+    public static boolean equivalentIdeal(EisensteinInteger a, EisensteinInteger b){
+        for( EisensteinInteger u : units() ){
             if(a.equals(u.times(b))) return true;
         }
         return false;
     }
 
     /** Return an container with all of the units */
-    public static Vector<EinteinInteger> units() {
-        final Vector<EinteinInteger> units = new Vector<EinteinInteger>();
-        units.add(new EinteinInteger(1.0, 0.0));
-        units.add(new EinteinInteger(0.5, Math.sqrt(3)/2.0));
-        units.add(new EinteinInteger(-0.5, Math.sqrt(3)/2.0));
-        units.add(new EinteinInteger(-1.0, 0.0));
-        units.add(new EinteinInteger(-0.5, -Math.sqrt(3)/2.0));
-        units.add(new EinteinInteger(0.5, -Math.sqrt(3)/2.0));
+    public static Vector<EisensteinInteger> units() {
+        final Vector<EisensteinInteger> units = new Vector<EisensteinInteger>();
+        units.add(new EisensteinInteger(1.0, 0.0));
+        units.add(new EisensteinInteger(0.5, Math.sqrt(3)/2.0));
+        units.add(new EisensteinInteger(-0.5, Math.sqrt(3)/2.0));
+        units.add(new EisensteinInteger(-1.0, 0.0));
+        units.add(new EisensteinInteger(-0.5, -Math.sqrt(3)/2.0));
+        units.add(new EisensteinInteger(0.5, -Math.sqrt(3)/2.0));
         return units;
     }
 
@@ -71,31 +71,31 @@ public class EinteinInteger extends Complex {
         return (this.abs2()) < tol;
     }
 
-    public static double[] toArray(EinteinInteger x){
+    public static double[] toArray(EisensteinInteger x){
         double[] a = {x.re(), x.im()};
         return a;
     }
 
-    public static EinteinInteger fromArray(double[] a){
-        return new EinteinInteger(a[0], a[1]);
+    public static EisensteinInteger fromArray(double[] a){
+        return new EisensteinInteger(a[0], a[1]);
     }
 
-    public static EinteinInteger fromMatrix(Matrix m){
-        return new EinteinInteger(m.get(0,0), m.get(1,0));
+    public static EisensteinInteger fromMatrix(Matrix m){
+        return new EisensteinInteger(m.get(0,0), m.get(1,0));
     }
 
-    /** Test if this EinteinInteger number is equal to Complex c */
+    /** Test if this EisensteinInteger number is equal to Complex c */
     @Override
     public boolean equals(Complex c){
         return this.minus(c).abs() < tol;
     }
 
     public static boolean isInteger(Complex x){
-        EinteinInteger e = new EinteinInteger(x);
+        EisensteinInteger e = new EisensteinInteger(x);
         return e.equals(x);
     }
 
-    public static boolean divides(EinteinInteger a, EinteinInteger b){
+    public static boolean divides(EisensteinInteger a, EisensteinInteger b){
         return isInteger(b.divide(a));
     }
 
@@ -106,8 +106,8 @@ public class EinteinInteger extends Complex {
      * that you use factorise(array) instead.
      * @return Collection of factors
      */
-    public Collection<EinteinInteger> factorise() {
-        Collection<EinteinInteger> factors = new Vector<EinteinInteger>();
+    public Collection<EisensteinInteger> factorise() {
+        Collection<EisensteinInteger> factors = new Vector<EisensteinInteger>();
         double[] origin = {0.0,0.0};
         PointInSphere points = new PointInSphere(hex_lattice, this.abs(), origin);
 
@@ -120,11 +120,11 @@ public class EinteinInteger extends Complex {
         //to see if it divides
         boolean prime = true;
         for( Matrix p : points ){
-            EinteinInteger i = fromMatrix(p);
+            EisensteinInteger i = fromMatrix(p);
             //if there are two factors, then factorise them and
             //add their factors to this collection.
             if( divides(i, this) && !i.isUnit() && !i.isZero() ){
-                EinteinInteger div = new EinteinInteger(this.divide(i));
+                EisensteinInteger div = new EisensteinInteger(this.divide(i));
                 if( !div.isUnit() && !div.isZero() ){
                     //System.out.println("i = " + i);
                     //System.out.println("div = " + div);
@@ -149,8 +149,8 @@ public class EinteinInteger extends Complex {
      * This is much faster than the other version.
      * @return Collection of factors
      */
-    public Collection<EinteinInteger> factorise(EinteinInteger[] ring) {
-        Collection<EinteinInteger> factors = new Vector<EinteinInteger>();
+    public Collection<EisensteinInteger> factorise(EisensteinInteger[] ring) {
+        Collection<EisensteinInteger> factors = new Vector<EisensteinInteger>();
 
         //System.out.println("this = " + this);
 
@@ -161,12 +161,12 @@ public class EinteinInteger extends Complex {
         //to see if it divides
         boolean prime = true;
         for( int p = 0; p < ring.length; p++ ){
-            EinteinInteger i = ring[p];
+            EisensteinInteger i = ring[p];
             if(ring[p].abs() > this.abs()) break;
             //if there are two factors, then factorise them and
             //add their factors to this collection.
             if( divides(i, this) && !i.isUnit() && !i.isZero() ){
-                EinteinInteger div = new EinteinInteger(this.divide(i));
+                EisensteinInteger div = new EisensteinInteger(this.divide(i));
                 if( !div.isUnit() && !div.isZero() ){
                     //System.out.println("i = " + i);
                     //System.out.println("div = " + div);
