@@ -111,7 +111,7 @@ public class RadialLinesReciever extends LineHexReciever
                 double r = dp.value.doubleValue();
                 Point2 p = dp.point;
 
-                //System.out.println(dp);
+                System.out.println(dp);
 
                 //update likelihood variables
                 double pr = p.getX();
@@ -146,7 +146,12 @@ public class RadialLinesReciever extends LineHexReciever
                     thetaopt = theta;
                     //set dopt half way between this boundary and the next.
                     //this garautees it is within this region.
-                    ropt = r + 0.0000001;
+                    ropt = r + 0.00001;
+                    //ropt = 1.0;
+                    System.out.println("r = " + r);
+//                    if(!map.isEmpty()) {
+//                        System.out.println("next r = " + map.firstEntry().getValue().value);
+//                    }
                     //if(map.isEmpty()) dopt = d + 0.00000001;
                     //else dopt = (d + map.firstEntry().getValue().value)/2.0;
                     for(int i = 0; i < N; i++){
@@ -158,19 +163,26 @@ public class RadialLinesReciever extends LineHexReciever
                           
             }
 
+            System.out.println();
+
         }
 
         //reconstruct best point from angle and magnitude
-//        double costheta = Math.cos(thetaopt);
-//        double sintheta = Math.sin(thetaopt);
-//        for(int n = 0; n < N; n++){
-//            double dd1 = ropt*(costheta*y1[2*n] + sintheta*y2[2*n]);
-//            double dd2 = ropt*(costheta*y1[2*n+1] + sintheta*y2[2*n+1]);
-//            double[] cpoint = hex.decode(dd1,dd2);
-//            ur[n] = cpoint[0];
-//            ui[n] = cpoint[1];
-//        }
-//
+        double costheta = Math.cos(thetaopt);
+        double sintheta = Math.sin(thetaopt);
+        for(int n = 0; n < N; n++){
+            double dd1 = ropt*(costheta*y1[2*n] + sintheta*y2[2*n]);
+            double dd2 = ropt*(costheta*y1[2*n+1] + sintheta*y2[2*n+1]);
+
+            System.out.print(dd1 + ", ");
+
+            double[] cpoint = hex.decode(dd1,dd2);
+            ur[n] = cpoint[0];
+            ui[n] = cpoint[1];
+        }
+        System.out.println();
+////
+//        System.out.println();
 //        System.out.println(thetaopt);
 //        System.out.println(ropt);
 //        System.out.println(Lopt);

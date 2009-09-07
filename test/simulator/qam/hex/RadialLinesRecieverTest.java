@@ -82,7 +82,7 @@ public class RadialLinesRecieverTest {
         RadialLinesReciever rec = new RadialLinesReciever(N, M);
 
         FadingNoisyHex signal = new FadingNoisyHex(N, M);
-        signal.setChannel(0.0, 1.0);
+        signal.setChannel(1.0, 0.0);
         signal.setNoiseGenerator(new GaussianNoise(0.0, 0.0001));
 
         signal.generateCodeword();
