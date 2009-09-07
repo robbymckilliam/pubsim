@@ -92,9 +92,9 @@ public class VoronoiCode implements java.io.Serializable{
      * @return codeword
      */
     public double[] decode(double[] x){
-       lattice.nearestPoint(x);
-       add(lattice.getLatticePoint(), a, c);
-       matrixMultVector(invB, c, u);
+       add(x, a, c);
+       lattice.nearestPoint(c);
+       matrixMultVector(invB, lattice.getLatticePoint(), u);
        round(u, u);
        modInPlace(u, r);
        return u;

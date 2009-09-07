@@ -23,13 +23,14 @@ public class RadialLinesReciever extends LineHexReciever
         implements HexReciever {
 
     private final Point2[] x;
-    private final int numL = 3;
+    private final int numL;
 
     //these get used during decode operation.
     private final Hexagonal hexnp = new Hexagonal();
 
     public RadialLinesReciever(int N, int scale){
         super(N, scale);
+        numL = scale;
         x = new Point2[N];
     }
 
@@ -111,8 +112,6 @@ public class RadialLinesReciever extends LineHexReciever
                 double r = dp.value.doubleValue();
                 Point2 p = dp.point;
 
-                System.out.println(dp);
-
                 //update likelihood variables
                 double pr = p.getX();
                 double pi = p.getY();
@@ -139,32 +138,16 @@ public class RadialLinesReciever extends LineHexReciever
 
                 //test if this was the best point.  Save theta and d if it was
                 L = (ar*ar + ai*ai)/b;
-//                System.out.println("L = " + L);
-//                System.out.println("r = " + r);
                 if(L > Lopt){
                     Lopt = L;
                     thetaopt = theta;
                     //set dopt half way between this boundary and the next.
                     //this garautees it is within this region.
                     ropt = r + 0.00001;
-                    //ropt = 1.0;
-                    System.out.println("r = " + r);
-//                    if(!map.isEmpty()) {
-//                        System.out.println("next r = " + map.firstEntry().getValue().value);
-//                    }
-                    //if(map.isEmpty()) dopt = d + 0.00000001;
-                    //else dopt = (d + map.firstEntry().getValue().value)/2.0;
-                    for(int i = 0; i < N; i++){
-                        double[] cpoint = hex.decode(x[i].getX(),x[i].getY());
-                        ur[i] = cpoint[0];
-                        ui[i] = cpoint[1];
-                    }
-                }
-                          
+                    //if(map.isEmpty()) ropt = r + 0.00001;
+                    //else ropt = r + (map.firstEntry().getValue().value - r)/2.0;
+                }                       
             }
-
-            System.out.println();
-
         }
 
         //reconstruct best point from angle and magnitude
@@ -173,19 +156,17 @@ public class RadialLinesReciever extends LineHexReciever
         for(int n = 0; n < N; n++){
             double dd1 = ropt*(costheta*y1[2*n] + sintheta*y2[2*n]);
             double dd2 = ropt*(costheta*y1[2*n+1] + sintheta*y2[2*n+1]);
-
-            System.out.print(dd1 + ", ");
-
             double[] cpoint = hex.decode(dd1,dd2);
             ur[n] = cpoint[0];
             ui[n] = cpoint[1];
         }
-        System.out.println();
-////
 //        System.out.println();
+//////
+////        System.out.println();
 //        System.out.println(thetaopt);
 //        System.out.println(ropt);
-//        System.out.println(Lopt);
+////        System.out.println(Lopt);
+//        System.out.println();
 
     }
 

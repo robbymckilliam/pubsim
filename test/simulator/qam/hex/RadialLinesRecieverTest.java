@@ -77,7 +77,7 @@ public class RadialLinesRecieverTest {
     public void decodeSymbolsCorrectly() {
         System.out.println("decodeSymbolsCorrectly");
 
-        int N = 5;
+        int N = 10;
         int M = 4;
         RadialLinesReciever rec = new RadialLinesReciever(N, M);
 
