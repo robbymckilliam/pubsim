@@ -125,6 +125,24 @@ public class VoronoiCode implements java.io.Serializable{
     public LatticeAndNearestPointAlgorithm getLattice(){ return lattice; }
 
     /**
+     * @return codeword with minum energy (closest to the origin)
+     */
+    public double[] minimumEnergyCodeword(){
+        double[] minc = null;
+        IntegerVectors intvecs = new IntegerVectors(N, r);
+        double Eb = Double.POSITIVE_INFINITY;
+        for( Matrix v : intvecs ){
+            double[] uu = v.getColumnPackedCopy();
+            double E = VectorFunctions.sum2(decode(uu));
+            if(E < Eb){
+                Eb = E;
+                minc = uu;
+            }
+        }
+        return minc;
+    }
+
+    /**
      * Dimension that the constellation lies in.  This is the same as
      * the dimension of the lattice or rank of it's generator matrix.
      */

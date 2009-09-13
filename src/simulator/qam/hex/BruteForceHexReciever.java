@@ -16,9 +16,7 @@ import simulator.Complex;
  */
 public class BruteForceHexReciever implements HexReciever{
 
-    private final IntegerVectors u;
-    private final int N;
-
+    private final int N, r;
     private final double[] ur, ui;
 
     /** Hexagonal Voronoi code used */
@@ -26,16 +24,17 @@ public class BruteForceHexReciever implements HexReciever{
 
     public BruteForceHexReciever(int N, int scale) {
         this.hex = new HexagonalCode(scale);
-        u = new IntegerVectors(2*N, scale);
         this.N = N;
+        r = scale;
         ur = new double[N];
         ui = new double[N];
     }
 
     public void decode(double[] rreal, double[] rimag) {
         double Lopt = Double.NEGATIVE_INFINITY;
-        for(Matrix ud : u){
+        for(Matrix ud : new IntegerVectors(2*N, r) ){
             double L = computeLikelihood(ud, rreal, rimag);
+            //System.out.println(L);
             if(L > Lopt){
                 Lopt = L;
                 for(int n = 0; n < N; n++){

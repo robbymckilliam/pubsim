@@ -13,6 +13,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simulator.qam.hex.HexagonalCode;
 import static simulator.VectorFunctions.print;
 import static simulator.VectorFunctions.randomGaussian;
 import static simulator.VectorFunctions.add;
@@ -107,4 +108,15 @@ public class VoronoiCodeTest {
         }
     }
 
+
+    /**
+     * Test of decode method, of class VoronoiCode.
+     */
+    @Test
+    public void testDecodeMinimumEnergyCodeword() {
+        HexagonalCode hex = new HexagonalCode(4);
+        double[] exp = {0.0, 0.0};
+        double[] res = hex.minimumEnergyCodeword();
+        VectorFunctionsTest.assertVectorsEqual(exp, res);
+    }
 }

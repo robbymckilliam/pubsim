@@ -6,23 +6,25 @@
 package simulator.qam.hex;
 
 import simulator.qam.hex.FadingNoisyHex;
-import simulator.qam.hex.BruteForceHexReciever;
+import simulator.qam.hex.RadialLinesReciever;
 import distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import simulator.Point2;
 import simulator.VectorFunctionsTest;
 import static simulator.VectorFunctions.print;
 
 /**
  *
- * @author robertm
+ * @author harprobey
  */
-public class BruteForceHexRecieverTest {
+public class RadialLinesNoAmbiguityTest {
 
-    public BruteForceHexRecieverTest() {
+    public RadialLinesNoAmbiguityTest() {
     }
 
     @BeforeClass
@@ -42,19 +44,38 @@ public class BruteForceHexRecieverTest {
     }
 
     /**
-     * Test of decode method, of class BruteForceHexReciever.
+     * Test of getReal method, of class RadialLinesNoAmbiguity.
      */
     @Test
-    public void testDecode() {
-        System.out.println("testDecode");
+    public void testAmbiguityResolve() {
+        System.out.println("Ambiguity Resolve");
+        int N = 3;
+        int r = 4;
+        RadialLinesNoAmbiguity instance = new RadialLinesNoAmbiguity(N, r);
+
+        double[] yr = {1.0,1.0,1.0};
+        double[] yi = {2.0,2.0,2.0};
+        instance.decode(yr, yi);
+
+        double[] exp = {0,0,0};
+        VectorFunctionsTest.assertVectorsEqual(exp, instance.getReal());
+        VectorFunctionsTest.assertVectorsEqual(exp, instance.getImag());
+    }
+
+        /**
+     * Test of nextHexangonalNearPoint method, of class RadialLinesReciever.
+     */
+    @Test
+    public void decodeSymbolsCorrectly() {
+        System.out.println("decodeSymbolsCorrectly");
 
         int N = 3;
         int M = 4;
-        BruteForceHexReciever rec = new BruteForceHexReciever(N, M);
+        RadialLinesNoAmbiguity rec = new RadialLinesNoAmbiguity(N, M);
 
-        FadingNoisyHex signal = new FadingNoisyHex(N, M);
+        FadingNoiseHexNoAmbiguity signal = new FadingNoiseHexNoAmbiguity(N, M);
         signal.setChannel(1.0, 0.0);
-        signal.setNoiseGenerator(new GaussianNoise(0.0, 0.000001));
+        signal.setNoiseGenerator(new GaussianNoise(0.0, 0.0001));
 
         signal.generateCodeword();
         signal.generateReceivedSignal();
@@ -78,7 +99,7 @@ public class BruteForceHexRecieverTest {
 
         VectorFunctionsTest.assertVectorsEqual(urt, ur);
         VectorFunctionsTest.assertVectorsEqual(uit, ui);
-    }
 
+    }
 
 }

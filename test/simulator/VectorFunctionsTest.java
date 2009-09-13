@@ -178,6 +178,19 @@ public class VectorFunctionsTest extends TestCase {
     }
 
     /**
+     * Test of add method, of class simulator.VectorFunctions.
+     */
+    public void testAllElementsEqual() {
+        System.out.println("allElementsEqual");
+
+        double[] x = {1,2,3};
+        assertFalse(allElementsEqual(x));
+        double[] x1 = {1,1,1};
+        assertTrue(allElementsEqual(x1));
+
+    }
+
+    /**
      * Test of sum method, of class simulator.VectorFunctions.
      */
     public void testSum() {

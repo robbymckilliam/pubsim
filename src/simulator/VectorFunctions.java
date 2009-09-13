@@ -284,6 +284,16 @@ public final class VectorFunctions {
         }
     }
 
+    /**
+     * Return a vector of length N with all elements equal to 1.0
+     */
+    public static boolean allElementsEqual(double[] x) {
+        for (int i = 0; i < x.length-1; i++) {
+            if(x[i] != x[i+1]) return false;
+        }
+        return true;
+    }
+
 
     /**
      * Return a vector of zero mean var = 1 gaussian

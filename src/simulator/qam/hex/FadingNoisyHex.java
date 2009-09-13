@@ -61,7 +61,7 @@ public class FadingNoisyHex implements SignalGenerator{
     }
     
     /**
-     * Generate a random QAM signal of the currently
+     * Generate a random transmittable codeword
      * specified length.
      */
     public void generateCodeword(){
