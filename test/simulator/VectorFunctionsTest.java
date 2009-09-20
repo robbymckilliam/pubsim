@@ -313,6 +313,38 @@ public class VectorFunctionsTest extends TestCase {
     }
 
     /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testtoComplexArray() {
+        System.out.println("testtoComplexArray");
+
+        double[] xr = {1, 2};
+        double[] xi = {2, 3};
+        Complex[] c = new Complex[2];
+        toComplexArray(xr, xi, c);
+        assertTrue(c[0].minus(new Complex(xr[0], xi[0])).abs() < 0.0000001);
+        assertTrue(c[1].minus(new Complex(xr[1], xi[1])).abs() < 0.0000001);
+
+
+    }
+
+    /**
+     * Test of min method, of class simulator.VectorFunctions.
+     */
+    public void testComplexMagnitude2() {
+        System.out.println("testComplexMagnitude2");
+
+        double[] xr = {1, 2};
+        double[] xi = {2, 3};
+        Complex[] c = new Complex[2];
+        toComplexArray(xr, xi, c);
+        double cm = magnitude2(c);
+        double rm = sum2(xr) + sum2(xi);
+        assertEquals(cm, rm, 0.00000001);
+
+    }
+
+    /**
      * Test of maxDistance method, of class simulator.VectorFunctions.
      */
     public void testMax_distance() {

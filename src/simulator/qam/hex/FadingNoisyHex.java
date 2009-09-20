@@ -163,7 +163,7 @@ public class FadingNoisyHex implements SignalGenerator{
             if( Math.round(xr[i] - yr[i]) != 0.0
                 || Math.round(xi[i] - yi[i]) !=  0.0 ) ers++;
         
-        return ers/xr.length;
+        return ers;
     }
     
     /** 

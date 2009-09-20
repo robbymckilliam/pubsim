@@ -51,4 +51,28 @@ public class HexagonalCodeTest {
         
     }
 
+    /**
+     * Test of encode method, of class HexagonalCode.
+     */
+    @Test
+    public void testForAmbiguity() {
+        System.out.println("testAveragePower");
+        int M = 4;
+        HexagonalCode hex = new HexagonalCode(M);
+
+        double[] v = hex.encode(1,1);
+        Complex v11 = new Complex(v[0], v[1]);
+        v = hex.encode(0,3);
+        Complex v03 = new Complex(v[0], v[1]);
+
+        v = hex.encode(2,2);
+        Complex v22 = new Complex(v[0], v[1]);
+        v = hex.encode(1,0);
+        Complex v10 = new Complex(v[0], v[1]);
+
+        System.out.println(v03.divides(v10).abs());
+        System.out.println(v11.divides(v22).abs());
+
+    }
+
 }

@@ -77,13 +77,13 @@ public class RadialLinesRecieverTest {
     public void decodeSymbolsCorrectly() {
         System.out.println("decodeSymbolsCorrectly");
 
-        int N = 10;
+        int N = 3;
         int M = 4;
         RadialLinesReciever rec = new RadialLinesReciever(N, M);
 
         FadingNoisyHex signal = new FadingNoisyHex(N, M);
         signal.setChannel(1.0, 0.0);
-        signal.setNoiseGenerator(new GaussianNoise(0.0, 0.0001));
+        signal.setNoiseGenerator(new GaussianNoise(0.0, 0.0));
 
         signal.generateCodeword();
         signal.generateReceivedSignal();

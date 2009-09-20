@@ -5,8 +5,10 @@
 
 package simulator.qam.hex;
 
+import lattices.LatticeAndNearestPointAlgorithm;
 import simulator.Complex;
 import simulator.Point2;
+import simulator.VectorFunctions;
 
 /**
  * Contains some standard numenclature and useful classes for
@@ -115,6 +117,14 @@ public abstract class LineHexReciever implements HexReciever{
     public void setChannel(Complex h) {
         //do nothing.  This is a noncoherent detector.  The channel will
         //be estimated.
+    }
+
+    public boolean inScaledVor(Complex c){
+        final double r =  hex.getScale();
+        double[] y = {c.re()/r, c.im()/r};
+        hex.getLattice().nearestPoint(y);
+        double[] x = hex.getLattice().getLatticePoint();
+        return VectorFunctions.magnitude(x) < 0.000001;
     }
 
 

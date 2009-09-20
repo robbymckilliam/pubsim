@@ -177,6 +177,17 @@ public final class VectorFunctions {
     }
 
     /**
+     * Return x*s into vector res.
+     * Requires res.length == x.length.
+     */
+    public static void times(Complex[] x, Complex s, Complex[] res) {
+        double[] out = new double[x.length];
+        for (int i = 0; i < x.length; i++) {
+            res[i] = x[i].times(s);
+        }
+    }
+
+    /**
      * vector addition x + y
      */
     public static double[] add(double[] x, double[] y) {
@@ -232,6 +243,17 @@ public final class VectorFunctions {
         }
         return new Complex(outr, outi);
     }
+
+    /**
+     * Convert two double[] into Complex[] y
+     * Requires memory to be previously allocated.
+     */
+    public static void toComplexArray(double[] rreal, double[] rimag, Complex[] y) {
+        for(int n = 0; n < y.length; n++){
+            y[n] = new Complex(rreal[n], rimag[n]);
+        }
+    }
+
 
     /**
      * Return the vector with each element rounded to
@@ -417,6 +439,19 @@ public final class VectorFunctions {
      */
     public static double magnitude(double[] x) {
         return Math.sqrt(sum2(x));
+    }
+
+    /**
+     * Return the magnitude squares of complex vector
+     */
+    public static double magnitude2(Complex[] x) {
+        double m = 0.0;
+        for(int n = 0; n < x.length; n++){
+            double re = x[n].re();
+            double im = x[n].im();
+            m += re*re + im*im;
+        }
+        return m;
     }
 
     /**
@@ -968,6 +1003,16 @@ public final class VectorFunctions {
      */
     public static void fillStart(Object[] x, Object[] f) {
         fillVector(x, f, 0);
+    }
+
+    /** 
+     * Fill all elements of x with val.  This copies references so
+     * it's assuming that val is immutable, be carefull!.
+     */
+    public static void fill(Object[] x, Object val){
+        for(int n = 0; n < x.length; n++){
+            x[n] = val;
+        }
     }
 
     /** 
