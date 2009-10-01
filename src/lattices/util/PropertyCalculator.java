@@ -77,6 +77,30 @@ public class PropertyCalculator {
         }
     }
 
+    /**
+     * Runs with points generated in uniformly (psuedoranomly) in the Voronoi region.
+     * After every "printevery" trials it prints the currently computed second moment
+     * to the screen.  The user must stop this it runs foreever!  blah does nothing.
+     * This is not a very well written class!
+     */
+    public PropertyCalculator(LatticeAndNearestPointAlgorithm L, int printevery, int blah){
+        points = new UniformInVornoi(L, Integer.MAX_VALUE);
+        vol = L.volume();
+        N = L.getDimension();
+        double oldG = 0;
+        int count = 0;
+        while(true){
+            calculateProperty(points.nextElementDouble());
+            count++;
+            if(count == printevery){
+                System.out.println(secondMoment() + ", "
+                        + normalisedSecondMoment() + ", "
+                        + dimensionalessSecondMoment());
+                count = 0;
+            }
+        }
+    }
+
     protected void calculateProperty(double[] p){
         //System.out.println(VectorFunctions.print(p));
         double mag2 = VectorFunctions.sum2(p);

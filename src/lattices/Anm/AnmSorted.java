@@ -8,6 +8,7 @@ package lattices.Anm;
 import lattices.*;
 import Jama.Matrix;
 import java.util.Arrays;
+import lattices.An.AnSorted;
 import simulator.IndexedDouble;
 import simulator.Util;
 
@@ -123,7 +124,14 @@ public class AnmSorted extends NearestPointAlgorithmStandardNumenclature{
     }
 
     public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Lattice an = new AnSorted(n);
+        an.setDimension(n);
+        Matrix Mat = an.getGeneratorMatrix();
+        for(int i = 0; i < n+1; i++){
+            Mat.set(i, n-1, ((double) M)/(n+1));
+        }
+        Mat.set(0, n-1, ((double) M)/(n+1) - 3.0);
+        return Mat;
     }
 
 }

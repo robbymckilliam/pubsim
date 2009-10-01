@@ -5,7 +5,10 @@
 
 package lattices.Anm;
 
+import Jama.Matrix;
 import junit.framework.TestCase;
+import lattices.Lattice;
+import simulator.VectorFunctions;
 
 /**
  *
@@ -26,17 +29,23 @@ public class AnmTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-
-    /**
+        /**
      * Test of nearestPoint method, of class Anm.
      */
-    public void testNearestPoint() {
-        System.out.println("nearestPoint");
-        double[] y = null;
- //       Anm instance = null;
-//        instance.nearestPoint(y);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGeneratorMatrix() {
+        System.out.println("testGeneratorMatrix");
+        int M = 3;
+        int n = 8;
+        Lattice anm = new AnmSorted(M);
+        anm.setDimension(n);
+
+        Matrix Mat = anm.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(Mat));
+
+        double det = Mat.transpose().times(Mat).det();
+        System.out.println(det);
+        System.out.println(anm.volume());
+
     }
 
 }

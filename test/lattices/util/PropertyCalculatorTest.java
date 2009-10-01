@@ -5,6 +5,8 @@
 
 package lattices.util;
 
+import lattices.Anm.AnmLinear;
+import lattices.LatticeAndNearestPointAlgorithm;
 import lattices.Phin2star.Phin2StarZnLLS;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -116,20 +118,39 @@ public class PropertyCalculatorTest {
 //
 //    }
 
+//    /**
+//     * Test of properties for Zn lattice
+//     */
+//    @Test
+//    public void testPhi2Star() {
+//        System.out.println("testPhi2Star");
+//        int N = 6;
+//        //construct a lattice 2Dn
+//
+//        PropertyCalculator prop = new PropertyCalculator(new Phin2StarZnLLS(N), 0.00001);
+//        //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
+//
+//        System.out.println(prop.dimensionalessSecondMoment());
+//        System.out.println(prop.coveringRadius());
+//
+//    }
+
     /**
      * Test of properties for Zn lattice
      */
     @Test
-    public void testPhi2Star() {
-        System.out.println("testPhi2Star");
-        int N = 6;
-        //construct a lattice 2Dn
+    public void testCoxeter() {
+        System.out.println("testCoxeter");
+        int N = 168;
+        int M = 13;
+        LatticeAndNearestPointAlgorithm anm =  new AnmLinear(M);
+        anm.setDimension(N);
 
-        PropertyCalculator prop = new PropertyCalculator(new Phin2StarZnLLS(N), 0.00001);
+        PropertyCalculator prop = new PropertyCalculator(anm, 100000, 0);
         //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 
-        System.out.println(prop.dimensionalessSecondMoment());
-        System.out.println(prop.coveringRadius());
+        //System.out.println(prop.dimensionalessSecondMoment());
+        //System.out.println(prop.coveringRadius());
 
     }
 
