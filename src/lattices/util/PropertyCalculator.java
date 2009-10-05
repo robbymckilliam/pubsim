@@ -5,6 +5,7 @@
 
 package lattices.util;
 
+import java.io.Serializable;
 import lattices.LatticeAndNearestPointAlgorithm;
 import simulator.VectorFunctions;
 
@@ -13,18 +14,26 @@ import simulator.VectorFunctions;
  * moments and the outradius of a lattice.
  * @author Robby McKilliam
  */
-public class PropertyCalculator {
+public class PropertyCalculator implements Serializable{
 
-    private PointEnumerator points;
     private double outradius = Double.NEGATIVE_INFINITY;
     private double sm = 0.0;
-    private double vol, N;
+    private final double vol, N;
     private int numpoints = 0;
+    private final LatticeAndNearestPointAlgorithm L;
 
-    public PropertyCalculator(LatticeAndNearestPointAlgorithm L, int samples){
-        points = new SampledInVoronoi(L, samples);
+    public PropertyCalculator(LatticeAndNearestPointAlgorithm L){
+        this.L = L;
         vol = L.volume();
         N = L.getDimension();
+    }
+
+    /**
+     * Spreads points evenly in Voronoi region to compute moments.
+     * @param samples per dimension
+     */
+    public void evenlySampled(int samples){
+        PointEnumerator points = new SampledInVoronoi(L, samples);
         while(points.hasMoreElements()){
             calculateProperty(points.nextElementDouble());
 
@@ -35,10 +44,8 @@ public class PropertyCalculator {
      * Print percentage complete to System.out while running.  Value of print boolean
      * does not matter.
      */
-    public PropertyCalculator(LatticeAndNearestPointAlgorithm L, int samples, boolean print){
-        points = new SampledInVoronoi(L, samples);
-        vol = L.volume();
-        N = L.getDimension();
+    public void evenlySampledPrintPercentage(int samples){
+        PointEnumerator points = new SampledInVoronoi(L, samples);
         int oldper = 0;
         while(points.hasMoreElements()){
             calculateProperty(points.nextElementDouble());
@@ -58,10 +65,8 @@ public class PropertyCalculator {
      * of calculating the Voronoi region this way is very slow!  If we could somehow compute
      * something above and something below (but both converge) it would be better.
      */
-    public PropertyCalculator(LatticeAndNearestPointAlgorithm L, double tolerance){
-        points = new UniformInVornoi(L, Integer.MAX_VALUE);
-        vol = L.volume();
-        N = L.getDimension();
+    public void uniformWithTolerance(LatticeAndNearestPointAlgorithm L, double tolerance){
+        final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
         double oldG = 0;
         int count = 0;
         while(count < 100){
@@ -79,25 +84,35 @@ public class PropertyCalculator {
 
     /**
      * Runs with points generated in uniformly (psuedoranomly) in the Voronoi region.
-     * After every "printevery" trials it prints the currently computed second moment
-     * to the screen.  The user must stop this it runs foreever!  blah does nothing.
-     * This is not a very well written class!
+     * @param samples number of points generated.
      */
-    public PropertyCalculator(LatticeAndNearestPointAlgorithm L, int printevery, int blah){
-        points = new UniformInVornoi(L, Integer.MAX_VALUE);
-        vol = L.volume();
-        N = L.getDimension();
+    public void uniformlyDistributed(int samples){
+        final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
         double oldG = 0;
         int count = 0;
-        while(true){
+        for(int n = 0; n < samples; n++){
             calculateProperty(points.nextElementDouble());
-            count++;
-            if(count == printevery){
-                System.out.println(secondMoment() + ", "
-                        + normalisedSecondMoment() + ", "
-                        + dimensionalessSecondMoment());
-                count = 0;
+        }
+    }
+
+    /**
+     * Runs with points generated in uniformly (psuedoranomly) in the Voronoi region.
+     * @param samples number of points generated.
+     */
+    public void uniformlyDistributedPrintPercentage(int samples){
+        final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
+        double oldG = 0;
+        int count = 0;
+        int lastpercent = 0;
+        for(int n = 0; n < samples; n++){
+            calculateProperty(points.nextElementDouble());
+
+            int percentComplete = (int)(100*(((double)n)/samples));
+            if( (percentComplete%1) == 0 && percentComplete != lastpercent){
+                System.out.print(percentComplete + "% ");
+                lastpercent = percentComplete;
             }
+
         }
     }
 
@@ -133,6 +148,13 @@ public class PropertyCalculator {
     public double dimensionalessSecondMoment() {
         return normalisedSecondMoment()/N;
     }
+
+
+    /**
+     * Return the computed error, this is not normalised by the number
+     * of iterations actually run.
+     */
+    public double rawError() { return sm; }
 
 
 }

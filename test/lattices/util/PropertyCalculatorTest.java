@@ -141,15 +141,16 @@ public class PropertyCalculatorTest {
     @Test
     public void testCoxeter() {
         System.out.println("testCoxeter");
-        int N = 168;
-        int M = 13;
+        int N = 8;
+        int M = 3;
         LatticeAndNearestPointAlgorithm anm =  new AnmLinear(M);
         anm.setDimension(N);
 
-        PropertyCalculator prop = new PropertyCalculator(anm, 100000, 0);
+        PropertyCalculator prop = new PropertyCalculator(anm);
+        prop.uniformlyDistributed(1000000);
         //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 
-        //System.out.println(prop.dimensionalessSecondMoment());
+        System.out.println(prop.dimensionalessSecondMoment());
         //System.out.println(prop.coveringRadius());
 
     }

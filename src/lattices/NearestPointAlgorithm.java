@@ -6,11 +6,13 @@
 
 package lattices;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Robby McKilliam
  */
-public interface NearestPointAlgorithm {
+public interface NearestPointAlgorithm extends Serializable{
     
     void nearestPoint(double[] y);
     

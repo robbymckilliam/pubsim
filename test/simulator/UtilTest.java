@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static simulator.Util.solveQuadratic;
+import static simulator.Util.logGamma;
 
 /**
  *
@@ -251,6 +252,24 @@ public class UtilTest {
         assertEquals(Util.log2(2), 1.0, 0.0000001);
         assertEquals(Util.log2(4), 2.0, 0.0000001);
         assertEquals(Util.log2(8), 3.0, 0.0000001);
+
+    }
+
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testGamma() {
+        System.out.println("testGamma");
+
+        //compute Zadors bounds for vector quantisation
+        for(int n = 1; n < 100; n++){
+            double lower = Math.exp(2.0*logGamma(n/2.0 + 1.0)/n)/((n+2)*Math.PI);
+
+            double upper = Math.exp(2.0*logGamma(n/2.0 + 1.0)/n + logGamma(2.0/n + 1.0))/n/Math.PI;
+
+            System.out.println(n +" " + upper);
+        }
 
     }
     

@@ -6,12 +6,13 @@
 package lattices;
 
 import Jama.Matrix;
+import java.io.Serializable;
 
 /**
  * Interface for a Lattice
  * @author Robby McKilliam
  */
-public interface Lattice {
+public interface Lattice extends Serializable {
     
     /** 
      * Return the volume of the fundamental region

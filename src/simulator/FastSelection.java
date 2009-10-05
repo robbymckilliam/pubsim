@@ -4,6 +4,7 @@
  */
 package simulator;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -11,7 +12,7 @@ import java.util.Iterator;
  * This runs the fast selection algorithm of Blum, Rivest and Tarjan.
  * @author Robby McKilliam
  */
-public class FastSelection {
+public class FastSelection implements Serializable{
 
     Comparable elem;
     ArrayBackedCollection before, after, largest, smallest;
@@ -290,7 +291,7 @@ public class FastSelection {
      * Collection with an underlying array and an iterator
      * whose start and end points in the array can be modified.
      */
-    public static class ArrayBackedCollection implements Collection{
+    public static class ArrayBackedCollection implements Collection, Serializable{
 
         Object[] a;
         int start, end;
@@ -333,7 +334,7 @@ public class FastSelection {
          * Iterator for ArrayBackedCollection.
          * Moves from a[start] to a[end].
          */
-        public class ArrayBackedCollectionIterator implements Iterator{
+        public class ArrayBackedCollectionIterator implements Iterator, Serializable{
             
             int p;
             

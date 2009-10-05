@@ -5,6 +5,7 @@
 
 package lattices.Anm;
 
+import java.io.Serializable;
 import lattices.Anstar.AnstarVaughan;
 import lattices.*;
 import java.util.Collection;
@@ -247,7 +248,7 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithm {
      * Also a toArray method is included to allow testing
      * before an implementation of fast sorting is made.
      */
-    protected class IndexedDoubleList implements Collection{
+    protected class IndexedDoubleList implements Collection, Serializable{
         protected int size;
         protected ListElem current, first;
         protected IndexedDoubleListIterator itr;
@@ -347,13 +348,13 @@ public class AnmBucket extends AnmSorted implements NearestPointAlgorithm {
     }
     
     /** List element for IntList */
-    protected class ListElem{
+    protected class ListElem implements Serializable{
         protected ListElem next;
         protected IndexedDouble elem;
     }
     
     /** An iterator for IntList */
-    protected class IndexedDoubleListIterator implements Iterator{
+    protected class IndexedDoubleListIterator implements Iterator, Serializable{
         protected ListElem current;
         
         public IndexedDoubleListIterator(IndexedDoubleList list){
