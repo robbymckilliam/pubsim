@@ -127,10 +127,11 @@ public class AnmSorted extends NearestPointAlgorithmStandardNumenclature{
         Lattice an = new AnSorted(n);
         an.setDimension(n);
         Matrix Mat = an.getGeneratorMatrix();
+        double d = ((double) M)/(n+1);
         for(int i = 0; i < n+1; i++){
-            Mat.set(i, n-1, ((double) M)/(n+1));
+            Mat.set(i, n-1, -d);
         }
-        Mat.set(0, n-1, ((double) M)/(n+1) - 3.0);
+        Mat.set(0, n-1, M - d);
         return Mat;
     }
 
