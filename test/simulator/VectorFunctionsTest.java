@@ -163,6 +163,31 @@ public class VectorFunctionsTest extends TestCase {
     }
 
     /**
+     * Test of reflect
+     */
+    public void testReflect() {
+        System.out.println("reflect");
+
+        double[] x = {1,2,3};
+        double[] r = {2,0,0};
+        double[] expResult = {-1,2,3};
+        double[] result = VectorFunctions.reflect(r, x);
+
+        System.out.println("ref = " + print(result));
+
+        VectorFunctionsTest.assertVectorsEqual(expResult,result);
+
+        double[] x1 = {1,0};
+        double[] r1 = {1,1};
+        double[] expResult1 = {0,-1};
+        double[] result1 = VectorFunctions.reflect(r1, x1);
+
+        System.out.println("ref = " + print(result1));
+
+        VectorFunctionsTest.assertVectorsEqual(expResult1,result1);
+    }
+
+    /**
      * Test of add method, of class simulator.VectorFunctions.
      */
     public void testAdd() {

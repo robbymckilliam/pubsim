@@ -18,8 +18,6 @@ import simulator.VectorFunctions;
  * mimics the version of the code that ended up in the final paper.  Otherwise
  * this is very similar to AnmBucket.
  *
- * UNDER CONSTRUCTION.
- *
  * @author Robby McKilliam
  */
 public class AnmLinear extends AnmBucket {
@@ -93,37 +91,24 @@ public class AnmLinear extends AnmBucket {
             }
         }
 
-        //System.out.println(VectorFunctions.print(w));
-
         double D = Double.POSITIVE_INFINITY;
-        //System.out.println("dist = " + D);
         int m = 0, L = 0, R = 0;
         for(int i = 0; i < numBuckets; i++){
 
             R = L + buckets[i].size() - 1;
-
-            //get the first modularly admissble index in the bucket
-            //int j = nearestMultM(k) - k;
-            //int j = M*(int)Math.ceil(((double)k)/M) - k;
+            
             int g = Util.mod(M - Util.mod(k, M), M);
             int p = buckets[i].size() - Util.mod(buckets[i].size() + k, M);
 
-            //System.out.println("g = " + g + ", p = " + p);
-            //System.out.println("bucketsize = " + buckets[i].size());
-
-
+            //This is quickselect2 from the paper.
             if(g >= 0 && g < buckets[i].size())
                 FastSelection.FloydRivestSelect(L, R, L+g, w);
             if(p > g && p < buckets[i].size())
                 FastSelection.FloydRivestSelect(L+g+1, R, L+p, w);
 
-            //System.out.println(VectorFunctions.print(w));
-
-            //
             for(int t = 0; t < buckets[i].size(); t++){
                 if(t == g || t == p){
                     double dist = b - a*a/(n+1);
-                    //System.out.println("dist = " + dist);
                     if(dist < D){
                         D = dist;
                         m = L+t;
@@ -142,20 +127,14 @@ public class AnmLinear extends AnmBucket {
         for(int i = 0; i < n + 1; i++)
             u[i] = Math.round(y[i]);
 
-        //System.out.println("m = " + m);
-
         //add all the buckets before the best on
         for(int t = 0; t < m; t++){
             //System.out.print(w[t].index + ", ");
             u[w[t].index]++;
         }
 
-        //System.out.println(VectorFunctions.print(w));
-
         //project index to nearest lattice point
         AnstarVaughan.project(u, v);
-
-        //System.out.println();
 
     }
     

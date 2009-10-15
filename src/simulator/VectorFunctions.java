@@ -307,6 +307,30 @@ public final class VectorFunctions {
     }
 
     /**
+     * Householder reflection of x about r.  Stores result in y.
+     * Requires
+     */
+    public static void reflect(double[] r, double[] x, double[] y){
+        if((r.length != x.length) || (r.length != y.length))
+            throw new ArrayIndexOutOfBoundsException("r, x, and y are not equal length");
+        double rmag = sum2(r);
+        double alpha = dot(x, r)/rmag;
+        for(int i = 0; i < x.length; i++){
+            y[i] = x[i] - 2*alpha*r[i];
+        }
+    }
+
+    /**
+     * Householder reflection of x about r.  Stores result in y.
+     * Requires
+     */
+    public static double[] reflect(double[] r, double[] x){
+        double[] y = new double[x.length];
+        reflect(r, x, y);
+        return y;
+    }
+
+    /**
      * Return a vector of length N with all elements equal to 1.0
      */
     public static boolean allElementsEqual(double[] x) {

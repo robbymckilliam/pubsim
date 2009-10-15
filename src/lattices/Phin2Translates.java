@@ -54,14 +54,25 @@ public class Phin2Translates implements Lattice {
         double[] g = Phin2Star.getgVector(n+2);
         double sg = Phin2Star.sumg2(n+2);
 
-        int f = (int)Math.ceil((n+2.0)/2.0);
+        int f = (int)Math.ceil((n+2.0)/2.0) - 1;
 
-        for(int i = 0; i < n+2; i++){
-            Mat.set(i, n-1, k*(-1.0/(n+2.0) - g[i]*g[f]/sg));
-            Mat.set(i, n-2, j*(-1.0/(n+2.0) - g[i]*g[f-1]/sg));
+        if(n%2 == 1){
+            for(int i = 0; i < n+2; i++){
+                Mat.set(i, n-1, -j*1.0/(n+2.0) );
+                Mat.set(i, n-2, -k*(1.0/(n+2.0) + g[i]/sg));
+            }
+            Mat.set(f, n-1, j + Mat.get(f, n-1) );
+            Mat.set(f+1, n-2, k + Mat.get(f+1, n-2));
         }
-        Mat.set(f, n-1, k*(1.0 - 1.0/(n+2.0) - g[f]*g[f]/sg));
-        Mat.set(f-1, n-2, j*(1.0 - 1.0/(n+2.0) - g[f-1]*g[f-1]/sg));
+        else{
+            for(int i = 0; i < n+2; i++){
+                Mat.set(i, n-1, -2.0*j/(n+2.0) );
+                Mat.set(i, n-2, -k*(1.0/(n+2.0) + g[i]/sg/2.0));
+            }
+            Mat.set(f, n-1, j + Mat.get(f, n-1) );
+            Mat.set(f+1, n-1, j + Mat.get(f+1, n-1) );
+            Mat.set(f+1, n-2, k + Mat.get(f+1, n-2));
+        }
 
         return Mat;
     }

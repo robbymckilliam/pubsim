@@ -46,13 +46,28 @@ public class Phin2StarTest {
     @Test
     public void testVolume() {
         int n = 20;
-        int a = 3;
+        int a = 2;
 
         Phina dual = new Phina(a, n);
         PhinaStar lat = new PhinaStar(a, n);
         double vol = lat.volume();
         double dvol = dual.volume();
         assertEquals(1.0/dvol, vol, 0.00001);
+    }
+
+    /**
+     * Test derived formula for volume of this lattice.
+     */
+    @Test
+    public void testVolumeFormula() {
+        int n = 5;
+
+        double volf = Math.sqrt(12.0/((n+3)*(n+2)*(n+1)*(n+2)));
+
+        Phin2Star lattice = new Phin2StarSampled(n);
+        double vol = lattice.volume();
+
+        assertEquals(volf, vol, 0.0000000001);
     }
 
 //    /**

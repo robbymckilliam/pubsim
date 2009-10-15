@@ -7,6 +7,7 @@ package lattices;
 
 import Jama.Matrix;
 import simulator.VectorFunctions;
+import simulator.fes.LatticeEstimator;
 
 /**
  * Class for the lattice Phina, ie the integer lattice that is that
@@ -15,9 +16,10 @@ import simulator.VectorFunctions;
  * only the volume method is implemented.
  * @author Robby McKilliam
  */
-public class Phina extends NearestPointAlgorithmStandardNumenclature{
+public class Phina implements Lattice{
     
     protected int a;
+    protected int n;
     
     public Phina(int a){
         this.a = a;
@@ -30,10 +32,6 @@ public class Phina extends NearestPointAlgorithmStandardNumenclature{
 
     public void setDimension(int n) {
         this.n = n;
-    }
-
-    public void nearestPoint(double[] y) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public double volume() {
@@ -77,6 +75,18 @@ public class Phina extends NearestPointAlgorithmStandardNumenclature{
         }
         
         return gen;
+    }
+
+    public double coveringRadius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double centerDensity() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int getDimension() {
+        return n;
     }
     
 
