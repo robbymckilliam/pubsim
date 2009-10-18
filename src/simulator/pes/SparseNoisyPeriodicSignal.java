@@ -26,6 +26,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     protected NoiseGenerator noise;
     protected double T;
     protected int n;
+    protected double phase;
     /** geometic variable for sparse signal */
     protected double p;
     protected Random random;
@@ -44,6 +45,8 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
     public void setPeriod(double T){  this.T = T; }
     public double getPeriod(){ return T; }
+    public void setPhase(double p){  phase = p; }
+    public double getPhase(){ return phase; }
     
     /** {@inheritDoc} */
     public void setLength(int n){
@@ -109,7 +112,8 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
                       "call generateSparseSignal(length) first ");
           
           for(int i = 0; i< transmittedSignal.length; i++){
-              recievedSignal[i] = T * transmittedSignal[i] + noise.getNoise();
+              recievedSignal[i] = T * transmittedSignal[i]
+                                    + noise.getNoise() + phase;
           }
           
           return recievedSignal;

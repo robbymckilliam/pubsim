@@ -12,6 +12,11 @@ public interface PRIEstimator {
      *@since 16-Jun-05.
      */
     public void setSize(int n);
-    public double estimateFreq(double[] y, double fmin, double fmax);
+
     public double varianceBound(double sigma, double[] s);
+
+    /**
+     * Runs the estimator and return the estimated frequency.
+     */
+    public double estimateFreq(double[] y, double fmin, double fmax);
 }

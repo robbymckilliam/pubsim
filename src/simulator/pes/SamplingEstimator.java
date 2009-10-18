@@ -11,7 +11,7 @@ import lattices.Anstar.AnstarBucketVaughan;
  * @author Vaughan Clarkson, 16-Jun-05.
  * Add calculateObjective method, 13-Jan-07.
  */
-public class SamplingEstimator implements PRIEstimator {
+public class SamplingEstimator extends AbstractPhaseAndPeriodEstimator implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
     protected int n;
@@ -50,6 +50,17 @@ public class SamplingEstimator implements PRIEstimator {
     }
 
     @Override
+    public double varianceBound(double sigma, double[] k) {
+	AnstarVaughan.project(k, kappa);
+	double sk = 0;
+	for (int i = 0; i < k.length; i++)
+	    sk += kappa[i] * kappa[i];
+	return sigma * sigma / sk;
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public double estimateFreq(double[] y, double fmin, double fmax) {
 	if (n != y.length)
 	    setSize(y.length);
@@ -83,81 +94,5 @@ public class SamplingEstimator implements PRIEstimator {
 	}
 	return fhat;
     }
-    
-    /** Return the likilhood of the best result */ 
-    public double likelihood(double[] y, double fmin, double fmax) {
-	if (n != y.length)
-	    setSize(y.length);
-	AnstarVaughan.project(y, zeta);
-	double bestL = Double.POSITIVE_INFINITY;
-	double fhat = fmin;
-	double fstep = (fmax - fmin) / NUM_SAMPLES;
-	for (double f = fmin; f <= fmax; f += fstep) {
-	    for (int i = 0; i < n; i++)
-		fzeta[i] = f * zeta[i];
-	    lattice.nearestPoint(fzeta);
-            double[] v = lattice.getLatticePoint();
-	    double sumv2 = 0, sumvz = 0;
-	    for (int i = 0; i < n; i++) {
-		sumv2 += v[i] * v[i];
-		sumvz += v[i] * zeta[i];
-	    }
-	    double f0 = sumv2 / sumvz;
-	    double L = 0;
-	    for (int i = 0; i < n; i++) {
-		double diff = zeta[i] - (v[i] / f0);
-                //double diff = f0*zeta[i] - v[i];
-		L += diff * diff;
-	    }
-	    if (L < bestL) {
-		bestL = L;
-		fhat = f0;
-	    }
-	}
-	return bestL;
-    }
-    
-    /** Return the likilhood of the best result */ 
-    public double[] bestLatticePoint(double[] y, double fmin, double fmax) {
-	if (n != y.length-1)
-	    setSize(y.length);
-        double[] bestv = new double[y.length];
-	AnstarVaughan.project(y, zeta);
-	double bestL = Double.POSITIVE_INFINITY;
-	double fhat = fmin;
-	double fstep = (fmax - fmin) / NUM_SAMPLES;
-	for (double f = fmin; f <= fmax; f += fstep) {
-	    for (int i = 0; i < n; i++)
-		fzeta[i] = f * zeta[i];
-	    lattice.nearestPoint(fzeta);
-            double[] v = lattice.getLatticePoint();
-	    double sumv2 = 0, sumvz = 0;
-	    for (int i = 0; i < n; i++) {
-		sumv2 += v[i] * v[i];
-		sumvz += v[i] * zeta[i];
-	    }
-	    double f0 = sumv2 / sumvz;
-	    double L = 0;
-	    for (int i = 0; i < n; i++) {
-		//double diff = zeta[i] - (v[i] / f0);
-                double diff = f0*zeta[i] - v[i];
-		L += diff * diff;
-	    }
-	    if (L < bestL) {
-		bestL = L;
-		fhat = f0;
-                bestv = v.clone();
-	    }
-	}
-	return bestv;
-    }
 
-    @Override
-    public double varianceBound(double sigma, double[] k) {
-	AnstarVaughan.project(k, kappa);
-	double sk = 0;
-	for (int i = 0; i < k.length; i++)
-	    sk += kappa[i] * kappa[i];
-	return sigma * sigma / sk;
-    }
 }

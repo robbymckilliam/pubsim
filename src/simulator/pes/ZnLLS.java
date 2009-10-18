@@ -17,7 +17,7 @@ import simulator.*;
  * Bresenham line search.
  * @author Robby McKilliam
  */
-public class ZnLLS implements PRIEstimator {
+public class ZnLLS extends AbstractPhaseAndPeriodEstimator implements PRIEstimator {
     
     double[] g, z, v;
     double n;

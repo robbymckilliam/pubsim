@@ -9,7 +9,7 @@ import simulator.*;
 // New method calculatePeriodogram and fixed the Newton iteration
 // steps, 08-Jan-07.
 
-public class PeriodogramEstimator implements PRIEstimator {
+public class PeriodogramEstimator extends AbstractPhaseAndPeriodEstimator implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
     static final int MAX_ITER = 10;

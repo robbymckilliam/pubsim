@@ -403,4 +403,20 @@ import simulator.*;
 	    }
 	}
     }
+
+    public void estimate(double[] y, double fmin, double fmax) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double getPhase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double getFrequency() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double getPeriod() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

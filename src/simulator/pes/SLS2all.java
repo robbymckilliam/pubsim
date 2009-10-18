@@ -75,4 +75,5 @@ public class SLS2all implements PRIEstimator {
 	    sk += kappa[i] * kappa[i];
 	return sigma * sigma / sk;
     }
+
 }

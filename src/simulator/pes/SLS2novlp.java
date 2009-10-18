@@ -69,4 +69,5 @@ public class SLS2novlp implements PRIEstimator {
 	}
 	return 2 * sigma * sigma / sumu2;
     }
+
 }

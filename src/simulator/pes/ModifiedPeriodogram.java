@@ -7,7 +7,7 @@ import simulator.*;
 
 // Written by Vaughan Clarkson, 11-Jan-07 (fork from PeriodogramEstimator).
 
-public class ModifiedPeriodogram implements PRIEstimator {
+public class ModifiedPeriodogram extends AbstractPhaseAndPeriodEstimator implements PRIEstimator {
 
     static final int NUM_SAMPLES = 100;
     static final int MAX_ITER = 10;
@@ -29,6 +29,10 @@ public class ModifiedPeriodogram implements PRIEstimator {
 	    sumui += Math.sin(2 * Math.PI * f * y[i]);
 	}
 	return (N * N - sumur * sumur - sumui * sumui) / (f * f);
+    }
+
+    public void estimate(double[] y, double fmin, double fmax) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public double estimateFreq(double[] y, double fmin, double fmax) {
@@ -105,4 +109,5 @@ public class ModifiedPeriodogram implements PRIEstimator {
 	    sk += kappa[i] * kappa[i];
 	return sigma * sigma / sk;
     }
+
 }
