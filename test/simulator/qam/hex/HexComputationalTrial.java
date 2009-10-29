@@ -31,13 +31,14 @@ public class HexComputationalTrial {
         final int r = 4;
         Vector<Double> timearray = new Vector<Double>();
 
-        int nstart = 4;
-        int nend = 1020;
-        int nstep = 16;
+        int nstart = 3;
+        int nend = 9;
+        int nstep = 1;
 
         for(int n : range(nstart, nend, nstep) ){
 
             final HexReciever rec = new BruteForceHexReciever(n, r);
+            //final HexReciever rec = new RadialLinesReciever(n, r);
             final FadingNoisyHex siggen = new FadingNoisyHex(n, r);
             siggen.setChannel(0.0,1.0);
             final GaussianNoise noise = new GaussianNoise(0.0, 0.001);

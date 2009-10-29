@@ -108,7 +108,7 @@ public class PropertyCalculator implements Serializable{
             calculateProperty(points.nextElementDouble());
 
             int percentComplete = (int)(100*(((double)n)/samples));
-            if( (percentComplete%1) == 0 && percentComplete != lastpercent){
+            if( (percentComplete%10) == 0 && percentComplete != lastpercent){
                 System.out.print(percentComplete + "% ");
                 lastpercent = percentComplete;
             }

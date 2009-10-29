@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
 import java.util.Vector;
+import lattices.An.AnFastSelect;
 import lattices.Anm.AnmLinear;
 import lattices.Anstar.AnstarBucketVaughan;
 import static simulator.Range.range;
@@ -34,12 +35,12 @@ public class LatticeTimingTest {
         Vector<Double> timearray = new Vector<Double>();
 
         int nstart = 4;
-        int nend = 1020;
-        int nstep = 16;
+        int nend = 513;
+        int nstep = 4;
 
         for(int n : range(nstart, nend, nstep) ){
 
-            int M = 1;
+            int M = n/4;
             double[] y = new double[n];
 
             LatticeAndNearestPointAlgorithm lattice = new AnmLinear(M);
@@ -62,7 +63,7 @@ public class LatticeTimingTest {
             //assertTrue(true);
         }
 
-        File file = new File( "AnmLinearm1" );
+        File file = new File( "AnmLinearmnd4" );
         BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
         int count = 0;
         for(int n : range(nstart, nend, nstep)){
