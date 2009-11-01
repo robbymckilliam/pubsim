@@ -24,7 +24,8 @@ public class LeechLarentzianGlued implements LatticeAndNearestPointAlgorithm{
 
     public LeechLarentzianGlued(){
 
-        for(int i = 0; i < 24; i++) g[i] = 2*i + 3;
+        for(int i = 0; i < 23; i++) g[i] = 2*i + 3;
+        g[23] = 51;
         g[24] = -145;
         gmag2 = VectorFunctions.sum2(g);
         for(int i = 0; i < 24; i++) glue[i] = -3*g[i]/gmag2;
