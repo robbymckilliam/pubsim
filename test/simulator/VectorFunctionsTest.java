@@ -476,7 +476,9 @@ public class VectorFunctionsTest extends TestCase {
         assertEquals(true, VectorFunctions.distance_between2(exp2, res2) < 0.00001);
        
     }
-    
+
+
+
     /**
      * Test of maxDistance method, of class simulator.VectorFunctions.
      */
@@ -676,6 +678,17 @@ public class VectorFunctionsTest extends TestCase {
 
     }
 
+    public void testminColumnNorm(){
+        System.out.println("minColumnNorm");
+        double[][] testu = { {1, 1, 1}, {2,1,3} };
+        Matrix M = new Matrix(testu);
+        double exp = minColumnNorn(M);
+        System.out.println(exp);
+
+        assertEquals(2.0, exp, 0.0000001);
+
+    }
+
     public void testOrthogonalise(){
         System.out.println("orthogonalise");
         double[][] testu = { {1, 1, 1, 1, 1}, {1, 2, 3, 4, 5}};
@@ -726,6 +739,51 @@ public class VectorFunctionsTest extends TestCase {
 
     }
 
-   
+
+    /**
+     * Returns polynomials of the for 1 - x^d
+     * @param d
+     * @return
+     */
+    public double[] diffPoly(int d){
+        if(d < 1)
+            throw new RuntimeException("d must be greater than 1");
+        double[] v = new double[d+1];
+        v[0] = 1;
+        v[d] = -1;
+        return v;
+    }
+
+    /**
+     * Test of increasing method, of class simulator.VectorFunctions.
+     */
+    public void testPolyDiffConv() {
+        System.out.println("PolyDiffConv");
+
+        double[] v = diffPoly(1);
+        System.out.print(print(v));
+        System.out.println("  norm = " + sum2(v));
+        v = conv(v, diffPoly(2));
+        System.out.print(print(v));
+        System.out.println("  norm = " + sum2(v));
+        v = conv(v, diffPoly(3));
+        System.out.print(print(v));
+        System.out.println("  norm = " + sum2(v));
+        v = conv(v, diffPoly(5));
+        System.out.print(print(v));
+        System.out.println("  norm = " + sum2(v));
+        v = conv(v, diffPoly(7));
+        System.out.print(print(v));
+        System.out.println("  norm = " + sum2(v));
+        v = conv(v, diffPoly(8));
+        System.out.print(print(v));
+        System.out.println("  norm = " + sum2(v));
+        for(int i = 1; i < 60; i++){
+            double[] vv = conv(v, diffPoly(i));
+            System.out.print(print(vv));
+            System.out.println("  norm = " + sum2(vv));
+        }
+    }
+
     
 }

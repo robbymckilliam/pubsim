@@ -65,7 +65,7 @@ public class PhinaTest {
         System.out.println("generatorMatrix");
 
         int n = 10;
-        int a = 2;
+        int a = 3;
 
         Phina instance = new Phina(a, n);
         Matrix M = instance.getGeneratorMatrix();

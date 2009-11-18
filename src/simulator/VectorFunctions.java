@@ -812,6 +812,22 @@ public final class VectorFunctions {
         return x;
     }
 
+    /**
+     * Return the norm of the column vector of
+     * smallest norm.  Norm is sum of squares.
+     */
+    public static double minColumnNorn(Matrix M){
+       double min = Double.POSITIVE_INFINITY;
+       for(int n = 0; n < M.getColumnDimension(); n++){
+           double sum2 = 0.0;
+           for(int m = 0; m < M.getRowDimension(); m++){
+               sum2 += M.get(m,n)*M.get(m,n);
+           }
+           if(sum2 < min) min = sum2;
+       }
+       return min;
+    }
+
    /**
      * returns the vector  x - round(x)
      */
