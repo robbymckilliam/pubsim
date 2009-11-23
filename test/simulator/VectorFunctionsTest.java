@@ -778,7 +778,7 @@ public class VectorFunctionsTest extends TestCase {
         v = conv(v, diffPoly(8));
         System.out.print(print(v));
         System.out.println("  norm = " + sum2(v));
-        for(int i = 1; i < 60; i++){
+        for(int i = 1; i < 30; i++){
             double[] vv = conv(v, diffPoly(i));
             System.out.print(print(vv));
             System.out.println("  norm = " + sum2(vv));

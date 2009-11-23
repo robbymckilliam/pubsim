@@ -234,4 +234,45 @@ public final class Util {
     public static double gamma(double x) {
         return Math.exp(logGamma(x));
     }
+
+    /**
+     * Volume of hypersphere of radiis 1
+     */
+    public static double hyperSphereVolume(int n){
+        return Math.exp(logHyperSphereVolume(n));
+    }
+
+    /**
+     * Natural logarithm of the volume of hypersphere of radiis 1
+     */
+    public static double logHyperSphereVolume(int n){
+        if( n%2 == 0 ){
+            double lnumer = n/2.0 * Math.log(Math.PI);
+            double ldenom = 0.0;
+            for(int i = 1; i <= n/2; i++) ldenom += Math.log(i);
+            return lnumer - ldenom;
+        }else{
+            double lnumer = n*Math.log(2) + (n-1)/2 * Math.log(Math.PI);
+            for(int i = 1; i <= (n-1)/2; i++) lnumer += Math.log(i);
+            double ldenom = 0.0;
+            for(int i = 1; i <= n; i++) ldenom += Math.log(i);
+            return lnumer - ldenom;
+        }
+    }
+
+    /**
+     * Log base 2 of the volume of hypersphere of radiis 1
+     */
+    public static double log2HyperSphereVolume(int n){
+        double e = Math.exp(1);
+        return logHyperSphereVolume(n)/log2(e);
+    }
+
+    /**
+     * Log base 2 of the volume of hypersphere of radiis 1
+     */
+    public static double pow2(double d){
+        return Math.pow(d, 2);
+    }
+
 }

@@ -272,5 +272,22 @@ public class UtilTest {
         }
 
     }
-    
+
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testHyperSohereVolume() {
+        System.out.println("test hypersphere volume");
+
+        assertEquals(2.0, Util.hyperSphereVolume(1), 0.0001);
+        assertEquals(Math.PI, Util.hyperSphereVolume(2), 0.0001);
+        assertEquals(4.18879, Util.hyperSphereVolume(3), 0.0001);
+        assertEquals(4.93480, Util.hyperSphereVolume(4), 0.0001);
+        assertEquals(5.26379, Util.hyperSphereVolume(5), 0.0001);
+        assertEquals(5.16771, Util.hyperSphereVolume(6), 0.0001);
+        assertEquals(4.72477, Util.hyperSphereVolume(7), 0.0001);
+        assertEquals(4.05871, Util.hyperSphereVolume(8), 0.0001);
+
+    }
 }

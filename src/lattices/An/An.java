@@ -15,7 +15,7 @@ import simulator.Util;
  * and n is the dimension.
  * @author Robby McKilliam
  */
-public abstract class An implements LatticeAndNearestPointAlgorithm {
+public abstract class An extends LatticeAndNearestPointAlgorithm {
 
     protected double[] u;
     protected int n;
@@ -37,16 +37,13 @@ public abstract class An implements LatticeAndNearestPointAlgorithm {
         return Math.sqrt(n+1);
     }
 
+    @Override
    public double inradius() {
         return Math.sqrt(2)/2.0;
     }
 
     public int getDimension() {
         return n;
-    }
-
-    public double centerDensity(){
-        return Math.pow(inradius(), getDimension())/volume();
     }
 
     /**
@@ -63,7 +60,7 @@ public abstract class An implements LatticeAndNearestPointAlgorithm {
     public Matrix getGeneratorMatrixBig() {
         Matrix B = Matrix.identity(n+1, n+1);
         for(int i = 0; i < n+1; i++)
-            B.set(Util.mod(i, n+1), Util.mod(i+1, n+1), -1.0);
+            B.set(Util.mod(i+1, n+1), Util.mod(i, n+1), -1.0);
         return B;
     }
 
@@ -90,6 +87,11 @@ public abstract class An implements LatticeAndNearestPointAlgorithm {
     @Override
     public double coveringRadius(){
         throw new UnsupportedOperationException("Covering radius not supported");
+    }
+
+    @Override
+    public double kissingNumber() {
+        return n*(n+1);
     }
 
 }

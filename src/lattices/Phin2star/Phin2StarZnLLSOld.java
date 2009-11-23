@@ -245,10 +245,6 @@ public class Phin2StarZnLLSOld extends Phin2Star implements NearestPointAlgorith
         project(u, v);
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public double volume(){ return 0;}
-    
     /** 
      * Sets protected variable g to the glue
      * vector [i].  See SPLAG pp109.

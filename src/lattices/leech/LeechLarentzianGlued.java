@@ -8,13 +8,14 @@ package lattices.leech;
 import Jama.Matrix;
 import lattices.LatticeAndNearestPointAlgorithm;
 import lattices.Zn;
+import simulator.Util;
 import simulator.VectorFunctions;
 
 /**
  *
  * @author Robby McKilliam
  */
-public class LeechLarentzianGlued implements LatticeAndNearestPointAlgorithm{
+public class LeechLarentzianGlued extends LatticeAndNearestPointAlgorithm{
 
     protected final double[] u = new double[25];
     protected final double[] v = new double[25];
@@ -102,10 +103,6 @@ public class LeechLarentzianGlued implements LatticeAndNearestPointAlgorithm{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public double centerDensity() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public void setDimension(int n) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -120,7 +117,6 @@ public class LeechLarentzianGlued implements LatticeAndNearestPointAlgorithm{
         Matrix P = p.times(p.transpose()).times(1.0/gmag2);
         return I.minus(P).getMatrix(0,24,0,23);
     }
-
 
 
 }

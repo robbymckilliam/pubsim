@@ -47,10 +47,6 @@ public abstract class Phin2Star extends NearestPointAlgorithmStandardNumenclatur
             y[i] = y[i] - dot/sumn2 * (i+1-nbar);
     }
     
-    public double inradius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
     public Matrix getGeneratorMatrix() {      
         return getGeneratorMatrix(n);      
     }

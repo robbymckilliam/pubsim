@@ -77,8 +77,8 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
 
         //System.out.println("B = \n" + VectorFunctions.print(B));
         
-        //Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
-        //System.out.println("R = \n" + VectorFunctions.print(QR.getR()));
+        Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
+        System.out.println("R = \n" + VectorFunctions.print(QR.getR()));
         decoder = new SphereDecoder(new GeneralLattice(
                 B.getMatrix(0,B.getRowDimension()-1, 0, N-3)));
         

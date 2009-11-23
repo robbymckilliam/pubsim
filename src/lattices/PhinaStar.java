@@ -7,6 +7,7 @@
 package lattices;
 
 import Jama.Matrix;
+import lattices.decoder.ShortestVector;
 import simulator.VectorFunctions;
 
 /**
@@ -159,15 +160,6 @@ public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
     public double volume(){
         Matrix M = getGeneratorMatrix();
         return Math.sqrt(M.transpose().times(M).det());
-    }
-    
-    /** 
-     * Return the inradius for Phina*.  This is not proven to
-     * be the inradius.  However, it is reasonably simple to
-     * select a lower bound on the inradius.
-     */
-    public double inradius(){
-        return 0.0;
     }
         
     

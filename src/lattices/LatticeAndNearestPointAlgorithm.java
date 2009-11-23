@@ -9,7 +9,7 @@ package lattices;
  *
  * @author Robby McKilliam
  */
-public interface LatticeAndNearestPointAlgorithm 
-    extends Lattice, NearestPointAlgorithm {
+public abstract class LatticeAndNearestPointAlgorithm extends AbstractLattice
+    implements NearestPointAlgorithm {
 
 }

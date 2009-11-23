@@ -37,6 +37,40 @@ public interface Lattice extends Serializable {
      */
     double centerDensity();
 
+    /*
+     * Return the log of the center density:
+     * inradius^n / volume;
+     */
+    double logCenterDensity();
+
+    /*
+     * Natural logarithm of the sphere packing density
+     */
+    double logPackingDensity();
+
+    /*
+     * Sphere packing density.
+     */
+    double packingDensity();
+
+    /*
+     * Coding bound.  This is the probability of error estimate
+     * given by Conway and Sloane SPLAG page 71.
+     */
+    double probCodingError(double S);
+
+    /**
+     * This is Conway and Sloane's approximation for high SNR
+     * probability of error in lattice coding.  Returrns log
+     * base 10 of the probability of error.
+     */
+    public double log10ProbCodingError(double S);
+
+     /*
+     * The number of short vectors in the lattice.
+     */
+    double kissingNumber();
+
     /**
      * Set/reset the dimension of this lattice.
      * There are reasonable arguments for this method being deprecated

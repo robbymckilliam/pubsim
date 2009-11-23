@@ -171,15 +171,4 @@ public class PhinaStarEfficient extends PhinaStar {
         return ret;
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public double inradius(){
-        double r2 = 1.0;
-        for(int i = 1; i <= a; i ++){
-            double[] tg = getg(i);
-            r2 -= tg[0]*tg[0]/VectorFunctions.sum2(tg);
-        }
-        return Math.sqrt(r2)/2.0;
-    }
-    
 }

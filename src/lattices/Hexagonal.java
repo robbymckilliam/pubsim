@@ -15,8 +15,7 @@ import static simulator.VectorFunctions.round;
  * @author Robby McKilliam
  */
 public class Hexagonal 
-        extends NearestPointAlgorithmStandardNumenclature
-        implements LatticeAndNearestPointAlgorithm{
+        extends NearestPointAlgorithmStandardNumenclature {
 
     private final double sqrt3 = Math.sqrt(3);
     private final Matrix M, Minv;
@@ -29,6 +28,7 @@ public class Hexagonal
         Minv = M.inverse();
     }
 
+    @Override
     public final double inradius() {
         return 1.0/2.0;
     }

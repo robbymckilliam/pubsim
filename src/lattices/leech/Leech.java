@@ -6,28 +6,27 @@
 package lattices.leech;
 
 import Jama.Matrix;
-import lattices.Lattice;
+import lattices.AbstractLattice;
+import simulator.Util;
 
 /**
  * Standard, unimodular, self-dual representation of the Leech lattice.
  * See page 133 of SPLAG.
  * @author harprobey
  */
-public class Leech implements Lattice{
+public class Leech extends AbstractLattice{
 
+    @Override
     public double volume() {
         return 1.0;
     }
 
+    @Override
     public double inradius() {
         return 1.0;
     }
 
     public double coveringRadius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double centerDensity() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -71,6 +70,10 @@ public class Leech implements Lattice{
 
     public Matrix getGeneratorMatrix() {
         return mat;
+    }
+
+    public double kissingNumber(){
+        return 196560;
     }
 
 }

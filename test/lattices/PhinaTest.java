@@ -47,13 +47,18 @@ public class PhinaTest {
     public void volume() {
         System.out.println("volume");
         
-        int n = 30;
-        int a = 1;
+        int n = 20;
+        int a = 3;
         
         Phina instance = new Phina(a, n);
-        double expResult = Math.sqrt(n+1);
+
+        Matrix gen = instance.getGeneratorMatrix();
+        //System.out.println(VectorFunctions.print(gen));
+        Matrix gram = gen.transpose().times(gen);
+        double expResult = Math.sqrt(gram.det());
+        
         double result = instance.volume();
-        assertEquals(true, Math.abs(expResult-result)<0.00001);
+        assertEquals(expResult, result, 0.001);
 
     }
 

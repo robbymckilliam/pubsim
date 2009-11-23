@@ -7,6 +7,7 @@
 package lattices;
 
 import Jama.Matrix;
+import simulator.Util;
 
 /**
  * Nearest point algorithm for the square lattice Zn.
@@ -14,7 +15,7 @@ import Jama.Matrix;
  * for completeness.
  * @author Robby McKilliam
  */
-public class Zn implements LatticeAndNearestPointAlgorithm {
+public class Zn extends LatticeAndNearestPointAlgorithm {
     
     protected double[] x;
     protected int n;
@@ -48,6 +49,7 @@ public class Zn implements LatticeAndNearestPointAlgorithm {
     @Override
     public double volume(){ return 1.0;}
 
+    @Override
     public double inradius() {
         return 1.0;
     }
@@ -56,8 +58,9 @@ public class Zn implements LatticeAndNearestPointAlgorithm {
         return n;
     }
 
-    public double centerDensity() {
-        return 1.0;
+    @Override
+    public double kissingNumber() {
+        return 2*n;
     }
 
     public Matrix getGeneratorMatrix() {
@@ -65,7 +68,7 @@ public class Zn implements LatticeAndNearestPointAlgorithm {
     }
 
     public double coveringRadius() {
-        return Math.sqrt(0.5);
+        return Math.sqrt(0.5*n);
     }
     
 }

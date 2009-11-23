@@ -11,8 +11,7 @@ import simulator.VectorFunctions;
  * method described by Conway and Sloane.
  * @author Robby McKilliam
  */
-public class AnSorted extends An
-        implements LatticeAndNearestPointAlgorithm{
+public class AnSorted extends An {
 
     protected IndexedDouble[] z;
 

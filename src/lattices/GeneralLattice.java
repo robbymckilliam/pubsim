@@ -6,13 +6,16 @@
 package lattices;
 
 import Jama.Matrix;
+import lattices.decoder.ShortestVector;
+import simulator.Util;
+import simulator.VectorFunctions;
 
 /**
  * Class that represents a lattice with arbitrary
  * generator matrix.
  * @author Robby McKilliam
  */
-public class GeneralLattice implements Lattice{
+public class GeneralLattice extends AbstractLattice{
 
     /** The generator matrix for the lattice */
     protected Matrix B;
@@ -30,18 +33,6 @@ public class GeneralLattice implements Lattice{
 
     public Matrix getGeneratorMatrix() {
         return B;
-    }
-
-    public double volume() {
-        return Math.sqrt((B.transpose().times(B)).det());
-    }
-
-    public double inradius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double centerDensity() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void setDimension(int n) {

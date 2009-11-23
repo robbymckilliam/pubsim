@@ -7,13 +7,14 @@ package lattices;
 
 import Jama.Matrix;
 import lattices.Phin2star.Phin2Star;
+import simulator.Util;
 
 /**
  * Lattices that lie between the frequency estimation lattice and
  * it's dual.
  * @author Robby McKilliam
  */
-public class Phin2Translates implements Lattice {
+public class Phin2Translates extends AbstractLattice {
 
     protected final int n, j, k;
 
@@ -23,20 +24,7 @@ public class Phin2Translates implements Lattice {
         this.k = k;
     }
 
-    public double volume() {
-        Matrix B = getGeneratorMatrix();
-        return Math.sqrt((B.transpose().times(B)).det());
-    }
-
-    public double inradius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public double coveringRadius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double centerDensity() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

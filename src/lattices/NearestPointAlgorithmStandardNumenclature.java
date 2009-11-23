@@ -9,6 +9,7 @@ import lattices.Anm.AnmBucket;
 import Jama.Matrix;
 import java.util.Date;
 import java.util.Random;
+import simulator.Util;
 
 /**
  * Abstract class for Nearest point algorithms.  You are not required
@@ -21,7 +22,7 @@ import java.util.Random;
  * @author Robby McKilliam
  */
 public abstract class NearestPointAlgorithmStandardNumenclature
-    implements LatticeAndNearestPointAlgorithm{
+    extends LatticeAndNearestPointAlgorithm{
     
     /** The dimension of the lattice */
     protected int n;
@@ -47,14 +48,6 @@ public abstract class NearestPointAlgorithmStandardNumenclature
     @Override
     public double coveringRadius(){
         throw new UnsupportedOperationException("Covering radius not supported");
-    }
-    
-    /*
-     * Return the center density:
-     * inradius^n / volume;
-     */
-    public double centerDensity(){
-        return Math.pow(inradius(), getDimension())/volume();
     }
     
     /** 
@@ -116,11 +109,6 @@ public abstract class NearestPointAlgorithmStandardNumenclature
         
         //assertTrue(true);
         
-    }
-
-    public double volume() {
-        Matrix B = getGeneratorMatrix();
-        return Math.sqrt((B.transpose().times(B)).det());
     }
 
 }

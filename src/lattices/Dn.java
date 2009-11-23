@@ -8,7 +8,7 @@ import simulator.Util;
  * Nearest point algorithm for the lattice Dn.
  * @author Robby McKilliam
  */
-public class Dn implements LatticeAndNearestPointAlgorithm{
+public class Dn extends LatticeAndNearestPointAlgorithm{
 
     double[] u;
     int n;
@@ -64,15 +64,6 @@ public class Dn implements LatticeAndNearestPointAlgorithm{
     @Override
     public double volume() {
         return 2.0;
-    }
-
-    public double inradius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-
-    public double centerDensity() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Matrix getGeneratorMatrix() {

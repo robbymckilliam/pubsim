@@ -6,8 +6,9 @@
 package lattices;
 
 import Jama.Matrix;
+import lattices.decoder.ShortestVector;
+import simulator.Util;
 import simulator.VectorFunctions;
-import simulator.fes.LatticeEstimator;
 
 /**
  * Class for the lattice Phina, ie the integer lattice that is that
@@ -16,7 +17,7 @@ import simulator.fes.LatticeEstimator;
  * only the volume method is implemented.
  * @author Robby McKilliam
  */
-public class Phina implements Lattice{
+public class Phina extends AbstractLattice{
     
     protected int a;
     protected int n;
@@ -34,26 +35,43 @@ public class Phina implements Lattice{
         this.n = n;
     }
 
+    @Override
     public double volume() {
+
+        Matrix V = new Matrix(a,a);
+        for(int m = 0; m < a; m++){
+            for(int j = m; j < a; j++){
+                double s = 0;
+                for(int i = 1; i <= n+a; i++){
+                    s += Math.pow(i, m)*Math.pow(i, j);
+                }
+                V.set(m, j, s);
+                V.set(j, m, s);
+            }
+        }
+
+//        System.out.println(VectorFunctions.print(V));
+
+        double p = 1.0;
+        for(int k = 0; k < a; k++){
+            p *= Util.factorial(k);
+        }
         
-        Matrix gen = getGeneratorMatrix();
-        
-        //System.out.println(VectorFunctions.print(gen));
-        
-        Matrix gram = gen.transpose().times(gen);
-        
-        return Math.sqrt(gram.det());
-                
+        return Math.sqrt(V.det())/p;
     }
 
-    /** 
-     * This is lower bound on the inradius that is 
-     * valid when n+a is prime and a is less than (n+a)/2.
-     * This is the same as the bound on the Craig lattices.
-     * See page 222-224 of SPLAG.
-     */   
+    /**
+     * Inradius is known for sufficiently large n and a less than 7.
+     * Otherwise compute it by brute force.
+     */
+    @Override
     public double inradius() {
-        return Math.sqrt(2*a)/2.0;
+        if(a > 6 || n < 27){
+            ShortestVector sv = new ShortestVector(this);
+            double norm = VectorFunctions.sum2(sv.getShortestVector());
+            return Math.sqrt(norm)/2.0;
+        }
+        else return Math.sqrt(2*a)/2.0;
     }
 
     public Matrix getGeneratorMatrix() {
@@ -81,8 +99,12 @@ public class Phina implements Lattice{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public double centerDensity() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * Using n^2 as an approximation.  Really it's not this.
+     */
+    @Override
+    public double kissingNumber() {
+        return n*n;
     }
 
     public int getDimension() {
