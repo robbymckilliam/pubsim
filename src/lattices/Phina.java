@@ -63,6 +63,8 @@ public class Phina extends AbstractLattice{
     /**
      * Inradius is known for sufficiently large n and a less than 7.
      * Otherwise compute it by brute force.
+     * The inradius is always greater that 2a.  This is due to a result
+     * about the Tarry-Eschott problem.
      */
     @Override
     public double inradius() {
@@ -97,14 +99,6 @@ public class Phina extends AbstractLattice{
 
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Using n^2 as an approximation.  Really it's not this.
-     */
-    @Override
-    public double kissingNumber() {
-        return n*n;
     }
 
     public int getDimension() {

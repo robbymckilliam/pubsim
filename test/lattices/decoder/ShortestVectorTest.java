@@ -5,14 +5,13 @@
 
 package lattices.decoder;
 
-import lattices.An.AnFastSelect;
+import lattices.Fermat;
 import lattices.Phina;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import static simulator.VectorFunctions.print;
 import static simulator.VectorFunctions.sum2;
 
@@ -60,13 +59,28 @@ public class ShortestVectorTest {
     @Test
     public void testGetShortestVectorPhi() {
         System.out.println("getShortestVector Phi");
-        int n = 8;
-        int a = 4;
-        ShortestVector sv = new ShortestVector(new Phina(a, n));
+        int n = 78;
+        int a = 7;
+        ShortestVector sv = new ShortestVector(new Phina(a, n), 14);
         System.out.println(print(sv.getShortestVector()));
         System.out.println(print(sv.getShortestIndex()));
         System.out.println(sum2(sv.getShortestVector()));
 
     }
+
+//        /**
+//     * Test of getShortestVector method, of class ShortestVector.
+//     */
+//    @Test
+//    public void testGetShortestVectorFermat() {
+//        System.out.println("getShortestVector Fermat");
+//        int n = 55;
+//        int a = 2;
+//        ShortestVector sv = new ShortestVector(new Fermat(n,a));
+//        System.out.println(print(sv.getShortestVector()));
+//        System.out.println(print(sv.getShortestIndex()));
+//        System.out.println(sum2(sv.getShortestVector()));
+//
+//    }
 
 }

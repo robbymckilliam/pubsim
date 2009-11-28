@@ -90,7 +90,7 @@ public abstract class An extends LatticeAndNearestPointAlgorithm {
     }
 
     @Override
-    public double kissingNumber() {
+    public long kissingNumber() {
         return n*(n+1);
     }
 

@@ -72,7 +72,7 @@ public class Leech extends AbstractLattice{
         return mat;
     }
 
-    public double kissingNumber(){
+    public long kissingNumber(){
         return 196560;
     }
 

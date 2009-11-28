@@ -25,20 +25,23 @@ public class LatticeDensityPlots {
 
 
         int nstart = 1;
-        int nend = 1001;
+        int nend = 60;
         int nstep = 1;
         Vector<Double> density = new Vector<Double>();
 
-        int a = 6;
+        int a = 7;
         for(int n : range(nstart, nend, nstep) ){
             Lattice L = new Phina(a, n);
+            //Lattice L = new Craig(n, a);
             //double d = L.logCenterDensity();
-            double d = L.logPackingDensity();
+            //double d = L.inradius();
+            //double d = L.logPackingDensity();
+            double d = L.kissingNumber();
             density.add(d);
             System.out.println(n + ", " + d);
         }
 
-        File file = new File( "PhinPacking" + a );
+        File file = new File( "Craig" + a + "_cdensity" );
         BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
         int count = 0;
         for(int n : range(nstart, nend, nstep)){

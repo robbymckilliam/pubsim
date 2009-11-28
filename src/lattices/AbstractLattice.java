@@ -6,6 +6,7 @@
 package lattices;
 
 import Jama.Matrix;
+import lattices.decoder.KissingNumber;
 import lattices.decoder.ShortestVector;
 import simulator.VectorFunctions;
 import static simulator.Util.log2;
@@ -73,11 +74,12 @@ public abstract class AbstractLattice implements Lattice {
     }
 
     /**
-     * This is under construction.  Can be implemented by sphere decoding
-     * Lattices with known sphere decoders can override this.
+     * By default this brute forces the kissing number by sphere decoding.
+     * Lattices with known kissing numbers can override this.
      */
-    public double kissingNumber() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public long kissingNumber() {
+        lattices.decoder.KissingNumber k = new KissingNumber(this);
+        return k.kissingNumber();
     }
 
 }

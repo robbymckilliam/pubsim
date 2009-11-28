@@ -59,7 +59,7 @@ public class Zn extends LatticeAndNearestPointAlgorithm {
     }
 
     @Override
-    public double kissingNumber() {
+    public long kissingNumber() {
         return 2*n;
     }
 

@@ -69,7 +69,7 @@ public interface Lattice extends Serializable {
      /*
      * The number of short vectors in the lattice.
      */
-    double kissingNumber();
+    long kissingNumber();
 
     /**
      * Set/reset the dimension of this lattice.

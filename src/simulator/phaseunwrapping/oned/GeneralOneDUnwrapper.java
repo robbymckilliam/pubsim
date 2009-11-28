@@ -75,7 +75,7 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
         Matrix PtPinv = Pt.times(P).inverse();
         B = Y.minus(P.times(PtPinv).times(Pt).times(Y));
 
-        //System.out.println("B = \n" + VectorFunctions.print(B));
+        System.out.println("B = \n" + VectorFunctions.print(B));
         
         Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
         System.out.println("R = \n" + VectorFunctions.print(QR.getR()));
