@@ -6,6 +6,7 @@
 package simulator;
 
 import Jama.Matrix;
+import distributions.NoiseGenerator;
 import java.util.Date;
 import java.util.Random;
 import rngpack.Ranlux;
@@ -121,6 +122,19 @@ public final class VectorFunctions {
             out += x[i].minus(s[i]).abs2();
         }
         return out;
+    }
+
+    /**
+     * Generate m x n matrix with random elements taken from given distribution.
+     */
+    public static Matrix randomMatrix(int m, int n, NoiseGenerator noise){
+        Matrix M = new Matrix(m, n);
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                M.set(i,j, noise.getNoise());
+            }
+        }
+        return M;
     }
 
     /**

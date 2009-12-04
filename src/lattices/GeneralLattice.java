@@ -15,7 +15,7 @@ import simulator.VectorFunctions;
  * generator matrix.
  * @author Robby McKilliam
  */
-public class GeneralLattice extends AbstractLattice{
+public class GeneralLattice extends LatticeAndNearestPointAlgorithm {
 
     /** The generator matrix for the lattice */
     protected Matrix B;
@@ -44,6 +44,18 @@ public class GeneralLattice extends AbstractLattice{
     }
 
     public double coveringRadius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void nearestPoint(double[] y) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double[] getLatticePoint() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double[] getIndex() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
