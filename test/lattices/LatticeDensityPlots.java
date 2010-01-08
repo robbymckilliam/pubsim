@@ -29,7 +29,7 @@ public class LatticeDensityPlots {
         int nstep = 1;
         Vector<Double> density = new Vector<Double>();
 
-        int a = 7;
+        int a = 3;
         for(int n : range(nstart, nend, nstep) ){
             Lattice L = new Phina(a, n);
             //Lattice L = new Craig(n, a);
@@ -38,7 +38,7 @@ public class LatticeDensityPlots {
             //double d = L.logPackingDensity();
             double d = L.kissingNumber();
             density.add(d);
-            System.out.println(n + ", " + d);
+            System.out.println(n + ", " + d + " , " + kissingIn2(n+a));
         }
 
         File file = new File( "Craig" + a + "_cdensity" );
@@ -54,5 +54,13 @@ public class LatticeDensityPlots {
 
     }
 
+    public static int kissingIn2(int n){
+        int d = n/2; //integer round is implicit.
+        int sum = 0;
+        for(int i = 2; i <= d; i++){
+            sum += i*(i-1)*(n-2*i);
+        }
+        return 2*sum;
+    }
 
 }

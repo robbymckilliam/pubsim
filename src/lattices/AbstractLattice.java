@@ -36,6 +36,7 @@ public abstract class AbstractLattice implements Lattice {
     public double packingDensity() {
         return pow2(logPackingDensity());
     }
+    
 
     /** 
      * This is Conway and Sloane's approximation for high SNR

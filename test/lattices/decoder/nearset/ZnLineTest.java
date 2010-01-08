@@ -7,6 +7,7 @@ package lattices.decoder.nearset;
 
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
+import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import simulator.VectorFunctions;
 import simulator.VectorFunctionsTest;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -44,7 +46,7 @@ public class ZnLineTest {
      * Test of getLatticePoint method, of class ZnLine.
      */
     @Test
-    public void testGetLatticePoint() {
+    public void testGetLatticePointAn() {
         System.out.println("testAsNearestPointAn*");
 
         for(int i = 0; i < 1000; i++){
@@ -63,6 +65,31 @@ public class ZnLineTest {
             Anstar.project(zn.getLatticePoint(), yp);
 
             VectorFunctionsTest.assertVectorsEqual(yp, anstar.getLatticePoint());
+
+        }
+
+    }
+
+        /**
+     * Test of getLatticePoint method, of class ZnLine.
+     */
+    @Test
+    public void testGetLatticePointSampled() {
+        System.out.println("testAsNearestPointSampled");
+
+        for(int i = 0; i < 1000; i++){
+
+            int N = 51;
+            double[] c = VectorFunctions.randomGaussian(N, 10, 100);
+            double[] y = VectorFunctions.randomGaussian(N, 0.0, 1.0);
+            double rmin = -10;
+            double rmax = 11.0;
+
+            ZnLine zn = new ZnLine(y, c, rmin, rmax);
+            SampledLine smp = new SampledLine(y, c, rmin, rmax, 5000, new Zn(N));
+
+            VectorFunctionsTest.assertVectorsEqual(zn.getLatticePoint(), smp.getLatticePoint());
+            assertEquals(smp.getLambda(), zn.getLambda(), 0.00001);
 
         }
 

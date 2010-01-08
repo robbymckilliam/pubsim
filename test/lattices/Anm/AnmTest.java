@@ -12,6 +12,7 @@ import lattices.Lattice;
 import lattices.LatticeAndNearestPointAlgorithm;
 import simulator.VectorFunctions;
 import simulator.VectorFunctionsTest;
+import static org.junit.Assert.*;
 
 /**
  *

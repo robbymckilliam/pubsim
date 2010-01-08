@@ -70,5 +70,9 @@ public class Zn extends LatticeAndNearestPointAlgorithm {
     public double coveringRadius() {
         return Math.sqrt(0.5*n);
     }
+
+    public double effectiveCodingGain(double SNR){
+        return 0;
+    }
     
 }
