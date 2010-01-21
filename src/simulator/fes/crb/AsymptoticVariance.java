@@ -8,7 +8,8 @@ package simulator.fes.crb;
 import distributions.circular.ProjectedNormalDistribution;
 
 /**
- *
+ * Asymptotic variance of the least squares phase unwrapping
+ * algorithm.
  * @author robertm
  */
 public class AsymptoticVariance implements BoundCalculator {
