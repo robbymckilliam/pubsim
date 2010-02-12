@@ -1,17 +1,17 @@
 /*
- * Phin2StarZnLLSOld.java
+ * Vn2StarZnLLSOld.java
  *
  * Created on 12 August 2007, 21:11
  */
 
-package lattices.Phin2star;
+package lattices.Vn2Star;
 
 import java.util.Iterator;
 import java.util.TreeMap;
 import lattices.NearestPointAlgorithm;
 
 /**
- * Nearest point algorithm for the Phin2StarZnLLSOld lattice.
+ * Nearest point algorithm for the Vn2StarZnLLSOld lattice.
  * Works as a specialised version on the period estimation ZnLLS algorithm.
  * O(n^3log(n)).
  *
@@ -19,7 +19,7 @@ import lattices.NearestPointAlgorithm;
  * 
  * @author Tim Mason and Robby McKilliam
  */
-public class Phin2StarZnLLSOld extends Phin2Star implements NearestPointAlgorithm{
+public class Vn2StarZnLLSOld extends Vn2Star implements NearestPointAlgorithm{
     
     // dimension of the integer lattice we're searching in
     int N;
@@ -63,7 +63,7 @@ public class Phin2StarZnLLSOld extends Phin2Star implements NearestPointAlgorith
     // Current distance along the line g
     protected double k;
     
-    public Phin2StarZnLLSOld() {
+    public Vn2StarZnLLSOld() {
         super();
         
         // Distance along g to search.  This is equivalent to searching
@@ -91,7 +91,7 @@ public class Phin2StarZnLLSOld extends Phin2Star implements NearestPointAlgorith
     // an easy way to set fmin and fmax to -0.5 and 0.5 respective, which is
     // the branch required by the PSK decoder to work directly from the index.
     // (This is a bit hacky -- refactoring needs to be done.)
-    public Phin2StarZnLLSOld(double fmin, double fmax) {
+    public Vn2StarZnLLSOld(double fmin, double fmax) {
         super();
         
         this.fmin = fmin;
@@ -241,7 +241,7 @@ public class Phin2StarZnLLSOld extends Phin2Star implements NearestPointAlgorith
         }
         u[0] -= bestGlue;
         
-        // Get the lattice point by projecting onto Phin2Star
+        // Get the lattice point by projecting onto Vn2Star
         project(u, v);
     }
     

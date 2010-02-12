@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices.Phin2star;
+package lattices.Vn2Star;
 
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.Anstar.Anstar;
@@ -15,15 +15,15 @@ import lattices.NearestPointAlgorithm;
  * O(N^3log(N)) version of the nearest point algorithm for Pn*.
  * @author Robby McKilliam
  */
-public class Phin2StarZnLLS extends
-        Phin2Star implements NearestPointAlgorithm {
+public class Vn2StarZnLLS extends
+        Vn2Star implements NearestPointAlgorithm {
 
     double[] g, glue, z, x;
     Anstar anstar;
 
-    public Phin2StarZnLLS() {};
+    public Vn2StarZnLLS() {};
 
-    public Phin2StarZnLLS(int n){
+    public Vn2StarZnLLS(int n){
         setDimension(n);
     }
 
@@ -96,7 +96,7 @@ public class Phin2StarZnLLS extends
         u = new double[n+2];
         v = new double[n+2];
         glue = new double[n+2];
-        g = Phin2Star.getgVector(n+2);
+        g = Vn2Star.getgVector(n+2);
         z = new double[n+2];
         x = new double[n+2];
 

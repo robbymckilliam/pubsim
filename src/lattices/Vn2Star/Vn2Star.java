@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices.Phin2star;
+package lattices.Vn2Star;
 
 import lattices.Anstar.AnstarVaughan;
 import Jama.Matrix;
@@ -13,7 +13,7 @@ import lattices.NearestPointAlgorithmStandardNumenclature;
  *
  * @author Robby McKilliam
  */
-public abstract class Phin2Star extends NearestPointAlgorithmStandardNumenclature{
+public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
     
     @Override
     public void setDimension(int n){

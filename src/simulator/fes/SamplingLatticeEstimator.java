@@ -5,7 +5,7 @@
  */
 
 package simulator.fes;
-import lattices.Phin2star.Phin2StarSampled;
+import lattices.Vn2Star.Vn2StarSampled;
 
 /**
  * Simple and fast suboptimal (but perharps can be made optimal)
@@ -21,7 +21,7 @@ public class SamplingLatticeEstimator extends LatticeEstimator
     }
     
     public SamplingLatticeEstimator(int numsamples){
-        lattice = new Phin2StarSampled(numsamples);
+        lattice = new Vn2StarSampled(numsamples);
     }
    
 }

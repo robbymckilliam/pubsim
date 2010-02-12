@@ -1,17 +1,17 @@
 /*
- * Phin2StarGlued.java
+ * Vn2StarGlued.java
  *
  * Created on 12 August 2007, 20:15
  */
 
-package lattices.Phin2star;
+package lattices.Vn2Star;
 
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.Anstar.Anstar;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the
- * An* nearest point algorithm for all O(n^3) glue vectors.  Phin2Star is a faster
+ * An* nearest point algorithm for all O(n^3) glue vectors.  Vn2Star is a faster
  * O(n^3 log(n)) algorithm.  
  * <p>
  * This currently only works for odd n.  The glue vectors are slightly different
@@ -20,15 +20,15 @@ import lattices.Anstar.Anstar;
  * 
  * @author Robby McKilliam
  */
-public class Phin2StarGlued extends Phin2Star {
+public class Vn2StarGlued extends Vn2Star {
     
     protected Anstar anstar;
     
     protected double[] g, vt, yt, y, ut;
 
-    public Phin2StarGlued(){}
+    public Vn2StarGlued(){}
 
-    public Phin2StarGlued(int n){
+    public Vn2StarGlued(int n){
         setDimension(n);
     }
     
@@ -47,7 +47,7 @@ public class Phin2StarGlued extends Phin2Star {
     }
     
     /**
-     * Find the nearest point in Phin2Star by searching the o(n^3)
+     * Find the nearest point in Vn2Star by searching the o(n^3)
      * translates/glues of An*.  Currently, this only works
      * for odd n.
      */

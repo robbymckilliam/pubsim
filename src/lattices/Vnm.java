@@ -11,22 +11,22 @@ import simulator.Util;
 import simulator.VectorFunctions;
 
 /**
- * Class for the lattice Phina, ie the integer lattice that is that
- * duel of the polynomial phase estimation lattices Phina*.  There is 
+ * Class for the lattice Vnm, ie the integer lattice that is that
+ * duel of the polynomial phase estimation lattices Vnm*.  There is
  * no nearest point algorithms for these lattices (yet?).  Currently
  * only the volume method is implemented.
  * @author Robby McKilliam
  */
-public class Phina extends AbstractLattice{
+public class Vnm extends AbstractLattice{
     
     protected int a;
     protected int n;
     
-    public Phina(int a){
+    public Vnm(int a){
         this.a = a;
     }
     
-    public Phina(int a,int n){
+    public Vnm(int a,int n){
         this.a = a;
         this.n = n;
     }

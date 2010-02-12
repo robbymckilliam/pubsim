@@ -6,8 +6,8 @@
 
 package simulator.fes;
 
-import lattices.Phin2star.Phin2Star;
-import lattices.Phin2star.Phin2StarZnLLSOld;
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarZnLLSOld;
 
 /**
  * Use the faster O(n^3 log(n)) Pn2 nearest point algorithm that
@@ -20,14 +20,14 @@ public class ZnLLSOld implements FrequencyEstimator{
     
     protected double[] ya;
     protected int n;
-    protected Phin2Star lattice;
+    protected Vn2Star lattice;
     
     // Used for phase estimation
     protected double f;
     protected double[] phase_samples;
     
     public ZnLLSOld() {
-        lattice = new Phin2StarZnLLSOld();
+        lattice = new Vn2StarZnLLSOld();
     }
     
     /** Set the number of samples */
@@ -48,7 +48,7 @@ public class ZnLLSOld implements FrequencyEstimator{
      * range: -0.5 to 0.5
      */
     public void setMinFreq(double f) {
-        ((Phin2StarZnLLSOld)lattice).setMinFreq(f);
+        ((Vn2StarZnLLSOld)lattice).setMinFreq(f);
     }
     
     /**
@@ -57,7 +57,7 @@ public class ZnLLSOld implements FrequencyEstimator{
      * range: -0.5 to 0.5
      */
     public void setMaxFreq(double f) {
-        ((Phin2StarZnLLSOld)lattice).setMaxFreq(f);
+        ((Vn2StarZnLLSOld)lattice).setMaxFreq(f);
     }
     
     /** Run the estimator on recieved data, @param y */

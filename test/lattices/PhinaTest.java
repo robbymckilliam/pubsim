@@ -42,7 +42,7 @@ public class PhinaTest {
 
 
     /**
-     * Test of volume method, of class Phina.
+     * Test of volume method, of class Vnm.
      */
     @Test
     public void volume() {
@@ -51,7 +51,7 @@ public class PhinaTest {
         int n = 20;
         int a = 3;
         
-        Phina instance = new Phina(a, n);
+        Vnm instance = new Vnm(a, n);
 
         Matrix gen = instance.getGeneratorMatrix();
         //System.out.println(VectorFunctions.print(gen));
@@ -64,7 +64,7 @@ public class PhinaTest {
     }
 
         /**
-     * Test of volume method, of class Phina.
+     * Test of volume method, of class Vnm.
      */
     @Test
     public void generatorMatrix() {
@@ -73,7 +73,7 @@ public class PhinaTest {
         int n = 10;
         int a = 3;
 
-        Phina instance = new Phina(a, n);
+        Vnm instance = new Vnm(a, n);
         Matrix M = instance.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(M));
         System.out.println(VectorFunctions.print(M.transpose().times(M)));

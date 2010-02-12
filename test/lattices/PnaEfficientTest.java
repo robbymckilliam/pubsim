@@ -8,7 +8,7 @@
 package lattices;
 
 import lattices.Anstar.AnstarVaughan;
-import lattices.Phin2star.Phin2StarGlued;
+import lattices.Vn2Star.Vn2StarGlued;
 import Jama.Matrix;
 import java.util.Random;
 import javax.vecmath.Vector2d;
@@ -26,14 +26,14 @@ public class PnaEfficientTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class lattices.PhinaStarEfficient.
+     * Test of nearestPoint method, of class lattices.VnmStarSampledEfficient.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
         // test vs An*
         double[] y = {-1, 0, 0.1, 5, -2};
-        PhinaStarEfficient pn1 = new PhinaStarEfficient(1);
+        VnmStarSampledEfficient pn1 = new VnmStarSampledEfficient(1);
         AnstarVaughan ans = new AnstarVaughan();
         
         pn1.nearestPoint(y);
@@ -48,8 +48,8 @@ public class PnaEfficientTest extends TestCase {
         
         // test vs glue vector algorithm for Frequency estimation lattice
         double[] y1 = {-1, 0, 0.1, 5, -2};
-        PhinaStarEfficient pn2 = new PhinaStarEfficient(2);
-        Phin2StarGlued pn2g = new Phin2StarGlued();
+        VnmStarSampledEfficient pn2 = new VnmStarSampledEfficient(2);
+        Vn2StarGlued pn2g = new Vn2StarGlued();
         
         //pn2.setDimension(5-2);
         
@@ -69,7 +69,7 @@ public class PnaEfficientTest extends TestCase {
         double del = 0.0001;
         for(int t = 0; t < iters; t++){
             int n = r.nextInt(10) + 5;
-            PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
+            VnmStarSampledEfficient pna = new VnmStarSampledEfficient(a, n-a);
             Matrix G = pna.getGeneratorMatrix();
             
            // System.out.println("G is " + G.getRowDimension() + " by " + G.getColumnDimension());
@@ -92,7 +92,7 @@ public class PnaEfficientTest extends TestCase {
     }
 
     /**
-     * Test of project method, of class lattices.PhinaStarEfficient.
+     * Test of project method, of class lattices.VnmStarSampledEfficient.
      */
     public void testProject() {
         System.out.println("project");
@@ -104,21 +104,21 @@ public class PnaEfficientTest extends TestCase {
         //from matlab
         double[] exp = {-2, 1.2, 2.4 ,-0.4, -1.2};
         
-        PhinaStarEfficient.project(x, y, a);
+        VnmStarSampledEfficient.project(x, y, a);
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);
     }
     
     /**
-     * Test of volume method, of class lattices.PhinaStarEfficient.
+     * Test of volume method, of class lattices.VnmStarSampledEfficient.
      */
     public void testVolume() {
         System.out.println("volume");
         
         int n = 10;
         int a = 1;
-        PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
+        VnmStarSampledEfficient pna = new VnmStarSampledEfficient(a, n-a);
         
         //AnstarVaughan det
         double expres = Math.sqrt(1.0/n);
@@ -127,7 +127,7 @@ public class PnaEfficientTest extends TestCase {
         
         n = 10;
         a = 2;
-        pna = new PhinaStarEfficient(a, n-a);
+        pna = new VnmStarSampledEfficient(a, n-a);
         
         //from matlab
         expres = 0.198479065379550;
@@ -136,7 +136,7 @@ public class PnaEfficientTest extends TestCase {
         
         n = 22;
         a = 3;
-        pna = new PhinaStarEfficient(a, n-a);
+        pna = new VnmStarSampledEfficient(a, n-a);
         
         expres = 0.047564984401627;
         
@@ -145,14 +145,14 @@ public class PnaEfficientTest extends TestCase {
     }
     
         /**
-     * Test of inradius method, of class lattices.PhinaStarEfficient.
+     * Test of inradius method, of class lattices.VnmStarSampledEfficient.
      */
     public void testInradius() {
         System.out.println("inradius");
         
         int n = 10;
         int a = 1;
-        PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
+        VnmStarSampledEfficient pna = new VnmStarSampledEfficient(a, n-a);
         
         //AnstarVaughan det
         double expres = Math.sqrt(1.0 - 1.0/n);

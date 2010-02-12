@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package lattices.Phin2star;
+package lattices.Vn2Star;
 
 /**
  * Experimental nearest point algorithm for Phin2* that uses
@@ -13,7 +13,7 @@ package lattices.Phin2star;
  * occurs for large enough n.
  * @author Robby McKilliam
  */
-public class Phin2StarGreedy extends Phin2Star {
+public class Vn2StarGreedy extends Vn2Star {
 
     double[] z, g, ut, yt;
     boolean[] tested;

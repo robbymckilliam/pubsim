@@ -31,7 +31,7 @@ public class LatticeDensityPlots {
 
         int a = 4;
         for(int n : range(nstart, nend, nstep) ){
-            Lattice L = new Phina(a, n);
+            Lattice L = new Vnm(a, n);
             //Lattice L = new Craig(n, a);
             double d = L.logCenterDensity();
             //double d = L.inradius();

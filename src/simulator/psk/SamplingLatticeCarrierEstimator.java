@@ -6,7 +6,7 @@
 
 package simulator.psk;
 
-import lattices.Phin2star.Phin2StarSampled;
+import lattices.Vn2Star.Vn2StarSampled;
 
 /**
  *
@@ -16,12 +16,12 @@ public class SamplingLatticeCarrierEstimator extends GlueAnstarCarrierEstimator
         implements CarrierEstimator{
     
     public SamplingLatticeCarrierEstimator() { 
-        lattice = new Phin2StarSampled();
+        lattice = new Vn2StarSampled();
     }
     
     /**Constructor that sets the number of samples used */
     public SamplingLatticeCarrierEstimator(int samples) { 
-        lattice = new Phin2StarSampled(samples);
+        lattice = new Vn2StarSampled(samples);
     }
     
     

@@ -1,5 +1,5 @@
 /*
- * PhinaStarEfficient.java
+ * VnmStarSampledEfficient.java
  *
  * Created on 3 November 2007, 13:48
  */
@@ -12,17 +12,17 @@ import simulator.Util;
 import simulator.VectorFunctions;
 
 /**
- * This is a version of PhinaStar that avoids allocating and deallocated memory all
+ * This is a version of VnmStarSampled that avoids allocating and deallocated memory all
  * the time.  This is achieved by precalculating and storing all 
  * Pnb, b<=a algorithms.
  * <p>
  * The biggest gain comes from createg and project not recuring so much. 
  * @author Robby McKilliam
  */
-public class PhinaStarEfficient extends PhinaStar {
+public class VnmStarSampledEfficient extends VnmStarSampled {
     
     /** Store P_n^(a-1) that is used for recursion. */
-    protected PhinaStarEfficient pnam1;
+    protected VnmStarSampledEfficient pnam1;
     
     /** 
      * gtg = VectorFunctions.sum2(g)
@@ -33,11 +33,11 @@ public class PhinaStarEfficient extends PhinaStar {
      /** When a = 1, we can use the O(n) An* algorithm */
     protected Anstar anstar;
     
-    public PhinaStarEfficient(int a) { 
+    public VnmStarSampledEfficient(int a) {
         super(a);
     }
     
-    public PhinaStarEfficient(int a, int n){
+    public VnmStarSampledEfficient(int a, int n){
         super(a,n);
     }
     
@@ -47,7 +47,7 @@ public class PhinaStarEfficient extends PhinaStar {
         
         //setup pnam1
         if(a > 0)
-            pnam1 = new PhinaStarEfficient(a-1, n+1);
+            pnam1 = new VnmStarSampledEfficient(a-1, n+1);
         
         u = new double[n + a];
         v = new double[n + a];
@@ -107,7 +107,7 @@ public class PhinaStarEfficient extends PhinaStar {
     
     /** 
      * non static version of project that assumes that the
-     * holder contains all the PhinaStar's that is needs
+     * holder contains all the VnmStarSampled's that is needs
      */
     protected void project(double[] x, double[] y){
         if(a > 0){
@@ -159,7 +159,7 @@ public class PhinaStarEfficient extends PhinaStar {
     */
     
     /** 
-     * Returns the vector g for this PhinaStar where
+     * Returns the vector g for this VnmStarSampled where
      * a is the input to the function.
      */
     public double[] getg(int a){

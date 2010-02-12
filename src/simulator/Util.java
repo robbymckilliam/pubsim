@@ -278,9 +278,9 @@ public final class Util {
     /**
      * Calculate the binomial coefficient
      * using a recursive procedure.
-     * Requires n >= m.
      */
     public static long binom(int n, int m){
+        if(m > n) return 0;
         if(n==m || m==0) return 1;
         return binom(n-1, m-1) + binom(n-1, m);
     }

@@ -5,6 +5,9 @@
 
 package lattices.Phin2star;
 
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarGreedy;
+import lattices.Vn2Star.Vn2StarGlued;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,7 +43,7 @@ public class Phin2StarGreedyTest {
     }
 
     /**
-     * Test of nearestPoint method, of class Phin2StarGreedy.
+     * Test of nearestPoint method, of class Vn2StarGreedy.
      */
     @Test
     public void nearestPoint() {
@@ -49,8 +52,8 @@ public class Phin2StarGreedyTest {
         Random rand = new Random();
         
         double[] y = new double[n];
-        Phin2Star instance = new Phin2StarGreedy();
-        Phin2Star tester = new Phin2StarGlued();
+        Vn2Star instance = new Vn2StarGreedy();
+        Vn2Star tester = new Vn2StarGlued();
         
         for(int i = 0; i < 100; i++){
             for(int j=0; j<n; j++)

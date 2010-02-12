@@ -5,8 +5,8 @@
 package simulator.psk;
 
 import simulator.psk.decoder.Util;
-import lattices.Phin2star.Phin2Star;
-import lattices.Phin2star.Phin2StarZnLLSOld;
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarZnLLSOld;
 
 /**
  *
@@ -22,12 +22,12 @@ public class ZnLLS implements CarrierEstimator{
     protected double fmin, fmax;
     protected double phase, frequency;
     
-    protected Phin2Star lattice;
+    protected Vn2Star lattice;
     protected simulator.fes.ZnLLSOld fes;
     
     public ZnLLS(){
         // Force fmin and fmax for the lattice -- this needs refactoring.
-        lattice = new Phin2StarZnLLSOld(-0.5, 0.5);
+        lattice = new Vn2StarZnLLSOld(-0.5, 0.5);
         fes = new simulator.fes.ZnLLSOld();
     }
     

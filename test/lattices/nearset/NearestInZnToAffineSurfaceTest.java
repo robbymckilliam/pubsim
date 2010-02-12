@@ -6,9 +6,9 @@
 package lattices.nearset;
 
 import Jama.Matrix;
-import lattices.Phin2star.Phin2Star;
-import lattices.Phin2star.Phin2StarZnLLS;
-import lattices.PhinaStar;
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarZnLLS;
+import lattices.VnmStarSampled;
 import lattices.decoder.SphereDecoder;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -111,19 +111,19 @@ public class NearestInZnToAffineSurfaceTest {
         int iters = 100;
 
         int N = 10;
-        Matrix P = Phin2Star.getMMatrix(N-2);
+        Matrix P = Vn2Star.getMMatrix(N-2);
         Matrix Pt = P.transpose();
         Matrix K = (Pt.times(P)).inverse().times(Pt);
         Matrix G = Matrix.identity(N, N).minus(P.times(K));
 
-        Phin2Star test = new Phin2StarZnLLS(N-2);
+        Vn2Star test = new Vn2StarZnLLS(N-2);
 
         for( int i = 0; i < iters; i++){
 
             //NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(N);
 
             double[] c = randomGaussian(N, 0.0, 10000.0);
-            //Phin2Star.project(c, c);
+            //Vn2Star.project(c, c);
 
             RegionForLines R = new ParallelepipedForLines(P.times(-1.0), c);
             //RegionForLines R = new NSphereForLines(2*N*N*N, c);
@@ -166,9 +166,9 @@ public class NearestInZnToAffineSurfaceTest {
             scaler.set(i,i, -1.0/simulator.Util.factorial(i));
         }
 
-        SphereDecoder test = new SphereDecoder(new PhinaStar(a, N-a));
+        SphereDecoder test = new SphereDecoder(new VnmStarSampled(a, N-a));
 
-        Matrix P = PhinaStar.getMMatrix(a, N-a);
+        Matrix P = VnmStarSampled.getMMatrix(a, N-a);
         Matrix Pt = P.transpose();
         Matrix K = (Pt.times(P)).inverse().times(Pt);
         Matrix G = Matrix.identity(N, N).minus(P.times(K));
@@ -178,7 +178,7 @@ public class NearestInZnToAffineSurfaceTest {
             //NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(N);
 
             double[] c = randomGaussian(N, 0.0, 1000.0);
-            //Phin2Star.project(c, c);
+            //Vn2Star.project(c, c);
 
             RegionForLines R = new ParallelepipedForLines(P.times(scaler), c);
             //RegionForLines R = new NSphereForLines(2*N*N*N, c);
@@ -221,9 +221,9 @@ public class NearestInZnToAffineSurfaceTest {
 //            scaler.set(i,i, -1.0/simulator.Util.factorial(i));
 //        }
 //
-//        SphereDecoder test = new SphereDecoder(new PhinaStar(a, N-a));
+//        SphereDecoder test = new SphereDecoder(new VnmStarSampled(a, N-a));
 //
-//        Matrix P = PhinaStar.getMMatrix(a, N-a);
+//        Matrix P = VnmStarSampled.getMMatrix(a, N-a);
 //        Matrix Pt = P.transpose();
 //        Matrix K = (Pt.times(P)).inverse().times(Pt);
 //        Matrix G = Matrix.identity(N, N).minus(P.times(K));
@@ -233,7 +233,7 @@ public class NearestInZnToAffineSurfaceTest {
 //            //NearestInZnToAffineSurface inst = new NearestInZnToAffineSurface(N);
 //
 //            double[] c = randomGaussian(N, 0.0, 1000.0);
-//            //Phin2Star.project(c, c);
+//            //Vn2Star.project(c, c);
 //
 //            RegionForLines R = new ParallelepipedForLines(P.times(scaler), c);
 //            //RegionForLines R = new NSphereForLines(2*N*N*N, c);

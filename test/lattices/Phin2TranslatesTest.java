@@ -7,8 +7,8 @@ package lattices;
 
 import Jama.Matrix;
 import lattices.An.AnFastSelect;
-import lattices.Phin2star.Phin2Star;
-import lattices.Phin2star.Phin2StarGlued;
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarGlued;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class Phin2TranslatesTest {
     }
 
     /**
-     * Test of getGeneratorMatrix method, of class Phin2Translates.
+     * Test of getGeneratorMatrix method, of class Vn2Translates.
      */
     @Test
     public void testGetGeneratorMatrix() {
@@ -53,13 +53,13 @@ public class Phin2TranslatesTest {
         int j = 1;
         int k = 1;
 
-        Phin2Translates instance = new Phin2Translates(n, j, k);
+        Vn2Translates instance = new Vn2Translates(n, j, k);
         Matrix Mat = instance.getGeneratorMatrix();
         //System.out.println(VectorFunctions.print(Mat));
 
         GeneralLatticeAndNearestPointAlgorithm sd
                 = new GeneralLatticeAndNearestPointAlgorithm(Mat);
-        Phin2StarGlued np = new Phin2StarGlued(n);
+        Vn2StarGlued np = new Vn2StarGlued(n);
 
         double[] r = VectorFunctions.randomGaussian(n+2, 100, 1000);
 
@@ -75,7 +75,7 @@ public class Phin2TranslatesTest {
     }
 
     /**
-     * Test of getGeneratorMatrix method, of class Phin2Translates.
+     * Test of getGeneratorMatrix method, of class Vn2Translates.
      */
     @Test
     public void testForSelfDual() {
@@ -84,7 +84,7 @@ public class Phin2TranslatesTest {
         int j = 1;
         int k = 1;
 
-        Phin2Translates instance = new Phin2Translates(n, j, k);
+        Vn2Translates instance = new Vn2Translates(n, j, k);
         Matrix Mat = instance.getGeneratorMatrix();
 
         //System.out.println(instance.volume());
@@ -92,7 +92,7 @@ public class Phin2TranslatesTest {
     }
 
         /**
-     * Test of getGeneratorMatrix method, of class Phin2Translates.
+     * Test of getGeneratorMatrix method, of class Vn2Translates.
      */
     @Test
     public void testAnPhin2() {
@@ -101,15 +101,15 @@ public class Phin2TranslatesTest {
         int j = 1;
         int k = 1;
 
-        Phina lattice = new Phina(2, n);
+        Vnm lattice = new Vnm(2, n);
         AnFastSelect an = new AnFastSelect(n+1);
 
         double biggest = 0;
         for(int i = 1; i< 1000; i++){
 
             double[] r = VectorFunctions.randomGaussian(n+2, 100, 1000);
-            Phin2Star.project(r, r);
-            double[] g = Phin2Star.getgVector(n+2);
+            Vn2Star.project(r, r);
+            double[] g = Vn2Star.getgVector(n+2);
 
             an.nearestPoint(r);
             double[] u = an.getLatticePoint();

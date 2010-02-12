@@ -8,7 +8,7 @@ package lattices.decoder;
 import Jama.Matrix;
 import java.util.Random;
 import lattices.GeneralLattice;
-import lattices.PhinaStarEfficient;
+import lattices.VnmStarSampledEfficient;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -109,7 +109,7 @@ public class BabaiTest {
         double del = 0.0001;
         for(int t = 0; t < iters; t++){
             int n = r.nextInt(10) + 5;
-            PhinaStarEfficient pna = new PhinaStarEfficient(a, n-a);
+            VnmStarSampledEfficient pna = new VnmStarSampledEfficient(a, n-a);
             Matrix G = pna.getGeneratorMatrix();
             
             Babai babai = new Babai();

@@ -6,7 +6,7 @@
 package simulator.fes;
 
 import Jama.Matrix;
-import lattices.Phin2star.Phin2Star;
+import lattices.Vn2Star.Vn2Star;
 
 /**
  * Abstract class for the frequency estimators that use the Phina2Star
@@ -16,7 +16,7 @@ import lattices.Phin2star.Phin2Star;
 public abstract class LatticeEstimator implements FrequencyEstimator{
 
     protected int n;
-    protected Phin2Star lattice;
+    protected Vn2Star lattice;
     protected double[] y;
     //protected Matrix K;
 

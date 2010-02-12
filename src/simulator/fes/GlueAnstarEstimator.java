@@ -6,7 +6,7 @@
 
 package simulator.fes;
 
-import lattices.Phin2star.Phin2StarGlued;
+import lattices.Vn2Star.Vn2StarGlued;
 
 /**
  * Frequency estimator that uses Pn1 glue vector algorithm to solve the nearest
@@ -18,7 +18,7 @@ public class GlueAnstarEstimator
         implements FrequencyEstimator {
     
    public GlueAnstarEstimator(){
-        lattice = new Phin2StarGlued();
+        lattice = new Vn2StarGlued();
     }
     
 }

@@ -9,7 +9,7 @@ import Jama.Matrix;
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.GeneralLattice;
-import lattices.Phin2star.Phin2StarGlued;
+import lattices.Vn2Star.Vn2StarGlued;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -175,7 +175,7 @@ public class SphereDecoderTest {
         int iters = 10;
         int n = 6;
         
-        Phin2StarGlued lattice = new Phin2StarGlued();
+        Vn2StarGlued lattice = new Vn2StarGlued();
         lattice.setDimension(n);
         
         decoder.setLattice(lattice);

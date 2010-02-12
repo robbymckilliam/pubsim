@@ -6,8 +6,8 @@
 
 package simulator.psk;
 
-import lattices.Phin2star.Phin2Star;
-import lattices.Phin2star.Phin2StarGlued;
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarGlued;
 
 /**
  * Uses the Glued Pn2 lattice point algorithm.  There is no way to
@@ -23,10 +23,10 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
     protected double fmin, fmax;
     protected double phase, frequency;
     
-    protected Phin2Star lattice;
+    protected Vn2Star lattice;
     
     public GlueAnstarCarrierEstimator(){
-        lattice = new Phin2StarGlued();
+        lattice = new Vn2StarGlued();
         //lattice = new Phin2StarSampled(100);
     }
     

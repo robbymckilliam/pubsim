@@ -7,6 +7,9 @@
 
 package lattices.Phin2star;
 
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarSampled;
+import lattices.Vn2Star.Vn2StarGlued;
 import junit.framework.*;
 import java.util.Random;
 import simulator.*;
@@ -22,7 +25,7 @@ public class Phin2StarSampledTest extends TestCase {
     }
 
     /**
-     * Test of nearestPoint method, of class simulator.Phin2StarSampled.
+     * Test of nearestPoint method, of class simulator.Vn2StarSampled.
      */
     public void testNearestPoint() {
         System.out.println("nearestPoint");
@@ -31,14 +34,14 @@ public class Phin2StarSampledTest extends TestCase {
         Random rand = new Random();
         
         double[] y = new double[n];
-        Phin2StarSampled instance = new Phin2StarSampled();
-        Phin2StarGlued tester = new Phin2StarGlued();
+        Vn2StarSampled instance = new Vn2StarSampled();
+        Vn2StarGlued tester = new Vn2StarGlued();
         
         for(int i = 0; i < 100; i++){
             for(int j=0; j<n; j++)
                 y[j] = 10 * rand.nextGaussian();
             
-            Phin2Star.project(y,y);
+            Vn2Star.project(y,y);
             
             instance.nearestPoint(y);
             tester.nearestPoint(y);

@@ -6,7 +6,7 @@
 package lattices.decoder;
 
 import lattices.Fermat;
-import lattices.Phina;
+import lattices.Vnm;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -61,7 +61,7 @@ public class ShortestVectorTest {
         System.out.println("getShortestVector Phi");
         int n = 78;
         int a = 7;
-        ShortestVector sv = new ShortestVector(new Phina(a, n), 14);
+        ShortestVector sv = new ShortestVector(new Vnm(a, n), 14);
         System.out.println(print(sv.getShortestVector()));
         System.out.println(print(sv.getShortestIndex()));
         System.out.println(sum2(sv.getShortestVector()));

@@ -5,6 +5,8 @@
 
 package lattices.Phin2star;
 
+import lattices.Vn2Star.Vn2Star;
+import lattices.Vn2Star.Vn2StarSampled;
 import Jama.Matrix;
 import lattices.*;
 import org.junit.After;
@@ -41,15 +43,15 @@ public class Phin2StarTest {
     }
 
     /**
-     * Test of volume method, of class Phin2Star.
+     * Test of volume method, of class Vn2Star.
      */
     @Test
     public void testVolume() {
         int n = 20;
         int a = 2;
 
-        Phina dual = new Phina(a, n);
-        PhinaStar lat = new PhinaStar(a, n);
+        Vnm dual = new Vnm(a, n);
+        VnmStar lat = new VnmStar(a, n);
         double vol = lat.volume();
         double dvol = dual.volume();
         assertEquals(1.0/dvol, vol, 0.00001);
@@ -64,14 +66,14 @@ public class Phin2StarTest {
 
         double volf = Math.sqrt(12.0/((n+3)*(n+2)*(n+1)*(n+2)));
 
-        Phin2Star lattice = new Phin2StarSampled(n);
+        Vn2Star lattice = new Vn2StarSampled(n);
         double vol = lattice.volume();
 
         assertEquals(volf, vol, 0.0000000001);
     }
 
 //    /**
-//     * Test of inradius method, of class Phin2Star.
+//     * Test of inradius method, of class Vn2Star.
 //     */
 //    @Test
 //    public void testInradius() {
@@ -80,7 +82,7 @@ public class Phin2StarTest {
 //    }
 //
 //    /**
-//     * Test of getGeneratorMatrix method, of class Phin2Star.
+//     * Test of getGeneratorMatrix method, of class Vn2Star.
 //     */
 //    @Test
 //    public void testGetGeneratorMatrix() {
@@ -89,12 +91,12 @@ public class Phin2StarTest {
 //    }
 
     /**
-     * Test of getMMatrix method, of class Phin2Star.
+     * Test of getMMatrix method, of class Vn2Star.
      */
     @Test
     public void testGetMMatrix() {
         int N = 10;
-        Matrix M = Phin2Star.getMMatrix(N-2);
+        Matrix M = Vn2Star.getMMatrix(N-2);
         for(int n = 0; n < n; n++){
             assertEquals(1.0, M.get(n, 0), 0.000000001);
             assertEquals(n+1, M.get(n, 0), 0.000000001);
@@ -102,19 +104,19 @@ public class Phin2StarTest {
     }
 
     /**
-     * Test of getgVector method, of class Phin2Star.
+     * Test of getgVector method, of class Vn2Star.
      */
     @Test
     public void testGetgVector() {
         System.out.println("getgVector");
         int n = 5;
-        double[] result = Phin2Star.getgVector(n);
+        double[] result = Vn2Star.getgVector(n);
         double[] expResult = {-2, -1, 0, 1, 2};
         for(int i = 0; i < n; i++)
             assertEquals(expResult[i], result[i], 0.000001);
 
         n = 6;
-        result = Phin2Star.getgVector(n);
+        result = Vn2Star.getgVector(n);
         double[] expResult2 = {-2.5, -1.5, -.5, .5, 1.5, 2.5};
         for(int i = 0; i < n; i++)
             assertEquals(expResult2[i], result[i], 0.000001);
@@ -122,14 +124,14 @@ public class Phin2StarTest {
     }
 
     /**
-     * Test of sumg2 method, of class Phin2Star.
+     * Test of sumg2 method, of class Vn2Star.
      */
     @Test
     public void testSumg2() {
         System.out.println("sumg2");
         for(int n = 3; n < 50; n++){
-            double test = VectorFunctions.sum2(Phin2Star.getgVector(n));
-            double val = Phin2Star.sumg2(n);
+            double test = VectorFunctions.sum2(Vn2Star.getgVector(n));
+            double val = Vn2Star.sumg2(n);
             assertEquals(test, val, 0.000001);
         }
     }

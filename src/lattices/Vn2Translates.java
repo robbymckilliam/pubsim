@@ -6,7 +6,7 @@
 package lattices;
 
 import Jama.Matrix;
-import lattices.Phin2star.Phin2Star;
+import lattices.Vn2Star.Vn2Star;
 import simulator.Util;
 
 /**
@@ -14,11 +14,11 @@ import simulator.Util;
  * it's dual.
  * @author Robby McKilliam
  */
-public class Phin2Translates extends AbstractLattice {
+public class Vn2Translates extends AbstractLattice {
 
     protected final int n, j, k;
 
-    public Phin2Translates(int n, int j, int k){
+    public Vn2Translates(int n, int j, int k){
         this.n = n;
         this.j = j;
         this.k = k;
@@ -37,10 +37,10 @@ public class Phin2Translates extends AbstractLattice {
     }
 
     public Matrix getGeneratorMatrix() {
-        Matrix Mat = new Phina(2, n).getGeneratorMatrix();
+        Matrix Mat = new Vnm(2, n).getGeneratorMatrix();
 
-        double[] g = Phin2Star.getgVector(n+2);
-        double sg = Phin2Star.sumg2(n+2);
+        double[] g = Vn2Star.getgVector(n+2);
+        double sg = Vn2Star.sumg2(n+2);
 
         int f = (int)Math.ceil((n+2.0)/2.0) - 1;
 

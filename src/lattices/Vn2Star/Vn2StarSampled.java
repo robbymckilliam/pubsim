@@ -1,10 +1,10 @@
 /*
- * Phin2StarSampled.java
+ * Vn2StarSampled.java
  *
  * Created on 18 August 2007, 12:53
  */
 
-package lattices.Phin2star;
+package lattices.Vn2Star;
 
 import lattices.Anstar.AnstarBucketVaughan;
 import lattices.Anstar.Anstar;
@@ -20,23 +20,23 @@ import simulator.*;
  * 
  * @author Robby McKilliam
  */
-public class Phin2StarSampled extends Phin2Star implements NearestPointAlgorithm {
+public class Vn2StarSampled extends Vn2Star implements NearestPointAlgorithm {
     
     protected int num_samples;
     Anstar anstar;
     
     protected double[] g, vt, ut, y;
 
-    public Phin2StarSampled() {}
+    public Vn2StarSampled() {}
     
     /** Default constructor.  Uses 100 samples */
-    public Phin2StarSampled(int n) {
+    public Vn2StarSampled(int n) {
         setDimension(n);
         num_samples = 100;
     }
     
     /** Default constructor sets the number of samples */
-    public Phin2StarSampled(int n, int samples) {
+    public Vn2StarSampled(int n, int samples) {
         setDimension(n);
         num_samples = samples;
     }

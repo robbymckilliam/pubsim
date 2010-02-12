@@ -16,13 +16,13 @@ import simulator.VectorFunctions;
  * in n but exponential in alpha.
  * @author Robby McKilliam
  */
-public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
+public class VnmStarSampled extends NearestPointAlgorithmStandardNumenclature{
     
     protected int a;
     protected double[] g, yt, yp;
     
     /** Must set a when constucted */
-    public PhinaStar(int a){
+    public VnmStarSampled(int a){
         this.a = a;
         //this is a bit icky.  It's just to
         //ensure that it's not a null pointer
@@ -31,7 +31,7 @@ public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
     }
     
     /** Sets a and the dimension n when constructed */
-    public PhinaStar(int a, int n){
+    public VnmStarSampled(int a, int n){
         this.a = a;
         setDimension(n);
     }
@@ -58,7 +58,7 @@ public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
         if(a > 0){       
             double magg = VectorFunctions.magnitude(g);
             double step = magg/Math.pow(n,a);
-            PhinaStar pna = new PhinaStar(a-1);
+            VnmStarSampled pna = new VnmStarSampled(a-1);
             pna.setDimension(n);
             for(double s = 0; s < magg; s+=step){
                 for(int i = 0; i < y.length; i++)
@@ -82,7 +82,7 @@ public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
         
     }
     
-    /** creates the orthogonal vector for PhinaStar.  Allocates memory*/
+    /** creates the orthogonal vector for VnmStarSampled.  Allocates memory*/
     protected static double[] createg(int n, int a){
         double[] g = new double[n+a];
         if( a > 0 ){
@@ -95,7 +95,7 @@ public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
     }
     
     /** 
-     * Project x into the space of the lattice PhinaStar and return
+     * Project x into the space of the lattice VnmStarSampled and return
      * the projection into y.  Requires recursion, runs in O(n a) time
      * PRE: x.length = y.length
      */
@@ -164,9 +164,9 @@ public class PhinaStar extends NearestPointAlgorithmStandardNumenclature{
         
     
     /** 
-     * Returns the vector g for this PhinaStar.
+     * Returns the vector g for this VnmStarSampled.
      * g is the orthogogonal component of 
-     * the largest order direction for this PhinaStar.
+     * the largest order direction for this VnmStarSampled.
      * (This probably doesn't make much sense!)
      */
     public double[] getg(){

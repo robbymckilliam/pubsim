@@ -32,7 +32,7 @@ public class LatticeProbErrorPlot {
         Vector<Double> proberr = new Vector<Double>();
 
         //Lattice L = new Leech();
-        Lattice L = new Phina(3, 48);
+        Lattice L = new Vnm(3, 48);
 
         int a = 6;
         for(double S : range(Sstart, Send, Sstep) ){

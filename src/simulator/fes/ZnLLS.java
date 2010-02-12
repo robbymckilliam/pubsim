@@ -5,7 +5,7 @@
 
 package simulator.fes;
 
-import lattices.Phin2star.Phin2StarZnLLS;
+import lattices.Vn2Star.Vn2StarZnLLS;
 
 /**
  * O(N^3log(N)) version of the LSPU estimator.
@@ -14,7 +14,7 @@ import lattices.Phin2star.Phin2StarZnLLS;
 public class ZnLLS extends LatticeEstimator implements FrequencyEstimator{
 
     public ZnLLS(){
-        lattice = new Phin2StarZnLLS();
+        lattice = new Vn2StarZnLLS();
     }
 
 }

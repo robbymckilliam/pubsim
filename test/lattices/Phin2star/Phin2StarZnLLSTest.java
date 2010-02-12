@@ -7,6 +7,8 @@
 
 package lattices.Phin2star;
 
+import lattices.Vn2Star.Vn2StarZnLLS;
+import lattices.Vn2Star.Vn2StarGlued;
 import java.util.Random;
 import junit.framework.*;
 import simulator.*;
@@ -27,7 +29,7 @@ public class Phin2StarZnLLSTest extends TestCase {
     public void testSetDimension() {
         System.out.println("setDimension");        
         int n = 5;
-        Phin2StarZnLLS instance = new Phin2StarZnLLS();        
+        Vn2StarZnLLS instance = new Vn2StarZnLLS();
         instance.setDimension(5);
     }
 
@@ -42,8 +44,8 @@ public class Phin2StarZnLLSTest extends TestCase {
         
         double[] y = new double[n];
         double[] QgQ1y = new double[n];
-        Phin2StarZnLLS znlls = new Phin2StarZnLLS();
-        Phin2StarGlued glued = new Phin2StarGlued();
+        Vn2StarZnLLS znlls = new Vn2StarZnLLS();
+        Vn2StarGlued glued = new Vn2StarGlued();
         
         znlls.setDimension(n-2);
         glued.setDimension(n-2);
@@ -52,7 +54,7 @@ public class Phin2StarZnLLSTest extends TestCase {
             for(int j=0; j<n; j++)
                 y[j] = 100 * rand.nextGaussian();
         
-            Phin2StarZnLLS.project(y,QgQ1y);
+            Vn2StarZnLLS.project(y,QgQ1y);
             
             znlls.nearestPoint(QgQ1y);
             glued.nearestPoint(QgQ1y);

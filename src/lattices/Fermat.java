@@ -42,7 +42,7 @@ public class Fermat extends AbstractLattice {
      * @return
      */
     public Matrix getGeneratorMatrix() {
-        Matrix P = (new Phina(r+1, n - r)).getGeneratorMatrix();
+        Matrix P = (new Vnm(r+1, n - r)).getGeneratorMatrix();
         Matrix M = new Matrix(n+1, n);
         for(int i = 0; i < n+1; i++){
             for(int j = 0; j < n-r; j++){

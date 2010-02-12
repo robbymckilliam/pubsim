@@ -8,7 +8,7 @@ package lattices.reduction;
 import Jama.Matrix;
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
-import lattices.PhinaStarEfficient;
+import lattices.VnmStarSampledEfficient;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -201,7 +201,7 @@ public class LLLTest {
 //        int m = 9;  
 //        int a = 3;
 //        int n = m - a;
-//        PhinaStarEfficient lattice = new PhinaStarEfficient(a, n);
+//        VnmStarSampledEfficient lattice = new VnmStarSampledEfficient(a, n);
 //        Matrix B = lattice.getGeneratorMatrix();
 //        
 //        System.out.println(VectorFunctions.print(B));
