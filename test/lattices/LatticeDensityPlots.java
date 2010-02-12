@@ -25,18 +25,18 @@ public class LatticeDensityPlots {
 
 
         int nstart = 1;
-        int nend = 60;
+        int nend = 1500;
         int nstep = 1;
         Vector<Double> density = new Vector<Double>();
 
-        int a = 3;
+        int a = 4;
         for(int n : range(nstart, nend, nstep) ){
             Lattice L = new Phina(a, n);
             //Lattice L = new Craig(n, a);
-            //double d = L.logCenterDensity();
+            double d = L.logCenterDensity();
             //double d = L.inradius();
             //double d = L.logPackingDensity();
-            double d = L.kissingNumber();
+            //double d = L.kissingNumber();
             density.add(d);
             System.out.println(n + ", " + d + " , " + kissingIn2(n+a));
         }

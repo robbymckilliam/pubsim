@@ -275,4 +275,24 @@ public final class Util {
         return Math.pow(d, 2);
     }
 
+    /**
+     * Calculate the binomial coefficient
+     * using a recursive procedure.
+     * Requires n >= m.
+     */
+    public static long binom(int n, int m){
+        if(n==m || m==0) return 1;
+        return binom(n-1, m-1) + binom(n-1, m);
+    }
+
+    /**
+     * Return log2 of the binomial coefficient.
+     */
+    public static double log2Binom(int n, int m){
+        double num = 0, den = 0;
+        for(int t = n-m+1; t <= n; t++) num += log2(t);
+        for(int t = 1; t <= m; t++) den += log2(t);
+        return num - den;
+    }
+
 }

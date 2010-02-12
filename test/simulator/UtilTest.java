@@ -290,4 +290,23 @@ public class UtilTest {
         assertEquals(4.05871, Util.hyperSphereVolume(8), 0.0001);
 
     }
+    
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testBinom() {
+        System.out.println("test binomial");
+        assertEquals(1, Util.binom(1, 0));
+        assertEquals(1, Util.binom(2, 2));
+        assertEquals(2, Util.binom(2, 1));
+        assertEquals(3, Util.binom(3, 1));
+        assertEquals(35, Util.binom(7, 3));
+
+        System.out.println("test log binomial");
+        assertEquals(Util.log2Binom(7, 3), Util.log2(Util.binom(7, 3)), 0.000001);
+        assertEquals(Util.log2Binom(9, 2), Util.log2(Util.binom(9, 2)), 0.000001);
+
+
+    }
 }

@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import simulator.VectorFunctions;
+import simulator.Util;
 import static org.junit.Assert.*;
 
 /**

@@ -38,15 +38,20 @@ public interface Lattice extends Serializable {
     double centerDensity();
 
     /*
-     * Return the log of the center density:
+     * Return the log2 of the center density:
      * inradius^n / volume;
      */
     double logCenterDensity();
 
     /*
-     * Natural logarithm of the sphere packing density
+     * log2 logarithm of the sphere packing density
      */
     double logPackingDensity();
+
+    /*
+     * log2 of the volume of the lattice.
+     */
+    double logVolume();
 
     /*
      * Sphere packing density.

@@ -35,29 +35,30 @@ public class Phina extends AbstractLattice{
         this.n = n;
     }
 
+    /**
+     * Uses nifty binomial formula to compute the volume.
+     * @return
+     */
     @Override
     public double volume() {
-
-        Matrix V = new Matrix(a,a);
-        for(int m = 0; m < a; m++){
-            for(int j = m; j < a; j++){
-                double s = 0;
-                for(int i = 1; i <= n+a; i++){
-                    s += Math.pow(i, m)*Math.pow(i, j);
-                }
-                V.set(m, j, s);
-                V.set(j, m, s);
-            }
-        }
-
-//        System.out.println(VectorFunctions.print(V));
-
-        double p = 1.0;
+        double vol = 1.0;
         for(int k = 0; k < a; k++){
-            p *= Util.factorial(k);
+            vol *= Math.sqrt( Util.binom(n+a+k, 2*k+1) / Util.binom(2*k, k) );
+        }      
+        return vol;
+    }
+
+    /**
+     * Uses nifty binomial formula to compute the log of the volume.
+     * @return
+     */
+    @Override
+    public double logVolume() {
+        double vol = 0.0;
+        for(int k = 0; k < a; k++){
+            vol += ( Util.log2Binom(n+a+k, 2*k+1) - Util.log2Binom(2*k, k) );
         }
-        
-        return Math.sqrt(V.det())/p;
+        return vol/2.0;
     }
 
     /**

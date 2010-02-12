@@ -26,7 +26,11 @@ public abstract class AbstractLattice implements Lattice {
     }
 
     public double logCenterDensity() {
-        return getDimension()*log2(inradius()) - log2(volume());
+        return getDimension()*log2(inradius()) - logVolume();
+    }
+
+    public double logVolume(){
+        return log2(volume());
     }
 
     public double logPackingDensity() {
