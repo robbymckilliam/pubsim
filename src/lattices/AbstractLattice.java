@@ -21,6 +21,9 @@ import static simulator.Util.log2HyperSphereVolume;
  */
 public abstract class AbstractLattice implements Lattice {
 
+    /** The dimension of the lattice */
+    protected int n;
+
     public double centerDensity() {
         return pow2(logCenterDensity());
     }

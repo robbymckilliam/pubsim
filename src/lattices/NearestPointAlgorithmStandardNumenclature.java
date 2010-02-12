@@ -24,9 +24,6 @@ import simulator.Util;
 public abstract class NearestPointAlgorithmStandardNumenclature
     extends LatticeAndNearestPointAlgorithm{
     
-    /** The dimension of the lattice */
-    protected int n;
-    
     /** The nearest lattice point */
     protected double[] v;
     

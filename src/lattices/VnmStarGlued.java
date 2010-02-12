@@ -16,10 +16,22 @@ import static simulator.Util.factorial;
 public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
 
 
-    double[][] p, g;
+    double[][] g;
+    int m;
 
     public VnmStarGlued(int n, int m){
-        p = new double[m][];
+        this.m = m;
+        setDimension(n);
+    }
+
+    public VnmStarGlued(int m){
+        this.m = m;
+    }
+
+    public void setDimension(int n) {
+
+        //generate the glue vectors.
+        double[][] p = new double[m][];
         for( int i = 0; i <=m; i++)
             p[i] = discreteLegendrePolynomial(n+m, i);
 
@@ -27,14 +39,12 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
         for(int j = 0; j <=m; j++){
             for(int x = 0; x <= j; x++) g[j][x] = Math.pow(-1, j)*binom(j, x);
             for(int i = 0; i <=m; i++){
-                for(int x = 0; x < n+m; x++) g[0][x] -= p[i][0]*p[i][x];
+                double dot = 0.0;
+                for(int x = 0; x <= j; x++) dot += p[i][x]*Math.pow(-1, j)*binom(j, x);
+                for(int x = 0; x < n+m; x++) g[0][x] -= dot*p[i][x];
             }
         }
 
-    }
-
-    public void setDimension(int n) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Matrix getGeneratorMatrix() {
