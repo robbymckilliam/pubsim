@@ -23,6 +23,18 @@ public final class Util {
     }
 
     /**
+     * Takes x mod y and works for negative numbers.  Ie is not
+     * just a remainder like java's % operator.
+     */
+    public static long mod(long x, long y) {
+        long t = x % y;
+        if (t < 0) {
+            t += y;
+        }
+        return t;
+    }
+
+    /**
      * Returns the centered fractional part of x.
      * i.e. x - round(x);
      */

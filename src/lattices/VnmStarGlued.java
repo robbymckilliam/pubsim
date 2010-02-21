@@ -6,6 +6,7 @@
 package lattices;
 
 import Jama.Matrix;
+import simulator.Util;
 import static simulator.Util.binom;
 import static simulator.Util.factorial;
 
@@ -16,10 +17,11 @@ import static simulator.Util.factorial;
 public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
 
 
+    double[] yt;
     double[][] g;
     int m;
 
-    public VnmStarGlued(int n, int m){
+    public VnmStarGlued(int m, int n){
         this.m = m;
         setDimension(n);
     }
@@ -45,6 +47,9 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
             }
         }
 
+        //allocate working memory
+        yt = new double[n+m];
+
     }
 
     public Matrix getGeneratorMatrix() {
@@ -52,7 +57,19 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
     }
 
     public void nearestPoint(double[] y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        double num_glues = Vnm.volume(m, n);
+
+        for( long c = 0; c < num_glues; c++){
+            System.arraycopy(y, 0, yt, 0, n+m);
+            for( int i = 0; i <= m; i++){
+                long d = binom(n+m+i, 2*i+1)/binom(2*i, i);
+                long k = Util.mod(c, d);
+                for(int t = 0; t < n+m; t++)
+                    yt[t] += k*g[i][t];
+            }
+
+            c++;
+        }
     }
 
 

@@ -41,10 +41,14 @@ public class Vnm extends AbstractLattice{
      */
     @Override
     public double volume() {
+        return volume(a, n);
+    }
+
+    public static double volume(int a, int n){
         double vol = 1.0;
         for(int k = 0; k < a; k++){
             vol *= Math.sqrt( Util.binom(n+a+k, 2*k+1) / Util.binom(2*k, k) );
-        }      
+        }
         return vol;
     }
 
