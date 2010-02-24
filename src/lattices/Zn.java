@@ -51,7 +51,7 @@ public class Zn extends LatticeAndNearestPointAlgorithm {
 
     @Override
     public double inradius() {
-        return 1.0;
+        return 0.5;
     }
 
     public int getDimension() {

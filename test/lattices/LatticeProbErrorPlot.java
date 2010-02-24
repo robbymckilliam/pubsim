@@ -5,12 +5,12 @@
 
 package lattices;
 
-import lattices.leech.Leech;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Vector;
 import static simulator.Range.*;
+import lattices.Craig;
 
 /**
  *
@@ -26,17 +26,25 @@ public class LatticeProbErrorPlot {
     public static void main(String[] args) throws Exception {
 
 
-        double Sstart = 1;
-        double Send = 20;
-        double Sstep = 0.1;
+        double Sstart = 0;
+        double Send = 10;
+        double Sstep = 1;
         Vector<Double> proberr = new Vector<Double>();
 
-        //Lattice L = new Leech();
-        Lattice L = new Vnm(3, 48);
+        //AbstractLattice L = new Leech();
+        //AbstractLattice L = new Vnm(2, 48);
+        //AbstractLattice L = new Zn(10);
 
-        int a = 6;
+        int p = 307;
+        int n = p-1;
+        int r = (p+1)/4;
+        AbstractLattice L = new Craig(n, r);
+
         for(double S : range(Sstart, Send, Sstep) ){
-            double d = L.log10ProbCodingError(S);
+            //double d = L.probCodingError(S);
+            //double d = L.log10ProbCodingError(S);
+            double d = L.unshapedProbCodingError(Math.pow(10, S/10));
+            //double d = L.probCodingErrorPer2Dim(10*Math.log10(S));
             proberr.add(d);
             System.out.println(S + ", " + d);
         }

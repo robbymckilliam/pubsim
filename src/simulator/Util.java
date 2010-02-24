@@ -51,6 +51,11 @@ public final class Util {
      */
     public static double erf(double x) {
 
+        //if x is sufficiently large use asymptotic approximation
+        if(x > 3.5){
+            return 1.0 - 1.0/(x*Math.sqrt(Math.PI))*Math.exp(-x*x);
+        }
+
         double prod = 1.0;
         double sum = 0.0;
         double tooAdd = Double.POSITIVE_INFINITY;
@@ -65,6 +70,20 @@ public final class Util {
 
         return 2.0 / Math.sqrt(Math.PI) * sum;
 
+    }
+
+    /**
+     * 1 - erf(x)
+     */
+    public static double erfc(double x){
+        return 1 - erf(x);
+    }
+
+    /**
+     * Q function.
+     */
+    public static double Q(double x){
+        return 0.5*(1.0 - erf(x/Math.sqrt(2.0)));
     }
 
     /** Factorial */

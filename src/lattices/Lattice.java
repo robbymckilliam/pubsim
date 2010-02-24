@@ -64,13 +64,6 @@ public interface Lattice extends Serializable {
      */
     double probCodingError(double S);
 
-    /**
-     * This is Conway and Sloane's approximation for high SNR
-     * probability of error in lattice coding.  Returrns log
-     * base 10 of the probability of error.
-     */
-    public double log10ProbCodingError(double S);
-
      /*
      * The number of short vectors in the lattice.
      */

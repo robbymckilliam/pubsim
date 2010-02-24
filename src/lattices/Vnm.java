@@ -9,6 +9,15 @@ import Jama.Matrix;
 import lattices.decoder.ShortestVector;
 import simulator.Util;
 import simulator.VectorFunctions;
+import static simulator.Util.binom;
+import static simulator.Util.log2Binom;
+import static simulator.Util.log2;
+import static simulator.Util.pow2;
+import static simulator.Util.erf;
+import static simulator.Util.erfc;
+import static simulator.Util.Q;
+import static simulator.Util.log2HyperSphereVolume;
+import static simulator.Util.hyperSphereVolume;
 
 /**
  * Class for the lattice Vnm, ie the integer lattice that is that
@@ -66,6 +75,20 @@ public class Vnm extends AbstractLattice{
     }
 
     /**
+     * This is Conway and Sloane's approximation for high SNR
+     * probability of error in lattice coding.  Returrns log
+     * base 10 of the probability of error.
+     */
+    @Override
+    public double probCodingError(double S) {
+        double deln = pow2((log2HyperSphereVolume(n) - logVolume())/n)*inradius();
+        //System.out.println(deln);
+        double erfcSdel = erfc( Math.sqrt(n*S/2.0) * deln );
+        //System.out.println(erfcSdel);
+        return 0.5*kissingNumber()*erfcSdel;
+    }
+
+    /**
      * Inradius is known for sufficiently large n and a less than 7.
      * Otherwise compute it by brute force.
      * The inradius is always greater that 2a.  This is due to a result
@@ -109,6 +132,21 @@ public class Vnm extends AbstractLattice{
     public int getDimension() {
         return n;
     }
-    
+
+    public double unshapedProbCodingError(double S){
+        double nomgain = Math.pow(2.0, log2(2*a) - 2/n*logVolume());
+        double Ks = 2*kissingNumber()/n;
+        return Ks*Q(Math.sqrt(3*nomgain*S));
+    }
+
+    /**
+     * This is actually an upper bound on the kissing number for this
+     * lattice.
+     */
+    @Override
+    public long kissingNumber() {
+        return (long)Math.pow(2.0, log2Binom(n+a, 2*a) + log2Binom(2*a, a));
+        //return n*n;
+    }
 
 }

@@ -29,7 +29,7 @@ public class LatticeDensityPlots {
         int nstep = 1;
         Vector<Double> density = new Vector<Double>();
 
-        int a = 4;
+        int a = 6;
         for(int n : range(nstart, nend, nstep) ){
             Lattice L = new Vnm(a, n);
             //Lattice L = new Craig(n, a);

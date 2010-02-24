@@ -46,12 +46,47 @@ public class CraigTest {
     @Test
     public void testGetGeneratorMatrix() {
         System.out.println("getGeneratorMatrix");
-        int n = 6;
+        int n = 9;
         int r = 3;
         
         Craig instance = new Craig(n, r);
         Matrix result = instance.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(result));
+
+        Matrix gen = instance.getGeneratorMatrix();
+        //System.out.println(VectorFunctions.print(gen));
+        Matrix gram = gen.transpose().times(gen);
+        double expResult = Math.sqrt(gram.det());
+
+        double vol = instance.volume();
+        assertEquals(expResult, vol, 0.001);
+    }
+
+    /**
+     * Test Elkies theorem about kissing numbers and Craig's lattices.
+     * 
+     */
+    @Test
+    public void testElkiesKissingNumber() {
+        System.out.println("testElkiesKissingNumber");
+
+        //p needs to be prime.
+        int p = 67;
+        int n = p-1;
+        int r = (p+1)/4;
+
+        Craig instance = new Craig(n, r);
+
+        Matrix gen = instance.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(gen));
+
+        long res = instance.kissingNumber();
+        long expr = p*(p-1);
+
+        System.out.println(res);
+        System.out.println(expr);
+
+        assertEquals(expr, res);
     }
 
 }

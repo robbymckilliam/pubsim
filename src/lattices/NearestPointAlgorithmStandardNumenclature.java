@@ -29,6 +29,9 @@ public abstract class NearestPointAlgorithmStandardNumenclature
     
     /** The integer index that generate the nearest lattice point */
     protected double[] u;
+
+    /** Dimension of the lattice */
+    protected int n;
     
     
     /**Getter for the nearest point. */

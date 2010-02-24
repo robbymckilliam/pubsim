@@ -40,9 +40,28 @@ public class Craig extends AbstractLattice{
         return n;
     }
 
+    /**
+     * This is only true if p = n+1 is prime and if
+     * p = 3 mod 4.
+     * @return
+     */
+    @Override
+    public long kissingNumber(){
+        return n*(n+1);
+    }
+
+    /**
+     * This is only true if p = n+1 is prime.
+     */
+    @Override
+    public double inradius(){
+         return Math.sqrt(2*r)/2;
+    }
+
     @Override
     public double volume(){
-        return Math.pow(n+1, r/2.0);
+        if(r == 0) return 1.0;
+        return Math.pow(n+1, r - 0.5);
     }
 
     /**

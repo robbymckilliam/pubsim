@@ -124,7 +124,7 @@ public class UtilTest {
         double x = 0.00001;
         double acceptableError = 0.0000001;
         for(int i = 0; i < matlabErfResults.length; i++){
-            assertTrue((Util.erf(x) - matlabErfResults[i]) < acceptableError);
+            assertTrue(Math.abs(Util.erf(x) - matlabErfResults[i]) < acceptableError);
             x += 0.1;
         }
         
