@@ -9,8 +9,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Vector;
-import static simulator.Range.*;
+import lattices.An.AnFastSelect;
+import lattices.leech.Leech;
 import lattices.Craig;
+import lattices.Zn;
+import lattices.P48;
+import lattices.An.AnFastSelect;
+import static simulator.Range.*;
 
 /**
  *
@@ -28,17 +33,19 @@ public class LatticeProbErrorPlot {
 
         double Sstart = 0;
         double Send = 10;
-        double Sstep = 1;
+        double Sstep = 0.5;
         Vector<Double> proberr = new Vector<Double>();
 
         //AbstractLattice L = new Leech();
         //AbstractLattice L = new Vnm(2, 48);
         //AbstractLattice L = new Zn(10);
+        //AbstractLattice L = new P48();
+        AbstractLattice L = new AnFastSelect(2);
 
-        int p = 307;
-        int n = p-1;
-        int r = (p+1)/4;
-        AbstractLattice L = new Craig(n, r);
+//        int p = 31;
+//        int n = p-1;
+//        int r = (p+1)/4;
+//        AbstractLattice L = new Craig(n, r);
 
         for(double S : range(Sstart, Send, Sstep) ){
             //double d = L.probCodingError(S);
@@ -49,14 +56,16 @@ public class LatticeProbErrorPlot {
             System.out.println(S + ", " + d);
         }
 
-        File file = new File( L.getClass().toString() + "_" + L.getDimension() );
+        File file = new File( L.getClass().toString().replace(' ', '.') + "_" + L.getDimension() );
         BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
         int count = 0;
         for( double S : range(Sstart, Send, Sstep)){
-            writer.write(S + "\t"
-                    + proberr.get(count).toString().replace('E', 'e'));
-            writer.newLine(  );
-            count++;
+            if(proberr.get(count) != 0.0){
+                writer.write(S + "\t"
+                        + proberr.get(count).toString().replace('E', 'e'));
+                writer.newLine(  );
+                count++;
+            }
         }
         writer.close();
 
