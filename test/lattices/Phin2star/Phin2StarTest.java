@@ -51,7 +51,7 @@ public class Phin2StarTest {
         int a = 2;
 
         Vnm dual = new Vnm(a, n);
-        VnmStar lat = new VnmStar(a, n);
+        VnmStarSampledEfficient lat = new VnmStarSampledEfficient(a, n);
         double vol = lat.volume();
         double dvol = dual.volume();
         assertEquals(1.0/dvol, vol, 0.00001);

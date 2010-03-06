@@ -307,6 +307,20 @@ public class UtilTest {
         assertEquals(Util.log2Binom(7, 3), Util.log2(Util.binom(7, 3)), 0.000001);
         assertEquals(Util.log2Binom(9, 2), Util.log2(Util.binom(9, 2)), 0.000001);
 
+    }
+
+    /**
+     * Test of mod method, of class Util.
+     */
+    @Test
+    public void testDLP() {
+        System.out.println("test DLP");
+
+        assertEquals( 1.0, Util.discreteLegendrePolynomial(0, 10, 1), 0.0000001);
+        assertEquals( 1.0, Util.discreteLegendrePolynomial(0, 10, 3), 0.0000001);
+        assertEquals( 0.5, Util.discreteLegendrePolynomial(1, 10, 5), 0.0000001);
+        assertEquals( -0.5, Util.discreteLegendrePolynomial(1, 10, 4), 0.0000001);
+        assertEquals( 0.0, Util.discreteLegendrePolynomial(1, 9, 4), 0.0000001);
 
     }
 }

@@ -11,4 +11,5 @@ package lattices;
  */
 public abstract class VnmStar extends AbstractLattice{
 
+
 }

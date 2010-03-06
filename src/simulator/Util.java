@@ -326,4 +326,19 @@ public final class Util {
         return num - den;
     }
 
+    /**
+     * Returns the value of the mth discrete Legendre polynomial
+     * of length N evalated at x.
+     */
+    public static double discreteLegendrePolynomial(int m, int N, int x){
+        double p = 0.0;
+        double scale = factorial(m)/((double)binom(2*m, m));
+        //System.out.println("factorial(m) = " + factorial(m));
+        //System.out.println("binom(2*m, m) = " + binom(2*m, m));
+        for(int s = 0; s <= m; s++){
+            p += scale*Math.pow(-1, s+m)*binom(s+m, s)*binom(N-s-1, N-m-1)*binom(x,s);
+        }
+        return p;
+    }
+
 }

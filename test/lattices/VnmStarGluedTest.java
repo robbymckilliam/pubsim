@@ -43,7 +43,7 @@ public class VnmStarGluedTest {
 
 
     /**
-     * Test of discreteLegendrePolynomial method, of class VnmStarGlued.
+     * Test of discreteLegendrePolynomialVector method, of class VnmStarGlued.
      */
     @Test
     public void testDiscreteLegendrePolynomial() {
@@ -54,8 +54,8 @@ public class VnmStarGluedTest {
 
         for(int i = 0; i <= m; i++){
             for(int j = 0; j <= m; j++){
-                double[] pi = VnmStarGlued.discreteLegendrePolynomial(n, i);
-                double[] pj = VnmStarGlued.discreteLegendrePolynomial(n, j);
+                double[] pi = VnmStarGlued.discreteLegendrePolynomialVector(n, i);
+                double[] pj = VnmStarGlued.discreteLegendrePolynomialVector(n, j);
                 if(i!=j)
                     assertEquals(0.0, VectorFunctions.dot(pi, pj), 0.00001);
                 if(i==j)

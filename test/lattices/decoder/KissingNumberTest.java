@@ -48,7 +48,7 @@ public class KissingNumberTest {
         int n = 5;
         KissingNumber instance = new KissingNumber(new Zn(n));
         int expResult = 2*n;
-        int result = instance.kissingNumber();
+        int result = (int)instance.kissingNumber();
         assertEquals(expResult, result);
 
     }
@@ -61,7 +61,7 @@ public class KissingNumberTest {
         System.out.println("kissingNumber Leech test");
         KissingNumber instance = new KissingNumber(new Leech());
         int expResult = 196560;
-        int result = instance.kissingNumber();
+        int result = (int)instance.kissingNumber();
         assertEquals(expResult, result);
 
     }

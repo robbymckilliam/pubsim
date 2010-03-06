@@ -36,7 +36,7 @@ public class PnaTest extends TestCase {
         System.out.println("nearestPoint");
         
         double[] y = {-1, 0, 0.1, 5, -2};
-        VnmStar pn1 = new VnmStar(1);
+        VnmStarSampledEfficient pn1 = new VnmStarSampledEfficient(1);
         AnstarVaughan ans = new AnstarVaughan();
         
         pn1.nearestPoint(y);
@@ -49,7 +49,7 @@ public class PnaTest extends TestCase {
         assertEquals(true, VectorFunctions.distance_between(pn1.getLatticePoint(), ans.getLatticePoint())<0.00001);
         
         double[] y1 = {-1, 0, 0.1, 5, -2};
-        VnmStar pn2 = new VnmStar(2);
+        VnmStarSampledEfficient pn2 = new VnmStarSampledEfficient(2);
         Vn2StarGlued pn2g = new Vn2StarGlued();
         
         pn2.nearestPoint(y1);
@@ -74,7 +74,7 @@ public class PnaTest extends TestCase {
         int a = 2;
         
         double[] expResult = {-2, -1, 0, 1, 2};
-        double[] result = VnmStar.createg(n-a, a);
+        double[] result = VnmStarSampledEfficient.createg(n-a, a);
         System.out.println("g = " + VectorFunctions.print(result));
         assertEquals(true, VectorFunctions.distance_between(expResult, result)<0.00001);
         
@@ -82,7 +82,7 @@ public class PnaTest extends TestCase {
         a = 3;
         
         double[] expResult2 = {7, 1, -3, -5, -5, -3, 1, 7};
-        double[] result2 = VnmStar.createg(n-a, a);
+        double[] result2 = VnmStarSampledEfficient.createg(n-a, a);
         System.out.println("g = " + VectorFunctions.print(result2));
         assertEquals(true, VectorFunctions.distance_between(expResult2, result2)<0.00001);
         
@@ -97,11 +97,11 @@ public class PnaTest extends TestCase {
         int n = 11;
         int a = 4;
         
-        double[][] mat = VectorFunctions.transpose(VnmStar.generateRotationMatrix(n-a, a));
+        double[][] mat = VectorFunctions.transpose(VnmStarSampledEfficient.generateRotationMatrix(n-a, a));
         System.out.println("mat = " + VectorFunctions.print(VectorFunctions.transpose(mat)));
         for(int i = 0; i < n - a; i++){
             for(int j = 1; j <= a; j++)
-            assertEquals(true, Math.abs(VectorFunctions.dot(mat[i], VnmStar.createg(n-j,j)))<0.00001);
+            assertEquals(true, Math.abs(VectorFunctions.dot(mat[i], VnmStarSampledEfficient.createg(n-j,j)))<0.00001);
         }
         
     }
@@ -119,7 +119,7 @@ public class PnaTest extends TestCase {
         //from matlab
         double[] exp = {-2, 1.2, 2.4 ,-0.4, -1.2};
         
-        VnmStar.project(x, y, a);
+        VnmStarSampledEfficient.project(x, y, a);
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);
@@ -134,7 +134,7 @@ public class PnaTest extends TestCase {
         
         int n = 5;
         int a = 3;
-        VnmStar pna = new VnmStar(a, n-a);
+        VnmStarSampledEfficient pna = new VnmStarSampledEfficient(a, n-a);
         
         Matrix G = pna.getGeneratorMatrix();
         

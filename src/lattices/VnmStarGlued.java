@@ -35,7 +35,7 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
         //generate the glue vectors.
         double[][] p = new double[m][];
         for( int i = 0; i <=m; i++)
-            p[i] = discreteLegendrePolynomial(n+m, i);
+            p[i] = discreteLegendrePolynomialVector(n+m, i);
 
         g = new double[m][n+m];
         for(int j = 0; j <=m; j++){
@@ -67,22 +67,19 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
                 for(int t = 0; t < n+m; t++)
                     yt[t] += k*g[i][t];
             }
-
             c++;
         }
     }
 
-
-
     /**
      * Return the mth monic discrete Legendre polynomial of length n.
      */
-    public static double[] discreteLegendrePolynomial(int n, int m){
+    public static double[] discreteLegendrePolynomialVector(int n, int m){
         if(m < 0 || m > n)
             throw new ArrayIndexOutOfBoundsException("m is out of range");
 
         double[] p = new double[n];
-        long scale = factorial(m)/binom(2*m, m);
+        double scale = factorial(m)/((double)binom(2*m, m));
         for(int s = 0; s <= m; s++){
             for(int x = 0; x < n; x++)
                 p[x] += scale*Math.pow(-1, s+m)*binom(s+m, s)*binom(n-s-1, n-m-1)*binom(x,s);
