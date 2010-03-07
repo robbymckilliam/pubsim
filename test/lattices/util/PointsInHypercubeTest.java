@@ -49,58 +49,58 @@ public class PointsInHypercubeTest {
     public void tearDown() {
     }
 
-//    /**
-//     * Test of nextElement method, of class PointsInHypercube.
-//     */
-//    @Test
-//    public void testWithScaledZn() {
-//        System.out.println("testWithScaledZn");
-//        int n = 3;
-//        Matrix M = Matrix.identity(n, n).times(0.5);
-//        Lattice L = new GeneralLattice(M);
-//        PointsInHypercube points = new PointsInHypercube(L);
-//
-//        int count = 0;
-//        while(points.hasMoreElements()){
-//            Matrix p = points.nextElement();
-//            System.out.println(print(p));
-//            count++;
-//        }
-//        assertEquals(count, (int)Math.pow(2, n));
-//
-//    }
-//
-//    /**
-//     * Test of nextElement method, of class PointsInHypercube.
-//     */
-//    @Test
-//    public void testWithDn() {
-//        System.out.println("testWithDn");
-//
-//        Matrix M = Matrix.identity(2, 2);
-//        M.set(0,1, 0.5); M.set(1,1, 0.5);
-//        Lattice L = new GeneralLattice(M);
-//        PointsInHypercube points = new PointsInHypercube(L);
-//        int count = 0;
-//        while(points.hasMoreElements()){
-//            Matrix p = points.nextElement();
-//            System.out.println(print(p));
-//            count++;
-//        }
-//        assertEquals(count, 2);
-//
-//        L = new Dn(2);
-//        points = new PointsInHypercube(L);
-//
-//        count = 0;
-//        while(points.hasMoreElements()){
-//            Matrix p = points.nextElement();
-//            System.out.println(print(p));
-//            count++;
-//        }
-//        assertEquals(count, 1);
-//
-//    }
+    /**
+     * Test of nextElement method, of class PointsInHypercube.
+     */
+    @Test
+    public void testWithScaledZn() {
+        System.out.println("testWithScaledZn");
+        int n = 3;
+        Matrix M = Matrix.identity(n, n).times(0.5);
+        Lattice L = new GeneralLattice(M);
+        PointsInHypercube points = new PointsInHypercube(L);
+
+        int count = 0;
+        while(points.hasMoreElements()){
+            Matrix p = points.nextElement();
+            System.out.println(print(p));
+            count++;
+        }
+        assertEquals((int)Math.pow(2, n), count);
+
+    }
+
+    /**
+     * Test of nextElement method, of class PointsInHypercube.
+     */
+    @Test
+    public void testWithDn() {
+        System.out.println("testWithDn");
+
+        Matrix M = Matrix.identity(2, 2);
+        M.set(0,1, 0.5); M.set(1,1, 0.5);
+        Lattice L = new GeneralLattice(M);
+        PointsInHypercube points = new PointsInHypercube(L);
+        int count = 0;
+        while(points.hasMoreElements()){
+            Matrix p = points.nextElement();
+            System.out.println(print(p));
+            count++;
+        }
+        assertEquals(2, count);
+
+        L = new Dn(2);
+        points = new PointsInHypercube(L);
+
+        count = 0;
+        while(points.hasMoreElements()){
+            Matrix p = points.nextElement();
+            System.out.println(print(p));
+            count++;
+        }
+        assertEquals(1, count);
+
+    }
 
         /**
      * Test of nextElement method, of class PointsInHypercube.
@@ -109,8 +109,8 @@ public class PointsInHypercubeTest {
     public void testWithVnmPolys() {
         System.out.println("testWithVnmPolys");
 
-        int n = 5;
-        int m = 1;
+        int n = 7;
+        int m = 2;
         int N = n+m+1;
 
         Matrix M = new Matrix(m+1, m+1);
@@ -152,7 +152,8 @@ public class PointsInHypercubeTest {
 
         int count = 0;
         while(points.hasMoreElements()){
-            points.nextElement();
+            Matrix p = points.nextElement();
+            //System.out.println(print(p));
             count++;
         }
         assertEquals(det, count, 0.1);

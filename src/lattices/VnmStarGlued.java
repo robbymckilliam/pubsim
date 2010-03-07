@@ -9,17 +9,25 @@ import Jama.Matrix;
 import simulator.Util;
 import static simulator.Util.binom;
 import static simulator.Util.factorial;
+import static simulator.Util.discreteLegendrePolynomial;
 
 /**
- * Glue vector based algorithm for VnmStar.  UNDER CONSTRUCTION.
+ * Glue vector based algorithm for VnmStar.
+ * I am using the notation from my thesis.  m is the order of the polynomial
+ * and N = n + m + 1 is the dimension that lattice lies in.  n is the
+ * dimension of the lattice.
+ * 
  * @author Robby McKilliam
  */
 public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
 
 
+    //generator matrix for the dual of the integer valued polynomials
+    //assuming they are tranformed to the integer lattice.
+    Matrix B;
+    
     double[] yt;
-    double[][] g;
-    int m;
+    int m, N;
 
     public VnmStarGlued(int m, int n){
         this.m = m;
@@ -31,21 +39,28 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
     }
 
     public void setDimension(int n) {
+        this.n = n;
+        N = n + m + 1;
 
-        //generate the glue vectors.
-        double[][] p = new double[m][];
-        for( int i = 0; i <=m; i++)
-            p[i] = discreteLegendrePolynomialVector(n+m, i);
-
-        g = new double[m][n+m];
-        for(int j = 0; j <=m; j++){
-            for(int x = 0; x <= j; x++) g[j][x] = Math.pow(-1, j)*binom(j, x);
-            for(int i = 0; i <=m; i++){
-                double dot = 0.0;
-                for(int x = 0; x <= j; x++) dot += p[i][x]*Math.pow(-1, j)*binom(j, x);
-                for(int x = 0; x < n+m; x++) g[0][x] -= dot*p[i][x];
+        //compute the matrix mapping the dual to integer valued polys
+        Matrix M = new Matrix(m+1, m+1);
+        for(int k = 0; k <= m; k++){
+            long fk = factorial(k);
+            double ldl = fk*fk*binom(N+k, 2*k+1)/((double)binom(2*k,k));
+            for(int i = 0; i <= m; i++){
+                double l = discreteLegendrePolynomial(k, N, i);
+                M.set(i, k, l/ldl);
             }
         }
+        Matrix L = new Matrix(m+1, m+1);
+        for(int k = 0; k <= m; k++){
+            double scale = factorial(k)/((double)binom(2*k,k));
+            for(int s = 0; s <= m; s++){
+                double l = scale*Math.pow(-1, s+k)*binom(s+k, s)*binom(N-s-1, N-k-1);
+                L.set(k, s, l);
+            }
+        }
+        B = M.times(L);
 
         //allocate working memory
         yt = new double[n+m];
@@ -59,32 +74,8 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
     public void nearestPoint(double[] y) {
         double num_glues = Vnm.volume(m, n);
 
-        for( long c = 0; c < num_glues; c++){
-            System.arraycopy(y, 0, yt, 0, n+m);
-            for( int i = 0; i <= m; i++){
-                long d = binom(n+m+i, 2*i+1)/binom(2*i, i);
-                long k = Util.mod(c, d);
-                for(int t = 0; t < n+m; t++)
-                    yt[t] += k*g[i][t];
-            }
-            c++;
-        }
     }
 
-    /**
-     * Return the mth monic discrete Legendre polynomial of length n.
-     */
-    public static double[] discreteLegendrePolynomialVector(int n, int m){
-        if(m < 0 || m > n)
-            throw new ArrayIndexOutOfBoundsException("m is out of range");
 
-        double[] p = new double[n];
-        double scale = factorial(m)/((double)binom(2*m, m));
-        for(int s = 0; s <= m; s++){
-            for(int x = 0; x < n; x++)
-                p[x] += scale*Math.pow(-1, s+m)*binom(s+m, s)*binom(n-s-1, n-m-1)*binom(x,s);
-        }
-        return p;
-    }
 
 }

@@ -12,16 +12,16 @@ import simulator.Util;
 import simulator.VectorFunctions;
 
 /**
- * This is a version of VnmStarSampled that avoids allocating and deallocated memory all
+ * This is m version of VnmStarSampled that avoids allocating and deallocated memory all
  * the time.  This is achieved by precalculating and storing all 
- * Pnb, b<=a algorithms.
+ * Pnb, b<=m algorithms.
  * <p>
  * The biggest gain comes from createg and project not recuring so much. 
  * @author Robby McKilliam
  */
 public class VnmStarSampledEfficient extends VnmStarSampled {
     
-    /** Store P_n^(a-1) that is used for recursion. */
+    /** Store P_n^(m-1) that is used for recursion. */
     protected VnmStarSampledEfficient pnam1;
     
     /** 
@@ -30,7 +30,7 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
      */
     private double gtg;
     
-     /** When a = 1, we can use the O(n) An* algorithm */
+     /** When m = 1, we can use the O(n) An* algorithm */
     protected Anstar anstar;
     
     public VnmStarSampledEfficient(int a) {
@@ -46,16 +46,16 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
         this.n =  n;
         
         //setup pnam1
-        if(a > 0)
-            pnam1 = new VnmStarSampledEfficient(a-1, n+1);
+        if(m > 0)
+            pnam1 = new VnmStarSampledEfficient(m-1, n+1);
         
-        u = new double[n + a];
-        v = new double[n + a];
-        yt = new double[n + a];
-        yp = new double[n + a];
+        u = new double[n + m];
+        v = new double[n + m];
+        yt = new double[n + m];
+        yp = new double[n + m];
         createg();
         gtg = VectorFunctions.sum2(g);
-        if( a == 1 ) {
+        if( m == 1 ) {
             anstar = new AnstarBucket(n);
         }
     }
@@ -63,19 +63,19 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
     @Override
     public void nearestPoint(double[] y){
         if(u.length != y.length)
-            setDimension(y.length-a);
+            setDimension(y.length-m);
         
-        //project point into this space of lattice P_n^a
+        //project point into this space of lattice P_n^m
         project(y, yp);
         
         double Dmin = Double.POSITIVE_INFINITY;
-        if(a > 1){       
+        if(m > 1){
             //This step length is motivated by the ambiguity of
             //polynomial phase estiamtion.  I have not formally
             //worked it out in terms of lattices.
-            double magg = 2*Math.sqrt(gtg)/Util.factorial(a);
-            //double step = magg/Math.pow(n,a);
-            double step = magg/Math.pow(n,a);
+            double magg = 2*Math.sqrt(gtg)/Util.factorial(m);
+            //double step = magg/Math.pow(n,m);
+            double step = magg/Math.pow(n,m);
             for(double s = 0; s < magg; s+=step){
                 for(int i = 0; i < y.length; i++)
                     yt[i] = y[i] + s*g[i];
@@ -92,7 +92,7 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
                 }
             }
         //It's An* so run the O(n) An* algorithm
-        }else if( a == 1){
+        }else if( m == 1){
             anstar.nearestPoint(y);
             u = anstar.getIndex();
         //It's Z^n so round.  This should never be reached.
@@ -110,7 +110,7 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
      * holder contains all the VnmStarSampled's that is needs
      */
     protected void project(double[] x, double[] y){
-        if(a > 0){
+        if(m > 0){
             pnam1.project(x,y);
             double dot = VectorFunctions.dot(y,g);
             for(int i = 0; i < x.length; i++){
@@ -128,10 +128,10 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
      * This is protected for good reason!
      */
     protected void createg(){
-        g = new double[n + a];
-        if( a > 0 ){
-            for(int i = 0; i < n+a; i++)
-                g[i] = Math.pow(i+1,a-1);
+        g = new double[n + m];
+        if( m > 0 ){
+            for(int i = 0; i < n+m; i++)
+                g[i] = Math.pow(i+1,m-1);
             pnam1.project(g,g);
         }
     }
@@ -141,16 +141,16 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
     @Override
     public double volume(){
         //if this is the Zn lattice
-        if(a == 0){
+        if(m == 0){
             return 1.0;
         }else{
             //calculate det( I - gg'/g'g )
-            double[][] gm = new double[1][n+a];
-            System.arraycopy(g, 0, gm[0], 0, n+a);
+            double[][] gm = new double[1][n+m];
+            System.arraycopy(g, 0, gm[0], 0, n+m);
             Matrix gM = new Matrix(gm);
-            Matrix M = Matrix.identity(n+a,n+a).minus(
+            Matrix M = Matrix.identity(n+m,n+m).minus(
                     gM.transpose().times(gM).times(1.0/gtg));
-            M = M.getMatrix(0, n-1, 0, n+a-1);
+            M = M.getMatrix(0, n-1, 0, n+m-1);
             double det = M.times(M.transpose()).det();
             //double det = VectorFunctions.stableDet(M.times(M.transpose()));
             return Math.sqrt(det) * pnam1.volume();
@@ -160,11 +160,11 @@ public class VnmStarSampledEfficient extends VnmStarSampled {
     
     /** 
      * Returns the vector g for this VnmStarSampled where
-     * a is the input to the function.
+     * m is the input to the function.
      */
     public double[] getg(int a){
         double[] ret = null;
-        if(a < this.a )
+        if(a < this.m )
             ret = pnam1.getg(a);
         else
             ret = getg();

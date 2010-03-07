@@ -22,12 +22,20 @@ public class PointInSphere
         extends AbstractPointEnumerator
         implements PointEnumerator{
 
-    Matrix M, R, Q;
+    protected Matrix M;
+    protected Matrix r, uret;
+
+    Matrix R, Q;
     double[] y, u;
     double D;
     int n, m;
-    boolean finished = false;
+    
     DecodeThread dthread;
+
+    //keeps the compiler happy.  Silly compiler.
+    protected PointInSphere(){
+        
+    }
 
     /**
      * @param lattice
@@ -48,7 +56,7 @@ public class PointInSphere
         init(lattice, radius, center);
     }
 
-    private void init(Lattice lattice, double radius, double[] center){
+    protected void init(Lattice lattice, double radius, double[] center){
         M = lattice.getGeneratorMatrix();
         m = M.getRowDimension();
         n = M.getColumnDimension();
@@ -81,7 +89,6 @@ public class PointInSphere
     protected LinkedBlockingQueue<Matrix> queue = new
             LinkedBlockingQueue<Matrix>(1000);
 
-    Matrix r, uret;
     public Matrix nextElement() {
         //while the queue is empty, yield the main thread
         while(queue.isEmpty())
