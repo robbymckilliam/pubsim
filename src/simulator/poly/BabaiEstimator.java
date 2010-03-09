@@ -5,14 +5,11 @@
 package simulator.poly;
 
 import Jama.Matrix;
-import lattices.GeneralLattice;
-import lattices.Lattice;
-import lattices.VnmStarSampledEfficient;
+import lattices.VnmStar;
+import lattices.VnmStarGlued;
 import lattices.decoder.Babai;
 import lattices.decoder.GeneralNearestPointAlgorithm;
-import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
-import simulator.Util;
 
 /**
  * Uses the Babai nearest plane algorithm
@@ -21,8 +18,8 @@ import simulator.Util;
 public class BabaiEstimator implements PolynomialPhaseEstimator {
 
     protected double[] ya,  p;
-    protected int n,  a;
-    protected VnmStarSampledEfficient lattice;
+    protected int n,  m;
+    protected VnmStar lattice;
     protected GeneralNearestPointAlgorithm npalgorithm;
     protected Matrix M,  K, ambM;
     protected AmbiguityRemover ambiguityRemover;
@@ -33,22 +30,22 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     
     /** 
      * You must set the polynomial order in the constructor
-     * @param a = polynomial order
+     * @param m = polynomial order
      */
-    public BabaiEstimator(int a) {
-        lattice = new VnmStarSampledEfficient(a);
+    public BabaiEstimator(int m) {
+        lattice = new VnmStarGlued(m);
         npalgorithm = new Babai();
-        this.a = a;
+        this.m = m;
     }
 
     @Override
     public void setSize(int n) {
-        lattice.setDimension(n - a);
+        lattice.setDimension(n - m - 1);
         npalgorithm.setLattice(lattice);
-        ambiguityRemover = new AmbiguityRemover(a);
+        ambiguityRemover = new AmbiguityRemover(m);
 
         ya = new double[n];
-        p = new double[a];
+        p = new double[m+1];
         this.n = n;
 
         M = lattice.getMMatrix();
@@ -57,10 +54,6 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         
     }
 
-    /** 
-     *  This is not complete.  I am only returning the parameter of
-     *  largest order.  Need to fill the parameter array.
-     */
     @Override
     public double[] estimate(double[] real, double[] imag) {
         if (n != real.length) {
@@ -82,21 +75,6 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
 
         //compute the parameters
         VectorFunctions.matrixMultVector(K, ymu, p); 
-        //double[] pa = ambiguityRemover.disambiguate(p);
-        
-        //System.out.println("est = " + VectorFunctions.print(est));
-        //System.out.println("est = " + VectorFunctions.print(pa));
-        
-        //Round the parameters back to
-        //allowable ranges.  Care needs to be taken
-        //here as the parameters are not independent.
-//        for(int i = a-1; i > 0; i--){
-//            double val = Math.IEEEremainder(est[i], 1.0/Util.factorial(i));
-//            est[i-1] -= est[i] - val;
-//            est[i] = val;
-//            //est[j] *= 2*Math.PI;
-//        }
-//        est[0] = Math.IEEEremainder(est[0], 1.0);
         
         return ambiguityRemover.disambiguate(p);
     }
@@ -122,7 +100,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     }
 
     public int getOrder() {
-        return a;
+        return m;
     }
 
 

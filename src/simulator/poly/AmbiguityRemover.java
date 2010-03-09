@@ -11,13 +11,13 @@ import lattices.decoder.SphereDecoder;
 import simulator.VectorFunctions;
 
 /**
- * This uses a nearest lattice point approach to remove the
+ * This uses m nearest lattice point approach to remove the
  * ambiguities inherent in polynomial phase estimation.
  * @author Robby McKilliam
  */
 public class AmbiguityRemover implements Serializable{
 
-    protected int a;
+    protected int m;
     protected Matrix M;
     double[] p;
     SphereDecoder sd;
@@ -27,15 +27,15 @@ public class AmbiguityRemover implements Serializable{
 
     /**
      * Public constructor.  Set the order polynomail phase estimator.
-     * @param a = the number of parameters ie. order of polynomial + 1
+     * @param m = the number of parameters ie. order of polynomial + 1
      */
-    public AmbiguityRemover(int a) {
-        setSize(a);
+    public AmbiguityRemover(int m) {
+        setSize(m);
     }
 
-    protected void setSize(int a) {
-        this.a = a;
-        p = new double[a];
+    protected void setSize(int m) {
+        this.m = m;
+        p = new double[m+1];
         M = constructBasisMatrix();
         GeneralLattice lattice = new GeneralLattice(M);
         sd = new SphereDecoder();
@@ -43,9 +43,9 @@ public class AmbiguityRemover implements Serializable{
     }
 
     protected Matrix constructBasisMatrix() {
-        Matrix B = new Matrix(a, a);
+        Matrix B = new Matrix(m+1, m+1);
         double[] c = VectorFunctions.eVector(0, 1);
-        for (int j = 0; j < a; j++) {
+        for (int j = 0; j < m+1; j++) {
             for (int i = 0; i <= j; i++) {
                 B.set(i, j, c[i]);
             }
@@ -88,7 +88,7 @@ public class AmbiguityRemover implements Serializable{
      * @return parameter in indentifiabile range.
      */
     public double[] disambiguate(double[] p) {
-        if (a != p.length) {
+        if (m+1 != p.length) {
             throw new RuntimeException("Parameter vector p is not the correct size.");
         }
         sd.nearestPoint(p);

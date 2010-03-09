@@ -13,14 +13,14 @@ import optimisation.NewtonRaphson;
 import simulator.VectorFunctions;
 
 /**
- * Implements a (approximate) maximum likelihood estimator for
+ * Implements m (approximate) maximum likelihood estimator for
  * polynomial phase signals.  This samples the identifiable region
- * performing Newton's method a whole lot of times.
+ * performing Newton's method m whole lot of times.
  * @author Robby McKilliam
  */
 public class MaximumLikelihood implements PolynomialPhaseEstimator{
 
-    int a;
+    int m;
     int N;
     int samples[];
     protected AmbiguityRemover ambiguityRemover;
@@ -30,27 +30,27 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     }
 
     /**
-     * @param a : polynomail order
+     * @param m : polynomail order
      * @param samples : number of samples used per parameter in ML search.
      * Deafult samples = 100
      */
-    public MaximumLikelihood(int a, int samples){
-        this.a = a;
-        this.samples = new int[a];
-        for(int i = 0; i < a; i++)
+    public MaximumLikelihood(int m, int samples){
+        this.m = m;
+        this.samples = new int[m+1];
+        for(int i = 0; i <= m; i++)
             this.samples[i] = samples;
-        ambiguityRemover = new AmbiguityRemover(a);
+        ambiguityRemover = new AmbiguityRemover(m);
     }
 
     /**
-     * @param a : polynomail order
+     * @param m : polynomail order
      * @param samples : number of samples used per parameter in ML search.
      * Deafult samples = 100
      */
-    public MaximumLikelihood(int a, int[] samples){
-        this.a = a;
+    public MaximumLikelihood(int m, int[] samples){
+        this.m = m;
         this.samples = samples;
-        ambiguityRemover = new AmbiguityRemover(a);
+        ambiguityRemover = new AmbiguityRemover(m);
     }
     
     /**
@@ -66,7 +66,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     }
 
     public int getOrder() {
-        return a;
+        return m;
     }
 
     public double[] estimate(double[] real, double[] imag) {
@@ -146,7 +146,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         }
 
         /**
-         * x is a column vector containing the polynomial phase
+         * x is m column vector containing the polynomial phase
          * parameter.  x = [p0, p1, p2, ... ]
          * @return Value of the likelihood function for these parameters
          */

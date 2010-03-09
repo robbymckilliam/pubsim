@@ -65,7 +65,7 @@ public class DPTEstimatorTest {
     @Test
     public void PPT2HasLastElementCorrect() {
         System.out.println("PPT2");
-        int m = 3;
+        int m = 4;
         int n = 10;
         Complex[] y = VectorFunctions.randomComplex(n);
         DPTEstimator instance = new DPTEstimator(m);
@@ -121,7 +121,7 @@ public class DPTEstimatorTest {
 
         int n = 24;
         double[] params = {0.11, 0.05002, 0.0205, 0.0001};
-        int a = params.length;
+        int m = params.length-1;
 
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
         siggen.setLength(n);
@@ -130,7 +130,7 @@ public class DPTEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        DPTEstimator inst = new DPTEstimator(params.length);
+        DPTEstimator inst = new DPTEstimator(m);
         inst.setSize(n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());

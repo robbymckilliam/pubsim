@@ -88,7 +88,9 @@ public class Babai implements GeneralNearestPointAlgorithm {
 
     public void nearestPoint(double[] y) {
         if(m != y.length)
-            throw new RuntimeException("Point y and Generator matrix are of different dimension!");
+            throw new RuntimeException("Point y of length " + y.length + 
+                    " and Generator matrix of column length " + m +
+                    " are of different dimension!");
         
         computeBabaiPoint(y);
               

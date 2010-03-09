@@ -43,21 +43,6 @@ public class Phin2StarTest {
     }
 
     /**
-     * Test of volume method, of class Vn2Star.
-     */
-    @Test
-    public void testVolume() {
-        int n = 20;
-        int a = 2;
-
-        Vnm dual = new Vnm(a, n);
-        VnmStarSampledEfficient lat = new VnmStarSampledEfficient(a, n);
-        double vol = lat.volume();
-        double dvol = dual.volume();
-        assertEquals(1.0/dvol, vol, 0.00001);
-    }
-
-    /**
      * Test derived formula for volume of this lattice.
      */
     @Test

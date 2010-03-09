@@ -20,7 +20,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
 
     protected Complex[] z;
     protected double[] p;
-    protected int a,  n;
+    protected int m,  n;
     protected double tau;
     protected int num_samples;
     
@@ -31,21 +31,21 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
 
     protected AmbiguityRemover ambiguityRemover;
 
-    public DPTEstimator(int a) {
-        this.a = a;
-        ambiguityRemover = new AmbiguityRemover(a);
+    public DPTEstimator(int m) {
+        this.m = m;
+        ambiguityRemover = new AmbiguityRemover(m);
     }
 
     public void setSize(int n) {
         z = new Complex[n];
-        p = new double[a];
+        p = new double[m+1];
         this.n = n;
         num_samples = 4 * n;
 
         //set the tau parameter for the PPT
-        tau = Math.round(((double) n) / (a-1));
-        if (a > 4) {
-            tau = Math.round(((double) n) / (a + 1));
+        tau = Math.round(((double) n) / (m));
+        if (m > 4) {
+            tau = Math.round(((double) n) / (m + 2));
          }
        // tau = Math.round(0.2 * n);
 
@@ -64,7 +64,6 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
 //        System.out.println(VectorFunctions.print(imag));
 //        System.out.println(VectorFunctions.print(z));
 
-        int m = a - 1;
         for (int i = m; i >= 0; i--) {
             p[i] = estimateM(z, i);
             for (int j = 0; j < z.length; j++) {
@@ -80,7 +79,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
 
     /**
      * Estimate the parameter of order M from x.
-     * This uses a coarse (discrete) search of the periodogram and
+     * This uses m coarse (discrete) search of the periodogram and
      * then Newton Raphson to climb to the peak.  This is very similar
      * to the periodogram method for the frequency estimator.
      * @param x the signal
@@ -234,8 +233,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
      * with the identifiable region.
      * @return volume of functional region
      */
-    public static double volumeOfFunctionalRegion(double tau, int a){
-        int m = a-1;
+    public static double volumeOfFunctionalRegion(double tau, int m){
         double prod = 1.0;
         for(int k = 2; k <= m; k++){
             prod *= 1.0/( Util.factorial(k) * Math.pow(tau, k-1) );
@@ -244,6 +242,6 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
     }
 
     public int getOrder() {
-        return a;
+        return m;
     }
 }

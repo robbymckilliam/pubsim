@@ -7,8 +7,9 @@ package lattices.decoder;
 
 import Jama.Matrix;
 import java.util.Random;
+import lattices.Anstar.AnstarBucketVaughan;
 import lattices.GeneralLattice;
-import lattices.VnmStarSampledEfficient;
+import lattices.LatticeAndNearestPointAlgorithm;
 import lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -105,20 +106,19 @@ public class BabaiTest {
         //run nearest point test by making small deviations (del) to lattice points.
         int iters = 10;
         Random r = new Random();
-        int a = 3;
         double del = 0.0001;
         for(int t = 0; t < iters; t++){
             int n = r.nextInt(10) + 5;
-            VnmStarSampledEfficient pna = new VnmStarSampledEfficient(a, n-a);
-            Matrix G = pna.getGeneratorMatrix();
+            LatticeAndNearestPointAlgorithm lattice = new AnstarBucketVaughan(n-1);
+            Matrix G = lattice.getGeneratorMatrix();
             
             Babai babai = new Babai();
-            babai.setLattice(pna);
+            babai.setLattice(lattice);
             
            // System.out.println("G is " + G.getRowDimension() + " by " + G.getColumnDimension());
             double[] x = new double[G.getRowDimension()];
             double[] xdel = new double[G.getRowDimension()];
-            double[] u = VectorFunctions.randomIntegerVector(n-a, 1000);
+            double[] u = VectorFunctions.randomIntegerVector(n, 1000);
             
             //System.out.println("u is length " + u.length + ", x is length"  + x.length);
             

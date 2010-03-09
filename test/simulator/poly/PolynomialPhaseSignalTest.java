@@ -52,12 +52,12 @@ public class PolynomialPhaseSignalTest extends TestCase {
      */
     public void testGenerateRandomParameters() {
         System.out.println("testGenerateRandomParameters");
-        int a = 2;
+        int m = 2;
         PolynomialPhaseSignal.RandomParameterGenerator pgen
-                = new PolynomialPhaseSignal.RandomParameterGenerator(a);
+                = new PolynomialPhaseSignal.RandomParameterGenerator(m);
 
         double[] p = pgen.generateParameters();
-
+        assertEquals(3, p.length);
         System.out.println(VectorFunctions.print(p));
 
     }

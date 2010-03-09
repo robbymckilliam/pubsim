@@ -19,7 +19,7 @@ import static simulator.Util.discreteLegendrePolynomial;
  * 
  * @author Robby McKilliam
  */
-public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
+public class VnmStarGlued extends VnmStar {
 
 
     //generator matrix for the dual of the integer valued polynomials
@@ -27,7 +27,7 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
     Matrix B;
     
     double[] yt;
-    int m, N;
+    int N;
 
     public VnmStarGlued(int m, int n){
         this.m = m;
@@ -67,13 +67,25 @@ public class VnmStarGlued extends NearestPointAlgorithmStandardNumenclature {
 
     }
 
-    public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public void nearestPoint(double[] y) {
         double num_glues = Vnm.volume(m, n);
 
+    }
+
+    public double coveringRadius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int getDimension() {
+        return n;
+    }
+
+    public double[] getLatticePoint() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double[] getIndex() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

@@ -8,7 +8,6 @@ package lattices.reduction;
 import Jama.Matrix;
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
-import lattices.VnmStarSampledEfficient;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -194,32 +193,5 @@ public class LLLTest {
         System.out.println(VectorFunctions.print(instance.getUnimodularMatrix()));
         
     }
-    
-//    @Test
-//    public void reducesPhinaStar() {
-//        System.out.println("reducesPhinaStar");
-//        int m = 9;  
-//        int a = 3;
-//        int n = m - a;
-//        VnmStarSampledEfficient lattice = new VnmStarSampledEfficient(a, n);
-//        Matrix B = lattice.getGeneratorMatrix();
-//        
-//        System.out.println(VectorFunctions.print(B));
-//        
-//        LLL instance = new LLL();
-//        Matrix result = instance.reduce(B);
-//        System.out.println(VectorFunctions.print(result));
-//        simulator.QRDecomposition QR = new simulator.QRDecomposition(result);
-//        Matrix R = QR.getR();
-//        System.out.println("R = " + VectorFunctions.print(R));
-//        for(int j = 0; j < n-1; j++){
-//            //this is the Lovas reduction criteria
-//            System.out.println("j = " + j);
-//            assertTrue( R.get(j,j)*R.get(j,j) <= 2*R.get(j+1,j+1)*R.get(j+1,j+1) );
-//        }
-//        
-//        System.out.println(VectorFunctions.print(instance.getUnimodularMatrix()));
-//        
-//    }
     
 }

@@ -12,7 +12,7 @@ import simulator.SignalGenerator;
 import simulator.VectorFunctions;
 
 /**
- * Generates a polynomial phase signal with parameters specified
+ * Generates m polynomial phase signal with parameters specified
  * by the setParameters method.
  * @author Robby McKilliam
  */
@@ -77,7 +77,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
 
     RandomParameterGenerator pgen = new RandomParameterGenerator(0);
     /**
-     * Generates parameters of a polynomial phase signal of order a
+     * Generates parameters of m polynomial phase signal of order m
      * that are uniformly distributed in the identifiable range.  See:
      * R. G. McKilliam, I. V. L. Clarkson, "Identifiability and aliasing
      * of polynomial phase signals", working paper.
@@ -100,7 +100,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
         return params;
     }
     
-    /** Chirp signal have a number of abiguities.  This calcuates
+    /** Chirp signal have m number of abiguities.  This calcuates
      * the mse for each parameter after removing ambiguities.
      * This only works for linear Chirp, use AmbiguityRemover
      * for the general case.
@@ -137,21 +137,21 @@ public class PolynomialPhaseSignal implements SignalGenerator{
 
     public static class RandomParameterGenerator implements Serializable{
         protected AmbiguityRemover ambr;
-        protected int a;
+        protected int m;
         protected double[] p;
         protected Random rand;
 
-        public RandomParameterGenerator(int a){
-            this.a = a;
-            ambr = new AmbiguityRemover(a);
-            p = new double[a];
+        public RandomParameterGenerator(int m){
+            this.m = m;
+            ambr = new AmbiguityRemover(this.m);
+            p = new double[this.m+1];
             rand = new Random();
         }
 
-        public int getOrder() { return a; }
+        public int getOrder() { return m; }
 
         public double[] generateParameters(){
-            for(int i = 0; i < a; i++)
+            for(int i = 0; i < m+1; i++)
                 p[i] = rand.nextDouble();
 
 //            VectorFunctions.matrixMultVector(ambr.getBasisMatrix(), p);

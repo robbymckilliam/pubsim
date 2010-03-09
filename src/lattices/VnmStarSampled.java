@@ -174,12 +174,7 @@ public class VnmStarSampled extends VnmStar{
         return VectorFunctions.transpose(mat);
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public double volume(){
-        Matrix M = getGeneratorMatrix();
-        return Math.sqrt(M.transpose().times(M).det());
-    }
+
         
     
     /** 
@@ -192,41 +187,6 @@ public class VnmStarSampled extends VnmStar{
         return g;
     }
 
-    public Matrix getGeneratorMatrix() {
-        return getGeneratorMatrix(m+1, n);
-    }
 
-    public static Matrix getGeneratorMatrix(int a, int n) {
-        Matrix M = getMMatrix(a, n);
-        Matrix Mt = M.transpose();
-        Matrix K = (Mt.times(M)).inverse().times(Mt);
-        Matrix G = Matrix.identity(n+a, n+a).minus(M.times(K));
-
-        return G.getMatrix(0, n+a-1, 0, n-1);
-    }
-    
-    /** 
-     * This is the matrix M in most of my papers
-     * M = [1, n, n^2, ..., n^m]
-     */
-    public Matrix getMMatrix(){
-        return getMMatrix(m+1, n);
-    }
-
-    /**
-     * This is the Vandermonde matrix M in most of my papers
-     * M = [1, n, n^2, ..., n^m]
-     */
-    public static Matrix getMMatrix(int m, int n){
-        int N = m + n + 1;
-        Matrix M = new Matrix(N, m);
-
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < m+1; j++){
-                M.set(i, j, Math.pow(i+1, j));
-            }
-        }
-        return M;
-    }
     
 }

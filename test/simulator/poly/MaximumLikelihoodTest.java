@@ -103,9 +103,9 @@ public class MaximumLikelihoodTest {
      */
     @Test
     public void testEstimate() {
-        int n = 10;
+        int n = 6;
         double[] params = {0.1, 0.1, 0.1};
-        int a = params.length;
+        int m = params.length-1;
 
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
         siggen.setLength(n);
@@ -114,14 +114,14 @@ public class MaximumLikelihoodTest {
 
         siggen.generateReceivedSignal();
 
-        MaximumLikelihood inst = new MaximumLikelihood(params.length, 100);
+        MaximumLikelihood inst = new MaximumLikelihood(m, 100);
         inst.setSize(n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
         System.out.println(VectorFunctions.print(p));
 
-        assertTrue(VectorFunctions.distance_between(p, params) < 0.0001);
+        assertTrue(VectorFunctions.distance_between(p, params) < 0.01);
     }
 
 }

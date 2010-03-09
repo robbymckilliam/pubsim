@@ -43,9 +43,9 @@ public class AmbiguityRemoverTest {
     @Test
     public void throwsExceptionWhenIncorrectSize() {
         System.out.println("throwsExceptionWhenIncorrectSize");
-        int a = 5;
+        int m = 4;
         double[] p = {3, 2, 4, 5};
-        AmbiguityRemover instance = new AmbiguityRemover(a);
+        AmbiguityRemover instance = new AmbiguityRemover(m);
 
         boolean caught = false;
         try{
@@ -60,15 +60,15 @@ public class AmbiguityRemoverTest {
     public void testDisambiguate() {
         System.out.println("testDisambiguate");
         double[] p1 = {1.3, -2.1};
-        int a = p1.length;
-        AmbiguityRemover instance = new AmbiguityRemover(a);
+        int m = p1.length - 1;
+        AmbiguityRemover instance = new AmbiguityRemover(m);
         p1 = instance.disambiguate(p1);
         double[] y1 = {0.3, -0.1};
         assertTrue(VectorFunctions.distance_between2(p1, y1) < 0.000001);
 
         double[] p2 = {1.3, -2.1, 2.6};
-        a = p2.length;
-        instance = new AmbiguityRemover(a);
+        m = p2.length - 1;
+        instance = new AmbiguityRemover(m);
         p2 = instance.disambiguate(p2);
         double[] y2 = {0.3, 0.4, 0.1};
         assertTrue(VectorFunctions.distance_between2(p2, y2) < 0.000001);

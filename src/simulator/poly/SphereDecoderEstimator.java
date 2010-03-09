@@ -5,25 +5,25 @@
 
 package simulator.poly;
 
-import lattices.VnmStarSampledEfficient;
+import lattices.VnmStarGlued;
 import lattices.decoder.SphereDecoder;
 
 /**
  * Runs the VnmStarSampledEfficient nearest lattice point algorithm to
- * estimate a polynomial phase signal.
+ * estimate m polynomial phase signal.
  * @author Robby McKilliam
  */
 public class SphereDecoderEstimator extends BabaiEstimator {
     
     /** 
      * You must set the polynomial order in the constructor
-     * @param a = polynomial order
+     * @param m = polynomial order
      */
-    public SphereDecoderEstimator(int a) {
-        lattice = new VnmStarSampledEfficient(a);
+    public SphereDecoderEstimator(int m) {
+        lattice = new VnmStarGlued(m);
         npalgorithm = new SphereDecoder();
         //npalgorithm = new PolySphereDecoder();
-        this.a = a;
+        this.m = m;
     }
 
 }

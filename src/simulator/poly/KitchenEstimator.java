@@ -11,32 +11,32 @@ import simulator.VectorFunctions;
 /**
  * Implementation of Kitchen's polynomial phase estimate.
  *
- * J. Kitchen, "A method for estimating the coefficients of a polynomial
+ * J. Kitchen, "A method for estimating the coefficients of m polynomial
  * phase signal", Signal Processing, vol 37, 1994.
  * 
- * This is essentially a generalisation of Kay's frequency estimator.
+ * This is essentially m generalisation of Kay's frequency estimator.
  * @author Robby McKilliam
  */
 public class KitchenEstimator implements PolynomialPhaseEstimator{
 
     protected double[] y, p;
-    protected int a, N;
+    protected int m, N;
 
     protected AmbiguityRemover ambiguityRemover;
 
-    public KitchenEstimator(int a) {
-        this.a = a;
-        ambiguityRemover = new AmbiguityRemover(a);
+    public KitchenEstimator(int m) {
+        this.m = m;
+        ambiguityRemover = new AmbiguityRemover(m);
     }
 
     public void setSize(int n) {
         this.N = n;
         y = new double[n];
-        p = new double[a];
+        p = new double[m+1];
     }
 
     public int getOrder() {
-        return a;
+        return m;
     }
 
     public double[] estimate(double[] real, double[] imag) {
@@ -46,7 +46,6 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
         for(int i = 0; i < N; i++)
             y[i] = Math.atan2(imag[i], real[i])/(2*Math.PI);
 
-        int m = a - 1;
         for (int i = m; i >= 0; i--) {
             p[i] = estimateM(y, i);
             for (int j = 0; j < y.length; j++) {
