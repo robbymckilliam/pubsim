@@ -84,6 +84,11 @@ public abstract class VnmStar extends LatticeAndNearestPointAlgorithm{
         }
     }
 
+    /** Project into the space this lattice lies in. */
+    public void project(double[] x, double[] y){
+        project(x,y,m);
+    }
+
     /**
      * Return the mth monic discrete Legendre polynomial of length n.
      */
@@ -110,6 +115,14 @@ public abstract class VnmStar extends LatticeAndNearestPointAlgorithm{
             for(int x = 0; x < n; x++)
                 p[x] += scale*Math.pow(-1, s+m)*binom(s+m, s)*binom(n-s-1, n-m-1)*binom(x,s);
         }
+    }
+
+    public double coveringRadius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int getDimension() {
+        return n;
     }
 
 

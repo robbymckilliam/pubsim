@@ -25,5 +25,6 @@ public class SphereDecoderEstimator extends BabaiEstimator {
         //npalgorithm = new PolySphereDecoder();
         this.m = m;
     }
+   
 
 }

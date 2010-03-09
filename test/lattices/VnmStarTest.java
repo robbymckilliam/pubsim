@@ -59,6 +59,20 @@ public class VnmStarTest {
         double dist = VectorFunctions.distance_between(y, exp);
         System.out.println(" y = " + VectorFunctions.print(y));
         assertEquals(true, dist<0.0001);
+
+        //test with a larger projection.
+        x = VectorFunctions.randomGaussian(100);
+        y = new double[x.length];
+        m = 4;
+        VnmStar.project(x, y, m);
+        VnmStar.getMMatrix(m, 100 - m - 1);
+        Matrix ym = VectorFunctions.rowMatrix(y);
+        Matrix ret = ym.times(VnmStar.getMMatrix(m, 100 - m - 1));
+        for(int i = 0; i <= m; i++){
+            assertEquals(0.0, ret.get(0,i), 0.000001);
+        }
+
+
     }
 
     @Test

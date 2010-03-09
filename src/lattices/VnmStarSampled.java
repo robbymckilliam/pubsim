@@ -7,186 +7,90 @@
 package lattices;
 
 import Jama.Matrix;
+import lattices.Anstar.Anstar;
+import lattices.Anstar.AnstarBucketVaughan;
 import lattices.decoder.ShortestVector;
+import lattices.util.PointInParallelepiped;
 import simulator.VectorFunctions;
+import static simulator.Util.factorial;
 
 /**
- * Class that solves the nearst point algorithm for the family of lattices
- * P_n^alpha.  This is m suboptimal sampling approach.  It is polynomial time
- * in n but exponential in alpha.
+ * Approximate nearest point algorithm for Vnm* that samples
+ * in the hyperplane H.  Uses the nearest lattice point algorithm
+ * for An* to help speed things up.
  * @author Robby McKilliam
  */
-public class VnmStarSampled extends VnmStar{
-    
-    protected int m, N;
-    protected double[] g, yt, yp;
-    
-    /** The nearest lattice point */
-    protected double[] v;
+public class VnmStarSampled extends VnmStarGlued{
 
-    /** The integer index that generate the nearest lattice point */
-    protected double[] u;
+    private Anstar anstar;
+    private double[] x, u;
+    private int[] samples;
+    private Matrix M;
+    private double[] yt;
 
-    /** Dimension of the lattice */
-    protected int n;
-
-
-    /**Getter for the nearest point. */
-    @Override
-    public double[] getLatticePoint() {return v;}
-
-    /**Getter for the interger vector. */
-    @Override
-    public double[] getIndex() {return u;}
-
-    /**
-     * Return the convering radius for this lattice
-     */
-    @Override
-    public double coveringRadius(){
-        throw new UnsupportedOperationException("Covering radius not supported");
-    }
-
-    /**
-     * This assumes that n is the dimension of your lattice!
-     * Don't use this abstract class if you don't intend n to
-     * be the dimension of your lattice.
-     */
-    public int getDimension(){ return n; }
-    
-    /** Must set m when constucted */
-    public VnmStarSampled(int m){
+    public VnmStarSampled(int m, int n, int[] samples){
         this.m = m;
-        //this is m bit icky.  It's just to
-        //ensure that it's not m null pointer
-        //for nearestPoint
-        u = new double[0];
-    }
-    
-    /** Sets m and the dimension n when constructed */
-    public VnmStarSampled(int a, int n){
-        this.m = a;
         setDimension(n);
+        this.samples = samples;
     }
-    
+
     @Override
-    public void setDimension(int n){
-        this.n =  n;
+    public void setDimension(int n) {
+        this.n = n;
         N = n + m + 1;
-        u = new double[N];
-        v = new double[N];
+
+        //compute all the Legendre polynomials
+        //divide then by k! so that we search the appropriate sized space.
+        legendre = new double[m+1][];
+        for(int k = 0; k <= m; k++)
+            legendre[k] = discreteLegendrePolynomialVector(N, k);
+//        for(int k = 0; k <= m; k++){
+//            for(int i = 0; i < N; i++)
+//                legendre[k][i] = legendre[k][i]/factorial(k);
+//        }
+
+        anstar = new AnstarBucketVaughan(N-1);
+
+        M = new Matrix(legendre).transpose().getMatrix(0, N-1, 1, m);
+
+        //working memory
         yt = new double[N];
-        yp = new double[N];
-        g = createg(n,m+1);
+        u = new double[N];
+        x = new double[N];
+        
     }
-    
+
     @Override
-    public void nearestPoint(double[] y){
-        if(u.length != y.length)
-            setDimension(y.length-m);
-        
-        //project point into this space of lattice P_n^m
-        project(y, yp, m);
-        
-        double Dmin = Double.POSITIVE_INFINITY;
-        if(m > 0){
-            double magg = VectorFunctions.magnitude(g);
-            double step = magg/Math.pow(n,m+1);
-            VnmStarSampled pna = new VnmStarSampled(m);
-            pna.setDimension(n);
-            for(double s = 0; s < magg; s+=step){
-                for(int i = 0; i < y.length; i++)
-                    yt[i] = y[i] + s*g[i];
-                pna.nearestPoint(yt);
-                //this is bad practice, I am reusing memory
-                project(pna.getIndex(), pna.getLatticePoint(), m+1);
-                double D = VectorFunctions.distance_between2(yp, 
-                                                    pna.getLatticePoint());
-                if(D < Dmin){
-                    Dmin = D;
-                    System.arraycopy(pna.getIndex(), 0, u, 0, u.length);
-                }
+    public void nearestPoint(double[] y) {
+
+        PointInParallelepiped points = new PointInParallelepiped(M, samples);
+        double D = Double.POSITIVE_INFINITY;
+        while(points.hasMoreElements()){
+            double[] p = points.nextElement().getColumnPackedCopy();
+            for(int i = 0; i < N; i++){
+                yt[i] = y[i] - p[i];
             }
-        }else{
-            for(int i = 0; i < y.length; i++)
-                u[i] = Math.round(y[i]);
+            anstar.nearestPoint(yt);
+            project(anstar.getIndex(), yt);
+            double d = VectorFunctions.distance_between(yt, y);
+            if( d < D ){
+                System.arraycopy(anstar.getIndex(), 0, u, 0, N);
+                D = d;
+            }
         }
-        
-        project(u, v, m);
-        
-    }
-    
-    /** creates the orthogonal vector for VnmStarSampled.  Allocates memory*/
-    protected static double[] createg(int n, int a){
-        double[] g = new double[n+a];
-        if( a > 0 ){
-            for(int i = 0; i < n+a; i++)
-                g[i] = Math.pow(i+1,a-1);      
 
-            project(g,g,a-1);
-        }
-        return g;
-    }
-    
-    protected double[][] rotmat;
-    /**
-     * Returns m rotation matrix generated by generateRotationMatrix(n,m)
-     * @deprecated Use m Householder reflection instead
-     */
-    public double[][] getRotationMatrix(){
-        if( rotmat == null )
-            rotmat = generateRotationMatrix(n,m);
-        return rotmat;
-    }
-    
-    /**
-     * Generates m rotation matrix that rotates m vector from R^(n-m)
-     * to R^n such that it lies in the space of the lattice P_n_a.
-     * <p>
-     * This is usefull, in particular, for testing the performance
-     * of these lattices in Gaussian noise.
-     * <p>
-     * This could be done using m QR decompostition, however it
-     * potentially requires lots of matrix multiplication first and
-     * tends to be unstable.  Instead, we use m coordinate change
-     * followed by m stable gram-schmidt algorithm.
-     * @deprecated Use m Householder reflection instead
-     */
-    public static double[][] generateRotationMatrix(int n, int m){
-        int N = n + m + 1;
-        //store all the g's first, otherwise
-        //this can take m long time to run.
-        double[][] gs = new double[m][N];
-        for(int i = 1; i <= m+1; i++)
-            System.arraycopy(createg(N-i,i), 0, gs[i], 0, N);
-        
-        //stable version of gram schmit othonormalisation
-        double[][] mat = new double[n][N];
-        for(int i = 0; i < n; i++){
-            mat[i][i] = 1.0;  //make column this e_i
-            for(int j = 1; j <= m+1; j++)
-                VectorFunctions.projectOrthogonal(gs[j], mat[i], mat[i]);
-            for(int j = 0; j < i; j++)
-                VectorFunctions.projectOrthogonal(mat[j], mat[i], mat[i]);
-            VectorFunctions.normalise(mat[i], mat[i]);
-        }
-        
-        return VectorFunctions.transpose(mat);
+        project(u, x);
+
     }
 
-
-        
-    
-    /** 
-     * Returns the vector g for this VnmStarSampled.
-     * g is the orthogogonal component of 
-     * the largest order direction for this VnmStarSampled.
-     * (This probably doesn't make much sense!)
-     */
-    public double[] getg(){
-        return g;
+    @Override
+    public double[] getLatticePoint() {
+        return x;
     }
 
-
+    @Override
+    public double[] getIndex() {
+        return u;
+    }
     
 }
