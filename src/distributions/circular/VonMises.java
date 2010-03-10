@@ -49,7 +49,7 @@ public class VonMises implements CircularDistribution{
     }
 
     /** 
-     * The actually sets the von Mises parameter (usually denoted kappa)
+     * The actually gets the von Mises parameter (usually denoted kappa)
      * which is a dispersion parameter similar to variance.
      */
     public double getVariance() {
@@ -100,7 +100,7 @@ public class VonMises implements CircularDistribution{
     /**
      * Gaussian noise but wrapped mod1
      */
-    public static class Mod1 extends VonMises implements CircularDistribution{
+    public static class Mod1 extends VonMises{
 
         /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
         public Mod1() {
@@ -120,7 +120,7 @@ public class VonMises implements CircularDistribution{
 
         @Override
         public double pdf(double x){
-            return super.pdf(x*Math.PI*2.0);
+            return Math.PI*2.0*super.pdf(x*Math.PI*2.0);
         }
 
         public double getWrappedVariance() {

@@ -10,7 +10,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import distributions.NoiseGenerator;
 import static org.junit.Assert.*;
 
 /**
@@ -51,6 +50,30 @@ public class VonMisesTest {
             assertTrue(result <= Math.PI);
             assertTrue(result >= -Math.PI);
         }
+    }
+
+        /**
+     * Test of getNoise method, of class WrappedGaussianNoise.
+     */
+    @Test
+    public void testGetPdf() {
+        System.out.println("testGetPdf");
+        VonMises instance = new VonMises.Mod1(0.0, 0.0001);
+        System.out.println(instance.pdf(0.0));
+
+    }
+
+    /**
+     * Test of getNoise method, of class WrappedGaussianNoise.
+     */
+    @Test
+    public void testWrappedVarianceSmall() {
+        System.out.println("testWrappedVarianceSmall");
+        double invar = 0.0001;
+        VonMises instance = new VonMises.Mod1(0.0,invar);
+        double v = instance.getWrappedVariance();
+        assertEquals(1.0/12.0, v, 0.0001);
+
     }
 
 }

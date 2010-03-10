@@ -5,6 +5,7 @@
 
 package distributions.circular;
 
+import distributions.GaussianNoise;
 import distributions.circular.WrappedGaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -54,4 +55,27 @@ public class WrappedGaussianNoiseTest {
 
     }
 
+    /**
+     * Test of getNoise method, of class WrappedGaussianNoise.
+     */
+    @Test
+    public void testGetPdf() {
+        System.out.println("testGetPdf");
+        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0, 1);
+        System.out.println(instance.pdf(-1.0));
+
+    }
+
+    /**
+     * Test of getNoise method, of class WrappedGaussianNoise.
+     */
+    @Test
+    public void testWrappedVarianceSmall() {
+        System.out.println("testWrappedVarianceSmall");
+        double invar = 0.01;
+        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0,invar);
+        double v = instance.getWrappedVariance();
+        assertEquals(invar, v, 0.0001);
+
+    }
 }
