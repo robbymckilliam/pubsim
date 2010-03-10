@@ -54,5 +54,13 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
     public double getNoise(){
         return mean + range * (random.raw() - 0.5);
     }
+
+    public double pdf(double x){
+        double h = 1.0/range;
+        double min = mean - 0.5*range;
+        double max = mean + 0.5*range;
+        if( x < min || x > max ) return 0.0;
+        return h;
+    }
     
 }

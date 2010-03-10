@@ -31,5 +31,8 @@ public interface NoiseGenerator {
     
     /** Set the seed for the internal Random */
     public void setSeed(long seed);
+
+    /** Return the pdf evaluate at x */
+    public double pdf(double x);
     
 }

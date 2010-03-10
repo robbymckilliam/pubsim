@@ -8,6 +8,8 @@ package lattices.nearset;
 import Jama.Matrix;
 import lattices.Vn2Star.Vn2Star;
 import lattices.Vn2Star.Vn2StarZnLLS;
+import lattices.VnmStar;
+import lattices.VnmStarGlued;
 import lattices.VnmStarSampled;
 import lattices.decoder.SphereDecoder;
 import org.junit.After;
@@ -159,14 +161,14 @@ public class NearestInZnToAffineSurfaceTest {
         int iters = 100;
 
         int N = 15;
-        int a = 3;
+        int a = 2;
 
         Matrix scaler = new Matrix(a,a);
         for(int i = 0; i < a; i ++){
             scaler.set(i,i, -1.0/simulator.Util.factorial(i));
         }
 
-        SphereDecoder test = new SphereDecoder(new VnmStarSampled(a, N-a));
+        SphereDecoder test = new SphereDecoder(new VnmStarGlued(a, N-a-1));
 
         Matrix P = VnmStarSampled.getMMatrix(a, N-a);
         Matrix Pt = P.transpose();

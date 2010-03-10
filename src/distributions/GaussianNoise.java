@@ -42,4 +42,11 @@ public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGener
     public double getNoise(){
         return stdDeviation * random.gaussian() + mean;
     }
+
+    /** Return the Gaussian pdf */
+    public double pdf(double x) {
+        double s = 1.0/Math.sqrt(2*Math.PI*getVariance());
+        double d = x - getMean();
+        return s * Math.exp( -d*d/(2*getVariance()) );
+    }
 }

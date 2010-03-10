@@ -7,12 +7,13 @@ package distributions.circular;
 
 import java.util.Random;
 import distributions.NoiseGenerator;
+import cern.jet.math.Bessel;
 
 /**
  * von Mises distribution of
  * @author Robby McKilliam
  */
-public class VonMises implements NoiseGenerator{
+public class VonMises implements CircularDistribution{
 
     double mu, kappa;
     Random U;
@@ -84,6 +85,49 @@ public class VonMises implements NoiseGenerator{
 
     public void setSeed(long seed) {
         U.setSeed(seed);
+    }
+
+    public double pdf(double x) {
+        double d = getVariance()*Math.cos(x - getMean());
+        return Math.exp(d)/(2*Math.PI*Bessel.i0(getVariance()));
+    }
+
+    public double getWrappedVariance() {
+        VarianceCalculator vcalc = new VarianceCalculator(this);
+        return vcalc.computeVarianceMod2pi();
+    }
+
+    /**
+     * Gaussian noise but wrapped mod1
+     */
+    public static class Mod1 extends VonMises implements CircularDistribution{
+
+        /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
+        public Mod1() {
+            super();
+        }
+
+        /** Creates a new instance of GaussianNoise with specific variance and mean */
+        public Mod1(double mean, double variance){
+            super(mean, variance);
+        }
+
+        /** Returns the Von Mises distribution on -0.5, 0.5 */
+        @Override
+        public double getNoise(){
+            return super.getNoise()/(2*Math.PI);
+        }
+
+        @Override
+        public double pdf(double x){
+            return super.pdf(x*Math.PI*2.0);
+        }
+
+        public double getWrappedVariance() {
+            VarianceCalculator vcalc = new VarianceCalculator(this);
+            return vcalc.computeVarianceMod1();
+        }
+
     }
 
 }

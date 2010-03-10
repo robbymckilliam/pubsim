@@ -14,9 +14,10 @@ import simulator.Util;
 /**
  * This is a circular distribution associated with projecting bivariate
  * Gaussian noise onto the unit circle.
+ * This is modified so that it returns values about -[0.5, 0.5]
  * @author Robby McKilliam
  */
-public class ProjectedNormalDistribution implements NoiseGenerator{
+public class ProjectedNormalDistribution implements CircularDistribution{
     
     protected NoiseGenerator gauss;
     double cmean, smean, mean;
@@ -70,6 +71,11 @@ public class ProjectedNormalDistribution implements NoiseGenerator{
         gauss.setSeed(seed);
     }
 
+    public double pdf(double x){
+        double v = 1.0/Math.sqrt(getVariance());
+        return Pdf(x,v);
+    }
+
     /**
      * Returns the value of the PDF of this distribution
      * v^2 is the SNR of the gaussian distribution used.
@@ -110,24 +116,29 @@ public class ProjectedNormalDistribution implements NoiseGenerator{
             return dp1*p2*p3 + p1*dp2*p3 + p1*p2*dp3;
     }
 
+    public double getWrappedVariance() {
+        VarianceCalculator vcalc = new VarianceCalculator(this);
+        return vcalc.computeVarianceMod1();
+    }
+
     /**
      * Numerically computes the effective wrapped variance.
      * This is monotonically increases with v and takes
-     * values in the range [0,1/4).
+     * values in the range [0,1/12).
      * v^2 is the SNR of the gaussian distribution used.
      * v = p/sigma.
      * See Quinn, "Estimating the mode of a phase distribution", Asilomar, 2007
      */
     public static double getWrappedVariance(double v){
         int INTEGRAL_STEPS = 10000;
-        Integration intg = new Integration(new VarianceCalculator(v), -0.5, 0.5);
+        Integration intg = new Integration(new oldVarianceCalculator(v), -0.5, 0.5);
         return intg.trapezium(INTEGRAL_STEPS);
     }
 
-    protected static class VarianceCalculator implements IntegralFunction {
+    protected static class oldVarianceCalculator implements IntegralFunction {
 
         private double v;
-        public VarianceCalculator(double v){
+        public oldVarianceCalculator(double v){
             this.v = v;
         }
 

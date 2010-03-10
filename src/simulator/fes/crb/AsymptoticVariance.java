@@ -28,7 +28,7 @@ public class AsymptoticVariance implements BoundCalculator {
     }
 
     public void setVariance(double var) {
-        v = amplitude/Math.sqrt(var);
+        v = var/(amplitude*amplitude);
     }
 
     public void setAmplitude(double amp) {
@@ -36,9 +36,10 @@ public class AsymptoticVariance implements BoundCalculator {
     }
 
     public double getBound() {
-        double h = ProjectedNormalDistribution.Pdf(0.5, v);
-        System.out.print(h);
-        double s2 = ProjectedNormalDistribution.getWrappedVariance(v);
+        ProjectedNormalDistribution dist = new ProjectedNormalDistribution(0.0, v);
+        double h = dist.pdf(0.5);
+        //System.out.print(h);
+        double s2 = dist.getWrappedVariance();
         return 12.0*s2/((1-h)*(1-h))/Math.pow(N,3.0);
     }
 

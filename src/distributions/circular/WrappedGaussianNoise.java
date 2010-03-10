@@ -14,7 +14,7 @@ import distributions.GaussianNoise;
  * Gaussian noise mod 2 pi
  * @author Robby McKilliam
  */
-public class WrappedGaussianNoise extends GaussianNoise implements NoiseGenerator {
+public class WrappedGaussianNoise extends GaussianNoise implements CircularDistribution {
     
     /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
     public WrappedGaussianNoise() {
@@ -32,7 +32,27 @@ public class WrappedGaussianNoise extends GaussianNoise implements NoiseGenerato
         double gauss = stdDeviation * random.gaussian() + mean;
         return Math.IEEEremainder(gauss, 2*Math.PI);
     }
+
+    /** tolerance for pdf error */
+    protected final static double PDF_TOLERANCE = 0.00000001;
     
+    @Override
+    public double pdf(double x){
+        double pdf = 0.0;
+        int n = 0;
+        double v = Double.POSITIVE_INFINITY;
+        while( v > PDF_TOLERANCE && n < 100){
+            v = super.pdf(x + 2*Math.PI*n);
+            pdf += v;
+        }
+        return pdf;
+    }
+
+    public double getWrappedVariance() {
+        VarianceCalculator vcalc = new VarianceCalculator(this);
+        return vcalc.computeVarianceMod2pi();
+    }
+
     /**
      * Gaussian noise but wrapped mod1
      */
@@ -53,6 +73,16 @@ public class WrappedGaussianNoise extends GaussianNoise implements NoiseGenerato
         public double getNoise(){
             double gauss = stdDeviation * random.gaussian() + mean;
             return Math.IEEEremainder(gauss, 1.0);
+        }
+
+        @Override
+        public double pdf(double x){
+            return super.pdf(x*Math.PI*2.0);
+        }
+
+        public double getWrappedVariance() {
+            VarianceCalculator vcalc = new VarianceCalculator(this);
+            return vcalc.computeVarianceMod1();
         }
         
     }

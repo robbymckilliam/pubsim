@@ -7,7 +7,7 @@ package simulator.bearing;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class VectorMeanEstimator implements BearingEstimator {
 
@@ -24,8 +24,7 @@ public class VectorMeanEstimator implements BearingEstimator {
         }
         
         return Math.atan2(ssum, csum);
-        
-        
+                
     }
 
 }
