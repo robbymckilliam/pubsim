@@ -34,16 +34,19 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
     }
 
     /** tolerance for pdf error */
-    protected final static double PDF_TOLERANCE = 0.000001;
+    protected final static double PDF_TOLERANCE = 0.0000001;
     
     @Override
     public double pdf(double x){
         double pdf = 0.0;
         int n = 0;
-        double v = Double.POSITIVE_INFINITY;
-        while( v > PDF_TOLERANCE && n < 100){
-            v = super.pdf(x + 2*Math.PI*n);
-            pdf += v;
+        double tolc = Double.POSITIVE_INFINITY;
+        pdf += super.pdf(x);
+        while( tolc > PDF_TOLERANCE && n < 100){
+            double v1 = super.pdf(x + 2*Math.PI*n);
+            double v2 = super.pdf(x - 2*Math.PI*n);
+            tolc = v1 + v2;
+            pdf += tolc;
             n++;
         }
         return pdf;
@@ -57,7 +60,7 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
     /**
      * Gaussian noise but wrapped mod1
      */
-    public static class Mod1 extends WrappedGaussianNoise {
+    public static class Mod1 extends GaussianNoise implements CircularDistribution {
         
         /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
         public Mod1() {
@@ -78,7 +81,15 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
 
         @Override
         public double pdf(double x){
-            return Math.PI*2.0*super.pdf(x*Math.PI*2.0);
+            double pdf = 0.0;
+            int n = 0;
+            double v = Double.POSITIVE_INFINITY;
+            while( v > PDF_TOLERANCE && n < 100){
+                v = super.pdf(x + n);
+                pdf += v;
+                n++;
+            }
+            return pdf;
         }
 
         @Override

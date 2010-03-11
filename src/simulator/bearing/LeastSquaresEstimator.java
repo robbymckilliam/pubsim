@@ -5,19 +5,22 @@
 
 package simulator.bearing;
 
+import distributions.NoiseGenerator;
+import distributions.circular.CircularDistribution;
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
+import static simulator.Util.fracpart;
 
 /**
  * Least squares phase unwrapping estimator based on the lattice
- * An*.
+ * An*.  Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robert McKilliam
  */
 public class LeastSquaresEstimator implements BearingEstimator{
 
     int n;
     protected Anstar anstar;
-    protected double[] ymod1, u;
+    protected double[] u;
     
     public LeastSquaresEstimator(){
         anstar = new AnstarBucketVaughan();
@@ -27,26 +30,27 @@ public class LeastSquaresEstimator implements BearingEstimator{
     public void setSize(int n) {
         this.n = n;
         anstar.setDimension(n-1);
-        ymod1 = new double[n];
     }
 
     public double estimateBearing(double[] y) {
         if(n != y.length)
             setSize(y.length);
         
-        
-        for(int i = 0; i < y.length; i++)
-            ymod1[i] = y[i]/(2*Math.PI);
-        
-        anstar.nearestPoint(ymod1);
+        anstar.nearestPoint(y);
         u = anstar.getIndex();
         
         double sum = 0.0;
         for(int i = 0; i < y.length; i++)
-            sum += ymod1[i] - u[i];
+            sum += y[i] - u[i];
         
-        return Math.IEEEremainder(2*Math.PI*sum/n, 2*Math.PI);
+        return fracpart(sum/n);
         
+    }
+
+    public static double asymptoticVariance(CircularDistribution noise, int N){
+        double sigma2 = noise.getWrappedVariance();
+        double d = 1 - noise.pdf(-0.5);
+        return sigma2/(N*d*d);
     }
 
 }

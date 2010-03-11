@@ -341,4 +341,14 @@ public final class Util {
         return p;
     }
 
+    /** Return the centered fractional part of x.  i.e. x - round(x) */
+    public static double fracpart(double x){
+        return x - Math.round(x);
+    }
+
+    /** Return the fractional part 'mod 2pi' */
+    public static double mod2pi(double x){
+        return Math.IEEEremainder(x, 2*Math.PI);
+    }
+
 }
