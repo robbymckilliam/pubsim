@@ -20,7 +20,15 @@ public class ConstantPhaseSignal implements SignalGenerator.Generic<Complex>{
     protected int n;
     protected NoiseGenerator noise;
 
+    public ConstantPhaseSignal(){
+        this.mean = new Complex();
+    }
+
     public ConstantPhaseSignal(Complex mean){
+        this.mean = mean;
+    }
+
+    public void setMean(Complex mean){
         this.mean = mean;
     }
 
