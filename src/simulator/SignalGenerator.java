@@ -23,4 +23,21 @@ public interface SignalGenerator extends Serializable {
     
     /** Return the length of the signal generated */
     public int getLength();
+
+
+    /** Generic version of the signal generator */
+    public static interface Generic<T> extends Serializable{
+
+        public T[] generateReceivedSignal();
+
+        public void setNoiseGenerator(NoiseGenerator noise);
+        public NoiseGenerator getNoiseGenerator();
+
+        /** Set the length of the signal generated */
+        public void setLength(int n);
+
+        /** Return the length of the signal generated */
+        public int getLength();
+    }
+
 }
