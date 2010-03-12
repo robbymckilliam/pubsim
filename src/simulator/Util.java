@@ -51,6 +51,8 @@ public final class Util {
      */
     public static double erf(double x) {
 
+        if(x < 0) return -erf(-x);
+
         //if x is sufficiently large use asymptotic approximation
         if(x > 3.5){
             return 1.0 - 1.0/(x*Math.sqrt(Math.PI))*Math.exp(-x*x);

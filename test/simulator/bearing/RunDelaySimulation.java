@@ -3,15 +3,10 @@
  * and open the template in the editor.
  */
 
-package simulator.bearing.phase;
+package simulator.bearing;
 
-import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
 import distributions.circular.CircularDistribution;
-import distributions.circular.ProjectedNormalDistribution;
-import distributions.circular.VonMises;
 import distributions.circular.WrappedGaussianNoise;
-import distributions.circular.WrappedUniform;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,31 +14,30 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
-import simulator.Complex;
-import simulator.bearing.LeastSquaresEstimator;
 import static simulator.Util.fracpart;
 
 /**
  *
- * @author Robby McKilliam
+ * @author robertm
  */
-public class RunSimulation {
+public class RunDelaySimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 1;
+        int n = 256;
+        double angle = 0.1;
         int seed = 26;
         int iterations = 10000;
 
         String nameetx = "_" + Integer.toString(n);
 
-        ConstantPhaseSignal signal_gen = new ConstantPhaseSignal();
+        ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
-        GaussianNoise noise = new GaussianNoise();
+        CircularDistribution noise = new WrappedGaussianNoise.Mod1();
         signal_gen.setNoiseGenerator(noise);
 
-        double from_var_db = 10;
-        double to_var_db = -25; //this goes to 25 for smaller n
+        double from_var_db = -1;
+        double to_var_db = -30;
         //double from_var_db = -8;
         //double to_var_db = -40.0;
         double step_var_db = -1;
@@ -55,19 +49,19 @@ public class RunSimulation {
             var_array.add(new Double(Math.pow(10.0, ((vardb)/10.0))));
         }
 
-        Vector<PhaseEstimator> estimators = new Vector<PhaseEstimator>();
+        Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        //estimators.add(new LeastSquaresUnwrapping());
+        estimators.add(new LeastSquaresEstimator());
         //estimators.add(new SamplingLatticeEstimator(12*n));
         //estimators.add(new KaysEstimator());
         //estimators.add(new PSCFDEstimator());
-        //estimators.add(new VectorMeanEstimator());
+        estimators.add(new VectorMeanEstimator());
 
-        Iterator<PhaseEstimator> eitr = estimators.iterator();
+        Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){
 
-            PhaseEstimator est = eitr.next();
+            BearingEstimator est = eitr.next();
 
             Vector<Double> mse_array = new Vector<Double>(var_array.size());
             java.util.Date start_time = new java.util.Date();
@@ -110,23 +104,20 @@ public class RunSimulation {
         //finally print out the asymptotic variance
         for(int i = 0; i < var_array.size(); i++){
                 noise.setVariance(var_array.get(i));
-                //double mse = LeastSquaresEstimator.asymptoticVariance(
-                //        new ProjectedNormalDistribution(0.0, var_array.get(i)),
-                //        n);
-                double mse = var_array.get(i)/(Math.PI*Math.PI*4*n);
+                double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
+                double wrappedvar = noise.getWrappedVariance();
                 mse_array.add(mse);
                 System.out.println(var_array.get(i) + "\t" + mse);
         }
         try{
-            String fname = "crb_" + noise.getClass().getName();
-            //String fname = "asmyp_" + noise.getClass().getName();
+            String fname = "asmyp_" + noise.getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
             for(int i = 0; i < var_array.size(); i++){
-                writer.write(
-                        var_array.get(i).toString().replace('E', 'e')
-                        + "\t" + mse_array.get(i).toString().replace('E', 'e'));
-                writer.newLine();
+                    writer.write(
+                            var_array.get(i).toString().replace('E', 'e')
+                            + "\t" + mse_array.get(i).toString().replace('E', 'e'));
+                    writer.newLine();
             }
             writer.close();
         } catch(IOException e) {
@@ -139,21 +130,20 @@ public class RunSimulation {
      * Runs \param iterations number of iterations of the QAM receiver and
      * returns the codeword error rate (CER)
      */
-    public static double runIterations(PhaseEstimator rec, ConstantPhaseSignal siggen, int iterations){
+    public static double runIterations(BearingEstimator rec, ConstantAngleSignal siggen, int iterations){
 
         double mse = 0.0;
         Random r = new Random();
         for(int i = 0; i < iterations; i++){
 
             double angle = r.nextDouble() - 0.5;
-            Complex mean = new Complex(Math.cos(angle*2*Math.PI), Math.sin(angle*2*Math.PI));
-            siggen.setMean(mean);
+            siggen.setAngle(angle);
 
             siggen.generateReceivedSignal();
 
-            double anglehat = rec.estimatePhase(siggen.generateReceivedSignal());
+            double anglehat = rec.estimateBearing(siggen.generateReceivedSignal());
 
-            double err = fracpart(angle - anglehat);
+            double err = fracpart(siggen.getAngle() - anglehat);
 
             mse += err*err;
 

@@ -39,43 +39,75 @@ public class WrappedGaussianNoiseTest {
     public void tearDown() {
     }
 
+//    /**
+//     * Test of getNoise method, of class WrappedGaussianNoise.
+//     */
+//    @Test
+//    public void testGetNoise() {
+//        System.out.println("getNoise");
+//        WrappedGaussianNoise instance = new WrappedGaussianNoise(Math.PI*0.5, 5);
+//
+//        for(int i = 0; i < 50; i++){
+//            double result = instance.getNoise();
+//            assertTrue(result <= Math.PI);
+//            assertTrue(result >= -Math.PI);
+//        }
+//
+//    }
+//
+//    /**
+//     * Test of getNoise method, of class WrappedGaussianNoise.
+//     */
+//    @Test
+//    public void testGetPdf() {
+//        System.out.println("testGetPdf");
+//        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0, 1);
+//        System.out.println(instance.pdf(-1.0));
+//
+//    }
+//
+//    /**
+//     * Test of getNoise method, of class WrappedGaussianNoise.
+//     */
+//    @Test
+//    public void testWrappedVarianceSmall() {
+//        System.out.println("testWrappedVarianceSmall");
+//        double invar = 0.01;
+//        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0,invar);
+//        double v = instance.getWrappedVariance();
+//        assertEquals(invar, v, 0.0001);
+//
+//    }
+
     /**
-     * Test of getNoise method, of class WrappedGaussianNoise.
+     * Test of setMean method, of class ProjectedNormalDistribution.
      */
     @Test
-    public void testGetNoise() {
-        System.out.println("getNoise");
-        WrappedGaussianNoise instance = new WrappedGaussianNoise(Math.PI*0.5, 5);
-        
-        for(int i = 0; i < 50; i++){
-            double result = instance.getNoise();
-            assertTrue(result <= Math.PI);
-            assertTrue(result >= -Math.PI);
+    public void plotPdf() {
+        //System.out.println("plotPdf");
+        double mean = 0.0;
+        double var = 1;
+        WrappedGaussianNoise instance = new WrappedGaussianNoise(mean, var);
+
+        double step = 0.001;
+        for (double x = -0.5; x <= 0.5; x += step) {
+            System.out.println(instance.pdf(x));
         }
 
     }
 
-    /**
-     * Test of getNoise method, of class WrappedGaussianNoise.
-     */
-    @Test
-    public void testGetPdf() {
-        System.out.println("testGetPdf");
-        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0, 1);
-        System.out.println(instance.pdf(-1.0));
+//    /**
+//     * Test of setMean method, of class ProjectedNormalDistribution.
+//     */
+//    @Test
+//    public void plotVariance() {
+//        //System.out.println("plotPdf");
+//        for (double var = 10 ; var >= 0.00001; var *= 0.8 ) {
+//            WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0,var);
+//            double v = instance.getWrappedVariance();
+//            System.out.println(var + ", " + v + ";");
+//        }
+//
+//    }
 
-    }
-
-    /**
-     * Test of getNoise method, of class WrappedGaussianNoise.
-     */
-    @Test
-    public void testWrappedVarianceSmall() {
-        System.out.println("testWrappedVarianceSmall");
-        double invar = 0.01;
-        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0,invar);
-        double v = instance.getWrappedVariance();
-        assertEquals(invar, v, 0.0001);
-
-    }
 }

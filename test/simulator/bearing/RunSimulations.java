@@ -23,7 +23,7 @@ import static simulator.Util.fracpart;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class RunSimulations {
     

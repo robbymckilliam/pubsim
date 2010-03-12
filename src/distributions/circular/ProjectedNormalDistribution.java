@@ -91,6 +91,8 @@ public class ProjectedNormalDistribution implements CircularDistribution{
             double p2 = Math.exp( -v*v/2 * sx*sx);
             double p3 = Math.sqrt(pi/2) * ( 1.0 + Util.erf( v/Math.sqrt(2)*cx ) );
 
+            //System.out.print(" " + p1 + ", " + p2 + ", " + p3 + ", " + (v/Math.sqrt(2)*cx) + ", ");
+
             return Math.exp(-v*v/2) + p1*p2*p3;
     }
 
