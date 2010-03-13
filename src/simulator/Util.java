@@ -10,6 +10,11 @@ package simulator;
  */
 public final class Util {
 
+    /** Round a double to 6 decimal places. Usefull for printing */
+    public static Double dround6(double x){
+        return Math.round(1e6*x)/1e6;
+    }
+
     /** 
      * Takes x mod y and works for negative numbers.  Ie is not
      * just a remainder like java's % operator.

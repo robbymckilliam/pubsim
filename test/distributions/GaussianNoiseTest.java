@@ -38,29 +38,27 @@ public class GaussianNoiseTest {
     public void tearDown() {
     }
 
+
     /**
-     * Test of getNoise method, of class GaussianNoise.
+     * Test of setMean method, of class ProjectedNormalDistribution.
      */
     @Test
-    public void testGetNoise() {
-        System.out.println("getNoise");
-        GaussianNoise instance = new GaussianNoise();
-        instance.setSeed(RandomSeedable.ClockSeed());
+    public void testplotPdf() {
+        //System.out.println("plotPdf");
+        double mean = 0.0;
+        double var = 1;
+        GaussianNoise instance = new GaussianNoise(mean, var);
 
-        int iters = 1000000;
-        double rvar = 0.0;
-        double rmean = 0.0;
-        for(int i = 1; i < iters; i++){
-            double n = instance.getNoise();
-            rvar += n*n;
-            rmean += n;
+        double step = 0.001;
+        double intsum = 0.0;
+        int count = 0;
+        for (double x = -5; x <= 5; x += step) {
+            double pdf = instance.pdf(x);
+            System.out.println(x + "\t" + pdf);
+            intsum += pdf;
         }
-        rvar /= iters;
-        rmean /= iters;
-        double expvar = 1.0;
-        double expmean = 0.0;
-        assertEquals(expvar, rvar, 2*1.0/Math.sqrt(iters));
-        assertEquals(expmean, rmean, Math.sqrt(2*1.0/Math.sqrt(iters)));
+        System.out.println(intsum*step);
+
     }
 
 }

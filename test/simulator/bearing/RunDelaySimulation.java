@@ -5,8 +5,10 @@
 
 package simulator.bearing;
 
+import distributions.UniformNoise;
 import distributions.circular.CircularDistribution;
 import distributions.circular.WrappedGaussianNoise;
+import distributions.circular.WrappedUniform;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +26,7 @@ public class RunDelaySimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 256;
+        int n =4096;
         double angle = 0.1;
         int seed = 26;
         int iterations = 10000;
@@ -33,10 +35,10 @@ public class RunDelaySimulation {
 
         ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
-        CircularDistribution noise = new WrappedGaussianNoise.Mod1();
+        CircularDistribution noise = new WrappedUniform.Mod1();
         signal_gen.setNoiseGenerator(noise);
 
-        double from_var_db = -1;
+        double from_var_db = 5;
         double to_var_db = -30;
         //double from_var_db = -8;
         //double to_var_db = -40.0;
@@ -52,11 +54,8 @@ public class RunDelaySimulation {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new LeastSquaresEstimator());
-        //estimators.add(new SamplingLatticeEstimator(12*n));
-        //estimators.add(new KaysEstimator());
-        //estimators.add(new PSCFDEstimator());
-        estimators.add(new VectorMeanEstimator());
+        //estimators.add(new LeastSquaresEstimator());
+        //estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){
@@ -105,12 +104,14 @@ public class RunDelaySimulation {
         for(int i = 0; i < var_array.size(); i++){
                 noise.setVariance(var_array.get(i));
                 double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
-                double wrappedvar = noise.getWrappedVariance();
+                //double wrappedvar = noise.getWrappedVariance();
+                //double mse = var_array.get(i)/n;
                 mse_array.add(mse);
                 System.out.println(var_array.get(i) + "\t" + mse);
         }
         try{
             String fname = "asmyp_" + noise.getClass().getName();
+            //String fname = "crb_" + noise.getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
             for(int i = 0; i < var_array.size(); i++){

@@ -31,9 +31,9 @@ public class RunSimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 1;
+        int n = 2;
         int seed = 26;
-        int iterations = 10000;
+        int iterations = 20000;
 
         String nameetx = "_" + Integer.toString(n);
 

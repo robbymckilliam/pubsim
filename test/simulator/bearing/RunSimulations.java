@@ -29,7 +29,7 @@ public class RunSimulations {
     
     public static void main(String[] args) throws Exception {
 
-        int n = 1024;
+        int n = 256;
         double angle = 0.1;
         int seed = 26;
         int iterations = 10000;
@@ -38,13 +38,14 @@ public class RunSimulations {
 
         ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
-        CircularDistribution noise = new VonMises.Mod1();
+        //CircularDistribution noise = new VonMises.Mod1();
+        CircularDistribution noise = new WrappedUniform.Mod1(0.0,0.0);
         signal_gen.setNoiseGenerator(noise);
 
-        double from_var_db = 15;
-        double to_var_db = -10;
-        //double from_var_db = -8;
-        //double to_var_db = -40.0;
+        //double from_var_db = 15;
+        //double to_var_db = -10;
+        double from_var_db = -10;
+        double to_var_db = -40.0;
         double step_var_db = -1;
 
         Vector<Double> var_array = new Vector<Double>();
@@ -81,7 +82,7 @@ public class RunSimulations {
                 double wrappedvar = noise.getWrappedVariance();
                 wrappedvar_array.add(wrappedvar);
 
-                System.out.println(wrappedvar + "\t" + mse/iterations);
+                System.out.println(var_array.get(i) + "\t" + wrappedvar + "\t" + mse/iterations);
 
 
             }

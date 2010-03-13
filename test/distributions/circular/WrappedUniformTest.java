@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static simulator.Util.dround6;
 
 /**
  *
@@ -37,35 +38,60 @@ public class WrappedUniformTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of pdf method, of class WrappedUniform.
-     */
-    @Test
-    public void testPdf() {
-        System.out.println("pdf");
-        CircularDistribution instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
-        assertTrue(instance.pdf(0) < 1.0);
-        System.out.println(instance.pdf(0));
-        assertTrue(instance.pdf(-0.5) > 1.0);
-        System.out.println(instance.pdf(-0.5));
-        assertTrue(instance.pdf(0.5) > 1.0);
-        System.out.println(instance.pdf(0.5));
-    }
+//    /**
+//     * Test of pdf method, of class WrappedUniform.
+//     */
+//    @Test
+//    public void testPdf() {
+//        System.out.println("pdf");
+//        CircularDistribution instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
+//        assertTrue(instance.pdf(0) < 1.0);
+//        System.out.println(instance.pdf(0));
+//        assertTrue(instance.pdf(-0.5) > 1.0);
+//        System.out.println(instance.pdf(-0.5));
+//        assertTrue(instance.pdf(0.5) > 1.0);
+//        System.out.println(instance.pdf(0.5));
+//    }
+//
+//    /**
+//     * Test of getWrappedVariance method, of class WrappedUniform.
+//     */
+//    @Test
+//    public void testGetWrappedVariance() {
+//        System.out.println("getWrappedVariance");
+//        CircularDistribution instance = new WrappedUniform.Mod1(0.0, 1.0/12.0);
+//        assertEquals(1.0/12.0, instance.getWrappedVariance(), 0.001);
+//
+//        instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
+//        double result = instance.getWrappedVariance();
+//        System.out.println(result);
+//        assertTrue(1.0/12.0 < result);
+//        assertTrue(1.0/11.0 > result);
+//    }
 
     /**
-     * Test of getWrappedVariance method, of class WrappedUniform.
+     * Test of setMean method, of class ProjectedNormalDistribution.
      */
     @Test
-    public void testGetWrappedVariance() {
-        System.out.println("getWrappedVariance");
-        CircularDistribution instance = new WrappedUniform.Mod1(0.0, 1.0/12.0);
-        assertEquals(1.0/12.0, instance.getWrappedVariance(), 0.001);
+    public void plotPdf() {
+        //System.out.println("plotPdf");
+        double mean = 0.0;
+        double var = 0.1;
+        WrappedUniform.Mod1 instance = new WrappedUniform.Mod1(mean, var);
 
-        instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
-        double result = instance.getWrappedVariance();
-        System.out.println(result);
-        assertTrue(1.0/12.0 < result);
-        assertTrue(1.0/11.0 > result);
+        double step = 0.01;
+        double intsum = 0.0;
+        int count = 0;
+        for (double x = -0.5; x <= 0.5; x += step) {
+            double pdf = instance.pdf(x);
+            System.out.println(dround6(x).toString().replace('E', 'e') + " " + dround6(pdf).toString().replace('E', 'e'));
+            intsum += pdf;
+            count++;
+        }
+
+        System.out.println(intsum*step);
+        System.out.println(instance.getWrappedVariance());
+
     }
 
 }

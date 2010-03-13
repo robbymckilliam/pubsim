@@ -19,25 +19,20 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
     public UniformNoise(double mean , double variance) {
         super();
         this.mean = mean;
-        this.variance = variance;
-        stdDeviation = Math.sqrt(variance);
-        range = 2.0 * Math.sqrt( 3.0 * variance );
+        setVariance(variance);
     }
     
     /** Creates UniformNoise with mean = 0.0 and variance = 1.0 */
     public UniformNoise() {
         mean = 0.0;
-        variance = 1.0;
-        stdDeviation = 1.0;
-        range = Math.pow(3*variance/2.0, 1.0/3);
-        random = new Ranlux();
+        setVariance(1.0);
     }
 
     @Override
     public void setVariance(double variance){
         this.variance = variance;
         stdDeviation = Math.sqrt(variance);
-        range = Math.pow(3*variance/2.0, 1.0/3);
+        range = 2.0 * Math.sqrt( 3.0 * variance );
     }
     
     /** 
@@ -46,7 +41,7 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
      */
     public void setRange(double range){
         this.range = range;
-        variance = 2.0/3*Math.pow(range, 3);
+        variance =  Math.pow(range/2.0 , 2)/3.0;
         stdDeviation = Math.sqrt(variance);
     }
     
