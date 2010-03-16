@@ -31,9 +31,9 @@ public class RunSimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 2;
+        int n = 1024;
         int seed = 26;
-        int iterations = 20000;
+        int iterations = 10000;
 
         String nameetx = "_" + Integer.toString(n);
 
@@ -59,6 +59,7 @@ public class RunSimulation {
 
         //add the estimators you want to run
         //estimators.add(new LeastSquaresUnwrapping());
+        estimators.add(new ArgumentOfComplexMean());
         //estimators.add(new SamplingLatticeEstimator(12*n));
         //estimators.add(new KaysEstimator());
         //estimators.add(new PSCFDEstimator());

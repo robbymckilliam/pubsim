@@ -20,7 +20,7 @@ import static simulator.Util.fracpart;
 
 /**
  *
- * @author robertm
+ * @author Robert McKilliam
  */
 public class RunDelaySimulation {
 
