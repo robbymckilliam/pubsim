@@ -127,10 +127,15 @@ public class PSKSignal implements SignalGenerator{
     public int getLength() { return T; }
     
     
-    /** Generate the Rayleigh fading channel */
+    /** Generate the phase unknow, power constant, fading channel */
     public void generateChannel(){
         h = new Complex(random.nextGaussian(), random.nextGaussian());
         h = h.times(1/h.abs());
+    }
+
+    /** Generate the Rayleighyl fading channel */
+    public void generateRayeighlyChannel(){
+        h = new Complex(random.nextGaussian(), random.nextGaussian());
     }
     
     /**

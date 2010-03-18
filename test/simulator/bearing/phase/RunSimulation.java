@@ -31,7 +31,7 @@ public class RunSimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 1024;
+        int n = 4096;
         int seed = 26;
         int iterations = 10000;
 

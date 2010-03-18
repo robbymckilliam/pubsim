@@ -44,6 +44,8 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
         variance =  Math.pow(range/2.0 , 2)/3.0;
         stdDeviation = Math.sqrt(variance);
     }
+
+    public double getRange() { return range; };
     
     /** Returns a uniformly distributed value */
     public double getNoise(){

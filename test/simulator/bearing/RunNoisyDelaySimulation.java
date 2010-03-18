@@ -22,11 +22,11 @@ import static simulator.Util.fracpart;
  *
  * @author Robert McKilliam
  */
-public class RunDelaySimulation {
+public class RunNoisyDelaySimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n =4096;
+        int n = 64;
         double angle = 0.1;
         int seed = 26;
         int iterations = 10000;
@@ -72,7 +72,7 @@ public class RunDelaySimulation {
 
                 mse_array.add(mse/iterations);
 
-                System.out.println(var_array.get(i) + "\t" + mse/iterations);
+                System.out.println(var_array.get(i) + "\t" + ((WrappedUniform.Mod1)noise).getRange() + "\t" + mse/iterations);
 
 
             }
@@ -107,7 +107,7 @@ public class RunDelaySimulation {
                 //double wrappedvar = noise.getWrappedVariance();
                 //double mse = var_array.get(i)/n;
                 mse_array.add(mse);
-                System.out.println(var_array.get(i) + "\t" + mse);
+                System.out.println(var_array.get(i) + "\t" + ((WrappedUniform.Mod1)noise).getRange() + "\t" + mse);
         }
         try{
             String fname = "asmyp_" + noise.getClass().getName();
