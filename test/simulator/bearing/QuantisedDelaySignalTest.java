@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class QuantisedDelaySignalTest {
 
@@ -40,14 +40,14 @@ public class QuantisedDelaySignalTest {
     }
 
     /**
-     * Test of setDelay method, of class QuantisedDelaySignal.
+     * Print out a signal.
      */
     @Test
     public void testSetDelay() {
 
-        int n = 5000;
-        double p = 1;
-        double P = 0.112308417230587;
+        int n = 10000;
+        double p = 0.5;
+        double P = 1/(Math.PI*Math.PI);
 
         QuantisedDelaySignal siggen = new QuantisedDelaySignal();
         siggen.setDelay(0);
