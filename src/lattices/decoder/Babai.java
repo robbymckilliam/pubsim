@@ -120,7 +120,9 @@ public class Babai implements GeneralNearestPointAlgorithm {
         //System.out.println(VectorFunctions.print(R));
         //System.out.println(VectorFunctions.print(Q));
         //System.out.println(VectorFunctions.print(Q));
-        
+
+        //System.out.println(VectorFunctions.print(uh));
+
         //compute index u = Uuh so that Gu is Babai
         //point
         VectorFunctions.matrixMultVector(U, uh, u);

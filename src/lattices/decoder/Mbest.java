@@ -5,6 +5,7 @@
 
 package lattices.decoder;
 
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.Vector;
 import lattices.Lattice;
@@ -28,6 +29,7 @@ public class Mbest extends Babai {
     //small number to avoid numerical errors in branches.
     protected double DELTA = 0.000001;
 
+    /** M for the M-best method */
     protected int M;
 
     /**
@@ -76,12 +78,15 @@ public class Mbest extends Babai {
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
 
         //this will store the nearest point in the variable x
-        //computeBabaiPoint(y);
+        //NEED TO CALL THIS, it set yr.  Could change it but meh.
+        computeBabaiPoint(y);
 
         //compute the radius squared of the sphere we are decoding in.
         //Add DELTA to avoid numerical error causing the
         //Babai point to be rejected.
-        //D = VectorFunctions.distance_between2(y, x) + DELTA;
+        //NOT ACUA
+        D = VectorFunctions.distance_between2(y, x) + DELTA;
+        //System.out.println("D = " + D);
 
         //COMPUTE THE NEAREST POINT!
         //set least possible ut[k]
@@ -89,38 +94,47 @@ public class Mbest extends Babai {
         
         //ok, set up the initial tree map with the first M elements
         int k = n-1;
-        int u = (int)Math.round(y[k]/R.get(k,k));
+        int u = (int)Math.round(yr[k]/R.get(k,k));
         double d = R.get(k, k)*u - yr[k];
         Vector<Integer> vec = new Vector<Integer>();
         vec.add(u);
-        prevmap.put(d*d, vec);
+        addToMap( prevmap, d*d, vec);
         int m = 0;
+        boolean keepAdding = true;
         //this is being a bit lazy, it might use a little more that M.
         //no big problem though.
-        while( m < (M+1)/2 ){
+        //while(m < M/2 + 1 ) {
+        while(m < M/2 + 1 && keepAdding ){
             //add u+m
             vec = new Vector<Integer>();
             vec.add(u+m);
             d = R.get(k, k)*(u+m) - yr[k];
-            prevmap.put(d*d, vec);
+            keepAdding = addToMap( prevmap, d*d, vec);
 
             //add u-m
             vec = new Vector<Integer>();
             vec.add(u-m);
             d = R.get(k, k)*(u-m) - yr[k];
-            prevmap.put(d*d, vec);
+            keepAdding |= addToMap( prevmap, d*d, vec);
 
             m++;
         }
+
+        //System.out.println(prevmap);
 
         //now run the algorithm
         for(k = n-2; k >= 0; k--){
 
             TreeMap<Double, Vector<Integer>> nextmap = new TreeMap<Double, Vector<Integer>>();
             
-            for(int Mtimes = 0; Mtimes < M; Mtimes++){
+            for(int Mtimes = 0; Mtimes < prevmap.size(); Mtimes++){
 
-                vec = prevmap.pollFirstEntry().getValue();
+                //System.out.println(prevmap);
+                //System.out.println(prevmap.firstEntry());
+
+                Entry<Double, Vector<Integer>> entry = prevmap.pollFirstEntry();
+                vec = entry.getValue();
+                double rdist = entry.getKey();
                 //compute the sum of R[k][k+i]*uh[k+i]'s
                 double rsum = 0.0;
                 for(int i = k+1; i < n; i++ ){
@@ -131,42 +145,80 @@ public class Mbest extends Babai {
                 d = R.get(k, k)*u + rsum - yr[k];
                 Vector<Integer> veccopy = (Vector<Integer>)vec.clone();
                 veccopy.add(u);
-                nextmap.put(d*d, vec);
+                addToMap( nextmap, d*d + rdist, veccopy);
 
                 m = 0;
+                keepAdding = true;
                 //this is being a bit lazy, it might use a little more that M.
                 //no big problem though.
-                while(m < (M+1)/2){
+                //while(m < M/2 + 1 ) {
+                while(m < M/2 + 1 && keepAdding ){
                     //add u+m
                     veccopy = (Vector<Integer>)vec.clone();
                     veccopy.add(u+m);
                     d = R.get(k, k)*(u+m) + rsum - yr[k];
-                    nextmap.put(d*d, vec);
+                    keepAdding = addToMap( nextmap, d*d + rdist, veccopy);
 
                     //add u-m
                     veccopy = (Vector<Integer>)vec.clone();
                     veccopy.add(u-m);
                     d = R.get(k, k)*(u-m) + rsum - yr[k];
-                    nextmap.put(d*d, vec);
+                    keepAdding |= addToMap( nextmap, d*d + rdist, veccopy);
 
                     m++;
                 }
             }
             prevmap = nextmap;
+            //System.out.println(prevmap);
         }
 
+        //there is no garauntee that this point is better than the Babai point
+        //so check it and update only if it is better.
+        if(prevmap.size() != 0){
+            Entry<Double, Vector<Integer>> entry = prevmap.firstEntry();
+
+            if(entry.getKey() < D){
+
+                //System.out.println(prevmap);
+                //now the approximate nearest point is the best point in prevmap
+                vec = entry.getValue();
+                //System.out.println(vec);
+                for(int i =0; i < n; i++ )
+                    ubest[i] = (double)(vec.get(tovecIndex(i)).intValue());
 
 
-        //compute index u = Uuh so that Gu is nearest point
-        VectorFunctions.matrixMultVector(U, ubest, this.u);
 
-        //compute nearest point
-        VectorFunctions.matrixMultVector(G, this.u, x);
+                //compute index u = Uuh so that Gu is nearest point
+                VectorFunctions.matrixMultVector(U, ubest, this.u);
 
+                //compute nearest point
+                VectorFunctions.matrixMultVector(G, this.u, x);
+
+            }
+        }
+
+    }
+
+    /**
+     * Adds to a map but doesn't allow the size to get larger than M.
+     * i.e. it's like a sorted buffer.
+     * Also, only adds if the distance is less than D (i.e. the Babai distance).
+     * Also returns whether the map was added to.
+     */
+    private boolean addToMap(TreeMap<Double, Vector<Integer>> map, double d, Vector<Integer> vec) {
+        boolean addedToMap = false;
+        if( d < D ){
+            map.put(d, vec);
+            addedToMap = true;
+            //dump the worst entry if this map is sufficiently big.
+            while( map.size() > M) map.pollLastEntry();
+        }
+        return addedToMap;
     }
 
     //just invert the indices for the Vector<Integers>
     private int tovecIndex(int i){ return n - 1 - i; }
+    
 
     
 

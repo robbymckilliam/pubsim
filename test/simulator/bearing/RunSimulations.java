@@ -7,6 +7,7 @@ package simulator.bearing;
 
 import distributions.GaussianNoise;
 import distributions.NoiseGenerator;
+import distributions.circular.ArgComplexMeanVariance;
 import distributions.circular.CircularDistribution;
 import distributions.circular.ProjectedNormalDistribution;
 import distributions.circular.VonMises;
@@ -29,10 +30,10 @@ public class RunSimulations {
     
     public static void main(String[] args) throws Exception {
 
-        int n = 256;
+        int n = 4096;
         double angle = 0.1;
         int seed = 26;
-        int iterations = 10000;
+        int iterations = 5000;
 
         String nameetx = "_" + Integer.toString(n);
 
@@ -44,9 +45,9 @@ public class RunSimulations {
 
         //double from_var_db = 15;
         //double to_var_db = -10;
-        double from_var_db = -10;
-        double to_var_db = -40.0;
-        double step_var_db = -1;
+        double from_var_db = -11.2;
+        double to_var_db = -31.8;
+        double step_var_db = -0.1;
 
         Vector<Double> var_array = new Vector<Double>();
         Vector<Double> var_db_array = new Vector<Double>();
@@ -58,11 +59,11 @@ public class RunSimulations {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new LeastSquaresEstimator());
+        //estimators.add(new LeastSquaresEstimator());
         //estimators.add(new SamplingLatticeEstimator(12*n));
         //estimators.add(new KaysEstimator());
         //estimators.add(new PSCFDEstimator());
-        estimators.add(new VectorMeanEstimator());
+        //estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){
@@ -114,14 +115,15 @@ public class RunSimulations {
         //finally print out the asymptotic variance
         for(int i = 0; i < var_array.size(); i++){
                 noise.setVariance(var_array.get(i));
-                double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
+                double mse = (new ArgComplexMeanVariance(noise)).variance()/n;
+                //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
                 double wrappedvar = noise.getWrappedVariance();
                 wrappedvar_array.add(wrappedvar);
                 mse_array.add(mse);
                 System.out.println(wrappedvar + "\t" + mse);
         }
         try{
-            String fname = "asmyp_" + noise.getClass().getName();
+            String fname = "asmyp_arg_" + noise.getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
             for(int i = 0; i < var_array.size(); i++){

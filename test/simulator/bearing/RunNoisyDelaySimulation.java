@@ -5,7 +5,7 @@
 
 package simulator.bearing;
 
-import distributions.UniformNoise;
+import distributions.circular.ArgComplexMeanVariance;
 import distributions.circular.CircularDistribution;
 import distributions.circular.WrappedGaussianNoise;
 import distributions.circular.WrappedUniform;
@@ -26,7 +26,7 @@ public class RunNoisyDelaySimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 64;
+        int n = 4096;
         double angle = 0.1;
         int seed = 26;
         int iterations = 10000;
@@ -35,10 +35,11 @@ public class RunNoisyDelaySimulation {
 
         ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
-        CircularDistribution noise = new WrappedUniform.Mod1();
+        //CircularDistribution noise = new WrappedUniform.Mod1();
+        CircularDistribution noise = new WrappedGaussianNoise.Mod1();
         signal_gen.setNoiseGenerator(noise);
 
-        double from_var_db = 5;
+        double from_var_db = -8;
         double to_var_db = -30;
         //double from_var_db = -8;
         //double to_var_db = -40.0;
@@ -103,14 +104,15 @@ public class RunNoisyDelaySimulation {
         //finally print out the asymptotic variance
         for(int i = 0; i < var_array.size(); i++){
                 noise.setVariance(var_array.get(i));
-                double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
+                //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
+                 double mse = (new ArgComplexMeanVariance(noise)).variance()/n;
                 //double wrappedvar = noise.getWrappedVariance();
                 //double mse = var_array.get(i)/n;
                 mse_array.add(mse);
-                System.out.println(var_array.get(i) + "\t" + ((WrappedUniform.Mod1)noise).getRange() + "\t" + mse);
+                System.out.println(var_array.get(i) + "\t" + mse);
         }
         try{
-            String fname = "asmyp_" + noise.getClass().getName();
+            String fname = "asmyp_arg_" + noise.getClass().getName();
             //String fname = "crb_" + noise.getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));

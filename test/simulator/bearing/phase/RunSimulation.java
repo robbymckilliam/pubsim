@@ -6,12 +6,8 @@
 package simulator.bearing.phase;
 
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
-import distributions.circular.CircularDistribution;
+import distributions.circular.ArgComplexMeanVariance;
 import distributions.circular.ProjectedNormalDistribution;
-import distributions.circular.VonMises;
-import distributions.circular.WrappedGaussianNoise;
-import distributions.circular.WrappedUniform;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +16,6 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
 import simulator.Complex;
-import simulator.bearing.LeastSquaresEstimator;
 import static simulator.Util.fracpart;
 
 /**
@@ -59,7 +54,7 @@ public class RunSimulation {
 
         //add the estimators you want to run
         //estimators.add(new LeastSquaresUnwrapping());
-        estimators.add(new ArgumentOfComplexMean());
+        //estimators.add(new ArgumentOfComplexMean());
         //estimators.add(new SamplingLatticeEstimator(12*n));
         //estimators.add(new KaysEstimator());
         //estimators.add(new PSCFDEstimator());
@@ -114,12 +109,14 @@ public class RunSimulation {
                 //double mse = LeastSquaresEstimator.asymptoticVariance(
                 //        new ProjectedNormalDistribution(0.0, var_array.get(i)),
                 //        n);
-                double mse = var_array.get(i)/(Math.PI*Math.PI*4*n);
+                double mse = (new ArgComplexMeanVariance(
+                        new ProjectedNormalDistribution(0.0, var_array.get(i)))).variance()/n;
+                //double mse = var_array.get(i)/(Math.PI*Math.PI*4*n);
                 mse_array.add(mse);
                 System.out.println(var_array.get(i) + "\t" + mse);
         }
         try{
-            String fname = "crb_" + noise.getClass().getName();
+            String fname = "asymp_arg_" + noise.getClass().getName();
             //String fname = "asmyp_" + noise.getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
