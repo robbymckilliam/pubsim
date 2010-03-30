@@ -58,6 +58,7 @@ public class SphereDecoder extends Babai
         simulator.QRDecomposition QR = new simulator.QRDecomposition(B);
         R = QR.getR();
         Q = QR.getQ();
+        Qtrans = Q.transpose();
 
     }
        

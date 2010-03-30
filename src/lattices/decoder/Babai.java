@@ -6,6 +6,7 @@
 package lattices.decoder;
 
 import Jama.Matrix;
+import lattices.GeneralLattice;
 import lattices.Lattice;
 import lattices.reduction.LLL;
 import lattices.reduction.LatticeReduction;
@@ -54,7 +55,7 @@ public class Babai implements GeneralNearestPointAlgorithm {
     protected Matrix R;
     
     /** Q component of B = QR */       
-    protected Matrix Q;
+    protected Matrix Q, Qtrans;
     
     protected int n, m;
     protected LatticeReduction lll;
@@ -83,6 +84,7 @@ public class Babai implements GeneralNearestPointAlgorithm {
         Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
         R = QR.getR();
         Q = QR.getQ();
+        Qtrans = Q.transpose();
       
     }
 
@@ -107,7 +109,7 @@ public class Babai implements GeneralNearestPointAlgorithm {
     //compute the babai
     protected void computeBabaiPoint(double[] y) {
         
-         VectorFunctions.matrixMultVector(Q.transpose(), y, yr);
+         VectorFunctions.matrixMultVector(Qtrans, y, yr);
 
         for (int i = n - 1; i >= 0; i--) {
             double rsum = 0.0;

@@ -69,6 +69,7 @@ public class Mbest extends Babai {
         simulator.QRDecomposition QR = new simulator.QRDecomposition(B);
         R = QR.getR();
         Q = QR.getQ();
+        Qtrans = Q.transpose();
 
     }
 
@@ -212,6 +213,7 @@ public class Mbest extends Babai {
             addedToMap = true;
             //dump the worst entry if this map is sufficiently big.
             while( map.size() > M) map.pollLastEntry();
+            addedToMap &= map.containsKey(d);
         }
         return addedToMap;
     }
