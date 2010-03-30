@@ -89,15 +89,22 @@ public abstract class AbstractLattice implements Lattice {
         return Math.sqrt((B.transpose().times(B)).det());
     }
 
+    //make consecutive calls to inradius and kissing number run fast.
+    private double inradius;
+    private long kissingnumber;
+
     /**
      * Default way to compute the inradius is to compute
      * short vector is by sphere decoding.  This is going to
      * be very slow for large dimensions.
      */
     public double inradius(){
-        ShortestVector sv = new ShortestVector(this);
-        double norm = VectorFunctions.sum2(sv.getShortestVector());
-        return Math.sqrt(norm)/2.0;
+        if(inradius == 0){
+            ShortestVector sv = new ShortestVector(this);
+            double norm = VectorFunctions.sum2(sv.getShortestVector());
+            inradius = Math.sqrt(norm)/2.0;
+        }
+        return inradius;
     }
 
     /**
@@ -105,8 +112,11 @@ public abstract class AbstractLattice implements Lattice {
      * Lattices with known kissing numbers can override this.
      */
     public long kissingNumber() {
-        lattices.decoder.KissingNumber k = new KissingNumber(this);
-        return k.kissingNumber();
+        if(kissingnumber == 0){
+            lattices.decoder.KissingNumber k = new KissingNumber(this);
+            kissingnumber = k.kissingNumber();
+        }
+        return kissingnumber;
     }
 
 }

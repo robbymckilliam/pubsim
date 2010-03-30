@@ -38,7 +38,7 @@ public class LatticeProbErrorPlot {
 
         //AbstractLattice L = new Leech();
         //AbstractLattice L = new Dn(4);
-        //AbstractLattice L = new Vnm(2, 48);
+        AbstractLattice L = new Vnm(7, 48);
         //AbstractLattice L = new Zn(10);
         //AbstractLattice L = new P48();
         //AbstractLattice L = new AnFastSelect(2);
@@ -46,7 +46,9 @@ public class LatticeProbErrorPlot {
         int p = 419;
         int n = p-1;
         int r = (p+1)/4;
-        AbstractLattice L = new Craig(n, r);
+        //AbstractLattice L = new Craig(n, r);
+
+        System.out.println(L.inradius() + ", " + L.kissingNumber());
 
         for(double S : range(Sstart, Send, Sstep) ){
             //double d = L.probCodingError(S);
