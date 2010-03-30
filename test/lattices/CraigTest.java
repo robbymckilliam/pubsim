@@ -6,6 +6,7 @@
 package lattices;
 
 import Jama.Matrix;
+import Jama.QRDecomposition;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,6 +47,8 @@ public class CraigTest {
     @Test
     public void testGetGeneratorMatrix() {
         System.out.println("getGeneratorMatrix");
+
+        //p needs to be prime.
         int n = 9;
         int r = 3;
         
@@ -57,6 +60,9 @@ public class CraigTest {
         //System.out.println(VectorFunctions.print(gen));
         Matrix gram = gen.transpose().times(gen);
         double expResult = Math.sqrt(gram.det());
+
+        //QRDecomposition qr = new QRDecomposition(gen);
+        //System.out.println(VectorFunctions.print(qr.getR()));
 
         double vol = instance.volume();
         assertEquals(expResult, vol, 0.001);

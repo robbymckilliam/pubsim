@@ -80,4 +80,21 @@ public class PhinaTest {
 
     }
 
+            /**
+     * Test of volume method, of class Vnm.
+     */
+    @Test
+    public void generateKissingNumbers() {
+        System.out.println("generateKissingNumbers");
+
+        int n = 48;
+        int a = 7;
+
+        Vnm instance = new Vnm(a, n);
+
+        System.out.println(instance.inradius());
+        System.out.println(instance.kissingNumber());
+
+    }
+
 }

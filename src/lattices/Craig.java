@@ -51,7 +51,7 @@ public class Craig extends AbstractLattice{
     }
 
     /**
-     * This is only true if p = n+1 is prime.
+     * This is only true if p = n+1 is a prime and p+1 is divisible by 4.
      */
     @Override
     public double inradius(){

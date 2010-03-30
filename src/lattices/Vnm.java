@@ -143,10 +143,10 @@ public class Vnm extends AbstractLattice{
      * This is actually an upper bound on the kissing number for this
      * lattice.
      */
-    @Override
-    public long kissingNumber() {
-        return (long)Math.pow(2.0, log2Binom(n+a, 2*a) + log2Binom(2*a, a));
-        //return n*n;
-    }
+//    @Override
+//    public long kissingNumber() {
+//        return (long)Math.pow(2.0, log2Binom(n+a, 2*a) + log2Binom(2*a, a));
+//        //return n*n;
+//    }
 
 }

@@ -31,21 +31,22 @@ public class LatticeProbErrorPlot {
     public static void main(String[] args) throws Exception {
 
 
-        double Sstart = 0;
+        double Sstart = -4;
         double Send = 10;
-        double Sstep = 0.5;
+        double Sstep = 0.1;
         Vector<Double> proberr = new Vector<Double>();
 
         //AbstractLattice L = new Leech();
+        //AbstractLattice L = new Dn(4);
         //AbstractLattice L = new Vnm(2, 48);
         //AbstractLattice L = new Zn(10);
         //AbstractLattice L = new P48();
-        AbstractLattice L = new AnFastSelect(2);
+        //AbstractLattice L = new AnFastSelect(2);
 
-//        int p = 31;
-//        int n = p-1;
-//        int r = (p+1)/4;
-//        AbstractLattice L = new Craig(n, r);
+        int p = 419;
+        int n = p-1;
+        int r = (p+1)/4;
+        AbstractLattice L = new Craig(n, r);
 
         for(double S : range(Sstart, Send, Sstep) ){
             //double d = L.probCodingError(S);
