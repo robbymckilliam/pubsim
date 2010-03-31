@@ -6,7 +6,7 @@ package simulator.poly;
 
 import Jama.Matrix;
 import lattices.VnmStar;
-import lattices.VnmStarGlued;
+import lattices.VnmStarSampled;
 import lattices.decoder.Babai;
 import lattices.decoder.GeneralNearestPointAlgorithm;
 import simulator.VectorFunctions;
@@ -33,7 +33,8 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
      * @param m = polynomial order
      */
     public BabaiEstimator(int m) {
-        lattice = new VnmStarGlued(m);
+        lattice = new VnmStarSampled(m, 0, new int[m]);
+        //npalgorithm = new BabaiNoLLL();
         npalgorithm = new Babai();
         this.m = m;
     }

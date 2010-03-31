@@ -32,6 +32,8 @@ public class Mbest extends Babai {
     /** M for the M-best method */
     protected int M;
 
+    protected Mbest(){}
+
     /**
      * Contructor sets the M parameter for the M best method.
      * This is the maximum number of points that can be kept at

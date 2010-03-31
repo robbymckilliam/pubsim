@@ -7,22 +7,25 @@ package lattices.decoder;
 
 import Jama.Matrix;
 import lattices.Lattice;
-import simulator.VectorFunctions;
 
 /**
- * Lazy Babai algorithm that does not bother to
- * do LLL reduction first.
+ * 
  * @author Robby McKilliam
  */
-public class BabaiNoLLL extends Babai
-                        implements GeneralNearestPointAlgorithm {
+public class MbestNoLLL extends Mbest {
 
-    public BabaiNoLLL(){
-
+    /**
+     * Contructor sets the M parameter for the M best method.
+     * This is the maximum number of points that can be kept at
+     * each iteration of the decoder.
+     */
+    public MbestNoLLL(int M){
+        super();
+        this.M = M;
     }
 
-    public BabaiNoLLL(Lattice L){
-        setLattice(L);
+    public MbestNoLLL(Lattice L, int M){
+        super(L,M);
     }
 
     @Override
@@ -34,17 +37,21 @@ public class BabaiNoLLL extends Babai
         uh = new double[n];
         x = new double[m];
         yr = new double[n];
+        ut = new double[n];
+        ubest = new double[n];
+        xr = new double[n];
+
+        //System.out.println("GETTING HERE!");
 
         B = G;
         U = Matrix.identity(n, n);
-        Jama.QRDecomposition QR = new Jama.QRDecomposition(G);
+        simulator.QRDecomposition QR = new simulator.QRDecomposition(B);
         R = QR.getR();
         Q = QR.getQ();
 
         Qtrans = Q.transpose();
-        //System.out.println(VectorFunctions.print(R));
-
 
     }
+    
 
 }

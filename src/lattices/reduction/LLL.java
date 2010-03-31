@@ -78,6 +78,8 @@ public class LLL implements LatticeReduction{
         Bcopy = hermite.reduce(Bcopy);
         M = M.times(hermite.getUnimodularMatrix());
         //M = hermite.getUnimodularMatrix().times(M);
+
+        //System.out.println("THIS SHOULD NOT BE CALLED!");
         
         return Bcopy;
     }

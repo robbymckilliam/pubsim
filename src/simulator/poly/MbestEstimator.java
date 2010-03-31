@@ -5,7 +5,7 @@
 
 package simulator.poly;
 
-import lattices.VnmStarGlued;
+import lattices.VnmStarSampled;
 import lattices.decoder.Mbest;
 
 /**
@@ -19,7 +19,8 @@ public class MbestEstimator extends BabaiEstimator {
      * @param m = polynomial order
      */
     public MbestEstimator(int m, int M) {
-        lattice = new VnmStarGlued(m);
+        lattice = new VnmStarSampled(m, 0, new int[m]);
+        //npalgorithm = new MbestNoLLL(M);
         npalgorithm = new Mbest(M);
         //npalgorithm = new PolySphereDecoder();
         this.m = m;
