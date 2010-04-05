@@ -54,11 +54,7 @@ public class Vnm extends AbstractLattice{
     }
 
     public static double volume(int a, int n){
-        double vol = 1.0;
-        for(int k = 0; k < a; k++){
-            vol *= Math.sqrt( Util.binom(n+a+k, 2*k+1) / Util.binom(2*k, k) );
-        }
-        return vol;
+        return Math.pow(2, logVolume(a, n));
     }
 
     /**
@@ -67,6 +63,14 @@ public class Vnm extends AbstractLattice{
      */
     @Override
     public double logVolume() {
+        return logVolume(a, n);
+    }
+
+    /**
+     * Uses nifty binomial formula to compute the log of the volume.
+     * @return
+     */
+    public static double logVolume(int a, int n) {
         double vol = 0.0;
         for(int k = 0; k < a; k++){
             vol += ( Util.log2Binom(n+a+k, 2*k+1) - Util.log2Binom(2*k, k) );
@@ -94,15 +98,15 @@ public class Vnm extends AbstractLattice{
      * The inradius is always greater that 2a.  This is due to a result
      * about the Tarry-Eschott problem.
      */
-    @Override
-    public double inradius() {
-        if(a > 6 || n < 27){
-            ShortestVector sv = new ShortestVector(this);
-            double norm = VectorFunctions.sum2(sv.getShortestVector());
-            return Math.sqrt(norm)/2.0;
-        }
-        else return Math.sqrt(2*a)/2.0;
-    }
+//    @Override
+//    public double inradius() {
+//        if(a > 6 || n < 27){
+//            ShortestVector sv = new ShortestVector(this);
+//            double norm = VectorFunctions.sum2(sv.getShortestVector());
+//            return Math.sqrt(norm)/2.0;
+//        }
+//        else return Math.sqrt(2*a)/2.0;
+//    }
 
     public Matrix getGeneratorMatrix() {
         
@@ -133,11 +137,11 @@ public class Vnm extends AbstractLattice{
         return n;
     }
 
-    public double unshapedProbCodingError(double S){
-        double nomgain = Math.pow(2.0, log2(2*a) - 2/n*logVolume());
-        double Ks = 2*kissingNumber()/n;
-        return Ks*Q(Math.sqrt(3*nomgain*S));
-    }
+//    public double unshapedProbCodingError(double S){
+//        double nomgain = Math.pow(2.0, log2(2*a) - 2/n*logVolume());
+//        double Ks = 2*kissingNumber()/n;
+//        return Ks*Q(Math.sqrt(3*nomgain*S));
+//    }
 
     /**
      * This is actually an upper bound on the kissing number for this
