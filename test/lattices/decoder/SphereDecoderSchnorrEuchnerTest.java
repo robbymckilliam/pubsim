@@ -76,7 +76,8 @@ public class SphereDecoderSchnorrEuchnerTest {
     public void speedTest() {
         System.out.println("sameAsSphereDecoder");
 
-        SphereDecoder decoder = new SphereDecoderSchnorrEuchner();
+        //SphereDecoder decoder = new SphereDecoderSchnorrEuchner();
+        SphereDecoder decoder = new SphereDecoder();
 
         int iters = 1000;
         int n = 30;

@@ -5,6 +5,8 @@
 
 package lattices.decoder;
 
+import simulator.VectorFunctions;
+
 /**
  * This is a sphere decoder that searches the 'planes' in a greedy
  * order.  This tends to go a little faster.  See Agrell et. al.
@@ -12,6 +14,29 @@ package lattices.decoder;
  * @author Robby McKilliam
  */
 public class SphereDecoderSchnorrEuchner extends SphereDecoder{
+
+    @Override
+    public void nearestPoint(double[] y) {
+        if(m != y.length)
+            throw new RuntimeException("Point y and Generator matrix are of different dimension!");
+
+        //don't need to compute the Babai point.  Thsi strategy automattically computes
+        //the Babai point.
+        VectorFunctions.matrixMultVector(Qtrans, y, yr);
+        D = Double.POSITIVE_INFINITY;
+
+        //current element being decoded
+        int k = n-1;
+
+        decode(k, 0);
+
+        //compute index u = Uuh so that Gu is nearest point
+        VectorFunctions.matrixMultVector(U, ubest, u);
+
+        //compute nearest point
+        VectorFunctions.matrixMultVector(G, u, x);
+
+    }
 
     @Override
     protected void decode(int k, double d){

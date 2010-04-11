@@ -7,6 +7,7 @@ package simulator.poly;
 
 import lattices.VnmStarGlued;
 import lattices.decoder.SphereDecoder;
+import lattices.decoder.SphereDecoderSchnorrEuchner;
 
 /**
  * Runs the VnmStarSampledEfficient nearest lattice point algorithm to
@@ -21,7 +22,7 @@ public class SphereDecoderEstimator extends BabaiEstimator {
      */
     public SphereDecoderEstimator(int m) {
         lattice = new VnmStarGlued(m);
-        npalgorithm = new SphereDecoder();
+        npalgorithm = new SphereDecoderSchnorrEuchner();
         //npalgorithm = new PolySphereDecoder();
         this.m = m;
     }
