@@ -56,9 +56,11 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
         //this is the first point to test
         ut[k] = Math.round((yr[k] - rsum)/R.get(k,k));
 
-        double del = 1;
-        while( Math.abs(ut[k]*R.get(k,k) + rsum - yr[k]) <= Math.sqrt(D - d) ||
-               Math.abs((ut[k] + del)*R.get(k,k) + rsum - yr[k]) <= Math.sqrt(D - d)){
+        //this update the ut[k] in the order of Schnorr and Euchner.
+        double del = Math.signum( 
+                simulator.Util.fracpart( (yr[k] - rsum)/R.get(k,k) )  );
+        
+        while( Math.abs(ut[k]*R.get(k,k) + rsum - yr[k]) <= Math.sqrt(D - d) ){
             double kd = R.get(k, k)*ut[k] + rsum - yr[k];
             double sumd = d + kd*kd;
 
