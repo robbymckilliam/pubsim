@@ -12,8 +12,12 @@ import java.io.FileWriter;
 import java.util.Date;
 import java.util.Vector;
 import lattices.An.AnFastSelect;
+import lattices.An.AnSorted;
+import lattices.Anm.AnmGlued;
 import lattices.Anm.AnmLinear;
+import lattices.Anm.AnmSorted;
 import lattices.Anstar.AnstarBucketVaughan;
+import lattices.Anstar.AnstarNew;
 import static simulator.Range.range;
 
 /**
@@ -30,20 +34,28 @@ public class LatticeTimingTest {
 
         System.out.println("timingTest");
 
-        int numTrials = 10000;
+        int numTrials = 20000;
         GaussianNoise rand = new GaussianNoise(0.0, 1000.0);
         Vector<Double> timearray = new Vector<Double>();
 
         int nstart = 4;
-        int nend = 513;
-        int nstep = 4;
+        int nend = 250;
+        int nstep = 16;
+
+        LatticeAndNearestPointAlgorithm lattice = null;
 
         for(int n : range(nstart, nend, nstep) ){
 
-            int M = n/4;
+            int M = 4;
             double[] y = new double[n];
 
-            LatticeAndNearestPointAlgorithm lattice = new AnmLinear(M);
+            //lattice = new AnSorted(n-1);
+            //lattice = new AnFastSelect(n-1);
+            //lattice = new AnstarNew();
+            //lattice = new AnstarBucketVaughan();
+            //lattice = new AnmLinear(M);
+            lattice = new AnmGlued(M);
+            //lattice = new AnmSorted(M);
             lattice.setDimension(n - 1);
 
             Date timer = new Date();
@@ -63,7 +75,8 @@ public class LatticeTimingTest {
             //assertTrue(true);
         }
 
-        File file = new File( "AnmLinearmnd4" );
+        String fname = (lattice.getClass().toString() + "_m4").replace(' ', '.');
+        File file = new File( fname );
         BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
         int count = 0;
         for(int n : range(nstart, nend, nstep)){
