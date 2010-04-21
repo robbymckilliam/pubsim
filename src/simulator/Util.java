@@ -358,4 +358,16 @@ public final class Util {
         return Math.IEEEremainder(x, 2*Math.PI);
     }
 
+    /**
+     * Returns the power sum i.e. 1 + 2^m + ... + N^m.
+     * This is just a brute force approach.  Could be alot smarter.
+     */
+    public static double powerSum(int N, int m){
+        double sum = 0;
+        for( int i = 1; i <= N; i++){
+            sum += Math.pow(i, m);
+        }
+        return sum;
+    }
+
 }
