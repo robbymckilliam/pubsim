@@ -93,7 +93,7 @@ public class VonMises implements CircularDistribution{
     }
 
     public double getWrappedVariance() {
-        VarianceCalculator vcalc = new VarianceCalculator(this);
+        WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
         return vcalc.computeVarianceMod2pi();
     }
 
@@ -124,7 +124,7 @@ public class VonMises implements CircularDistribution{
         }
 
         public double getWrappedVariance() {
-            VarianceCalculator vcalc = new VarianceCalculator(this);
+            WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
             return vcalc.computeVarianceMod1();
         }
 

@@ -120,7 +120,7 @@ public class ProjectedNormalDistribution implements CircularDistribution{
 
     public double getWrappedVariance() {
         //if( getVariance() < 0.03 ) return getVariance();
-        VarianceCalculator vcalc = new VarianceCalculator(this);
+        WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
         return vcalc.computeVarianceMod1();
     }
 

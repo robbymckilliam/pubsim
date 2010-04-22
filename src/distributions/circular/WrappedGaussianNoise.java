@@ -53,7 +53,7 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
     }
 
     public double getWrappedVariance() {
-        VarianceCalculator vcalc = new VarianceCalculator(this);
+        WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
         return vcalc.computeVarianceMod2pi();
     }
 
@@ -101,7 +101,7 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
 
         @Override
         public double getWrappedVariance() {
-            VarianceCalculator vcalc = new VarianceCalculator(this);
+            WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
             return vcalc.computeVarianceMod1();
         }
         

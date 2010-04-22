@@ -55,7 +55,7 @@ public class WrappedUniform extends UniformNoise implements CircularDistribution
     }
 
     public double getWrappedVariance() {
-        VarianceCalculator vcalc = new VarianceCalculator(this);
+        WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
         return vcalc.computeVarianceMod2pi();
     }
 
@@ -103,7 +103,7 @@ public class WrappedUniform extends UniformNoise implements CircularDistribution
         }
 
         public double getWrappedVariance() {
-            VarianceCalculator vcalc = new VarianceCalculator(this);
+            WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
             return vcalc.computeVarianceMod1();
         }
     }

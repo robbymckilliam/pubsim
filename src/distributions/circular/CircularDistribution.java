@@ -11,7 +11,7 @@ import flanagan.integration.Integration;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public interface CircularDistribution extends NoiseGenerator{
 
@@ -23,10 +23,10 @@ public interface CircularDistribution extends NoiseGenerator{
     public double getWrappedVariance();
 
     /** Class to compute wrapped variances numerically */
-    public static class VarianceCalculator implements IntegralFunction {
+    public static class WrappedVarianceCalculator implements IntegralFunction {
 
         NoiseGenerator distribution;
-        public VarianceCalculator(NoiseGenerator dist){
+        public WrappedVarianceCalculator(NoiseGenerator dist){
             distribution = dist;
         }
 
@@ -46,8 +46,7 @@ public interface CircularDistribution extends NoiseGenerator{
             return intg.trapezium(INTEGRAL_STEPS);
         }
 
-
-
     }
+
 
 }
