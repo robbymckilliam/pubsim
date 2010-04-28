@@ -32,7 +32,7 @@ public class GaussianCRB extends BoundCalculator{
     //** Write CRB data to a file */
     public static void main(String[] args) throws Exception  {
 
-        int N = 64;
+        int N = 16;
         int m = 3;
 
         GaussianCRB bound = new GaussianCRB(N, m);

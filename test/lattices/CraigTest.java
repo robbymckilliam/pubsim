@@ -7,6 +7,7 @@ package lattices;
 
 import Jama.Matrix;
 import Jama.QRDecomposition;
+import lattices.reduction.LLL;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -61,8 +62,13 @@ public class CraigTest {
         Matrix gram = gen.transpose().times(gen);
         double expResult = Math.sqrt(gram.det());
 
-        //QRDecomposition qr = new QRDecomposition(gen);
-        //System.out.println(VectorFunctions.print(qr.getR()));
+        QRDecomposition qr = new QRDecomposition(gen);
+        System.out.println(VectorFunctions.print(qr.getR()));
+
+        LLL lll = new LLL();
+        Matrix B = lll.reduce(gen);
+
+        System.out.println(VectorFunctions.print(B.qr().getR()));
 
         double vol = instance.volume();
         assertEquals(expResult, vol, 0.001);
@@ -84,15 +90,19 @@ public class CraigTest {
         Craig instance = new Craig(n, r);
 
         Matrix gen = instance.getGeneratorMatrix();
-        System.out.println(VectorFunctions.print(gen));
+        //System.out.println(VectorFunctions.print(gen));
+
+        System.out.println( gen.getRowDimension() + ", " + gen.getColumnDimension());
 
         long res = instance.kissingNumber();
         long expr = p*(p-1);
 
-        System.out.println(res);
-        System.out.println(expr);
+        //System.out.println(res);
+        //System.out.println(expr);
 
         assertEquals(expr, res);
+
+
     }
 
 }
