@@ -5,6 +5,7 @@
  */
 
 package simulator.fes;
+import lattices.Vn2Star.Vn2StarRelVecApprox;
 import lattices.Vn2Star.Vn2StarSampled;
 
 /**
@@ -22,6 +23,7 @@ public class SamplingLatticeEstimator extends LatticeEstimator
     
     public SamplingLatticeEstimator(int numsamples){
         lattice = new Vn2StarSampled(numsamples);
+        //lattice = new Vn2StarRelVecApprox();
     }
    
 }
