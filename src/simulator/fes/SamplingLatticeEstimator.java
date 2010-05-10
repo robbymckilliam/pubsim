@@ -22,7 +22,7 @@ public class SamplingLatticeEstimator extends LatticeEstimator
     }
     
     public SamplingLatticeEstimator(int numsamples){
-        lattice = new Vn2StarSampled(numsamples);
+        lattice = new Vn2StarSampled(0, numsamples);
         //lattice = new Vn2StarRelVecApprox();
     }
    

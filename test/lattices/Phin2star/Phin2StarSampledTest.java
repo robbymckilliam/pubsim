@@ -30,7 +30,7 @@ public class Phin2StarSampledTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 20;
+        int n = 256;
         Random rand = new Random();
         
         double[] y = new double[n];

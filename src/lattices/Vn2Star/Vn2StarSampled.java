@@ -22,20 +22,20 @@ import simulator.*;
  */
 public class Vn2StarSampled extends Vn2Star implements NearestPointAlgorithm {
     
-    protected int num_samples;
+    protected int num_samples = 100;
     Anstar anstar;
     
     protected double[] g, vt, ut, y;
 
+    /** Default constructor.  Uses 100 samples */
     public Vn2StarSampled() {}
     
-    /** Default constructor.  Uses 100 samples */
+    /** Set dimenion. Uses 100 samples */
     public Vn2StarSampled(int n) {
         setDimension(n);
-        num_samples = 100;
     }
     
-    /** Default constructor sets the number of samples */
+    /** Sets dimension and number of samples */
     public Vn2StarSampled(int n, int samples) {
         setDimension(n);
         num_samples = samples;

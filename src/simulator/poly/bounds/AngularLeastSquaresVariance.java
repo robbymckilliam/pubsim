@@ -42,7 +42,7 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
     //** Write CRB data to a file */
     public static void main(String[] args) throws Exception  {
 
-        int N = 64;
+        int N = 16;
         int m = 3;
 
         CircularDistribution dist = new VonMises.Mod1();
@@ -82,8 +82,8 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
 //        }
 
         //this is for wrapped uniform and von mises
-        double from_var_db = 15;
-        double to_var_db = -10;
+        double from_var_db = 18;
+        double to_var_db = -3;
         //double from_var_db = -11.2;
         //double to_var_db = -35.8;
         double step_var_db = -1;
