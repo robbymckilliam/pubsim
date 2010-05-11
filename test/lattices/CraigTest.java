@@ -83,7 +83,7 @@ public class CraigTest {
         System.out.println("testElkiesKissingNumber");
 
         //p needs to be prime.
-        int p = 67;
+        int p = 7;
         int n = p-1;
         int r = (p+1)/4;
 
@@ -94,11 +94,13 @@ public class CraigTest {
 
         System.out.println( gen.getRowDimension() + ", " + gen.getColumnDimension());
 
+        System.out.println(instance.inradius());
+
         long res = instance.kissingNumber();
         long expr = p*(p-1);
 
-        //System.out.println(res);
-        //System.out.println(expr);
+        System.out.println(res);
+        System.out.println(expr);
 
         assertEquals(expr, res);
 
