@@ -42,20 +42,22 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
     //** Write CRB data to a file */
     public static void main(String[] args) throws Exception  {
 
-        int N = 16;
-        int m = 3;
+        int N = 1024;
+        int m = 1;
 
+        //CircularDistribution dist = new WrappedUniform.Mod1();
         CircularDistribution dist = new VonMises.Mod1();
+        //CircularDistribution dist = new ProjectedNormalDistribution();
 
         AngularLeastSquaresVariance bound =
                 new AngularLeastSquaresVariance(N, m, dist);
 
 
-        //this commented bit is for the projected normal
-        //double from_log_snr = 20.0;
-        //double to_log_snr = -3.0;
-        //double step_log_snr = -1;
-
+//        //this commented bit is for the projected normal
+//        double from_log_snr = 20.0;
+//        double to_log_snr = -20.0;
+//        double step_log_snr = -1;
+//
 //        Vector<Double> snr_array = new Vector<Double>();
 //        Vector<Double> snr_db_array = new Vector<Double>();
 //        for(double snrdb = from_log_snr; snrdb >= to_log_snr; snrdb += step_log_snr){
@@ -81,9 +83,10 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
 //            writer.close();
 //        }
 
-        //this is for wrapped uniform and von mises
+        //this is for von mises
         double from_var_db = 18;
-        double to_var_db = -3;
+        double to_var_db = -8;
+        //this is for wrapped uniform and von mises
         //double from_var_db = -11.2;
         //double to_var_db = -35.8;
         double step_var_db = -1;
