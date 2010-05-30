@@ -95,6 +95,10 @@ public class PointInParallelepiped
 
     @Override
     public Matrix nextElement() {
+        if(B.getRowDimension() == 0) {
+            finished = true;
+            return null;
+        }
         addto(0);
         counter++;
         if(counter >= sampleproduct) finished = true;

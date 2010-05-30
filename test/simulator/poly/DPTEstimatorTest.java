@@ -70,8 +70,8 @@ public class DPTEstimatorTest {
         Complex[] y = VectorFunctions.randomComplex(n);
         DPTEstimator instance = new DPTEstimator(m);
         instance.setSize(n);
-        Complex[] result = instance.PPT2(y);
-        System.out.print(VectorFunctions.print(result));
+        flanagan.complex.Complex[] result = instance.PPT2(VectorFunctions.simComplexArrayToFlanComplexArray(y));
+        //System.out.print(VectorFunctions.print(result));
 
         //test first element is zero
         //assertTrue(result[0].re() == 0.0);
@@ -79,8 +79,8 @@ public class DPTEstimatorTest {
 
         //test last element
         Complex last = y[n-1].times(y[n - 1 - (int)Math.round(n/((double)m-1))].conjugate());
-        assertEquals(last.im(), result[result.length-1].im(), 0.0000001);
-        assertEquals(last.re(), result[result.length-1].re(), 0.0000001);
+        assertEquals(last.im(), result[result.length-1].getImag(), 0.0000001);
+        assertEquals(last.re(), result[result.length-1].getReal(), 0.0000001);
     }
 
     /**

@@ -120,6 +120,13 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
 //        return set(alpha * re, alpha * im);
 //    }
 
+    /** 
+     * Convert this complex number into complex number from the 
+     * flanagan library.
+     */
+    public flanagan.complex.Complex toFlanComplex(){
+        return new flanagan.complex.Complex(re, im);
+    }
 
     /** return a new Complex object whose value is the conjugate of this */
     public Complex conjugate() {  return new Complex(re, -im); }

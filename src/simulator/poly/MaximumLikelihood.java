@@ -10,7 +10,9 @@ import lattices.util.PointInParallelepiped;
 import optimisation.AutoDerivativeFunction;
 import optimisation.FunctionAndDerivatives;
 import optimisation.NewtonRaphson;
+import simulator.Complex;
 import simulator.VectorFunctions;
+import simulator.fes.PeriodogramFFTEstimator;
 
 /**
  * Implements m (approximate) maximum likelihood estimator for
@@ -24,6 +26,10 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     int N;
     int samples[];
     protected AmbiguityRemover ambiguityRemover;
+    protected PeriodogramFFTEstimator freqest = new PeriodogramFFTEstimator();
+
+    double[] realp, imagp;
+    Complex[] z;
 
     //Here for inheritance purposes.  You can't call this.
     protected MaximumLikelihood() {
@@ -34,22 +40,9 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
      * @param samples : number of samples used per parameter in ML search.
      * Deafult samples = 100
      */
-    public MaximumLikelihood(int m, int samples){
+    public MaximumLikelihood(int m){
         this.m = m;
-        this.samples = new int[m+1];
-        for(int i = 0; i <= m; i++)
-            this.samples[i] = samples;
-        ambiguityRemover = new AmbiguityRemover(m);
-    }
-
-    /**
-     * @param m : polynomail order
-     * @param samples : number of samples used per parameter in ML search.
-     * Deafult samples = 100
-     */
-    public MaximumLikelihood(int m, int[] samples){
-        this.m = m;
-        this.samples = samples;
+        this.samples = new int[m-1];
         ambiguityRemover = new AmbiguityRemover(m);
     }
     
@@ -63,6 +56,12 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     @Override
     public void setSize(int n) {
         N = n;
+        realp = new double[N];
+        imagp = new double[N];
+        z = new Complex[N];
+        freqest.setSize(N);
+        for(int i = 0; i < samples.length; i++)
+            samples[i] = (int)Math.round(4*Math.pow( N, i+2 ));
     }
 
     public int getOrder() {
@@ -82,7 +81,8 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         //System.out.println(ambiguityRemover.getBasisMatrix()==null);
 
         PointInParallelepiped points
-                = new PointInParallelepiped(ambiguityRemover.getBasisMatrix(),
+                = new PointInParallelepiped(
+                    ambiguityRemover.getBasisMatrix().getMatrix(2, m, 2, m),
                                             samples);
 
         Matrix p = null;
@@ -91,16 +91,62 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
             //Matrix pt = newtonRaphson.maximise(points.nextElement());
             //System.out.println("here");
             Matrix pt = points.nextElement();
-            double dist = func.value(pt);
+
+            //System.out.println("params before = " + VectorFunctions.print(pt));
+
+            //compute the supposed frequency signal by remove higher order
+            //parameters
+            for (int j = 0; j < real.length; j++){
+                z[j] = new Complex(real[j], imag[j]);
+            }
+            for (int j = 0; j < real.length; j++) {
+                 for (int i = 0; i < m-1; i++) {
+                    double cs = Math.cos(-2.0 * Math.PI * pt.get(i, 0) * Math.pow(j + 1, i+2));
+                    double ss = Math.sin(-2.0 * Math.PI * pt.get(i, 0) * Math.pow(j + 1, i+2));
+                    z[j] = z[j].times(new Complex(cs, ss));
+                }
+            }
+            for (int j = 0; j < real.length; j++){
+                realp[j] = z[j].re();
+                imagp[j] = z[j].im();
+            }
+
+            //estimate the supposed frequency using the periodogram estimator
+            double f = freqest.estimateFreq(realp, imagp);
+            //System.out.println(f);
+
+            //now estimator the phase, just compute the complex mean
+            for (int j = 0; j < real.length; j++) {
+                double cs = Math.cos(-2.0 * Math.PI * f * (j+1));
+                double ss = Math.sin(-2.0 * Math.PI * f * (j+1));
+                z[j] = z[j].times(new Complex(cs, ss));
+            }
+            Complex c = new Complex(0,0);
+            for (int j = 0; j < real.length; j++) c = c.add(z[j]);
+            double pha = c.phase()/(2*Math.PI);
+            //System.out.println(pha);
+
+            //set the parameters vector
+            Matrix params = new Matrix(m+1, 1);
+            //System.out.println("params before = " + VectorFunctions.print(params));
+            params.set(0,0, pha);
+            params.set(1,0,f);
+            for(int i = 2; i < m+1; i++) params.set(i,0, pt.get(i-2,0));
+
+            //test it, if it's good save it.
+            double dist = func.value(params);
+            //System.out.println("params = " + VectorFunctions.print(params));
             if(dist > D){
                 D = dist;
-                p = pt.copy();
-                //System.out.println(VectorFunctions.print(pt));
+                p = params.copy();
+                //System.out.println("p = " + VectorFunctions.print(p));
             }
         }
         //double[] parray = {0.1,0.1};
         //double dist = func.value(VectorFunctions.columnMatrix(parray));
         //p = VectorFunctions.columnMatrix(parray);
+
+        //refine the best parameter using Newton's method
         try{
             p = newtonRaphson.maximise(p);
         }catch(Exception e){

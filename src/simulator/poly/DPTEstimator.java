@@ -4,9 +4,8 @@
  */
 package simulator.poly;
 
-import Jama.Matrix;
-import java.io.Serializable;
-import simulator.Complex;
+import flanagan.math.FourierTransform;
+import flanagan.complex.Complex;
 import simulator.Util;
 import simulator.VectorFunctions;
 
@@ -23,6 +22,8 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
     protected int m,  n;
     protected double tau;
     protected int num_samples;
+    protected FourierTransform fft;
+    protected Complex[] sig;
     
     /**Max number of iterations for the Newton step */
     static final int MAX_ITER = 15;
@@ -47,6 +48,10 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         if (m > 4) {
             tau = Math.round(((double) n) / (m + 2));
          }
+
+        int oversampled = 4;
+        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];
+        fft = new FourierTransform();
        // tau = Math.round(0.2 * n);
 
     }
@@ -93,27 +98,44 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
 
         //this is the phase parameter, so just average
         if (M == 0) {
-            Complex zsum = VectorFunctions.sum(x);
-            return zsum.phase() / (2 * Math.PI);
+            Complex zsum = new Complex(0,0);
+            for(int i = 0; i < x.length; i++)
+                zsum = zsum.plus(x[i]);
+            return zsum.argRad() / (2 * Math.PI);
         }
 
-        //sample the periodogram (coarse search)
-        double maxp = Double.NEGATIVE_INFINITY;
+        for (int i = 0; i < d.length; i++) {
+            sig[i] = new Complex(d[i]);
+        }
+        for (int i = d.length; i < sig.length; i++) {
+            sig[i] = new Complex(0.0, 0.0);
+        }
+
+        fft.setData(sig);
+        fft.transform();
+        Complex[] ft = fft.getTransformedDataAsComplex();
+
+        //note that the FFT is generally defined with exp(-jw) but
+        //periodogram has exp(jw) so freq are -ve here.
+        double maxp = 0;
         double fhat = 0.0;
-        double fstep = 1.0 / num_samples;
-        for (double f = -0.5; f < 0.5; f += fstep) {
-            double p = calculatePeriodogram(d, f);
+        double f = 0.0;
+        double fstep = 1.0 / ft.length;
+        for (int i = 0; i < ft.length; i++) {
+            double p = ft[i].squareAbs();
             if (p > maxp) {
                 maxp = p;
                 fhat = f;
             }
+            f-=fstep;
         }
 
         //System.out.println("coarse fhat = " + fhat);
 
         //Newton Raphson
         int numIter = 0;
-        double f = fhat, lastf = f - 2 * EPSILON, lastp = 0;
+        f = fhat;
+        double lastf = f - 2 * EPSILON, lastp = 0;
         while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER) {
 
             //System.out.println("cur f = " + f);
@@ -124,8 +146,8 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
             for (int i = 0; i < d.length; i++) {
                 double cosf = Math.cos(-2 * Math.PI * f * i);
                 double sinf = Math.sin(-2 * Math.PI * f * i);
-                double ur = d[i].re() * cosf - d[i].im() * sinf;
-                double ui = d[i].im() * cosf + d[i].re() * sinf;
+                double ur = d[i].getReal() * cosf - d[i].getImag() * sinf;
+                double ui = d[i].getImag() * cosf + d[i].getReal() * sinf;
                 double vr = 2 * Math.PI * i * ui;
                 double vi = -2 * Math.PI * i * ur;
                 double wr = 2 * Math.PI * i * vi;
@@ -156,7 +178,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         }
 
         //System.out.println("fine fhat = " + fhat);
-
+        fhat = fhat - Math.round(fhat);
         return fhat / Util.factorial(M) / Math.pow(tau, M - 1);
     }
 
@@ -206,8 +228,8 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         for (int i = 0; i < x.length; i++) {
             double cosf = Math.cos(-2 * Math.PI * f * i);
             double sinf = Math.sin(-2 * Math.PI * f * i);
-            sumur += x[i].re() * cosf - x[i].im() * sinf;
-            sumui += x[i].im() * cosf + x[i].re() * sinf;
+            sumur += x[i].getReal() * cosf - x[i].getImag() * sinf;
+            sumui += x[i].getReal() * cosf + x[i].getImag() * sinf;
         }
         return sumur * sumur + sumui * sumui;
     }
