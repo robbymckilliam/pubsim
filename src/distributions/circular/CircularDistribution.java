@@ -13,7 +13,7 @@ import flanagan.integration.Integration;
  *
  * @author Robby McKilliam
  */
-public interface CircularDistribution extends NoiseGenerator{
+public interface CircularDistribution extends NoiseGenerator {
 
     /**
      * Return the wrapped variance i.e. the variance

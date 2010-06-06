@@ -123,6 +123,7 @@ public class VonMises implements CircularDistribution{
             return Math.PI*2.0*super.pdf(x*Math.PI*2.0);
         }
 
+        @Override
         public double getWrappedVariance() {
             WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
             return vcalc.computeVarianceMod1();
