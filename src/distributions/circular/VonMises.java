@@ -109,7 +109,12 @@ public class VonMises implements CircularDistribution{
 
         /** Creates a new instance of GaussianNoise with specific variance and mean */
         public Mod1(double mean, double variance){
-            super(mean, variance);
+            super(2*Math.PI*mean, variance);
+        }
+
+        @Override
+        public void setMean(double mu){
+            this.mu = 2*Math.PI*mu;
         }
 
         /** Returns the Von Mises distribution on -0.5, 0.5 */
