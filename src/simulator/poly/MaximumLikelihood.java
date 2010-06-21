@@ -22,12 +22,13 @@ import simulator.fes.PeriodogramFFTEstimator;
  */
 public class MaximumLikelihood implements PolynomialPhaseEstimator{
 
-    int m;
-    int N;
-    int samples[];
+    protected int m;
+    protected int N;
+
     protected AmbiguityRemover ambiguityRemover;
     protected PeriodogramFFTEstimator freqest = new PeriodogramFFTEstimator();
 
+    int samples[];
     double[] realp, imagp;
     Complex[] z;
 

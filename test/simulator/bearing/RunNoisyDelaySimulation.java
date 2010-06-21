@@ -26,7 +26,7 @@ public class RunNoisyDelaySimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 4096;
+        int n = 1024;
         double angle = 0.1;
         int seed = 26;
         int iterations = 10000;
@@ -55,8 +55,8 @@ public class RunNoisyDelaySimulation {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        //estimators.add(new LeastSquaresEstimator());
-        //estimators.add(new VectorMeanEstimator());
+        estimators.add(new LeastSquaresEstimator());
+        estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){
@@ -73,7 +73,7 @@ public class RunNoisyDelaySimulation {
 
                 mse_array.add(mse/iterations);
 
-                System.out.println(var_array.get(i) + "\t" + ((WrappedUniform.Mod1)noise).getRange() + "\t" + mse/iterations);
+                //System.out.println(var_array.get(i) + "\t" + ((WrappedUniform.Mod1)noise).getRange() + "\t" + mse/iterations);
 
 
             }

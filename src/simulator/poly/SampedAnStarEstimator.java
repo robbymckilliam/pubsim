@@ -81,7 +81,7 @@ public class SampedAnStarEstimator implements PolynomialPhaseEstimator {
     }
 
     /**
-     * Run the estimator and return the Returns the square error wrapped modulo the the ambiguity
+     * Run the estimator and return the square error wrapped modulo the the ambiguity
      * region between the estimate and the truth.
      */
     public double[] error(double[] real, double[] imag, double[] truth){
