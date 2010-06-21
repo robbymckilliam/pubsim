@@ -88,6 +88,18 @@ public class PolynomialPhaseSignal implements SignalGenerator{
         this.params = pgen.generateParameters();
     }
 
+    public void generateRandomDPTParameters(){
+        if(params == null) throw new RuntimeException("Length of params not defined");
+        Random dptrand = new Random();
+        int m = params.length - 1;
+        params[0] = dptrand.nextDouble() - 0.5;
+        params[1] = dptrand.nextDouble() - 0.5;
+        for(int k = 2; k <= m; k++){
+            params[k] = (dptrand.nextDouble() - 0.5)*Math.pow( (2/n), k-1 )/simulator.Util.factorial(k);
+        }
+    }
+
+
     public void generateRandomParameters(){
         if(params == null) throw new RuntimeException("Length of params not defined");
         if(pgen.getOrder() != params.length)
