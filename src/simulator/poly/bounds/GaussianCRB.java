@@ -32,13 +32,13 @@ public class GaussianCRB extends BoundCalculator{
     //** Write CRB data to a file */
     public static void main(String[] args) throws Exception  {
 
-        int N = 1024;
-        int m = 1;
+        int N = 64;
+        int m = 2;
 
         GaussianCRB bound = new GaussianCRB(N, m);
         
         double from_log_snr = 20.0;
-        double to_log_snr = -20.0;
+        double to_log_snr = -8.0;
         double step_log_snr = -1;
 
         Vector<Double> snr_array = new Vector<Double>();

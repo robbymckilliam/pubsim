@@ -78,7 +78,8 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
             }
         }
 
-        return ambiguityRemover.disambiguate(p);
+        //return ambiguityRemover.disambiguate(p);
+        return p;
 
     }
 
@@ -236,13 +237,21 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
 
     public double[] error(double[] real, double[] imag, double[] truth) {
 
+        double dptos = Math.pow( (n*1.0)/m , (m-1.0)/(m+1.0));
+
         double[] est = estimate(real, imag);
         double[] err = new double[est.length];
 
         for (int i = 0; i < err.length; i++) {
-            err[i] = est[i] - truth[i];
+            double oscale = Math.pow(dptos,i);
+            double oserr = oscale*(est[i] - truth[i]);
+            double osr = 1;
+            if( i > 1 )
+                osr = oscale*Math.pow(m/(n*1.0), i-1)/simulator.Util.factorial(i);
+            err[i] = osr*simulator.Util.fracpart(oserr/osr);
         }
-        err = ambiguityRemover.disambiguate(err);
+
+        //err = ambiguityRemover.disambiguate(err);
         for (int i = 0; i < err.length; i++) {
             err[i] = err[i]*err[i];
         }
