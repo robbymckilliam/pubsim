@@ -16,7 +16,7 @@ import java.util.Vector;
  */
 public class GaussianCRB extends BoundCalculator{
     
-    private double variance;
+    protected double variance;
 
     public GaussianCRB(int N, int m){
         super(N,m);
@@ -32,14 +32,14 @@ public class GaussianCRB extends BoundCalculator{
     //** Write CRB data to a file */
     public static void main(String[] args) throws Exception  {
 
-        int N = 64;
+        int N = 10;
         int m = 2;
 
         GaussianCRB bound = new GaussianCRB(N, m);
         
-        double from_log_snr = 20.0;
-        double to_log_snr = -8.0;
-        double step_log_snr = -1;
+        double from_log_snr = 16.0;
+        double to_log_snr = -6.0;
+        double step_log_snr = -0.2;
 
         Vector<Double> snr_array = new Vector<Double>();
         Vector<Double> snr_db_array = new Vector<Double>();

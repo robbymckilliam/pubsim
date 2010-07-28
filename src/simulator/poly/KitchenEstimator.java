@@ -7,6 +7,7 @@ package simulator.poly;
 
 import simulator.Util;
 import simulator.VectorFunctions;
+import simulator.bearing.VectorMeanEstimator;
 
 /**
  * Implementation of Kitchen's polynomial phase estimate.
@@ -58,6 +59,14 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
 
     /** Estimate the Mth order parameter */
     protected double estimateM(double[] y, int M){
+
+        //if it's the last parameter just run sample circular mean
+        //otherwise the estimator needs the phase parameter bounded,
+        //which is really silly.
+        if(M == 0){
+            VectorMeanEstimator vm = new VectorMeanEstimator();
+            return vm.estimateBearing(y);
+        }
 
         double[] d = VectorFunctions.mthDifference(y, M);
 

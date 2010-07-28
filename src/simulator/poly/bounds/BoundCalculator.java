@@ -30,6 +30,8 @@ public abstract class BoundCalculator {
      */
     int m;
 
+    protected BoundCalculator() {}
+
     /** 
      * @param N signal length
      * @param m polynomial order
