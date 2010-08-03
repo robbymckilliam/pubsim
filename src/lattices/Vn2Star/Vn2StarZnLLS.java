@@ -12,7 +12,7 @@ import java.util.TreeMap;
 import lattices.NearestPointAlgorithm;
 
 /**
- * O(N^3log(N)) version of the nearest point algorithm for Pn*.
+ * O(N^3log(N)) version of the nearest point algorithm for Vnm*.
  * @author Robby McKilliam
  */
 public class Vn2StarZnLLS extends
