@@ -10,7 +10,6 @@ import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 
 /**
- *
  * @author Robby McKilliam
  */
 public interface CircularDistribution extends NoiseGenerator {
