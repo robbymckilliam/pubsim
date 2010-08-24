@@ -82,8 +82,9 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
 
 
     /**
-     * Run the estimator and return the Returns the square error wrapped modulo the the ambiguity
-     * region between the estimate and the truth.
+     * Run the estimator and return the square error wrapped modulo the the ambiguity
+     * region between the estimate and the truth. i.e. dealiase the estimate before
+     * computing the square error.
      */
     public double[] error(double[] real, double[] imag, double[] truth){
         
