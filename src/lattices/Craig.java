@@ -8,6 +8,11 @@ package lattices;
 import lattices.*;
 import Jama.Matrix;
 import lattices.An.AnSorted;
+import simulator.VectorFunctions;
+import static simulator.Util.log2;
+import static simulator.Util.pow2;
+import static simulator.Util.erf;
+import static simulator.Util.erfc;
 
 /**
  *
@@ -45,10 +50,10 @@ public class Craig extends AbstractLattice{
      * p = 3 mod 4.
      * @return
      */
-    //@Override
-    //public long kissingNumber(){
-    //    return n*(n+1);
-    //}
+    @Override
+    public long kissingNumber(){
+        return n*(n+1);
+    }
 
     /**
      * This is only true if p = n+1 is a prime and p+1 is divisible by 4.
@@ -62,6 +67,11 @@ public class Craig extends AbstractLattice{
     public double volume(){
         if(r == 0) return 1.0;
         return Math.pow(n+1, r - 0.5);
+    }
+
+    @Override
+    public double logVolume(){
+        return (r-0.5)*log2(n+1);
     }
 
     /**

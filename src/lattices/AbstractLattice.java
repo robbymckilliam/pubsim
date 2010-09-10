@@ -84,6 +84,14 @@ public abstract class AbstractLattice implements Lattice {
         return Ks*Q(Math.sqrt(3*nomgain*S));
     }
 
+    public double unshapedProbCodingErrorUseLogVolume(double S){
+        int n = getDimension();
+        double den = Math.pow(2.0, logVolume()*2.0/n);
+        double nomgain = inradius()*inradius()*4.0/den;
+        double Ks = 2.0*kissingNumber()/n;
+        return Ks*Q(Math.sqrt(3*nomgain*S));
+    }
+
     public double volume(){
         Matrix B = getGeneratorMatrix();
         return Math.sqrt((B.transpose().times(B)).det());
