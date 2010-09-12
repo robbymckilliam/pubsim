@@ -42,20 +42,20 @@ public class LatticeProbErrorPlot {
         //AbstractLattice L = new P48();
         //AbstractLattice L = new AnFastSelect(2);
         //AbstractLattice L = new BarnesWall(9);
-        AbstractLattice L = new Shimada86();
+        //AbstractLattice L = new Shimada86();
 
-        int p = 1019;
+        int p = 2003;
         int n = p-1;
         int r = (p+1)/4;
-        //AbstractLattice L = new Craig(n, r);
+        AbstractLattice L = new Craig(n, r);
 
         System.out.println(L.inradius() + ", " + L.kissingNumber() + ", " + L.logVolume() + ", " + L.centerDensity());
 
         for(double S : range(Sstart, Send, Sstep) ){
             //double d = L.probCodingError(S);
             //double d = L.log10ProbCodingError(S);
-            double d = L.unshapedProbCodingError(Math.pow(10, S/10));
-            //double d = L.unshapedProbCodingErrorUseLogVolume(Math.pow(10, S/10));
+            //double d = L.unshapedProbCodingError(Math.pow(10, S/10));
+            double d = L.unshapedProbCodingErrorUseLogVolume(Math.pow(10, S/10));
             //double d = L.probCodingErrorPer2Dim(10*Math.log10(S));
             proberr.add(d);
             System.out.println(dround6(S) + " " + d);
