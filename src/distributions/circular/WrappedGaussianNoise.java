@@ -104,6 +104,16 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
             WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
             return vcalc.computeVarianceMod1();
         }
+
+        public double testWrappedVarianceSum(){
+            double csum = 0.0;
+            double sgn = -1.0;
+            for(int k = 1; k < 50; k++){
+                csum += sgn/(k*k) * Math.exp(-variance*k*k*Math.PI*Math.PI*2);
+                sgn *= -1;
+            }
+            return 1.0/12.0 + csum/(Math.PI*Math.PI);
+        }
         
     }
   
