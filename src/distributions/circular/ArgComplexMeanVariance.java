@@ -52,7 +52,6 @@ public class ArgComplexMeanVariance {
      * Computes argument of the complex mean variance in uniform noise.
      * Assumes that the noise is zero mean and the variance is less
      * that 1/12.
-     * THERE IS AN ERROR IN THIS SOMEWHERE!
      * @param f
      * @return
      */

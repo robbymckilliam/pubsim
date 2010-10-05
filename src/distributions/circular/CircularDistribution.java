@@ -8,6 +8,7 @@ package distributions.circular;
 import distributions.NoiseGenerator;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
+import simulator.Util;
 
 /**
  * @author Robby McKilliam
@@ -16,7 +17,8 @@ public interface CircularDistribution extends NoiseGenerator {
 
     /**
      * Return the wrapped variance i.e. the variance
-     * computed in the standard way assume that the distribution
+     * computed in the standard way. Value is only valid if the
+     * distribution has zero unwrapped mean.
      * @return
      */
     public double getWrappedVariance();

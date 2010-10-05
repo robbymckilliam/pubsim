@@ -11,17 +11,18 @@ import java.util.Random;
 import java.util.Vector;
 
 /**
- * Random variables that have been added together.
+ * Distribution that is the weighted sum of others.
  * @author Robby McKilliam
  */
-public class AdditiveRandomVariables extends NoiseGeneratorFunctions implements NoiseGenerator {
+public class SumsOfDistributions extends NoiseGeneratorFunctions implements NoiseGenerator {
 
     protected final Collection<NoiseGenerator> distributions;
     protected final Collection<Double> weights;
 
     protected double totalweight = 0.0;
 
-    public AdditiveRandomVariables(Collection<NoiseGenerator> dist, Collection<Double> whts){
+    /** Initialize with a coolection of distributions and weights */
+    public SumsOfDistributions(Collection<NoiseGenerator> dist, Collection<Double> whts){
         if( dist.size() != whts.size() )
             throw new ArrayIndexOutOfBoundsException("You can't a different number of distributions and weights!");
         distributions = dist;
@@ -29,9 +30,16 @@ public class AdditiveRandomVariables extends NoiseGeneratorFunctions implements 
         for( Double w: weights ) totalweight += w;
     }
 
-    public AdditiveRandomVariables(){
+    public SumsOfDistributions(){
         distributions = new Vector<NoiseGenerator>();
         weights = new Vector<Double>();
+    }
+
+    /** Adds a distribution and weight to the current list */
+    public void addDistribution( NoiseGenerator dist, double weight ){
+        distributions.add(dist);
+        weights.add(weight);
+        totalweight += weight;
     }
 
     @Override
@@ -53,7 +61,15 @@ public class AdditiveRandomVariables extends NoiseGeneratorFunctions implements 
     }
 
     public double pdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Iterator<NoiseGenerator> distitr = distributions.iterator();
+        Iterator<Double> witr = weights.iterator();
+        double pdf = 0.0;
+        while( witr.hasNext() ){
+            double f = distitr.next().pdf(x);
+            double w = witr.next().doubleValue();
+            pdf += f*w;
+        }
+        return pdf/totalweight;
     }
 
 
