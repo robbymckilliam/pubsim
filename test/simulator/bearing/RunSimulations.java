@@ -6,7 +6,7 @@
 package simulator.bearing;
 
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import distributions.circular.ArgComplexMeanVariance;
 import distributions.circular.CircularDistribution;
 import distributions.circular.ProjectedNormalDistribution;

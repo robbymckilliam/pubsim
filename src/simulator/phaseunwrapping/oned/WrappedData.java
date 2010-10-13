@@ -5,7 +5,7 @@
 
 package simulator.phaseunwrapping.oned;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 
 /**
  *
@@ -25,6 +25,6 @@ public interface WrappedData {
 
     public int getSize();
 
-    public void setNoiseGenerator(NoiseGenerator noise);
+    public void setNoiseGenerator(RandomVariable noise);
 
 }

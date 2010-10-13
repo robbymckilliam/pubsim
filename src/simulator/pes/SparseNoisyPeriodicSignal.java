@@ -6,7 +6,7 @@
 
 package simulator.pes;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.util.Random;
 import simulator.*;
 
@@ -23,7 +23,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
     protected double[] transmittedSignal;
     protected double[] recievedSignal;
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     protected double T;
     protected int n;
     protected double phase;
@@ -120,10 +120,10 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     }
     
     /** Set the noise type for the signal */
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    public RandomVariable getNoiseGenerator(){ return noise; }
     
     /**
      * Set the seed for the random generator used

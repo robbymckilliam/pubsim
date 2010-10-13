@@ -6,7 +6,7 @@
 package simulator.psk.decoder;
 
 import junit.framework.TestCase;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.VectorFunctions;
 
 /**
@@ -45,7 +45,7 @@ public class SweldensNoncoherentTest extends TestCase {
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.001);
+        RandomVariable noise = new distributions.UniformNoise(0.0, 0.001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

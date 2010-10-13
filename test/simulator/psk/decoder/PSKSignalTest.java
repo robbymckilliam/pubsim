@@ -7,7 +7,7 @@ package simulator.psk.decoder;
 
 import junit.framework.TestCase;
 import simulator.Complex;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.VectorFunctions;
 
 /**
@@ -43,7 +43,7 @@ public class PSKSignalTest extends TestCase {
         instance.setM(4);
         instance.setChannel(-0.4326, -1.6656);
         
-        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.0);
+        RandomVariable noise = new distributions.UniformNoise(0.0, 0.0);
         instance.setNoiseGenerator(noise);  
                
         instance.setPSKSignal(xr);

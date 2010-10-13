@@ -7,7 +7,7 @@
 package simulator.qam.hex;
 
 import simulator.SignalGenerator;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.util.Random;
 import simulator.VoronoiCode;
 import simulator.Complex;
@@ -24,7 +24,7 @@ public class FadingNoisyHex implements SignalGenerator{
     protected double Hr, Hi;
     protected double[] xr, xi;
     protected double[] yr, yi;
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     protected Random random;
     protected final HexagonalCode hex;
     
@@ -113,10 +113,10 @@ public class FadingNoisyHex implements SignalGenerator{
     public double[] getImag() { return yi; }
     
     /** Set the noise distribution */
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    public RandomVariable getNoiseGenerator(){ return noise; }
     
     /**
      * Set the seed for the random generator used

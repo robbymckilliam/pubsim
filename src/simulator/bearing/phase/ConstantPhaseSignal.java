@@ -5,7 +5,7 @@
 
 package simulator.bearing.phase;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.SignalGenerator;
 import simulator.Complex;
 
@@ -18,7 +18,7 @@ public class ConstantPhaseSignal implements SignalGenerator.Generic<Complex>{
     protected Complex mean;
     protected Complex[] signal;
     protected int n;
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
 
     public ConstantPhaseSignal(){
         this.mean = new Complex();
@@ -40,11 +40,11 @@ public class ConstantPhaseSignal implements SignalGenerator.Generic<Complex>{
         return signal;
     }
 
-    public void setNoiseGenerator(NoiseGenerator noise) {
+    public void setNoiseGenerator(RandomVariable noise) {
         this.noise = noise;
     }
 
-    public NoiseGenerator getNoiseGenerator() {
+    public RandomVariable getNoiseGenerator() {
         return noise;
     }
 

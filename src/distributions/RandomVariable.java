@@ -1,5 +1,5 @@
 /*
- * NoiseGenerator.java
+ * RandomVariable.java
  *
  * Created on 13 April 2007, 15:08
  */
@@ -14,7 +14,7 @@ package distributions;
  * matrix.
  * @author Robby McKilliam
  */
-public interface NoiseGenerator {
+public interface RandomVariable {
     public void setMean(double mean);
     public void setVariance(double variance);
     public double getMean();
@@ -32,7 +32,19 @@ public interface NoiseGenerator {
     /** Set the seed for the internal Random */
     public void setSeed(long seed);
 
-    /** Return the pdf evaluate at x */
+    /** Return the probability density function evaluated at x */
     public double pdf(double x);
+
+    /** Return the cumulitive distribution function evaluated at x */
+    public double cdf(double x);
+
+    /**
+     * Return the inverse cumulitive distribution function.
+     * This allows get noise to work in a standard way by generating
+     * uniform noise in [0,1] and applying icdf.
+     * However, you don't have to implement this if you have a better
+     * way of generating the noise.
+     */
+    public double icdf(double x);
     
 }

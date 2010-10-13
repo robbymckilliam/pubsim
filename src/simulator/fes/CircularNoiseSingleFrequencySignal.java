@@ -6,7 +6,7 @@
 package simulator.fes;
 
 import simulator.poly.*;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import distributions.circular.CircularDistribution;
 
 /**

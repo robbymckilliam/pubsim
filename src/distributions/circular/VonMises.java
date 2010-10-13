@@ -6,7 +6,7 @@
 package distributions.circular;
 
 import java.util.Random;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import cern.jet.math.Bessel;
 
 /**
@@ -95,6 +95,14 @@ public class VonMises implements CircularDistribution{
     public double getWrappedVariance() {
         WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
         return vcalc.computeVarianceMod2pi();
+    }
+
+    public double cdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double icdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**

@@ -14,7 +14,7 @@ import rngpack.Ranlux;
  * Creates single gaussian variables
  * @author Robby McKilliam
  */
-public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGenerator {
+public class GaussianNoise extends AbstractRandomVariable implements RandomVariable {
     
     /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
     public GaussianNoise() {
@@ -39,6 +39,7 @@ public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGener
     }
     
     /** Returns an instance of gaussian noise */
+    @Override
     public double getNoise(){
         return stdDeviation * random.gaussian() + mean;
     }
@@ -49,4 +50,16 @@ public class GaussianNoise extends NoiseGeneratorFunctions implements NoiseGener
         double d = x - getMean();
         return s * Math.exp( -(d*d)/(2*getVariance()) );
     }
+
+    /** Return the cdf of the Gaussian evaluated at x */
+    @Override
+    public double cdf(double x){
+        //just using the Q function from util.
+        return 0.5*(1 + simulator.Util.erf((x - mean)/stdDeviation/Math.sqrt(2)));
+    }
+
+    public double icdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

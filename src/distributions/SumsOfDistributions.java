@@ -14,15 +14,15 @@ import java.util.Vector;
  * Distribution that is the weighted sum of others.
  * @author Robby McKilliam
  */
-public class SumsOfDistributions extends NoiseGeneratorFunctions implements NoiseGenerator {
+public class SumsOfDistributions extends AbstractRandomVariable implements RandomVariable {
 
-    protected final Collection<NoiseGenerator> distributions;
+    protected final Collection<RandomVariable> distributions;
     protected final Collection<Double> weights;
 
     protected double totalweight = 0.0;
 
     /** Initialize with a coolection of distributions and weights */
-    public SumsOfDistributions(Collection<NoiseGenerator> dist, Collection<Double> whts){
+    public SumsOfDistributions(Collection<RandomVariable> dist, Collection<Double> whts){
         if( dist.size() != whts.size() )
             throw new ArrayIndexOutOfBoundsException("You can't a different number of distributions and weights!");
         distributions = dist;
@@ -31,12 +31,12 @@ public class SumsOfDistributions extends NoiseGeneratorFunctions implements Nois
     }
 
     public SumsOfDistributions(){
-        distributions = new Vector<NoiseGenerator>();
+        distributions = new Vector<RandomVariable>();
         weights = new Vector<Double>();
     }
 
     /** Adds a distribution and weight to the current list */
-    public void addDistribution( NoiseGenerator dist, double weight ){
+    public void addDistribution( RandomVariable dist, double weight ){
         distributions.add(dist);
         weights.add(weight);
         totalweight += weight;
@@ -44,7 +44,7 @@ public class SumsOfDistributions extends NoiseGeneratorFunctions implements Nois
 
     @Override
     public double getNoise() {
-        Iterator<NoiseGenerator> distitr = distributions.iterator();
+        Iterator<RandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double wsum = 0.0;
         double r = new Random().nextDouble();
@@ -61,7 +61,7 @@ public class SumsOfDistributions extends NoiseGeneratorFunctions implements Nois
     }
 
     public double pdf(double x) {
-        Iterator<NoiseGenerator> distitr = distributions.iterator();
+        Iterator<RandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double pdf = 0.0;
         while( witr.hasNext() ){
@@ -70,6 +70,10 @@ public class SumsOfDistributions extends NoiseGeneratorFunctions implements Nois
             pdf += f*w;
         }
         return pdf/totalweight;
+    }
+
+    public double icdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

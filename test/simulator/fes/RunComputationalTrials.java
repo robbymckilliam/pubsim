@@ -6,7 +6,7 @@
 package simulator.fes;
 
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
@@ -31,7 +31,7 @@ public class RunComputationalTrials {
         signal_gen.setFrequency(f);
         signal_gen.setSize(n);
         signal_gen.setPhase(pha);
-        NoiseGenerator noise = new GaussianNoise();
+        RandomVariable noise = new GaussianNoise();
         signal_gen.setNoiseGenerator(noise);
 
         double from_log_snr = 20.0;

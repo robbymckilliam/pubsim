@@ -6,7 +6,7 @@
 package distributions.circular;
 
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import simulator.Util;
@@ -19,7 +19,7 @@ import simulator.Util;
  */
 public class ProjectedNormalDistribution implements CircularDistribution{
     
-    protected NoiseGenerator gauss;
+    protected RandomVariable gauss;
     double cmean, smean, mean;
     
     public ProjectedNormalDistribution(){
@@ -136,6 +136,14 @@ public class ProjectedNormalDistribution implements CircularDistribution{
         int INTEGRAL_STEPS = 10000;
         Integration intg = new Integration(new oldVarianceCalculator(v), -0.5, 0.5);
         return intg.trapezium(INTEGRAL_STEPS);
+    }
+
+    public double cdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double icdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     protected static class oldVarianceCalculator implements IntegralFunction {

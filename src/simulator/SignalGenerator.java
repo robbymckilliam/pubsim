@@ -6,7 +6,7 @@
 
 package simulator;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.io.Serializable;
 
 /**
@@ -15,8 +15,8 @@ import java.io.Serializable;
  */
 public interface SignalGenerator extends Serializable {
     public double[] generateReceivedSignal();
-    public void setNoiseGenerator(NoiseGenerator noise);
-    public NoiseGenerator getNoiseGenerator();
+    public void setNoiseGenerator(RandomVariable noise);
+    public RandomVariable getNoiseGenerator();
     
     /** Set the length of the signal generated */
     public void setLength(int n);
@@ -30,8 +30,8 @@ public interface SignalGenerator extends Serializable {
 
         public T[] generateReceivedSignal();
 
-        public void setNoiseGenerator(NoiseGenerator noise);
-        public NoiseGenerator getNoiseGenerator();
+        public void setNoiseGenerator(RandomVariable noise);
+        public RandomVariable getNoiseGenerator();
 
         /** Set the length of the signal generated */
         public void setLength(int n);

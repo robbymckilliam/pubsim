@@ -5,7 +5,7 @@
 
 package simulator.bearing;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import distributions.circular.CircularDistribution;
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;

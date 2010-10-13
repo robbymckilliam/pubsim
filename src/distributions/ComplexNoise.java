@@ -14,14 +14,14 @@ import simulator.VectorFunctions;
  * UNTESTED!!!!!! 
  * @author Robby McKilliam
  */
-public abstract class ComplexNoise implements GenericNoiseGenerator<Complex> {
+public abstract class ComplexNoise implements GenericRandomVariable<Complex> {
     
     final Complex mean;
     final Matrix variance;
     final Matrix L;
-    final NoiseGenerator noise;
+    final RandomVariable noise;
 
-    public ComplexNoise(Complex mean, Matrix variance, NoiseGenerator doubleNoise){
+    public ComplexNoise(Complex mean, Matrix variance, RandomVariable doubleNoise){
         this.mean = mean;
         this.variance = variance;
         L = variance.chol().getL();
@@ -32,7 +32,7 @@ public abstract class ComplexNoise implements GenericNoiseGenerator<Complex> {
      * Constructor assume the covariance matrix is just variance times
      * by the identity matrix.
      */
-    public ComplexNoise(Complex mean, double variance, NoiseGenerator doubleNoise){
+    public ComplexNoise(Complex mean, double variance, RandomVariable doubleNoise){
         this.mean = mean;
         this.variance = Matrix.identity(2,2).times(variance);
         L = Matrix.identity(2,2).times(Math.sqrt(variance));
@@ -74,6 +74,14 @@ public abstract class ComplexNoise implements GenericNoiseGenerator<Complex> {
         }
 
         public double pdf(Complex x) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        public double cdf(Complex x) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        public Complex icdf(double x) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 

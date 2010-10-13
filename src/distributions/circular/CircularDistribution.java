@@ -5,7 +5,7 @@
 
 package distributions.circular;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import simulator.Util;
@@ -13,7 +13,7 @@ import simulator.Util;
 /**
  * @author Robby McKilliam
  */
-public interface CircularDistribution extends NoiseGenerator {
+public interface CircularDistribution extends RandomVariable {
 
     /**
      * Return the wrapped variance i.e. the variance
@@ -26,8 +26,8 @@ public interface CircularDistribution extends NoiseGenerator {
     /** Class to compute wrapped variances numerically */
     public static class WrappedVarianceCalculator implements IntegralFunction {
 
-        NoiseGenerator distribution;
-        public WrappedVarianceCalculator(NoiseGenerator dist){
+        RandomVariable distribution;
+        public WrappedVarianceCalculator(RandomVariable dist){
             distribution = dist;
         }
 

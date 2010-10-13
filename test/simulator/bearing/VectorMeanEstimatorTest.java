@@ -10,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.NoiseVector;
 import distributions.circular.WrappedGaussianNoise;
 import static org.junit.Assert.*;
@@ -50,7 +50,7 @@ public class VectorMeanEstimatorTest {
         int n = 20;
         double mean = Math.PI*0.2;
         
-        NoiseGenerator noise = new WrappedGaussianNoise(mean, 0.0001);
+        RandomVariable noise = new WrappedGaussianNoise(mean, 0.0001);
         NoiseVector sig = new NoiseVector();
         sig.setLength(n);
         sig.setNoiseGenerator(noise);

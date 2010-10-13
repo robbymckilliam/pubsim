@@ -6,7 +6,7 @@
 
 package simulator;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 
 /**
  * Creates a coloured noise sequence.  Use setCorrelationMatrix to
@@ -22,18 +22,18 @@ public class ColouredNoise extends NoiseVector implements SignalGenerator {
     
     protected double[] iidsignal, corsignal;
     protected double[][] cor;
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     
     public void setCorrelationMatrix(double[][] cor){
         n = cor.length;
         this.cor = cor;
     }
     
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
     
-    public NoiseGenerator getNoiseGenerator(){
+    public RandomVariable getNoiseGenerator(){
         return noise;
     }
     

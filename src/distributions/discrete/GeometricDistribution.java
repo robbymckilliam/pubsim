@@ -5,7 +5,7 @@
 
 package distributions.discrete;
 
-import distributions.NoiseGeneratorFunctions;
+import distributions.AbstractRandomVariable;
 
 /**
  * Implementation of the geometric distribution.
@@ -13,7 +13,7 @@ import distributions.NoiseGeneratorFunctions;
  * P(k) = (1-p)^(k-1)p
  * @author Robby McKilliam
  */
-public class GeometricDistribution extends NoiseGeneratorFunctions {
+public class GeometricDistribution extends AbstractRandomVariable {
     private final double p;
 
 
@@ -35,6 +35,10 @@ public class GeometricDistribution extends NoiseGeneratorFunctions {
     }
 
     public double pdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double icdf(double x) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

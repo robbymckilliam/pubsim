@@ -6,7 +6,7 @@
 
 package simulator;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 
 /**
  * Generates a vector of iid noise
@@ -16,7 +16,7 @@ public class NoiseVector implements SignalGenerator{
     
     protected int n;
     protected double[] iidsignal;
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     
     /** Default constructor set length of vector to 1 */ 
     public NoiseVector(){
@@ -25,7 +25,7 @@ public class NoiseVector implements SignalGenerator{
     }
 
     /** Default constructor set length of vector to 1 */
-    public NoiseVector(NoiseGenerator noise, int length){
+    public NoiseVector(RandomVariable noise, int length){
         setNoiseGenerator(noise);
         setLength(length);
     }
@@ -39,11 +39,11 @@ public class NoiseVector implements SignalGenerator{
     /** {@inheritDoc} */
     public int getLength() { return n; }
     
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
     
-    public NoiseGenerator getNoiseGenerator(){
+    public RandomVariable getNoiseGenerator(){
         return noise;
     }
     

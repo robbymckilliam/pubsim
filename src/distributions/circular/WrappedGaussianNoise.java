@@ -6,7 +6,7 @@
 
 package distributions.circular;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.*;
 import distributions.GaussianNoise;
 
@@ -50,6 +50,10 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
             n++;
         }
         return pdf;
+    }
+
+    public double cdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public double getWrappedVariance() {
@@ -99,18 +103,27 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
             return pdf;
         }
 
-        @Override
-        public double getWrappedVariance() {
-            WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
-            return vcalc.computeVarianceMod1();
+        public double cdf(double x) {
+            throw new UnsupportedOperationException("Not supported yet.");
         }
 
-        public double testWrappedVarianceSum(){
+//        @Override
+//        public double getWrappedVariance() {
+//            WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
+//            return vcalc.computeVarianceMod1();
+//        }
+
+        public double getWrappedVariance(){
             double csum = 0.0;
             double sgn = -1.0;
-            for(int k = 1; k < 50; k++){
-                csum += sgn/(k*k) * Math.exp(-variance*k*k*Math.PI*Math.PI*2);
+            int k = 1;
+            double psum = Double.POSITIVE_INFINITY;
+            double TOL = 1e-15;
+            while(psum > TOL){
+                psum = Math.exp(-variance*k*k*Math.PI*Math.PI*2);
+                csum += sgn/(k*k) * psum;
                 sgn *= -1;
+                k++;
             }
             return 1.0/12.0 + csum/(Math.PI*Math.PI);
         }

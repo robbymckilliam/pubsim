@@ -8,7 +8,7 @@ package simulator.psk;
 
 import java.util.LinkedList;
 import java.util.Random;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.SignalGenerator;
 
 /**
@@ -17,7 +17,7 @@ import simulator.SignalGenerator;
  */
 public class PSKSignal implements SignalGenerator{
     
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     protected Random random;
     protected double symF;
     protected double transF;
@@ -78,10 +78,10 @@ public class PSKSignal implements SignalGenerator{
             trans[i] = random.nextInt(M);
     }
     
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    public RandomVariable getNoiseGenerator(){ return noise; }
     
     /** Set the number of samples that are used per 'block' */
     public void setLength(int n) {

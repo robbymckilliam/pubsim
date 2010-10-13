@@ -6,7 +6,7 @@
 package simulator.phaseunwrapping.oned;
 
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.VectorFunctions;
 
 /**
@@ -16,7 +16,7 @@ import simulator.VectorFunctions;
  */
 public class GaussianPulse implements WrappedData{
 
-    NoiseGenerator noise = new GaussianNoise(0.0,0.0);
+    RandomVariable noise = new GaussianNoise(0.0,0.0);
     int N;
     double[] y, yw, u;
     double a, b;
@@ -48,7 +48,7 @@ public class GaussianPulse implements WrappedData{
         }
     }
 
-    public void setNoiseGenerator(NoiseGenerator noise) {
+    public void setNoiseGenerator(RandomVariable noise) {
         this.noise = noise;
     }
 

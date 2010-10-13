@@ -7,7 +7,7 @@ package simulator.psk.decoder;
 
 import java.util.Random;
 import simulator.Complex;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.SignalGenerator;
 
 /**
@@ -32,7 +32,7 @@ public class PSKSignal implements SignalGenerator{
     /** Received complex signal */
     protected Complex[] y;
     
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     protected Random random;
     
     /** Default constructor using 8-ary QAM */
@@ -110,10 +110,10 @@ public class PSKSignal implements SignalGenerator{
     public double[] getPSKSignal() { return x; }
 
     /** Set the noise distribution */
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    public RandomVariable getNoiseGenerator(){ return noise; }
 
     public void setLength(int n) {
         y = new Complex[n];

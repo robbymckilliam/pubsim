@@ -6,7 +6,7 @@
 package simulator.poly;
 
 import java.util.Random;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.io.Serializable;
 import simulator.SignalGenerator;
 import simulator.VectorFunctions;
@@ -24,7 +24,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     
     protected int n;
     
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
 
     @Override
     public double[] generateReceivedSignal() {
@@ -39,12 +39,12 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     }
 
     @Override
-    public void setNoiseGenerator(NoiseGenerator noise) {
+    public void setNoiseGenerator(RandomVariable noise) {
         this.noise = noise;
     }
 
     @Override
-    public NoiseGenerator getNoiseGenerator() {
+    public RandomVariable getNoiseGenerator() {
         return noise;
     }
 

@@ -6,7 +6,7 @@
 package simulator.location.twod;
 
 import Jama.Matrix;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.util.Vector;
 import lattices.Lattice;
 import lattices.util.PointInSphere;
@@ -38,7 +38,7 @@ public class Transmitter extends Object {
      * @param pgen noise generator for positions
      * @param wgen noise generator for wavelength
      */
-    public Transmitter(NoiseGenerator pgen, NoiseGenerator wgen){
+    public Transmitter(RandomVariable pgen, RandomVariable wgen){
         p = new Point2(pgen.getNoise(), pgen.getNoise());
         w = wgen.getNoise();
     }
@@ -56,7 +56,7 @@ public class Transmitter extends Object {
      * @param radius radius of the sphere
      * @param wgen generator for transmitter wavelengths.
      */
-    public static Transmitter[] getLatticeArray(Lattice L, double radius, Point2 y, NoiseGenerator wgen){
+    public static Transmitter[] getLatticeArray(Lattice L, double radius, Point2 y, RandomVariable wgen){
         PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
         Vector<Transmitter> tvec = new Vector<Transmitter>();
         while(points.hasMoreElements()){
@@ -74,7 +74,7 @@ public class Transmitter extends Object {
      * @param ngen generator for position noise.
      * @param wgen generator for transmitter wavelengths.
      */
-    public static Transmitter[] getNoisyLatticeArray(Lattice L, double radius, Point2 y, NoiseGenerator ngen, NoiseGenerator wgen){
+    public static Transmitter[] getNoisyLatticeArray(Lattice L, double radius, Point2 y, RandomVariable ngen, RandomVariable wgen){
         PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
         Vector<Transmitter> tvec = new Vector<Transmitter>();
         while(points.hasMoreElements()){
@@ -90,7 +90,7 @@ public class Transmitter extends Object {
      * @param pgen generator for transmitter position.
      * @param wgen generator for transmitter wavelengths.
      */
-    public static Transmitter[] getRandomArray(int N, NoiseGenerator pgen, NoiseGenerator wgen){
+    public static Transmitter[] getRandomArray(int N, RandomVariable pgen, RandomVariable wgen){
         Transmitter[] tvec = new Transmitter[N];
         for(int n = 0; n < N; n++)
             tvec[n] = new Transmitter(pgen, wgen);

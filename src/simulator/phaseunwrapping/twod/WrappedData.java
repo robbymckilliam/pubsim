@@ -5,7 +5,7 @@
 
 package simulator.phaseunwrapping.twod;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 
 /**
  * Interface for generating 2D wrapped data
@@ -23,6 +23,6 @@ public interface WrappedData {
 
     public void setSize(int M, int N);
 
-    public void setNoiseGenerator(NoiseGenerator noise);
+    public void setNoiseGenerator(RandomVariable noise);
 
 }

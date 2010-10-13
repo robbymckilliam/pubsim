@@ -6,7 +6,7 @@
 package simulator.phaseunwrapping.twod;
 
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -87,7 +87,7 @@ public class FirstOrderUnwrapperTest {
         0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,        0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000};
 
         //add a bit of noise
-        NoiseGenerator noise = new GaussianNoise(0.0, 0.01);
+        RandomVariable noise = new GaussianNoise(0.0, 0.01);
         for(int i = 0; i < ywvec.length; i++)
             ywvec[i] += noise.getNoise();
 

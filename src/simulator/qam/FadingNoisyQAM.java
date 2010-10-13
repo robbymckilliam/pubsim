@@ -7,7 +7,7 @@
 package simulator.qam;
 
 import simulator.SignalGenerator;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.util.Random;
 import simulator.Complex;
 
@@ -22,7 +22,7 @@ public class FadingNoisyQAM implements SignalGenerator{
     protected double Hr, Hi;
     protected double[] xr, xi;
     protected double[] yr, yi;
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     protected Random random;
     
     /** Default constructor using 8-ary QAM */
@@ -118,10 +118,10 @@ public class FadingNoisyQAM implements SignalGenerator{
     public double[] getImag() { return yi; }
     
     /** Set the noise distribution */
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    public RandomVariable getNoiseGenerator(){ return noise; }
     
     /**
      * Set the seed for the random generator used

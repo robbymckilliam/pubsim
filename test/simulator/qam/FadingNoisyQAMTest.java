@@ -10,7 +10,7 @@ package simulator.qam;
 import junit.framework.*;
 import simulator.SignalGenerator;
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.util.Random;
 import simulator.VectorFunctions;
 
@@ -54,7 +54,7 @@ public class FadingNoisyQAMTest extends TestCase {
         double[] xi ={1.0, -3.0, 1.0};
         instance.setChannel(-0.4326, -1.6656);
         
-        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.0);
+        RandomVariable noise = new distributions.UniformNoise(0.0, 0.0);
         instance.setNoiseGenerator(noise);  
                
         instance.setTransmittedSignal(xr, xi);

@@ -12,7 +12,7 @@ import rngpack.Ranlux;
  *
  * @author Robby McKilliam
  */
-public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenerator {
+public class UniformNoise extends AbstractRandomVariable implements RandomVariable {
     protected double range;
     
     /** Creates a new instance of UniformNoise with specific variance and mean */
@@ -58,6 +58,10 @@ public class UniformNoise extends NoiseGeneratorFunctions implements NoiseGenera
         double max = mean + 0.5*range;
         if( x < min || x > max ) return 0.0;
         return h;
+    }
+
+    public double icdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

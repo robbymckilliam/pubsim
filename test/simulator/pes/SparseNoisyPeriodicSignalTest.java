@@ -48,7 +48,7 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         double T = 2.0;
         SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal();
         
-        distributions.NoiseGenerator noise = new distributions.UniformNoise(0.0, 1.0/3.0);
+        distributions.RandomVariable noise = new distributions.UniformNoise(0.0, 1.0/3.0);
         instance.setNoiseGenerator(noise);   
         double[] rec_sig = instance.generateSparseSignal(length);
         instance.setSparseSignal(rec_sig);

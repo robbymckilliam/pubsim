@@ -5,7 +5,7 @@
 
 package simulator.location.twod;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.Point2;
 import simulator.SignalGenerator;
 import simulator.VectorFunctions;
@@ -17,7 +17,7 @@ import simulator.VectorFunctions;
  */
 public class NoisyPhaseSignals implements SignalGenerator{
     
-    NoiseGenerator noise;
+    RandomVariable noise;
     double[] d;
     Point2 x;
     int N;
@@ -74,11 +74,11 @@ public class NoisyPhaseSignals implements SignalGenerator{
         this.x = x;
     }*/
 
-    public void setNoiseGenerator(NoiseGenerator noise) {
+    public void setNoiseGenerator(RandomVariable noise) {
         this.noise = noise;
     }
 
-    public NoiseGenerator getNoiseGenerator() {
+    public RandomVariable getNoiseGenerator() {
         return noise;
     }
 

@@ -39,25 +39,49 @@ public class GaussianNoiseTest {
     }
 
 
+//    /**
+//     * Test of setMean method, of class ProjectedNormalDistribution.
+//     */
+//    @Test
+//    public void testplotPdf() {
+//        //System.out.println("plotPdf");
+//        double mean = 0.0;
+//        double var = 1;
+//        GaussianNoise instance = new GaussianNoise(mean, var);
+//
+//        double step = 0.001;
+//        double intsum = 0.0;
+//        int count = 0;
+//        for (double x = -5; x <= 5; x += step) {
+//            double pdf = instance.pdf(x);
+//            System.out.println(x + "\t" + pdf);
+//            intsum += pdf;
+//        }
+//        System.out.println(intsum*step);
+//
+//    }
+
     /**
      * Test of setMean method, of class ProjectedNormalDistribution.
      */
     @Test
-    public void testplotPdf() {
+    public void testcdf() {
         //System.out.println("plotPdf");
         double mean = 0.0;
         double var = 1;
         GaussianNoise instance = new GaussianNoise(mean, var);
 
-        double step = 0.001;
-        double intsum = 0.0;
-        int count = 0;
-        for (double x = -5; x <= 5; x += step) {
-            double pdf = instance.pdf(x);
-            System.out.println(x + "\t" + pdf);
-            intsum += pdf;
-        }
-        System.out.println(intsum*step);
+        System.out.println(instance.cdf(0));
+        System.out.println(instance.cdf(100000));
+        System.out.println(instance.cdf(-100000));
+        System.out.println(instance.cdf(1));
+        System.out.println(instance.cdf(-1));
+
+        assertEquals(instance.cdf(0), 0.5, 0.00001);     
+        assertEquals(instance.cdf(100000), 1.0, 0.00001);       
+        assertEquals(instance.cdf(-100000), 0.0, 0.00001);
+        assertEquals(instance.cdf(1), 0.5 + 0.341, 0.001);
+        assertEquals(instance.cdf(-1), 0.5 - 0.341, 0.001);
 
     }
 

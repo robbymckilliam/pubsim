@@ -11,7 +11,7 @@ import simulator.psk.PSKSignal;
 import junit.framework.*;
 import java.util.Random;
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.SignalGenerator;
 
 /**

@@ -6,7 +6,7 @@
 package simulator.location.twod;
 
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

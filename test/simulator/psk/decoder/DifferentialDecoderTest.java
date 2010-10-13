@@ -10,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import simulator.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -55,7 +55,7 @@ public class DifferentialDecoderTest {
         //signal.setChannel(-1.0,-1.0);
         signal.generateChannel();
         
-        NoiseGenerator noise = new distributions.UniformNoise(0.0, 0.00001);
+        RandomVariable noise = new distributions.UniformNoise(0.0, 0.00001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

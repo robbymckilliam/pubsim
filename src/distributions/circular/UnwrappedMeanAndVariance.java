@@ -5,7 +5,7 @@
 
 package distributions.circular;
 
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import static simulator.Util.fracpart;
@@ -16,13 +16,13 @@ import static simulator.Util.fracpart;
  */
 public class UnwrappedMeanAndVariance {
 
-    protected final NoiseGenerator dist;
+    protected final RandomVariable dist;
     protected double mean;
     protected double var;
     protected int numsamples = 1000;
 
     /** Input is a distribution */
-    public UnwrappedMeanAndVariance( NoiseGenerator tdist ){
+    public UnwrappedMeanAndVariance( RandomVariable tdist ){
         this.dist = tdist;
 
         var = Double.POSITIVE_INFINITY;

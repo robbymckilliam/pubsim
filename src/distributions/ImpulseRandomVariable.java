@@ -9,7 +9,7 @@ package distributions;
  * A `impulse' random variable, or dirac delta etc.
  * @author harprobey
  */
-public class ImpulseRandomVariable extends NoiseGeneratorFunctions implements NoiseGenerator {
+public class ImpulseRandomVariable extends AbstractRandomVariable implements RandomVariable {
 
     protected final double dval;
 
@@ -33,6 +33,10 @@ public class ImpulseRandomVariable extends NoiseGeneratorFunctions implements No
     public double pdf(double x) {
         if(x == dval) return 1.0;
         else return 0;
+    }
+
+    public double icdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

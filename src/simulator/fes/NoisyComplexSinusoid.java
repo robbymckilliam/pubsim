@@ -8,7 +8,7 @@ package simulator.fes;
 
 import simulator.SignalGenerator;
 import distributions.GaussianNoise;
-import distributions.NoiseGenerator;
+import distributions.RandomVariable;
 import java.util.Random;
 
 /**
@@ -26,15 +26,15 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     protected double[] imag;
     protected double[] phase;
     
-    protected NoiseGenerator noise;
+    protected RandomVariable noise;
     
     /** Set the noise type for the signal */
     @Override
-    public void setNoiseGenerator(NoiseGenerator noise){
+    public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
     }
     
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    public RandomVariable getNoiseGenerator(){ return noise; }
     
     /** Set the number of samples */
     public void setSize(int n){
