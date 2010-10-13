@@ -49,7 +49,7 @@ public class CircularMeanVariance {
 
 
     public double circularMean(){
-        return var;
+        return mean;
     }
 
 

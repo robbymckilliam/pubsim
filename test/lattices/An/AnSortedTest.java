@@ -44,8 +44,7 @@ public class AnSortedTest extends TestCase {
         int n = 10;
         int iters = 100;
         
-        UniformNoise noise = new UniformNoise();
-        noise.setRange(1.0);
+        UniformNoise noise = new UniformNoise(0,1.0,0);
         NoiseVector siggen = new NoiseVector();
         siggen.setNoiseGenerator(noise);
         siggen.setLength(n);

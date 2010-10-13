@@ -29,15 +29,18 @@ public class RunNoisyDelaySimulation {
         int n = 1024;
         double angle = 0.1;
         int seed = 26;
-        int iterations = 10000;
+        int iterations = 1000;
 
         String nameetx = "_" + Integer.toString(n);
 
         ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
-        //CircularRandomVariable noise = new WrappedUniform.Mod1();
-        CircularRandomVariable noise = new WrappedGaussianNoise.Mod1();
-        signal_gen.setNoiseGenerator(noise);
+        
+        //using reflection here is a bit of a hack, but oh well.
+        //it keeps the remaining code neat.
+        //Class<WrappedUniform> noiseclass = WrappedUniform.class;
+        Class<WrappedGaussianNoise> noiseclass = WrappedGaussianNoise.class;
+        final Class[] cona = {double.class, double.class};
 
         double from_var_db = -8;
         double to_var_db = -30;
@@ -67,13 +70,14 @@ public class RunNoisyDelaySimulation {
             java.util.Date start_time = new java.util.Date();
             for(int i = 0; i < var_array.size(); i++){
 
-                noise.setVariance(var_array.get(i));
+                CircularRandomVariable noise = noiseclass.getConstructor(cona).newInstance(0, var_array.get(i));
+                signal_gen.setNoiseGenerator(noise);
 
                 double mse = runIterations(est, signal_gen, iterations);
 
                 mse_array.add(mse/iterations);
 
-                //System.out.println(var_array.get(i) + "\t" + ((WrappedUniform.Mod1)noise).getRange() + "\t" + mse/iterations);
+                System.out.println(var_array.get(i) + "\t" + mse/iterations);
 
 
             }
@@ -84,7 +88,7 @@ public class RunNoisyDelaySimulation {
                     + "seconds");
 
             try{
-                String fname = est.getClass().getName() + "_" + noise.getClass().getName();
+                String fname = est.getClass().getName() + "_" + noiseclass.getName();
                 File file = new File(fname.concat(nameetx).replace('$', '.'));
                 BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
                 for(int i = 0; i < var_array.size(); i++){
@@ -103,7 +107,7 @@ public class RunNoisyDelaySimulation {
         Vector<Double> mse_array = new Vector<Double>(var_array.size());
         //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
-                noise.setVariance(var_array.get(i));
+                CircularRandomVariable noise = noiseclass.getConstructor(cona).newInstance(0, var_array.get(i));
                 //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
                  double mse = (new CircularMeanVariance(noise)).circularVariance()/n;
                 //double wrappedvar = noise.getWrappedVariance();
@@ -112,7 +116,7 @@ public class RunNoisyDelaySimulation {
                 System.out.println(var_array.get(i) + "\t" + mse);
         }
         try{
-            String fname = "asmyp_arg_" + noise.getClass().getName();
+            String fname = "asmyp_arg_" + noiseclass.getName();
             //String fname = "crb_" + noise.getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));

@@ -48,7 +48,7 @@ public class UnwrappedMeanAndVarianceTest {
 
         UnwrappedMeanAndVariance test =
                 new UnwrappedMeanAndVariance(
-                new WrappedGaussianNoise.Mod1(0.1, 0.1));
+                new WrappedGaussianNoise(0.1, 0.1));
 
         assertEquals(0.1, test.getUnwrappedMean(), 0.001);
 
@@ -63,8 +63,8 @@ public class UnwrappedMeanAndVarianceTest {
         System.out.println("getUnwrappedMeanAndVariance");
     
         SumsOfDistributions dist = new SumsOfDistributions();
-        dist.addDistribution(new WrappedGaussianNoise.Mod1(0.25, 0.02), 0.5);
-        dist.addDistribution(new WrappedGaussianNoise.Mod1(-0.25, 0.02), 0.5);
+        dist.addDistribution(new WrappedGaussianNoise(0.25, 0.02), 0.5);
+        dist.addDistribution(new WrappedGaussianNoise(-0.25, 0.02), 0.5);
 
         UnwrappedMeanAndVariance test = new UnwrappedMeanAndVariance(dist);
 

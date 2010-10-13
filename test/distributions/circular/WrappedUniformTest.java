@@ -44,7 +44,7 @@ public class WrappedUniformTest {
     @Test
     public void testPdf() {
         System.out.println("pdf");
-        CircularRandomVariable instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
+        CircularRandomVariable instance = new WrappedUniform(0.0, 1.0/11.0);
         assertTrue(instance.pdf(0) < 1.0);
         System.out.println(instance.pdf(0));
         assertTrue(instance.pdf(-0.5) > 1.0);
@@ -59,36 +59,15 @@ public class WrappedUniformTest {
     @Test
     public void testGetWrappedVariance() {
         System.out.println("getWrappedVariance");
-        CircularRandomVariable instance = new WrappedUniform.Mod1(0.0, 1.0/12.0);
-        assertEquals(1.0/12.0, instance.getWrappedVariance(), 0.001);
+        CircularRandomVariable instance = new WrappedUniform(0.0, 1.0/12.0);
+        assertEquals(1.0/12.0, instance.unwrappedVariance(), 0.001);
 
-        instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
-        double result = instance.getWrappedVariance();
+        instance = new WrappedUniform(0.0, 1.0/11.0);
+        double result = instance.unwrappedVariance();
         System.out.println(result);
         assertTrue(1.0/12.0 < result);
         assertTrue(1.0/11.0 > result);
     }
-
-        /**
-     * Test of getWrappedVariance method, of class WrappedUniform.
-     */
-    @Test
-    public void testRange() {
-        System.out.println("testRange");
-        double range = 0.2;
-        double DELTA = 0.00001;
-        WrappedUniform.Mod1 instance = new WrappedUniform.Mod1(0.0, 1.0/12.0);
-        instance.setRange(0.2);
-        assertEquals(0.0, instance.pdf(range/2 + DELTA), 0.0000001);
-        assertEquals(0.0, instance.pdf(-range/2 - DELTA), 0.0000001);
-        assertEquals(1/0.2, instance.pdf(-range/2 + DELTA), 0.0000001);
-        assertEquals(1/0.2, instance.pdf(range/2 - DELTA), 0.0000001);
-
-        assertEquals(instance.getVariance(), instance.getWrappedVariance(), 0.0000001);
-
-
-    }
-
 
     
 //

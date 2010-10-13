@@ -58,7 +58,7 @@ public class VonMisesTest {
     @Test
     public void testGetPdf() {
         System.out.println("testGetPdf");
-        VonMises instance = new VonMises.Mod1(0.0, 0.0001);
+        VonMises instance = new VonMises(0.0, 0.0001);
         System.out.println(instance.pdf(0.0));
 
     }
@@ -70,8 +70,8 @@ public class VonMisesTest {
     public void testWrappedVarianceSmall() {
         System.out.println("testWrappedVarianceSmall");
         double invar = 0.0001;
-        VonMises instance = new VonMises.Mod1(0.0,invar);
-        double v = instance.getWrappedVariance();
+        VonMises instance = new VonMises(0.0,invar);
+        double v = instance.unwrappedVariance();
         assertEquals(1.0/12.0, v, 0.0001);
 
     }

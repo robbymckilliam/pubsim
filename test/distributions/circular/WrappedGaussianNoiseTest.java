@@ -75,25 +75,8 @@ public class WrappedGaussianNoiseTest {
         System.out.println("testWrappedVarianceSmall");
         double invar = 0.01;
         WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0,invar);
-        double v = instance.getWrappedVariance();
+        double v = instance.unwrappedVariance();
         assertEquals(invar, v, 0.0001);
-
-    }
-
-    /**
-     * Test of wrapped variance method, of class WrappedGaussianNoise.
-     */
-    @Test
-    public void testWrappedSum() {
-        System.out.println("testWrappedSum");
-        double invar = 0.1;
-        WrappedGaussianNoise.Mod1 instance = new WrappedGaussianNoise.Mod1(0.0,invar);
-        double v = instance.getWrappedVariance();
-        double test = instance.testWrappedVarianceSum();
-
-        System.out.println("v = " + v + ", test = " + test);
-
-        assertEquals(v, test, 0.0001);
 
     }
 

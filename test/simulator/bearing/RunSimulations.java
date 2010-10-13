@@ -40,8 +40,13 @@ public class RunSimulations {
         ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
         //CircularRandomVariable noise = new VonMises.Mod1();
-        CircularRandomVariable noise = new WrappedUniform.Mod1(0.0,0.0);
-        signal_gen.setNoiseGenerator(noise);
+
+        //using reflection here is a bit of a hack, but oh well.
+        //it keeps the remaining code neat.
+        //Class<WrappedUniform> noiseclass = WrappedUniform.class;
+        //Class<VonMises> noiseclass = VonMises.class;
+        Class<WrappedGaussianNoise> noiseclass = WrappedGaussianNoise.class;
+        final Class[] cona = {double.class, double.class};
 
         //double from_var_db = 15;
         //double to_var_db = -10;
@@ -75,7 +80,7 @@ public class RunSimulations {
             java.util.Date start_time = new java.util.Date();
             for(int i = 0; i < var_array.size(); i++){
 
-                noise.setVariance(var_array.get(i));
+                signal_gen.setNoiseGenerator(new WrappedUniform(0,var_array.get(i)));
 
                 double mse = runIterations(est, signal_gen, iterations);
 

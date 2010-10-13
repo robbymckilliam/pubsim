@@ -60,11 +60,4 @@ public class AbstractRandomVariableTest {
     }
 
 
-    public class AbstractRandomVariableImpl extends AbstractRandomVariable {
-
-        public double pdf(double x) {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-    }
-
 }

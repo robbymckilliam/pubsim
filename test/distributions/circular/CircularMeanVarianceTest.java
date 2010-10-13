@@ -43,26 +43,30 @@ public class CircularMeanVarianceTest {
     @Test
     public void testCircularVariance() {
         System.out.println("circularVariance");
-        CircularMeanVariance instance = null;
-        double expResult = 0.0;
-        double result = instance.circularVariance();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        VonMises dist = new VonMises(0.25, 10);
+
+        CircularMeanVariance instance = new CircularMeanVariance(dist);
+
+
+        double cvar = instance.circularVariance();
+        assertEquals(dist.circularVariance(), cvar, 0.00001);
     }
 
-    /**
-     * Test of circularMean method, of class CircularMeanVariance.
+        /**
+     * Test of circularVariance method, of class CircularMeanVariance.
      */
     @Test
     public void testCircularMean() {
         System.out.println("circularMean");
-        CircularMeanVariance instance = null;
-        double expResult = 0.0;
-        double result = instance.circularMean();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        VonMises dist = new VonMises(0.25, 10);
+
+        CircularMeanVariance instance = new CircularMeanVariance(dist);
+
+        double cmean = instance.circularMean();
+        assertEquals(dist.circularMean(), cmean, 0.00001);
+
     }
 
 }
