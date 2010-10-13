@@ -5,8 +5,8 @@
 
 package simulator.bearing;
 
-import distributions.circular.ArgComplexMeanVariance;
-import distributions.circular.CircularDistribution;
+import distributions.circular.CircularMeanVariance;
+import distributions.circular.CircularRandomVariable;
 import distributions.circular.WrappedGaussianNoise;
 import distributions.circular.WrappedUniform;
 import java.io.BufferedWriter;
@@ -35,8 +35,8 @@ public class RunNoisyDelaySimulation {
 
         ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
-        //CircularDistribution noise = new WrappedUniform.Mod1();
-        CircularDistribution noise = new WrappedGaussianNoise.Mod1();
+        //CircularRandomVariable noise = new WrappedUniform.Mod1();
+        CircularRandomVariable noise = new WrappedGaussianNoise.Mod1();
         signal_gen.setNoiseGenerator(noise);
 
         double from_var_db = -8;
@@ -101,11 +101,11 @@ public class RunNoisyDelaySimulation {
         }
 
         Vector<Double> mse_array = new Vector<Double>(var_array.size());
-        //finally print out the asymptotic variance
+        //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
                 noise.setVariance(var_array.get(i));
                 //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
-                 double mse = (new ArgComplexMeanVariance(noise)).variance()/n;
+                 double mse = (new CircularMeanVariance(noise)).circularVariance()/n;
                 //double wrappedvar = noise.getWrappedVariance();
                 //double mse = var_array.get(i)/n;
                 mse_array.add(mse);

@@ -6,7 +6,7 @@
 package simulator.poly;
 
 import distributions.RandomVariable;
-import distributions.circular.CircularDistribution;
+import distributions.circular.CircularRandomVariable;
 
 /**
  * Like PolynommialPhaseSignal but the noise gets added to the phase.

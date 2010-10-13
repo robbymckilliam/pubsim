@@ -6,7 +6,7 @@
 package simulator.bearing;
 
 import distributions.RandomVariable;
-import distributions.circular.CircularDistribution;
+import distributions.circular.CircularRandomVariable;
 import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarBucketVaughan;
 import static simulator.Util.fracpart;
@@ -47,8 +47,8 @@ public class LeastSquaresEstimator implements BearingEstimator{
         
     }
 
-    public static double asymptoticVariance(CircularDistribution noise, int N){
-        double sigma2 = noise.getWrappedVariance();
+    public static double asymptoticVariance(CircularRandomVariable noise, int N){
+        double sigma2 = noise.unwrappedVariance();
         double d = 1 - noise.pdf(-0.5);
         return sigma2/(N*d*d);
     }

@@ -14,7 +14,7 @@ import distributions.GaussianNoise;
  * Gaussian noise mod 2 pi
  * @author Robby McKilliam
  */
-public class WrappedGaussianNoise extends GaussianNoise implements CircularDistribution {
+public class WrappedGaussianNoise extends GaussianNoise implements CircularRandomVariable {
     
     /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
     public WrappedGaussianNoise() {
@@ -64,7 +64,7 @@ public class WrappedGaussianNoise extends GaussianNoise implements CircularDistr
     /**
      * Gaussian noise but wrapped mod1
      */
-    public static class Mod1 extends GaussianNoise implements CircularDistribution {
+    public static class Mod1 extends GaussianNoise implements CircularRandomVariable {
         
         /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
         public Mod1() {

@@ -58,8 +58,5 @@ public class GaussianNoise extends AbstractRandomVariable implements RandomVaria
         return 0.5*(1 + simulator.Util.erf((x - mean)/stdDeviation/Math.sqrt(2)));
     }
 
-    public double icdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
 }

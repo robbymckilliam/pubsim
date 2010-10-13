@@ -13,7 +13,7 @@ import cern.jet.math.Bessel;
  * von Mises distribution of
  * @author Robby McKilliam
  */
-public class VonMises implements CircularDistribution{
+public class VonMises implements CircularRandomVariable{
 
     double mu, kappa;
     Random U;

@@ -5,7 +5,7 @@
 
 package simulator.poly.bounds;
 
-import distributions.circular.CircularDistribution;
+import distributions.circular.CircularRandomVariable;
 import distributions.circular.ProjectedNormalDistribution;
 import distributions.circular.VonMises;
 import distributions.circular.WrappedUniform;
@@ -20,9 +20,9 @@ import java.util.Vector;
  */
 public class AngularLeastSquaresVariance extends BoundCalculator{
 
-    CircularDistribution dist;
+    CircularRandomVariable dist;
 
-    public AngularLeastSquaresVariance(int N, int m, CircularDistribution dist){
+    public AngularLeastSquaresVariance(int N, int m, CircularRandomVariable dist){
         super(N,m);
         this.dist = dist;
     }
@@ -33,7 +33,7 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
 
     @Override
     public double getBound(int m) {
-        double sigma2 = dist.getWrappedVariance();
+        double sigma2 = dist.unwrappedVariance();
         double d = 1 - dist.pdf(-0.5);
         return sigma2/(Math.pow(N, 2*m+1)*d*d) * C.get(m,m);
     }
@@ -45,9 +45,9 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
         int N = 50;
         int m = 2;
 
-        CircularDistribution dist = new WrappedUniform.Mod1();
-        //CircularDistribution dist = new VonMises.Mod1();
-        //CircularDistribution dist = new ProjectedNormalDistribution();
+        CircularRandomVariable dist = new WrappedUniform();
+        //CircularRandomVariable dist = new VonMises.Mod1();
+        //CircularRandomVariable dist = new ProjectedNormalDistribution();
 
         AngularLeastSquaresVariance bound =
                 new AngularLeastSquaresVariance(N, m, dist);
@@ -106,7 +106,7 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
                 double var = var_array.get(i);
                 bound.setVariance(var);
                 writer.write(
-                        (new Double(dist.getWrappedVariance())).toString().replace('E', 'e')
+                        (new Double(dist.unwrappedVariance())).toString().replace('E', 'e')
                         + "\t" + (new Double(bound.getBound(j))).toString().replace('E', 'e'));
                 writer.newLine();
             }

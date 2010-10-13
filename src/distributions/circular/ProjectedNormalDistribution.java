@@ -17,7 +17,7 @@ import simulator.Util;
  * This is modified so that it returns values about -[0.5, 0.5]
  * @author Robby McKilliam
  */
-public class ProjectedNormalDistribution implements CircularDistribution{
+public class ProjectedNormalDistribution implements CircularRandomVariable{
     
     protected RandomVariable gauss;
     double cmean, smean, mean;

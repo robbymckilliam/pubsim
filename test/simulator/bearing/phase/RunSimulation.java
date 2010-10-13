@@ -6,7 +6,7 @@
 package simulator.bearing.phase;
 
 import distributions.GaussianNoise;
-import distributions.circular.ArgComplexMeanVariance;
+import distributions.circular.CircularMeanVariance;
 import distributions.circular.ProjectedNormalDistribution;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -103,13 +103,13 @@ public class RunSimulation {
         }
 
         Vector<Double> mse_array = new Vector<Double>(var_array.size());
-        //finally print out the asymptotic variance
+        //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
                 noise.setVariance(var_array.get(i));
                 //double mse = LeastSquaresEstimator.asymptoticVariance(
                 //        new ProjectedNormalDistribution(0.0, var_array.get(i)),
                 //        n);
-                double mse = (new ArgComplexMeanVariance(
+                double mse = (new CircularMeanVariance(
                         new ProjectedNormalDistribution(0.0, var_array.get(i)))).variance()/n;
                 //double mse = var_array.get(i)/(Math.PI*Math.PI*4*n);
                 mse_array.add(mse);

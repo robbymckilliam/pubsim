@@ -44,7 +44,7 @@ public class WrappedUniformTest {
     @Test
     public void testPdf() {
         System.out.println("pdf");
-        CircularDistribution instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
+        CircularRandomVariable instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);
         assertTrue(instance.pdf(0) < 1.0);
         System.out.println(instance.pdf(0));
         assertTrue(instance.pdf(-0.5) > 1.0);
@@ -59,7 +59,7 @@ public class WrappedUniformTest {
     @Test
     public void testGetWrappedVariance() {
         System.out.println("getWrappedVariance");
-        CircularDistribution instance = new WrappedUniform.Mod1(0.0, 1.0/12.0);
+        CircularRandomVariable instance = new WrappedUniform.Mod1(0.0, 1.0/12.0);
         assertEquals(1.0/12.0, instance.getWrappedVariance(), 0.001);
 
         instance = new WrappedUniform.Mod1(0.0, 1.0/11.0);

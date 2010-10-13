@@ -56,6 +56,38 @@ public abstract class AbstractRandomVariable
             }, startint, x)).trapezium(INTEGRAL_STEPS);
         return cdfval;
     }
+
+    /**
+     * Default is a binary search of the cdf to find the inverse cdf.
+     * This might fail for really weird looking cdfs and is highly non
+     * optimised.
+     */
+    public double icdf(double x){
+        double TOL = 1e-9;
+        double high = mean + 100*stdDeviation + 0.5;
+        double low = mean - 100*stdDeviation - 0.5;
+        double cdfhigh = cdf(high);
+        double cdflow = cdf(low);
+        while(Math.abs(high - low) > TOL){
+         
+            double half = (high + low)/2.0;
+            double cdfhalf = cdf(half);
+
+            //System.out.println("half = " + half + ", cdfhalf = " + cdfhalf);
+
+            if(Math.abs(cdfhalf - x) < TOL ) return half;
+            else if(cdfhalf <= x){
+                low = half;
+                cdflow = cdfhalf;
+            }
+            else{
+               high = half;
+               cdfhigh = cdfhalf;
+            }
+            
+        }
+        return (high + low)/2.0;
+    }
     
     public AbstractRandomVariable(){
         random = new Ranlux();

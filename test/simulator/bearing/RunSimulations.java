@@ -7,8 +7,8 @@ package simulator.bearing;
 
 import distributions.GaussianNoise;
 import distributions.RandomVariable;
-import distributions.circular.ArgComplexMeanVariance;
-import distributions.circular.CircularDistribution;
+import distributions.circular.CircularMeanVariance;
+import distributions.circular.CircularRandomVariable;
 import distributions.circular.ProjectedNormalDistribution;
 import distributions.circular.VonMises;
 import distributions.circular.WrappedGaussianNoise;
@@ -39,8 +39,8 @@ public class RunSimulations {
 
         ConstantAngleSignal signal_gen = new ConstantAngleSignal();
         signal_gen.setLength(n);
-        //CircularDistribution noise = new VonMises.Mod1();
-        CircularDistribution noise = new WrappedUniform.Mod1(0.0,0.0);
+        //CircularRandomVariable noise = new VonMises.Mod1();
+        CircularRandomVariable noise = new WrappedUniform.Mod1(0.0,0.0);
         signal_gen.setNoiseGenerator(noise);
 
         //double from_var_db = 15;
@@ -112,10 +112,10 @@ public class RunSimulations {
 
         Vector<Double> mse_array = new Vector<Double>(var_array.size());
         Vector<Double> wrappedvar_array = new Vector<Double>(var_array.size());
-        //finally print out the asymptotic variance
+        //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
                 noise.setVariance(var_array.get(i));
-                double mse = (new ArgComplexMeanVariance(noise)).variance()/n;
+                double mse = (new CircularMeanVariance(noise)).circularVariance()/n;
                 //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
                 double wrappedvar = noise.getWrappedVariance();
                 wrappedvar_array.add(wrappedvar);
