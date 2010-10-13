@@ -39,7 +39,7 @@ public class AsymptoticVariance implements BoundCalculator {
         ProjectedNormalDistribution dist = new ProjectedNormalDistribution(0.0, v);
         double h = dist.pdf(0.5);
         //System.out.print(h);
-        double s2 = dist.getWrappedVariance();
+        double s2 = dist.unwrappedVariance();
         return 12.0*s2/((1-h)*(1-h))/Math.pow(N,3.0);
     }
 

@@ -22,7 +22,7 @@ public class CircularMeanVariance {
     public CircularMeanVariance(CircularRandomVariable dist){
         f = dist;
 
-        final int INTEGRAL_STEPS = 10000;
+        final int INTEGRAL_STEPS = 1000;
         double Ecos = (new Integration(new IntegralFunction() {
             public double function(double x) {
                 return Math.cos(2*Math.PI*x)*f.pdf(x);

@@ -15,8 +15,7 @@ package distributions;
  * @author Robby McKilliam
  */
 public interface RandomVariable {
-    public void setMean(double mean);
-    public void setVariance(double variance);
+
     public double getMean();
     public double getVariance();
     

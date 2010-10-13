@@ -63,8 +63,5 @@ public abstract class BoundCalculator {
 
     }
 
-    /** Return bound on variance of the mth parameter */
-    public abstract double getBound(int m);
-
 
 }

@@ -5,7 +5,10 @@
 
 package distributions.discrete;
 
-import distributions.AbstractRandomVariable;
+import distributions.RandomVariable;
+import rngpack.RandomElement;
+import rngpack.RandomSeedable;
+import rngpack.Ranlux;
 
 /**
  * Implementation of the geometric distribution.
@@ -13,9 +16,10 @@ import distributions.AbstractRandomVariable;
  * P(k) = (1-p)^(k-1)p
  * @author Robby McKilliam
  */
-public class GeometricDistribution extends AbstractRandomVariable {
+public class GeometricDistribution implements RandomVariable {
     private final double p;
 
+    protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
 
     /** 
      * Constructor sets the parameter for this geometric distribution.
@@ -39,6 +43,25 @@ public class GeometricDistribution extends AbstractRandomVariable {
     }
 
     public double icdf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double getMean() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public double getVariance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /** Randomise the seed for the internal Random */
+    public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
+
+
+    /** Set the seed for the internal Random */
+    public void setSeed(long seed) { random = new Ranlux(seed); }
+
+    public double cdf(double x) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

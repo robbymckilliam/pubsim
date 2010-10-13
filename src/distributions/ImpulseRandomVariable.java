@@ -9,7 +9,7 @@ package distributions;
  * A `impulse' random variable, or dirac delta etc.
  * @author harprobey
  */
-public class ImpulseRandomVariable extends AbstractRandomVariable implements RandomVariable {
+public class ImpulseRandomVariable implements RandomVariable {
 
     protected final double dval;
 
@@ -36,7 +36,26 @@ public class ImpulseRandomVariable extends AbstractRandomVariable implements Ran
     }
 
     public double icdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("The inverse cumulative density function of an impulse is not well defined");
+    }
+
+    public double getMean() {
+        return dval;
+    }
+
+    public double getVariance() {
+        return 0;
+    }
+
+    public void randomSeed() {
+    }
+
+    public void setSeed(long seed) {
+    }
+
+    public double cdf(double x) {
+        if(x >= dval) return 1.0;
+        else return 0;
     }
 
 }

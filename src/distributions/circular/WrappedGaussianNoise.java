@@ -6,128 +6,36 @@
 
 package distributions.circular;
 
-import distributions.RandomVariable;
-import simulator.*;
 import distributions.GaussianNoise;
 
 /**
- * Gaussian noise mod 2 pi
+ * Gaussian noise wrapped into the interval [-0.5, 0.5]
  * @author Robby McKilliam
  */
-public class WrappedGaussianNoise extends GaussianNoise implements CircularRandomVariable {
-    
-    /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
-    public WrappedGaussianNoise() {
-        super();
+public class WrappedGaussianNoise  extends WrappedCircularRandomVariable{
+
+    private final double thismean, thisvar;
+
+    public WrappedGaussianNoise(double mean, double var){
+        super(new GaussianNoise(mean, var));
+        thismean = mean;
+        thisvar = var;
     }
-    
-    /** Creates a new instance of GaussianNoise with specific variance and mean */
-    public WrappedGaussianNoise(double mean, double variance){
-        super(mean, variance);
-    }
-    
-    /** Returns an instance of wrapped Gaussian noise */
+
     @Override
-    public double getNoise(){
-        double gauss = stdDeviation * random.gaussian() + mean;
-        return Math.IEEEremainder(gauss, 2*Math.PI);
-    }
-
-    /** tolerance for pdf error */
-    protected final static double PDF_TOLERANCE = 0.00000001;
-    
-    @Override
-    public double pdf(double x){
-        double pdf = 0.0;
-        int n = 1;
-        double tolc = Double.POSITIVE_INFINITY;
-        pdf += super.pdf(x);
-        while( tolc > PDF_TOLERANCE && n < 10000){
-            double v1 = super.pdf(x + 2*Math.PI*n);
-            double v2 = super.pdf(x - 2*Math.PI*n);
-            tolc = v1 + v2;
-            pdf += tolc;
-            n++;
+    public double unwrappedVariance(){
+        double csum = 0.0;
+        double sgn = -1.0;
+        int k = 1;
+        double psum = Double.POSITIVE_INFINITY;
+        double TOL = 1e-15;
+        while(psum > TOL){
+            psum = Math.exp(-thisvar*k*k*Math.PI*Math.PI*2);
+            csum += sgn/(k*k) * psum;
+            sgn *= -1;
+            k++;
         }
-        return pdf;
-    }
-
-    public double cdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double getWrappedVariance() {
-        WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
-        return vcalc.computeVarianceMod2pi();
-    }
-
-    /**
-     * Gaussian noise but wrapped mod1
-     */
-    public static class Mod1 extends GaussianNoise implements CircularRandomVariable {
-        
-        /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
-        public Mod1() {
-            super();
-        }
-
-        /** Creates a new instance of GaussianNoise with specific variance and mean */
-        public Mod1(double mean, double variance){
-            super(mean, variance);
-            mean = Math.IEEEremainder(mean, 1.0);
-        }
-        
-        /** Returns an instance of wrapped Gaussian noise */
-        @Override
-        public double getNoise(){
-            double gauss = stdDeviation * random.gaussian() + mean;
-            return Math.IEEEremainder(gauss, 1.0);
-        }
-
-        /** tolerance for pdf error */
-        protected final static double PDF_TOLERANCE = 0.0000000001;
-
-        @Override
-        public double pdf(double x){
-            double pdf = 0.0;
-            int n = 1;
-            double tolc = Double.POSITIVE_INFINITY;
-            pdf += super.pdf(x);
-            while( tolc > PDF_TOLERANCE && n < 10000){
-                double v1 = super.pdf(x + n);
-                double v2 = super.pdf(x - n);
-                tolc = v1 + v2;
-                pdf += tolc;
-                n++;
-            }
-            return pdf;
-        }
-
-        public double cdf(double x) {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-
-//        @Override
-//        public double getWrappedVariance() {
-//            WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
-//            return vcalc.computeVarianceMod1();
-//        }
-
-        public double getWrappedVariance(){
-            double csum = 0.0;
-            double sgn = -1.0;
-            int k = 1;
-            double psum = Double.POSITIVE_INFINITY;
-            double TOL = 1e-15;
-            while(psum > TOL){
-                psum = Math.exp(-variance*k*k*Math.PI*Math.PI*2);
-                csum += sgn/(k*k) * psum;
-                sgn *= -1;
-                k++;
-            }
-            return 1.0/12.0 + csum/(Math.PI*Math.PI);
-        }
-        
+        return 1.0/12.0 + csum/(Math.PI*Math.PI);
     }
   
 }

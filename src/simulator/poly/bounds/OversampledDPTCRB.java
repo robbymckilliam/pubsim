@@ -25,7 +25,7 @@ public class OversampledDPTCRB extends GaussianCRB {
     }
 
     @Override
-    public double getBound(int m){
+    public double getBound(int m, double variance){
         return Math.pow(dptos, 2*m)*variance/
                     (4*Math.PI * Math.PI * Math.pow(N,2*m+1)) * C.get(m, m);
     }
@@ -56,10 +56,9 @@ public class OversampledDPTCRB extends GaussianCRB {
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
             for(int i = 0; i < snr_array.size(); i++){
                 double var = 0.5/snr_array.get(i);
-                bound.setVariance(var);
                 writer.write(
                         (new Double(var)).toString().replace('E', 'e')
-                        + "\t" + (new Double(bound.getBound(j))).toString().replace('E', 'e'));
+                        + "\t" + (new Double(bound.getBound(j, var))).toString().replace('E', 'e'));
                 writer.newLine();
             }
             writer.close();

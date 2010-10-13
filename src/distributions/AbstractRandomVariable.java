@@ -19,21 +19,21 @@ import rngpack.Ranlux;
 public abstract class AbstractRandomVariable
         implements RandomVariable {
     
-    protected double mean;
-    protected double stdDeviation;
-    protected double variance;
-    protected RandomElement random;
+    protected final double mean;
+    protected final double stdDeviation;
+    protected final double variance;
+    protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
+
+    public AbstractRandomVariable(double mean, double variance){
+        this.mean = mean;
+        this.variance = variance;
+        this.stdDeviation = Math.sqrt(variance);
+    }
+
 
     public double getMean(){ return mean; }
 
     public double getVariance(){ return variance; }
-   
-    public void setMean(double mean){ this.mean = mean; }
-    
-    public void setVariance(double variance){
-        this.variance = variance;
-        stdDeviation = Math.sqrt(variance);
-    }
 
     /**
      * Take standard inverse cumulative density function approach
@@ -87,11 +87,6 @@ public abstract class AbstractRandomVariable
             
         }
         return (high + low)/2.0;
-    }
-    
-    public AbstractRandomVariable(){
-        random = new Ranlux();
-        randomSeed();
     }
     
     /** Randomise the seed for the internal Random */ 

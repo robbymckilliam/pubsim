@@ -13,16 +13,10 @@ import cern.jet.math.Bessel;
  * von Mises distribution of
  * @author Robby McKilliam
  */
-public class VonMises implements CircularRandomVariable{
+public class VonMises extends CircularRandomVariable{
 
-    double mu, kappa;
+    protected double mu, kappa;
     Random U;
-    
-    public VonMises(){
-        U = new Random();
-        mu = 0.0;
-        kappa = 1.0;
-    }
     
     public VonMises(double mu, double kappa){
         U = new Random();
@@ -30,20 +24,8 @@ public class VonMises implements CircularRandomVariable{
         this.kappa = kappa;
     }
     
-    
-    public void setMean(double mean) {
-        mu = mean;
-    }
 
-    /** 
-     * The actually sets the von Mises parameter (usually denoted kappa)
-     * which is a dispersion parameter similar to variance.
-     * @param variance
-     */
-    public void setVariance(double variance) {
-        kappa = variance;
-    }
-
+    @Override
     public double getMean() {
         return mu;
     }
@@ -73,75 +55,40 @@ public class VonMises implements CircularRandomVariable{
             
             double U2 = U.nextDouble();
             if(c*(2-c) - U2 > 0 || Math.log(c/U2) + 1 - c > 0)
-                return mu + Math.signum(U.nextDouble() - 0.5)*Math.acos(f);
+                return mu + Math.signum(U.nextDouble() - 0.5)*Math.acos(f)/2/Math.PI;
             
         }
            
     }
 
+    @Override
     public void randomSeed() {
         U = new Random();
     }
 
+    @Override
     public void setSeed(long seed) {
         U.setSeed(seed);
     }
 
     public double pdf(double x) {
-        double d = getVariance()*Math.cos(x - getMean());
-        return Math.exp(d)/(2*Math.PI*Bessel.i0(getVariance()));
+        double d = kappa*Math.cos(2*Math.PI*(x - mu));
+        return Math.exp(d)/Bessel.i0(kappa);
     }
 
-    public double getWrappedVariance() {
-        WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
-        return vcalc.computeVarianceMod2pi();
+    @Override
+    public double unwrappedMean() {
+        return mu;
     }
 
-    public double cdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Override
+    public double circularMean() {
+        return mu;
     }
 
-    public double icdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Gaussian noise but wrapped mod1
-     */
-    public static class Mod1 extends VonMises{
-
-        /** Creates Gaussian noise with mean = 0.0 and variance = 1.0 */
-        public Mod1() {
-            super();
-        }
-
-        /** Creates a new instance of GaussianNoise with specific variance and mean */
-        public Mod1(double mean, double variance){
-            super(2*Math.PI*mean, variance);
-        }
-
-        @Override
-        public void setMean(double mu){
-            this.mu = 2*Math.PI*mu;
-        }
-
-        /** Returns the Von Mises distribution on -0.5, 0.5 */
-        @Override
-        public double getNoise(){
-            return super.getNoise()/(2*Math.PI);
-        }
-
-        @Override
-        public double pdf(double x){
-            return Math.PI*2.0*super.pdf(x*Math.PI*2.0);
-        }
-
-        @Override
-        public double getWrappedVariance() {
-            WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
-            return vcalc.computeVarianceMod1();
-        }
-
+    @Override
+    public double circularVariance() {
+        return 1.0 - Bessel.i1(kappa)/Bessel.i0(kappa)/Math.PI;
     }
 
 }

@@ -16,13 +16,9 @@ import static simulator.Util.fracpart;
 public class WrappedCircularRandomVariable extends CircularRandomVariable{
 
     protected final RandomVariable dist;
-    protected final UnwrappedMeanAndVariance unwrpedmv;
-    protected final CircularMeanVariance argmv;
 
     public WrappedCircularRandomVariable(RandomVariable realdist){
         dist = realdist;
-        unwrpedmv = new UnwrappedMeanAndVariance(this);
-        argmv = new CircularMeanVariance(this);
     }
 
     @Override
@@ -45,27 +41,6 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
         }
         return pdf;
     }
-
-    @Override
-    public double unwrappedVariance() {
-        return unwrpedmv.getUnwrappedVariance();
-    }
-
-    @Override
-    public double unwrappedMean() {
-        return unwrpedmv.getUnwrappedMean();
-    }
-
-    @Override
-    public double circularMean() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public double circularVariance() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     
 
 }

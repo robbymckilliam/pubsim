@@ -13,41 +13,27 @@ import rngpack.Ranlux;
  * @author Robby McKilliam
  */
 public class UniformNoise extends AbstractRandomVariable implements RandomVariable {
-    protected double range;
+    protected final double range;
     
     /** Creates a new instance of UniformNoise with specific variance and mean */
     public UniformNoise(double mean , double variance) {
-        super();
-        this.mean = mean;
-        setVariance(variance);
-    }
-    
-    /** Creates UniformNoise with mean = 0.0 and variance = 1.0 */
-    public UniformNoise() {
-        mean = 0.0;
-        setVariance(1.0);
-    }
-
-    @Override
-    public void setVariance(double variance){
-        this.variance = variance;
-        stdDeviation = Math.sqrt(variance);
+        super(mean, variance);
         range = 2.0 * Math.sqrt( 3.0 * variance );
     }
-    
-    /** 
-     * The noise is uniformly distributed in
-     * [-range*0.5 + mean, range*0.5 + mean]
+
+    /**
+     * Creates uniform noise with a specific range,
+     * rather than varianac. Third variable is dummy.
      */
-    public void setRange(double range){
+    public UniformNoise(double mean, double range, int nothing){
+        super(mean, Math.pow(range/2.0 , 2)/3.0);
         this.range = range;
-        variance =  Math.pow(range/2.0 , 2)/3.0;
-        stdDeviation = Math.sqrt(variance);
     }
 
     public double getRange() { return range; };
     
     /** Returns a uniformly distributed value */
+    @Override
     public double getNoise(){
         return mean + range * (random.raw() - 0.5);
     }
@@ -58,10 +44,6 @@ public class UniformNoise extends AbstractRandomVariable implements RandomVariab
         double max = mean + 0.5*range;
         if( x < min || x > max ) return 0.0;
         return h;
-    }
-
-    public double icdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

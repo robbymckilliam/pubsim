@@ -7,8 +7,6 @@ package distributions.circular;
 
 import distributions.GaussianNoise;
 import distributions.RandomVariable;
-import flanagan.integration.IntegralFunction;
-import flanagan.integration.Integration;
 import simulator.Util;
 
 /**
@@ -17,56 +15,31 @@ import simulator.Util;
  * This is modified so that it returns values about -[0.5, 0.5]
  * @author Robby McKilliam
  */
-public class ProjectedNormalDistribution implements CircularRandomVariable{
+public class ProjectedNormalDistribution extends CircularRandomVariable{
     
     protected RandomVariable gauss;
-    double cmean, smean, mean;
-    
-    public ProjectedNormalDistribution(){
-        gauss = new GaussianNoise();
-        gauss.setMean(0.0);
-        setMean(0.0);
-        setVariance(1.0);
-    }
+    double cmean, smean;
     
     public ProjectedNormalDistribution(double mean, double var){
-        gauss = new GaussianNoise();
-        gauss.setMean(0.0);
-        setMean(mean);
-        setVariance(var);
-    }
-    
-
-    public void setMean(double mean) {
-        this.mean = mean;
+        gauss = new GaussianNoise(0.0, var);
         cmean = Math.cos(mean);
         smean = Math.sin(mean);
     }
 
-    public void setVariance(double variance) {
-        gauss.setVariance(variance);
-    }
 
-    public double getMean() {
-        return mean;
-    }
-
-    public double getVariance() {
-        return gauss.getVariance();
-    }
-
-    public double getNoise() {
-        
+    @Override
+    public double getNoise() {       
         double c = gauss.getNoise() + cmean;
         double s = gauss.getNoise() + smean;
-        return Math.atan2(s, c);
-        
+        return Math.atan2(s, c);        
     }
 
+    @Override
     public void randomSeed() {
         gauss.randomSeed();
     }
 
+    @Override
     public void setSeed(long seed) {
         gauss.setSeed(seed);
     }
@@ -118,45 +91,5 @@ public class ProjectedNormalDistribution implements CircularRandomVariable{
             return dp1*p2*p3 + p1*dp2*p3 + p1*p2*dp3;
     }
 
-    public double getWrappedVariance() {
-        //if( getVariance() < 0.03 ) return getVariance();
-        WrappedVarianceCalculator vcalc = new WrappedVarianceCalculator(this);
-        return vcalc.computeVarianceMod1();
-    }
-
-    /**
-     * Numerically computes the effective wrapped variance.
-     * This is monotonically increases with v and takes
-     * values in the range [0,1/12).
-     * v^2 is the SNR of the gaussian distribution used.
-     * v = p/sigma.
-     * See Quinn, "Estimating the mode of a phase distribution", Asilomar, 2007
-     */
-    public static double getWrappedVariance(double v){
-        int INTEGRAL_STEPS = 10000;
-        Integration intg = new Integration(new oldVarianceCalculator(v), -0.5, 0.5);
-        return intg.trapezium(INTEGRAL_STEPS);
-    }
-
-    public double cdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double icdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    protected static class oldVarianceCalculator implements IntegralFunction {
-
-        private double v;
-        public oldVarianceCalculator(double v){
-            this.v = v;
-        }
-
-        public double function(double x) {
-            return x*x*Pdf(x, v);
-        }
-
-    }
     
 }
