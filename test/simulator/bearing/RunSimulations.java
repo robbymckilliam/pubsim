@@ -30,7 +30,7 @@ public class RunSimulations {
     
     public static void main(String[] args) throws Exception {
 
-        int n = 4096;
+        int n = 256;
         double angle = 0.1;
         int seed = 26;
         int iterations = 5000;
@@ -45,35 +45,32 @@ public class RunSimulations {
         //double to_var_db = -10;
         double from_var_db = -11.2;
         double to_var_db = -31.8;
-        double step_var_db = -0.1;
+        double step_var_db = -3;
 
-        Vector<CircularRandomVariable> noise_array = new Vector<CircularRandomVariable>();
+        Vector<CircularRandomVariable> var_array = new Vector<CircularRandomVariable>();
         Vector<Double> var_db_array = new Vector<Double>();
         for(double vardb = from_var_db; vardb >= to_var_db; vardb += step_var_db){
             var_db_array.add(new Double(vardb));
-            noise_array.add(new WrappedGaussianNoise(0,Math.pow(10.0, ((vardb)/10.0))));
+            var_array.add(new WrappedGaussianNoise(0, Math.pow(10.0, ((vardb)/10.0))));
         }
 
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        //estimators.add(new LeastSquaresEstimator());
-        //estimators.add(new SamplingLatticeEstimator(12*n));
-        //estimators.add(new KaysEstimator());
-        //estimators.add(new PSCFDEstimator());
-        //estimators.add(new VectorMeanEstimator());
+        estimators.add(new LeastSquaresEstimator());
+        estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){
 
             BearingEstimator est = eitr.next();
 
-            Vector<Double> mse_array = new Vector<Double>(noise_array.size());
-            Vector<Double> wrappedvar_array = new Vector<Double>(noise_array.size());
+            Vector<Double> mse_array = new Vector<Double>(var_array.size());
+            Vector<Double> wrappedvar_array = new Vector<Double>(var_array.size());
             java.util.Date start_time = new java.util.Date();
-            for(int i = 0; i < noise_array.size(); i++){
+            for(int i = 0; i < var_array.size(); i++){
 
-                CircularRandomVariable noise = noise_array.get(i);
+                CircularRandomVariable noise = var_array.get(i);
                 signal_gen.setNoiseGenerator(noise);
 
                 double mse = runIterations(est, signal_gen, iterations);
@@ -82,7 +79,7 @@ public class RunSimulations {
                 double wrappedvar = noise.unwrappedVariance();
                 wrappedvar_array.add(wrappedvar);
 
-                System.out.println(noise_array.get(i) + "\t" + wrappedvar + "\t" + mse/iterations);
+                System.out.println(wrappedvar + "\t" + wrappedvar + "\t" + mse/iterations);
 
 
             }
@@ -93,10 +90,10 @@ public class RunSimulations {
                     + "seconds");
 
             try{
-                String fname = est.getClass().getName() + "_" + noise.getClass().getName();
+                String fname = est.getClass().getName() + "_" + var_array.get(0).getClass().getName();
                 File file = new File(fname.concat(nameetx).replace('$', '.'));
                 BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
-                for(int i = 0; i < noise_array.size(); i++){
+                for(int i = 0; i < var_array.size(); i++){
                     writer.write(
                             wrappedvar_array.get(i).toString().replace('E', 'e')
                             + "\t" + mse_array.get(i).toString().replace('E', 'e'));
@@ -109,13 +106,12 @@ public class RunSimulations {
 
         }
 
-        Vector<Double> mse_array = new Vector<Double>(noise_array.size());
-        Vector<Double> wrappedvar_array = new Vector<Double>(noise_array.size());
+        Vector<Double> mse_array = new Vector<Double>(var_array.size());
+        Vector<Double> wrappedvar_array = new Vector<Double>(var_array.size());
         //finally print out the asymptotic circularVariance
-        for(int i = 0; i < noise_array.size(); i++){
-                CircularRandomVariable noise = noise_array.get(i);
-                signal_gen.setNoiseGenerator(noise);
-                double mse = (new CircularMeanVariance(noise)).circularVariance()/n;
+        for(int i = 0; i < var_array.size(); i++){
+                CircularRandomVariable noise = var_array.get(i);
+                double mse = VectorMeanEstimator.asymptoticVariance(noise, n);
                 //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
                 double wrappedvar = noise.unwrappedVariance();
                 wrappedvar_array.add(wrappedvar);
@@ -123,10 +119,10 @@ public class RunSimulations {
                 System.out.println(wrappedvar + "\t" + mse);
         }
         try{
-            String fname = "asmyp_arg_" + noise_array.get(0).getClass().getName();
+            String fname = "asmyp_arg_" + var_array.get(0).getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
-            for(int i = 0; i < noise_array.size(); i++){
+            for(int i = 0; i < var_array.size(); i++){
                 writer.write(
                         wrappedvar_array.get(i).toString().replace('E', 'e')
                         + "\t" + mse_array.get(i).toString().replace('E', 'e'));

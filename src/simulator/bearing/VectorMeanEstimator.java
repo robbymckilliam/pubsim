@@ -5,6 +5,10 @@
 
 package simulator.bearing;
 
+import distributions.circular.CircularRandomVariable;
+import flanagan.integration.IntegralFunction;
+import flanagan.integration.Integration;
+
 /**
  * Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robby McKilliam
@@ -26,6 +30,19 @@ public class VectorMeanEstimator implements BearingEstimator {
         
         return Math.atan2(ssum, csum)/twopi;
                 
+    }
+
+    public static double asymptoticVariance(final CircularRandomVariable noise, int N){
+
+        final int INTEGRAL_STEPS = 1000;
+        double Esin2 = (new Integration(new IntegralFunction() {
+            public double function(double x) {
+                double sinx = Math.sin(2*Math.PI*x);
+                return sinx*sinx*noise.pdf(x);
+            }
+        }, -0.5, 0.5)).trapezium(INTEGRAL_STEPS);
+        double sigma2 = 1 - noise.circularVariance();
+        return Esin2/(N*sigma2*sigma2*4*Math.PI*Math.PI);
     }
 
 }
