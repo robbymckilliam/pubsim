@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import simulator.VectorFunctions;
+import lattices.reduction.SloanesReduction;
 
 /**
  *
@@ -51,5 +52,31 @@ public class FermatTest {
         Matrix result = instance.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(result));
     }
+    
+    @Test
+    public void testprintInverse() {
+        System.out.println("print inverse");
+        int n = 7;
+        int r = 2;
+
+        Fermat instance = new Fermat(n, r);
+        Matrix result = instance.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(result.inverse()));
+    }
+    
+    @Test
+    public void testprintSloaneReduced() {
+        System.out.println("print Slonae reduced");
+        int n = 7;
+        int r = 2;
+
+        Fermat instance = new Fermat(n, r);
+        Matrix L = instance.getGeneratorMatrix().inverse();
+        L = SloanesReduction.upperTriangularBasis(L);
+        double[] v = new SloanesReduction(L, 20).getProjectionVector();
+        System.out.println(VectorFunctions.print(v));
+    }
+
+
 
 }

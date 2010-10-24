@@ -1174,6 +1174,13 @@ public final class VectorFunctions {
         }
     }
 
+    /** Add d times column i to column j in matrix B*/
+    public static void addMultipleOfColiToColj(Matrix B, double d, int i, int j) {
+        int n = B.getColumnDimension();
+        for (int t = 0; t < n; t++)
+            B.set(t, j, d*B.get(t, i) + B.get(t, j));
+    }
+
     /** Construct a column matrix (vector) from a double[] */
     public static Matrix columnMatrix(double[] x){
         Matrix M = new Matrix(x.length, 1);

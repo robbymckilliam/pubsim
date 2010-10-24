@@ -678,6 +678,17 @@ public class VectorFunctionsTest extends TestCase {
 
     }
 
+    public void testAddMultipleOfColiToColj(){
+        System.out.println("addMultipleOfColiToColj");
+        int n = 4;
+        Matrix M = Matrix.random(n, n);
+
+        System.out.println(print(M));
+        addMultipleOfColiToColj(M, 2, 0, 2);
+        System.out.println(print(M));
+
+    }
+
     public void testminColumnNorm(){
         System.out.println("minColumnNorm");
         double[][] testu = { {1, 1, 1}, {2,1,3} };

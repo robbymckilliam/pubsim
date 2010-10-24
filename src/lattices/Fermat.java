@@ -19,6 +19,12 @@ public class Fermat extends AbstractLattice {
     
     protected final int n, r;
 
+    /**
+     * The dimension of the lattice is n, but it lies in
+     * and n+1 dimensional subspace.
+     * @param n
+     * @param r
+     */
     public Fermat(int n, int r){
         this.n = n;
         this.r = r;
@@ -37,26 +43,17 @@ public class Fermat extends AbstractLattice {
     }
 
     /**
-     * Under construction.  I am not exactly sure how to do this at
-     * the moment.
+     * Based on Sloanes Projecting the unit Cube paper.  Really this is
+     * obvious and I should have thought of it.
      * @return
      */
     public Matrix getGeneratorMatrix() {
-        Matrix P = (new Vnm(r+1, n - r)).getGeneratorMatrix();
-        Matrix M = new Matrix(n+1, n);
-        for(int i = 0; i < n+1; i++){
-            for(int j = 0; j < n-r; j++){
-                M.set(i, j, P.get(i, j));
-            }
+        Matrix P = new Matrix(n+1, n);
+        for(int j = 0; j < n; j++){
+            P.set(0, j, -Math.pow(j + 2, r));
+            P.set(j+1,j, 1.0);
         }
-        int c = 0;
-        for(int j = n-r; j < n; j++){
-            for(int i = 0; i < n+1; i++){
-                M.set(i, j, Math.pow( i+1, c) );
-            }
-            c++;
-        }
-        return M;
+        return P;
     }
 
 
