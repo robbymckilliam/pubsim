@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import distributions.RandomVariable;
-import simulator.NoiseVector;
+import distributions.processes.IIDNoise;
 import distributions.circular.WrappedGaussianNoise;
 import static org.junit.Assert.*;
 
@@ -51,7 +51,7 @@ public class LeastSquaresEstimatorTest {
         double mean = -Math.PI*0.2;
         
         RandomVariable noise = new WrappedGaussianNoise(mean, 0.0001);
-        NoiseVector sig = new NoiseVector();
+        IIDNoise sig = new IIDNoise();
         sig.setLength(n);
         sig.setNoiseGenerator(noise);
         

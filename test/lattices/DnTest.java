@@ -9,7 +9,7 @@ import Jama.Matrix;
 import junit.framework.TestCase;
 import distributions.GaussianNoise;
 import lattices.decoder.SphereDecoder;
-import simulator.NoiseVector;
+import distributions.processes.IIDNoise;
 import simulator.VectorFunctions;
 
 /**
@@ -32,7 +32,7 @@ public class DnTest extends TestCase {
         int iters = 100;
         
         GaussianNoise noise = new GaussianNoise(0.0, 1000.0);
-        NoiseVector siggen = new NoiseVector();
+        IIDNoise siggen = new IIDNoise();
         siggen.setNoiseGenerator(noise);
         siggen.setLength(n);
         

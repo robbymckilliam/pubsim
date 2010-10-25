@@ -5,7 +5,7 @@
 
 package simulator.bearing;
 
-import simulator.NoiseVector;
+import distributions.processes.IIDNoise;
 import simulator.SignalGenerator;
 import static simulator.Util.fracpart;
 
@@ -14,7 +14,7 @@ import static simulator.Util.fracpart;
  * Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robby McKilliam
  */
-public class ConstantAngleSignal extends NoiseVector implements SignalGenerator{
+public class ConstantAngleSignal extends IIDNoise implements SignalGenerator{
 
     protected double angle = 0.0;
 

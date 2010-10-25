@@ -16,7 +16,7 @@ import lattices.reduction.SloanesReduction;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class FermatTest {
 
@@ -67,13 +67,13 @@ public class FermatTest {
     @Test
     public void testprintSloaneReduced() {
         System.out.println("print Slonae reduced");
-        int n = 7;
-        int r = 2;
+        int n = 11;
+        int r = 3;
 
         Fermat instance = new Fermat(n, r);
         Matrix L = instance.getGeneratorMatrix().inverse();
         L = SloanesReduction.upperTriangularBasis(L);
-        double[] v = new SloanesReduction(L, 20).getProjectionVector();
+        double[] v = new SloanesReduction(L, 7).getProjectionVector();
         System.out.println(VectorFunctions.print(v));
     }
 

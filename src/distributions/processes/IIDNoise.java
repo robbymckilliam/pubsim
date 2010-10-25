@@ -4,28 +4,29 @@
  * Created on 5 November 2007, 13:24
  */
 
-package simulator;
+package distributions.processes;
 
 import distributions.RandomVariable;
+import simulator.SignalGenerator;
 
 /**
  * Generates a vector of iid noise
  * @author Robby McKilliam
  */
-public class NoiseVector implements SignalGenerator{
+public class IIDNoise implements SignalGenerator{
     
     protected int n;
     protected double[] iidsignal;
     protected RandomVariable noise;
     
     /** Default constructor set length of vector to 1 */ 
-    public NoiseVector(){
+    public IIDNoise(){
         n = 1;
         iidsignal = new double[1];
     }
 
     /** Default constructor set length of vector to 1 */
-    public NoiseVector(RandomVariable noise, int length){
+    public IIDNoise(RandomVariable noise, int length){
         setNoiseGenerator(noise);
         setLength(length);
     }

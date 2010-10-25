@@ -6,7 +6,7 @@
 package simulator.bearing;
 
 import distributions.circular.WrappedUniform;
-import simulator.NoiseVector;
+import distributions.processes.IIDNoise;
 import simulator.SignalGenerator;
 import static simulator.Util.fracpart;
 
@@ -15,7 +15,7 @@ import static simulator.Util.fracpart;
  * The assumes that the period of the signal T = 1.
  * @author Robby McKilliam
  */
-public class QuantisedDelaySignal extends NoiseVector implements SignalGenerator{
+public class QuantisedDelaySignal extends IIDNoise implements SignalGenerator{
 
     protected double delay = 0.0;
     private double P;
