@@ -16,13 +16,13 @@ import static simulator.Util.fracpart;
  * An*.  Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robert McKilliam
  */
-public class LeastSquaresEstimator implements BearingEstimator{
+public class AngularlLeastSquaresEstimator implements BearingEstimator{
 
     int n;
     protected Anstar anstar;
     protected double[] u;
     
-    public LeastSquaresEstimator(){
+    public AngularlLeastSquaresEstimator(){
         anstar = new AnstarBucketVaughan();
     }
     

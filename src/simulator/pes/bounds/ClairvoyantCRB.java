@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package simulator.pes.crb;
+package simulator.pes.bounds;
 
 import lattices.Anstar.Anstar;
 import simulator.VectorFunctions;

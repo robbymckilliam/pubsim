@@ -5,7 +5,7 @@
 
 package simulator.bearing.phase;
 
-import simulator.bearing.LeastSquaresEstimator;
+import simulator.bearing.AngularlLeastSquaresEstimator;
 import distributions.GaussianNoise;
 import distributions.RandomVariable;
 import distributions.circular.CircularRandomVariable;
@@ -110,7 +110,7 @@ public class RunSimulation {
         for(int i = 0; i < noise_array.size(); i++){
                 RandomVariable noise = noise_array.get(i);
                 CircularRandomVariable circn = new ProjectedNormalDistribution(0.0, noise.getVariance());
-                double mse = LeastSquaresEstimator.asymptoticVariance(circn, n);
+                double mse = AngularlLeastSquaresEstimator.asymptoticVariance(circn, n);
                 //double mse = VectorMeanEstimator.asymptoticVariance(circn, n);
                 mse_array.add(mse);
                 System.out.println(circn.unwrappedVariance() + "\t" + mse);

@@ -57,7 +57,7 @@ public class RunSimulations {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new LeastSquaresEstimator());
+        estimators.add(new AngularlLeastSquaresEstimator());
         estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
@@ -112,7 +112,7 @@ public class RunSimulations {
         for(int i = 0; i < var_array.size(); i++){
                 CircularRandomVariable noise = var_array.get(i);
                 double mse = VectorMeanEstimator.asymptoticVariance(noise, n);
-                //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
+                //double mse = AngularlLeastSquaresEstimator.asymptoticVariance(noise, n);
                 double wrappedvar = noise.unwrappedVariance();
                 wrappedvar_array.add(wrappedvar);
                 mse_array.add(mse);

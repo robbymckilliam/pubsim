@@ -58,7 +58,7 @@ public class RunNoisyDelaySimulation {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new LeastSquaresEstimator());
+        estimators.add(new AngularlLeastSquaresEstimator());
         estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
@@ -108,7 +108,7 @@ public class RunNoisyDelaySimulation {
         //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
                 CircularRandomVariable noise = noiseclass.getConstructor(cona).newInstance(0, var_array.get(i));
-                //double mse = LeastSquaresEstimator.asymptoticVariance(noise, n);
+                //double mse = AngularlLeastSquaresEstimator.asymptoticVariance(noise, n);
                  double mse = (new CircularMeanVariance(noise)).circularVariance()/n;
                 //double wrappedvar = noise.getWrappedVariance();
                 //double mse = var_array.get(i)/n;

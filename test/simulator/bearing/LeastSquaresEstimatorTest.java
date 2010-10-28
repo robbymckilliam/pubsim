@@ -41,7 +41,7 @@ public class LeastSquaresEstimatorTest {
     }
 
     /**
-     * Test of estimateBearing method, of class LeastSquaresEstimator.
+     * Test of estimateBearing method, of class AngularlLeastSquaresEstimator.
      */
     @Test
     public void testEstimateBearing() {
@@ -57,7 +57,7 @@ public class LeastSquaresEstimatorTest {
         
         double[] y = sig.generateReceivedSignal();
         
-        LeastSquaresEstimator instance = new LeastSquaresEstimator();
+        AngularlLeastSquaresEstimator instance = new AngularlLeastSquaresEstimator();
 
         double result = instance.estimateBearing(y);
         

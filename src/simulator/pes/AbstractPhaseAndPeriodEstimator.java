@@ -20,9 +20,10 @@ public abstract class AbstractPhaseAndPeriodEstimator implements PRIEstimator {
     protected double period;
     protected double phase;
 
-    private final LatticeAndNearestPointAlgorithm lattice
+    protected final LatticeAndNearestPointAlgorithm lattice
                                     = new AnstarBucketVaughan();
-    private double[] d;
+    protected double[] d;
+    protected double[] fy;
 
 
     public void estimate(double[] y, double fmin, double fmax){
@@ -30,13 +31,15 @@ public abstract class AbstractPhaseAndPeriodEstimator implements PRIEstimator {
         if(lattice.getDimension() != N-1){
             lattice.setDimension(N-1);
             d = new double[N];
+            fy = new double[N];
         }
 
         System.arraycopy(y, 0, d, 0, N);
         double f = estimateFreq(d, fmin, fmax);
         period = 1.0/f;
-        
-        Anstar.project(y, d);
+
+        for(int i = 0; i < N; i++) fy[i] = f*y[i];
+        Anstar.project(fy, d);
         
         lattice.nearestPoint(d);
         double[] s = lattice.getIndex();

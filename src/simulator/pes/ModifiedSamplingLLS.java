@@ -6,6 +6,7 @@
 
 package simulator.pes;
 
+import lattices.Anstar.Anstar;
 import lattices.Anstar.AnstarVaughan;
 
 /**
@@ -23,6 +24,40 @@ public class ModifiedSamplingLLS extends SamplingEstimator implements PRIEstimat
     public ModifiedSamplingLLS(int samples) {
         NUM_SAMPLES = samples;
     }
+
+    /**
+     * Modify the estimate method so that it returns the modifed estimate
+     * rather than the least squares estimate.
+     */
+    @Override
+    public void estimate(double[] y, double fmin, double fmax){
+        int N = y.length;
+        if( d == null || d.length != N ){
+            lattice.setDimension(N-1);
+            d = new double[N];
+            fy = new double[N];
+        }
+
+        System.arraycopy(y, 0, d, 0, N);
+        double f = estimateFreq(d, fmin, fmax);
+        period = 1.0/f;
+
+        for (int i = 0; i < n; i++) fy[i] = f * y[i];
+        Anstar.project(fy, d);
+
+        lattice.nearestPoint(d);
+        double[] s = lattice.getIndex();
+
+        double sum = 0;
+        for(int n = 0; n < N; n++){
+            sum += f*y[n] - s[n];
+        }
+
+        double unwp = (sum/N)/period;
+
+        phase = simulator.Util.fracpart(unwp)*period;
+
+    }
     
     @Override
     public double estimateFreq(double[] y, double fmin, double fmax) {
@@ -33,8 +68,7 @@ public class ModifiedSamplingLLS extends SamplingEstimator implements PRIEstimat
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
 	for (double f = fmin; f <= fmax; f += fstep) {
-	    for (int i = 0; i < n; i++)
-		fzeta[i] = f * zeta[i];
+	    for (int i = 0; i < n; i++) fzeta[i] = f * zeta[i];
 	    lattice.nearestPoint(fzeta);
             double[] v = lattice.getLatticePoint();
 	    double sumv2 = 0, sumvz = 0;

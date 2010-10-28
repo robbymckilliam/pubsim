@@ -6,7 +6,7 @@
 package simulator.bearing.phase;
 
 import simulator.Complex;
-import simulator.bearing.LeastSquaresEstimator;
+import simulator.bearing.AngularlLeastSquaresEstimator;
 
 /**
  * Phase estiamtor based on the nearest lattice point in An*.
@@ -15,13 +15,13 @@ import simulator.bearing.LeastSquaresEstimator;
  */
 public class LeastSquaresUnwrapping implements PhaseEstimator {
 
-    private LeastSquaresEstimator ls;
+    private AngularlLeastSquaresEstimator ls;
     private int n;
     double[] a;
 
     public void setSize(int n) {
         this.n = n;
-        ls = new LeastSquaresEstimator();
+        ls = new AngularlLeastSquaresEstimator();
         ls.setSize(n);
         a = new double[n];
     }

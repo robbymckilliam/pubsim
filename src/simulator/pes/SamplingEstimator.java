@@ -15,7 +15,6 @@ public class SamplingEstimator extends AbstractPhaseAndPeriodEstimator implement
 
     protected int NUM_SAMPLES = 100;
     protected int n;
-    protected Anstar lattice;
     
     public SamplingEstimator(){
     }
@@ -27,7 +26,6 @@ public class SamplingEstimator extends AbstractPhaseAndPeriodEstimator implement
     double[] zeta, fzeta, kappa;
 
     public void setSize(int n) {
-        lattice = new AnstarBucketVaughan();
 	lattice.setDimension(n-1); // => n = N-1
 	zeta = new double[n];
 	fzeta = new double[n];
