@@ -24,9 +24,9 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     protected double[] transmittedSignal;
     protected double[] recievedSignal;
     protected RandomVariable noise;
-    protected double T;
+    protected double T = 1.0;
     protected int n;
-    protected double phase;
+    protected double phase = 0.0;
     /** geometic variable for sparse signal */
     protected double p;
     protected Random random;
@@ -77,7 +77,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * index differences.
      * @param p the geometric parameter in range [0,1]
      */
-    public void setGeometicParameter(double p){
+        public void setGeometicParameter(double p){
         this.p = p;
     }
     
@@ -102,8 +102,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     }
     
     /**
-     * Generate a binomial sequence typical of a transmitted
-     * sparse signal.
+     * Generate sparse noisy signal
      */
     public double[] generateReceivedSignal() {
           if(transmittedSignal == null )
