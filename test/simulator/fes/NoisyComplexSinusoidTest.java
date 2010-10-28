@@ -35,9 +35,7 @@ public class NoisyComplexSinusoidTest extends TestCase {
         int n = 20;
         
         NoisyComplexSinusoid instance = new NoisyComplexSinusoid(f, rate, p, n);
-        UniformNoise noise = new UniformNoise();
-        noise.setMean(0.0);
-        noise.setVariance(1.0/24.0);
+        UniformNoise noise = new UniformNoise(0.0, 1.0/24.0);
         instance.setNoiseGenerator(noise);
         
         instance.generateReceivedSignal();

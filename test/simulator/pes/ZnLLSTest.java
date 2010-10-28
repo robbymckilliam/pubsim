@@ -111,8 +111,7 @@ public class ZnLLSTest extends TestCase {
         ModifiedSamplingLLS instance = new ModifiedSamplingLLS(4*n);
 
         double noisestd = 0.001;
-        UniformNoise noise = new distributions.UniformNoise(0.0, 0.0);
-        noise.setRange(T + 0.2);
+        UniformNoise noise = new distributions.UniformNoise(0.0, T + 0.2, 0);
 
         SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
         sig.setPeriod(T);

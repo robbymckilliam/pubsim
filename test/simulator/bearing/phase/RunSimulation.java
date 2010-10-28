@@ -5,9 +5,10 @@
 
 package simulator.bearing.phase;
 
+import simulator.bearing.LeastSquaresEstimator;
 import distributions.GaussianNoise;
 import distributions.RandomVariable;
-import distributions.circular.CircularMeanVariance;
+import distributions.circular.CircularRandomVariable;
 import distributions.circular.ProjectedNormalDistribution;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,9 +28,9 @@ public class RunSimulation {
 
     public static void main(String[] args) throws Exception {
 
-        int n = 4096;
+        int n = 64;
         int seed = 26;
-        int iterations = 10000;
+        int iterations = 1000;
 
         String nameetx = "_" + Integer.toString(n);
 
@@ -52,7 +53,7 @@ public class RunSimulation {
         Vector<PhaseEstimator> estimators = new Vector<PhaseEstimator>();
 
         //add the estimators you want to run
-        //estimators.add(new LeastSquaresUnwrapping());
+        estimators.add(new LeastSquaresUnwrapping());
         //estimators.add(new ArgumentOfComplexMean());
         //estimators.add(new SamplingLatticeEstimator(12*n));
         //estimators.add(new KaysEstimator());
@@ -75,7 +76,9 @@ public class RunSimulation {
 
                 mse_array.add(mse/iterations);
 
-                System.out.println(noise.getVariance() + "\t" + mse/iterations);
+                System.out.println(
+                        new ProjectedNormalDistribution(0.0, noise.getVariance()).unwrappedVariance()
+                        + "\t" + mse/iterations);
 
 
             }
@@ -106,17 +109,14 @@ public class RunSimulation {
         //finally print out the asymptotic circularVariance
         for(int i = 0; i < noise_array.size(); i++){
                 RandomVariable noise = noise_array.get(i);
-                //double mse = LeastSquaresEstimator.asymptoticVariance(
-                //        new ProjectedNormalDistribution(0.0, var_array.get(i)),
-                //        n);
-                double mse = VectorMeanEstimator.(
-                        new ProjectedNormalDistribution(0.0, noise.getVariance()))).variance()/n;
-                //double mse = var_array.get(i)/(Math.PI*Math.PI*4*n);
+                CircularRandomVariable circn = new ProjectedNormalDistribution(0.0, noise.getVariance());
+                double mse = LeastSquaresEstimator.asymptoticVariance(circn, n);
+                //double mse = VectorMeanEstimator.asymptoticVariance(circn, n);
                 mse_array.add(mse);
-                System.out.println(noise_array.get(i) + "\t" + mse);
+                System.out.println(circn.unwrappedVariance() + "\t" + mse);
         }
         try{
-            String fname = "asymp_arg_" + noise.getClass().getName();
+            String fname = "asymp_arg_" + noise_array.get(0).getClass().getName();
             //String fname = "asmyp_" + noise.getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));

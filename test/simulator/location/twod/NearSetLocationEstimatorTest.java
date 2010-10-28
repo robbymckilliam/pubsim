@@ -50,8 +50,7 @@ public class NearSetLocationEstimatorTest {
         System.out.println("computeLocation");
 
         UniformNoise pnoise = new UniformNoise(0, 2);
-        UniformNoise fnoise = new UniformNoise(1, 0.0);
-        fnoise.setRange(0.6);
+        UniformNoise fnoise = new UniformNoise(1, 0.6, 0);
         Point2 loc = new Point2(0,0);
         int N = 4;
         double maxdist = 4;

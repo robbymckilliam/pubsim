@@ -45,7 +45,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
     }
 
     public double pdf(double x){
-        double v = 1.0/Math.sqrt(getVariance());
+        double v = 1.0/Math.sqrt(gauss.getVariance());
         return Pdf(x,v);
     }
 
