@@ -7,7 +7,9 @@
 package robbysim.pes;
 
 import java.util.TreeMap;
+import robbysim.lattices.Anstar.AnstarBucketVaughan;
 import robbysim.lattices.Anstar.AnstarVaughan;
+import robbysim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
  * Zn->An->An* line search.  Uses the sorted
@@ -16,11 +18,22 @@ import robbysim.lattices.Anstar.AnstarVaughan;
  * Bresenham line search.
  * @author Robby McKilliam
  */
-public class ZnLLS extends AbstractPhaseAndPeriodEstimator implements PRIEstimator {
+public class ZnLLS implements PRIEstimator {
     
-    double[] g, z, v;
-    double n;
+    double[] g, z, v, fz;
+    double n, N;
     TreeMap map;
+
+    protected PhaseEstimator phasestor;
+
+    /** Period and phase estimates */
+    protected double That, phat;
+
+    protected ZnLLS() {}
+
+    public ZnLLS(int N){
+        setSize(N);
+    }
      
     /** 
      * Sets protected variable g to the glue
@@ -34,19 +47,21 @@ public class ZnLLS extends AbstractPhaseAndPeriodEstimator implements PRIEstimat
             g[k] = -j/(n+1);
     }
     
-    public void setSize(int N) 
+    private void setSize(int N)
     {
         this.n = N-1;
+        this.N = N;
+        phasestor = new PhaseEstimator(N);
         g = new double[N];
         z = new double[N];
+        fz = new double[N];
         v = new double[N];
         map = new TreeMap();
     }
     
-    public double estimateFreq(double[] y, double fmin, double fmax){
-        if (n != y.length-1)
-	    setSize(y.length);
-        
+    public void estimate(double[] y, double Tmin, double Tmax){
+        double fmin = 1/Tmax; double fmax = 1/Tmin;
+
         AnstarVaughan.project(y, z);
         
         double bestf = 0.0;
@@ -92,71 +107,20 @@ public class ZnLLS extends AbstractPhaseAndPeriodEstimator implements PRIEstimat
                 
             }
         }
+        That = 1.0/bestf;
+
+        //now compute the phase estimate
+        phat = phasestor.getPhase(y, That);
+
         
-        //System.out.println("bestf = " + bestf + ", mindist = " + mindist);
-        
-        return bestf;
     }
     
-    /**Return the best lattice point rather than f.  This is for testing*/
-    public double[] bestLatticePoint(double[] y, double fmin, double fmax){
-        if (n != y.length-1)
-	    setSize(y.length);
-        
-        double[] bestv = new double[y.length];
-        
-        AnstarVaughan.project(y, z);
-        
-        double bestf = 0.0;
-        double mindist = Double.POSITIVE_INFINITY;
-        
-        for(int i = 0; i <= n; i++){
-            map.clear();
-            glueVector(i);
-            
-            //setup map and variables for this glue vector
-            double ztz = 0.0, ztv = 0.0, vtv = 0.0;
-            for(int j=0; j<=n; j++){
-                v[j] = Math.round(fmin*z[j] - g[j]) + g[j];
-                map.put(new Double((Math.signum(z[j])*0.5 + v[j])/z[j]), new Integer(j));
-                ztz += z[j]*z[j];
-                ztv += z[j]*v[j];
-                vtv += v[j]*v[j];
-            }
-            
-            double f = ztv/ztz;
-            //line search loop
-            while(f < fmax){
-                
-                double dist = f*f*ztz - 2*f*ztv + vtv;
-                
-                if(dist < mindist && f > fmin && f < fmax){
-                    mindist = dist;
-                    bestf = f;
-                    bestv = v.clone();
-                }
-                       
-                Double key = ((Double) map.firstKey());
-                int k = ((Integer)map.get(key)).intValue();
-                double d = Math.signum(z[k]);
-                v[k] += d;
-                map.remove(key);
-                map.put(new Double((d*0.5 + v[k])/z[k]), new Integer(k));
-                
-                ztv += d*z[k];
-                vtv += 2*d*(v[k]-d) + 1;
-                
-                //update f
-                f = ztv/ztz;
-                           
-            }  
-        }
-        return bestv;
+    public double getPeriod() {
+        return That;
     }
-    
-    /** Not implemented here. */
-    public double varianceBound(double sigma, double[] s){
-        return 0;
+
+    public double getPhase() {
+        return phat;
     }
     
 }

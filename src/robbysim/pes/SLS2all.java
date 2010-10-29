@@ -1,7 +1,5 @@
 package robbysim.pes;
 
-import robbysim.lattices.Anstar.AnstarVaughan;
-
 /**
  * Implementation of Sidiropoulos et al.'s SLS2-ALL algorithm for PRI
  * estimation.
@@ -12,31 +10,39 @@ public class SLS2all implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
 
-    int n = 0, m;
+    int N, m;
     double[] d, kappa;
     int[] u;
+
+    protected PhaseEstimator phasestor;
+
+    /** Period and phase estimates */
+    protected double That, phat;
     
-    public SLS2all(){
+    protected SLS2all(){
     }
     
-    public SLS2all(int samples){
+    public SLS2all(int N, int samples){
+        setSize(N);
         NUM_SAMPLES = samples;
     }
 
-    public void setSize(int n) {
-	this.n = n;
-	m = n * (n-1) / 2;
+    private void setSize(int N) {
+	this.N = N;
+        phasestor = new PhaseEstimator(N);
+	m = N * (N-1) / 2;
 	d = new double[m];
 	u = new int[m];
-	kappa = new double[n];
+	kappa = new double[N];
     }
 
-    public double estimateFreq(double[] y, double fmin, double fmax) {
-	if (n != y.length)
-	    setSize(y.length);
+    public void estimate(double[] y, double Tmin, double Tmax) {
+
+        //first compute the period estimate
+        double fmin = 1/Tmax; double fmax = 1/Tmin;
 	int k = 0;
-	for (int i = 0; i < n-1; i++)
-	    for (int j = i+1; j < n; j++)
+	for (int i = 0; i < N-1; i++)
+	    for (int j = i+1; j < N; j++)
 		d[k++] = y[j] - y[i];
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
@@ -60,19 +66,19 @@ public class SLS2all implements PRIEstimator {
 		fhat = f0;
 	    }
 	}
-	return fhat;
+	That = 1/fhat;
+
+        //now compute the phase estimate
+        phat = phasestor.getPhase(y, That);
     }
 
-    // This bound is just the 'clairvoyant' CRLB.  There is no reason
-    // to assume that SLS2-ALL will achieve this bound, although it is
-    // reported that it does in simulations by Sidiropoulos et al.
-
-    public double varianceBound(double sigma, double[] k) {
-	AnstarVaughan.project(k, kappa);
-	double sk = 0;
-	for (int i = 0; i < k.length; i++)
-	    sk += kappa[i] * kappa[i];
-	return sigma * sigma / sk;
+    public double getPeriod() {
+        return That;
     }
+
+    public double getPhase() {
+        return phat;
+    }
+
 
 }

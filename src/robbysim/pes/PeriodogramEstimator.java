@@ -8,27 +8,38 @@ import robbysim.lattices.Anstar.AnstarVaughan;
 // New method calculatePeriodogram and fixed the Newton iteration
 // steps, 08-Jan-07.
 
-public class PeriodogramEstimator extends AbstractPhaseAndPeriodEstimator implements PRIEstimator {
+public class PeriodogramEstimator implements PRIEstimator {
 
     protected int NUM_SAMPLES = 100;
-    static final int MAX_ITER = 10;
-    static final double EPSILON = 1e-10;
+    protected static final int MAX_ITER = 10;
+    protected static final double EPSILON = 1e-10;
 
-    int n;
+    /** Period and phase estimates */
+    protected double That, phat;
+
+    protected PhaseEstimator phasestor;
+
+    int N;
     double[] kappa;
 
-    public PeriodogramEstimator(){}
+    protected PeriodogramEstimator() {}
+
+    public PeriodogramEstimator(int N){
+        setSize(N);
+    }
     
-    public PeriodogramEstimator(int samples){
+    public PeriodogramEstimator(int N, int samples){
+        setSize(N);
         NUM_SAMPLES = samples;
     }
     
-    public void setSize(int n) {
-	this.n = n;
-	kappa = new double[n];
+    private void setSize(int N) {
+	this.N = N;
+        phasestor = new PhaseEstimator(N);
+	kappa = new double[N];
     }
 
-    static double calculatePeriodogram(double[] y, double f) {
+    private static double calculatePeriodogram(double[] y, double f) {
 	double sumur = 0, sumui = 0;
 	for (int i = 0; i < y.length; i++) {
 	    sumur += Math.cos(2 * Math.PI * f * y[i]);
@@ -37,13 +48,9 @@ public class PeriodogramEstimator extends AbstractPhaseAndPeriodEstimator implem
 	return sumur * sumur + sumui * sumui;
     }
 
-    public double estimateFreq(double[] y, double fmin, double fmax) {
-	if (n != y.length)
-	    setSize(y.length);
-
-	// Coarse search
-
-	double maxp = 0;
+    public void estimate(double[] y, double Tmin, double Tmax) {
+        double maxp = 0;
+        double fmin = 1/Tmax; double fmax = 1/Tmin;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
 	for (double f = fmin; f <= fmax; f += fstep) {
@@ -55,7 +62,7 @@ public class PeriodogramEstimator extends AbstractPhaseAndPeriodEstimator implem
 	}
 
 	// Modified Newton step
-	
+
 	int numIter = 0;
 	double f = fhat, lastf = f - 2 * EPSILON, lastp = 0;
 	while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER
@@ -63,7 +70,7 @@ public class PeriodogramEstimator extends AbstractPhaseAndPeriodEstimator implem
 	    double p = 0, pd = 0, pdd = 0;
 	    double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
 	    sumwr = 0, sumwi = 0;
-	    for (int i = 0; i < n; i++) {
+	    for (int i = 0; i < N; i++) {
 		double ur = Math.cos(2 * Math.PI * f * y[i]);
 		double ui = Math.sin(2 * Math.PI * f * y[i]);
 		double vr = -2 * Math.PI * y[i] * ui;
@@ -95,18 +102,16 @@ public class PeriodogramEstimator extends AbstractPhaseAndPeriodEstimator implem
 	    }
 	    numIter++;
 	}
-
-	return fhat;
+	That = 1.0 / fhat;
+        //now compute the phase estimate
+        phat = phasestor.getPhase(y, That);
     }
 
-    // This bound is just the 'clairvoyant' CRLB.  There is no reason
-    // to believe that the periodogram will achieve this bound.
+    public double getPeriod() {
+        return That;
+    }
 
-    public double varianceBound(double sigma, double[] k) {
-	AnstarVaughan.project(k, kappa);
-	double sk = 0;
-	for (int i = 0; i < k.length; i++)
-	    sk += kappa[i] * kappa[i];
-	return sigma * sigma / sk;
+    public double getPhase() {
+        return phat;
     }
 }

@@ -49,6 +49,11 @@ public class UnwrappedMeanAndVariance {
         return var;
     }
 
+    /**
+     * This is only accurate the the 3rd decimal place.
+     * This could be improved by an optimisation routine but
+     * I have not implemented it.
+     */
     public double getUnwrappedMean(){
         return mean;
     }

@@ -10,26 +10,31 @@ package robbysim.pes;
 public class SLS2new implements PRIEstimator {
     protected int NUM_SAMPLES = 100;
 
-    int n = 0, m, s;
+    int N = 0, m, s;
     double[] d;
     int[] u;
-    
-    public SLS2new(){
-    }
+
+    protected PhaseEstimator phasestor;
+
+    /** Period and phase estimates */
+    protected double That, phat;
     
     public SLS2new(int samples){
         NUM_SAMPLES = samples;
     }
 
-    public void setSize(int n) {
-	m = n / 2;
-	s = m + (n % 2);
+    public void setSize(int N) {
+        this.N = N;
+        phasestor = new PhaseEstimator(N);
+	m = N / 2;
+	s = m + (N % 2);
 	d = new double[m];
 	u = new int[m];
     }
 
-    public double estimateFreq(double[] y, double fmin, double fmax) {
-	if (n != y.length)
+    public void estimate(double[] y, double Tmin, double Tmax) {
+        double fmin = 1/Tmax; double fmax = 1/Tmin;
+	if (N != y.length)
 	    setSize(y.length);
 	for (int i = 0; i < m; i++)
 	    d[i] = y[i + s] - y[i];
@@ -55,18 +60,18 @@ public class SLS2new implements PRIEstimator {
 		fhat = f0;
 	    }
 	}
-	return fhat;
+	That = 1/fhat;
+
+        //now compute the phase estimate
+        phat = phasestor.getPhase(y, That);
     }
 
-    public double varianceBound(double sigma, double[] k) {
-	if (n != k.length)
-	    setSize(k.length);
-	int sumu2 = 0;
-	for (int i = 0; i < m; i++) {
-	    u[i] = (int) (k[i + s] - k[i]);
-	    sumu2 += u[i] * u[i];
-	}
-	return 2 * sigma * sigma / sumu2;
+    public double getPeriod() {
+        return That;
+    }
+
+    public double getPhase() {
+        return phat;
     }
 
 }

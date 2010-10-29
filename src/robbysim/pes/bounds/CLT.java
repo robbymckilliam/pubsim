@@ -32,8 +32,8 @@ public class CLT {
 
         //Is is the wrapped variance or not?  Need to check Barry's
         //CLT a little more closely.
-        //double wrappedvar = wrped.unwrappedVariance();
-        double wrappedvar = noise.getVariance();
+        double wrappedvar = wrped.unwrappedVariance();
+        //double wrappedvar = noise.getVariance();
 
         //this is the the scale factor contructed from these numbers;
         scalefac = 12.0*T0*T0*wrappedvar/( (1-h)*(1-h)*dmean*dmean );

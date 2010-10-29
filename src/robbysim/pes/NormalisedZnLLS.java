@@ -1,5 +1,5 @@
 /*
- * ModifiedZnLLS.java
+ * NormalisedZnLLS.java
  *
  * Created on 17 July 2007, 07:44
  */
@@ -13,26 +13,23 @@ import robbysim.lattices.Anstar.AnstarVaughan;
  * closest point to the line rather than the point of minimal angle.
  * @author Robby McKilliam
  */
-public class ModifiedZnLLS extends ZnLLS implements PRIEstimator {
-    
+public class NormalisedZnLLS extends ZnLLS implements PRIEstimator {
+
+    public NormalisedZnLLS(int N) {super(N);}
+
     @Override
-    public double estimateFreq(double[] y, double fmin, double fmax){
-        if (n != y.length-1)
-	    setSize(y.length);
-        
+    public void estimate(double[] y, double Tmin, double Tmax){
+        double fmin = 1/Tmax; double fmax = 1/Tmin;
+
         AnstarVaughan.project(y, z);
-        
+
         double bestf = 0.0;
         double mindist = Double.POSITIVE_INFINITY;
-        
+
         for(int i = 0; i <=n ; i++){
             map.clear();
             glueVector(i);
-            
-            
-            //System.out.println();
-            //System.out.println("glue " + i);
-            
+
             //setup map and variables for this glue vector
             double ztz = 0.0, ztv = 0.0, vtv = 0.0;
             for(int j=0; j<=n; j++){
@@ -42,34 +39,39 @@ public class ModifiedZnLLS extends ZnLLS implements PRIEstimator {
                 ztv += z[j]*v[j];
                 vtv += v[j]*v[j];
             }
-            
+
             double f = vtv/ztv;
             //line search loop
             while(f < fmax){
-                
+
                 double dist = f*f*ztz - 2*f*ztv + vtv;
-                
+
                 if(dist < mindist /*&& f > fmin && f < fmax*/){
                     mindist = dist;
                     bestf = f;
                 }
-                       
+
                 Double key = ((Double) map.firstKey());
                 int k = ((Integer)map.get(key)).intValue();
                 double d = Math.signum(z[k]);
                 v[k] += d;
                 map.remove(key);
                 map.put(new Double((d*0.5 + v[k])/z[k]), new Integer(k));
-                
+
                 ztv += d*z[k];
                 vtv += 2*d*(v[k]-d) + 1;
-                
+
                 //update f
                 f = vtv/ztv;
-                
-            }  
+
+            }
         }
-        return bestf;
+        That = 1.0/bestf;
+
+        //now compute the phase estimate
+        phat = phasestor.getPhase(y, That);
+
+
     }
     
 }
