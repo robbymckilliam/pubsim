@@ -1,0 +1,100 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package robbysim.location.twod;
+
+import Jama.Matrix;
+import robbysim.distributions.RandomVariable;
+import java.util.Vector;
+import robbysim.lattices.Lattice;
+import robbysim.lattices.util.PointInSphere;
+import robbysim.Point2;
+import robbysim.VectorFunctions;
+
+/**
+ * A Point2 and wavelength T.  This defines the
+ * position and wavelength of a transmitter.
+ */
+public class Transmitter extends Object {
+    protected Point2 p;
+    protected double w;
+    public Transmitter(Point2 p, double w){
+        this.p = p;
+        this.w = w;
+    }
+
+    public Point2 point(){
+        return p;
+    }
+
+    public double wavelength(){
+        return w;
+    }
+
+    /**
+     * Generator a random Transmitter.
+     * @param pgen noise generator for positions
+     * @param wgen noise generator for wavelength
+     */
+    public Transmitter(RandomVariable pgen, RandomVariable wgen){
+        p = new Point2(pgen.getNoise(), pgen.getNoise());
+        w = wgen.getNoise();
+    }
+
+    @Override
+    public String toString() {
+        return "w = " + w + ",\np = " + VectorFunctions.print(p);
+    }
+
+    /**
+     * Return an array of transmitters that are positioned at lattice
+     * points.
+     * @param L a lattice
+     * @param y translation of the lattice
+     * @param radius radius of the sphere
+     * @param wgen generator for transmitter wavelengths.
+     */
+    public static Transmitter[] getLatticeArray(Lattice L, double radius, Point2 y, RandomVariable wgen){
+        PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
+        Vector<Transmitter> tvec = new Vector<Transmitter>();
+        while(points.hasMoreElements()){
+            tvec.add(new Transmitter(new Point2(points.nextElement().minus(y)), wgen.getNoise()));
+        }
+        return tvec.toArray(new Transmitter[0]);
+    }
+
+    /**
+     * Return an array of transmitters that are positioned at lattice
+     * points plus some noise
+     * @param L a lattice
+     * @param y translation of the lattice
+     * @param radius radius of the sphere
+     * @param ngen generator for position noise.
+     * @param wgen generator for transmitter wavelengths.
+     */
+    public static Transmitter[] getNoisyLatticeArray(Lattice L, double radius, Point2 y, RandomVariable ngen, RandomVariable wgen){
+        PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
+        Vector<Transmitter> tvec = new Vector<Transmitter>();
+        while(points.hasMoreElements()){
+            Matrix ps = points.nextElement().minus(y);
+            tvec.add(new Transmitter(new Point2(ps.get(0,0) + ngen.getNoise(), ps.get(1,0) + ngen.getNoise()), wgen.getNoise()));
+        }
+        return tvec.toArray(new Transmitter[0]);
+    }
+
+    /**
+     * Generate an array of N random transmitters
+     * @param N number of transmitters to generate
+     * @param pgen generator for transmitter position.
+     * @param wgen generator for transmitter wavelengths.
+     */
+    public static Transmitter[] getRandomArray(int N, RandomVariable pgen, RandomVariable wgen){
+        Transmitter[] tvec = new Transmitter[N];
+        for(int n = 0; n < N; n++)
+            tvec[n] = new Transmitter(pgen, wgen);
+        return tvec;
+    }
+
+}
