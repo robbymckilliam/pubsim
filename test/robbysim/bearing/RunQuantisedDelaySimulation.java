@@ -9,7 +9,7 @@ import robbysim.bearing.AngularlLeastSquaresEstimator;
 import robbysim.bearing.BearingEstimator;
 import robbysim.bearing.QuantisedDelaySignal;
 import robbysim.distributions.circular.WrappedUniform;
-import robbysim.distributions.discrete.GeometricDistribution;
+import robbysim.distributions.discrete.GeometricRandomVariable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -37,7 +37,7 @@ public class RunQuantisedDelaySimulation {
 
         //parameter for geometric distribution.
         double gemparam = 0.9;
-        GeometricDistribution noise = new GeometricDistribution(gemparam);
+        GeometricRandomVariable noise = new GeometricRandomVariable(gemparam);
         signal_gen.setNoiseGenerator(noise);
 
         double startP = 0.112308417230587;

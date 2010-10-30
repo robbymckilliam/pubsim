@@ -24,16 +24,15 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     protected double[] transmittedSignal;
     protected double[] recievedSignal;
     protected RandomVariable noise;
+    protected RandomVariable sparsenoise;
     protected double T = 1.0;
     protected int n;
     protected double phase = 0.0;
     /** geometic variable for sparse signal */
-    protected double p;
     protected Random random;
     
     
     public SparseNoisyPeriodicSignal(){
-            setGeometicParameter(0.5);
             random = new Random();
             transmittedSignal = new double[0];
             recievedSignal = new double[0];
@@ -59,26 +58,12 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     public int getLength() {return n; }
     
     public double[] generateSparseSignal(){
-        double count = 0.0;
-        int added = 0;
-        while(added < n){
-            if(random.nextDouble() < p){
-                transmittedSignal[added] = count;
-                added++;
-            }//else{
-                count++;
-            //}
-        }  
+        int sum = 0;
+        for(int i = 0; i < n; i++){
+            sum += sparsenoise.getNoise();
+            transmittedSignal[i] = sum;
+        }
         return transmittedSignal;
-    }
-    
-    /** 
-     * Set the parameter for the geometrically distributed
-     * index differences.
-     * @param p the geometric parameter in range [0,1]
-     */
-        public void setGeometicParameter(double p){
-        this.p = p;
     }
     
     /**
@@ -86,19 +71,8 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * sparse signal.
      */
     public double[] generateSparseSignal(int length){
-        if( n != length )
-            setLength(length);
+        if( n != length ) setLength(length);
         return generateSparseSignal();
-    }
-    
-     /**
-     * Generate a binomial sequence typical of a transmitted
-     * sparse signal.  Seed the random generator so that well always get
-     * the same answer.
-     */
-    public double[] generateSparseSignal(int length, long seed){
-        random.setSeed(seed);      
-        return generateSparseSignal(length);
     }
     
     /**
@@ -117,7 +91,13 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
           
           return recievedSignal;
     }
-    
+
+    /** Set the noise type for the signal */
+    public void setSparseGenerator(RandomVariable sparsenoise){
+        this.sparsenoise = sparsenoise;
+    }
+    public RandomVariable getSparseGenerator(){ return sparsenoise; }
+
     /** Set the noise type for the signal */
     public void setNoiseGenerator(RandomVariable noise){
         this.noise = noise;
@@ -129,9 +109,12 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
      * to create the sparse signal
      */
     public void setSeed(long seed){
-        random.setSeed(seed);
+        sparsenoise.setSeed(seed);
     }
     
     /** Randomise the seed for the sparse signal */ 
-    public void randomSeed(){ random = new Random(); }
+    public void randomSeed(){
+        sparsenoise.randomSeed();
+        noise.randomSeed();
+    }
 }

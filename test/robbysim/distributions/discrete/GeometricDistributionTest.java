@@ -5,7 +5,7 @@
 
 package robbysim.distributions.discrete;
 
-import robbysim.distributions.discrete.GeometricDistribution;
+import robbysim.distributions.discrete.GeometricRandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,14 +39,14 @@ public class GeometricDistributionTest {
     }
 
     /**
-     * Test of getNoise method, of class GeometricDistribution.
+     * Test of getNoise method, of class GeometricRandomVariable.
      */
     @Test
     public void testGetNoise() {
         //System.out.println("getNoise");
         double p = 0.8;
         int n = 1000000;
-        GeometricDistribution instance = new GeometricDistribution(p);
+        GeometricRandomVariable instance = new GeometricRandomVariable(p);
         double var = 0;
         for(int i = 0; i < n; i++){
             double s  = instance.getNoise();

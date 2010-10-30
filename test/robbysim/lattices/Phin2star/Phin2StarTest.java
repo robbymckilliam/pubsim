@@ -8,7 +8,6 @@ package robbysim.lattices.Phin2star;
 import robbysim.lattices.Vn2Star.Vn2Star;
 import robbysim.lattices.Vn2Star.Vn2StarSampled;
 import Jama.Matrix;
-import lattices.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

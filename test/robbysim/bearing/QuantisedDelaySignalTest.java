@@ -6,7 +6,7 @@
 package robbysim.bearing;
 
 import robbysim.bearing.QuantisedDelaySignal;
-import robbysim.distributions.discrete.GeometricDistribution;
+import robbysim.distributions.discrete.GeometricRandomVariable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -58,7 +58,7 @@ public class QuantisedDelaySignalTest {
         siggen.setLength(n);
         siggen.setClockPeriod(P);
 
-        siggen.setNoiseGenerator(new GeometricDistribution(p));
+        siggen.setNoiseGenerator(new GeometricRandomVariable(p));
 
         double[] signal = siggen.generateReceivedSignal();
 

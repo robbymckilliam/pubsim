@@ -47,7 +47,7 @@ public class ZnLLSTest extends TestCase {
           
         long seed = 1331;
         noise.setSeed(seed);
-        sig.generateSparseSignal(n, seed);
+        sig.generateSparseSignal(n);
         double[] trans = sig.generateSparseSignal(n);
         double[] y = sig.generateReceivedSignal();
         
@@ -82,7 +82,7 @@ public class ZnLLSTest extends TestCase {
 
         long seed = 1331;
         noise.setSeed(seed);
-        sig.generateSparseSignal(n, seed);
+        sig.generateSparseSignal(n);
         double[] trans = sig.generateSparseSignal(n);
         double[] y = sig.generateReceivedSignal();
 

@@ -16,7 +16,7 @@ import rngpack.Ranlux;
  * P(k) = (1-p)^(k-1)p
  * @author Robby McKilliam
  */
-public class GeometricDistribution implements RandomVariable {
+public class GeometricRandomVariable implements RandomVariable {
     private final double p;
 
     protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
@@ -25,7 +25,7 @@ public class GeometricDistribution implements RandomVariable {
      * Constructor sets the parameter for this geometric distribution.
      * p must be between 0 and 1.
      */
-    public GeometricDistribution(double p){
+    public GeometricRandomVariable(double p){
         if(p <= 0 || p > 1)
             throw new RuntimeException("p must be between 0 and 1.");
         this.p = p;
@@ -39,7 +39,7 @@ public class GeometricDistribution implements RandomVariable {
     }
 
     public double pdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return p*Math.pow(1-p,x-1);
     }
 
     public double icdf(double x) {
@@ -47,11 +47,11 @@ public class GeometricDistribution implements RandomVariable {
     }
 
     public double getMean() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 1.0/p;
     }
 
     public double getVariance() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (1-p)/(p*p);
     }
 
     /** Randomise the seed for the internal Random */
@@ -62,7 +62,7 @@ public class GeometricDistribution implements RandomVariable {
     public void setSeed(long seed) { random = new Ranlux(seed); }
 
     public double cdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 1.0 - Math.pow(1-p,x);
     }
 
 }
