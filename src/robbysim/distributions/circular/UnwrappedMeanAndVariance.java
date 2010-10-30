@@ -29,20 +29,25 @@ public class UnwrappedMeanAndVariance {
         mean = 0;
 
         for(double t = -0.5; t < 0.5; t += 1.0/numsamples){
-            final double ft = t;
-            final int INTEGRAL_STEPS = 1000;
-            double tvar = (new Integration(new IntegralFunction() {
-                public double function(double x) {
-                    double rot = fracpart(x-ft);
-                    return rot*rot*dist.pdf(x);
-                }
-            }, -0.5, 0.5)).trapezium(INTEGRAL_STEPS);
+            double tvar = computeWrappedVarianceAbout(t, dist);
             if( tvar < var ){
                 var = tvar;
-                mean = ft;
+                mean = t;
             }
         }
 
+    }
+
+    /** Compute the wrapped variance after applying a rotaton of phi */
+    public static double computeWrappedVarianceAbout(final double phi, final RandomVariable dist){
+        final int INTEGRAL_STEPS = 1000;
+        double tvar = (new Integration(new IntegralFunction() {
+            public double function(double x) {
+                double rot = fracpart(x-phi);
+                return rot*rot*dist.pdf(x);
+            }
+        }, -0.5, 0.5)).trapezium(INTEGRAL_STEPS);
+        return tvar;
     }
 
     public double getUnwrappedVariance(){
@@ -71,5 +76,6 @@ public class UnwrappedMeanAndVariance {
             System.out.println(ft + "\t" + tvar);
         }
     }
+    
 
 }

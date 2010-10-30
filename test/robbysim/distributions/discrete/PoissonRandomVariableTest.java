@@ -5,7 +5,6 @@
 
 package robbysim.distributions.discrete;
 
-import robbysim.distributions.discrete.GeometricRandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,11 +14,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
-public class GeometricDistributionTest {
+public class PoissonRandomVariableTest {
 
-    public GeometricDistributionTest() {
+    public PoissonRandomVariableTest() {
     }
 
     @BeforeClass
@@ -44,22 +43,22 @@ public class GeometricDistributionTest {
     @Test
     public void testGetNoise() {
         //System.out.println("getNoise");
-        double p = 0.6;
+        double p = 4;
         int n = 1000000;
-        GeometricRandomVariable instance = new GeometricRandomVariable(p);
+        PoissonRandomVariable instance = new PoissonRandomVariable(p);
         double var = 0;
         double mean = 0;
         for(int i = 0; i < n; i++){
             double s  = instance.getNoise();
             //System.out.println(instance.getNoise());
             mean += s;
-            double d = s - 1/p;
+            double d = s - p;
             var += d*d;
         }
-        var /= n;
         mean /= n;
-        assertEquals((1 - p)/(p*p), var, 0.05);
-        assertEquals(1/p, mean, 0.01);
+        var /= n;
+        assertEquals(p, var, 0.01);
+        assertEquals(p, mean, 0.01);
     }
 
 }

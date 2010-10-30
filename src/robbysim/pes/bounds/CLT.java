@@ -6,6 +6,7 @@
 package robbysim.pes.bounds;
 
 import robbysim.distributions.RandomVariable;
+import robbysim.distributions.circular.UnwrappedMeanAndVariance;
 import robbysim.distributions.circular.WrappedCircularRandomVariable;
 
 /**
@@ -32,7 +33,7 @@ public class CLT {
 
         //Is is the wrapped variance or not?  Need to check Barry's
         //CLT a little more closely.
-        double wrappedvar = wrped.unwrappedVariance();
+        double wrappedvar = UnwrappedMeanAndVariance.computeWrappedVarianceAbout(0, wrped);
         //double wrappedvar = noise.getVariance();
 
         //this is the the scale factor contructed from these numbers;
