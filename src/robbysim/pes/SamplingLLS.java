@@ -14,7 +14,7 @@ import robbysim.lattices.LatticeAndNearestPointAlgorithm;
  */
 public class SamplingLLS implements PRIEstimator {
 
-    protected final int NUM_SAMPLES;
+    protected int NUM_SAMPLES;
     protected int N;
 
     protected PhaseEstimator phasestor;
@@ -25,7 +25,7 @@ public class SamplingLLS implements PRIEstimator {
     protected final LatticeAndNearestPointAlgorithm lattice 
             = new AnstarBucketVaughan();
 
-    protected SamplingLLS() { NUM_SAMPLES = 100; }
+    protected SamplingLLS() { }
     
     public SamplingLLS(int N){
         setSize(N);
@@ -35,6 +35,7 @@ public class SamplingLLS implements PRIEstimator {
     public SamplingLLS(int N, int samples){
         setSize(N);
         NUM_SAMPLES = samples;
+        System.out.println("using " + NUM_SAMPLES +  " samples");
     }
 
     double[] zeta, fzeta;
@@ -59,18 +60,14 @@ public class SamplingLLS implements PRIEstimator {
 	    for (int i = 0; i < N; i++) fzeta[i] = f * zeta[i];
 	    lattice.nearestPoint(fzeta);
             double[] v = lattice.getLatticePoint();
-	    double sumv2 = 0, sumvz = 0;
+	    double vtv = 0, vtz = 0, ztz = 0;
 	    for (int i = 0; i < N; i++) {
-		sumv2 += v[i] * v[i];
-		sumvz += v[i] * zeta[i];
+		vtv += v[i] * v[i];
+		vtz += v[i] * zeta[i];
+                ztz += zeta[i] * zeta[i];
 	    }
-	    double f0 = sumv2 / sumvz;
-	    double L = 0;
-	    for (int i = 0; i < N; i++) {
-		double diff = zeta[i] - (v[i] / f0);
-                //double diff = f0*zeta[i] - v[i];
-		L += diff * diff;
-	    }
+	    double f0 = vtv / vtz;
+	    double L = ztz - 2*vtz/f0 + vtv/(f0*f0);
 	    if (L < bestL) {
 		bestL = L;
 		fhat = f0;
