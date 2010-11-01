@@ -21,12 +21,14 @@ public class CLT {
     /**
      * Computes all the bits needed (like the unwrapped variance etc) for
      * the CLT.
-     * @param noise: The noise distribution used
+     * @param noise: A version of the noise distribution that is scaled by 1/T0.
+     *              This is u_n in Barry's writeup.
      * @param discretemean: The mean of the discrete r.v. that des
      *                      described the sparseness of the signal
      * @param T0: The `true' period of the signal
      */
     public CLT(RandomVariable noise, double discretemean, double T0){
+
         dmean = discretemean;
         WrappedCircularRandomVariable wrped = new WrappedCircularRandomVariable(noise);
         double h = wrped.pdf(-0.5);

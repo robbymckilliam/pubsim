@@ -48,7 +48,6 @@ public class PolynomialPhaseSignal implements SignalGenerator{
         return noise;
     }
 
-    @Override
     public void setLength(int n) {
         this.n = n;
         real = new double[n];

@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import robbysim.distributions.discrete.PoissonRandomVariable;
 import static org.junit.Assert.*;
 
 /**
@@ -52,13 +53,14 @@ public class NormalisedSamplingLLSTest {
         double phase = 0.4;
         NormalisedSamplingLLS instance = new NormalisedSamplingLLS(n, 2*n);
 
-        double noisestd = 0.01;
+        double noisestd = 0.001;
         GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,noisestd*noisestd);
 
-        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
+        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n);
         sig.setPeriod(T);
         sig.setPhase(phase);
         sig.setNoiseGenerator(noise);
+        sig.setSparseGenerator(new PoissonRandomVariable(2));
         sig.generateSparseSignal(n);
         double[] trans = sig.generateSparseSignal(n);
         double[] y = sig.generateReceivedSignal();

@@ -7,13 +7,9 @@
 
 package robbysim.pes;
 
-import robbysim.pes.SparseNoisyPeriodicSignal;
-import robbysim.pes.NormalisedSamplingLLS;
-import robbysim.pes.ZnLLS;
 import robbysim.distributions.GaussianNoise;
-import robbysim.distributions.UniformNoise;
 import junit.framework.*;
-import java.util.TreeMap;
+import robbysim.distributions.discrete.PoissonRandomVariable;
 
 /**
  *
@@ -41,9 +37,10 @@ public class ZnLLSTest extends TestCase {
         double noisestd = 0.0001;
         GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,noisestd*noisestd);
         
-        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
+        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n);
         sig.setPeriod(T);
         sig.setNoiseGenerator(noise);
+        sig.setSparseGenerator(new PoissonRandomVariable(2));
           
         long seed = 1331;
         noise.setSeed(seed);
@@ -75,10 +72,11 @@ public class ZnLLSTest extends TestCase {
         double noisestd = 0.00001;
         GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,noisestd*noisestd);
 
-        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
+        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n);
         sig.setPeriod(T);
         sig.setPhase(phase);
         sig.setNoiseGenerator(noise);
+        sig.setSparseGenerator(new PoissonRandomVariable(2));
 
         long seed = 1331;
         noise.setSeed(seed);

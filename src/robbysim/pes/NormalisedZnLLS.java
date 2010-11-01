@@ -40,7 +40,8 @@ public class NormalisedZnLLS extends ZnLLS implements PRIEstimator {
                 vtv += v[j]*v[j];
             }
 
-            double f = vtv/ztv;
+            //double f = vtv/ztv;
+            double f = ztv / ztz;
             //line search loop
             while(f < fmax){
 
@@ -62,8 +63,8 @@ public class NormalisedZnLLS extends ZnLLS implements PRIEstimator {
                 vtv += 2*d*(v[k]-d) + 1;
 
                 //update f
-                f = vtv/ztv;
-
+                //f = vtv/ztv;
+                f = ztv / ztz;
             }
         }
         That = 1.0/bestf;

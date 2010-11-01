@@ -1,5 +1,6 @@
 package robbysim.pes;
 
+import robbysim.VectorFunctions;
 import robbysim.lattices.Anstar.Anstar;
 import robbysim.lattices.Anstar.AnstarVaughan;
 import robbysim.lattices.Anstar.AnstarBucket;
@@ -53,6 +54,7 @@ public class SamplingLLS implements PRIEstimator {
         //first compute the period estimate
         double fmin = 1/Tmax; double fmax = 1/Tmin;
 	AnstarVaughan.project(y, zeta);
+        double ztz = VectorFunctions.sum2(zeta);
 	double bestL = Double.POSITIVE_INFINITY;
 	double fhat = fmin;
 	double fstep = (fmax - fmin) / NUM_SAMPLES;
@@ -60,11 +62,10 @@ public class SamplingLLS implements PRIEstimator {
 	    for (int i = 0; i < N; i++) fzeta[i] = f * zeta[i];
 	    lattice.nearestPoint(fzeta);
             double[] v = lattice.getLatticePoint();
-	    double vtv = 0, vtz = 0, ztz = 0;
+	    double vtv = 0, vtz = 0;
 	    for (int i = 0; i < N; i++) {
 		vtv += v[i] * v[i];
-		vtz += v[i] * zeta[i];
-                ztz += zeta[i] * zeta[i];
+		vtz += v[i] * zeta[i];                
 	    }
 	    double f0 = vtv / vtz;
 	    double L = ztz - 2*vtz/f0 + vtv/(f0*f0);

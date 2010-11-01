@@ -7,9 +7,9 @@
 
 package robbysim.pes;
 
-import robbysim.pes.SparseNoisyPeriodicSignal;
 import junit.framework.*;
 import robbysim.*;
+import robbysim.distributions.discrete.PoissonRandomVariable;
 
 /**
  *
@@ -27,7 +27,8 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
     public void testGenerateTransmittedSignal() {
         System.out.println("generateReceivedSignal");
         
-        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal();
+        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(20);
+        instance.setSparseGenerator(new PoissonRandomVariable(2));
         
         double[] sig = instance.generateSparseSignal(20);
         boolean result = false;
@@ -47,8 +48,9 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         
         int length = 20;
         double T = 2.0;
-        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal();
-        
+        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(length);
+        instance.setSparseGenerator(new PoissonRandomVariable(2));
+
         robbysim.distributions.RandomVariable noise = new robbysim.distributions.UniformNoise(0.0, 1.0/3.0);
         instance.setNoiseGenerator(noise);   
         double[] rec_sig = instance.generateSparseSignal(length);

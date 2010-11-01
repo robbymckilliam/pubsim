@@ -18,9 +18,6 @@ public interface SignalGenerator extends Serializable {
     public void setNoiseGenerator(RandomVariable noise);
     public RandomVariable getNoiseGenerator();
     
-    /** Set the length of the signal generated */
-    public void setLength(int n);
-    
     /** Return the length of the signal generated */
     public int getLength();
 
@@ -32,9 +29,6 @@ public interface SignalGenerator extends Serializable {
 
         public void setNoiseGenerator(RandomVariable noise);
         public RandomVariable getNoiseGenerator();
-
-        /** Set the length of the signal generated */
-        public void setLength(int n);
 
         /** Return the length of the signal generated */
         public int getLength();

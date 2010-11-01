@@ -103,7 +103,6 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     /** Return the noisy imaginary component of the signal */
     public double[] getImag() { return imag; }
 
-    @Override
     public void setLength(int n) {
         setSize(n);
     }
