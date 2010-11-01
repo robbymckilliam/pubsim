@@ -1,0 +1,10 @@
+The run simulations for the sparse noisy period estimation problem. See:
+
+I. V. L. Clarkson. Approximate maximum-likelihood period estimation from sparse, noisy
+timing data. IEEE Trans. Sig. Process., 56(5):1779{1787, May 2008.
+
+R. G. McKilliam and I. V. L. Clarkson. Maximum-likelihood period estimation from sparse,
+noisy timing data. Proc. Internat. Conf. Acoust. Spe. Sig. Process., pages 3697{3700, Mar.
+2008.
+
+The file sim.scala acutally runs the simulations. The file clts.scala computes the central limit theorems for this estimator.
