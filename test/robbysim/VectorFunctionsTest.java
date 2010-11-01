@@ -10,7 +10,6 @@ package robbysim;
 import robbysim.Complex;
 import Jama.Matrix;
 import junit.framework.*;
-import javax.vecmath.GVector;
 import java.util.Random;
 import static robbysim.VectorFunctions.*;
 import static org.junit.Assert.*;
@@ -495,32 +494,7 @@ public class VectorFunctionsTest extends TestCase {
         assertEquals(true, 
                 VectorFunctions.distance_between(expResult,y)<0.00001);
     }
-    
-    /**
-     * This tests some of the Gvectorfunctions.
-     */
-    public void testGVector() {
-        System.out.println("testGVector");
-        
-        Random rand = new Random();
-        
-        double[] x = new double[1000];
-        double[] y = new double[1000];
-        
-        for (int i = 0; i < x.length; i++){
-            x[i] = rand.nextGaussian();
-            y[i] = rand.nextGaussian();
-        }
-        
-        GVector gx = new GVector(x);
-	GVector gy = new GVector(y);
-        
-        assertEquals(VectorFunctions.sum2(x), gx.normSquared());
-        assertEquals(VectorFunctions.sum2(y), gy.normSquared());
-        assertEquals(VectorFunctions.dot(x,y), gx.dot(gy));
-        
-    }
-    
+
     /**
      * Test of min method, of class simulator.VectorFunctions.
      */
