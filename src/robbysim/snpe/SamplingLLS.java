@@ -1,4 +1,4 @@
-package robbysim.pes;
+package robbysim.snpe;
 
 import robbysim.VectorFunctions;
 import robbysim.lattices.Anstar.Anstar;

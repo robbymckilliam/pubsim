@@ -4,7 +4,7 @@
  * Created on 8 July 2007, 08:55
  */
 
-package robbysim.pes;
+package robbysim.snpe;
 
 import java.util.TreeMap;
 import robbysim.lattices.Anstar.AnstarBucketVaughan;

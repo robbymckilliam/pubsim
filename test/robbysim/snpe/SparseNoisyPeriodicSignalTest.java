@@ -5,8 +5,9 @@
  * Created on 7 May 2007, 12:35
  */
 
-package robbysim.pes;
+package robbysim.snpe;
 
+import robbysim.snpe.SparseNoisyPeriodicSignal;
 import junit.framework.*;
 import robbysim.*;
 import robbysim.distributions.discrete.PoissonRandomVariable;

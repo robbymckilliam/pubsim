@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.pes.bounds;
+package robbysim.snpe.bounds;
 
 /**
  *

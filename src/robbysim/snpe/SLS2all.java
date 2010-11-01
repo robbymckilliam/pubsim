@@ -1,4 +1,4 @@
-package robbysim.pes;
+package robbysim.snpe;
 
 /**
  * Implementation of Sidiropoulos et al.'s SLS2-ALL algorithm for PRI

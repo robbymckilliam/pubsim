@@ -1,4 +1,4 @@
-package robbysim.pes;
+package robbysim.snpe;
 
 import robbysim.lattices.Anstar.AnstarBucketVaughan;
 import robbysim.lattices.LatticeAndNearestPointAlgorithm;

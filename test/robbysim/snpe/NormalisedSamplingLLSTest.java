@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package robbysim.pes;
+package robbysim.snpe;
 
+import robbysim.snpe.NormalisedSamplingLLS;
+import robbysim.snpe.SparseNoisyPeriodicSignal;
 import robbysim.distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;

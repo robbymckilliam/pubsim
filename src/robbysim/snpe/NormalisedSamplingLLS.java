@@ -4,7 +4,7 @@
  * Created on 16 July 2007, 21:57
  */
 
-package robbysim.pes;
+package robbysim.snpe;
 
 import robbysim.VectorFunctions;
 import robbysim.lattices.Anstar.AnstarVaughan;

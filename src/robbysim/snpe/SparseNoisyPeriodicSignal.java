@@ -4,7 +4,7 @@
  * Created on 13 April 2007, 14:55
  */
 
-package robbysim.pes;
+package robbysim.snpe;
 
 import robbysim.distributions.RandomVariable;
 import java.util.Random;

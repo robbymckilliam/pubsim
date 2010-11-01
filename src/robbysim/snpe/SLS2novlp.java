@@ -1,4 +1,4 @@
-package robbysim.pes;
+package robbysim.snpe;
 
 
 /**

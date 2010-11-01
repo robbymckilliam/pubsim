@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.pes;
+package robbysim.snpe;
 
 import static robbysim.Util.fracpart;
 

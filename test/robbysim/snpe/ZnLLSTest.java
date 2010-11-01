@@ -5,8 +5,10 @@
  * Created on 9 July 2007, 12:24
  */
 
-package robbysim.pes;
+package robbysim.snpe;
 
+import robbysim.snpe.ZnLLS;
+import robbysim.snpe.SparseNoisyPeriodicSignal;
 import robbysim.distributions.GaussianNoise;
 import junit.framework.*;
 import robbysim.distributions.discrete.PoissonRandomVariable;
