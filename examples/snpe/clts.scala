@@ -1,7 +1,7 @@
 /**
 * Generate the central limit theorem curves for the sparse noisy period estimation problem.
 */
-import robbysim.pes.bounds.CLT
+import robbysim.snpe.bounds.CLT
 import robbysim.distributions.GaussianNoise
 
 val N = 32 //set the number of observations
