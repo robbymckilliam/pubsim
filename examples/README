@@ -1,5 +1,9 @@
-Most of these example scripts are written in Scala. Currently version 2.8 is used, but this might change.  To run them you need to ensure that all of the .jar's from the lib folder are specified on the JVM's classpath.  The best way is the make an enviroment variable, say ROBBYSIMLIB, linking to all the the .jar's. Then 
+Most of these example scripts are written in Scala. Currently version 2.8 is used, but this might change.  To run them you need to ensure that all of the .jar's from the lib folder are specified on the JVM's classpath.  The best way is the make an enviroment variable, say RSIMLIB, linking to all the the .jar's. For example, in unix do
 
-scala -classpath $ROBBYSIMLIB scriptname.scala
+export RSIMLIB=$RSIMDIR/lib/RobbySim.jar:$RSIMDIR/lib/colt.jar:$RSIMDIR/lib/flanagan.jar:$RSIMDIR/lib/RngPack.jar:$RSIMDIR/lib/Jama-1.0.2.jar
+
+where $RSIMDIR is the directory pointing the the robbysim files. Then the command
+
+scala -classpath $RSIMLIB scriptname.scala
 
 will run the script.
