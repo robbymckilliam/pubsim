@@ -87,7 +87,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
           return recievedSignal;
     }
 
-    /** Set the noise type for the signal */
+    /** Set the discrete noise type for sparse signal */
     public void setSparseGenerator(RandomVariable sparsenoise){
         this.sparsenoise = sparsenoise;
     }
