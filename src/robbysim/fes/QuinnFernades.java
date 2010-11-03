@@ -14,50 +14,56 @@ import flanagan.math.FourierTransform;
  *
  * @author Robby McKilliam
  */
-public class QuinnFernades extends PeriodogramFFTEstimator
-        implements FrequencyEstimator{
+public class QuinnFernades implements FrequencyEstimator{
 
-    //eta term in Barry's paper.  This is related to the ARMA(1,1) model.
+    protected final int oversampled,  N;
+    protected final FourierTransform fft;
+    protected final Complex[] sig;
+
+    /**eta term in Barry's paper.  This is related to the ARMA(1,1) model.*/
     protected Complex[] eta;
+
+    /**Max number of iterations for the Newton step */
+    protected static final int MAX_ITER = 15;
+
+    /**Step variable for the Newton step */
+    protected static final double EPSILON = 1e-10;
 
     /**
      * By default, oversample = 1. Quinn Fernandes does not need
      * zero padding.
      */
-    public QuinnFernades(){
+    public QuinnFernades(int N){
         oversampled = 1;
-    }
-
-    /** Contructor that sets the number of samples to be taken of
-     * the periodogram.
-     */
-    public QuinnFernades(int oversampled) {
-        this.oversampled = oversampled;
-    }
-
-    @Override
-    public void setSize(int n) {
-        this.n = n;
-        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];
+        this.N = N;
+        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * N)];
         fft = new FourierTransform();
-        eta = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n) + 1];
+        eta = new Complex[FourierTransform.nextPowerOfTwo(oversampled * N) + 1];
+    }
+
+    /**
+     * Contructor that sets the number of samples to be taken of
+     * the periodogram. You don't really need to oversample though.
+     */
+    public QuinnFernades(int N, int oversampled) {
+        this.oversampled = oversampled;
+        this.N = N;
+        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * N)];
+        fft = new FourierTransform();
+        eta = new Complex[FourierTransform.nextPowerOfTwo(oversampled * N) + 1];
     }
 
     @Override
     public double estimateFreq(double[] real, double[] imag) {
-        if (n != real.length) {
-            setSize(real.length);
-        }
-
         //construct zero padded complex signal
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < N; i++) {
             sig[i] = new Complex(real[i], imag[i]);
         }
-        for (int i = n; i < sig.length; i++) {
+        for (int i = N; i < sig.length; i++) {
             sig[i] = new Complex(0.0, 0.0);
         }
 
-        for (int i = n; i < sig.length; i++) {
+        for (int i = N; i < sig.length; i++) {
             eta[i] = new Complex(0.0, 0.0);
         }
 

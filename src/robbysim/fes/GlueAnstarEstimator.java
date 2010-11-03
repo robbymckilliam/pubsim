@@ -10,15 +10,16 @@ import robbysim.lattices.Vn2Star.Vn2StarGlued;
 
 /**
  * Frequency estimator that uses Pn1 glue vector algorithm to solve the nearest
- * point problem for the frequency estimation lattice Pn1.  O(n^4log(n)).
+ * point problem for the frequency estimation lattice Pn1.  O(N^4log(N)).
  * @author Robby McKilliam
  */
 public class GlueAnstarEstimator 
         extends LatticeEstimator
         implements FrequencyEstimator {
     
-   public GlueAnstarEstimator(){
-        lattice = new Vn2StarGlued();
+   public GlueAnstarEstimator(int N){
+       super(N);
+       lattice = new Vn2StarGlued(N-2);
     }
     
 }

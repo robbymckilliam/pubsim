@@ -29,11 +29,10 @@ public class GlueAnstarEstimatorTest extends TestCase {
         
         int iters = 100;
         double f = 0.2;
-        int n = 21;
-        GlueAnstarEstimator instance = new GlueAnstarEstimator();
+        int N = 21;
+        GlueAnstarEstimator instance = new GlueAnstarEstimator(N);
         
-        NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
-        signal.setSize(n);
+        NoisyComplexSinusoid signal = new NoisyComplexSinusoid(N);
         signal.setFrequency(f);
         signal.setPhase(0.3);
         robbysim.distributions.GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,0.001);

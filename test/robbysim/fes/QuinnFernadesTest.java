@@ -48,11 +48,10 @@ public class QuinnFernadesTest {
 
         int iters = 10;
         double f = 0.1;
-        QuinnFernades instance = new QuinnFernades();
+        QuinnFernades instance = new QuinnFernades(64);
 
-        NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
+        NoisyComplexSinusoid signal = new NoisyComplexSinusoid(64);
         signal.setFrequency(f);
-        signal.setLength(64);
         robbysim.distributions.GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,0.0001);
         signal.setNoiseGenerator(noise);
 

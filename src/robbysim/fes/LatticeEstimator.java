@@ -15,32 +15,21 @@ import robbysim.lattices.Vn2Star.Vn2Star;
  */
 public abstract class LatticeEstimator implements FrequencyEstimator{
 
-    protected int n;
+    protected final int N;
     protected Vn2Star lattice;
-    protected double[] y;
+    protected final double[] y;
     //protected Matrix K;
 
-    @Override
-    public void setSize(int n) {
-        this.n = n;
-        lattice.setDimension(n - 2);
+    protected LatticeEstimator() { throw new UnsupportedOperationException(); }
 
-        y = new double[n];
-        //p = new double[a];
-
-        //Matrix M = lattice.getMMatrix();
-        //Matrix Mt = M.transpose();
-        //K = Mt.times(M).inverse().times(Mt);
-
+    public LatticeEstimator(int N){
+        this.N = N;
+        y = new double[N];
     }
-
 
         /** Run the estimator on recieved data, @param y */
     @Override
     public double estimateFreq(double[] real, double[] imag){
-        if(n+2 != real.length)
-            setSize(real.length);
-
         for(int i = 0; i < real.length; i++)
             y[i] = Math.atan2(imag[i],real[i])/(2*Math.PI);
 
@@ -48,11 +37,11 @@ public abstract class LatticeEstimator implements FrequencyEstimator{
 
         //calculate f from the nearest point
         double f = 0;
-        double N = n;
+        double N = this.N;
         double sumn = N*(N+1)/2;
         double sumn2 = N*(N+1)*(2*N+1)/6;
         double[] u = lattice.getIndex();
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < this.N; i++)
             f += (N*(i+1) - sumn)*(y[i]-u[i]);
 
         f /= (sumn2*N - sumn*sumn);

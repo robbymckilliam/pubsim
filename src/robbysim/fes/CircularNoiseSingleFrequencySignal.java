@@ -16,7 +16,7 @@ public class CircularNoiseSingleFrequencySignal extends NoisyComplexSinusoid{
 
     @Override
     public double[] generateReceivedSignal() {
-        for(int t = 0; t < n; t++){
+        for(int t = 0; t < N; t++){
             double phi = t*f + p;
             double pnoise = noise.getNoise();
             real[t] = Math.cos(2*Math.PI*(phi + pnoise));

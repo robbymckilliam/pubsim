@@ -26,11 +26,10 @@ public class SamplingLatticeEstimatorTest extends TestCase {
         
         int iters = 100;
         double f = 0.2;
-        int n = 5;
-        SamplingLatticeEstimator instance = new SamplingLatticeEstimator(100);
+        int N = 5;
+        SamplingLatticeEstimator instance = new SamplingLatticeEstimator(N,100);
         
-        NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
-        signal.setSize(n);
+        NoisyComplexSinusoid signal = new NoisyComplexSinusoid(N);
         signal.setFrequency(f);
         robbysim.distributions.GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,0.0001);
         signal.setNoiseGenerator(noise);

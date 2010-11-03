@@ -12,25 +12,21 @@ package robbysim.fes;
  */
 public class KaysEstimator implements FrequencyEstimator{
     
-    int n;
-    
-    /** Set the number of samples */
-    public void setSize(int n){
-        this.n = n;
+    protected final int N;
+
+    public KaysEstimator(int N){
+        this.N = N;
     }
     
     /** Run the estimator on recieved data, @param y */
-    public double estimateFreq(double[] real, double[] imag){
-        if(n != real.length)
-            setSize(real.length);
-        
+    public double estimateFreq(double[] real, double[] imag){  
         double ks = 0.0;
-        for(int i=0; i<=n-2; i++){
+        for(int i=0; i<=N-2; i++){
             double re = real[i]*real[i+1] + imag[i]*imag[i+1];
             double im = real[i]*imag[i+1] - real[i+1]*imag[i];
-            ks += (i + 1)*(n - 1 - i)*Math.atan2(im,re);
+            ks += (i + 1)*(N - 1 - i)*Math.atan2(im,re);
         }
-        return ks*6.0/(2*Math.PI*n*(n*n - 1));
+        return ks*6.0/(2*Math.PI*N*(N*N - 1));
     }
     
 }

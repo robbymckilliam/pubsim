@@ -48,11 +48,10 @@ public class KaysEstimatorTest {
 
         int iters = 1;
         double f = 0.2;
-        int n = 20;
-        KaysEstimator instance = new KaysEstimator();
+        int N = 20;
+        KaysEstimator instance = new KaysEstimator(N);
 
-        NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
-        signal.setSize(n);
+        NoisyComplexSinusoid signal = new NoisyComplexSinusoid(N);
         signal.setFrequency(f);
         signal.setPhase(0.3);
         robbysim.distributions.GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,0.00001);

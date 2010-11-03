@@ -17,13 +17,14 @@ import robbysim.lattices.Vn2Star.Vn2StarSampled;
 public class SamplingLatticeEstimator extends LatticeEstimator
         implements FrequencyEstimator {
 
-    /** Don't use this */
-    protected SamplingLatticeEstimator(){
-    }
-    
-    public SamplingLatticeEstimator(int numsamples){
-        lattice = new Vn2StarSampled(0, numsamples);
-        //lattice = new Vn2StarRelVecApprox();
+    /**
+     * @param N number of observations
+     * @param numsamples number of samples used in the discrete search along
+     * the frequency parameter.
+     */
+    public SamplingLatticeEstimator(int N, int numsamples){
+        super(N);
+        lattice = new Vn2StarSampled(N-2, numsamples);
     }
    
 }

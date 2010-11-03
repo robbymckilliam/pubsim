@@ -26,7 +26,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     protected int N;
 
     protected AmbiguityRemover ambiguityRemover;
-    protected PeriodogramFFTEstimator freqest = new PeriodogramFFTEstimator();
+    protected PeriodogramFFTEstimator freqest;
 
     int samples[];
     double[] realp, imagp;
@@ -60,7 +60,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         realp = new double[N];
         imagp = new double[N];
         z = new Complex[N];
-        freqest.setSize(N);
+        freqest = new PeriodogramFFTEstimator(N);
         for(int i = 0; i < samples.length; i++)
             samples[i] = (int)Math.round(4*Math.pow( N, i+2 ));
     }

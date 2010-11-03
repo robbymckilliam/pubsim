@@ -13,8 +13,9 @@ import robbysim.lattices.Vn2Star.Vn2StarZnLLS;
  */
 public class ZnLLS extends LatticeEstimator implements FrequencyEstimator{
 
-    public ZnLLS(){
-        lattice = new Vn2StarZnLLS();
+    public ZnLLS(int N){
+        super(N);
+        lattice = new Vn2StarZnLLS(N-2);
     }
 
 }

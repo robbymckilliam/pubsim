@@ -9,6 +9,7 @@ import Jama.Matrix;
 import robbysim.optimisation.NewtonRaphson;
 import robbysim.Complex;
 import robbysim.VectorFunctions;
+import robbysim.fes.PeriodogramFFTEstimator;
 import robbysim.poly.AmbiguityRemover;
 
 /**
@@ -32,7 +33,7 @@ public class MaximumLikelihood extends robbysim.poly.MaximumLikelihood {
         realp = new double[N];
         imagp = new double[N];
         z = new Complex[N];
-        freqest.setSize(N);
+        freqest = new PeriodogramFFTEstimator(N);
     }
     
     @Override

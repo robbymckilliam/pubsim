@@ -29,11 +29,10 @@ public class PeriodogramEstimatorTest extends TestCase {
         
         int iters = 100;
         double f = 0.1;
-        PeriodogramEstimator instance = new PeriodogramEstimator();
+        PeriodogramEstimator instance = new PeriodogramEstimator(64);
         
-        NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
+        NoisyComplexSinusoid signal = new NoisyComplexSinusoid(64);
         signal.setFrequency(f);
-        signal.setLength(64);
         robbysim.distributions.GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,0.001);
         signal.setNoiseGenerator(noise);
         

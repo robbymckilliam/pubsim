@@ -17,9 +17,9 @@ import flanagan.math.FourierTransform;
  */
 public class PeriodogramFFTEstimator implements FrequencyEstimator {
 
-    protected int oversampled,  n;
-    protected FourierTransform fft;
-    protected Complex[] sig;
+    protected final int oversampled,  N;
+    protected final FourierTransform fft;
+    protected final Complex[] sig;
 
     /**Max number of iterations for the Newton step */
     protected static final int MAX_ITER = 15;
@@ -28,32 +28,28 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
     protected static final double EPSILON = 1e-10;
 
     /** oversampling defaults to 4 as per Rife and Borstyn */
-    public PeriodogramFFTEstimator() {
+    public PeriodogramFFTEstimator(int N) {
         oversampled = 4;
+        this.N = N;
+        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * N)];
+        fft = new FourierTransform();
     }
 
     /** Contructor that sets the number of samples to be taken of
      * the periodogram.
      */
-    public PeriodogramFFTEstimator(int oversampled) {
+    public PeriodogramFFTEstimator(int N, int oversampled) {
         this.oversampled = oversampled;
-    }
-
-    public void setSize(int n) {
-        this.n = n;
-        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];
+        this.N = N;
+        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * N)];
         fft = new FourierTransform();
     }
-
+    
     public double estimateFreq(double[] real, double[] imag) {
-        if (n != real.length) {
-            setSize(real.length);
-        }
-
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < N; i++) {
             sig[i] = new Complex(real[i], imag[i]);
         }
-        for (int i = n; i < sig.length; i++) {
+        for (int i = N; i < sig.length; i++) {
             sig[i] = new Complex(0.0, 0.0);
         }
 
@@ -86,7 +82,7 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
             double p = 0, pd = 0, pdd = 0;
             double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
                     sumwr = 0, sumwi = 0;
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < N; i++) {
                 double cosf = Math.cos(-2 * Math.PI * f * i);
                 double sinf = Math.sin(-2 * Math.PI * f * i);
                 double ur = real[i] * cosf - imag[i] * sinf;

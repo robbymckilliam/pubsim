@@ -22,17 +22,16 @@ public class RunComputationalTrials {
 
     public static void main(String[] args) throws Exception  {
 
-        int n = 1024;
+        int N = 1024;
         double pha = 0.1;
         double f = 0.1;
         int seed = 26;
         int iterations = 1;
 
-        String nameetx = Integer.toString(n);
+        String nameetx = Integer.toString(N);
 
-        NoisyComplexSinusoid signal_gen = new NoisyComplexSinusoid();
+        NoisyComplexSinusoid signal_gen = new NoisyComplexSinusoid(N);
         signal_gen.setFrequency(f);
-        signal_gen.setSize(n);
         signal_gen.setPhase(pha);
 
         double from_log_snr = 20.0;
@@ -49,7 +48,7 @@ public class RunComputationalTrials {
         Vector<FrequencyEstimator> estimators = new Vector<FrequencyEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new ZnLLS());
+        estimators.add(new ZnLLS(N));
         //estimators.add(new PeriodogramFFTEstimator(4));
         //estimators.add(new SamplingLatticeEstimator(12*n));
         //estimators.add(new KaysEstimator());

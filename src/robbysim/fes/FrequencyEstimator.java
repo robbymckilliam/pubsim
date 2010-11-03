@@ -13,9 +13,6 @@ package robbysim.fes;
  */
 public interface FrequencyEstimator {
     
-    /** Set the number of samples */
-    public void setSize(int n);
-    
     /** 
      * Run the estimator on recieved real and imaginary signal.
      * The estimator returns a frequency value in the range

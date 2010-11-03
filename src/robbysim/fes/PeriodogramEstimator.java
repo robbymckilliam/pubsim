@@ -7,13 +7,14 @@
 package robbysim.fes;
 
 /**
- * Periodogram Estimator for frequency.
+ * Periodogram Estimator for frequency. This uses a slow O(N^2) Fourier
+ * transform.  Use PeriodogramFFTEstimator if you want the fast one.
  * @author Robby McKilliam
  */
 public class PeriodogramEstimator implements FrequencyEstimator{
     
-    int n;
-    int num_samples;
+    protected final int N;
+    protected final int num_samples;
     
     /**Max number of iterations for the Newton step */
     static final int MAX_ITER = 15;
@@ -21,20 +22,17 @@ public class PeriodogramEstimator implements FrequencyEstimator{
     /**Step variable for the Newton step */
     static final double EPSILON = 1e-10;
     
-    public PeriodogramEstimator(){
+    public PeriodogramEstimator(int N){
         num_samples = 100;
+        this.N = N;
     }
     
     /** Contructor that sets the number of samples to be taken of
      * the periodogram.
      */
-    public PeriodogramEstimator(int samples){
+    public PeriodogramEstimator(int N, int samples){
         num_samples = samples;
-    }
-    
-    /** Set the number of samples */
-    public void setSize(int n){
-        this.n = n;
+        this.N = N;
     }
     
     public static double calculatePeriodogram(double[] real, double[] imag, double f) {
@@ -50,11 +48,8 @@ public class PeriodogramEstimator implements FrequencyEstimator{
     
     /** Run the periodogram estimator on recieved data, @param y */
     public double estimateFreq(double[] real, double[] imag){
-        if (n != real.length)
-            setSize(real.length);
 
 	// Coarse search
-
 	double maxp = 0;
 	double fhat= 0.0;
         double fstep = 1.0/num_samples;
@@ -74,7 +69,7 @@ public class PeriodogramEstimator implements FrequencyEstimator{
             double p = 0, pd = 0, pdd = 0;
 	    double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
 	    sumwr = 0, sumwi = 0;
-	    for (int i = 0; i < n; i++) {
+	    for (int i = 0; i < N; i++) {
                 double cosf =  Math.cos(-2 * Math.PI * f * i);
                 double sinf =  Math.sin(-2 * Math.PI * f * i);
 		double ur = real[i]*cosf - imag[i]*sinf;

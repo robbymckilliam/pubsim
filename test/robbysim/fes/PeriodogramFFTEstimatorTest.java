@@ -49,11 +49,10 @@ public class PeriodogramFFTEstimatorTest {
 
         int iters = 100;
         double f = 0.1;
-        PeriodogramFFTEstimator instance = new PeriodogramFFTEstimator();
+        PeriodogramFFTEstimator instance = new PeriodogramFFTEstimator(64);
 
-        NoisyComplexSinusoid signal = new NoisyComplexSinusoid();
+        NoisyComplexSinusoid signal = new NoisyComplexSinusoid(64);
         signal.setFrequency(f);
-        signal.setLength(64);
         robbysim.distributions.GaussianNoise noise = new robbysim.distributions.GaussianNoise(0.0,0.0001);
         signal.setNoiseGenerator(noise);
 
