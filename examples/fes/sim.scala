@@ -32,14 +32,14 @@ val siggen =  new CircularNoiseSingleFrequencySignal(N) //noisy single frequency
 //val siggen =  new NoisyComplexSinusoid(N) //noisy single frequency signal generate with complex noise
 
 //set the estimator you want to use
-val est = new SamplingLatticeEstimator(N, 10*N)
+//val est = new SamplingLatticeEstimator(N, 10*N)
 //val est = new ZnLLS(N)
-//val est = new PeriodogramFFTEstimator(N),
-//val est = new PSCFDEstimator(N,) 
+val est = new PeriodogramFFTEstimator(N)
+//val est = new PSCFDEstimator(N) 
 //val est = new KaysEstimator(N)
 //val est = new QuinnFernades(N)
 
-println("var \t mse(period) \t mse(phase)")
+println("var \t mse")
 val starttime = (new java.util.Date).getTime
 for(noise <- noises ){
   siggen.setNoiseGenerator(noise)

@@ -1,0 +1,5 @@
+The run simulations for single frequncy estimation. There are numerous estimators in the library. See Chapter 9 of
+
+R. G. McKilliam. Lattice theory, circular statistics and polynomial phase signals. PhD thesis, University of Queensland, Australia, October 2010.
+
+The file sim.scala acutally runs the simulations. The file clts.scala computes the central limit theorems for this estimator.
