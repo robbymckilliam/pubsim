@@ -14,6 +14,10 @@ import robbysim.distributions.circular.CircularRandomVariable;
  */
 public class CircularNoiseSingleFrequencySignal extends NoisyComplexSinusoid{
 
+    public CircularNoiseSingleFrequencySignal(int N){
+        super(N);
+    }
+
     @Override
     public double[] generateReceivedSignal() {
         for(int t = 0; t < N; t++){
