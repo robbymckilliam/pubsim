@@ -18,7 +18,7 @@ import robbysim.VectorFunctions;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class SloanesReductionTest {
 
@@ -98,6 +98,36 @@ public class SloanesReductionTest {
         double[] v = new SloanesReduction(M,1).getProjectionVector();
         System.out.println(VectorFunctions.print(v));
 
+    }
+
+    /**
+     * Doesn't actually output a histogram yet, just mean and
+     * variance, there is no reason you can't do this though.
+     */
+    @Test
+    public void histogramRandomLattice() {
+        System.out.println("histogram on random on lattice");
+        int n = 8, iters = 10000;
+        
+        double mean = 0, var = 0;
+        for(int i = 0; i < iters; i++){
+            Matrix B = VectorFunctions.randomMatrix(n, n, new GaussianNoise(0, 1.0));
+            Matrix L = new LLL().reduce(B); //LLL seems to make B smaller.
+            L = SloanesReduction.upperTriangularBasis(L);
+            //Matrix L = SloanesReduction.upperTriangularBasis(B);
+            //System.out.println(VectorFunctions.print(Lw));
+            double[] v = new SloanesReduction(L,2).getProjectionVector();
+            double lv = Math.abs(v[n-1]);
+            //grab the element of v with maximum magnitude, damn scala would be nicer here!
+            for(int k = 0; k < n; k++) {
+                double vabs = Math.abs(v[k]);
+                if(lv < vabs) lv = vabs;
+            }
+            mean += lv; var += lv*lv;
+        }
+        mean /= iters;
+        //var = (var - 2*mean* + iters*mean*mean)/(iters - 1);
+        System.out.println("mean = " + mean);
     }
 
 

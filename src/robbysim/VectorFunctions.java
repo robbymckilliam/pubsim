@@ -74,8 +74,6 @@ public final class VectorFunctions {
         }
     }
 
-
-
     /**
      * Return the magnitude squared of the Fourier
      * tranform of @param x.
@@ -257,17 +255,6 @@ public final class VectorFunctions {
         }
         return new Complex(outr, outi);
     }
-
-    /**
-     * Convert two double[] into Complex[] y
-     * Requires memory to be previously allocated.
-     */
-    public static void toComplexArray(double[] rreal, double[] rimag, Complex[] y) {
-        for(int n = 0; n < y.length; n++){
-            y[n] = new Complex(rreal[n], rimag[n]);
-        }
-    }
-
 
     /**
      * Return the vector with each element rounded to
@@ -581,6 +568,22 @@ public final class VectorFunctions {
         }
         return st;
     }
+
+    /**
+     * Return a string for the matrix of objects. Just call's toString.
+     */
+    public static String print(Object[][] M) {
+        if(M == null) return "null";
+        String st = new String();
+        for (int m = 0; m < M.length; m++) {
+            for (int n = 0; n < M[0].length; n++) {
+                st = st.concat("\t" + M[m][n].toString());
+            }
+            st = st.concat("\n");
+        }
+        return st;
+    }
+
 
     /**
      * Return a string for the vector

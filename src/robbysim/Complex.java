@@ -16,8 +16,8 @@ import java.io.Serializable;
  */
 public class Complex extends Object implements Serializable, Field<Complex>, Comparable<Complex>{
     
-    protected double re;   // the real part
-    protected double im;   // the imaginary part
+    protected final double re;   // the real part
+    protected final double im;   // the imaginary part
 
     /** create a new object with the given real and imaginary parts */
     public Complex(double real, double imag) {
@@ -35,6 +35,13 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     public Complex() {
         re = 0;
         im = 0;
+    }
+
+    /**
+     * Construct a complex number with magnitude m and phase a in radians
+     */
+    public static Complex constructComplexExp(double m, double a){
+        return new Complex(m*Math.cos(a), m*Math.sin(a));
     }
     
 //    /** Set the real and imaginary parts */
@@ -226,5 +233,6 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     public int compareTo(Complex o) {
         return Double.compare(abs2(), o.abs2());
     }
+
     
 }

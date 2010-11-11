@@ -7,7 +7,6 @@ package robbysim.qam.hex;
 
 import java.util.Arrays;
 import robbysim.Complex;
-import static robbysim.VectorFunctions.toComplexArray;
 import static robbysim.VectorFunctions.fill;
 import static robbysim.VectorFunctions.times;
 import static robbysim.VectorFunctions.dot;
@@ -38,7 +37,7 @@ public class RadialLinesSorted extends LineHexReciever
         if( rreal.length != N )
             throw new RuntimeException("rreal and rimag are the wrong length.");
 
-        toComplexArray(rreal, rimag, y);
+        robbysim.ComplexMatrix.toComplexArray(rreal, rimag, y);
 
         double Lopt = Double.NEGATIVE_INFINITY;
         double thetaopt = 0.0, ropt = 0.0;

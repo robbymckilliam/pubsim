@@ -10,11 +10,12 @@ import robbysim.VectorFunctions;
 import static robbysim.VectorFunctions.addMultipleOfColiToColj;
 
 /**
- * The is Sloanes reduction for producing an approximation of the dual
+ * This is Sloanes reduction for producing an approximation of the dual
  * of a lattice that is given by the projection of the integer lattice.
  *
  * Obviously to get an approximation to the lattice itself you need to
- * compute the generator of the dual (i.e. the inverse or psuedoinverse).
+ * compute the generator of the dual (i.e. the inverse or psuedoinverse
+ * transpose).
  *
  * @author Robby McKilliam
  */
@@ -36,6 +37,12 @@ public class SloanesReduction {
         for(int i = 0; i < v.length; i++) v[i] = -v[i];
     }
 
+    /**
+     * This is the length n vector producted by the reduction.  It does
+     * not have the leading 1 as described in Sloane's paper. So you
+     * need to add the leading one if you actually want the full projection
+     * vector.
+     */
     public double[] getProjectionVector() { return v; };
 
     /**

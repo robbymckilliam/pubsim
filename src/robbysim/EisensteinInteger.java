@@ -25,19 +25,17 @@ public class EisensteinInteger extends Complex {
     private static final double tol = 0.0000001;
 
     public EisensteinInteger(double x, double y){
+        super(x,y);
         double[] a = {x, y};
         hex_lattice.nearestPoint(a);
         double[] r = hex_lattice.getLatticePoint();
-        this.re = r[0];
-        this.im = r[1];
     }
 
     public EisensteinInteger(Complex x){
+        super(x);
         double[] a = {x.re(), x.im()};
         hex_lattice.nearestPoint(a);
         double[] r = hex_lattice.getLatticePoint();
-        this.re = r[0];
-        this.im = r[1];
     }
 
 
