@@ -11,7 +11,7 @@ import robbysim.bearing.VectorMeanEstimator;
 import robbysim.bearing.ConstantAngleSignal;
 import robbysim.distributions.circular.CircularMeanVariance;
 import robbysim.distributions.circular.CircularRandomVariable;
-import robbysim.distributions.circular.WrappedGaussian;
+import robbysim.distributions.circular.WrappedGaussianNoise;
 import robbysim.distributions.circular.WrappedUniform;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -43,7 +43,7 @@ public class RunNoisyDelaySimulation {
         //using reflection here is a bit of a hack, but oh well.
         //it keeps the remaining code neat.
         //Class<WrappedUniform> noiseclass = WrappedUniform.class;
-        Class<WrappedGaussian> noiseclass = WrappedGaussian.class;
+        Class<WrappedGaussianNoise> noiseclass = WrappedGaussianNoise.class;
         final Class[] cona = {double.class, double.class};
 
         double from_var_db = -8;

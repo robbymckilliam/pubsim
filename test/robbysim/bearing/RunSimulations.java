@@ -15,7 +15,7 @@ import robbysim.distributions.circular.CircularMeanVariance;
 import robbysim.distributions.circular.CircularRandomVariable;
 import robbysim.distributions.circular.ProjectedNormalDistribution;
 import robbysim.distributions.circular.VonMises;
-import robbysim.distributions.circular.WrappedGaussian;
+import robbysim.distributions.circular.WrappedGaussianNoise;
 import robbysim.distributions.circular.WrappedUniform;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,7 +55,7 @@ public class RunSimulations {
         Vector<Double> var_db_array = new Vector<Double>();
         for(double vardb = from_var_db; vardb >= to_var_db; vardb += step_var_db){
             var_db_array.add(new Double(vardb));
-            var_array.add(new WrappedGaussian(0, Math.pow(10.0, ((vardb)/10.0))));
+            var_array.add(new WrappedGaussianNoise(0, Math.pow(10.0, ((vardb)/10.0))));
         }
 
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();

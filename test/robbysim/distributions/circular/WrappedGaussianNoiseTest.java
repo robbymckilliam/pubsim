@@ -6,7 +6,7 @@
 package robbysim.distributions.circular;
 
 import robbysim.distributions.GaussianNoise;
-import robbysim.distributions.circular.WrappedGaussian;
+import robbysim.distributions.circular.WrappedGaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,7 +46,7 @@ public class WrappedGaussianNoiseTest {
     @Test
     public void testGetNoise() {
         System.out.println("getNoise");
-        WrappedGaussian instance = new WrappedGaussian(Math.PI*0.5, 5);
+        WrappedGaussianNoise instance = new WrappedGaussianNoise(Math.PI*0.5, 5);
 
         for(int i = 0; i < 50; i++){
             double result = instance.getNoise();
@@ -62,7 +62,7 @@ public class WrappedGaussianNoiseTest {
     @Test
     public void testGetPdf() {
         System.out.println("testGetPdf");
-        WrappedGaussian instance = new WrappedGaussian(0.0, 1);
+        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0, 1);
         System.out.println(instance.pdf(-1.0));
 
     }
@@ -74,7 +74,7 @@ public class WrappedGaussianNoiseTest {
     public void testWrappedVarianceSmall() {
         System.out.println("testWrappedVarianceSmall");
         double invar = 0.01;
-        WrappedGaussian instance = new WrappedGaussian(0.0,invar);
+        WrappedGaussianNoise instance = new WrappedGaussianNoise(0.0,invar);
         double v = instance.unwrappedVariance();
         assertEquals(invar, v, 0.0001);
 
