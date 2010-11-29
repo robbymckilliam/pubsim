@@ -88,7 +88,7 @@ public class GeneralDiscreteTest {
     }
 
 
-        /**
+    /**
      * Test of getVariance method, of class GeneralDiscrete.
      */
     @Test

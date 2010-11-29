@@ -1,5 +1,6 @@
 package robbysim.snpe;
 
+import java.io.Serializable;
 import robbysim.lattices.Anstar.AnstarBucketVaughan;
 import robbysim.lattices.LatticeAndNearestPointAlgorithm;
 import static robbysim.Util.fracpart;
@@ -9,7 +10,7 @@ import static robbysim.Util.fracpart;
  * Interface that describes the functions of a PRI estimator.
  * @author Vaughan Clarkson, 15-Jun-05.
  */
-public interface PRIEstimator {
+public interface PRIEstimator extends Serializable{
 
     /**
      * Runs the estimator and return the estimated frequency.

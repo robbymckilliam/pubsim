@@ -36,7 +36,7 @@ public class SamplingLLS implements PRIEstimator {
     public SamplingLLS(int N, int samples){
         setSize(N);
         NUM_SAMPLES = samples;
-        System.out.println("using " + NUM_SAMPLES +  " samples");
+        //System.out.println("using " + NUM_SAMPLES +  " samples");
     }
 
     double[] zeta, fzeta;

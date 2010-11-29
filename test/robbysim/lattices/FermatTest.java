@@ -79,6 +79,15 @@ public class FermatTest {
         System.out.println(VectorFunctions.print(v));
     }
 
+    @Test
+    public void testprintQR() {
+        System.out.println("print Slonae reduced");
+        int n = 9;
+        int r = 3;
 
+        Fermat instance = new Fermat(n, r);
+        Matrix L = instance.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(L.qr().getR()));
+    }
 
 }
