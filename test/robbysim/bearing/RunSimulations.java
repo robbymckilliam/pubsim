@@ -37,7 +37,7 @@ public class RunSimulations {
         int n = 256;
         double angle = 0.1;
         int seed = 26;
-        int iterations = 5000;
+        int iterations = 4000;
 
         String nameetx = "_" + Integer.toString(n);
 
@@ -47,9 +47,9 @@ public class RunSimulations {
 
         //double from_var_db = 15;
         //double to_var_db = -10;
-        double from_var_db = -11.2;
-        double to_var_db = -31.8;
-        double step_var_db = -3;
+        double from_var_db = -7;
+        double to_var_db = -32;
+        double step_var_db = -1;
 
         Vector<CircularRandomVariable> var_array = new Vector<CircularRandomVariable>();
         Vector<Double> var_db_array = new Vector<Double>();
