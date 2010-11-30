@@ -52,13 +52,12 @@ public class LeastSquaresEstimatorTest {
         double mean = -Math.PI*0.2;
         
         RandomVariable noise = new WrappedGaussian(mean, 0.0001);
-        IIDNoise sig = new IIDNoise();
-        sig.setLength(n);
+        IIDNoise sig = new IIDNoise(n);
         sig.setNoiseGenerator(noise);
         
         double[] y = sig.generateReceivedSignal();
         
-        AngularlLeastSquaresEstimator instance = new AngularlLeastSquaresEstimator();
+        AngularlLeastSquaresEstimator instance = new AngularlLeastSquaresEstimator(n);
 
         double result = instance.estimateBearing(y);
         

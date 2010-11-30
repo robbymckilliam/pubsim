@@ -10,8 +10,6 @@ package robbysim.bearing;
  * @author Robby McKilliam
  */
 public interface BearingEstimator {
-
-    void setSize(int n);
     
     double estimateBearing(double[] y);
     

@@ -18,6 +18,8 @@ public class ConstantAngleSignal extends IIDNoise implements SignalGenerator{
 
     protected double angle = 0.0;
 
+    public ConstantAngleSignal(int length){ super(length); }
+
     public void setAngle(double angle){
         this.angle = angle;
     }

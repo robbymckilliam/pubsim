@@ -20,6 +20,8 @@ public class QuantisedDelaySignal extends IIDNoise implements SignalGenerator{
     protected double delay = 0.0;
     private double P;
 
+    public QuantisedDelaySignal(int length){ super(length); }
+
     public void setDelay(double delay){
         this.delay = delay;
     }

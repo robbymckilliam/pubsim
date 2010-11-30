@@ -45,9 +45,7 @@ public class AnSortedTest extends TestCase {
         int iters = 100;
         
         UniformNoise noise = new UniformNoise(0,1.0,0);
-        IIDNoise siggen = new IIDNoise();
-        siggen.setNoiseGenerator(noise);
-        siggen.setLength(n);
+        IIDNoise siggen = new IIDNoise(noise, n);
         
         AnSorted instance = new AnSorted(n-1);
         //instance.setDimension(n - 1);

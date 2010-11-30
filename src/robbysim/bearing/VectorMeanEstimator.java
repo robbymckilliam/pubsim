@@ -15,10 +15,6 @@ import flanagan.integration.Integration;
  */
 public class VectorMeanEstimator implements BearingEstimator {
 
-    public void setSize(int n) {
-        
-    }
-
     public double estimateBearing(double[] y) {
         
         double csum = 0.0, ssum = 0.0;

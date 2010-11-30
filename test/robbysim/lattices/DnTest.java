@@ -33,9 +33,7 @@ public class DnTest extends TestCase {
         int iters = 100;
         
         GaussianNoise noise = new GaussianNoise(0.0, 1000.0);
-        IIDNoise siggen = new IIDNoise();
-        siggen.setNoiseGenerator(noise);
-        siggen.setLength(n);
+        IIDNoise siggen = new IIDNoise(noise, n);
         
         Dn instance = new Dn(n);
         SphereDecoder tester = new SphereDecoder(instance);

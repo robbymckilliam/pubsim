@@ -20,15 +20,14 @@ public class IIDNoise implements SignalGenerator{
     protected RandomVariable noise;
     
     /** Default constructor set length of vector to 1 */ 
-    public IIDNoise(){
-        n = 1;
-        iidsignal = new double[1];
+    public IIDNoise(int length){
+        n = length;
     }
 
     /** Default constructor set length of vector to 1 */
     public IIDNoise(RandomVariable noise, int length){
-        setNoiseGenerator(noise);
-        setLength(length);
+        this.noise = noise;
+        this.n = length;
     }
     
     /** {@inheritDoc} */

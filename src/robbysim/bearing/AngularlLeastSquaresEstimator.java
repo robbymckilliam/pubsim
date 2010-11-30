@@ -18,23 +18,16 @@ import static robbysim.Util.fracpart;
  */
 public class AngularlLeastSquaresEstimator implements BearingEstimator{
 
-    int n;
+    protected final int N;
     protected Anstar anstar;
     protected double[] u;
     
-    public AngularlLeastSquaresEstimator(){
+    public AngularlLeastSquaresEstimator(int n){
+        this.N = n;
         anstar = new AnstarBucketVaughan();
-    }
-    
-    
-    public void setSize(int n) {
-        this.n = n;
-        anstar.setDimension(n-1);
     }
 
     public double estimateBearing(double[] y) {
-        if(n != y.length)
-            setSize(y.length);
         
         anstar.nearestPoint(y);
         u = anstar.getIndex();
@@ -43,7 +36,7 @@ public class AngularlLeastSquaresEstimator implements BearingEstimator{
         for(int i = 0; i < y.length; i++)
             sum += y[i] - u[i];
         
-        return fracpart(sum/n);
+        return fracpart(sum/N);
         
     }
 

@@ -37,8 +37,7 @@ public class RunNoisyDelaySimulation {
 
         String nameetx = "_" + Integer.toString(n);
 
-        ConstantAngleSignal signal_gen = new ConstantAngleSignal();
-        signal_gen.setLength(n);
+        ConstantAngleSignal signal_gen = new ConstantAngleSignal(n);
         
         //using reflection here is a bit of a hack, but oh well.
         //it keeps the remaining code neat.
@@ -62,7 +61,7 @@ public class RunNoisyDelaySimulation {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new AngularlLeastSquaresEstimator());
+        estimators.add(new AngularlLeastSquaresEstimator(n));
         estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();

@@ -32,8 +32,7 @@ public class RunQuantisedDelaySimulation {
 
         String nameetx = "_" + Integer.toString(n) + "quantised";
 
-        QuantisedDelaySignal signal_gen = new QuantisedDelaySignal();
-        signal_gen.setLength(n);
+        QuantisedDelaySignal signal_gen = new QuantisedDelaySignal(n);
 
         //parameter for geometric distribution.
         double gemparam = 0.9;
@@ -52,7 +51,7 @@ public class RunQuantisedDelaySimulation {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new AngularlLeastSquaresEstimator());
+        estimators.add(new AngularlLeastSquaresEstimator(n));
         //estimators.add(new MockMeanEstimator());
         //estimators.add(new VectorMeanEstimator());
 

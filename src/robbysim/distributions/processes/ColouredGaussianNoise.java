@@ -25,7 +25,7 @@ public class ColouredGaussianNoise extends IIDNoise implements SignalGenerator {
 
     /** Initialise this generator with a mean vertor and correlation matrix */
     public ColouredGaussianNoise(double[] mean, Matrix cor){
-        n = mean.length;
+        super(mean.length);
         if(n != cor.getColumnDimension())
             throw new ArrayIndexOutOfBoundsException("Correlation matrix and mean vector don't match in size");
         noise = new GaussianNoise(0, 1);
@@ -38,7 +38,7 @@ public class ColouredGaussianNoise extends IIDNoise implements SignalGenerator {
 
     /** Initialise with zero mean and correlation matrix cor*/
     public ColouredGaussianNoise(Matrix cor){
-        n = cor.getColumnDimension();
+        super(cor.getColumnDimension());
         noise = new GaussianNoise(0, 1);
         iidsignal = new double[n];
         corsignal = new double[n];
@@ -48,13 +48,16 @@ public class ColouredGaussianNoise extends IIDNoise implements SignalGenerator {
     }
 
     /** Does nothing. Noise is always Gaussian. */
+    @Override
     public void setNoiseGenerator(RandomVariable noise){ }
 
     /** This just returns GaussianNoise(0,1) */
+    @Override
     public RandomVariable getNoiseGenerator(){
         return noise;
     }
     
+    @Override
     public double[] generateReceivedSignal(){
         //generate uncoloured noise
         for(int i = 0; i < n; i++)

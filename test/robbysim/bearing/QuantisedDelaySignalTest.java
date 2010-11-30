@@ -53,9 +53,8 @@ public class QuantisedDelaySignalTest {
         double p = 0.5;
         double P = 1/(4*Math.PI*Math.PI);
 
-        QuantisedDelaySignal siggen = new QuantisedDelaySignal();
+        QuantisedDelaySignal siggen = new QuantisedDelaySignal(n);
         siggen.setDelay(0);
-        siggen.setLength(n);
         siggen.setClockPeriod(P);
 
         siggen.setNoiseGenerator(new GeometricRandomVariable(p));
