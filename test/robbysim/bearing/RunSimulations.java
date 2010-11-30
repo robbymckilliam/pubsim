@@ -5,7 +5,7 @@
 
 package robbysim.bearing;
 
-import robbysim.bearing.AngularlLeastSquaresEstimator;
+import robbysim.bearing.AngularLeastSquaresEstimator;
 import robbysim.bearing.BearingEstimator;
 import robbysim.bearing.VectorMeanEstimator;
 import robbysim.bearing.ConstantAngleSignal;
@@ -34,7 +34,7 @@ public class RunSimulations {
     
     public static void main(String[] args) throws Exception {
 
-        int n = 256;
+        int n = 4;
         double angle = 0.1;
         int seed = 26;
         int iterations = 4000;
@@ -60,8 +60,8 @@ public class RunSimulations {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new AngularlLeastSquaresEstimator(n));
-        estimators.add(new VectorMeanEstimator());
+        //estimators.add(new AngularLeastSquaresEstimator(n));
+        //estimators.add(new VectorMeanEstimator());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){
@@ -82,7 +82,7 @@ public class RunSimulations {
                 double wrappedvar = noise.unwrappedVariance();
                 wrappedvar_array.add(wrappedvar);
 
-                System.out.println(wrappedvar + "\t" + wrappedvar + "\t" + mse/iterations);
+                System.out.println(wrappedvar + "\t" + mse/iterations);
 
 
             }
@@ -114,15 +114,15 @@ public class RunSimulations {
         //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
                 CircularRandomVariable noise = var_array.get(i);
-                double mse = VectorMeanEstimator.asymptoticVariance(noise, n);
-                //double mse = AngularlLeastSquaresEstimator.asymptoticVariance(noise, n);
+                //double mse = VectorMeanEstimator.asymptoticVariance(noise, n);
+                double mse = AngularLeastSquaresEstimator.asymptoticVariance(noise, n);
                 double wrappedvar = noise.unwrappedVariance();
                 wrappedvar_array.add(wrappedvar);
                 mse_array.add(mse);
                 System.out.println(wrappedvar + "\t" + mse);
         }
         try{
-            String fname = "asmyp_arg_" + var_array.get(0).getClass().getName();
+            String fname = "asmyp_" + var_array.get(0).getClass().getName();
             File file = new File(fname.concat(nameetx).replace('$', '.'));
             BufferedWriter writer =  new BufferedWriter(new FileWriter(file));
             for(int i = 0; i < var_array.size(); i++){

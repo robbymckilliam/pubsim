@@ -8,7 +8,7 @@ package robbysim.bearing.phase;
 import robbysim.bearing.phase.LeastSquaresUnwrapping;
 import robbysim.bearing.phase.PhaseEstimator;
 import robbysim.bearing.phase.ConstantPhaseSignal;
-import robbysim.bearing.AngularlLeastSquaresEstimator;
+import robbysim.bearing.AngularLeastSquaresEstimator;
 import robbysim.distributions.GaussianNoise;
 import robbysim.distributions.RandomVariable;
 import robbysim.distributions.circular.CircularRandomVariable;
@@ -113,7 +113,7 @@ public class RunSimulation {
         for(int i = 0; i < noise_array.size(); i++){
                 RandomVariable noise = noise_array.get(i);
                 CircularRandomVariable circn = new ProjectedNormalDistribution(0.0, noise.getVariance());
-                double mse = AngularlLeastSquaresEstimator.asymptoticVariance(circn, n);
+                double mse = AngularLeastSquaresEstimator.asymptoticVariance(circn, n);
                 //double mse = VectorMeanEstimator.asymptoticVariance(circn, n);
                 mse_array.add(mse);
                 System.out.println(circn.unwrappedVariance() + "\t" + mse);

@@ -50,7 +50,7 @@ public class VectorMeanEstimatorTest {
         System.out.println("estimateBearing");
         
         int n = 20;
-        double mean = Math.PI*0.2;
+        double mean = 0.2;
         
         RandomVariable noise = new WrappedGaussian(mean, 0.0001);
         IIDNoise sig = new IIDNoise(n);

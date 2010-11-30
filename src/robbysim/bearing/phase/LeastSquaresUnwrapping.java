@@ -6,7 +6,7 @@
 package robbysim.bearing.phase;
 
 import robbysim.Complex;
-import robbysim.bearing.AngularlLeastSquaresEstimator;
+import robbysim.bearing.AngularLeastSquaresEstimator;
 
 /**
  * Phase estiamtor based on the nearest lattice point in An*.
@@ -15,13 +15,13 @@ import robbysim.bearing.AngularlLeastSquaresEstimator;
  */
 public class LeastSquaresUnwrapping implements PhaseEstimator {
 
-    private AngularlLeastSquaresEstimator ls;
+    private AngularLeastSquaresEstimator ls;
     private int n;
     double[] a;
 
     public void setSize(int n) {
         this.n = n;
-        ls = new AngularlLeastSquaresEstimator(n);
+        ls = new AngularLeastSquaresEstimator(n);
         a = new double[n];
     }
 

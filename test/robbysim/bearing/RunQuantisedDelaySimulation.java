@@ -5,7 +5,7 @@
 
 package robbysim.bearing;
 
-import robbysim.bearing.AngularlLeastSquaresEstimator;
+import robbysim.bearing.AngularLeastSquaresEstimator;
 import robbysim.bearing.BearingEstimator;
 import robbysim.bearing.QuantisedDelaySignal;
 import robbysim.distributions.circular.WrappedUniform;
@@ -51,7 +51,7 @@ public class RunQuantisedDelaySimulation {
         Vector<BearingEstimator> estimators = new Vector<BearingEstimator>();
 
         //add the estimators you want to run
-        estimators.add(new AngularlLeastSquaresEstimator(n));
+        estimators.add(new AngularLeastSquaresEstimator(n));
         //estimators.add(new MockMeanEstimator());
         //estimators.add(new VectorMeanEstimator());
 
@@ -102,7 +102,7 @@ public class RunQuantisedDelaySimulation {
         for(int i = 0; i < P_array.size(); i++){
                 //WrappedUniform.Mod1 unoise = new WrappedUniform.Mod1(0.0, 0.0);
                 //unoise.setRange(P_array.get(i));
-                //double mse = AngularlLeastSquaresEstimator.asymptoticVariance(unoise, n);
+                //double mse = AngularLeastSquaresEstimator.asymptoticVariance(unoise, n);
                 double mse = (Math.pow(P_array.get(i)/2.0 , 2)/3.0)/(n);
                 //double wrappedvar = noise.getWrappedVariance();
                 //double mse = var_array.get(i)/n;

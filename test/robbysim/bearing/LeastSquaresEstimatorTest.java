@@ -5,7 +5,7 @@
 
 package robbysim.bearing;
 
-import robbysim.bearing.AngularlLeastSquaresEstimator;
+import robbysim.bearing.AngularLeastSquaresEstimator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,14 +42,14 @@ public class LeastSquaresEstimatorTest {
     }
 
     /**
-     * Test of estimateBearing method, of class AngularlLeastSquaresEstimator.
+     * Test of estimateBearing method, of class AngularLeastSquaresEstimator.
      */
     @Test
     public void testEstimateBearing() {
         System.out.println("estimateBearing");
         
         int n = 20;
-        double mean = -Math.PI*0.2;
+        double mean = -0.2;
         
         RandomVariable noise = new WrappedGaussian(mean, 0.0001);
         IIDNoise sig = new IIDNoise(n);
@@ -57,7 +57,7 @@ public class LeastSquaresEstimatorTest {
         
         double[] y = sig.generateReceivedSignal();
         
-        AngularlLeastSquaresEstimator instance = new AngularlLeastSquaresEstimator(n);
+        AngularLeastSquaresEstimator instance = new AngularLeastSquaresEstimator(n);
 
         double result = instance.estimateBearing(y);
         

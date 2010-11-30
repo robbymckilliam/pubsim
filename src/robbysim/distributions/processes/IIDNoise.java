@@ -22,6 +22,7 @@ public class IIDNoise implements SignalGenerator{
     /** Default constructor set length of vector to 1 */ 
     public IIDNoise(int length){
         n = length;
+        iidsignal = new double[n];
     }
 
     /** Default constructor set length of vector to 1 */
