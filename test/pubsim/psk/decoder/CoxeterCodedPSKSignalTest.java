@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.psk.decoder;
+package pubsim.psk.decoder;
 
 import pubsim.psk.decoder.Util;
 import pubsim.psk.decoder.CoxeterCodedPSKSignal;

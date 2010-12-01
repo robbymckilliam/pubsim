@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.location.twod;
+package pubsim.location.twod;
 
 import pubsim.location.twod.Transmitter;
 import pubsim.location.twod.ObjectiveFunction;

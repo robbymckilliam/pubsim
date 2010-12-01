@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.leech;
+package pubsim.lattices.leech;
 
 import pubsim.lattices.leech.Leech;
 import org.junit.After;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.poly;
+package pubsim.poly;
 
 import pubsim.poly.PolynomialPhaseEstimator;
 import pubsim.poly.BabaiEstimator;

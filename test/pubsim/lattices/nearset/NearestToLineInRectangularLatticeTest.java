@@ -17,7 +17,7 @@ import org.junit.Test;
 import static pubsim.VectorFunctions.ones;
 import static pubsim.VectorFunctions.randomGaussian;
 import static pubsim.VectorFunctions.columnMatrix;
-import static robbysim.VectorFunctionsTest.assertVectorsEqual;
+import static pubsim.VectorFunctionsTest.assertVectorsEqual;
 import static org.junit.Assert.*;
 
 /**

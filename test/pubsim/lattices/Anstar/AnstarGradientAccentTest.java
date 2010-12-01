@@ -5,7 +5,7 @@
  * Created on 11 December 2007, 16:25
  */
 
-package robbysim.lattices.Anstar;
+package pubsim.lattices.Anstar;
 
 import pubsim.lattices.Anstar.AnstarGradientAccent;
 import pubsim.lattices.Anstar.AnstarVaughan;

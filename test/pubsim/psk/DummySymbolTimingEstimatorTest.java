@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 14:40
  */
 
-package robbysim.psk;
+package pubsim.psk;
 
 import pubsim.psk.DummySymbolTimingEstimator;
 import junit.framework.*;

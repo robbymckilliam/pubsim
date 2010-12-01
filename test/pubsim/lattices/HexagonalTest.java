@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices;
+package pubsim.lattices;
 
 import pubsim.lattices.Hexagonal;
 import Jama.Matrix;
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 import static pubsim.VectorFunctions.randomGaussian;
 import static pubsim.VectorFunctions.distance_between;
 import static pubsim.VectorFunctions.matrixMultVector;
-import static robbysim.VectorFunctionsTest.assertVectorsEqual;
+import static pubsim.VectorFunctionsTest.assertVectorsEqual;
 import static pubsim.VectorFunctions.round;
 import static pubsim.VectorFunctions.add;
 

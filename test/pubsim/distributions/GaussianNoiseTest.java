@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.distributions;
+package pubsim.distributions;
 
 import pubsim.distributions.GaussianNoise;
 import org.junit.After;

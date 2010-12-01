@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.nearset;
+package pubsim.lattices.nearset;
 
 import pubsim.lattices.nearset.NearestInZnToLine;
 import pubsim.lattices.nearset.NearestInZnToAffineSurface;
@@ -22,7 +22,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import robbysim.VectorFunctionsTest;
+import pubsim.VectorFunctionsTest;
 import static org.junit.Assert.*;
 import static pubsim.VectorFunctions.randomGaussian;
 import static pubsim.VectorFunctions.columnMatrix;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.util;
+package pubsim.lattices.util;
 
 import pubsim.lattices.util.PointsInHypercube;
 import Jama.Matrix;

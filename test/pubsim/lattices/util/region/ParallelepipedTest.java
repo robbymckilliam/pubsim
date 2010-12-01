@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.util.region;
+package pubsim.lattices.util.region;
 
 import pubsim.lattice.util.region.Parallelepiped;
 import Jama.Matrix;

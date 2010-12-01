@@ -2,22 +2,22 @@
 * Run simulations for the sparse noisy period estimation problem.
 * Various estimators are available.
 */
-import robbysim.snpe.SparseNoisyPeriodicSignal
-import robbysim.distributions.GaussianNoise
-import robbysim.distributions.discrete.GeometricRandomVariable
-import robbysim.distributions.discrete.PoissonRandomVariable
-import robbysim.snpe.PeriodogramEstimator
-import robbysim.snpe.SamplingLLS
-import robbysim.VectorFunctions
-import robbysim.snpe.NormalisedPeriodogram
-import robbysim.snpe.ZnLLS
-import robbysim.snpe.PRIEstimator
-import robbysim.snpe.NormalisedSamplingLLS
-import robbysim.snpe.NormalisedZnLLS
-import robbysim.snpe.SLS2all
-import robbysim.snpe.SLS2new
-import robbysim.snpe.SLS2novlp
-import robbysim.snpe.Util
+import pubsim.snpe.SparseNoisyPeriodicSignal
+import pubsim.distributions.GaussianNoise
+import pubsim.distributions.discrete.GeometricRandomVariable
+import pubsim.distributions.discrete.PoissonRandomVariable
+import pubsim.snpe.PeriodogramEstimator
+import pubsim.snpe.SamplingLLS
+import pubsim.VectorFunctions
+import pubsim.snpe.NormalisedPeriodogram
+import pubsim.snpe.ZnLLS
+import pubsim.snpe.PRIEstimator
+import pubsim.snpe.NormalisedSamplingLLS
+import pubsim.snpe.NormalisedZnLLS
+import pubsim.snpe.SLS2all
+import pubsim.snpe.SLS2new
+import pubsim.snpe.SLS2novlp
+import pubsim.snpe.Util
 
 val iters = 1000 //number of trials run per simualtion.
 val N = 32 //values of N we will generate curves for

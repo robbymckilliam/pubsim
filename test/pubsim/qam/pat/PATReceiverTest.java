@@ -5,7 +5,7 @@
  * Created on 27 November 2007, 12:50
  */
 
-package robbysim.qam.pat;
+package pubsim.qam.pat;
 
 import pubsim.qam.pat.PilotAssistedFadingNoisyQAM;
 import pubsim.qam.pat.PATReceiver;

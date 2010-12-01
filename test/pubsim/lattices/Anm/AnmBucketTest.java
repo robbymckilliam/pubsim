@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.Anm;
+package pubsim.lattices.Anm;
 
 import pubsim.lattices.Anstar.AnstarVaughan;
 import pubsim.lattices.Anm.AnmBucket;

@@ -5,7 +5,7 @@
  * Created on 5 December 2007, 16:09
  */
 
-package robbysim.psk;
+package pubsim.psk;
 
 import pubsim.psk.PSKSignal;
 import pubsim.psk.SamplingLatticeCarrierEstimator;

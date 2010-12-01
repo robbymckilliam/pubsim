@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.decoder;
+package pubsim.lattices.decoder;
 
 import pubsim.lattices.decoder.Mbest;
 import pubsim.lattices.decoder.Babai;

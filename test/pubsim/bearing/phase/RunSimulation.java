@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.bearing.phase;
+package pubsim.bearing.phase;
 
 import pubsim.bearing.phase.LeastSquaresUnwrapping;
 import pubsim.bearing.phase.PhaseEstimator;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.dptspecialm2;
+package pubsim.dptspecialm2;
 
 import pubsim.poly.dptspecialm2.AngularLeastSquares;
 import pubsim.distributions.GaussianNoise;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices;
+package pubsim.lattices;
 
 import pubsim.lattices.Vn2Translates;
 import pubsim.lattices.GeneralLatticeAndNearestPointAlgorithm;
@@ -19,7 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pubsim.VectorFunctions;
-import robbysim.VectorFunctionsTest;
+import pubsim.VectorFunctionsTest;
 
 /**
  *

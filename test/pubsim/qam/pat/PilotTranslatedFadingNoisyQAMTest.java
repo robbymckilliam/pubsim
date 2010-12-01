@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.qam.pat;
+package pubsim.qam.pat;
 
 import pubsim.qam.pat.PilotTranslatedFadingNoisyQAM;
 import junit.framework.TestCase;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.reduction;
+package pubsim.lattices.reduction;
 
 import pubsim.lattices.reduction.LLL;
 import Jama.Matrix;

@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 16:23
  */
 
-package robbysim.psk;
+package pubsim.psk;
 
 import pubsim.psk.IntegrateDump;
 import junit.framework.*;

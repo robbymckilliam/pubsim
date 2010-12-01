@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.distributions.processes;
+package pubsim.distributions.processes;
 
 import pubsim.distributions.processes.ColouredGaussianNoise;
 import Jama.Matrix;

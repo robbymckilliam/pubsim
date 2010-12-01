@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim;
+package pubsim;
 
 import pubsim.VoronoiCode;
 import Jama.Matrix;
@@ -18,7 +18,7 @@ import pubsim.qam.hex.HexagonalCode;
 import static pubsim.VectorFunctions.print;
 import static pubsim.VectorFunctions.randomGaussian;
 import static pubsim.VectorFunctions.add;
-import static robbysim.VectorFunctionsTest.assertVectorsEqual;
+import static pubsim.VectorFunctionsTest.assertVectorsEqual;
 
 /**
  *

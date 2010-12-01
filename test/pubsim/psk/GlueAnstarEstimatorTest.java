@@ -5,7 +5,7 @@
  * Created on 5 December 2007, 14:32
  */
 
-package robbysim.psk;
+package pubsim.psk;
 
 import pubsim.psk.GlueAnstarCarrierEstimator;
 import pubsim.psk.PSKSignal;

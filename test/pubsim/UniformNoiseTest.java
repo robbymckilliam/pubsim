@@ -5,7 +5,7 @@
  * Created on 7 May 2007, 13:38
  */
 
-package robbysim;
+package pubsim;
 
 import pubsim.distributions.UniformNoise;
 import junit.framework.*;

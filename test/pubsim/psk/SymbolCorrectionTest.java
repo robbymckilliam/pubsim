@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 11:58
  */
 
-package robbysim.psk;
+package pubsim.psk;
 
 import pubsim.psk.SymbolCorrection;
 import junit.framework.*;

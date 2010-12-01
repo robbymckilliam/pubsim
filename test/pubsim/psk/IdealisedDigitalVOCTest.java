@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 11:00
  */
 
-package robbysim.psk;
+package pubsim.psk;
 
 import pubsim.psk.IdealisedDigitalVOC;
 import junit.framework.*;

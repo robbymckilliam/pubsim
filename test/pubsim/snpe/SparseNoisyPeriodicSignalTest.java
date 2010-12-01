@@ -5,7 +5,7 @@
  * Created on 7 May 2007, 12:35
  */
 
-package robbysim.snpe;
+package pubsim.snpe;
 
 import pubsim.snpe.SparseNoisyPeriodicSignal;
 import junit.framework.*;

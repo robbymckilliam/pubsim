@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.qam.hex;
+package pubsim.qam.hex;
 
 import pubsim.qam.hex.BruteForceHexReciever;
 import pubsim.qam.hex.HexReciever;

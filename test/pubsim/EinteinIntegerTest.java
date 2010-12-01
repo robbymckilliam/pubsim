@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim;
+package pubsim;
 
 import pubsim.EisensteinInteger;
 import pubsim.Complex;

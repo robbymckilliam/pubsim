@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.decoder.nearset;
+package pubsim.lattices.decoder.nearset;
 
 import pubsim.lattices.decoder.nearset.SampledLine;
 import pubsim.lattices.decoder.nearset.ZnLine;
@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
-import robbysim.VectorFunctionsTest;
+import pubsim.VectorFunctionsTest;
 import static org.junit.Assert.*;
 
 /**

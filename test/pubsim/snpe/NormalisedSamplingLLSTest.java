@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.snpe;
+package pubsim.snpe;
 
 import pubsim.snpe.NormalisedSamplingLLS;
 import pubsim.snpe.SparseNoisyPeriodicSignal;

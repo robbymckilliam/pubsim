@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.nearset;
+package pubsim.lattices.nearset;
 
 import pubsim.lattices.nearset.NSphereForLines;
 import org.junit.After;

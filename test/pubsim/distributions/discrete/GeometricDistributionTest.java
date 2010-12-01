@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.distributions.discrete;
+package pubsim.distributions.discrete;
 
 import pubsim.distributions.discrete.GeometricRandomVariable;
 import org.junit.After;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.Vn2Star;
+package pubsim.lattices.Vn2Star;
 
 import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
 import pubsim.lattices.Vn2Star.Vn2StarRelVecApprox;

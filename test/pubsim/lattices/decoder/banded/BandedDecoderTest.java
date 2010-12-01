@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.decoder.banded;
+package pubsim.lattices.decoder.banded;
 
 import Jama.Matrix;
 import pubsim.lattices.GeneralLattice;

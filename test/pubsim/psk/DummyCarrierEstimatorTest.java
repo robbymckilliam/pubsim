@@ -5,7 +5,7 @@
  * Created on 13 December 2007, 14:04
  */
 
-package robbysim.psk;
+package pubsim.psk;
 
 import pubsim.psk.DummyCarrierEstimator;
 import junit.framework.*;

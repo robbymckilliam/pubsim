@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.optimisation;
+package pubsim.optimisation;
 
 import pubsim.optimisation.AutoDerivativeFunction;
 import Jama.Matrix;

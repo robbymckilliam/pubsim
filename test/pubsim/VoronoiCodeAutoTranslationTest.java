@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim;
+package pubsim;
 
 import pubsim.VoronoiCodeAutoTranslation;
 import pubsim.lattices.Hexagonal;
@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static pubsim.VectorFunctions.print;
-import static robbysim.VectorFunctionsTest.assertVectorsEqual;
+import static pubsim.VectorFunctionsTest.assertVectorsEqual;
 
 /**
  *

@@ -5,7 +5,7 @@
  * Created on 28 June 2007, 14:41
  */
 
-package robbysim;
+package pubsim;
 
 import pubsim.Complex;
 import Jama.Matrix;

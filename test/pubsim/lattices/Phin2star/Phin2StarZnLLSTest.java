@@ -5,7 +5,7 @@
  * Created on 12 August 2007, 22:11
  */
 
-package robbysim.lattices.Phin2star;
+package pubsim.lattices.Phin2star;
 
 import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
 import pubsim.lattices.Vn2Star.Vn2StarGlued;

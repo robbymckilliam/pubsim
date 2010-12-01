@@ -5,7 +5,7 @@
  * Created on 27 September 2007, 15:30
  */
 
-package robbysim.qam;
+package pubsim.qam;
 
 import pubsim.qam.T3Optimal;
 import pubsim.qam.FadingNoisyQAM;

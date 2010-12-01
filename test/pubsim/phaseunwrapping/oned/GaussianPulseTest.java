@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.phaseunwrapping.oned;
+package pubsim.phaseunwrapping.oned;
 
 import pubsim.phaseunwrapping.oned.GaussianPulse;
 import pubsim.distributions.RandomVariable;

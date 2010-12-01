@@ -1,19 +1,19 @@
 /**
 * Script for running frequency estimation simulations.
 */
-import robbysim.distributions.circular.CircularRandomVariable
-import robbysim.distributions.circular.WrappedUniform
-import robbysim.distributions.circular.WrappedGaussian
-import robbysim.distributions.GaussianNoise
-import robbysim.fes.NoisyComplexSinusoid
-import robbysim.fes.SamplingLatticeEstimator
-import robbysim.fes.ZnLLS
-import robbysim.fes.PeriodogramFFTEstimator
-import robbysim.fes.PSCFDEstimator
-import robbysim.fes.KaysEstimator
-import robbysim.fes.QuinnFernades
-import robbysim.fes.CircularNoiseSingleFrequencySignal
-import robbysim.Util._
+import pubsim.distributions.circular.CircularRandomVariable
+import pubsim.distributions.circular.WrappedUniform
+import pubsim.distributions.circular.WrappedGaussian
+import pubsim.distributions.GaussianNoise
+import pubsim.fes.NoisyComplexSinusoid
+import pubsim.fes.SamplingLatticeEstimator
+import pubsim.fes.ZnLLS
+import pubsim.fes.PeriodogramFFTEstimator
+import pubsim.fes.PSCFDEstimator
+import pubsim.fes.KaysEstimator
+import pubsim.fes.QuinnFernades
+import pubsim.fes.CircularNoiseSingleFrequencySignal
+import pubsim.Util._
 
 val N = 64 //number of observations
 val iters = 1000 //number of iterations to run for each variance

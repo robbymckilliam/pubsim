@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.distributions.circular;
+package pubsim.distributions.circular;
 
 import pubsim.distributions.circular.WrappedGaussian;
 import pubsim.distributions.circular.UnwrappedMeanAndVariance;

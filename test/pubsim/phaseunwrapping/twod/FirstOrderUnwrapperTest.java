@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.phaseunwrapping.twod;
+package pubsim.phaseunwrapping.twod;
 
 import pubsim.phaseunwrapping.twod.GaussianPulse;
 import pubsim.phaseunwrapping.twod.FirstOrderUnwrapper;

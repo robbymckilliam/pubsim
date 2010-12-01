@@ -5,7 +5,7 @@
  * Created on 15 August 2007, 16:05
  */
 
-package robbysim.fes;
+package pubsim.fes;
 
 import pubsim.fes.PeriodogramEstimator;
 import pubsim.fes.NoisyComplexSinusoid;

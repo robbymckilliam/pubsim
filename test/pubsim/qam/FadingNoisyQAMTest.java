@@ -5,7 +5,7 @@
  * Created on 14 September 2007, 13:50
  */
 
-package robbysim.qam;
+package pubsim.qam;
 
 import pubsim.qam.FadingNoisyQAM;
 import junit.framework.*;

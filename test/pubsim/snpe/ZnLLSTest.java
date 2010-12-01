@@ -5,7 +5,7 @@
  * Created on 9 July 2007, 12:24
  */
 
-package robbysim.snpe;
+package pubsim.snpe;
 
 import pubsim.snpe.ZnLLS;
 import pubsim.snpe.SparseNoisyPeriodicSignal;
@@ -113,7 +113,7 @@ public class ZnLLSTest extends TestCase {
 //        NormalisedSamplingLLS instance = new NormalisedSamplingLLS(n, 4*n);
 //
 //        double noisestd = 0.001;
-//        UniformNoise noise = new robbysim.distributions.UniformNoise(0.0, T + 0.2, 0);
+//        UniformNoise noise = new pubsim.distributions.UniformNoise(0.0, T + 0.2, 0);
 //
 //        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal();
 //        sig.setPeriod(T);

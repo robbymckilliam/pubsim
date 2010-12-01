@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.bearing;
+package pubsim.bearing;
 
 import pubsim.bearing.BearingEstimator;
 import pubsim.bearing.VectorMeanEstimator;

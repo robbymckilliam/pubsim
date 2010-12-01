@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.fes;
+package pubsim.fes;
 
 import pubsim.fes.NoisyComplexSinusoid;
 import pubsim.fes.ZnLLS;

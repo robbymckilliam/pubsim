@@ -5,7 +5,7 @@
  * Created on 14 November 2007, 10:16
  */
 
-package robbysim.lattices.Anstar;
+package pubsim.lattices.Anstar;
 
 import pubsim.lattices.Anstar.AnstarNew;
 import pubsim.lattices.Anstar.AnstarVaughan;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.Phin2star;
+package pubsim.lattices.Phin2star;
 
 import pubsim.lattices.Vn2Star.Vn2Star;
 import pubsim.lattices.Vn2Star.Vn2StarGreedy;

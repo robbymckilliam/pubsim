@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.bearing;
+package pubsim.bearing;
 
 import pubsim.bearing.QuantisedDelaySignal;
 import pubsim.distributions.discrete.GeometricRandomVariable;

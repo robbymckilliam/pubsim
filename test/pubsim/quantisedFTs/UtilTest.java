@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.quantisedFTs;
+package pubsim.quantisedFTs;
 
 import pubsim.quantisedFTs.Util;
 import org.junit.After;

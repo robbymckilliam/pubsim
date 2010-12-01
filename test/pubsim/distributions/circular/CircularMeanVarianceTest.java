@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.distributions.circular;
+package pubsim.distributions.circular;
 
 import pubsim.distributions.circular.CircularMeanVariance;
 import pubsim.distributions.circular.VonMises;

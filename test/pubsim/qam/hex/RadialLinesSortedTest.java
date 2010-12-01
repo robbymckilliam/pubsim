@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.qam.hex;
+package pubsim.qam.hex;
 
 import pubsim.qam.hex.RadialLinesSorted;
 import pubsim.qam.hex.FadingNoisyHex;
@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
-import robbysim.VectorFunctionsTest;
+import pubsim.VectorFunctionsTest;
 import static pubsim.VectorFunctions.print;
 import static pubsim.VectorFunctions.allElementsEqual;
 

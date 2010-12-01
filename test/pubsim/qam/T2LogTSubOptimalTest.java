@@ -5,7 +5,7 @@
  * Created on 1 October 2007, 10:04
  */
 
-package robbysim.qam;
+package pubsim.qam;
 
 import pubsim.qam.FadingNoisyQAM;
 import pubsim.qam.T2LogTSubOptimal;

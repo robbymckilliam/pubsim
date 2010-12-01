@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.lattices.decoder;
+package pubsim.lattices.decoder;
 
 import pubsim.lattices.decoder.KissingNumber;
 import pubsim.lattices.Zn;
