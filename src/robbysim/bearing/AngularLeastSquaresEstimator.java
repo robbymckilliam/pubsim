@@ -16,16 +16,16 @@ import static robbysim.Util.fracpart;
  * An*.  Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robert McKilliam
  */
-public class AngularlLeastSquaresEstimator implements BearingEstimator{
+public class AngularLeastSquaresEstimator implements BearingEstimator{
 
     int n;
     protected Anstar anstar;
     protected double[] u;
     
-    public AngularlLeastSquaresEstimator(){
-        anstar = new AnstarBucketVaughan();
-    }
-    
+    public AngularLeastSquaresEstimator(int length){
+        this.n = length;
+        anstar.setDimension(n-1);
+    }    
     
     public void setSize(int n) {
         this.n = n;
