@@ -5,7 +5,6 @@
 
 package pubsim.bearing;
 
-import pubsim.distributions.RandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarBucketVaughan;
@@ -19,7 +18,7 @@ import static pubsim.Util.fracpart;
 public class AngularLeastSquaresEstimator implements BearingEstimator{
 
     int n;
-    protected Anstar anstar;
+    protected final Anstar anstar;
     protected double[] u;
     
     public AngularLeastSquaresEstimator(int length){

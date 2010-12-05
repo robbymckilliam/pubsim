@@ -13,6 +13,8 @@ import rngpack.RandomSeedable;
 import rngpack.Ranlux;
 
 /**
+ * Abstract class for circular random variables.  Automates computation
+ * of unwrapped and circular means.
  * @author Robby McKilliam
  */
 public abstract class CircularRandomVariable implements RandomVariable {
