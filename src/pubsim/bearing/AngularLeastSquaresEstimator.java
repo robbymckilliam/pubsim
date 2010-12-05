@@ -24,7 +24,7 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
     
     public AngularLeastSquaresEstimator(int length){
         this.n = length;
-        anstar.setDimension(n-1);
+        anstar = new AnstarBucketVaughan(n-1);
     }    
     
     public void setSize(int n) {
