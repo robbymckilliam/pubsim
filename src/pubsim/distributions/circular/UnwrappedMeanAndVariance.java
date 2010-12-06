@@ -29,7 +29,7 @@ public class UnwrappedMeanAndVariance {
         mean = 0;
 
         for(double t = -0.5; t < 0.5; t += 1.0/numsamples){
-            double tvar = computeWrappedVarianceAbout(t, dist, 1e-8);
+            double tvar = computeWrappedVarianceAbout(t, dist, 1000);
             if( tvar < var ){
                 var = tvar;
                 mean = t;
@@ -39,13 +39,13 @@ public class UnwrappedMeanAndVariance {
     }
 
     /** Compute the wrapped variance after applying a rotaton of phi */
-    public static double computeWrappedVarianceAbout(final double phi, final RandomVariable dist, double accuracy){
+    public static double computeWrappedVarianceAbout(final double phi, final RandomVariable dist, int integralsteps){
         double tvar = (new Integration(new IntegralFunction() {
             public double function(double x) {
                 double rot = fracpart(x-phi);
                 return rot*rot*dist.pdf(x);
             }
-        }, -0.5, 0.5)).trapezium(accuracy, 10000);
+        }, -0.5, 0.5)).gaussQuad(integralsteps);
         return tvar;
     }
 

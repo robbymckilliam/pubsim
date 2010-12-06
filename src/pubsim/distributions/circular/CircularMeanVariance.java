@@ -22,17 +22,17 @@ public class CircularMeanVariance {
     public CircularMeanVariance(CircularRandomVariable dist){
         f = dist;
 
-        final int INTEGRAL_STEPS = 1000;
+        final int INTEGRAL_STEPS = 10000;
         double Ecos = (new Integration(new IntegralFunction() {
             public double function(double x) {
                 return Math.cos(2*Math.PI*x)*f.pdf(x);
             }
-        }, -0.5, 0.5)).trapezium(INTEGRAL_STEPS);
+        }, -0.5, 0.5)).gaussQuad(INTEGRAL_STEPS);
         double Esin = (new Integration(new IntegralFunction() {
             public double function(double x) {
                 return Math.sin(2*Math.PI*x)*f.pdf(x);
             }
-        }, -0.5, 0.5)).trapezium(INTEGRAL_STEPS);
+        }, -0.5, 0.5)).gaussQuad(INTEGRAL_STEPS);
 
         var = 1 - Math.sqrt( Ecos*Ecos + Esin*Esin);
         mean = Math.atan2(Esin, Ecos)/(2*Math.PI);

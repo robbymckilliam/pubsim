@@ -6,6 +6,7 @@
 package pubsim.bearing;
 
 import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.UnwrappedMeanAndVariance;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import static pubsim.Util.fracpart;
@@ -47,7 +48,8 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
     }
 
     public static double asymptoticVariance(CircularRandomVariable noise, int N){
-        double sigma2 = noise.unwrappedVariance();
+        double sigma2 = UnwrappedMeanAndVariance.computeWrappedVarianceAbout(0, noise, 10000);
+        //double sigma2 = noise.unwrappedVariance();
         double d = 1 - noise.pdf(-0.5);
         return sigma2/(N*d*d);
     }

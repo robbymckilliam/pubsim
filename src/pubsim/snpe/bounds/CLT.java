@@ -35,7 +35,7 @@ public class CLT {
 
         //Is is the wrapped variance or not?  Need to check Barry's
         //CLT a little more closely.
-        double wrappedvar = UnwrappedMeanAndVariance.computeWrappedVarianceAbout(0, wrped, 1e-8);
+        double wrappedvar = UnwrappedMeanAndVariance.computeWrappedVarianceAbout(0, wrped, 10000);
         //double wrappedvar = noise.getVariance();
 
         //this is the the scale factor contructed from these numbers;
