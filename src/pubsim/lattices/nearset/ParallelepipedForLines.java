@@ -6,8 +6,8 @@
 package pubsim.lattices.nearset;
 
 import Jama.Matrix;
-import pubsim.lattice.util.region.Parallelepiped;
-import pubsim.lattice.util.region.Region;
+import pubsim.lattices.util.region.Parallelepiped;
+import pubsim.lattices.util.region.Region;
 import static pubsim.VectorFunctions.matrixMultVector;
 import static pubsim.VectorFunctions.subtract;
 

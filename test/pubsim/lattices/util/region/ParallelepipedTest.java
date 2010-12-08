@@ -5,7 +5,6 @@
 
 package pubsim.lattices.util.region;
 
-import pubsim.lattice.util.region.Parallelepiped;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;

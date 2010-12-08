@@ -5,9 +5,9 @@
 
 package pubsim.lattices.nearset;
 
-import pubsim.lattice.util.region.NSphere;
+import pubsim.lattices.util.region.NSphere;
 import static pubsim.Util.solveQuadratic;
-import pubsim.lattice.util.region.Region;
+import pubsim.lattices.util.region.Region;
 
 /**
  *

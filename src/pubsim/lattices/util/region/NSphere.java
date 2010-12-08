@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattice.util.region;
+package pubsim.lattices.util.region;
 
 import static pubsim.VectorFunctions.distance_between;
 

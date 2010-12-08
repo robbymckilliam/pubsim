@@ -5,7 +5,6 @@
 
 package pubsim.lattices.util.region;
 
-import pubsim.lattice.util.region.NSphere;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -4,8 +4,8 @@
  */
 
 package pubsim.lattices.nearset;
-import pubsim.lattice.util.region.Region;
-import pubsim.lattice.util.region.BoundingBox;
+import pubsim.lattices.util.region.Region;
+import pubsim.lattices.util.region.BoundingBox;
 
 /**
  * Represents a region with the abilty to compute where
