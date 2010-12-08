@@ -56,5 +56,18 @@ public class VnmTest {
         assertEquals(Math.sqrt(gram.det()), instance.volume(), 0.0001);
     }
 
+    /**
+     * Test of logVolume method, of class Vnm.
+     */
+    @Test
+    public void testPrintOutShortVects() {
+        System.out.println("logVolume");
+        Vnm instance = new Vnm(6, 40);
+
+        System.out.println(instance.kissingNumber());
+
+        double inrad = instance.inradius();
+        System.out.println(inrad * inrad * 4);
+    }
 
 }

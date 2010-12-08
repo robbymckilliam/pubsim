@@ -91,7 +91,8 @@ public class KissingNumber {
                 else{
                     if(sumd <= D && sumd > DELTA){
                         kissingNumber++;
-                        System.out.println(VectorFunctions.print(VectorFunctions.matrixMultVector(G.times(U), ut)));
+                        //System.out.println(VectorFunctions.print(VectorFunctions.matrixMultVector(G.times(U), ut)));
+                        System.out.println(VectorFunctions.print(VectorFunctions.matrixMultVector(U, ut)));
                     }
                 }
                 ut[k]++;
