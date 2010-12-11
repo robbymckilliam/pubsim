@@ -41,4 +41,8 @@ public class VectorMeanEstimator implements BearingEstimator {
         return Esin2/(N*sigma2*sigma2*4*Math.PI*Math.PI);
     }
 
+    public double confidenceInterval() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

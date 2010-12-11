@@ -13,4 +13,12 @@ public interface BearingEstimator {
     
     double estimateBearing(double[] y);
     
+    /**
+     * Compute the confidence interval for the previous data.
+     * You have to call estimateBearing first.
+     */
+    double confidenceInterval();
+
+
+    
 }

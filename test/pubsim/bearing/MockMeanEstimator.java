@@ -9,7 +9,7 @@ import pubsim.bearing.BearingEstimator;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class MockMeanEstimator implements BearingEstimator {
 
@@ -25,6 +25,10 @@ public class MockMeanEstimator implements BearingEstimator {
         }
         return sum/y.length;
 
+    }
+
+    public double confidenceInterval() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

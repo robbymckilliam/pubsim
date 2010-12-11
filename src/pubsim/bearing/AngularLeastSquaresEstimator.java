@@ -54,4 +54,8 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         return sigma2/(N*d*d);
     }
 
+    public double confidenceInterval() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
