@@ -88,7 +88,7 @@ public class VonMises extends CircularRandomVariable{
 
     @Override
     public double circularVariance() {
-        return 1.0 - Bessel.i1(kappa)/Bessel.i0(kappa)/Math.PI;
+        return 1.0 - Bessel.i1(kappa)/Bessel.i0(kappa);
     }
 
 }

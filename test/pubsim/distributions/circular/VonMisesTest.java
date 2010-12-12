@@ -77,4 +77,18 @@ public class VonMisesTest {
 
     }
 
+    /**
+     * Test of getNoise method, of class WrappedGaussianNoise.
+     */
+    @Test
+    public void testCircularVariance() {
+        System.out.println("testCircularVariance");
+        VonMises instance = new VonMises(0.0,1);
+        double circvar = instance.circularVariance();
+        double calc = new CircularMeanVariance(instance).circularVariance();
+        System.out.println(calc + ", " + circvar);
+        assertEquals(calc, circvar, 0.00001);
+
+    }
+
 }
