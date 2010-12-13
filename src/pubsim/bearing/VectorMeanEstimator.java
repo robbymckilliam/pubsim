@@ -30,19 +30,43 @@ public class VectorMeanEstimator implements BearingEstimator {
 
     public double asymptoticVariance(final CircularRandomVariable noise, int N){
 
-        final int INTEGRAL_STEPS = 1000;
+        final double mu = noise.circularMean();
+        final int INTEGRAL_STEPS = 5000;
         double Esin2 = (new Integration(new IntegralFunction() {
             public double function(double x) {
-                double sinx = Math.sin(2*Math.PI*x);
-                return sinx*sinx*noise.pdf(x);
+                double cosx = Math.cos(4*Math.PI*(x-mu));
+                return 0.5*(1 - cosx)*noise.pdf(x);
             }
-        }, -0.5, 0.5)).trapezium(INTEGRAL_STEPS);
+        }, -0.5, 0.5)).gaussQuad(INTEGRAL_STEPS);
         double sigma2 = 1 - noise.circularVariance();
+
+        System.out.print(Esin2);
+
         return Esin2/(N*sigma2*sigma2*4*Math.PI*Math.PI);
     }
 
     public double[] confidenceInterval(double[] y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int N = y.length;
+        double twopi = 2.0 * Math.PI;
+        double mu = estimateBearing(y);
+
+        double cos4sum = 0.0, sinsum = 0.0, cossum = 0.0;
+        for(int n = 0; n < N; n++){
+            double sinymu = Math.sin(twopi*(y[n] - mu));
+            cos4sum += Math.cos(2*twopi*(y[n] - mu));
+            sinsum += Math.sin(twopi*(y[n] - mu));
+            cossum += Math.cos(twopi*(y[n] - mu));
+        }
+        cos4sum/=N; sinsum/=N; cossum/=N;
+
+        double sin2e = 0.5*(1 - cos4sum);
+        double r2 = sinsum*sinsum + cossum*cossum;
+
+        System.out.println(sin2e + ", " + r2);
+        
+        double varest = sin2e/(r2*4*Math.PI*Math.PI)/N;
+        double[] ret = new double[2]; ret[0] = mu; ret[1] = varest;
+        return ret;
     }
 
 }

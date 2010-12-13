@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.distributions.RandomVariable;
+import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.processes.IIDNoise;
 import pubsim.distributions.circular.WrappedGaussian;
 import static org.junit.Assert.*;
@@ -64,9 +65,42 @@ public class VectorMeanEstimatorTest {
         
         System.out.println(mean);
         System.out.println(result);
-        
-        
+          
         assertTrue(Math.abs(result - mean)< 0.01);
+
+    }
+
+        /**
+     * Test of estimateBearing method, of class LeastSquaresEstimator.
+     */
+    @Test
+    public void testConfidenceInterval() {
+        System.out.println("estimate confidence interval");
+
+        int n = 5000;
+        double mean = 0.4;
+
+        CircularRandomVariable noise = new WrappedGaussian(mean, 0.01);
+        IIDNoise sig = new IIDNoise(n);
+        sig.setNoiseGenerator(noise);
+
+        double[] y = sig.generateReceivedSignal();
+
+        BearingEstimator instance = new VectorMeanEstimator();
+
+        double[] res = instance.confidenceInterval(y);
+
+        //System.out.println(mean + ", " + res[0]);
+        assertEquals(mean, res[0], 0.01 );
+
+        double var = instance.asymptoticVariance(noise, n);
+
+        System.out.println(", " + Math.pow(1 - noise.circularVariance(), 2));
+
+        System.out.println(var);
+        System.out.println(res[1]);
+        assertEquals(n*var, n*res[1], 0.01 );
+        
 
     }
 

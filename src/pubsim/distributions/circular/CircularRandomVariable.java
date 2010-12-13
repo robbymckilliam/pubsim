@@ -19,8 +19,8 @@ import rngpack.Ranlux;
  */
 public abstract class CircularRandomVariable implements RandomVariable {
 
-    private UnwrappedMeanAndVariance unwrped;
-    private CircularMeanVariance circ;
+    protected UnwrappedMeanAndVariance unwrped;
+    protected CircularMeanVariance circ;
 
     protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
 
