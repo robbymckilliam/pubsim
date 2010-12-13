@@ -39,7 +39,7 @@ public interface RandomVariable {
 
     /**
      * Return the inverse cumulitive distribution function.
-     * This allows get noise to work in a standard way by generating
+     * This allows getNoise to work in a standard way by generating
      * uniform noise in [0,1] and applying icdf.
      * However, you don't have to implement this if you have a better
      * way of generating the noise.

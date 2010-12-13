@@ -14,10 +14,15 @@ import rngpack.Ranlux;
  */
 public class UniformNoise extends AbstractRandomVariable implements RandomVariable {
     protected final double range;
-    
-    /** Creates a new instance of UniformNoise with specific variance and mean */
-    public UniformNoise(double mean , double variance) {
-        super(mean, variance);
+    protected final double mean;
+    protected final double stdDeviation;
+    protected final double variance;
+
+    /** Creates a new instance of GaussianNoise with specific variance and mean */
+    public UniformNoise(double mean, double variance){
+        this.mean = mean;
+        this.variance = variance;
+        this.stdDeviation = Math.sqrt(variance);
         range = 2.0 * Math.sqrt( 3.0 * variance );
     }
 
@@ -26,11 +31,17 @@ public class UniformNoise extends AbstractRandomVariable implements RandomVariab
      * rather than varianac. Third variable is dummy.
      */
     public UniformNoise(double mean, double range, int nothing){
-        super(mean, Math.pow(range/2.0 , 2)/3.0);
+        this.mean = mean;
+        this.variance = Math.pow(range/2.0 , 2)/3.0;
+        this.stdDeviation = Math.sqrt(variance);
         this.range = range;
     }
 
-    public double getRange() { return range; };
+    public double getMean(){ return mean; }
+
+    public double getVariance(){ return variance; }
+
+    public double getRange() { return range; }
     
     /** Returns a uniformly distributed value */
     @Override

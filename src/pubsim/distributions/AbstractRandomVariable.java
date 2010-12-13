@@ -19,21 +19,7 @@ import rngpack.Ranlux;
 public abstract class AbstractRandomVariable
         implements RandomVariable {
     
-    protected final double mean;
-    protected final double stdDeviation;
-    protected final double variance;
     protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
-
-    public AbstractRandomVariable(double mean, double variance){
-        this.mean = mean;
-        this.variance = variance;
-        this.stdDeviation = Math.sqrt(variance);
-    }
-
-
-    public double getMean(){ return mean; }
-
-    public double getVariance(){ return variance; }
 
     /**
      * Take standard inverse cumulative density function approach
@@ -47,7 +33,7 @@ public abstract class AbstractRandomVariable
      * integrate the pdf by default
      */
     public double cdf(double x){
-        double startint = mean - 100*stdDeviation;
+        double startint = getMean() - 100*Math.sqrt(getVariance());
         final int INTEGRAL_STEPS = 1000;
         double cdfval = (new Integration(new IntegralFunction() {
                 public double function(double x) {
@@ -64,6 +50,7 @@ public abstract class AbstractRandomVariable
      */
     public double icdf(double x){
         double TOL = 1e-9;
+        double mean = getMean(); double stdDeviation = Math.sqrt(getVariance());
         double high = mean + 100*stdDeviation + 0.5;
         double low = mean - 100*stdDeviation - 0.5;
         double cdfhigh = cdf(high);

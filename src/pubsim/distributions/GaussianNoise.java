@@ -15,11 +15,21 @@ import rngpack.Ranlux;
  * @author Robby McKilliam
  */
 public class GaussianNoise extends AbstractRandomVariable implements RandomVariable {
+
+    protected final double mean;
+    protected final double stdDeviation;
+    protected final double variance;
     
     /** Creates a new instance of GaussianNoise with specific variance and mean */
     public GaussianNoise(double mean, double variance){
-        super(mean, variance);
+        this.mean = mean;
+        this.variance = variance;
+        this.stdDeviation = Math.sqrt(variance);
     }
+
+    public double getMean(){ return mean; }
+
+    public double getVariance(){ return variance; }
     
     /** Returns an instance of gaussian noise */
     @Override
