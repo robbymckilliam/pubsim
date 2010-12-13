@@ -7,7 +7,7 @@ package pubsim.bearing;
 
 import pubsim.bearing.AngularLeastSquaresEstimator;
 import pubsim.bearing.BearingEstimator;
-import pubsim.bearing.VectorMeanEstimator;
+import pubsim.bearing.SampleCircularMean;
 import pubsim.bearing.ConstantAngleSignal;
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.RandomVariable;
@@ -61,7 +61,7 @@ public class RunSimulations {
 
         //add the estimators you want to run
         //estimators.add(new AngularLeastSquaresEstimator(n));
-        //estimators.add(new VectorMeanEstimator());
+        //estimators.add(new SampleCircularMean());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){
@@ -114,7 +114,7 @@ public class RunSimulations {
         //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
                 CircularRandomVariable noise = var_array.get(i);
-                //double mse = new VectorMeanEstimator().asymptoticVariance(noise, n);
+                //double mse = new SampleCircularMean().asymptoticVariance(noise, n);
                 double mse = new AngularLeastSquaresEstimator(0).asymptoticVariance(noise, n);
                 double wrappedvar = noise.unwrappedVariance();
                 wrappedvar_array.add(wrappedvar);

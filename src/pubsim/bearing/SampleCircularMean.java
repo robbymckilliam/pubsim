@@ -13,7 +13,7 @@ import flanagan.integration.Integration;
  * Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robby McKilliam
  */
-public class VectorMeanEstimator implements BearingEstimator {
+public class SampleCircularMean implements BearingEstimator {
 
     public double estimateBearing(double[] y) {
         
@@ -40,8 +40,6 @@ public class VectorMeanEstimator implements BearingEstimator {
         }, -0.5, 0.5)).gaussQuad(INTEGRAL_STEPS);
         double sigma2 = 1 - noise.circularVariance();
 
-        System.out.print(Esin2);
-
         return Esin2/(N*sigma2*sigma2*4*Math.PI*Math.PI);
     }
 
@@ -62,8 +60,6 @@ public class VectorMeanEstimator implements BearingEstimator {
         double sin2e = 0.5*(1 - cos4sum);
         double r2 = sinsum*sinsum + cossum*cossum;
 
-        System.out.println(sin2e + ", " + r2);
-        
         double varest = sin2e/(r2*4*Math.PI*Math.PI)/N;
         double[] ret = new double[2]; ret[0] = mu; ret[1] = varest;
         return ret;

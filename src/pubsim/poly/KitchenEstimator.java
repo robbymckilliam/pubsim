@@ -7,7 +7,7 @@ package pubsim.poly;
 
 import pubsim.Util;
 import pubsim.VectorFunctions;
-import pubsim.bearing.VectorMeanEstimator;
+import pubsim.bearing.SampleCircularMean;
 
 /**
  * Implementation of Kitchen's polynomial phase estimate.
@@ -64,7 +64,7 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
         //otherwise the estimator needs the phase parameter bounded,
         //which is really silly.
         if(M == 0){
-            VectorMeanEstimator vm = new VectorMeanEstimator();
+            SampleCircularMean vm = new SampleCircularMean();
             return vm.estimateBearing(y);
         }
 

@@ -6,7 +6,7 @@
 package pubsim.bearing;
 
 import pubsim.bearing.BearingEstimator;
-import pubsim.bearing.VectorMeanEstimator;
+import pubsim.bearing.SampleCircularMean;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,7 +59,7 @@ public class VectorMeanEstimatorTest {
         
         double[] y = sig.generateReceivedSignal();
         
-        BearingEstimator instance = new VectorMeanEstimator();
+        BearingEstimator instance = new SampleCircularMean();
 
         double result = instance.estimateBearing(y);
         
@@ -86,7 +86,7 @@ public class VectorMeanEstimatorTest {
 
         double[] y = sig.generateReceivedSignal();
 
-        BearingEstimator instance = new VectorMeanEstimator();
+        BearingEstimator instance = new SampleCircularMean();
 
         double[] res = instance.confidenceInterval(y);
 
@@ -94,8 +94,6 @@ public class VectorMeanEstimatorTest {
         assertEquals(mean, res[0], 0.01 );
 
         double var = instance.asymptoticVariance(noise, n);
-
-        System.out.println(", " + Math.pow(1 - noise.circularVariance(), 2));
 
         System.out.println(var);
         System.out.println(res[1]);

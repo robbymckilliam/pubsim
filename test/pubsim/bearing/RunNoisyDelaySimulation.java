@@ -7,7 +7,7 @@ package pubsim.bearing;
 
 import pubsim.bearing.AngularLeastSquaresEstimator;
 import pubsim.bearing.BearingEstimator;
-import pubsim.bearing.VectorMeanEstimator;
+import pubsim.bearing.SampleCircularMean;
 import pubsim.bearing.ConstantAngleSignal;
 import pubsim.distributions.circular.CircularMeanVariance;
 import pubsim.distributions.circular.CircularRandomVariable;
@@ -62,7 +62,7 @@ public class RunNoisyDelaySimulation {
 
         //add the estimators you want to run
         estimators.add(new AngularLeastSquaresEstimator(n));
-        estimators.add(new VectorMeanEstimator());
+        estimators.add(new SampleCircularMean());
 
         Iterator<BearingEstimator> eitr = estimators.iterator();
         while(eitr.hasNext()){

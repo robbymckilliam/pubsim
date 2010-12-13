@@ -11,7 +11,7 @@ import pubsim.Complex;
  *
  * @author Robby McKilliam
  */
-public class VectorMeanEstimator implements PhaseEstimator{
+public class SampleCircularMean implements PhaseEstimator{
 
     private int n;
 
