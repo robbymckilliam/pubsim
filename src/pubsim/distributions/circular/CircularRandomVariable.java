@@ -33,6 +33,16 @@ public abstract class CircularRandomVariable implements RandomVariable {
     }
 
     /**
+     * Return the unwrapped variance assuming that the mean is truemean.
+     * This is much faster and more accurate if you know the mean in advance.
+     */
+    public double unwrappedVariance(double truemean){
+        if(unwrped == null || unwrped.getUnwrappedMean() != truemean)
+            unwrped = new UnwrappedMeanAndVariance(this,truemean);
+        return unwrped.getUnwrappedVariance();
+    }
+
+    /**
      * Return the wrapped mean
      */
     public double unwrappedMean(){

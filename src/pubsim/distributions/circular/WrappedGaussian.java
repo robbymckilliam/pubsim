@@ -37,5 +37,10 @@ public class WrappedGaussian extends WrappedCircularRandomVariable{
         }
         return 1.0/12.0 + csum/(Math.PI*Math.PI);
     }
+    
+    @Override
+    public double unwrappedVariance(double truemean){
+        return unwrappedVariance();
+    }
   
 }

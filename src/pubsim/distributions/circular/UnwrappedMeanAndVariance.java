@@ -38,6 +38,18 @@ public class UnwrappedMeanAndVariance {
 
     }
 
+    /**
+     * Compute the unwrapped variance assuming that the mean is truemean,
+     * i.e. this allows you to specify the mean ahead of time. This is much
+     * faster if you do know the mean.
+     */
+    public UnwrappedMeanAndVariance( RandomVariable tdist, double truemean ){
+        this.dist = tdist;
+        var = computeWrappedVarianceAbout(truemean, dist, 10000);
+        mean = truemean;
+
+    }
+
     /** Compute the wrapped variance after applying a rotaton of phi */
     public static double computeWrappedVarianceAbout(final double phi, final RandomVariable dist, int integralsteps){
         double tvar = (new Integration(new IntegralFunction() {

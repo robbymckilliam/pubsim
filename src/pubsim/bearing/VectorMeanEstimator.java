@@ -28,7 +28,7 @@ public class VectorMeanEstimator implements BearingEstimator {
                 
     }
 
-    public static double asymptoticVariance(final CircularRandomVariable noise, int N){
+    public double asymptoticVariance(final CircularRandomVariable noise, int N){
 
         final int INTEGRAL_STEPS = 1000;
         double Esin2 = (new Integration(new IntegralFunction() {
@@ -41,7 +41,7 @@ public class VectorMeanEstimator implements BearingEstimator {
         return Esin2/(N*sigma2*sigma2*4*Math.PI*Math.PI);
     }
 
-    public double confidenceInterval() {
+    public double[] confidenceInterval(double[] y) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

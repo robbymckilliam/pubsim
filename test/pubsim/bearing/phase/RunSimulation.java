@@ -113,8 +113,8 @@ public class RunSimulation {
         for(int i = 0; i < noise_array.size(); i++){
                 RandomVariable noise = noise_array.get(i);
                 CircularRandomVariable circn = new ProjectedNormalDistribution(0.0, noise.getVariance());
-                double mse = AngularLeastSquaresEstimator.asymptoticVariance(circn, n);
-                //double mse = VectorMeanEstimator.asymptoticVariance(circn, n);
+                double mse = new AngularLeastSquaresEstimator(0).asymptoticVariance(circn, n);
+                //double mse = new VectorMeanEstimator().asymptoticVariance(circn, n);
                 mse_array.add(mse);
                 System.out.println(circn.unwrappedVariance() + "\t" + mse);
         }

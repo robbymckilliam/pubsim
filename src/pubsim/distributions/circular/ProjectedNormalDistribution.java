@@ -18,10 +18,11 @@ import pubsim.Util;
 public class ProjectedNormalDistribution extends CircularRandomVariable{
     
     protected RandomVariable gauss;
-    double cmean, smean;
+    double cmean, smean, mean;
     
     public ProjectedNormalDistribution(double mean, double var){
         gauss = new GaussianNoise(0.0, var);
+        this.mean = mean;
         cmean = Math.cos(mean);
         smean = Math.sin(mean);
     }
@@ -46,7 +47,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
 
     public double pdf(double x){
         double v = 1.0/Math.sqrt(gauss.getVariance());
-        return Pdf(x,v);
+        return Pdf(Util.fracpart(x - mean),v);
     }
 
     /**

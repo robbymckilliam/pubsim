@@ -114,8 +114,8 @@ public class RunSimulations {
         //finally print out the asymptotic circularVariance
         for(int i = 0; i < var_array.size(); i++){
                 CircularRandomVariable noise = var_array.get(i);
-                //double mse = VectorMeanEstimator.asymptoticVariance(noise, n);
-                double mse = AngularLeastSquaresEstimator.asymptoticVariance(noise, n);
+                //double mse = new VectorMeanEstimator().asymptoticVariance(noise, n);
+                double mse = new AngularLeastSquaresEstimator(0).asymptoticVariance(noise, n);
                 double wrappedvar = noise.unwrappedVariance();
                 wrappedvar_array.add(wrappedvar);
                 mse_array.add(mse);

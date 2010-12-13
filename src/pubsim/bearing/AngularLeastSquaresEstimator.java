@@ -47,14 +47,14 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         
     }
 
-    public static double asymptoticVariance(CircularRandomVariable noise, int N){
+    public double asymptoticVariance(CircularRandomVariable noise, int N){
         double sigma2 = UnwrappedMeanAndVariance.computeWrappedVarianceAbout(0, noise, 10000);
         //double sigma2 = noise.unwrappedVariance();
         double d = 1 - noise.pdf(-0.5);
         return sigma2/(N*d*d);
     }
 
-    public double confidenceInterval() {
+    public double[] confidenceInterval(double[] y) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
