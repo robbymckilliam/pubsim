@@ -23,9 +23,9 @@ import static org.junit.Assert.*;
  *
  * @author robertm
  */
-public class EinteinIntegerTest {
+public class EisensteinIntegerTest {
 
-    public EinteinIntegerTest() {
+    public EisensteinIntegerTest() {
     }
 
     @BeforeClass
