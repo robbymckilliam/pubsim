@@ -45,7 +45,7 @@ public class DensityEstimatorTest {
     public void testPdf() {
         System.out.println("pdf");
         double[] data = {1, -1};
-        DensityEstimator.RectangularKernel ker = new DensityEstimator.RectangularKernel(3);
+        RandomVariable ker = new UniformNoise(0, 3, 0);
         DensityEstimator dest = new DensityEstimator(data, ker);
         assertEquals(1/3.0, dest.pdf(0), 0.0000001);
         assertEquals(1/6.0, dest.pdf(1), 0.0000001);
@@ -75,18 +75,5 @@ public class DensityEstimatorTest {
 //        System.out.println("getVariance");
 //        fail("The test case is a prototype.");
 //    }
-
-    /**
-     * Test of getVariance method, of class DensityEstimator.
-     */
-    @Test
-    public void testRectKernel() {
-        System.out.println("testRectKernel");
-        DensityEstimator.RectangularKernel ker = new DensityEstimator.RectangularKernel(0.5);
-        assertEquals(2.0, ker.value(0), 0.0000001);
-        assertEquals(0.0, ker.value(1), 0.0000001);
-        assertEquals(2.0, ker.value(0.2), 0.0000001);
-        assertEquals(0.0, ker.value(0.3), 0.0000001);
-    }
 
 }

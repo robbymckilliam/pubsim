@@ -5,10 +5,10 @@
 
 package pubsim.bearing;
 
-import pubsim.distributions.DensityEstimator.RectangularKernel;
+import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.UniformNoise;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.DensityEstimator;
-import pubsim.distributions.circular.UnwrappedMeanAndVariance;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import static pubsim.Util.fracpart;
@@ -65,13 +65,11 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         double mu = estimateBearing(y);
 
         //it may be that other kernels than rectangular will be better.
-        double h = new DensityEstimator(y, new RectangularKernel(1.0/N)).pdf(mu - 0.5);
-
-        System.out.println("h = " + h);
-        System.out.println("N = " + N);
+        //double h = new DensityEstimator(y, new UniformNoise(0, 1.5/N, 0)).pdf(mu - 0.5);
+        double h = new DensityEstimator(y, new GaussianNoise(0, 100.0/N/N )).pdf(mu - 0.5);
 
         double wrpv = 0.0;
-        for(int n = 0; n < N; n++) wrpv += fracpart(y[n] - mu)*fracpart(y[n] - mu);
+        for(int i = 0; i < N; i++) wrpv += fracpart(y[i] - mu)*fracpart(y[i] - mu);
         double var = wrpv/(1-h)/(1-h)/N/N;
         
         double[] ret = new double[2]; ret[0] = mu; ret[1] = var;

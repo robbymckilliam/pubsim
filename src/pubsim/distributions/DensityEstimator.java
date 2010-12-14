@@ -22,19 +22,20 @@ import pubsim.optimisation.SingleVariateFunction;
 public class DensityEstimator extends AbstractRandomVariable {
 
     protected final double[] d;
-    protected final SingleVariateFunction ker;
+    protected final RandomVariable ker;
 
     /**
-     * Constructor takes an array of d and a kernel function.
+     * Constructor takes an array of d and a kernel function represented
+     * by a RandomVariable (really just the pdf function is needed).
      */
-    public DensityEstimator(final double[] data, SingleVariateFunction kernel){
+    public DensityEstimator(final double[] data, RandomVariable kernel){
         d = data;
         ker = kernel;
     }
 
     public double pdf(double x) {
         double pdfsum = 0.0;
-        for(int n = 0; n < d.length; n++) pdfsum += ker.value(x - d[n]);
+        for(int n = 0; n < d.length; n++) pdfsum += ker.pdf(x - d[n]);
         return pdfsum/d.length;
     }
 
@@ -46,22 +47,5 @@ public class DensityEstimator extends AbstractRandomVariable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * The very simple rectangular kernel
-     */
-    public static class RectangularKernel implements SingleVariateFunction {
-
-        protected final double width;
-
-        /** Constructor set the width of the rectangle, height is 1/width */
-        public RectangularKernel(double width){
-            this.width = width;
-        }
-
-        public double value(double x) {
-            if(Math.abs(2*x) > width) return 0.0;
-            else return 1/width;    
-        }
-    }
 
 }

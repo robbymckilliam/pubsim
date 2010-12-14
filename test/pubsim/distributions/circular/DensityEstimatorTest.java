@@ -5,6 +5,8 @@
 
 package pubsim.distributions.circular;
 
+import pubsim.distributions.RandomVariable;
+import pubsim.distributions.UniformNoise;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,7 +46,7 @@ public class DensityEstimatorTest {
     public void testPdf() {
         System.out.println("pdf");
         double[] data = {0.4, -0.4};
-        DensityEstimator.RectangularKernel ker = new DensityEstimator.RectangularKernel(0.3);
+        RandomVariable ker = new UniformNoise(0, 0.3, 0);
         DensityEstimator dest = new DensityEstimator(data, ker);
         assertEquals(10.0/3.0, dest.pdf(0.5), 0.0000001);
         assertEquals(5.0/3.0, dest.pdf(0.39), 0.0000001);

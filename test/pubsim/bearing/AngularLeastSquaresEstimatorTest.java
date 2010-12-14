@@ -77,7 +77,7 @@ public class AngularLeastSquaresEstimatorTest {
         System.out.println("estimate confidence interval");
 
         int n = 5000;
-        double mean = 0.3;
+        double mean = 0.0;
 
         CircularRandomVariable noise = new WrappedGaussian(mean, 0.01);
         IIDNoise sig = new IIDNoise(n);
