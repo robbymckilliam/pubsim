@@ -5,26 +5,24 @@
 
 package pubsim.bearing;
 
-import pubsim.bearing.BearingEstimator;
-import pubsim.bearing.SampleCircularMean;
+import pubsim.distributions.circular.CircularRandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.distributions.RandomVariable;
-import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.processes.IIDNoise;
 import pubsim.distributions.circular.WrappedGaussian;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
-public class VectorMeanEstimatorTest {
+public class AngularLeastSquaresEstimatorTest {
 
-    public VectorMeanEstimatorTest() {
+    public AngularLeastSquaresEstimatorTest() {
     }
 
     @BeforeClass
@@ -44,14 +42,14 @@ public class VectorMeanEstimatorTest {
     }
 
     /**
-     * Test of estimateBearing method, of class LeastSquaresEstimator.
+     * Test of estimateBearing method, of class AngularLeastSquaresEstimator.
      */
     @Test
     public void testEstimateBearing() {
         System.out.println("estimateBearing");
         
         int n = 20;
-        double mean = 0.2;
+        double mean = -0.2;
         
         RandomVariable noise = new WrappedGaussian(mean, 0.0001);
         IIDNoise sig = new IIDNoise(n);
@@ -59,18 +57,19 @@ public class VectorMeanEstimatorTest {
         
         double[] y = sig.generateReceivedSignal();
         
-        BearingEstimator instance = new SampleCircularMean();
+        AngularLeastSquaresEstimator instance = new AngularLeastSquaresEstimator(n);
 
         double result = instance.estimateBearing(y);
         
         System.out.println(mean);
         System.out.println(result);
-          
+        
+        
         assertTrue(Math.abs(result - mean)< 0.01);
 
     }
 
-        /**
+    /**
      * Test of estimateBearing method, of class LeastSquaresEstimator.
      */
     @Test
@@ -78,7 +77,7 @@ public class VectorMeanEstimatorTest {
         System.out.println("estimate confidence interval");
 
         int n = 5000;
-        double mean = 0.4;
+        double mean = 0.3;
 
         CircularRandomVariable noise = new WrappedGaussian(mean, 0.01);
         IIDNoise sig = new IIDNoise(n);
@@ -86,19 +85,18 @@ public class VectorMeanEstimatorTest {
 
         double[] y = sig.generateReceivedSignal();
 
-        BearingEstimator instance = new SampleCircularMean();
+        BearingEstimator instance = new AngularLeastSquaresEstimator(n);
 
         double[] res = instance.confidenceInterval(y);
 
-        //System.out.println(mean + ", " + res[0]);
+        System.out.println(mean + ", " + res[0]);
         assertEquals(mean, res[0], 0.01 );
 
         double var = instance.asymptoticVariance(noise, n);
 
-        System.out.println(var);
-        System.out.println(res[1]);
+        System.out.println(n*var);
+        System.out.println(n*res[1]);
         assertEquals(n*var, n*res[1], 0.01 );
-        
 
     }
 

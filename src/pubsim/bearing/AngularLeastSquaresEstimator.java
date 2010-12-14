@@ -5,7 +5,9 @@
 
 package pubsim.bearing;
 
+import pubsim.distributions.DensityEstimator.RectangularKernel;
 import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.DensityEstimator;
 import pubsim.distributions.circular.UnwrappedMeanAndVariance;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarBucketVaughan;
@@ -47,15 +49,34 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         
     }
 
+    /**
+     * Compute the asymptotic variance of the angular least squares
+     * estimator. This makes the assumption that the distribution has
+     * zero unwrapped mean. It will be incorrect if this is not the case.
+     */
     public double asymptoticVariance(CircularRandomVariable noise, int N){
-        double sigma2 = UnwrappedMeanAndVariance.computeWrappedVarianceAbout(0, noise, 10000);
-        //double sigma2 = noise.unwrappedVariance();
+        double sigma2 = noise.unwrappedVariance(0.0);
         double d = 1 - noise.pdf(-0.5);
         return sigma2/(N*d*d);
     }
 
     public double[] confidenceInterval(double[] y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int N = y.length;
+        double mu = estimateBearing(y);
+
+        //it may be that other kernels than rectangular will be better.
+        double h = new DensityEstimator(y, new RectangularKernel(1.0/N)).pdf(mu - 0.5);
+
+        System.out.println("h = " + h);
+        System.out.println("N = " + N);
+
+        double wrpv = 0.0;
+        for(int n = 0; n < N; n++) wrpv += fracpart(y[n] - mu)*fracpart(y[n] - mu);
+        double var = wrpv/(1-h)/(1-h)/N/N;
+        
+        double[] ret = new double[2]; ret[0] = mu; ret[1] = var;
+        return ret;
+        
     }
 
 }
