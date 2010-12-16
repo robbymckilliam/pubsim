@@ -69,13 +69,14 @@ public class FermatTest {
     public void testprintSloaneReduced() {
         System.out.println("print Slonae reduced");
         int n = 9;
-        int r = 3;
+        int r = 1;
+        int w = (n+1)*n/2;
 
         Fermat instance = new Fermat(n, r);
         Matrix L = instance.getGeneratorMatrix().inverse();
         L = SloanesReduction.upperTriangularBasis(L);
         //System.out.println(VectorFunctions.print(SloanesReduction.specialColumnReduce(SloanesReduction.computeSlonesLw(L,1000))));
-        double[] v = new SloanesReduction(L, 4000).getProjectionVector();
+        double[] v = new SloanesReduction(L, w).getProjectionVector();
         System.out.println(VectorFunctions.print(v));
     }
 

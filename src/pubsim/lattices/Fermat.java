@@ -10,9 +10,9 @@ import Jama.Matrix;
 
 /**
  * Fermat lattice is the intersection of Zn with the hyperplane orthogonal
- * to [1,2,3,4,5,...n+1].^r where .^ is elementwise power.  The minimum
- * norm of these lattices is atleast 4. This follows from Fermat's last
- * theorem.
+ * to [1,2,3,4,5,...n+1].^r where .^ is elementwise power.  For r > 2 The
+ * minimun norm of these lattices is atleast 4. This follows from Fermat's
+ * last theorem.
  * @author Robby McKilliam
  */
 public class Fermat extends AbstractLattice {

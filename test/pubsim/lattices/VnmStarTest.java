@@ -5,7 +5,7 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.VnmStar;
+import pubsim.lattices.reduction.LLL;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -91,11 +91,18 @@ public class VnmStarTest {
     public void testGeneratorMatrix(){
         System.out.println("testGeneratorMatrix");
 
-        int n = 8;
-        int m = 2;
+        int n = 11;
+        int m = 3;
 
         Matrix M = VnmStar.getGeneratorMatrix(m, n);
         System.out.println(VectorFunctions.print(M));
+
+        Matrix Mpt = M.inverse().transpose();
+        System.out.println(VectorFunctions.print(Mpt));
+
+        LLL lll = new LLL();
+        System.out.println(VectorFunctions.print(lll.reduce(Mpt)));
+
     }
 
 }
