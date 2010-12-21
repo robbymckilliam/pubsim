@@ -66,7 +66,7 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
 
         //it may be that other kernels than rectangular will be better.
         //double h = new DensityEstimator(y, new UniformNoise(0, 1.5/N, 0)).pdf(mu - 0.5);
-        double h = new DensityEstimator(y, new GaussianNoise(0, 400.0/N/N )).pdf(mu - 0.5);
+        double h = new DensityEstimator(y, new GaussianNoise(0, 70.0/N/N )).pdf(mu - 0.5);
 
         double wrpv = 0.0;
         for(int i = 0; i < N; i++) wrpv += fracpart(y[i] - mu)*fracpart(y[i] - mu);
