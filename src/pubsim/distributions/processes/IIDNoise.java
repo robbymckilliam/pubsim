@@ -18,8 +18,8 @@ public class IIDNoise implements SignalGenerator{
     protected int n;
     protected double[] iidsignal;
     protected RandomVariable noise;
-    
-    /** Default constructor set length of vector to 1 */ 
+
+    /** Default constructor set length of vector */ 
     public IIDNoise(int length){
         n = length;
         iidsignal = new double[n];
@@ -29,6 +29,7 @@ public class IIDNoise implements SignalGenerator{
     public IIDNoise(RandomVariable noise, int length){
         this.noise = noise;
         this.n = length;
+        iidsignal = new double[n];
     }
     
     /** {@inheritDoc} */
@@ -52,8 +53,6 @@ public class IIDNoise implements SignalGenerator{
      * Generate the iid noise of length n.
      */
     public double[] generateReceivedSignal(){
-        if( iidsignal.length != n )
-            iidsignal = new double[n];
         for(int i = 0; i < n; i++)
             iidsignal[i] = noise.getNoise();
         return iidsignal;

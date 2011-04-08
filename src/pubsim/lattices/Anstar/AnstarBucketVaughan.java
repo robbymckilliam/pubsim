@@ -6,7 +6,7 @@
 package pubsim.lattices.Anstar;
 
 /**
- * This is Vaughan's practical interpretation of the Anstar Bucket
+ * This is Vaughan's practical interpretation of the Anstar bucket
  * algorithm.  This uses 2 arrays rather than a linked list.  It is
  * simpler and a little faster in practice.
  * @author Robby McKilliam

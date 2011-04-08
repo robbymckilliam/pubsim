@@ -21,6 +21,10 @@ public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
         return Math.sqrt(1.0 - 1.0 / (n + 1));
     }
 
+    public double coveringRadius(){
+        return Math.sqrt(n*(n+2)/12.0/(n+1));
+    }
+
     /**
      * Project a vector into the zero-mean plane
      * y is output, x is input (x & y can be the same array)

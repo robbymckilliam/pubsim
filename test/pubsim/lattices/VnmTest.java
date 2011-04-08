@@ -61,7 +61,7 @@ public class VnmTest {
      */
     @Test
     public void testPrintOutShortVects() {
-        System.out.println("logVolume");
+        System.out.println("print out short vectors");
         Vnm instance = new Vnm(6, 40);
 
         System.out.println(instance.kissingNumber());
@@ -69,5 +69,22 @@ public class VnmTest {
         double inrad = instance.inradius();
         System.out.println(inrad * inrad * 4);
     }
+
+    /**
+     * Test of logVolume method, of class Vnm.
+     */
+    @Test
+    public void searchForSquares() {
+        System.out.println("search for squares");
+        int m = 1;
+        for(int n = m+1; n < 1000; n++){
+            double vol = (new Vnm(4,n)).volume();
+            String marker = "";
+            if(Math.abs(vol - Math.round(vol)) < 0.000001 ) marker = "******";
+            System.out.println(n + "\t" + vol + "\t" + marker);
+        }
+
+    }
+
 
 }

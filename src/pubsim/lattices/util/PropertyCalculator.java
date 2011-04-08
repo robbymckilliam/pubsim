@@ -90,9 +90,8 @@ public class PropertyCalculator implements Serializable{
         final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
         double oldG = 0;
         int count = 0;
-        for(int n = 0; n < samples; n++){
+        for(int n = 0; n < samples; n++)
             calculateProperty(points.nextElementDouble());
-        }
     }
 
     /**
@@ -137,13 +136,13 @@ public class PropertyCalculator implements Serializable{
      *
      * Really, I think that Conway and Sloane got this a little wrong.  The
      * normalised second moment should be I = U/vol^(2/n + 1) then it is scale
-     * independent.  The the dimensionless second moment is then I/n
+     * independent.  The dimensionless second moment is then I/n
      */
      public double normalisedSecondMoment() {
         return sm/numpoints/Math.pow(vol, 2.0/N);
     }
 
-    public double secondMoment() {return sm/numpoints*vol;}
+    public double secondMoment() {return sm/numpoints;}
 
     public double dimensionalessSecondMoment() {
         return normalisedSecondMoment()/N;
@@ -155,6 +154,5 @@ public class PropertyCalculator implements Serializable{
      * of iterations actually run.
      */
     public double rawError() { return sm; }
-
 
 }

@@ -20,11 +20,11 @@ import pubsim.snpe.SLS2novlp
 import pubsim.snpe.Util
 
 val iters = 1000 //number of trials run per simualtion.
-val N = 32 //values of N we will generate curves for
+val N = 100 //values of N we will generate curves for
 val Tmin = 0.7 //minimum value of period
 val Tmax = 1.4 //maximum value of period.
 val T = 1.0 //value of the true period
-val uY = 4 //mean of the discrete sparse signal
+val uY = 10 //mean of the discrete sparse signal
 
 //construct an array of noise distributions with a logarithmic scale
 val noises = Range.Double(-25.0, -7, 1).map( db => scala.math.pow(10, db/10.0) ).map( v => new GaussianNoise(0,v) ) 
@@ -33,11 +33,11 @@ def randphase = ( (new scala.util.Random).nextDouble() ) * (Tmax -Tmin) //functi
   
 val siggen =  new SparseNoisyPeriodicSignal(N)  //construct our signal generator
 //siggen.setSparseGenerator(new GeometricRandomVariable(0.25))
-siggen.setSparseGenerator(new PoissonRandomVariable(3)) //set the discrte sparse generator we are using.
+siggen.setSparseGenerator(new PoissonRandomVariable(uY)) //set the discrete sparse generator we are using.
 siggen.setPeriod(T) //set the true period
 
 //set the estimator you want to use
-val est = new NormalisedSamplingLLS(N, 10*N) //second parameter here is the number of sample used in the approximation.
+val est = new NormalisedSamplingLLS(N, 100) //second parameter here is the number of sample used in the approximation.
 //val est = new SamplingLLS(N, 64*N),
 //val est = new PeriodogramEstimator(N, 2*N) 
 //val est = new NormalisedZnLLS(N)

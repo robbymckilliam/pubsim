@@ -9,7 +9,7 @@ val T = 1.0 //set the value of the true period
 val uY = 4 //mean of the discrete sparse signal
 
 //construct an array of noise distributions with differing variance.
-val noises = Range.Double(-25.0, -7, 0.5).map( db => scala.math.pow(10, db/10.0) ).map( v => new GaussianNoise(0,v/T/T) )
+val noises = Range.Double(-25.0, -7, 0.1).map( db => scala.math.pow(10, db/10.0) ).map( v => new GaussianNoise(0,v/T/T) )
 
 println("stdev \t var(period) \t var(phase)")
 for( noise <- noises ) { 

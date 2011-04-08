@@ -20,7 +20,7 @@ public class PoissonRandomVariable implements RandomVariable {
     protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
 
     /**
-     * Constructor sets the parameter for this geometric distribution.
+     * Constructor sets the parameter for this Poisson distribution.
      * p must be between 0 and 1.
      */
     public PoissonRandomVariable(double l){
