@@ -443,6 +443,18 @@ public final class VectorFunctions {
     }
 
     /**
+     * Return the l-norm of a vector, i.e. sum of elements to the lth power
+     */
+    public static double norm(int l, double[] x) {
+        double out = 0.0;
+        for (int i = 0; i < x.length; i++) {
+            out += Math.pow(x[i],l);
+        }
+        return out;
+    }
+
+
+    /**
      * Return a vector of length n with zeros everywhere
      * excepect the e[i] = 1.0
      */
