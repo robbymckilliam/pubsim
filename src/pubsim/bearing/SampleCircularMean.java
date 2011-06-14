@@ -10,7 +10,7 @@ import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 
 /**
- * Assumes that angles are measure in interval [-1/2, 1/2).
+ * Assumes that angles are measured in the interval [-1/2, 1/2).
  * @author Robby McKilliam
  */
 public class SampleCircularMean implements BearingEstimator {

@@ -10,7 +10,7 @@ import Jama.Matrix;
 import junit.framework.TestCase;
 import pubsim.distributions.GaussianNoise;
 import pubsim.lattices.decoder.SphereDecoder;
-import pubsim.distributions.processes.IIDNoise;
+import pubsim.distributions.processes.IIDNoiseVector;
 import pubsim.VectorFunctions;
 
 /**
@@ -33,7 +33,7 @@ public class DnTest extends TestCase {
         int iters = 100;
         
         GaussianNoise noise = new GaussianNoise(0.0, 1000.0);
-        IIDNoise siggen = new IIDNoise(noise, n);
+        IIDNoiseVector siggen = new IIDNoiseVector(noise, n);
         
         Dn instance = new Dn(n);
         SphereDecoder tester = new SphereDecoder(instance);

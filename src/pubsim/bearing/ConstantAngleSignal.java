@@ -5,7 +5,7 @@
 
 package pubsim.bearing;
 
-import pubsim.distributions.processes.IIDNoise;
+import pubsim.distributions.processes.IIDNoiseVector;
 import pubsim.SignalGenerator;
 import static pubsim.Util.fracpart;
 
@@ -14,7 +14,7 @@ import static pubsim.Util.fracpart;
  * Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robby McKilliam
  */
-public class ConstantAngleSignal extends IIDNoise implements SignalGenerator{
+public class ConstantAngleSignal extends IIDNoiseVector implements SignalGenerator{
 
     protected double angle = 0.0;
 

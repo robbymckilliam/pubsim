@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.distributions.RandomVariable;
-import pubsim.distributions.processes.IIDNoise;
+import pubsim.distributions.processes.IIDNoiseVector;
 import pubsim.distributions.circular.WrappedGaussian;
 import static org.junit.Assert.*;
 
@@ -52,7 +52,7 @@ public class AngularLeastSquaresEstimatorTest {
         double mean = -0.2;
         
         RandomVariable noise = new WrappedGaussian(mean, 0.0001);
-        IIDNoise sig = new IIDNoise(n);
+        IIDNoiseVector sig = new IIDNoiseVector(n);
         sig.setNoiseGenerator(noise);
         
         double[] y = sig.generateReceivedSignal();
@@ -80,7 +80,7 @@ public class AngularLeastSquaresEstimatorTest {
         double mean = 0.0;
 
         CircularRandomVariable noise = new WrappedGaussian(mean, 0.01);
-        IIDNoise sig = new IIDNoise(n);
+        IIDNoiseVector sig = new IIDNoiseVector(n);
         sig.setNoiseGenerator(noise);
 
         double[] y = sig.generateReceivedSignal();
