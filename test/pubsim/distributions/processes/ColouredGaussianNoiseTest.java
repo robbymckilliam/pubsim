@@ -5,21 +5,18 @@
 
 package pubsim.distributions.processes;
 
-import pubsim.distributions.processes.ColouredGaussianNoiseVector;
-import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
-import static pubsim.VectorFunctions.columnMatrix;
-import static pubsim.VectorFunctions.print;
-
+import pubsim.distributions.RandomVariable;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class ColouredGaussianNoiseTest {
 
@@ -43,59 +40,31 @@ public class ColouredGaussianNoiseTest {
     }
 
     /**
-     * Simulate some noise and compute the estimated covariance.  Check
-     * it's close to the true covariance.
+     * Test that the autocorrellation is computed correctly by
+     * Monte Carlo simulation.
      */
     @Test
-    public void testGenerateReceivedSignalZeroMean() {
-        System.out.println("generateReceivedSignal with zero mean");
-        
-        int n = 3;
-        Matrix cor = Matrix.random(n, n);
-        cor = cor.times(cor.transpose());
-        System.out.println(print(cor));
-        ColouredGaussianNoiseVector inst = new ColouredGaussianNoiseVector(cor);
-        
-        int numiters = 1000;
-        Matrix estcor = new Matrix(n,n);
-        for(int i = 0; i < numiters; i++) {
-            Matrix corv = columnMatrix(inst.generateReceivedSignal());
-            estcor.plusEquals(corv.times(corv.transpose()));
-            //System.out.println(print(estcor));
+    public void testAutocorrelation() {
+        System.out.println("autocorrelation");
+        double[] f = {1.0, 0.5, 0.5, 0.25};
+        ColouredGaussianNoise instance = new ColouredGaussianNoise(f);
+        double[] autocor = instance.autocorrelation();
+        double[] estac = new double[autocor.length];
+        //System.out.println(VectorFunctions.print(autocor));
+
+        int N = 10000000;
+        double[] X = new double[N];
+        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
+
+        for(int k = 0; k < autocor.length; k++){
+            for(int i = 0; i < N-k; i++) estac[k] += X[i]*X[i+k];
+            estac[k]/=(N-k);
+            assertEquals(autocor[k], estac[k], 0.01);
         }
-        estcor.timesEquals(1.0/numiters);
-        System.out.println(print(estcor));
+
         
-        assertTrue(estcor.minus(cor).normF() < 0.3);
-
-    }
-
-     /**
-     * Test that the generate takes the prescribed mean by Monte Carlo.
-     */
-    @Test
-    public void testMean() {
-        System.out.println("test mean");
-
-        int n = 2;
-        Matrix cor = Matrix.random(n, n);
-        cor = cor.times(cor.transpose());
-        System.out.println(print(cor));
-
-        double[] mean = {1.0,1.0};
-        ColouredGaussianNoiseVector inst = new ColouredGaussianNoiseVector(mean, cor);
-
-        int numiters = 1000;
-        Matrix estmean = new Matrix(n,1);
-        for(int i = 0; i < numiters; i++) {
-            Matrix corv = columnMatrix(inst.generateReceivedSignal());
-            estmean.plusEquals(corv);
-            //System.out.println(print(estcor));
-        }
-        estmean.timesEquals(1.0/numiters);
-        System.out.println(print(estmean));
-
-        assertTrue(estmean.minus(columnMatrix(mean)).normF() < 0.05);
+        System.out.println(VectorFunctions.print(autocor));
+        System.out.println(VectorFunctions.print(estac));
 
     }
 

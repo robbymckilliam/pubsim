@@ -734,6 +734,17 @@ public final class VectorFunctions {
     }
 
     /**
+     * Reverse the order of a vector.  Allocates memory
+     */
+    public static double[] reverse(double[] x) {
+        double[] rx = new double[x.length];
+        for (int i = 0; i < x.length; i++) {
+            rx[i] = x[x.length - i - 1];
+        }
+        return rx;
+    }
+
+    /**
      * Return the distance between the two elements in
      * x that are the fathest apart.
      */

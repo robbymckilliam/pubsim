@@ -36,7 +36,7 @@ public class CircularBufferDouble implements Serializable {
      * the last element added at period N.
      */
     public double get(int i){
-        return buffer[i % N];
+        return buffer[Util.mod(i,N)];
     }
     
 }
