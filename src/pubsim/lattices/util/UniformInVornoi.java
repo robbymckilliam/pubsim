@@ -12,7 +12,7 @@ import pubsim.lattices.Lattice;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.NearestPointAlgorithm;
 import pubsim.lattices.decoder.SphereDecoder;
-import pubsim.distributions.processes.IIDNoise;
+import pubsim.distributions.processes.IIDNoiseVector;
 import pubsim.VectorFunctions;
 
 /**
@@ -26,7 +26,7 @@ public class UniformInVornoi
     
     private int numsamples = 1000, count = 0;
     protected NearestPointAlgorithm decoder;
-    private IIDNoise nv;
+    private IIDNoiseVector nv;
     Matrix B;
 
 
@@ -78,7 +78,7 @@ public class UniformInVornoi
         //System.out.println("N = " + N);
         UniformNoise noise = new UniformNoise(0,1.0,0);
         noise.randomSeed();
-        nv = new IIDNoise(noise, N);
+        nv = new IIDNoiseVector(noise, N);
     }
 
     public double percentageComplete() {

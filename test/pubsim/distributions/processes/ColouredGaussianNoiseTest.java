@@ -5,7 +5,7 @@
 
 package pubsim.distributions.processes;
 
-import pubsim.distributions.processes.ColouredGaussianNoise;
+import pubsim.distributions.processes.ColouredGaussianNoiseVector;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -54,7 +54,7 @@ public class ColouredGaussianNoiseTest {
         Matrix cor = Matrix.random(n, n);
         cor = cor.times(cor.transpose());
         System.out.println(print(cor));
-        ColouredGaussianNoise inst = new ColouredGaussianNoise(cor);
+        ColouredGaussianNoiseVector inst = new ColouredGaussianNoiseVector(cor);
         
         int numiters = 1000;
         Matrix estcor = new Matrix(n,n);
@@ -83,7 +83,7 @@ public class ColouredGaussianNoiseTest {
         System.out.println(print(cor));
 
         double[] mean = {1.0,1.0};
-        ColouredGaussianNoise inst = new ColouredGaussianNoise(mean, cor);
+        ColouredGaussianNoiseVector inst = new ColouredGaussianNoiseVector(mean, cor);
 
         int numiters = 1000;
         Matrix estmean = new Matrix(n,1);
