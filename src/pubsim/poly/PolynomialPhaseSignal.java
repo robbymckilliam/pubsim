@@ -6,10 +6,10 @@
 package pubsim.poly;
 
 import java.util.Random;
-import pubsim.distributions.RandomVariable;
 import java.io.Serializable;
 import pubsim.SignalGenerator;
 import pubsim.VectorFunctions;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Generates m polynomial phase signal with parameters specified
@@ -24,7 +24,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     
     protected int n;
     
-    protected RandomVariable noise;
+    protected NoiseGenerator noise;
 
     @Override
     public double[] generateReceivedSignal() {
@@ -39,12 +39,12 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     }
 
     @Override
-    public void setNoiseGenerator(RandomVariable noise) {
+    public void setNoiseGenerator(NoiseGenerator noise) {
         this.noise = noise;
     }
 
     @Override
-    public RandomVariable getNoiseGenerator() {
+    public NoiseGenerator getNoiseGenerator() {
         return noise;
     }
 

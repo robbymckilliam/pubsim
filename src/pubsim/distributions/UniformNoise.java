@@ -28,7 +28,7 @@ public class UniformNoise extends AbstractRandomVariable implements RandomVariab
 
     /**
      * Creates uniform noise with a specific range,
-     * rather than varianac. Third variable is dummy.
+     * rather than variance. Third variable is dummy.
      */
     public UniformNoise(double mean, double range, int nothing){
         this.mean = mean;
@@ -37,8 +37,10 @@ public class UniformNoise extends AbstractRandomVariable implements RandomVariab
         this.range = range;
     }
 
+    @Override
     public double getMean(){ return mean; }
 
+    @Override
     public double getVariance(){ return variance; }
 
     public double getRange() { return range; }
@@ -49,12 +51,23 @@ public class UniformNoise extends AbstractRandomVariable implements RandomVariab
         return mean + range * (random.raw() - 0.5);
     }
 
+    @Override
     public double pdf(double x){
         double h = 1.0/range;
         double min = mean - 0.5*range;
         double max = mean + 0.5*range;
         if( x < min || x > max ) return 0.0;
         return h;
+    }
+    
+    @Override
+    public double cdf(double x){
+        double h = 1.0/range;
+        double min = mean - 0.5*range;
+        double max = mean + 0.5*range;
+        if(x < min) return 0.0;
+        if(x > max) return 1.0;
+        else return h*(x - min);
     }
     
 }

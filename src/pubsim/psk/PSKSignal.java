@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import pubsim.distributions.RandomVariable;
 import pubsim.SignalGenerator;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Generates a baseband sampled QPSK signal.
@@ -17,7 +18,7 @@ import pubsim.SignalGenerator;
  */
 public class PSKSignal implements SignalGenerator{
     
-    protected RandomVariable noise;
+    protected NoiseGenerator noise;
     protected Random random;
     protected double symF;
     protected double transF;
@@ -78,10 +79,10 @@ public class PSKSignal implements SignalGenerator{
             trans[i] = random.nextInt(M);
     }
     
-    public void setNoiseGenerator(RandomVariable noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
-    public RandomVariable getNoiseGenerator(){ return noise; }
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
     
     /** Set the number of samples that are used per 'block' */
     public void setLength(int n) {

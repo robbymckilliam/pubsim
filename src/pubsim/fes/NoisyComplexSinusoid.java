@@ -7,9 +7,7 @@
 package pubsim.fes;
 
 import pubsim.SignalGenerator;
-import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.RandomVariable;
-import java.util.Random;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Generator for a noisy sinusoid.
@@ -24,7 +22,7 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     protected double[] real;
     protected double[] imag;
     
-    protected RandomVariable noise;
+    protected NoiseGenerator noise;
 
     /** default constructor: f = 0.1, rate = 1, N = 10, p = 0.0 */
     protected NoisyComplexSinusoid() {    }
@@ -45,11 +43,11 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     
     /** Set the noise type for the signal */
     @Override
-    public void setNoiseGenerator(RandomVariable noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
     
-    public RandomVariable getNoiseGenerator(){ return noise; }
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
     
     /** Set the freqency of the csiod in Hz */
     public void setFrequency(double f){

@@ -7,8 +7,8 @@ package pubsim.psk.decoder;
 
 import java.util.Random;
 import pubsim.Complex;
-import pubsim.distributions.RandomVariable;
 import pubsim.SignalGenerator;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Generates T PSK signals that have been passed through a Rayleigh
@@ -32,7 +32,7 @@ public class PSKSignal implements SignalGenerator{
     /** Received complex signal */
     protected Complex[] y;
     
-    protected RandomVariable noise;
+    protected NoiseGenerator noise;
     protected Random random;
     
     /** Default constructor using 8-ary QAM */
@@ -110,10 +110,10 @@ public class PSKSignal implements SignalGenerator{
     public double[] getPSKSignal() { return x; }
 
     /** Set the noise distribution */
-    public void setNoiseGenerator(RandomVariable noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
-    public RandomVariable getNoiseGenerator(){ return noise; }
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
 
     public void setLength(int n) {
         y = new Complex[n];
@@ -127,7 +127,7 @@ public class PSKSignal implements SignalGenerator{
     public int getLength() { return T; }
     
     
-    /** Generate the phase unknow, power constant, fading channel */
+    /** Generate the phase unknown, power constant, fading channel */
     public void generateChannel(){
         h = new Complex(random.nextGaussian(), random.nextGaussian());
         h = h.times(1/h.abs());

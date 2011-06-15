@@ -6,7 +6,7 @@
 package pubsim.bearing;
 
 import pubsim.distributions.circular.WrappedUniform;
-import pubsim.distributions.processes.IIDNoiseVector;
+import pubsim.distributions.processes.NoiseVector;
 import pubsim.SignalGenerator;
 import static pubsim.Util.fracpart;
 
@@ -15,7 +15,7 @@ import static pubsim.Util.fracpart;
  * The assumes that the period of the signal T = 1.
  * @author Robby McKilliam
  */
-public class QuantisedDelaySignal extends IIDNoiseVector implements SignalGenerator{
+public class QuantisedDelaySignal extends NoiseVector implements SignalGenerator{
 
     protected double delay = 0.0;
     private double P;

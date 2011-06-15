@@ -8,6 +8,7 @@ package pubsim;
 
 import pubsim.distributions.RandomVariable;
 import java.io.Serializable;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Interface for the generation recieved signals
@@ -15,8 +16,8 @@ import java.io.Serializable;
  */
 public interface SignalGenerator extends Serializable {
     public double[] generateReceivedSignal();
-    public void setNoiseGenerator(RandomVariable noise);
-    public RandomVariable getNoiseGenerator();
+    public void setNoiseGenerator(NoiseGenerator noise);
+    public NoiseGenerator getNoiseGenerator();
     
     /** Return the length of the signal generated */
     public int getLength();
@@ -27,8 +28,8 @@ public interface SignalGenerator extends Serializable {
 
         public T[] generateReceivedSignal();
 
-        public void setNoiseGenerator(RandomVariable noise);
-        public RandomVariable getNoiseGenerator();
+        public void setNoiseGenerator(NoiseGenerator noise);
+        public NoiseGenerator getNoiseGenerator();
 
         /** Return the length of the signal generated */
         public int getLength();

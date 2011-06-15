@@ -131,7 +131,7 @@ public abstract class CircularRandomVariable implements RandomVariable {
     /**
      * This returns the `mean' i.e. the expected value of the circular
      * random variable.  This does not necessarily correspond to the
-     * `mean direction'.  See my thesis or papers.
+     * `mean direction.  See my thesis or papers.
      */
     public double getMean(){
         final int INTEGRAL_STEPS = 1000;
@@ -145,8 +145,8 @@ public abstract class CircularRandomVariable implements RandomVariable {
 
     /**
      * This returns the `variance' i.e. the expected value of the circular
-     * random variable squared substract it's mean.  This does not necessarily correspond to the
-     * `mean direction'.  See my thesis or papers.
+     * random variable squared subtract it's mean.  This does not necessarily correspond to the
+     * circular variance or the unwrapped variance.  See my thesis or papers.
      */
     public double getVariance(){
         final int INTEGRAL_STEPS = 1000;

@@ -41,6 +41,7 @@ public class ColouredGaussianNoise implements StationaryProcess {
     public double[] autocorrelation() { return autocor; }
     
     private int n = 0;
+    @Override
     public double getNoise(){
         X.add(noisegen.getNoise());
         double Y = 0;
@@ -48,6 +49,16 @@ public class ColouredGaussianNoise implements StationaryProcess {
             Y += f[k]*X.get(n-k);
         n++;
         return Y;
+    }
+
+    @Override
+    public void randomSeed() {
+        noisegen.randomSeed();
+    }
+
+    @Override
+    public void setSeed(long seed) {
+        noisegen.setSeed(seed);
     }
     
     

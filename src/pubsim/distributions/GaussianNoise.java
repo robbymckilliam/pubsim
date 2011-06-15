@@ -27,17 +27,20 @@ public class GaussianNoise extends AbstractRandomVariable implements RandomVaria
         this.stdDeviation = Math.sqrt(variance);
     }
 
+    @Override
     public double getMean(){ return mean; }
 
+    @Override
     public double getVariance(){ return variance; }
     
-    /** Returns an instance of gaussian noise */
+    /** Returns an instance of Gaussian noise */
     @Override
     public double getNoise(){
         return stdDeviation * random.gaussian() + mean;
     }
 
     /** Return the Gaussian pdf */
+    @Override
     public double pdf(double x) {
         double s = 1.0/Math.sqrt(2*Math.PI*getVariance());
         double d = x - getMean();

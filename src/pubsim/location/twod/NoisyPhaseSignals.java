@@ -5,10 +5,10 @@
 
 package pubsim.location.twod;
 
-import pubsim.distributions.RandomVariable;
 import pubsim.Point2;
 import pubsim.SignalGenerator;
 import pubsim.VectorFunctions;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Generates a set of noisy phase signal given the position
@@ -17,7 +17,7 @@ import pubsim.VectorFunctions;
  */
 public class NoisyPhaseSignals implements SignalGenerator{
     
-    RandomVariable noise;
+    NoiseGenerator noise;
     double[] d;
     Point2 x;
     int N;
@@ -74,11 +74,11 @@ public class NoisyPhaseSignals implements SignalGenerator{
         this.x = x;
     }*/
 
-    public void setNoiseGenerator(RandomVariable noise) {
+    public void setNoiseGenerator(NoiseGenerator noise) {
         this.noise = noise;
     }
 
-    public RandomVariable getNoiseGenerator() {
+    public NoiseGenerator getNoiseGenerator() {
         return noise;
     }
 

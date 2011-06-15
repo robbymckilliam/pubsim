@@ -8,6 +8,7 @@ package pubsim.bearing.phase;
 import pubsim.distributions.RandomVariable;
 import pubsim.SignalGenerator;
 import pubsim.Complex;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Returns a noisy contant phase complex signal.
@@ -18,7 +19,7 @@ public class ConstantPhaseSignal implements SignalGenerator.Generic<Complex>{
     protected Complex mean;
     protected Complex[] signal;
     protected int n;
-    protected RandomVariable noise;
+    protected NoiseGenerator noise;
 
     public ConstantPhaseSignal(){
         this.mean = new Complex();
@@ -40,11 +41,11 @@ public class ConstantPhaseSignal implements SignalGenerator.Generic<Complex>{
         return signal;
     }
 
-    public void setNoiseGenerator(RandomVariable noise) {
+    public void setNoiseGenerator(NoiseGenerator noise) {
         this.noise = noise;
     }
 
-    public RandomVariable getNoiseGenerator() {
+    public NoiseGenerator getNoiseGenerator() {
         return noise;
     }
 

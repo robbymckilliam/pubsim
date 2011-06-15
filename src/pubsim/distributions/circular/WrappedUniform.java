@@ -5,6 +5,8 @@
 
 package pubsim.distributions.circular;
 
+import flanagan.integration.IntegralFunction;
+import flanagan.integration.Integration;
 import pubsim.distributions.UniformNoise;
 
 /**
@@ -13,7 +15,7 @@ import pubsim.distributions.UniformNoise;
  */
 public class WrappedUniform extends WrappedCircularRandomVariable{
 
-    protected double umean, uvar;
+    protected final double umean, uvar;
 
     public WrappedUniform(double mean, double var){
         super(new UniformNoise(mean, var));
@@ -31,7 +33,7 @@ public class WrappedUniform extends WrappedCircularRandomVariable{
     }
 
     /**
-     * Return the unwrapped variance assuming that the mean is truemean.
+     * Return the unwrapped variance assuming that the mean is true mean.
      * This is much faster and more accurate if you know the mean in advance.
      */
     @Override

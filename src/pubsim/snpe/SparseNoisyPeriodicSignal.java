@@ -6,9 +6,8 @@
 
 package pubsim.snpe;
 
-import pubsim.distributions.RandomVariable;
-import java.util.Random;
 import pubsim.*;
+import pubsim.distributions.NoiseGenerator;
 
 /**
  * Generates a set of recieved times that are sparse and
@@ -23,8 +22,8 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
     protected double[] transmittedSignal;
     protected double[] recievedSignal;
-    protected RandomVariable noise;
-    protected RandomVariable sparsenoise;
+    protected NoiseGenerator noise;
+    protected NoiseGenerator sparsenoise;
     protected double T = 1.0;
     protected int N;
     protected double phase = 0.0;
@@ -88,16 +87,16 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     }
 
     /** Set the discrete noise type for sparse signal */
-    public void setSparseGenerator(RandomVariable sparsenoise){
+    public void setSparseGenerator(NoiseGenerator sparsenoise){
         this.sparsenoise = sparsenoise;
     }
-    public RandomVariable getSparseGenerator(){ return sparsenoise; }
+    public NoiseGenerator getSparseGenerator(){ return sparsenoise; }
 
     /** Set the noise type for the signal */
-    public void setNoiseGenerator(RandomVariable noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
-    public RandomVariable getNoiseGenerator(){ return noise; }
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
     
     /**
      * Set the seed for the random generator used

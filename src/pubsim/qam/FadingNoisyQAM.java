@@ -7,12 +7,12 @@
 package pubsim.qam;
 
 import pubsim.SignalGenerator;
-import pubsim.distributions.RandomVariable;
 import java.util.Random;
 import pubsim.Complex;
+import pubsim.distributions.NoiseGenerator;
 
 /**
- * Creates a Rayleigh fading QAM symbol with gaussian noise.
+ * Creates a Rayleigh fading QAM symbol with Gaussian noise.
  * @author Robby McKilliam
  */
 public class FadingNoisyQAM implements SignalGenerator{
@@ -22,7 +22,7 @@ public class FadingNoisyQAM implements SignalGenerator{
     protected double Hr, Hi;
     protected double[] xr, xi;
     protected double[] yr, yi;
-    protected RandomVariable noise;
+    protected NoiseGenerator noise;
     protected Random random;
     
     /** Default constructor using 8-ary QAM */
@@ -118,10 +118,10 @@ public class FadingNoisyQAM implements SignalGenerator{
     public double[] getImag() { return yi; }
     
     /** Set the noise distribution */
-    public void setNoiseGenerator(RandomVariable noise){
+    public void setNoiseGenerator(NoiseGenerator noise){
         this.noise = noise;
     }
-    public RandomVariable getNoiseGenerator(){ return noise; }
+    public NoiseGenerator getNoiseGenerator(){ return noise; }
     
     /**
      * Set the seed for the random generator used

@@ -14,22 +14,10 @@ package pubsim.distributions;
  * matrix.
  * @author Robby McKilliam
  */
-public interface RandomVariable {
+public interface RandomVariable extends NoiseGenerator {
 
     public double getMean();
     public double getVariance();
-    
-    /**
-     * Returns a random variable from the noise
-     * distribution.
-     */
-    public double getNoise();
-    
-    /** Randomise the seed for the internal Random */ 
-    public void randomSeed();
-    
-    /** Set the seed for the internal Random */
-    public void setSeed(long seed);
 
     /** Return the probability density function evaluated at x */
     public double pdf(double x);
