@@ -4,7 +4,9 @@
  */
 package pubsim.distributions.processes;
 
-import pubsim.distributions.GaussianNoise;
+import flanagan.integration.IntegralFunction;
+import flanagan.integration.Integration;
+import pubsim.VectorFunctions;
 import pubsim.distributions.RandomVariable;
 
 /**
@@ -35,7 +37,36 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
 
     @Override
     public double[] autocorrelation() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        double Xvar = X.autocorrelation()[0];
+        final double ir = 20*Math.sqrt(Xvar); //range to compute integral over
+        
+        //compute the variance term ie. ac[0]
+        ac[0] = (new Integration(new IntegralFunction() {
+                        public double function(double x) {
+                            return y.icdf(g.cdf(x)) * X.marginal().pdf(x);
+                        }
+                    }, -ir, ir)).gaussQuad(1000);
+ 
+        
+        for(int k = 1; k < ac.length; k++){
+            
+            //get the parameters for the bivariate Gaussian pdf.
+            double covar = X.autocorrelation()[k];
+            
+            ac[k] = (new Integration(new IntegralFunction() {
+                public double function(double x1) {
+                    final double  x1copy = x1;
+                    return y.icdf(g.cdf(x1)) * (new Integration(new IntegralFunction() {
+                        public double function(double x2) {
+                            return y.icdf(g.cdf(x2)) * x1copy;
+                            //need to multiply by bivariate Guassian PDF in here.
+                        }
+                    }, -ir, ir)).gaussQuad(1000);
+                }
+            }, -ir, ir)).gaussQuad(1000);
+            
+        }
+        return ac;
     }
 
     @Override

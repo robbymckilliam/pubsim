@@ -34,7 +34,17 @@ public class ColouredGaussianNoise implements StationaryProcess {
 
     @Override
     public RandomVariable marginal() {
-        return new GaussianNoise(0, f[0]*f[0]);
+        return new GaussianNoise(0, VectorFunctions.sum2(f));
+    }
+    
+    /** Return the value of the bivariate pdf between X1 and Xk */
+    public double bivariatePdf(int k, double x1, double xk){
+        double v = VectorFunctions.sum2(f);
+        double cor = 0;
+        //compute correlation here
+        
+        double z = (x1*x1 - 2*cor*xk*xk + xk*xk)/v/2/(1 - cor*cor); 
+        return 1/(2*Math.PI*Math.sqrt(1 - cor*cor)*v)*Math.exp(-z);
     }
 
     @Override
