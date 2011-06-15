@@ -17,11 +17,15 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
     
     protected final ColouredGaussianNoise X;
     protected final RandomVariable g, y;
+    protected final double[] ac;
+    
+    protected InverseCDFStationaryProcess(){ X = null; g = null; y = null; ac = null;}
     
     public InverseCDFStationaryProcess(RandomVariable rv, double[] filter){
        X = new ColouredGaussianNoise(filter);
        g = X.marginal();
        y = rv;
+       ac = new double[filter.length];
     }
 
     @Override
