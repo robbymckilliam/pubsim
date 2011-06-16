@@ -39,8 +39,8 @@ public class ColouredGaussianNoise implements StationaryProcess {
     
     /** Return the value of the bivariate pdf between X1 and Xk */
     public double bivariatePdf(int k, double x1, double xk){
-        double v = VectorFunctions.sum2(f);
-        double cor = 0;
+        double v = autocor[0];
+        double cor = autocor[k];
         //compute correlation here
         
         double z = (x1*x1 - 2*cor*xk*xk + xk*xk)/v/2/(1 - cor*cor); 
