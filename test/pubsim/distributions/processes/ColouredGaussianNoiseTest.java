@@ -5,6 +5,7 @@
 
 package pubsim.distributions.processes;
 
+import Jama.Matrix;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import org.junit.After;
@@ -13,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
+import pubsim.optimisation.AutoIntegralFunction;
 import static org.junit.Assert.*;
 
 /**
@@ -78,15 +80,46 @@ public class ColouredGaussianNoiseTest {
         System.out.println("bivariate pdf");
         double[] f = {1.0, 0.5, 0.5, 0.25};
         final ColouredGaussianNoise instance = new ColouredGaussianNoise(f);
+        double[] ac = instance.autocor;
         
-        final int k = 1;
-        double pdfint = (new Integration(new IntegralFunction() {
-                        public double function(double x) {
-                            return instance.bivariatePdf(k, x, 0);
-                        }
-                    }, -30, 30)).gaussQuad(1000);
+        double[] min = {-8,-8}; double[] max = {8,8};
+        final int k = 2;
         
-        System.out.println(pdfint);
+        double pdfint = new AutoIntegralFunction(200) {
+            public double value(Matrix x) {
+                return instance.bivariatePdf(k, x.get(0,0), x.get(1,0));
+            }
+        }.integral(min, max);
+        assertEquals(1.0,pdfint, 0.0001);
+        
+        pdfint = new AutoIntegralFunction(200) {
+            public double value(Matrix x) {
+                return x.get(0,0)*instance.bivariatePdf(k, x.get(0,0), x.get(1,0));
+            }
+        }.integral(min, max);
+        assertEquals(0.0,pdfint, 0.0001);
+        
+        pdfint = new AutoIntegralFunction(200) {
+            public double value(Matrix x) {
+                return x.get(1,0)*instance.bivariatePdf(k, x.get(0,0), x.get(1,0));
+            }
+        }.integral(min, max);
+        assertEquals(0.0,pdfint, 0.0001);
+        
+        pdfint = new AutoIntegralFunction(200) {
+            public double value(Matrix x) {
+                return x.get(1,0)*x.get(1,0)*instance.bivariatePdf(k, x.get(0,0), x.get(1,0));
+            }
+        }.integral(min, max);
+        assertEquals(ac[0],pdfint, 0.0001);
+        
+        pdfint = new AutoIntegralFunction(200) {
+            public double value(Matrix x) {
+                return x.get(1,0)*x.get(0,0)*instance.bivariatePdf(k, x.get(0,0), x.get(1,0));
+            }
+        }.integral(min, max);
+        assertEquals(ac[k],pdfint, 0.0001);
+        
     }
 
 }
