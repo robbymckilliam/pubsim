@@ -644,6 +644,19 @@ public final class VectorFunctions {
             }
         }
     }
+    
+    /** 
+     * Adds x to the front of M.  Assumes M is a column matrix
+     */
+    public static Matrix prependColumnMatrix(Matrix B, double x){
+        int M = B.getRowDimension();
+        int N = B.getColumnDimension();
+        if(N != 1) throw new ArrayIndexOutOfBoundsException("M must be a column matrix");
+        Matrix ret = new Matrix(M + 1, 1);
+        for(int i = 0; i < M; i++) ret.set(i+1,0, B.get(i,0));
+        ret.set(0,0,x);
+        return ret;
+    }
 
     /**
      * Packs the matrix rowise into a double[]

@@ -24,9 +24,9 @@ public abstract class AutoDerivativeFunction implements FunctionAndDerivatives{
      * problems.  This will depend quite alot on how rapidly the function
      * changes, i.e. the magnitude of the second derivative.
      */
-    protected double interval = 1e-5;
+    protected final double interval;
 
-    public AutoDerivativeFunction(){};
+    public AutoDerivativeFunction(){ interval = 1e-5; }
 
     public AutoDerivativeFunction(double interval){
         this.interval = interval;

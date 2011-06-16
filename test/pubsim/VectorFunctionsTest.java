@@ -738,6 +738,19 @@ public class VectorFunctionsTest extends TestCase {
             System.out.println("  norm = " + sum2(vv));
         }
     }
+    
+    /**
+     * Test of slowFT method, of class simulator.VectorFunctions.
+     */
+    public void testpreppendColumn() {
+        System.out.println("preppend columnn");
+        
+        Matrix M = new Matrix(3,1);
+        M.set(0,0,1); M.set(1,0,2); M.set(2,0,3);
+        System.out.println(print(M));
+        System.out.println(print(prependColumnMatrix(M, 0)));
+       
+    }
 
     
 }

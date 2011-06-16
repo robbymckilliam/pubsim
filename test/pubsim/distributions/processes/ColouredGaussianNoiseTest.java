@@ -5,6 +5,8 @@
 
 package pubsim.distributions.processes;
 
+import flanagan.integration.IntegralFunction;
+import flanagan.integration.Integration;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,7 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
-import pubsim.distributions.RandomVariable;
 
 /**
  *
@@ -52,20 +53,40 @@ public class ColouredGaussianNoiseTest {
         double[] estac = new double[autocor.length];
         //System.out.println(VectorFunctions.print(autocor));
 
-        int N = 10000000;
+        int N = 100000;
         double[] X = new double[N];
         for(int i = 0; i < N; i++) X[i] = instance.getNoise();
 
         for(int k = 0; k < autocor.length; k++){
             for(int i = 0; i < N-k; i++) estac[k] += X[i]*X[i+k];
             estac[k]/=(N-k);
-            assertEquals(autocor[k], estac[k], 0.01);
+            assertEquals(autocor[k], estac[k], 0.05);
         }
 
         
         System.out.println(VectorFunctions.print(autocor));
         System.out.println(VectorFunctions.print(estac));
 
+    }
+    
+        /**
+     * Test that the autocorrellation is computed correctly by
+     * Monte Carlo simulation.
+     */
+    @Test
+    public void testBivariatePDF() {
+        System.out.println("bivariate pdf");
+        double[] f = {1.0, 0.5, 0.5, 0.25};
+        final ColouredGaussianNoise instance = new ColouredGaussianNoise(f);
+        
+        final int k = 1;
+        double pdfint = (new Integration(new IntegralFunction() {
+                        public double function(double x) {
+                            return instance.bivariatePdf(k, x, 0);
+                        }
+                    }, -30, 30)).gaussQuad(1000);
+        
+        System.out.println(pdfint);
     }
 
 }

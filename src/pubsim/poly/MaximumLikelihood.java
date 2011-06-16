@@ -186,10 +186,10 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
           * @param yi complex part of signal
          */
         public PolynomialPhaseLikelihoodAutoDerivative(double[] yr, double[] yi){
+            super(1e-6);
             this.yr = yr;
             this.yi = yi;
             N = yr.length;
-            interval = 1e-6;
         }
 
         /**
