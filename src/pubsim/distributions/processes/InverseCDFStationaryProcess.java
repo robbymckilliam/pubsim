@@ -4,10 +4,11 @@
  */
 package pubsim.distributions.processes;
 
+import Jama.Matrix;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
-import pubsim.VectorFunctions;
 import pubsim.distributions.RandomVariable;
+import pubsim.optimisation.AutoIntegralFunction;
 
 /**
  * This implements a stationary process with arbitrary pdf using a Gaussian process.  You can
@@ -38,33 +39,27 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
     @Override
     public double[] autocorrelation() {
         double Xvar = X.autocorrelation()[0];
-        final double ir = 20*Math.sqrt(Xvar); //range to compute integral over
+        final double ir = 10*Math.sqrt(Xvar); //range to compute integral over
+        
         
         //compute the variance term ie. ac[0]
         ac[0] = (new Integration(new IntegralFunction() {
                         public double function(double x) {
-                            return y.icdf(g.cdf(x)) * X.marginal().pdf(x);
+                            return y.icdf(g.cdf(x)) * y.icdf(g.cdf(x)) * X.marginal().pdf(x);
                         }
                     }, -ir, ir)).gaussQuad(1000);
  
-        
+        //compute all teh convariance terms
+        double[] min = {-8,-8}; double[] max = {8,8};
         for(int k = 1; k < ac.length; k++){
-            
-            //get the parameters for the bivariate Gaussian pdf.
-            double covar = X.autocorrelation()[k];
-            
-            ac[k] = (new Integration(new IntegralFunction() {
-                public double function(double x1) {
-                    final double  x1copy = x1;
-                    return y.icdf(g.cdf(x1)) * (new Integration(new IntegralFunction() {
-                        public double function(double x2) {
-                            return y.icdf(g.cdf(x2)) * x1copy;
-                            //need to multiply by bivariate Guassian PDF in here.
-                        }
-                    }, -ir, ir)).gaussQuad(1000);
+            final int kf = k;
+            ac[k] = new AutoIntegralFunction(1000) {
+                public double value(Matrix mat) {
+                    double x1 = mat.get(0,0); 
+                    double xk = mat.get(1,0);
+                    return y.icdf(g.cdf(x1)) * y.icdf(g.cdf(xk)) * X.bivariatePdf(kf, x1, xk);
                 }
-            }, -ir, ir)).gaussQuad(1000);
-            
+            }.integral(min, max);
         }
         return ac;
     }

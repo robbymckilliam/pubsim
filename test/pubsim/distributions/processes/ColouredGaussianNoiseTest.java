@@ -43,7 +43,7 @@ public class ColouredGaussianNoiseTest {
     }
 
     /**
-     * Test that the autocorrellation is computed correctly by
+     * Test that the autocorrelation is computed correctly by
      * Monte Carlo simulation.
      */
     @Test
@@ -71,8 +71,8 @@ public class ColouredGaussianNoiseTest {
 
     }
     
-        /**
-     * Test that the autocorrellation is computed correctly by
+    /**
+     * Test that the autocorrelation is computed correctly by
      * Monte Carlo simulation.
      */
     @Test
