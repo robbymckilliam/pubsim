@@ -53,39 +53,44 @@ public class InverseCDFStationaryProcessTest {
         double[] X = new double[N];
         for(int i = 0; i < N; i++) X[i] = instance.getNoise();
         
-        System.out.println("mean = " + VectorFunctions.mean(X));
+        //check average is near the mean, i.e. zero
+        assertEquals(0,VectorFunctions.mean(X), 0.01);
+        
+        double[] ac = instance.autocorrelation();
+        System.out.println(VectorFunctions.print(ac));
         
         for(int k = 0; k < filter.length + 4; k++){
             double Ak = 0;
             for(int i = 0; i < N-k; i++) Ak += X[i]*X[i+k];
             Ak/=(N-k);
-            System.out.println("A"+k+" = " + Ak);
+            if( k < ac.length) assertEquals(ac[k], Ak, 0.01);
+            else assertEquals(0, Ak, 0.01);
         }
         
     }
     
-        /**
-     * Test of getNoise method, of class InverseCDFStationaryProcess.
-     */
-    @Test
-    public void testGetNoiseWithWrappedUniform() {
-        System.out.println("getNoise");
-        double[] filter = {1.0, 0.25, 0.25};
-        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new WrappedUniform(0,1.0/20.0), filter);
-        
-        int N = 100000;
-        double[] X = new double[N];
-        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
-        
-        System.out.println("mean = " + VectorFunctions.mean(X));
-        
-        for(int k = 0; k < filter.length + 4; k++){
-            double Ak = 0;
-            for(int i = 0; i < N-k; i++) Ak += X[i]*X[i+k];
-            Ak/=(N-k);
-            System.out.println("A"+k+" = " + Ak);
-        }
-        
-    }
+//        /**
+//     * Test of getNoise method, of class InverseCDFStationaryProcess.
+//     */
+//    @Test
+//    public void testGetNoiseWithWrappedUniform() {
+//        System.out.println("getNoise");
+//        double[] filter = {1.0, 0.25, 0.25};
+//        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new WrappedUniform(0,1.0/20.0), filter);
+//        
+//        int N = 100000;
+//        double[] X = new double[N];
+//        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
+//        
+//        System.out.println("mean = " + VectorFunctions.mean(X));
+//        
+//        for(int k = 0; k < filter.length + 4; k++){
+//            double Ak = 0;
+//            for(int i = 0; i < N-k; i++) Ak += X[i]*X[i+k];
+//            Ak/=(N-k);
+//            System.out.println("A"+k+" = " + Ak);
+//        }
+//        
+//    }
     
 }
