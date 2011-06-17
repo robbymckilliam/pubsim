@@ -33,13 +33,13 @@ public abstract class AbstractRandomVariable
      * integrate the pdf by default.  This is highly non-optimised.
      */
     public double cdf(double x){
-        double startint = getMean() - 100*Math.sqrt(getVariance());
+        double startint = getMean() - 20*Math.sqrt(getVariance());
         final int INTEGRAL_STEPS = 1000;
         double cdfval = (new Integration(new IntegralFunction() {
                 public double function(double x) {
                     return pdf(x);
                 }
-            }, startint, x)).trapezium(INTEGRAL_STEPS);
+            }, startint, x)).gaussQuad(INTEGRAL_STEPS);
         return cdfval;
     }
 

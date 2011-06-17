@@ -324,4 +324,68 @@ public class UtilTest {
         assertEquals( 0.0, Util.discreteLegendrePolynomial(1, 9, 4), 0.0000001);
 
     }
+    
+    
+     /**
+     * Test of Bessel method, of class Util.
+     */
+    @Test
+    public void testModifiedBessel() {
+        System.out.println("test modified bessel");
+
+        double[] matlabdata0 = {   
+        2.279585302336067,
+        1.646723189772891,
+        1.266065877752008,
+        1.063483370741324,
+        1.000000000000000,
+        1.063483370741324,
+        1.266065877752008,
+        1.646723189772891,
+        2.279585302336067};
+        for(int k = 0; k < matlabdata0.length; k++) 
+            assertEquals(matlabdata0[k], Util.besselI(0, 0.5*k - 2), 0.000000001);
+        
+        double[] matlabdata1 = {   
+                -1.590636854637329,
+                -0.981666428577907,
+                -0.565159103992485,
+                -0.257894305390896,
+                   0,
+                0.257894305390896,
+                0.565159103992485,
+                0.981666428577907,
+                1.5906368546373297};       
+        for(int k = 0; k < matlabdata1.length; k++)         
+            assertEquals(matlabdata1[k], Util.besselI(1, 0.5*k - 2), 0.000000001);
+        
+        double[] matlabdata2 = {   
+                0.688948447698738,
+   0.337834618335681,
+   0.135747669767038,
+   0.031906149177738,
+                   0,
+   0.031906149177738,
+   0.135747669767038,
+   0.337834618335681,
+   0.688948447698738};       
+        for(int k = 0; k < matlabdata2.length; k++)         
+            assertEquals(matlabdata2[k], Util.besselI(2, 0.5*k - 2), 0.000000001);
+        
+        double[] matlabdata3 = {   
+                 -0.212739959239853,
+  -0.080774113016092,
+  -0.022168424924332,
+  -0.002645111968990,
+                   0,
+   0.002645111968990,
+   0.022168424924332,
+   0.080774113016092,
+   0.212739959239853};       
+        for(int k = 0; k < matlabdata3.length; k++)         
+            assertEquals(matlabdata3[k], Util.besselI(3, 0.5*k - 2), 0.000000001);
+        
+    } 
+    
+    
 }

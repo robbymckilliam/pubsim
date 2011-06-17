@@ -360,12 +360,30 @@ public final class Util {
 
     /**
      * Returns the power sum i.e. 1 + 2^m + ... + N^m.
-     * This is just a brute force approach.  Could be alot smarter.
+     * This is just a brute force approach.  Could be a lot smarter.
      */
     public static double powerSum(int N, int m){
         double sum = 0;
         for( int i = 1; i <= N; i++){
             sum += Math.pow(i, m);
+        }
+        return sum;
+    }
+    
+    /** 
+     * Returns the value of the nth modified Bessel function at x.
+     * For some reason, the colt library does not have this.
+     */
+    public static double besselI(int n, double x){
+        double sum = 0, toadd = 1, tol = 1e-10;
+        int m = 0;
+        while(Math.abs(toadd) > tol){
+            long mf = factorial(m);
+            long nf = factorial(m + n);
+            toadd = Math.pow(x/2, 2*m+n)/mf/nf;
+            //System.out.println(toadd);
+            sum+=toadd;
+            m++;
         }
         return sum;
     }
