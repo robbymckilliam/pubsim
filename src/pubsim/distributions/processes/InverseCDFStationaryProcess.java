@@ -47,13 +47,13 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
                         public double function(double x) {
                             return y.icdf(g.cdf(x)) * y.icdf(g.cdf(x)) * X.marginal().pdf(x);
                         }
-                    }, -ir, ir)).gaussQuad(1000);
+                    }, -ir, ir)).gaussQuad(200);
  
         //compute all teh convariance terms
         double[] min = {-ir,-ir}; double[] max = {ir,ir};
         for(int k = 1; k < ac.length; k++){
             final int kf = k;
-            ac[k] = new AutoIntegralFunction(1000) {
+            ac[k] = new AutoIntegralFunction(200) {
                 public double value(Matrix mat) {
                     double x1 = mat.get(0,0); 
                     double xk = mat.get(1,0);

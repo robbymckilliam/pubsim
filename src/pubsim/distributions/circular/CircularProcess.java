@@ -9,7 +9,7 @@ import pubsim.distributions.processes.StationaryProcess;
 /**
  * @author Robby McKilliam
  */
-public interface CircularProcess extends StationaryProcess{
+public interface CircularProcess extends StationaryProcess {
     
     /** This is the autocorrelation required by the sample circular mean estimator */
     double[] sinusoidalAutocorrelation();
