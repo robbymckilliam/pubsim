@@ -5,6 +5,7 @@
 
 package pubsim.bearing;
 
+import pubsim.distributions.circular.CircularProcess;
 import pubsim.distributions.circular.CircularRandomVariable;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
@@ -63,6 +64,11 @@ public class SampleCircularMean implements BearingEstimator {
         double varest = sin2e/(r2*4*Math.PI*Math.PI)/N;
         double[] ret = new double[2]; ret[0] = mu; ret[1] = varest;
         return ret;
+    }
+
+    @Override
+    public double asymptoticVariance(CircularProcess noise, int N) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

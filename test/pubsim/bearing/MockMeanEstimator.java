@@ -6,6 +6,7 @@
 package pubsim.bearing;
 
 import pubsim.bearing.BearingEstimator;
+import pubsim.distributions.circular.CircularProcess;
 import pubsim.distributions.circular.CircularRandomVariable;
 
 /**
@@ -33,6 +34,11 @@ public class MockMeanEstimator implements BearingEstimator {
     }
 
     public double asymptoticVariance(CircularRandomVariable noise, int N) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public double asymptoticVariance(CircularProcess noise, int N) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

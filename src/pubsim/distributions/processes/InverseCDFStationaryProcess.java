@@ -33,7 +33,7 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
 
     @Override
     public RandomVariable marginal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return y;
     }
 
     @Override
@@ -50,10 +50,37 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
                     }, -ir, ir)).gaussQuad(1000);
  
         //compute all teh convariance terms
-        double[] min = {-8,-8}; double[] max = {8,8};
+        double[] min = {-ir,-ir}; double[] max = {ir,ir};
         for(int k = 1; k < ac.length; k++){
             final int kf = k;
             ac[k] = new AutoIntegralFunction(1000) {
+                public double value(Matrix mat) {
+                    double x1 = mat.get(0,0); 
+                    double xk = mat.get(1,0);
+                    return y.icdf(g.cdf(x1)) * y.icdf(g.cdf(xk)) * X.bivariatePdf(kf, x1, xk);
+                }
+            }.integral(min, max);
+        }
+        return ac;
+    }
+    
+    public double[] autocorrelation(int intsteps) {
+        double Xvar = X.autocorrelation()[0];
+        final double ir = 10*Math.sqrt(Xvar); //range to compute integral over
+        
+        
+        //compute the variance term ie. ac[0]
+        ac[0] = (new Integration(new IntegralFunction() {
+                        public double function(double x) {
+                            return y.icdf(g.cdf(x)) * y.icdf(g.cdf(x)) * X.marginal().pdf(x);
+                        }
+                    }, -ir, ir)).gaussQuad(intsteps);
+ 
+        //compute all teh convariance terms
+        double[] min = {-ir,-ir}; double[] max = {ir,ir};
+        for(int k = 1; k < ac.length; k++){
+            final int kf = k;
+            ac[k] = new AutoIntegralFunction(intsteps) {
                 public double value(Matrix mat) {
                     double x1 = mat.get(0,0); 
                     double xk = mat.get(1,0);

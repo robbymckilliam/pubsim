@@ -5,6 +5,7 @@
 
 package pubsim.bearing;
 
+import pubsim.distributions.circular.CircularProcess;
 import pubsim.distributions.circular.CircularRandomVariable;
 
 /**
@@ -41,6 +42,11 @@ public class HybridEstimator implements BearingEstimator{
         double scmv = scm.asymptoticVariance(noise, N);
         double alsv = als.asymptoticVariance(noise, N);
         return Math.min(scmv, alsv);
+    }
+
+    @Override
+    public double asymptoticVariance(CircularProcess noise, int N) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

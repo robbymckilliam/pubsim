@@ -7,6 +7,7 @@ package pubsim.bearing;
 
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.UniformNoise;
+import pubsim.distributions.circular.CircularProcess;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.DensityEstimator;
 import pubsim.lattices.Anstar.Anstar;
@@ -76,5 +77,11 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         return ret;
         
     }
+
+    @Override
+    public double asymptoticVariance(CircularProcess noise, int N) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 
 }

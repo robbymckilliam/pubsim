@@ -5,7 +5,8 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.circular.VonMises;
+import flanagan.integration.Integration;
+import flanagan.integration.IntegralFunction;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -88,7 +89,36 @@ public class VonMisesTest {
         double calc = new CircularMeanVariance(instance).circularVariance();
         System.out.println(calc + ", " + circvar);
         assertEquals(calc, circvar, 0.00001);
-
+    }
+    
+        /**
+     * Test of getNoise method, of class WrappedGaussianNoise.
+     */
+    @Test
+    public void testIndefininateIntegral() {
+        System.out.println("test indefinite integral");
+        final VonMises rv = new VonMises(0.2,2);
+        
+        assertEquals(1.0, rv.indefinteIntegralPDF(0.5) - rv.indefinteIntegralPDF(-0.5), 1e-10);
+        
+        System.out.println(rv.indefinteIntegralPDF(0.25));
+        
+        double min = -0.25, max = 0.25;
+        double intval = new Integration(new IntegralFunction() {
+            public double function(double x) {
+                return rv.pdf(x);
+            }
+        }, min, max).gaussQuad(500);
+        assertEquals(intval, rv.indefinteIntegralPDF(max) - rv.indefinteIntegralPDF(min), 1e-10);
+        
+        min = -0.1; max = 0.4;
+        intval = new Integration(new IntegralFunction() {
+            public double function(double x) {
+                return rv.pdf(x);
+            }
+        }, min, max).gaussQuad(500);
+        assertEquals(intval, rv.indefinteIntegralPDF(max) - rv.indefinteIntegralPDF(min), 1e-10);
+        
     }
 
 }

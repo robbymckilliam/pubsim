@@ -71,6 +71,7 @@ public class VonMises extends CircularRandomVariable{
         U.setSeed(seed);
     }
 
+    @Override
     public double pdf(double x) {
         double d = kappa*Math.cos(2*Math.PI*(x - mu));
         return Math.exp(d)/Bessel.i0(kappa);
@@ -78,15 +79,17 @@ public class VonMises extends CircularRandomVariable{
     
     /** 
      * Uses series formula for the indefinite integral of the Von Mises pdf. 
+     * Formula taken from Wikipedia entry on Von Mises distribution.
      */
-    protected double indefinteIntegralPDF(double x){
-        double sum = 0, toadd = 1, tol = 1e-9;
+    public double indefinteIntegralPDF(double x){
+        double sum = 0, bterm = 1, tol = 1e-12;
         int j = 1;
-        while(toadd > tol){
-            toadd = Bessel.jn(j, x)*Math.sin(2*Math.PI*x*j)/j;
+        while( Math.abs(bterm) > tol){
+            bterm = pubsim.Util.besselI(j, kappa) / j;
+            sum+= bterm * Math.sin(2*Math.PI*(x-mu)*j);
             j++;
         }
-        return x + 2*sum/Bessel.i0(kappa);
+        return x + sum/Bessel.i0(kappa)/Math.PI;
     }
 
     @Override

@@ -49,7 +49,7 @@ public abstract class AbstractRandomVariable
      * optimised.
      */
     public double icdf(double x){
-        double TOL = 1e-9;
+        double TOL = 1e-8;
         double mean = getMean(); 
         double stdDeviation = Math.sqrt(getVariance());
         double high = mean + 10*stdDeviation + 0.5;
