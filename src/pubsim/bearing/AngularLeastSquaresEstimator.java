@@ -85,7 +85,7 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         double fnh = noise.marginal().pdf(-0.5);
         double h = ac[0];
         for(int k = 1; k < ac.length; k++) h += 2*ac[k];
-        return h/(1-fnh)/(1-fnh);
+        return h/(1-fnh)/(1-fnh)/N;
     }
     
 

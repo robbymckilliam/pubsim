@@ -68,7 +68,11 @@ public class SampleCircularMean implements BearingEstimator {
 
     @Override
     public double asymptoticVariance(CircularProcess noise, int N) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        double[] ac = noise.sinusoidalAutocorrelation();
+        double v = noise.circularMarginal().circularVariance();
+        double h = ac[0];
+        for(int k = 1; k < ac.length; k++) h += 2*ac[k];
+        return h/(1-v)/(1-v)/4/Math.PI/Math.PI/N;
     }
 
 }

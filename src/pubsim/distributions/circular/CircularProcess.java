@@ -13,5 +13,8 @@ public interface CircularProcess extends StationaryProcess {
     
     /** This is the autocorrelation required by the sample circular mean estimator */
     double[] sinusoidalAutocorrelation();
+    
+    /** Return the marginal distribution as a circular random variable. */
+    CircularRandomVariable circularMarginal();
 
 }

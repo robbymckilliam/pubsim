@@ -20,15 +20,14 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
     
     protected final ColouredGaussianNoise X;
     protected final RandomVariable g, y;
-    protected final double[] ac;
+    protected double[] ac;
     
-    protected InverseCDFStationaryProcess(){ X = null; g = null; y = null; ac = null;}
+    protected InverseCDFStationaryProcess(){ X = null; g = null; y = null;}
     
     public InverseCDFStationaryProcess(RandomVariable rv, double[] filter){
        X = new ColouredGaussianNoise(filter);
        g = X.marginal();
-       y = rv;
-       ac = new double[filter.length];
+       y = rv;       
     }
 
     @Override
@@ -38,14 +37,17 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
 
     @Override
     public double[] autocorrelation() {
-        double Xvar = X.autocorrelation()[0];
-        final double ir = 10*Math.sqrt(Xvar); //range to compute integral over
+        if(ac != null) return ac;
         
+        ac = new double[X.autocorrelation().length];
+        double Xvar = X.autocorrelation()[0];
+        final double ir = 10*Math.sqrt(Xvar); //range to compute integral over        
         
         //compute the variance term ie. ac[0]
         ac[0] = (new Integration(new IntegralFunction() {
                         public double function(double x) {
-                            return y.icdf(g.cdf(x)) * y.icdf(g.cdf(x)) * X.marginal().pdf(x);
+                            double FGx = y.icdf(g.cdf(x)) ;
+                            return FGx*FGx* X.marginal().pdf(x);
                         }
                     }, -ir, ir)).gaussQuad(200);
  
@@ -65,6 +67,7 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
     }
     
     public double[] autocorrelation(int intsteps) {
+        if(ac == null) ac = new double[X.autocorrelation().length];
         double Xvar = X.autocorrelation()[0];
         final double ir = 10*Math.sqrt(Xvar); //range to compute integral over
         
@@ -72,7 +75,8 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
         //compute the variance term ie. ac[0]
         ac[0] = (new Integration(new IntegralFunction() {
                         public double function(double x) {
-                            return y.icdf(g.cdf(x)) * y.icdf(g.cdf(x)) * X.marginal().pdf(x);
+                            double FGx = y.icdf(g.cdf(x)) ;
+                            return FGx*FGx* X.marginal().pdf(x);
                         }
                     }, -ir, ir)).gaussQuad(intsteps);
  
@@ -90,7 +94,7 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
         }
         return ac;
     }
-
+    
     @Override
     public double getNoise() {
         return y.icdf(g.cdf(X.getNoise()));
