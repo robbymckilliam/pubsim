@@ -82,10 +82,10 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
     @Override
     public double asymptoticVariance(CircularProcess noise, int N) {
         double[] ac = noise.autocorrelation();
-        double fnh = noise.marginal().pdf(-0.5);
+        double d = 1 - noise.circularMarginal().pdf(-0.5);
         double h = ac[0];
         for(int k = 1; k < ac.length; k++) h += 2*ac[k];
-        return h/(1-fnh)/(1-fnh)/N;
+        return h/d/d/N;
     }
     
 

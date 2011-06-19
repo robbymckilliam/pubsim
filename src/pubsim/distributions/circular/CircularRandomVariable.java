@@ -74,14 +74,14 @@ public abstract class CircularRandomVariable implements RandomVariable {
     public void setSeed(long seed) { random = new Ranlux(seed); }
 
     /**
-     * Binary search of the cdf to find the inverse cdf.
+     * Binary search of the cdf to find the inverse cdf (i.e. bisection method).
      * This uses the fact that circular random variable are in
      * [0.5, 0.5].
      */
     @Override
     public double icdf(double x){
-        double TOL = 1e-9;
-        int maxiters = 32, iters = 0;
+        double TOL = 1e-8;
+        int maxiters = 50, iters = 0;
         double high = 0.5;
         double low = -0.5;
         double cdfhigh = cdf(high);

@@ -40,13 +40,13 @@ public class InverseCDFCircularProcess extends InverseCDFStationaryProcess imple
                             double sFGx = Math.sin(2*Math.PI*y.icdf(g.cdf(x)));
                             return  sFGx*sFGx* X.marginal().pdf(x);
                         }
-                    }, -ir, ir)).gaussQuad(200);
+                    }, -ir, ir)).gaussQuad(150);
  
         //compute all teh convariance terms
         double[] min = {-ir,-ir}; double[] max = {ir,ir};
         for(int k = 1; k < acs.length; k++){
             final int kf = k;
-            acs[k] = new AutoIntegralFunction(200) {
+            acs[k] = new AutoIntegralFunction(150) {
                 public double value(Matrix mat) {
                     double x1 = mat.get(0,0); 
                     double xk = mat.get(1,0);

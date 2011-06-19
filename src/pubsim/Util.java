@@ -68,7 +68,7 @@ public final class Util {
         double tooAdd = Double.POSITIVE_INFINITY;
 
         int n = 0;
-        while (Math.abs(tooAdd) > ERF_TOLERANCE && n < 1000) {
+        while (Math.abs(tooAdd) > ERF_TOLERANCE && n < 100) {
             tooAdd = x / (2 * n + 1) * prod;
             sum += tooAdd;
             prod *= -x * x / (n + 1);
