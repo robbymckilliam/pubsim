@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
 import pubsim.distributions.RandomVariable;
 import pubsim.distributions.UniformNoise;
 import pubsim.distributions.circular.VonMises;
+import pubsim.distributions.circular.WrappedGaussian;
 import pubsim.distributions.circular.WrappedUniform;
 
 /**
@@ -72,14 +73,44 @@ public class InverseCDFStationaryProcessTest {
     }
     
     
+//    /**
+//     * Test of getNoise method, of class InverseCDFStationaryProcess.
+//     */
+//    @Test
+//    public void testGetNoiseWithVonMises() {
+//        System.out.println("test with Von Mises");
+//        double[] filter = {1.0, 0.5, 0.25};
+//        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new VonMises(0,3), filter);
+//        
+//        int N = 10000;
+//        double[] X = new double[N];
+//        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
+//        
+//        //check average is near the mean, i.e. zero
+//        assertEquals(0,VectorFunctions.mean(X), 0.01);
+//        
+//        double[] ac = instance.autocorrelation(100);
+//        System.out.println(VectorFunctions.print(ac));
+//        
+//        for(int k = 0; k < filter.length + 4; k++){
+//            double Ak = 0;
+//            for(int i = 0; i < N-k; i++) Ak += X[i]*X[i+k];
+//            Ak/=(N-k);
+//            System.out.print(Ak + ", ");
+//            if( k < ac.length) assertEquals(ac[k], Ak, 0.001);
+//            else assertEquals(0, Ak, 0.001);
+//        }
+//        
+//    }
+    
     /**
      * Test of getNoise method, of class InverseCDFStationaryProcess.
      */
     @Test
-    public void testGetNoiseWithVonMises() {
-        System.out.println("test with Von Mises");
+    public void testGetNoiseWithWrappedGaussian() {
+        System.out.println("test with wrapped Gaussian");
         double[] filter = {1.0, 0.5, 0.25};
-        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new VonMises(0,3), filter);
+        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new WrappedGaussian(0,3), filter);
         
         int N = 10000;
         double[] X = new double[N];

@@ -47,7 +47,7 @@ public final class Util {
         return x - Math.round(x);
     }
     /** The desired accuracy of the erf function */
-    public static double ERF_TOLERANCE = 0.0000001;
+    public static double ERF_TOLERANCE = 1e-10;
 
     /** 
      * The error function.

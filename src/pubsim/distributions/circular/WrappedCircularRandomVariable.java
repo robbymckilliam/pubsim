@@ -25,9 +25,10 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
     public double getNoise(){
         return fracpart(dist.getNoise());
     }
-
+    
+    /** pdf is computed by wrapping and summing */
     public double pdf(double x) {
-        double PDF_TOLERANCE = 1e-9;
+        double PDF_TOLERANCE = 1e-10;
         double pdf = 0.0;
         int n = 1;
         double tolc = Double.POSITIVE_INFINITY;
@@ -42,5 +43,22 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
         return pdf;
     }
     
+    /**
+     * cdf is computed by wrapping and summing
+     */
+    public double cdf(double x){
+        double CDF_TOL = 1e-10;
+        double cdfval = dist.cdf(x) - dist.cdf(-0.5); 
+        double toadd = 1.0;
+        int n = 1;
+        while(toadd > CDF_TOL){
+            double v1 = dist.cdf(x + n) - dist.cdf(-0.5 + n);
+            double v2 = dist.cdf(x - n) - dist.cdf(-0.5 - n);
+            toadd = v1 + v2;
+            cdfval += toadd;
+            n++;
+        }
+        return cdfval;
+    }
 
 }

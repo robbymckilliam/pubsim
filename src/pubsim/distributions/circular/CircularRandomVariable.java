@@ -81,11 +81,12 @@ public abstract class CircularRandomVariable implements RandomVariable {
     @Override
     public double icdf(double x){
         double TOL = 1e-9;
+        int maxiters = 32, iters = 0;
         double high = 0.5;
         double low = -0.5;
         double cdfhigh = cdf(high);
         double cdflow = cdf(low);
-        while(Math.abs(high - low) > TOL){
+        while(Math.abs(high - low) > TOL && iters < maxiters){
 
             double half = (high + low)/2.0;
             double cdfhalf = cdf(half);
@@ -101,6 +102,8 @@ public abstract class CircularRandomVariable implements RandomVariable {
                high = half;
                cdfhigh = cdfhalf;
             }
+            
+            iters++;
 
         }
         return (high + low)/2.0;
