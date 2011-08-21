@@ -40,6 +40,7 @@ public class MomentComputer {
             Gr = (RecursionStorageAndCompute) ois.readObject();
         }
         catch(Exception ex){
+            System.out.println("Read failed. I'm going to generate a new moment table. This will be slow!");
             Gr = new RecursionStorageAndCompute();
         }
         
@@ -155,8 +156,9 @@ public class MomentComputer {
         }
         
         public BigRational moment(int n, int m){
+            if(n==1) M[n][m] = new BigRational(1,2*m+1);
             if(M[n][m]!=null) return M[n][m];
-            
+
             BigInteger N = new BigInteger(Integer.toString(n,2),2);
             BigInteger Np1 = new BigInteger(Integer.toString(n+1,2),2);
             BigRational R = new BigRational(0,1);

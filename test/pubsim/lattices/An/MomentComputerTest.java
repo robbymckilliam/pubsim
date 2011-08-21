@@ -88,6 +88,7 @@ public class MomentComputerTest {
         System.out.println("test moment");
         
         MomentComputer.RecursionStorageAndCompute G = new MomentComputer.RecursionStorageAndCompute();
+        G.moment(1,2);
         assertTrue(G.moment(2,2).compareTo(new BigRational(7,45))==0);
         assertTrue(G.moment(2,1).compareTo(new BigRational(5,9))==0);
         assertTrue(G.moment(3,3).compareTo(new BigRational(1397,32256))==0);
