@@ -64,7 +64,7 @@ public class MomentComputer {
             BigRational mscale = new BigRational(n,n+2*m);
             BigRational toadd = mscale.multiply(Gr.moment(n, m).divide(denom));
             ce = toadd.doubleValue();
-            //System.out.println(ce);
+ //           System.out.println(ce);
             if(m%2 == 0) sum = sum.add(toadd);
             else sum = sum.subtract(toadd);
             m++;
@@ -156,7 +156,7 @@ public class MomentComputer {
         }
         
         public BigRational moment(int n, int m){
-            if(n==1) M[n][m] = new BigRational(1,2*m+1);
+            //if(n==1) M[n][m] = new BigRational(1,2*m+1).divide(factorial(m));
             if(M[n][m]!=null) return M[n][m];
 
             BigInteger N = new BigInteger(Integer.toString(n,2),2);
