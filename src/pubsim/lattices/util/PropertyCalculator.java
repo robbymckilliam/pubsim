@@ -15,7 +15,7 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  */
 abstract class PropertyCalculator implements Serializable{
 
-    private final LatticeAndNearestPointAlgorithm L;
+    protected final LatticeAndNearestPointAlgorithm L;
     protected int numsamples;
 
     protected PropertyCalculator(){L = null;}

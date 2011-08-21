@@ -32,6 +32,9 @@ public class PowerOfEuclideanNorm extends PropertyCalculator {
         rawmoment += magm;
     }
 
-    public double moment() { return rawmoment/numsamples; }
+    public double moment() { 
+        //you have to normalise by the volume, this is the Jacobian
+        return L.volume()*rawmoment/numsamples; 
+    }
     
 }

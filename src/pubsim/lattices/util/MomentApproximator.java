@@ -27,12 +27,16 @@ public class MomentApproximator extends PropertyCalculator {
         this.m = m;
     }
 
+    @Override
     protected void calculateProperty(double[] p){
         //System.out.println(VectorFunctions.print(p));
         double magm = norm(m,p);
         rawmoment += magm;
     }
 
-    public double moment() { return rawmoment/numsamples; }
+    public double moment() { 
+        //you have to normalise by the volume, this is the Jacobian
+        return L.volume()*rawmoment/numsamples; 
+    }
 
 }
