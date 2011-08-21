@@ -12,7 +12,7 @@ import pubsim.Util;
 /**
  * Standard, unimodular, self-dual representation of the Leech lattice.
  * See page 133 of SPLAG.
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class Leech extends AbstractLattice{
 

@@ -65,8 +65,8 @@ public class BigRational extends Number implements Comparable<BigRational>
   }
   
   public BigRational(int numerator, int denominator){  
-      this(new BigInteger(Integer.toString(numerator)), 
-            new BigInteger(Integer.toString(denominator)), false, false);  
+      this(new BigInteger(Integer.toString(numerator,2),2), 
+            new BigInteger(Integer.toString(denominator,2),2), false, false);  
   }
 
   

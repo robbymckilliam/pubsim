@@ -75,7 +75,7 @@ public class Craig extends AbstractLattice{
     }
 
     /**
-     * This is not efficient way of constructing the generator matrix.
+     * This is not an efficient way of constructing the generator matrix.
      * A better way would be to use the cyclic nature of the matrix.
      * This is simple to code though.
      */
