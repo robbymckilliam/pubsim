@@ -27,8 +27,10 @@ public class MomentComputer {
     
     final BigInteger one = new BigInteger(Integer.toString(1));
     
+    final String fname;
+    
     public MomentComputer(String fname){
-       
+        this.fname = fname;
         //try to read in a stored table of values
         FileInputStream fis;
         ObjectInputStream ois;
@@ -61,7 +63,7 @@ public class MomentComputer {
             BigRational mscale = new BigRational(n,n+2*m);
             BigRational toadd = mscale.multiply(Gr.moment(n, m).divide(denom));
             ce = toadd.doubleValue();
-            System.out.println(ce);
+            //System.out.println(ce);
             if(m%2 == 0) sum = sum.add(toadd);
             else sum = sum.subtract(toadd);
             m++;
@@ -85,6 +87,7 @@ public class MomentComputer {
             throw new RuntimeException("Something went wrong when saving the recursion data");
         }
     }
+    public void save() { save(fname); }
     
     /**
      * Class efficiently computing and storing the recursively generated
