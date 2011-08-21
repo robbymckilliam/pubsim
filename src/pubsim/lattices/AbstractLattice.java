@@ -126,5 +126,31 @@ public abstract class AbstractLattice implements Lattice {
         }
         return kissingnumber;
     }
+    
+    /**
+     * Returns the signal to noise ratio corresponding to a particular noise
+     * variance. This uses a standard normalisation that makes it possible
+     * to compare lattices of different dimension.
+     */
+    public double noiseVarianceToSNR(double v){
+        int n = getDimension();
+        double num = Math.pow(2, n+1)*Math.pow(n+1,(n+1.0)/(2.0*n));
+        double den = (n+2)*Math.pow(hyperSphereVolume(n), 1.0/n)*v;
+        return num/den;
+    }
 
+    /**
+     * Returns the signal to noise ratio corresponding to a particular noise
+     * variance in dB. This uses a standard normalisation that makes it possible
+     * to compare lattices of different dimension.
+     */
+    public double noiseVarianceToSNRdB(double v){
+        int n = getDimension();
+        double num = Math.log10(2)*(n+1) + Math.log10(n+1)*(n+1.0)/(2.0*n);
+        double den = Math.log10(n+2) + Math.log10(hyperSphereVolume(n))/n 
+                            + Math.log10(v);
+        return 10*( num - den );
+    }
+
+    
 }

@@ -86,6 +86,10 @@ public class MomentComputer {
         }
     }
     
+    /**
+     * Class efficiently computing and storing the recursively generated
+     * moments of the lattice An.
+     */
     public static class RecursionStorageAndCompute implements Serializable{
         
         //Storage arrays.  This is a bit dodgy as these
