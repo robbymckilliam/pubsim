@@ -18,7 +18,7 @@ import static pubsim.Util.logGamma;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class UtilTest {
 
