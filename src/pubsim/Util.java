@@ -4,6 +4,8 @@
  */
 package pubsim;
 
+import java.math.BigInteger;
+
 /**
  * Utility class for common math operations etc.
  * @author Robby McKilliam
@@ -52,7 +54,7 @@ public final class Util {
     /** 
      * The error function.
      * Calculates erf with accuracy tolerance specified by ERF_TOLERANCE.
-     * Or when 1000 elements of the Talyor series have been summed.
+     * Or when 100 elements of the Talyor series have been summed.
      */
     public static double erf(double x) {
 
@@ -76,6 +78,29 @@ public final class Util {
         }
 
         return 2.0 / Math.sqrt(Math.PI) * sum;
+
+    }
+    
+    /** 
+     * The error function.
+     * Calculates erf with accuracy atleast as small as the parameter tol.
+     * Uses BigRational's so there is no numerical problems.
+     */
+    public static double erf(BigRational x, BigRational tol) {
+
+        BigRational prod = new BigRational(1,1);
+        BigRational sum = new BigRational(0,1);
+        BigRational tooAdd = new BigRational(1,1);
+
+        int n = 0;
+        while (tooAdd.abs().compareTo(tol) > 0){
+            tooAdd = x.divide(new BigRational(2*n+1,1)).multiply(prod);
+            sum = sum.add(tooAdd);
+            prod = prod.multiply(x.pow(2).negate()).divide(new BigRational(n+1,1));
+            n++;
+        }
+
+        return 2.0 / Math.sqrt(Math.PI) * sum.doubleValue();
 
     }
 
