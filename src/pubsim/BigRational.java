@@ -68,6 +68,14 @@ public class BigRational extends Number implements Comparable<BigRational>
       this(new BigInteger(Integer.toString(numerator,2),2), 
             new BigInteger(Integer.toString(denominator,2),2), false, false);  
   }
+  
+  /** 
+   * Construct a big rational that is an approximation to the double d, accurate to p decimal places.
+   */ 
+  public BigRational(double d, int p){  
+      this(new BigDecimal(d).multiply(BigDecimal.TEN.pow(p)).toBigInteger(),
+              BigDecimal.TEN.pow(p).toBigInteger());  
+  }
 
   
   public BigRational(BigInteger numerator, BigInteger denominator)
