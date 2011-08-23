@@ -5,6 +5,7 @@
 
 package pubsim;
 
+import java.math.BigInteger;
 import pubsim.Point2;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,7 +18,7 @@ import static pubsim.Util.logGamma;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class UtilTest {
 
@@ -128,8 +129,19 @@ public class UtilTest {
             assertTrue(Math.abs(Util.erf(x) - matlabErfResults[i]) < acceptableError);
             x += 0.1;
         }
-        
-        
+          
+    }
+    
+    /**
+     * Test of erf method, of class Util.
+     */
+    @Test
+    public void testBigErf() {
+        System.out.println("test the big rational erf function");
+        BigRational tol = new BigRational(BigInteger.ONE, BigInteger.TEN.pow(15));
+        assertEquals( Util.erf(new BigRational(1,100), tol), Util.erf(1.0/100), 0.00000001 );
+        assertEquals( Util.erf(new BigRational(1,200), tol), Util.erf(1.0/200), 0.00000001 );
+        assertEquals( Util.erf(new BigRational(1,10), tol), Util.erf(1.0/10), 0.00000001 );
     }
 
         /**

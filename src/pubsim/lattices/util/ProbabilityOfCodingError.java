@@ -42,7 +42,7 @@ public class ProbabilityOfCodingError {
     protected boolean isOrigin(double[] v){
         boolean isorg = true;
         int n = 0;
-        while(isorg && n < v.length - 1){
+        while(isorg && n < v.length){
             isorg = Math.abs(v[n]) < 1e-9;
             n++;
         }
