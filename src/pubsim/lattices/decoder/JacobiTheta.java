@@ -10,7 +10,7 @@ import pubsim.lattices.Lattice;
 /**
  * Mandar's approximate nearest point algorithm
  * that climbs an approximation of the Jacobi
- * theta functon
+ * theta function. INCOMPLETE.
  * @author Robby McKilliam
  */
 public class JacobiTheta implements GeneralNearestPointAlgorithm{
@@ -32,5 +32,11 @@ public class JacobiTheta implements GeneralNearestPointAlgorithm{
     public double[] getIndex() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 }

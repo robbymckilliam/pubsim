@@ -10,9 +10,11 @@ import pubsim.Util;
  */
 public class Dn extends LatticeAndNearestPointAlgorithm{
 
-    double[] u;
+    double[] u,v;
     int n;
 
+    protected Matrix Binv;
+    
     protected Dn(){}
 
     public Dn(int n){
@@ -23,6 +25,8 @@ public class Dn extends LatticeAndNearestPointAlgorithm{
     public void setDimension(int n) {
         this.n = n;
         u = new double[n];
+        v = new double[n];
+        Binv = null;
     }
     
     @Override
@@ -58,7 +62,9 @@ public class Dn extends LatticeAndNearestPointAlgorithm{
 
     @Override
     public double[] getIndex() {
-        return u;
+        if(Binv == null) Binv = getGeneratorMatrix().inverse();
+        VectorFunctions.matrixMultVector(Binv, u, v);
+        return v;
     }
 
     @Override
@@ -66,6 +72,7 @@ public class Dn extends LatticeAndNearestPointAlgorithm{
         return 2.0;
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         Matrix B = new Matrix(n, n);
         B.set(0, 0, -1); B.set(1, 0, -1);
@@ -75,6 +82,7 @@ public class Dn extends LatticeAndNearestPointAlgorithm{
         return B;
     }
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

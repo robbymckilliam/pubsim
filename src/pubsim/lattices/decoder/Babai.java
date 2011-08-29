@@ -134,5 +134,9 @@ public class Babai implements GeneralNearestPointAlgorithm {
 
     }
     
-
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 }

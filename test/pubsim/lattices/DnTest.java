@@ -15,7 +15,7 @@ import pubsim.VectorFunctions;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class DnTest extends TestCase {
     
@@ -46,7 +46,7 @@ public class DnTest extends TestCase {
         }
     }
 
-        /**
+    /**
      * Test of nearestPoint method, of class Dn.
      */
     public void testGeneratorMatrix() {

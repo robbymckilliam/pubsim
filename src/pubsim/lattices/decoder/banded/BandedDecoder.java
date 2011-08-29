@@ -217,6 +217,12 @@ public class BandedDecoder implements ConstrainedNearestPointAlgorithm{
     public void nearestPoint(double[] y, double D) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     
 

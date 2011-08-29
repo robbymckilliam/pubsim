@@ -16,10 +16,21 @@ public interface NearestPointAlgorithm extends Serializable{
     
     void nearestPoint(double[] y);
     
-    /**Getter for the nearest point. */
+    /**
+     * Returns the nearest lattice point computed the last time nearestPoint was run.
+     */
     double[] getLatticePoint();
     
-    /**Getter for the integer vector. */
+    /**
+     * Returns the integer vector associated with the nearest lattice point, i.e so that x = Bu. 
+     * The actually returned index with depend on the choice of generator.
+     */
     double[] getIndex();
+    
+    /**
+     * Return the distance between to the nearest point computed 
+     * the last time nearestPoint was run.
+     */
+    double distance();
     
 }

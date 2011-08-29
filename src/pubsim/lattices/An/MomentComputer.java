@@ -29,6 +29,8 @@ public class MomentComputer {
     
     final String fname;
     
+    protected int mUsed = 0;
+    
     public MomentComputer(String fname){
         this.fname = fname;
         //try to read in a stored table of values
@@ -40,7 +42,9 @@ public class MomentComputer {
             Gr = (RecursionStorageAndCompute) ois.readObject();
         }
         catch(Exception ex){
-            System.out.println("Read failed. I'm going to generate a new moment table. This will be slow!");
+            System.out.println("Read failed with exception:");
+            System.out.println(ex.getMessage());
+            System.out.println("I'm going to generate a new moment table. This will be slow!");
             Gr = new RecursionStorageAndCompute();
         }
         
@@ -69,6 +73,7 @@ public class MomentComputer {
             else sum = sum.subtract(toadd);
             m++;
         }
+        mUsed = m;
         double S = sum.doubleValue()*Math.sqrt(n+1);
         double probcorrect = S/Math.pow(2*Math.PI*v.doubleValue(),n/2.0);
         return 1.0 - probcorrect;
@@ -89,6 +94,8 @@ public class MomentComputer {
         }
     }
     public void save() { save(fname); }
+    
+    public int numberMomentsLastUsed() {return mUsed; }
     
     /**
      * Class efficiently computing and storing the recursively generated

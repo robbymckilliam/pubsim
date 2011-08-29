@@ -131,4 +131,9 @@ public class SphereDecoder extends Babai
     }
 
 
+    @Override
+    public double distance() {
+        return D;
+    }
+    
 }

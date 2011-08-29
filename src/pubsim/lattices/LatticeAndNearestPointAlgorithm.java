@@ -11,5 +11,8 @@ package pubsim.lattices;
  */
 public abstract class LatticeAndNearestPointAlgorithm extends AbstractLattice
     implements NearestPointAlgorithm {
+    
+    @Override
+    public double distance() {throw new UnsupportedOperationException();}
 
 }
