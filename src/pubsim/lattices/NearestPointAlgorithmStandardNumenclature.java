@@ -72,7 +72,7 @@ public abstract class NearestPointAlgorithmStandardNumenclature
         Random rand = new Random();
         double[] y = new double[n];
         
-        NearestPointAlgorithm instance = new AnmBucket(M);
+        LatticeAndNearestPointAlgorithm instance = new AnmBucket(M);
         /*
         double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
         

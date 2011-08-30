@@ -16,6 +16,25 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  * @author Robby McKilliam
  */
 public class LeechTuryn extends Leech implements LatticeAndNearestPointAlgorithm {
+    
+    protected static final double[][] aTable
+            = { {0,0,0,0,0,0,0,0},
+                {4,0,0,0,0,0,0,0},
+                {2,2,2,2,0,0,0,0},
+                {-2,2,2,2,0,0,0,0},
+                {2,2,0,0,2,2,0,0},
+                {-2,2,0,0,2,2,0,0},
+                {2,2,0,0,0,0,2,2},
+                {-2,2,0,0,0,0,2,2},
+                {2,0,2,0,2,0,2,0},
+                {-2,0,2,0,2,0,2,0},
+                {2,0,2,0,0,2,0,2},
+                {-2,0,2,0,0,2,0,2},
+                {2,0,0,2,2,0,0,2},
+                {-2,0,0,2,2,0,0,2},
+                {2,0,0,2,0,2,2,0},
+                {-2,0,0,2,0,2,2,0} };
+    
 
     public void nearestPoint(double[] y) {
         throw new UnsupportedOperationException("Not supported yet.");
