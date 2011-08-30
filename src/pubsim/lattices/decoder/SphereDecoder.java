@@ -18,7 +18,7 @@ public class SphereDecoder extends Babai
         implements GeneralNearestPointAlgorithm {
 
     /** Current sphere radius squared */
-    protected double D;
+    protected double D = Double.POSITIVE_INFINITY;
     
     //temporary variable for ut
     protected double[] ut, ubest;

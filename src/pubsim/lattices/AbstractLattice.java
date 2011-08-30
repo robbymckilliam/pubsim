@@ -23,6 +23,8 @@ import static pubsim.Util.hyperSphereVolume;
  * @author Robby McKilliam
  */
 public abstract class AbstractLattice implements Lattice {
+    
+    public double secondMoment() {throw new UnsupportedOperationException(); }
 
     public double centerDensity() {
         return pow2(logCenterDensity());

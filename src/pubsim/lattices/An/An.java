@@ -82,7 +82,7 @@ public abstract class An extends LatticeAndNearestPointAlgorithm {
     }
 
     /**
-     * Return the convering radius for this lattice
+     * Return the covering radius for this lattice
      */
     @Override
     public double coveringRadius(){
@@ -92,6 +92,10 @@ public abstract class An extends LatticeAndNearestPointAlgorithm {
     @Override
     public long kissingNumber() {
         return n*(n+1);
+    }
+    
+    public double secondMoment(){
+        return Math.sqrt(n+1.0)*n*(n+3)/12.0/(n+1);
     }
 
 }

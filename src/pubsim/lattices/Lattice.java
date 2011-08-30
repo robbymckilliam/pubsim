@@ -63,6 +63,12 @@ public interface Lattice extends Serializable {
      * given by Conway and Sloane SPLAG page 71.
      */
     double probCodingError(double S);
+    
+    /** 
+     * Second moment of the Voronoi cell of this lattice.
+     * This is NOT normalised for volume.
+     */
+    double secondMoment();
 
      /*
      * The number of short vectors in the lattice.

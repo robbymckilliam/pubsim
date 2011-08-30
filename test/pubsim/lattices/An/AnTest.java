@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.QRDecomposition;
 import pubsim.VectorFunctions;
+import pubsim.lattices.util.PowerOfEuclideanNorm;
 import static org.junit.Assert.*;
 
 /**
@@ -68,6 +69,24 @@ public class AnTest {
         System.out.println(VectorFunctions.print(M));
         pubsim.QRDecomposition QR = new QRDecomposition(M);
         System.out.println(VectorFunctions.print(QR.getR()));
+
+    }
+    
+    
+    /**
+     * Test of second moment method, of class An.
+     */
+    @Test
+    public void testSecondMoment() {
+        System.out.println("test second moment");
+        int n = 8;
+        An instance = new AnSorted(n);
+        
+        PowerOfEuclideanNorm mcc = new PowerOfEuclideanNorm(instance, 1);
+        mcc.uniformlyDistributed(1000000);
+        double momentmc = mcc.moment();
+        
+        assertEquals(momentmc, instance.secondMoment(), 0.01);
 
     }
 

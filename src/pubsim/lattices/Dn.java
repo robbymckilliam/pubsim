@@ -12,6 +12,7 @@ public class Dn extends LatticeAndNearestPointAlgorithm{
 
     double[] u,v;
     int n;
+    double dist;
 
     protected Matrix Binv;
     
@@ -53,6 +54,14 @@ public class Dn extends LatticeAndNearestPointAlgorithm{
             }
             u[k] += Math.signum(y[k] - u[k]);
         }
+        
+        dist = VectorFunctions.distance_between(u, y);
+        
+    }
+    
+    @Override
+    public double distance(){
+        return dist;
     }
 
     @Override
@@ -82,7 +91,6 @@ public class Dn extends LatticeAndNearestPointAlgorithm{
         return B;
     }
 
-    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

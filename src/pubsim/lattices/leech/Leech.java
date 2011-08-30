@@ -64,7 +64,7 @@ public class Leech extends AbstractLattice{
                 {0,0,0,0,0,0,0,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
                 {-3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1} };
 
-    //Generator matrix for the leech lattice
+    //Generator matrix for the Leech lattice
     protected static final Matrix mat
                     = new Matrix(dMat).times(1.0/Math.sqrt(8.0)).transpose();
 
