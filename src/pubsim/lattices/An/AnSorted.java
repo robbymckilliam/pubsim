@@ -4,13 +4,14 @@ import pubsim.lattices.Anstar.Anstar;
 import java.util.Arrays;
 import pubsim.IndexedDouble;
 import pubsim.VectorFunctions;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
  * Nearest point algorithm for the Lattice An.  This uses the sorting
  * method described by Conway and Sloane.
  * @author Robby McKilliam
  */
-public class AnSorted extends An {
+public class AnSorted extends An implements LatticeAndNearestPointAlgorithm{
 
     protected IndexedDouble[] z;
 
@@ -49,6 +50,10 @@ public class AnSorted extends An {
         for(int i = 0; i < Math.abs(m); i++)
             u[z[i].index] -= Math.signum(m);
         //System.out.println(VectorFunctions.print(u));
+    }
+
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 

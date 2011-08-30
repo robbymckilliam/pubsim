@@ -12,9 +12,9 @@ import static pubsim.Util.factorial;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
-public abstract class VnmStar extends LatticeAndNearestPointAlgorithm{
+public abstract class VnmStar extends AbstractLattice {
 
     /** dimension of this lattice*/
     int n;

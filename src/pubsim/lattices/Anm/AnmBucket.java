@@ -20,7 +20,7 @@ import pubsim.Util;
  * idea suggested by Warren.
  * @author Robby McKilliam
  */
-public class AnmBucket extends AnmSorted implements NearestPointAlgorithm {
+public class AnmBucket extends AnmSorted {
 
     protected IndexedDoubleList[] buckets;
     protected ListElem[] bes;

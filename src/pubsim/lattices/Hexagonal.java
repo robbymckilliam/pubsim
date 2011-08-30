@@ -95,4 +95,8 @@ public class Hexagonal
         return u;
     }
 
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

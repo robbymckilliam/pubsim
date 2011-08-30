@@ -15,7 +15,7 @@ import pubsim.Util;
  * and n is the dimension.
  * @author Robby McKilliam
  */
-public abstract class An extends LatticeAndNearestPointAlgorithm {
+public abstract class An extends AbstractLattice implements NearestPointAlgorithm {
 
     protected double[] u;
     protected int n;

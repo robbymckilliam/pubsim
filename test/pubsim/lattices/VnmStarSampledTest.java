@@ -58,7 +58,7 @@ public class VnmStarSampledTest {
         double[] v_tester = null;
         double[] x = new double[N];
         
-        VnmStar instance = new VnmStarSampled(m, n, samples);
+        VnmStarSampled instance = new VnmStarSampled(m, n, samples);
         SphereDecoder tester = new SphereDecoder(instance);
 
         //instance.setDimension(n - 1);

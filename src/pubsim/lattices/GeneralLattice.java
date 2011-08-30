@@ -15,7 +15,7 @@ import pubsim.VectorFunctions;
  * generator matrix.
  * @author Robby McKilliam
  */
-public class GeneralLattice extends LatticeAndNearestPointAlgorithm {
+public class GeneralLattice extends AbstractLattice {
 
     /** The generator matrix for the lattice */
     protected Matrix B;

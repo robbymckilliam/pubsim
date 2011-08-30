@@ -6,23 +6,21 @@
 package pubsim.lattices;
 
 import pubsim.lattices.Anm.AnmBucket;
-import Jama.Matrix;
 import java.util.Date;
 import java.util.Random;
-import pubsim.Util;
 
 /**
  * Abstract class for Nearest point algorithms.  You are not required
- * to use this but it saves you from writting getters and setters and
+ * to use this but it saves you from writing getters and setters and
  * uses some standard variable names.  Please don't use this abstract class
  * if you don't intend to use the following numenclature!
  * ie.  u is the index of the nearest lattice point.
- *      v is the neares lattice point.
+ *      v is the nearest lattice point.
  *      n is the dimension of this lattice.
  * @author Robby McKilliam
  */
 public abstract class NearestPointAlgorithmStandardNumenclature
-    extends LatticeAndNearestPointAlgorithm{
+    extends AbstractLattice implements LatticeAndNearestPointAlgorithm{
     
     /** The nearest lattice point */
     protected double[] v;
@@ -38,12 +36,12 @@ public abstract class NearestPointAlgorithmStandardNumenclature
     @Override
     public double[] getLatticePoint() {return v;}
     
-    /**Getter for the interger vector. */
+    /**Getter for the integer vector. */
     @Override
     public double[] getIndex() {return u;}
 
     /**
-     * Return the convering radius for this lattice
+     * Return the covering radius for this lattice
      */
     @Override
     public double coveringRadius(){
@@ -74,7 +72,7 @@ public abstract class NearestPointAlgorithmStandardNumenclature
         Random rand = new Random();
         double[] y = new double[n];
         
-        LatticeAndNearestPointAlgorithm instance = new AnmBucket(M);
+        NearestPointAlgorithm instance = new AnmBucket(M);
         /*
         double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
         
@@ -91,7 +89,7 @@ public abstract class NearestPointAlgorithmStandardNumenclature
             
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         */
-        instance.setDimension(n - 1);
+        //instance.setDimension(n - 1);
         
         Date timer = new Date();
         long start = timer.getTime();

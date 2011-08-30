@@ -108,5 +108,6 @@ public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
         return sum;
     }
     
+    public double distance() { throw new UnsupportedOperationException(); }
 
 }

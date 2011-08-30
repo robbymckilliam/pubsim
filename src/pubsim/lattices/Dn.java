@@ -8,7 +8,7 @@ import pubsim.Util;
  * Nearest point algorithm for the lattice Dn.
  * @author Robby McKilliam
  */
-public class Dn extends LatticeAndNearestPointAlgorithm{
+public class Dn extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
 
     double[] u,v;
     int n;

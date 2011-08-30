@@ -23,7 +23,7 @@ import static pubsim.Util.factorial;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class VnmStarGluedTest {
 
@@ -87,7 +87,7 @@ public class VnmStarGluedTest {
         double[] v_tester = null;
         double[] x = new double[N];
         Anstar tester = new AnstarBucketVaughan(n);
-        VnmStar instance = new VnmStarGlued(m, n);
+        VnmStarGlued instance = new VnmStarGlued(m, n);
 
         //instance.setDimension(n - 1);
         //tester.setDimension(n - 1);
@@ -124,7 +124,7 @@ public class VnmStarGluedTest {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[N];
-        VnmStar instance = new VnmStarGlued(m, n);
+        VnmStarGlued instance = new VnmStarGlued(m, n);
         SphereDecoder tester = new SphereDecoder(instance);
 
         //instance.setDimension(n - 1);

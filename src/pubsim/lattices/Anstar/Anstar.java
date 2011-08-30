@@ -77,4 +77,7 @@ public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
         }
 
     }
+    
+    public double distance() { throw new UnsupportedOperationException(); }
+    
 }

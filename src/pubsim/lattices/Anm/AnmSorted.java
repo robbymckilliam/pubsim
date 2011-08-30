@@ -135,4 +135,8 @@ public class AnmSorted extends NearestPointAlgorithmStandardNumenclature{
         return Mat;
     }
 
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

@@ -15,7 +15,7 @@ import pubsim.lattices.decoder.SphereDecoder;
  * algorithms by using the appropriate constructor
  * @author Robby McKilliam
  */
-public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice {
+public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice implements LatticeAndNearestPointAlgorithm {
 
     private NearestPointAlgorithm decoder;
 
@@ -44,6 +44,10 @@ public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice {
 
     public double[] getIndex() {
         return decoder.getIndex();
+    }
+
+    public double distance() {
+        return decoder.distance();
     }
 
 }

@@ -50,7 +50,7 @@ public class AnTest {
     public void testGetGeneratorMatrix() {
         System.out.println("getGeneratorMatrix");
         int n = 8;
-        An instance = new AnSorted(n);
+        AnSorted instance = new AnSorted(n);
         //instance.setDimension(4);
         Matrix result = instance.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(result));
@@ -80,7 +80,7 @@ public class AnTest {
     public void testSecondMoment() {
         System.out.println("test second moment");
         int n = 8;
-        An instance = new AnSorted(n);
+        AnSorted instance = new AnSorted(n);
         
         PowerOfEuclideanNorm mcc = new PowerOfEuclideanNorm(instance, 1);
         mcc.uniformlyDistributed(1000000);

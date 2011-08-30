@@ -10,12 +10,14 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.Zn;
 import pubsim.Util;
 import pubsim.VectorFunctions;
+import pubsim.lattices.AbstractLattice;
 
 /**
- *
+ * Decoder for the Leech lattice based on the Lorezentian construction.
+ * This doesn't work.
  * @author Robby McKilliam
  */
-public class LeechLarentzianGlued extends LatticeAndNearestPointAlgorithm{
+public class LeechLarentzianGlued extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
 
     protected final double[] u = new double[25];
     protected final double[] v = new double[25];
@@ -116,6 +118,10 @@ public class LeechLarentzianGlued extends LatticeAndNearestPointAlgorithm{
         Matrix p = VectorFunctions.columnMatrix(g);
         Matrix P = p.times(p.transpose()).times(1.0/gmag2);
         return I.minus(P).getMatrix(0,24,0,23);
+    }
+
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 

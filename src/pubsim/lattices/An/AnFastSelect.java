@@ -6,9 +6,9 @@
 package pubsim.lattices.An;
 
 import pubsim.lattices.Anstar.Anstar;
-import java.util.Arrays;
 import pubsim.FastSelection;
 import pubsim.VectorFunctions;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
  * Simple linear time An algorithm using the Rivest Tarjan
@@ -16,7 +16,7 @@ import pubsim.VectorFunctions;
  * recent version of SPLAG.
  * @author Robby McKilliam
  */
-public class AnFastSelect extends AnSorted {
+public class AnFastSelect extends AnSorted implements LatticeAndNearestPointAlgorithm {
 
     public AnFastSelect(int n){
         setDimension(n);

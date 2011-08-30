@@ -15,7 +15,7 @@ import pubsim.Util;
  * for completeness.
  * @author Robby McKilliam
  */
-public class Zn extends LatticeAndNearestPointAlgorithm {
+public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
     
     protected double[] x;
     protected int n;
@@ -73,6 +73,10 @@ public class Zn extends LatticeAndNearestPointAlgorithm {
 
     public double effectiveCodingGain(double SNR){
         return 0;
+    }
+
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

@@ -119,6 +119,10 @@ public class AnmGlued extends NearestPointAlgorithmStandardNumenclature {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     
     
 }

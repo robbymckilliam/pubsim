@@ -22,14 +22,14 @@ import static pubsim.VectorFunctions.dot;
  * 
  * @author Robby McKilliam
  */
-public class VnmStarGlued extends VnmStar {
+public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgorithm {
 
 
     //generator matrix for the dual of the integer valued polynomials
     //assuming they are tranformed to the integer lattice.
     private Matrix B;
 
-    //store all the legendre polynomials so that we can make project fast.
+    //store all the legendre polynomials so that we can make projection fast.
     double[][] legendre;
     
     private double[] ytlat, ylat, ulat, utlat, xlat, p;
@@ -128,6 +128,10 @@ public class VnmStarGlued extends VnmStar {
 
     public double[] getIndex() {
         return ulat;
+    }
+
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
