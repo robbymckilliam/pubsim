@@ -43,7 +43,6 @@ public class LeechTurynTest {
     @Test
     public void testConstructor() {
         System.out.println("test the constructor");
-        double[] y = null;
         LeechTuryn instance = new LeechTuryn();
     }
          

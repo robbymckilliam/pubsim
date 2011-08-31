@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author mckillrg
+ * @author Robby McKilliam
  */
 public class E8Test {
     

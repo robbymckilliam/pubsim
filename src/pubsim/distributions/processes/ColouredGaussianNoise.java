@@ -1,9 +1,7 @@
 package pubsim.distributions.processes;
 
-import com.sun.org.apache.xalan.internal.xsltc.dom.FilteredStepIterator;
 import pubsim.CircularBufferDouble;
 import pubsim.VectorFunctions;
-import pubsim.distributions.AbstractRandomVariable;
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.RandomVariable;
 

@@ -5,13 +5,9 @@
 package pubsim.lattices.leech;
 
 import pubsim.ScaledLattice;
-import pubsim.VectorFunctions;
 import pubsim.lattices.E8;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
-import static pubsim.VectorFunctions.times;
-import static pubsim.VectorFunctions.isZero;
 import static pubsim.VectorFunctions.add;
-import static pubsim.VectorFunctions.subtract;
 
 /**
  * Nearest point algorithm for the Leech lattice based on the Turyn
@@ -136,7 +132,12 @@ public class LeechTuryn extends Leech implements LatticeAndNearestPointAlgorithm
                 for(int t = 0; t < 16; t++) {
                 
                 }
-        
+        D = bestdist;
+    }
+    
+    protected double D = Double.POSITIVE_INFINITY;
+    public double distance() {
+        return D;
     }
 
     public double[] getLatticePoint() {
@@ -144,10 +145,6 @@ public class LeechTuryn extends Leech implements LatticeAndNearestPointAlgorithm
     }
 
     public double[] getIndex() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
