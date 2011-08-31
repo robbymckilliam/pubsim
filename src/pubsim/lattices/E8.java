@@ -76,7 +76,7 @@ public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorit
         
         if(dn1.distance() < dn2.distance()){
             dist = dn1.distance();
-            for(int i = 0; i < n; i++) v[i] = dn1.getLatticePoint()[i];
+            System.arraycopy(dn1.getLatticePoint(), 0, v, 0, n);
         }
         else{
             dist = dn2.distance();
@@ -99,8 +99,9 @@ public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorit
         return u;
     }
 
+    @Override
     public double distance() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return dist;
     }
 
 

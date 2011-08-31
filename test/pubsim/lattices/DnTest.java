@@ -52,11 +52,11 @@ public class DnTest extends TestCase {
     public void testGeneratorMatrix() {
         System.out.println("testGeneratorMatrix");
 
-        int n = 5;
+        int n = 24;
 
         Dn instance = new Dn(n);
         Matrix G = instance.getGeneratorMatrix();
-        System.out.println(VectorFunctions.print(G));
+        System.out.println(VectorFunctions.printForMathematica(G));
 
         System.out.println(G.det());
 

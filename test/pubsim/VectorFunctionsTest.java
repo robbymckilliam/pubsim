@@ -80,6 +80,19 @@ public class VectorFunctionsTest extends TestCase {
        
     }
 
+     /**
+     * Test of isZero method, of class simulator.VectorFunctions.
+     */
+    public void testIsZero() {
+        System.out.println("isZero");
+        
+        double[] x = {2, 3, 1, 4};
+        assertFalse(VectorFunctions.isZero(x, 1e-9));
+        double[] x1 = {0, 0, 0, 0};
+        assertTrue(VectorFunctions.isZero(x1, 1e-9));
+       
+    }
+    
     /**
      * Test of distance_between method, of class simulator.VectorFunctions.
      */
@@ -91,7 +104,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = Math.sqrt(13.0);
         double result = VectorFunctions.distance_between(x, s);
-        assertEquals(expResult,result);
+        assertEquals(expResult,result, 1e-9);
   
     }
 
@@ -159,7 +172,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double[] expResult = {0,3,4};
         double[] result = VectorFunctions.subtract(x, y);
-        assertEquals(0.0, VectorFunctions.distance_between(expResult,result));
+        assertEquals(0.0, VectorFunctions.distance_between(expResult,result), 1e-9);
     }
 
     /**
@@ -198,7 +211,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double[] expResult = {0,3,4};
         double[] result = VectorFunctions.add(x, y);
-        assertEquals(0.0, VectorFunctions.distance_between(expResult,result));
+        assertEquals(0.0, VectorFunctions.distance_between(expResult,result), 1e-9);
        
     }
 
@@ -225,7 +238,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = 6;
         double result = VectorFunctions.sum(x);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
        
     }
 
@@ -239,7 +252,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = 14;
         double result = VectorFunctions.sum2(x);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
 
     }
 
@@ -253,7 +266,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = 2;
         double result = VectorFunctions.mean(x);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
 
     }
 
@@ -267,7 +280,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = Math.sqrt(14.0);
         double result = VectorFunctions.magnitude(x);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
         
     }
 
@@ -281,7 +294,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = 4.0;
         double result = VectorFunctions.max(x);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
     }
 
     public void testmoduloParalellepiped() {
@@ -319,7 +332,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = 11.0;
         double result = VectorFunctions.dot(x, y);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
        
     }
 
@@ -333,7 +346,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = -11.0;
         double result = VectorFunctions.min(x);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
         
     }
 
@@ -347,7 +360,7 @@ public class VectorFunctionsTest extends TestCase {
         
         double expResult = 20.0;
         double result = VectorFunctions.maxDistance(x);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, 1e-9);
     }
 
     /**
@@ -495,8 +508,8 @@ public class VectorFunctionsTest extends TestCase {
         int j0 = 0;
         int j1 = 1;
         for(int i = 0; i < mat.getRowDimension(); i++){
-            assertEquals(mat.get(i, j0), matCopy.get(i, j1));
-            assertEquals(mat.get(i, j1), matCopy.get(i, j0));
+            assertEquals(mat.get(i, j0), matCopy.get(i, j1), 1e-9);
+            assertEquals(mat.get(i, j1), matCopy.get(i, j0), 1e-9);
         }
         
     }
@@ -517,8 +530,8 @@ public class VectorFunctionsTest extends TestCase {
         int j0 = 0;
         int j1 = 1;
         for(int i = 0; i < mat.getColumnDimension(); i++){
-            assertEquals(mat.get(j0, i), matCopy.get(j1, i));
-            assertEquals(mat.get(j1, i), matCopy.get(j0, i));
+            assertEquals(mat.get(j0, i), matCopy.get(j1, i), 1e-9);
+            assertEquals(mat.get(j1, i), matCopy.get(j0, i), 1e-9);
         }
         
     }

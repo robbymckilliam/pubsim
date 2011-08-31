@@ -9,7 +9,7 @@ import Jama.Matrix;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class P48 extends AbstractLattice{
 

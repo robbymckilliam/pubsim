@@ -306,6 +306,19 @@ public final class VectorFunctions {
             y[i] = x[i] - Math.floor(x[i]);
         }
     }
+    
+    /** 
+     * Returns true if all the elements in y are zero, i.e. less than tol
+     */ 
+    public static boolean isZero(double[] y, double tol){
+        boolean t = true;
+        int c = 0;
+        while(t && c < y.length){
+            t = Math.abs(y[c]) < tol;
+            c++;
+        }
+        return t;
+    }
 
     /**
      * Householder reflection of x about r.  Stores result in y.
@@ -580,6 +593,26 @@ public final class VectorFunctions {
         }
         return st;
     }
+    
+        /**
+     * Return a string for the vector
+     */
+    public static String printForMathematica(double[][] M) {
+        if(M == null) return "null";
+        String st = new String();
+        st = st.concat("{");
+        for (int m = 0; m < M.length; m++) {
+            st = st.concat("{");
+            for (int n = 0; n < M[0].length; n++) {
+                st = st.concat(" " + M[m][n]);
+                if(n != M[0].length - 1) st = st.concat(",");
+            }
+            if(m != M.length - 1)  st = st.concat("},\n");
+            else st = st.concat("}");
+        }
+        st = st.concat("}");
+        return st;
+    }
 
     /**
      * Return a string for the matrix of objects. Just call's toString.
@@ -603,6 +636,14 @@ public final class VectorFunctions {
     public static String print(Matrix mat) {
         if(mat == null) return "null";
         return print(mat.getArray());
+    }
+    
+    /**
+     * Return a string for the vector
+     */
+    public static String printForMathematica(Matrix mat) {
+        if(mat == null) return "null";
+        return printForMathematica(mat.getArray());
     }
 
     /**
