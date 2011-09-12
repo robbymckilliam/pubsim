@@ -104,5 +104,20 @@ public class VnmStarTest {
         System.out.println(VectorFunctions.print(lll.reduce(Mpt)));
 
     }
+    
+    
+    @Test
+    public void testObtuse(){
+        System.out.println("test obtuse");
+
+        int n = 30;
+        int m = 1;
+        
+        Matrix M = VnmStar.getGeneratorMatrix(m, n);
+        System.out.println(VectorFunctions.print(M));
+
+        Matrix Mpt = M.transpose().times(M);
+        System.out.println(VectorFunctions.print(Mpt));
+    }
 
 }
