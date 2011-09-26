@@ -6,8 +6,7 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.decoder.GeneralNearestPointAlgorithm;
-import pubsim.lattices.decoder.SphereDecoder;
+import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
 
 /**
  * General lattice with a nearest point algorithm included with it.
@@ -21,15 +20,15 @@ public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice imple
 
     public GeneralLatticeAndNearestPointAlgorithm(Matrix B){
         this.B = B;
-        decoder = new SphereDecoder(this);
+        decoder = new SphereDecoderSchnorrEuchner(this);
     }
 
     public GeneralLatticeAndNearestPointAlgorithm(double[][] B){
         this.B = new Matrix(B);
-        decoder = new SphereDecoder(this);
+        decoder = new SphereDecoderSchnorrEuchner(this);
     }
 
-     public GeneralLatticeAndNearestPointAlgorithm(Matrix B, GeneralNearestPointAlgorithm np){
+     public GeneralLatticeAndNearestPointAlgorithm(Matrix B, NearestPointAlgorithm np){
         this.B = B;
         decoder = np;
     }

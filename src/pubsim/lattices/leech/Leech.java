@@ -77,4 +77,12 @@ public class Leech extends AbstractLattice{
         return 196560;
     }
 
+    /*
+     * Second moment taken from SPLAG page 61 (it's an approximation made by Monte-Carlo)
+     */
+    @Override
+    public double secondMoment(){
+        return 24 * 0.065771;
+    }
+    
 }

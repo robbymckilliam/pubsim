@@ -7,11 +7,9 @@ package pubsim.phaseunwrapping.oned;
 
 import Jama.Matrix;
 import pubsim.lattices.GeneralLattice;
-import pubsim.lattices.decoder.Babai;
-import pubsim.lattices.decoder.BabaiNoLLL;
-import pubsim.lattices.decoder.GeneralNearestPointAlgorithm;
 import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * The most general of the 1D unwrappers.  You can set
@@ -30,7 +28,7 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
 
     int m, w, N;
     Matrix B;
-    GeneralNearestPointAlgorithm decoder;
+    NearestPointAlgorithm decoder;
     double[] u;
 
     protected GeneralOneDUnwrapper(){
@@ -86,7 +84,7 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
 
 
     /**
-     * Return the sum of interger from M to N to the power P ie.
+     * Return the sum of integer from M to N to the power P ie.
      * M^P + (M+1)^P + ... + N^2
      */
     public static double sumMtoNpow(int M, int N, double P){

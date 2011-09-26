@@ -7,11 +7,9 @@ package pubsim.phaseunwrapping.oned;
 
 import Jama.Matrix;
 import pubsim.lattices.GeneralLattice;
-import pubsim.lattices.decoder.Babai;
 import pubsim.lattices.decoder.BabaiNoLLL;
-import pubsim.lattices.decoder.GeneralNearestPointAlgorithm;
-import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * Uses the sphere decoder to perform 0th order unwrapping
@@ -20,7 +18,7 @@ import pubsim.VectorFunctions;
 public class ZerothOrder1DUnwrapper implements OneDUnwrapperInterface {
 
     protected Matrix B;
-    GeneralNearestPointAlgorithm decoder;
+    NearestPointAlgorithm decoder;
     int N;
     double[] u;
 

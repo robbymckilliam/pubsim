@@ -6,6 +6,7 @@
 package pubsim.lattices.decoder;
 
 import pubsim.lattices.Lattice;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * Mandar's approximate nearest point algorithm
@@ -13,7 +14,7 @@ import pubsim.lattices.Lattice;
  * theta function. INCOMPLETE.
  * @author Robby McKilliam
  */
-public class JacobiTheta implements GeneralNearestPointAlgorithm{
+public class JacobiTheta implements NearestPointAlgorithm{
 
     double[] u, v;
 

@@ -6,11 +6,11 @@
 package pubsim.lattices.decoder;
 
 import Jama.Matrix;
-import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.reduction.LatticeReduction;
 import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * Implements the Babai nearest plane algorithm.
@@ -19,7 +19,7 @@ import pubsim.VectorFunctions;
  * Use BabaiLLL for that.
  * @author Robby McKilliam
  */
-public class Babai implements GeneralNearestPointAlgorithm {
+public class Babai implements NearestPointAlgorithm {
 
     /** Generator matrix of the lattice */
     protected Matrix G;

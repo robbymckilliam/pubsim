@@ -6,6 +6,7 @@
 package pubsim.lattices.decoder;
 
 import pubsim.VectorFunctions;
+import pubsim.lattices.Lattice;
 
 /**
  * This is a sphere decoder that searches the 'planes' in a greedy
@@ -14,13 +15,21 @@ import pubsim.VectorFunctions;
  * @author Robby McKilliam
  */
 public class SphereDecoderSchnorrEuchner extends SphereDecoder{
+    
+    public SphereDecoderSchnorrEuchner(){
+        super();
+    }
+
+    public SphereDecoderSchnorrEuchner(Lattice L){
+        super(L);
+    }
 
     @Override
     public void nearestPoint(double[] y) {
         if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
 
-        //don't need to compute the Babai point.  Thsi strategy automattically computes
+        //don't need to compute the Babai point.  This strategy automattically computes
         //the Babai point.
         VectorFunctions.matrixMultVector(Qtrans, y, yr);
         D = Double.POSITIVE_INFINITY;

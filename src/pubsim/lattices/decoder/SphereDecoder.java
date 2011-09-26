@@ -8,6 +8,7 @@ package pubsim.lattices.decoder;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.reduction.LLL;
 import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * Sphere decoder that uses the Babai point
@@ -15,7 +16,7 @@ import pubsim.VectorFunctions;
  * @author Robby McKilliam
  */
 public class SphereDecoder extends Babai
-        implements GeneralNearestPointAlgorithm {
+        implements NearestPointAlgorithm {
 
     /** Current sphere radius squared */
     protected double D = Double.POSITIVE_INFINITY;

@@ -8,7 +8,6 @@ import Jama.Matrix;
 import pubsim.lattices.VnmStar;
 import pubsim.lattices.VnmStarSampled;
 import pubsim.lattices.decoder.Babai;
-import pubsim.lattices.decoder.GeneralNearestPointAlgorithm;
 import pubsim.VectorFunctions;
 
 /**
@@ -20,7 +19,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     protected double[] ya,  p;
     protected int n,  m;
     protected VnmStar lattice;
-    protected GeneralNearestPointAlgorithm npalgorithm;
+    protected Babai npalgorithm;
     protected Matrix M,  K, ambM;
     protected AmbiguityRemover ambiguityRemover;
 

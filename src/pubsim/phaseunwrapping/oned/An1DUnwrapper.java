@@ -7,7 +7,6 @@ package pubsim.phaseunwrapping.oned;
 
 import pubsim.lattices.An.An;
 import pubsim.lattices.An.AnFastSelect;
-import pubsim.lattices.decoder.GeneralNearestPointAlgorithm;
 import pubsim.VectorFunctions;
 
 /**

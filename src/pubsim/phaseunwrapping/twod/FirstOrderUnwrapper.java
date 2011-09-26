@@ -9,8 +9,8 @@ import Jama.Matrix;
 import java.util.Vector;
 import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.decoder.Babai;
-import pubsim.lattices.decoder.GeneralNearestPointAlgorithm;
 import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * First order two dimensional unwrapper with window size 3x3
@@ -21,7 +21,7 @@ public class FirstOrderUnwrapper implements TwoDUnwrapperInterface{
     protected int N, M;
     Vector<Double[]> Yv, Pv;
     Matrix Y, P, B;
-    GeneralNearestPointAlgorithm decoder;
+    NearestPointAlgorithm decoder;
 
     public double[][] unwrap(double[][] y) {
         double[][] u = unwrapIntegers(y);

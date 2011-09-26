@@ -7,7 +7,7 @@ package pubsim.lattices.decoder;
 
 import Jama.Matrix;
 import pubsim.lattices.Lattice;
-import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * Lazy Babai algorithm that does not bother to
@@ -15,7 +15,7 @@ import pubsim.VectorFunctions;
  * @author Robby McKilliam
  */
 public class BabaiNoLLL extends Babai
-                        implements GeneralNearestPointAlgorithm {
+                        implements NearestPointAlgorithm {
 
     public BabaiNoLLL(){
 
@@ -25,7 +25,6 @@ public class BabaiNoLLL extends Babai
         setLattice(L);
     }
 
-    @Override
     public void setLattice(Lattice L) {
         G = L.getGeneratorMatrix().copy();
         m = G.getRowDimension();
