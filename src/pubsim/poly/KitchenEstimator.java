@@ -12,10 +12,10 @@ import pubsim.bearing.SampleCircularMean;
 /**
  * Implementation of Kitchen's polynomial phase estimate.
  *
- * J. Kitchen, "A method for estimating the coefficients of m polynomial
+ * J. Kitchen, "A method for estimating the coefficients of a polynomial
  * phase signal", Signal Processing, vol 37, 1994.
  * 
- * This is essentially m generalisation of Kay's frequency estimator.
+ * This is essentially a generalisation of Kay's frequency estimator.
  * @author Robby McKilliam
  */
 public class KitchenEstimator implements PolynomialPhaseEstimator{
