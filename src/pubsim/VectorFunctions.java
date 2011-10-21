@@ -232,6 +232,13 @@ public final class VectorFunctions {
         }
         return out;
     }
+    
+    /** A column vector of ones, returned as a matrix */
+    public static Matrix onesColumn(int N){
+        Matrix B = new Matrix(N,1);
+        for (int n = 0; n < N; n++) B.set(n,0,1.0);
+        return B;
+    }
 
     /**
      * Return the sum of a vector
@@ -382,9 +389,9 @@ public final class VectorFunctions {
     }
     
     /**
-     * Return a vector of  gaussian noise.
+     * Return a vector of Gaussian noise.
      */
-    public static double[] randomGaussian   (int length, double mean, double var) {
+    public static double[] randomGaussian(int length, double mean, double var) {
         double[] x = new double[length];
         Random r = new Random();
         double std = Math.sqrt(var);
