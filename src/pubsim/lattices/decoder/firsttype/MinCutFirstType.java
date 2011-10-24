@@ -5,6 +5,7 @@
 package pubsim.lattices.decoder.firsttype;
 
 import Jama.Matrix;
+import pubsim.VectorFunctions;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.NearestPointAlgorithm;
 import static pubsim.VectorFunctions.onesColumn;
@@ -35,11 +36,14 @@ public class MinCutFirstType implements NearestPointAlgorithm {
         //fill an extended obtuse superbasis matrix
         B = new Matrix(M,N+1);
         for(int n = 0; n < N; n++) 
-            for(int m = 0; m < M; m++) B.set(m, n, B.get(m,n));
-        for(int m = 0; m < M; m++) B.set(m, N, bnp1.get(0,m));
+            for(int m = 0; m < M; m++) B.set(m, n, Bs.get(m,n));
+        for(int m = 0; m < M; m++) B.set(m, N, -bnp1.get(m,0));
         
         //compute the extended Gram matrix (i.e. the Selling parameters)
         Q = B.transpose().times(B);
+        
+        //System.out.println(VectorFunctions.print(B));
+        //System.out.println(VectorFunctions.print(Q));
         
         //check it actually is obtuse
         for(int n = 0; n < N+1; n++) 

@@ -9,6 +9,13 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import pubsim.lattices.An.AnFastSelect;
+import pubsim.lattices.Anstar.Anstar;
+import pubsim.lattices.Anstar.AnstarBucket;
+import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Vn2Star.Vn2Star;
+import pubsim.lattices.Vn2Star.Vn2StarGlued;
+import pubsim.lattices.leech.Leech;
 import static org.junit.Assert.*;
 
 /**
@@ -37,16 +44,32 @@ public class MinCutFirstTypeTest {
     }
 
     /**
-     * Test of nearestPoint method, of class MinCutFirstType.
+     * Test of constructor correctly detects and computes obtuse bases.
      */
     @Test
     public void testDetectObtuseBasis() {
         System.out.println("Detect Obtuse Basis");
-        double[] y = null;
-        MinCutFirstType instance = null;
-        instance.nearestPoint(y);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        new MinCutFirstType(new AnstarBucketVaughan(10));
+        
+        new MinCutFirstType(new AnFastSelect(10));
+        
+        boolean exc = false;
+        try{ 
+            new MinCutFirstType(new Vn2StarGlued(20));
+        }catch(RuntimeException e){
+          exc = true;  
+        }
+        assertTrue(exc);
+        
+        exc = false;
+        try{ 
+            new MinCutFirstType(new Leech());
+        }catch(RuntimeException e){
+          exc = true;  
+        }
+        assertTrue(exc);
+        
     }
     
 }
