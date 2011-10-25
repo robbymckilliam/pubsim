@@ -4,8 +4,8 @@
  */
 package pubsim.lattices.decoder.firsttype;
 
+import pubsim.lattices.decoder.firsttype.graph.FlowNetwork;
 import Jama.Matrix;
-import pubsim.VectorFunctions;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.NearestPointAlgorithm;
 import static pubsim.VectorFunctions.onesColumn;
@@ -20,7 +20,9 @@ public class MinCutFirstType implements NearestPointAlgorithm {
     
     final protected int N,M;
     
-    final Matrix B, Q;
+    final protected Matrix B, Q;
+    
+    final protected FlowNetwork F;
     
     /** 
      * Input L is a lattice.  The generator of L must be of the first type
@@ -50,6 +52,8 @@ public class MinCutFirstType implements NearestPointAlgorithm {
             for(int m = 0; m < M; m++)
                 if(m != n && Q.get(m, n) > 0) 
                     throw new RuntimeException("Not an obtuse basis!");
+        
+        F = new FlowNetwork(N+3);
         
     }
 
