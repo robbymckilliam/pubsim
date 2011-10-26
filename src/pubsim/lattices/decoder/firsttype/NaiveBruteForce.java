@@ -30,21 +30,33 @@ public class NaiveBruteForce extends MinCutFirstType implements NearestPointAlgo
         matrixMultVector(Binv, y, z); 
         z[N] = 0.0;
         
+        //double[] test = matrixMultVector(B, z);
+        // assert(VectorFunctions.distance_between(test, y) < 0.0000001);
+        //System.out.println(VectorFunctions.print(test));
+        //System.out.println(VectorFunctions.print(y));
         //System.out.println(VectorFunctions.print(z));
+        //double[] zfloor = new double[z.length];
+        //for(int i = 0; i < z.length; i++) zfloor[i] = Math.floor(z[i]);
+        //System.out.println(VectorFunctions.print(zfloor));
+        //System.out.println();
         
         double Dmin = Double.POSITIVE_INFINITY;
-        for(Matrix p : new IntegerVectors(N+1, 2) ){
+        for(Matrix p : new IntegerVectors(N+1, 3) ){
             double[] pd = p.getColumnPackedCopy();
             double D = computeDistance(pd, z);
-            //System.out.println(D);
-            //System.out.println(VectorFunctions.print(pd));
+            //System.out.print(D + "\t");
+            //System.out.print(VectorFunctions.print(pd) + "\t");
             //System.out.println();
             if(D < Dmin){
+           //     System.out.print(D + "\t");
+           //     System.out.print(VectorFunctions.print(pd) + "\t");
+           //     System.out.println("*******");
                 Dmin = D;
                 for(int i = 0; i < N+1; i++){
                     u[i] = Math.floor(z[i]) + pd[i];
                 }
             }
+            //else System.out.println();
         }
         
         //compute the nearest point from the index

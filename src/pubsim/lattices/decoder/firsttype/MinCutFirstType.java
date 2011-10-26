@@ -40,6 +40,7 @@ public class MinCutFirstType implements NearestPointAlgorithm {
         Matrix bnp1 = Bs.times(onesColumn(N));  //the extra vector
         
         Binv = (Bs.transpose().times(Bs)).inverse().times(Bs.transpose());
+        //System.out.println(VectorFunctions.print(Binv));
         
         //fill an extended obtuse superbasis matrix
         B = new Matrix(M,N+1);
@@ -118,6 +119,12 @@ public class MinCutFirstType implements NearestPointAlgorithm {
                 if(Q.get(i-1,j-1) != 0.0 && i != j) F.addEdge(new FlowEdge(i, j, -Q.get(i-1, j-1)));
         return F;
     }
+    
+    /** Return the superbase matrix for this lattice */
+    protected Matrix getSuperBase() { return B; } 
+    
+    /** Return the Selling parameter matrix */
+    protected Matrix getSellingMatrix() { return Q; } 
 
     @Override
     public double[] getLatticePoint() {
