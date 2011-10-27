@@ -16,7 +16,7 @@ import static pubsim.VectorFunctions.sum2;
 
 /**
  * The naive algorithm for computing a nearest point in a lattice of first type by just checking
- * all the possible combinations of the corresponding binary quadratic form.
+ * all the possible 3^(n+1) combinations of the corresponding quadratic {0,1,2} program.
  * @author Robby McKilliam
  */
 public class NaiveBruteForce extends MinCutFirstType implements NearestPointAlgorithm {
