@@ -23,16 +23,26 @@ import static pubsim.VectorFunctions.sum2;
  */
 public class DirectedBruteForce extends MinCutFirstType implements NearestPointAlgorithm {
     
+    protected final double[] sgns;
     
-    public DirectedBruteForce(Lattice L){ super(L); }
+    public DirectedBruteForce(Lattice L){ 
+        super(L); 
+    
+        sgns = new double[N+1];
+    }
     
     @Override
     public void nearestPoint(double[] y) {
+        
         
         matrixMultVector(Binv, y, z); 
         z[N] = 0.0;
         
         Anstar.project(z, z);
+        
+        for(int i = 0; i < z.length; i++) sgns[i] = fracpart(z[i]);
+        Anstar.project(sgns, sgns);
+        for(int i = 0; i < z.length; i++) sgns[i] = sgn(sgns[i]);
         
 //        double[] test = matrixMultVector(B, z);
 //         assert(VectorFunctions.distance_between(test, y) < 0.0000001);
@@ -56,12 +66,12 @@ public class DirectedBruteForce extends MinCutFirstType implements NearestPointA
             if(D < Dmin){
                 System.out.print(D + "\t");
                 double[] pds = new double[pd.length];
-                for(int i = 0; i < N+1; i++) pds[i] = sgn(fracpart(z[i]))*pd[i];
+                for(int i = 0; i < N+1; i++) pds[i] = sgns[i]*pd[i];
                 System.out.print(VectorFunctions.print(pds) + "\t");
                 System.out.println("*******");
                 Dmin = D;
                 for(int i = 0; i < N+1; i++){
-                    u[i] = Math.round(z[i]) + sgn(fracpart(z[i]))*pd[i];
+                    u[i] = Math.round(z[i]) + sgns[i]*pd[i];
                 }
             }
         }
@@ -74,7 +84,7 @@ public class DirectedBruteForce extends MinCutFirstType implements NearestPointA
     protected double computeDistance(double[] p, double[] z){
         for(int i = 0; i < N+1; i++){
             double zf = fracpart(z[i]);
-            s[i] = zf - sgn(zf)*p[i];
+            s[i] = zf - sgns[i]*p[i];
         }
         return sum2(matrixMultVector(B, s));
     }
