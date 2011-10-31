@@ -4,8 +4,6 @@
  */
 package pubsim;
 
-import java.math.BigInteger;
-
 /**
  * Utility class for common math operations etc.
  * @author Robby McKilliam
