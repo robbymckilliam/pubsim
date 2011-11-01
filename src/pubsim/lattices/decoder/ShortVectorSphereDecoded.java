@@ -12,13 +12,13 @@ import pubsim.VectorFunctions;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
-public class ShortestVector {
+public class ShortVectorSphereDecoded implements ShortVector{
 
     protected final ModSphereDecoder ssd;
 
-    public ShortestVector(Lattice L){
+    public ShortVectorSphereDecoded(Lattice L){
         ssd = new ModSphereDecoder(L);
         ssd.findShortVector();
 
@@ -28,7 +28,7 @@ public class ShortestVector {
      * distance for sphere decoder.  d needs to be bigger than
      * smallest distance
      */
-    public ShortestVector(Lattice L, double d){
+    public ShortVectorSphereDecoded(Lattice L, double d){
         ssd = new ModSphereDecoder(L);
         ssd.findShortVector(d);
 

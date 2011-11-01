@@ -6,7 +6,7 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.decoder.ShortestVector;
+import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.Util;
 import pubsim.VectorFunctions;
 import static pubsim.Util.binom;

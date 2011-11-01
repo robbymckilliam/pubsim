@@ -9,7 +9,7 @@ package pubsim.lattices;
 import Jama.Matrix;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarBucketVaughan;
-import pubsim.lattices.decoder.ShortestVector;
+import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.lattices.util.PointInParallelepiped;
 import pubsim.VectorFunctions;
 import static pubsim.Util.factorial;

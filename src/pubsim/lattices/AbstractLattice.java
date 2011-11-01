@@ -7,7 +7,7 @@ package pubsim.lattices;
 
 import Jama.Matrix;
 import pubsim.lattices.decoder.KissingNumber;
-import pubsim.lattices.decoder.ShortestVector;
+import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.VectorFunctions;
 import static pubsim.Util.log2;
 import static pubsim.Util.pow2;
@@ -110,7 +110,7 @@ public abstract class AbstractLattice implements Lattice {
      */
     public double inradius(){
         if(inradius == 0){
-            ShortestVector sv = new ShortestVector(this);
+            ShortVectorSphereDecoded sv = new ShortVectorSphereDecoded(this);
             double norm = VectorFunctions.sum2(sv.getShortestVector());
             inradius = Math.sqrt(norm)/2.0;
         }

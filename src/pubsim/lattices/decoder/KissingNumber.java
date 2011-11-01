@@ -21,7 +21,7 @@ public class KissingNumber {
 
     public KissingNumber(Lattice L){
 
-        ShortestVector sv = new ShortestVector(L);
+        ShortVectorSphereDecoded sv = new ShortVectorSphereDecoded(L);
         double D = VectorFunctions.sum2(sv.getShortestVector());
 
         ssd = new ModSphereDecoder(L);

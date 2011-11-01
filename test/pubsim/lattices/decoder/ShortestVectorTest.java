@@ -5,7 +5,7 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.lattices.decoder.ShortestVector;
+import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.lattices.Fermat;
 import pubsim.lattices.Vnm;
 import org.junit.After;
@@ -62,7 +62,7 @@ public class ShortestVectorTest {
         System.out.println("getShortestVector Phi");
         int n = 78;
         int a = 7;
-        ShortestVector sv = new ShortestVector(new Vnm(a, n), 14);
+        ShortVectorSphereDecoded sv = new ShortVectorSphereDecoded(new Vnm(a, n), 14);
         System.out.println(print(sv.getShortestVector()));
         System.out.println(print(sv.getShortestIndex()));
         System.out.println(sum2(sv.getShortestVector()));
