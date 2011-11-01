@@ -47,7 +47,7 @@ public class MinCutShortVectorTest {
     @Test
     public void testWithAnStar() {
         System.out.println("testWithAnStar");
-        int n = 6;
+        int n = 50;
         Lattice lattice = new AnstarBucketVaughan(n);
         MinCutShortVector instance = new MinCutShortVector(lattice);
         ShortVectorSphereDecoded tester = new ShortVectorSphereDecoded(lattice);
@@ -68,7 +68,7 @@ public class MinCutShortVectorTest {
     @Test
     public void testWithAn() {
         System.out.println("testWithAn");
-        int n = 6;
+        int n = 50;
         Lattice lattice = new AnSorted(n);
         MinCutShortVector instance = new MinCutShortVector(lattice);
         ShortVectorSphereDecoded tester = new ShortVectorSphereDecoded(lattice);
