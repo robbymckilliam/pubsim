@@ -277,7 +277,7 @@ public final class Util {
     }
 
     /**
-     * Returns the log of the gamma function
+     * Returns the natural logarithm of the gamma function
      * Gamma(x) = integral( t^(x-1) e^(-t), t = 0 .. infinity)
      * Uses Lanczos approximation formula. See Numerical Recipes 6.1.
      */
@@ -319,6 +319,13 @@ public final class Util {
             for(int i = 1; i <= n; i++) ldenom += Math.log(i);
             return lnumer - ldenom;
         }
+    }
+
+    /**
+     * Natural logarithm of the surface area of the hypersphere of dimension n and radius 1
+     */
+    public static double logHyperSphereSurfaceArea(int n){
+        return Math.log(2) + n*Math.log(Math.PI)/2.0 - logGamma(n/2.0);
     }
 
     /**

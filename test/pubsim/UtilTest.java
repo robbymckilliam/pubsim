@@ -255,7 +255,7 @@ public class UtilTest {
 
     }
 
-        /**
+     /**
      * Test of mod method, of class Util.
      */
     @Test
@@ -266,6 +266,21 @@ public class UtilTest {
         assertEquals(Util.log2(4), 2.0, 0.0000001);
         assertEquals(Util.log2(8), 3.0, 0.0000001);
 
+    }
+    
+     /**
+     * Test of logarithm of hypersphere surface area
+     */
+    @Test
+    public void testloghyperspheresurfacearea() {
+        System.out.println("test log hypersphere surface area");
+
+        assertEquals(Util.logHyperSphereSurfaceArea(2), 1.83788, 0.0001);
+        assertEquals(Util.logHyperSphereSurfaceArea(4), 2.98261, 0.0001);
+        assertEquals(Util.logHyperSphereSurfaceArea(7), 3.49873, 0.0001);
+        assertEquals(Util.logHyperSphereSurfaceArea(8), 3.48031, 0.0001);
+        assertEquals(Util.logHyperSphereSurfaceArea(10), 3.23874, 0.0001);
+        
     }
 
     /**
@@ -336,6 +351,8 @@ public class UtilTest {
         assertEquals( 0.0, Util.discreteLegendrePolynomial(1, 9, 4), 0.0000001);
 
     }
+    
+    
     
     
      /**
