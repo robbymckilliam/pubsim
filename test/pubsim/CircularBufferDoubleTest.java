@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author mckillrg
+ * @author Robby McKilliam
  */
 public class CircularBufferDoubleTest {
     
@@ -42,7 +42,7 @@ public class CircularBufferDoubleTest {
     @Test
     public void testAddAndGet() {
         System.out.println("test add and get");
-        double i = 0.0;
+
         CircularBufferDouble instance = new CircularBufferDouble(5);
         instance.add(1);
         instance.add(2);

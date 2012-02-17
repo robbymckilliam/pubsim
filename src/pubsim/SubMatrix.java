@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Transparent holder for sub matrix of a matrix.  It would
  * be nice if this could extend Jama.Matrix, but Jama.Matrix
  * is not written in a particularly extensible manner.  It would
- * be nessecary to extend and rewrite almost every method.
+ * be necessary to extend and rewrite almost every method.
  * @author Robby McKilliam
  */
 public class SubMatrix  implements Serializable{

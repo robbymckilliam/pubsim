@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package robbysim.qam.hex.ambiguity;
+package pubsim.qam.hex.ambiguity;
 
 import pubsim.qam.hex.ambiguity.HexAmbiguityCalculator;
 import java.util.Vector;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class HexAmbiguityCalculatorTest {
 

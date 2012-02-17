@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class EisensteinIntegerTest {
 
