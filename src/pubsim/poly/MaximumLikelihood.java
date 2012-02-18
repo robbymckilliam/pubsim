@@ -269,7 +269,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
                 }
                 cpdiff[n] = Math.cos(2*Math.PI * phase - yphase[n]);
             }
-            //compute hessian elements
+            //compute Hessian elements
             Matrix H = new Matrix(M, M);
             for(int m = 0; m < M; m++){
                 for(int k = 0; k < M; k++){

@@ -9,11 +9,16 @@ import Jama.Matrix;
 import pubsim.VectorFunctions;
 
 /**
- * Only requires writting the value(.) function.  The gradient and
+ * Only requires writing the value(.) function.  The gradient and
  * Hessian are then approximated automatically using pseudo derivatives.
  * There is a pretty good paper by John Hobby discussing the advantages
- * and disadvantages of using the psuedo derivative.
+ * and disadvantages of using the pseudo derivative.
  * http://ect.bell-labs.com/who/hobby/ad04long.pdf
+ * 
+ * Also, I know that control people study these types of things quite
+ * a bit.  I went to a talk by Dragan Nesic from Melbourne Uni on this.
+ * It's similar to what he calls `extremum seeking control'.
+ * 
  * @author Robby McKilliam
  */
 public abstract class AutoDerivativeFunction implements FunctionAndDerivatives{
@@ -37,22 +42,15 @@ public abstract class AutoDerivativeFunction implements FunctionAndDerivatives{
      * Makes the assumption that x is a column vector!
      */
     public Matrix hessian(Matrix x){
-        //System.out.println(VectorFunctions.print(x));
         int p = x.getRowDimension();
         Matrix H = new Matrix(p, p);
         for(int n = 0; n < p; n++){
             double v = x.get(n, 0);
             x.set(n, 0, v+interval/2.0);
-            //System.out.println(VectorFunctions.print(x));
             Matrix g = gradient(x);
-           // System.out.println(VectorFunctions.print(g));
             x.set(n, 0, v-interval/2.0);
-            //System.out.println(VectorFunctions.print(x));
-           // System.out.println(VectorFunctions.print(gradient(x)));
             g.minusEquals(gradient(x));
-            //System.out.println(VectorFunctions.print(g));
             g.timesEquals(1.0/interval);
-            //System.out.println("g = " +  VectorFunctions.print(g));
             H.setMatrix(0, p-1, n, n, g);
             x.set(n, 0, v);
         }
@@ -69,15 +67,9 @@ public abstract class AutoDerivativeFunction implements FunctionAndDerivatives{
             double v = x.get(n, 0);
             x.set(n, 0, v+interval/2.0);
             double der = value(x);
-            //System.out.println(VectorFunctions.print(x));
-           // System.out.println(value(x));
             x.set(n, 0, v-interval/2.0);
-            //System.out.println(VectorFunctions.print(x));
             der -= value(x);
-            //System.out.println(value(x));
-            //System.out.println(value(x));
             der /= interval;
-            //System.out.println(der);
             g.set(n,0, der);
             x.set(n, 0, v);
         }

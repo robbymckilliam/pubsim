@@ -88,7 +88,7 @@ public class MomentComputerTest {
         System.out.println("test moment");
         
         MomentComputer.RecursionStorageAndCompute G = new MomentComputer.RecursionStorageAndCompute();
-        G.moment(1,2);
+
         assertTrue(G.moment(2,2).compareTo(new BigRational(7,45))==0);
         assertTrue(G.moment(2,1).compareTo(new BigRational(5,9))==0);
         assertTrue(G.moment(3,3).compareTo(new BigRational(1397,32256))==0);
@@ -108,6 +108,7 @@ public class MomentComputerTest {
         System.out.println("finished deserialising");
         
         assertEquals(mc.ProbError(5, new BigRational(1,5),1e-15), 0.611081,1e-6);
+        assertEquals(mc.ProbError(5, new BigRational(1,100),1e-15), -2.0615e-7,1e-11);
         assertEquals(mc.ProbError(2, new BigRational(1,10),1e-15), 0.0652598,1e-6);
         
         mc.save("testname");

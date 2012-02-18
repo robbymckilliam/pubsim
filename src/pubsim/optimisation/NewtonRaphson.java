@@ -6,7 +6,6 @@
 package pubsim.optimisation;
 
 import Jama.Matrix;
-import pubsim.VectorFunctions;
 
 /**
  *
@@ -14,7 +13,7 @@ import pubsim.VectorFunctions;
  */
 public class NewtonRaphson {
 
-    /** Maximimum number of time Newton's method with iterate */
+    /** Maximum number of time Newton's method with iterate */
     int max_iterations = 10;
     /** Tolerance to aim for between iterations */
     double tolerance = 1e-10;
