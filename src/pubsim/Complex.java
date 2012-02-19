@@ -128,7 +128,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
 //    }
 
     /** 
-     * Convert this complex number into complex number from the 
+     * Convert this complex number into a complex number from the 
      * flanagan library.
      */
     public flanagan.complex.Complex toFlanComplex(){
