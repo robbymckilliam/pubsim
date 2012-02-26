@@ -9,8 +9,8 @@ package pubsim.fes;
 import pubsim.lattices.Vn2Star.Vn2StarGlued;
 
 /**
- * Frequency estimator that uses Pn1 glue vector algorithm to solve the nearest
- * point problem for the frequency estimation lattice Pn1.  O(N^4log(N)).
+ * Frequency estimator that uses Vn1 glue vector algorithm to solve the nearest
+ * point problem for the frequency estimation lattice Vn1.  O(N^4log(N)).
  * @author Robby McKilliam
  */
 public class GlueAnstarEstimator 

@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class AmbiguityRemoverTest {
 

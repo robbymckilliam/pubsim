@@ -9,6 +9,7 @@ import java.io.Serializable;
 import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * This uses m nearest lattice point approach to remove the
@@ -20,29 +21,24 @@ public class AmbiguityRemover implements Serializable{
     protected int m;
     protected Matrix M;
     double[] p;
-    SphereDecoder sd;
+    NearestPointAlgorithm sd;
 
     protected AmbiguityRemover() {
     }
 
     /**
-     * Public constructor.  Set the order polynomail phase estimator.
+     * Public constructor.  Set the order of the polynomial phase signal.
      * @param m = the number of parameters ie. order of polynomial + 1
      */
     public AmbiguityRemover(int m) {
-        setSize(m);
-    }
-
-    protected void setSize(int m) {
         this.m = m;
         p = new double[m+1];
         M = constructBasisMatrix();
         GeneralLattice lattice = new GeneralLattice(M);
-        sd = new SphereDecoder();
-        sd.setLattice(lattice);
+        sd = new SphereDecoder(lattice);
     }
-
-    protected Matrix constructBasisMatrix() {
+    
+    protected final Matrix constructBasisMatrix() {
         Matrix B = new Matrix(m+1, m+1);
         double[] c = VectorFunctions.eVector(0, 1);
         for (int j = 0; j < m+1; j++) {
@@ -58,8 +54,9 @@ public class AmbiguityRemover implements Serializable{
     }
 
     /**
-     * Recursively generates the columns of the abiguity lattice
-     * generator matrix.
+     * Recursively generates the columns of the ambiguity lattice
+     * generator matrix.  Essentially generates coefficients of the
+     * integer valued polynomials.
      * @param c previous column.
      * @return next column
      */

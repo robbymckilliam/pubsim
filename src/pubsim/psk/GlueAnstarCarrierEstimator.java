@@ -35,7 +35,7 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
         return phase;
     }
     
-    /** Return the estiamted freqenucy */
+    /** Return the estimated frequency */
     public double getFreqency(){
         return frequency;
     }
