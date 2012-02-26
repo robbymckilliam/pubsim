@@ -25,6 +25,12 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     protected int n;
     
     protected NoiseGenerator noise;
+    
+    public PolynomialPhaseSignal(int N){
+        this.n = N;
+        real = new double[n];
+        imag = new double[n];
+    }
 
     @Override
     public double[] generateReceivedSignal() {
@@ -46,13 +52,6 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     @Override
     public NoiseGenerator getNoiseGenerator() {
         return noise;
-    }
-
-    public void setLength(int n) {
-        this.n = n;
-        real = new double[n];
-        imag = new double[n];
-        
     }
 
     @Override
@@ -120,41 +119,6 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     /** Return the true value of the parameters */
     public double[] getParameters(){
         return params;
-    }
-    
-    /** Chirp signal have m number of abiguities.  This calcuates
-     * the mse for each parameter after removing ambiguities.
-     * This only works for linear Chirp, use AmbiguityRemover
-     * for the general case.
-     * @param t is the true parameter values
-     * @param e is the estimated values
-     * @return MSE between t and e for each parameter in an array
-     * @deprecated Use AmbiguityRemover instead
-     */
-    public static double[] disambiguateMSE(double[] t, double[] e){
-        double[] p = new double[t.length];
-        double[] MSE = new double[t.length];
-        System.arraycopy(e, 0, p, 0, e.length);
-        
-        double mseB = VectorFunctions.distance_between2(t, p);
-        for(int i = 0; i < t.length; i++)
-            MSE[i] = (t[i] - p[i])*(t[i] - p[i]);
-        
-        if(t.length == 3){
-            //fix up quadratic phase ambiguitiy
-            for(int i = 1; i < t.length; i++){
-                p[i] += 0.5;
-                p[i] -= Math.round(p[i]);
-            }
-
-            double mse = VectorFunctions.distance_between2(t, p);
-            if( mse < mseB ){
-                for(int i = 0; i < t.length; i++)
-                    MSE[i] = (t[i] - p[i])*(t[i] - p[i]);
-            }
-        }
-        
-        return MSE;
     }
 
     public static class RandomParameterGenerator implements Serializable{

@@ -34,19 +34,17 @@ public class ShortVectorSphereDecoded implements ShortVector{
 
     }
 
+    @Override
     public double[] getShortestVector(){
         return ssd.getLatticePoint();
     }
 
+    @Override
     public double[] getShortestIndex(){
         return ssd.getIndex();
     }
 
     protected class ModSphereDecoder extends SphereDecoder{
-
-        public ModSphereDecoder(){
-            super();
-        }
 
         public ModSphereDecoder(Lattice L){
             super(L);

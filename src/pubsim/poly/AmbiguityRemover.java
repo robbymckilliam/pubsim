@@ -6,10 +6,10 @@ package pubsim.poly;
 
 import Jama.Matrix;
 import java.io.Serializable;
-import pubsim.lattices.GeneralLattice;
-import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.VectorFunctions;
+import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.decoder.SphereDecoder;
 
 /**
  * This uses m nearest lattice point approach to remove the
@@ -21,7 +21,7 @@ public class AmbiguityRemover implements Serializable{
     protected int m;
     protected Matrix M;
     double[] p;
-    NearestPointAlgorithm sd;
+    NearestPointAlgorithm np;
 
     protected AmbiguityRemover() {
     }
@@ -35,7 +35,7 @@ public class AmbiguityRemover implements Serializable{
         p = new double[m+1];
         M = constructBasisMatrix();
         GeneralLattice lattice = new GeneralLattice(M);
-        sd = new SphereDecoder(lattice);
+        np = new SphereDecoder(lattice);
     }
     
     protected final Matrix constructBasisMatrix() {
@@ -81,15 +81,15 @@ public class AmbiguityRemover implements Serializable{
     /**
      * This function removes the ambiguities from polynomial
      * phase signals.
-     * @param p the parameter to remove ambibuity from
-     * @return parameter in indentifiabile range.
+     * @param p the parameter to remove ambiguity from
+     * @return parameter in indentifiable range.
      */
     public double[] disambiguate(double[] p) {
         if (m+1 != p.length) {
             throw new RuntimeException("Parameter vector p is not the correct size.");
         }
-        sd.nearestPoint(p);
-        double[] np = sd.getLatticePoint();
+        np.nearestPoint(p);
+        double[] np = this.np.getLatticePoint();
 
         for (int i = 0; i < p.length; i++) {
             this.p[i] = p[i] - np[i];

@@ -50,15 +50,13 @@ public class MaximumLikelihoodTest {
         double[] params = {0.4, 0.49, 0.5/n };
         int m = params.length-1;
 
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
-        siggen.setLength(n);
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
         siggen.setParameters(params);
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.0000001));
 
         siggen.generateReceivedSignal();
 
-        MaximumLikelihood inst = new MaximumLikelihood();
-        inst.setSize(n);
+        MaximumLikelihood inst = new MaximumLikelihood(n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
@@ -76,15 +74,13 @@ public class MaximumLikelihoodTest {
         double[] params = {0.4, 0.49, 0.5/n };
         int m = params.length-1;
 
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
-        siggen.setLength(n);
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
         siggen.setParameters(params);
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.0000001));
 
         siggen.generateReceivedSignal();
 
-        MaximumLikelihood inst = new MaximumLikelihood();
-        inst.setSize(n);
+        MaximumLikelihood inst = new MaximumLikelihood(n);
 
         double[] p = inst.error(siggen.getReal(), siggen.getImag(), params);
 

@@ -29,8 +29,7 @@ public class PolynomialPhaseSignalTest extends TestCase {
         int n = 4;
         double[] params = {1, 0.1, 0.2};
         
-        PolynomialPhaseSignal instance = new PolynomialPhaseSignal();
-        instance.setLength(n);
+        PolynomialPhaseSignal instance = new PolynomialPhaseSignal(n);
         instance.setParameters(params);
         instance.setNoiseGenerator(new GaussianNoise(0, 0.0));
         

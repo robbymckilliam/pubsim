@@ -11,7 +11,7 @@ package pubsim.distributions;
 import rngpack.Ranlux;
 
 /**
- * Creates single gaussian variables
+ * Creates single Gaussian variables
  * @author Robby McKilliam
  */
 public class GaussianNoise extends AbstractRandomVariable implements RandomVariable {

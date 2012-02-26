@@ -5,8 +5,8 @@
 
 package pubsim.poly;
 
-import pubsim.lattices.VnmStarGlued;
-import pubsim.lattices.decoder.SphereDecoder;
+import Jama.Matrix;
+import pubsim.lattices.VnmStarSampled;
 import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
 
 /**
@@ -20,11 +20,19 @@ public class SphereDecoderEstimator extends BabaiEstimator {
      * You must set the polynomial order in the constructor
      * @param m = polynomial order
      */
-    public SphereDecoderEstimator(int m) {
-        lattice = new VnmStarGlued(m);
-        npalgorithm = new SphereDecoderSchnorrEuchner();
-        //npalgorithm = new PolySphereDecoder();
+    public SphereDecoderEstimator(int m, int n) {
+        lattice = new VnmStarSampled(m, n - m - 1, new int[m]);
         this.m = m;
+        npalgorithm = new SphereDecoderSchnorrEuchner(lattice);
+        ambiguityRemover = new AmbiguityRemover(m);
+
+        ya = new double[n];
+        p = new double[m+1];
+        this.n = n;
+
+        M = lattice.getMMatrix();
+        Matrix Mt = M.transpose();
+        K = Mt.times(M).inverse().times(Mt);
     }
    
 

@@ -32,19 +32,24 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     double[] realp, imagp;
     Complex[] z;
 
-    //Here for inheritance purposes.  You can't call this.
-    protected MaximumLikelihood() {
-    }
-
+    protected MaximumLikelihood() {}
+    
     /**
-     * @param m : polynomail order
+     * @param m : polynomial order
      * @param samples : number of samples used per parameter in ML search.
-     * Deafult samples = 100
+     * Default samples = 100
      */
-    public MaximumLikelihood(int m){
+    public MaximumLikelihood(int m, int n){
         this.m = m;
         this.samples = new int[m-1];
         ambiguityRemover = new AmbiguityRemover(m);
+        N = n;
+        realp = new double[N];
+        imagp = new double[N];
+        z = new Complex[N];
+        freqest = new PeriodogramFFTEstimator(N);
+        for(int i = 0; i < samples.length; i++)
+            samples[i] = (int)Math.round(4*Math.pow( N, i+2 ));
     }
     
     /**
@@ -55,24 +60,13 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
     }
 
     @Override
-    public void setSize(int n) {
-        N = n;
-        realp = new double[N];
-        imagp = new double[N];
-        z = new Complex[N];
-        freqest = new PeriodogramFFTEstimator(N);
-        for(int i = 0; i < samples.length; i++)
-            samples[i] = (int)Math.round(4*Math.pow( N, i+2 ));
-    }
-
     public int getOrder() {
         return m;
     }
 
+    @Override
     public double[] estimate(double[] real, double[] imag) {
-        if (N != real.length) {
-            setSize(real.length);
-        }
+        if(N != real.length) throw new RuntimeException("Data length does not equal " + N);
 
         PolynomialPhaseLikelihood func
                 = new PolynomialPhaseLikelihood(real, imag);
@@ -159,6 +153,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         return ambiguityRemover.disambiguate(VectorFunctions.unpackRowise(p));
     }
 
+    @Override
     public double[] error(double[] real, double[] imag, double[] truth) {
         double[] est = estimate(real, imag);
         double[] err = new double[est.length];

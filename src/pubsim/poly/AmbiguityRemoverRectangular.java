@@ -18,6 +18,6 @@ public class AmbiguityRemoverRectangular extends AmbiguityRemover {
         p = new double[m+1];
         M = constructBasisMatrix();
         GeneralLattice lattice = new GeneralLattice(M);
-        sd = new BabaiNoLLL(lattice);
+        np = new BabaiNoLLL(lattice);
     }
 }

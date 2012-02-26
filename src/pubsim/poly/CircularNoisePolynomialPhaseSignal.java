@@ -16,6 +16,10 @@ public class CircularNoisePolynomialPhaseSignal extends PolynomialPhaseSignal{
 
     double[] phasearray = new double[0];
 
+    public CircularNoisePolynomialPhaseSignal(int N){
+        super(N);
+    }
+    
     /**
      * Returns the phase signal and places the real and imaginary parts
      * of the complex signal into real and imag arrays that can be retrieved

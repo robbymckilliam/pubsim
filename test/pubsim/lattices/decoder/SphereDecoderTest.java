@@ -50,9 +50,9 @@ public class SphereDecoderTest {
     public void returnsErrorWhenDimensionAreWrong() {
         System.out.println("returnsErrorWhenDimensionAreWrong");
         double[] y = {1, 2, 3, 4};
-        SphereDecoder decoder = new SphereDecoder();
+        
         GeneralLattice lattice = new GeneralLattice(Matrix.random(6, 5));
-        decoder.setLattice(lattice);
+        SphereDecoder decoder = new SphereDecoder(lattice);
         
         boolean caught = false;
         try{
@@ -72,11 +72,11 @@ public class SphereDecoderTest {
     public void returnsCorrectForZn() {
         System.out.println("returnsCorrectForZn");
         double[] y = {1.49, 1.49, 1.49, 1.49, 1.49};
-        SphereDecoder decoder = new SphereDecoder();
+        
         //construc the integer lattice
         Zn lattice = new Zn(y.length);
         
-        decoder.setLattice(lattice);
+        SphereDecoder decoder = new SphereDecoder(lattice);
         
         lattice.nearestPoint(y);
         double[] xtrue = lattice.getLatticePoint();
@@ -105,9 +105,6 @@ public class SphereDecoderTest {
     public void returnsBabaiPointOrBetter() {
         System.out.println("returnsBabaiPointOrBetter");
         
-        SphereDecoder decoder = new SphereDecoder();
-        Babai babai = new Babai();
-       
         int iters = 10;
         int n = 5;
         int m = 6;
@@ -115,8 +112,8 @@ public class SphereDecoderTest {
             
             GeneralLattice lattice = new GeneralLattice(Matrix.random(m, n));
             
-            decoder.setLattice(lattice);
-            babai.setLattice(lattice);
+            SphereDecoder decoder = new SphereDecoder(lattice);
+            Babai babai = new Babai(lattice);
             
             double[] y = VectorFunctions.randomGaussian(m, 0.0, 100.0);
             decoder.nearestPoint(y);
@@ -141,7 +138,6 @@ public class SphereDecoderTest {
     public void correctForAnStar() {
         System.out.println("correctForAnStar");
         
-        SphereDecoder decoder = new SphereDecoder();
        
         int iters = 10;
         int n = 7;
@@ -149,7 +145,7 @@ public class SphereDecoderTest {
         Anstar anstar = new AnstarBucketVaughan();
         anstar.setDimension(n);
         
-        decoder.setLattice(anstar);
+        SphereDecoder decoder = new SphereDecoder(anstar);
         
         for(int t = 0; t < iters; t++){
             
@@ -172,7 +168,6 @@ public class SphereDecoderTest {
     public void correctForPhin2Star() {
         System.out.println("correctForPhin2Star");
         
-        SphereDecoder decoder = new SphereDecoder();
        
         int iters = 10;
         int n = 6;
@@ -180,7 +175,7 @@ public class SphereDecoderTest {
         Vn2StarGlued lattice = new Vn2StarGlued();
         lattice.setDimension(n);
         
-        decoder.setLattice(lattice);
+        SphereDecoder decoder = new SphereDecoder(lattice);
         
         for(int t = 0; t < iters; t++){
             

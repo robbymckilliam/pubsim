@@ -22,26 +22,21 @@ public class MaximumLikelihood extends pubsim.poly.MaximumLikelihood {
     Complex[] z;
     double[] realp, imagp;
 
-    public MaximumLikelihood() {
+    public MaximumLikelihood(int n) {
         this.m = 2;
         ambiguityRemover = new AmbiguityRemover(2);
-    }
-
-    @Override
-    public void setSize(int n) {
         N = n;
         realp = new double[N];
         imagp = new double[N];
         z = new Complex[N];
         freqest = new PeriodogramFFTEstimator(N);
     }
+
     
     @Override
     public double[] estimate(double[] real, double[] imag) {
-        if (N != real.length) {
-            setSize(real.length);
-        }
-
+        if(N != real.length) throw new RuntimeException("Data length does not equal " + N);
+        
         PolynomialPhaseLikelihood func
                 = new PolynomialPhaseLikelihood(real, imag);
         NewtonRaphson newtonRaphson

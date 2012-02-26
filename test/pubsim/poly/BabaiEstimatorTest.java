@@ -58,15 +58,13 @@ public class BabaiEstimatorTest {
         Matrix M = VnmStar.getGeneratorMatrix(m, n-m-1);
         System.out.println(VectorFunctions.print(M));
 
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
-        siggen.setLength(n);
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
         siggen.setParameters(params);
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 
         siggen.generateReceivedSignal();
 
-        PolynomialPhaseEstimator inst = new BabaiEstimator(m);
-        inst.setSize(n);
+        PolynomialPhaseEstimator inst = new BabaiEstimator(m,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

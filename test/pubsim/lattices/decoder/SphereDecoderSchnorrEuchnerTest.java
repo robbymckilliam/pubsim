@@ -48,16 +48,13 @@ public class SphereDecoderSchnorrEuchnerTest {
     public void sameAsSphereDecoder() {
         System.out.println("sameAsSphereDecoder");
 
-        SphereDecoder decoder = new SphereDecoder();
-        SphereDecoder sdSE = new SphereDecoderSchnorrEuchner();
-
         int iters = 100;
         int n = 20;
 
         Lattice lattice = new GeneralLattice(Matrix.random(n, n));
 
-        decoder.setLattice(lattice);
-        sdSE.setLattice(lattice);
+        SphereDecoder decoder = new SphereDecoder(lattice);
+        SphereDecoder sdSE = new SphereDecoderSchnorrEuchner(lattice);
 
         for(int t = 0; t < iters; t++){
 
@@ -67,7 +64,7 @@ public class SphereDecoderSchnorrEuchnerTest {
 
             double decdist = VectorFunctions.distance_between2(sdSE.getLatticePoint(), decoder.getLatticePoint());
 
-            System.out.println(decdist);
+            //System.out.println(decdist);
 
             assertTrue(decdist <= 0.000001);
 
@@ -78,15 +75,12 @@ public class SphereDecoderSchnorrEuchnerTest {
     public void speedTest() {
         System.out.println("sameAsSphereDecoder");
 
-        SphereDecoder decoder = new SphereDecoderSchnorrEuchner();
-        //SphereDecoder decoder = new SphereDecoder();
-
         int iters = 1000;
         int n = 30;
 
         Lattice lattice = new GeneralLattice(Matrix.random(n, n));
 
-        decoder.setLattice(lattice);
+        SphereDecoder decoder = new SphereDecoderSchnorrEuchner(lattice);
 
         Date start = new Date();
         for(int t = 0; t < iters; t++){

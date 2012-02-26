@@ -52,15 +52,13 @@ public class KitchenEstimatorTest {
         double[] params = {0.1, 0.2, 0.05};
         int m = params.length-1;
 
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
-        siggen.setLength(n);
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
         siggen.setParameters(params);
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.000001));
 
         siggen.generateReceivedSignal();
 
-        KitchenEstimator inst = new KitchenEstimator(m);
-        inst.setSize(n);
+        KitchenEstimator inst = new KitchenEstimator(m,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
@@ -80,15 +78,13 @@ public class KitchenEstimatorTest {
         double[] params = {0.1, 0.2, 0.05};
         int a = params.length;
 
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
-        siggen.setLength(n);
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
         siggen.setParameters(params);
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.000001));
 
         siggen.generateReceivedSignal();
 
-        KitchenEstimator inst = new KitchenEstimator(a);
-        inst.setSize(n);
+        KitchenEstimator inst = new KitchenEstimator(a,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

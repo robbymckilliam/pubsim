@@ -96,8 +96,7 @@ public class DPTEstimatorTest {
         double[] params = {0.3, 0.1, 0.002};
         int a = params.length;
 
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
-        siggen.setLength(n);
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
         siggen.setParameters(params);
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 
@@ -125,8 +124,7 @@ public class DPTEstimatorTest {
         double[] params = {0.11, 0.05002, 0.0205, 0.0001};
         int m = params.length-1;
 
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal();
-        siggen.setLength(n);
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
         siggen.setParameters(params);
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 

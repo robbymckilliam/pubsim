@@ -9,6 +9,7 @@ import pubsim.lattices.VnmStar;
 import pubsim.lattices.VnmStarSampled;
 import pubsim.lattices.decoder.Babai;
 import pubsim.VectorFunctions;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * Uses the Babai nearest plane algorithm
@@ -19,29 +20,20 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
     protected double[] ya,  p;
     protected int n,  m;
     protected VnmStar lattice;
-    protected Babai npalgorithm;
-    protected Matrix M,  K, ambM;
+    protected NearestPointAlgorithm npalgorithm;
+    protected Matrix M,  K;
     protected AmbiguityRemover ambiguityRemover;
-
-    //Here for inheritance purposes.  You can't call this.
-    protected BabaiEstimator() {
-    }
+    
+    protected BabaiEstimator() {}
     
     /** 
      * You must set the polynomial order in the constructor
      * @param m = polynomial order
      */
-    public BabaiEstimator(int m) {
-        lattice = new VnmStarSampled(m, 0, new int[m]);
-        //npalgorithm = new BabaiNoLLL();
-        npalgorithm = new Babai();
+    public BabaiEstimator(int m, int n) {
+        lattice = new VnmStarSampled(m, n - m - 1, new int[m]);
         this.m = m;
-    }
-
-    @Override
-    public void setSize(int n) {
-        lattice.setDimension(n - m - 1);
-        npalgorithm.setLattice(lattice);
+        npalgorithm = new Babai(lattice);
         ambiguityRemover = new AmbiguityRemover(m);
 
         ya = new double[n];
@@ -51,14 +43,12 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         M = lattice.getMMatrix();
         Matrix Mt = M.transpose();
         K = Mt.times(M).inverse().times(Mt);
-        
     }
 
     @Override
     public double[] estimate(double[] real, double[] imag) {
-        if (n != real.length) {
-            setSize(real.length);
-        }
+        if(n != real.length) throw new RuntimeException("Data length does not equal " + n);
+        
         for (int i = 0; i < real.length; i++) {
             ya[i] = Math.atan2(imag[i], real[i]) / (2 * Math.PI);
         }
@@ -69,9 +59,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         for (int i = 0; i < u.length; i++) {
             ymu[i] = ya[i] - u[i];
         }
-        for (int i = u.length; i < ya.length; i++) {
-            ymu[i] = ya[i];
-        }
+        System.arraycopy(ya, u.length, ymu, u.length, ya.length - u.length);
 
         //compute the parameters
         VectorFunctions.matrixMultVector(K, ymu, p); 
@@ -82,7 +70,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
 
     /**
      * Run the estimator and return the square error wrapped modulo the the ambiguity
-     * region between the estimate and the truth. i.e. dealiase the estimate before
+     * region between the estimate and the truth. i.e. dealias the estimate before
      * computing the square error.
      */
     public double[] error(double[] real, double[] imag, double[] truth){

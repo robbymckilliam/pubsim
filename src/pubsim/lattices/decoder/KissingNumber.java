@@ -35,10 +35,6 @@ public class KissingNumber {
 
     protected class ModSphereDecoder extends SphereDecoder{
 
-        public ModSphereDecoder(){
-            super();
-        }
-
         public ModSphereDecoder(Lattice L){
             super(L);
         }

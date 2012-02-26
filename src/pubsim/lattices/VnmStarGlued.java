@@ -141,10 +141,6 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
      */
     private class SphereDecoder extends pubsim.lattices.decoder.SphereDecoder{
 
-        public SphereDecoder(){
-            super();
-        }
-
         public SphereDecoder(Lattice L){
             super(L);
         }

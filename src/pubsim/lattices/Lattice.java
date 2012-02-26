@@ -17,7 +17,7 @@ public interface Lattice extends Serializable {
     /** 
      * Return the volume of the fundamental region
      * of the lattice.  This is the square root of 
-     * the determinat of the gram matrix
+     * the determinant of the gram matrix
      */
     double volume();
 
@@ -27,7 +27,7 @@ public interface Lattice extends Serializable {
     double inradius();
 
     /**
-     * Return the convering radius for this lattice
+     * Return the covering radius for this lattice
      */
     double coveringRadius();
     
@@ -85,7 +85,7 @@ public interface Lattice extends Serializable {
     int getDimension();
     
     /**
-     * Return the generator matrix for this latttice
+     * Return the generator matrix for this lattice
      * @return double[][] containing the generator matrix
      */
     Matrix getGeneratorMatrix();

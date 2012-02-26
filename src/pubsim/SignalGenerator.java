@@ -11,7 +11,7 @@ import java.io.Serializable;
 import pubsim.distributions.NoiseGenerator;
 
 /**
- * Interface for the generation recieved signals
+ * Interface for the generation received signals
  * @author Robby McKillam
  */
 public interface SignalGenerator extends Serializable {

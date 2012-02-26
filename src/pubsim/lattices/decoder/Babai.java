@@ -61,7 +61,7 @@ public class Babai implements NearestPointAlgorithm {
     protected LatticeReduction lll;
     
     
-    public Babai(){
+    protected Babai(){
         
     }
     

@@ -15,10 +15,6 @@ import pubsim.lattices.Lattice;
  * @author Robby McKilliam
  */
 public class SphereDecoderSchnorrEuchner extends SphereDecoder{
-    
-    public SphereDecoderSchnorrEuchner(){
-        super();
-    }
 
     public SphereDecoderSchnorrEuchner(Lattice L){
         super(L);

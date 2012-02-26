@@ -31,13 +31,9 @@ public class SampedAnStarEstimator implements PolynomialPhaseEstimator {
      * You must set the polynomial order in the constructor
      * @param m = polynomial order
      */
-    public SampedAnStarEstimator(int m, int[] samples) {
+    public SampedAnStarEstimator(int m, int n, int[] samples) {
         this.samples = samples;
         this.m = m;
-    }
-
-    @Override
-    public void setSize(int n) {
         lattice = new VnmStarSampled(m, n - m - 1, samples);
         ambiguityRemover = new AmbiguityRemover(m);
 
@@ -48,7 +44,6 @@ public class SampedAnStarEstimator implements PolynomialPhaseEstimator {
         M = lattice.getMMatrix();
         Matrix Mt = M.transpose();
         K = Mt.times(M).inverse().times(Mt);
-
     }
 
     public int getOrder() {
@@ -57,9 +52,8 @@ public class SampedAnStarEstimator implements PolynomialPhaseEstimator {
 
     @Override
     public double[] estimate(double[] real, double[] imag) {
-        if (n != real.length) {
-            setSize(real.length);
-        }
+        if(n != real.length) throw new RuntimeException("Data length does not equal " + n);
+        
         for (int i = 0; i < real.length; i++) {
             ya[i] = Math.atan2(imag[i], real[i]) / (2 * Math.PI);
         }

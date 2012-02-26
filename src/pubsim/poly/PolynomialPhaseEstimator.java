@@ -12,9 +12,6 @@ import java.io.Serializable;
  * @author Robby McKilliam
  */
 public interface PolynomialPhaseEstimator extends Serializable{
-    
-    /** Set the number of samples */
-    public void setSize(int n);
 
     /** 
      * Return the order of this estimator.
@@ -23,7 +20,7 @@ public interface PolynomialPhaseEstimator extends Serializable{
     public int getOrder();
     
     /** 
-     * Run the estimator on recieved real and imaginary signal.
+     * Run the estimator on received real and imaginary signal.
      * Returns an array of polynomial parameters.
      */
     public double[] estimate(double[] real, double[] imag);

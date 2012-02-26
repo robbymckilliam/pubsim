@@ -21,18 +21,15 @@ import pubsim.bearing.SampleCircularMean;
 public class KitchenEstimator implements PolynomialPhaseEstimator{
 
     protected double[] y, p;
-    protected int m, N;
-
+    final protected int m, N;
+    
     protected AmbiguityRemover ambiguityRemover;
 
-    public KitchenEstimator(int m) {
+    public KitchenEstimator(int m, int N) {
         this.m = m;
         ambiguityRemover = new AmbiguityRemover(m);
-    }
-
-    public void setSize(int n) {
-        this.N = n;
-        y = new double[n];
+        this.N = N;
+        y = new double[N];
         p = new double[m+1];
     }
 
@@ -41,8 +38,7 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
     }
 
     public double[] estimate(double[] real, double[] imag) {
-        if(N != real.length)
-            setSize(real.length);
+        if(N != real.length) throw new RuntimeException("Data length does not equal " + N);
 
         for(int i = 0; i < N; i++)
             y[i] = Math.atan2(imag[i], real[i])/(2*Math.PI);
