@@ -34,12 +34,9 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
 
     protected DPTEstimator() {}
 
-    public DPTEstimator(int m) {
+    public DPTEstimator(int m, int n) {
         this.m = m;
         ambiguityRemover = new AmbiguityRemover(m);
-    }
-
-    public void setSize(int n) {
         z = new Complex[n];
         p = new double[m+1];
         this.n = n;
@@ -55,14 +52,12 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];
         fft = new FourierTransform();
        // tau = Math.round(0.2 * n);
-
     }
 
+    @Override
     public double[] estimate(double[] real, double[] imag) {
-        if (n != real.length) {
-            setSize(real.length);
-        }
-
+        if(n != real.length) throw new RuntimeException("Data length does not equal " + n);
+        
         for (int i = 0; i < n; i++) {
             z[i] = new Complex(real[i], imag[i]);
         }

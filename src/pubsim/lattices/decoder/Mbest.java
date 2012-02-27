@@ -35,15 +35,10 @@ public class Mbest extends Babai {
     protected Mbest(){}
 
     /**
-     * Contructor sets the M parameter for the M best method.
+     * Constructor sets the M parameter for the M best method.
      * This is the maximum number of points that can be kept at
      * each iteration of the decoder.
      */
-    public Mbest(int M){
-        super();
-        this.M = M;
-    }
-
     public Mbest(Lattice L, int M){
         super(L);
         this.M = M;
@@ -68,6 +63,7 @@ public class Mbest extends Babai {
 
         //CAREFULL!  This version of the decoder requires R to
         //have positive diagonal entries.
+        //System.out.println(VectorFunctions.print(B));
         pubsim.QRDecomposition QR = new pubsim.QRDecomposition(B);
         R = QR.getR();
         Q = QR.getQ();
