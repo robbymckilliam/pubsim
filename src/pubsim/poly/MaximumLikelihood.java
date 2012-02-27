@@ -73,8 +73,6 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         NewtonRaphson newtonRaphson
                 = new NewtonRaphson(func);
 
-        //System.out.println(ambiguityRemover.getBasisMatrix()==null);
-
         PointInParallelepiped points
                 = new PointInParallelepiped(
                     ambiguityRemover.getBasisMatrix().getMatrix(2, m, 2, m),
@@ -84,10 +82,8 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         double D = Double.NEGATIVE_INFINITY;
         while(points.hasMoreElements()){
             //Matrix pt = newtonRaphson.maximise(points.nextElement());
-            //System.out.println("here");
             Matrix pt = points.nextElement();
 
-            //System.out.println("params before = " + VectorFunctions.print(pt));
 
             //compute the supposed frequency signal by remove higher order
             //parameters
@@ -108,7 +104,6 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
 
             //estimate the supposed frequency using the periodogram estimator
             double f = freqest.estimateFreq(realp, imagp);
-            //System.out.println(f);
 
             //now estimator the phase, just compute the complex mean
             for (int j = 0; j < real.length; j++) {
@@ -130,11 +125,9 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
 
             //test it, if it's good save it.
             double dist = func.value(params);
-            //System.out.println("params = " + VectorFunctions.print(params));
             if(dist > D){
                 D = dist;
                 p = params.copy();
-                //System.out.println("p = " + VectorFunctions.print(p));
             }
         }
         //double[] parray = {0.1,0.1};
@@ -192,6 +185,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
          * parameter.  x = [p0, p1, p2, ... ]
          * @return Value of the likelihood function for these parameters
          */
+        @Override
         public double value(Matrix x) {
             int M = x.getRowDimension();
             double val = 0.0;
@@ -237,6 +231,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
             N = yr.length;
         }
 
+        @Override
         public double value(Matrix x) {
             int M = x.getRowDimension();
             double val = 0.0;
@@ -254,6 +249,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
             return -val;
         }
 
+        @Override
         public Matrix hessian(Matrix x) {
             int M = x.getRowDimension();
             //precompute required sin values
@@ -280,6 +276,7 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
             return H;
         }
 
+        @Override
         public Matrix gradient(Matrix x) {
             int M = x.getRowDimension();
             //precompute required sin values
