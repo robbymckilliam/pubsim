@@ -27,6 +27,7 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
     }
     
     /** pdf is computed by wrapping and summing */
+    @Override
     public double pdf(double x) {
         double PDF_TOLERANCE = 1e-15;
         double pdf = 0.0;
@@ -46,6 +47,7 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
     /**
      * cdf is computed by wrapping and summing
      */
+    @Override
     public double cdf(double x){
         double CDF_TOL = 1e-15;
         double cdfval = dist.cdf(x) - dist.cdf(-0.5); 

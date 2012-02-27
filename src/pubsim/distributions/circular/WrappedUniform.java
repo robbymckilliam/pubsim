@@ -5,8 +5,6 @@
 
 package pubsim.distributions.circular;
 
-import flanagan.integration.IntegralFunction;
-import flanagan.integration.Integration;
 import pubsim.distributions.UniformNoise;
 
 /**

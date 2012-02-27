@@ -5,9 +5,9 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.RandomVariable;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
+import pubsim.distributions.RandomVariable;
 import rngpack.RandomElement;
 import rngpack.RandomSeedable;
 import rngpack.Ranlux;
@@ -33,7 +33,7 @@ public abstract class CircularRandomVariable implements RandomVariable {
     }
 
     /**
-     * Return the unwrapped variance assuming that the mean is truemean.
+     * Return the unwrapped variance assuming that the mean is true mean.
      * This is much faster and more accurate if you know the mean in advance.
      */
     public double unwrappedVariance(double truemean){
@@ -67,10 +67,12 @@ public abstract class CircularRandomVariable implements RandomVariable {
     }
 
     /** Randomise the seed for the internal Random */
+    @Override
     public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
 
 
     /** Set the seed for the internal Random */
+    @Override
     public void setSeed(long seed) { random = new Ranlux(seed); }
 
     /**
@@ -113,6 +115,7 @@ public abstract class CircularRandomVariable implements RandomVariable {
      * Take standard inverse cumulative density function approach
      * by default.
      */
+    @Override
     public double getNoise(){
         return icdf(random.raw());
     };
@@ -120,6 +123,7 @@ public abstract class CircularRandomVariable implements RandomVariable {
     /**
      * integrate the pdf by default
      */
+    @Override
     public double cdf(double x){
         double startint = -0.5;
         final int INTEGRAL_STEPS = 1000;
@@ -136,6 +140,7 @@ public abstract class CircularRandomVariable implements RandomVariable {
      * random variable.  This does not necessarily correspond to the
      * `mean direction.  See my thesis or papers.
      */
+    @Override
     public double getMean(){
         final int INTEGRAL_STEPS = 1000;
         double tmean = (new Integration(new IntegralFunction() {
@@ -151,6 +156,7 @@ public abstract class CircularRandomVariable implements RandomVariable {
      * random variable squared subtract it's mean.  This does not necessarily correspond to the
      * circular variance or the unwrapped variance.  See my thesis or papers.
      */
+    @Override
     public double getVariance(){
         final int INTEGRAL_STEPS = 1000;
         double tvar = (new Integration(new IntegralFunction() {
