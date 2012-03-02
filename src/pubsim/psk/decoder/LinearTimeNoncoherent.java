@@ -32,6 +32,7 @@ public class LinearTimeNoncoherent implements PSKReceiver{
         this.M = M;
     }
 
+    @Override
     public void setT(int T) {
         this.T = T;
         arg = new double[T];
@@ -50,10 +51,13 @@ public class LinearTimeNoncoherent implements PSKReceiver{
     /** 
      * Implements the linear time noncoherent decoder using 
      * the real likelihood function rather than the phase based
-     * likelihood function that arises when An* is used. 
+     * likelihood function that arises when An* is used.  It is not
+     * known that this is garauntees ML is computed, but works will in
+     * practice.
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
+    @Override
     public double[] decode(Complex[] y) {
         if(y.length != T) setT(y.length);
         
