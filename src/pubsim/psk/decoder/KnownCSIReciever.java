@@ -9,7 +9,7 @@ import pubsim.Complex;
 import pubsim.VectorFunctions;
 
 /**
- * PSK reviever with perfect channel information
+ * PSK receiver with perfect channel information
  * @author Robby McKilliam
  */
 public class KnownCSIReciever implements PSKReceiver{

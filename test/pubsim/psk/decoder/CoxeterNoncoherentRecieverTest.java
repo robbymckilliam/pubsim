@@ -93,31 +93,4 @@ public class CoxeterNoncoherentRecieverTest {
         }
     }
 
-    /**
-     * Test of bitErrors method, of class CoxeterNoncoherentReciever.
-     */
-    @Test
-    public void bitErrors() {
-        System.out.println("bitErrors");
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of symbolErrors method, of class CoxeterNoncoherentReciever.
-     */
-    @Test
-    public void symbolErrors() {
-        System.out.println("symbolErrors");
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of codewordError method, of class CoxeterNoncoherentReciever.
-     */
-    @Test
-    public void codewordError() {
-        System.out.println("codewordError");
-        fail("The test case is a prototype.");
-    }
-
 }

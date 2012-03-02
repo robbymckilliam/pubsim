@@ -13,7 +13,7 @@ import pubsim.VectorFunctions;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class CoxeterNoncoherentReciever implements PSKReceiver{
     
@@ -57,8 +57,8 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
             z[i] = new IndexedDouble();
     }
 
-    /** Implements the Sweldens Noncoherent decoder using the O(nlogn)
-     * nearest point algorithm for An*.
+    /** Implements the Swelden's Noncoherent decoder using the O(nlogn)
+     * nearest point algorithm for the Coxeter lattices.
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
@@ -98,13 +98,6 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         for(int i = 0; i < M*T; i++){
             double dist = b - a*a/T;
             if(dist < D && sumMod%mod == 0){
-//                System.out.println();
-//                System.out.println("sumMod = " + sumMod);
-//                System.out.println("sumMod%mod = " + sumMod%mod);
-//                System.out.println("sumMod/mod = " + sumMod/mod);
-//                System.out.println("mod = " + mod);
-//                System.out.println("dist = " + dist);
-//                System.out.println("u = " + VectorFunctions.print(u));
                 D = dist;
                 m = i;
             }
@@ -115,11 +108,6 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
             b += -2*z[T - 1 - i%T].value + 1.0;
             z[T - 1 - i%T].value -= 1.0;
             u[z[T - 1 - i%T].index] += 1.0;
-            
-            //System.out.println("numloops");
-            //System.out.println("uc = " + uc);
-            //System.out.println("t = " + (T - 1 - i%T));
-            //System.out.println("a = " + a + ", b = " + b + ", dist = " + dist);
         }
         
         for(int i = 0; i < T; i++)
@@ -132,7 +120,7 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         
     }
 
-    /** This is a noncoherent reciever so setting the channel does nothing*/
+    /** This is a noncoherent receiver so setting the channel does nothing*/
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {

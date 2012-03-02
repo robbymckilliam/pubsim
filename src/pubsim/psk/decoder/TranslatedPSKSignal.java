@@ -8,7 +8,7 @@ package pubsim.psk.decoder;
 import pubsim.Complex;
 
 /**
- * Generates a a PSK signal with each symbol translated by
+ * Generates aPSK signal with each symbol translated by
  * a pilot symbol.
  * @author Robby McKilliam
  */
