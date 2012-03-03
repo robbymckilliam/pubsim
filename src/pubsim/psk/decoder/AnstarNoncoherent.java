@@ -70,7 +70,7 @@ public class AnstarNoncoherent implements PSKReceiver{
         return Util.differentialEncodedBitErrors(anstar.getIndex(), x, M);
     }
 
-    /** This is a noncoherent reciever so setting the channel does nothing*/
+    /** This is a noncoherent receiver so setting the channel does nothing*/
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {

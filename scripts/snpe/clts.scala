@@ -1,7 +1,7 @@
 /**
 * Generate the central limit theorem curves for the sparse noisy period estimation problem.
 */
-import pubsim.snpe.bounds.CLT
+import pubsim.snpe.bounds.NormalisedLLSCLT
 import pubsim.distributions.GaussianNoise
 
 val N = 32 //set the number of observations
@@ -13,7 +13,7 @@ val noises = Range.Double(-25.0, -7, 0.1).map( db => scala.math.pow(10, db/10.0)
 
 println("stdev \t var(period) \t var(phase)")
 for( noise <- noises ) { 
-	val clt = new CLT( noise, uY , T) //compute the CLT
+	val clt = new NormalisedLLSCLT( noise, uY , T) //compute the CLT
 	val stddevstr = scala.math.sqrt(T*T*noise.getVariance).toString.replace('E', 'e')
 	println(stddevstr + "\t" + clt.periodVar(N).toString.replace('E', 'e') + "\t" + clt.phaseVar(N).toString.replace('E', 'e'))
 }
