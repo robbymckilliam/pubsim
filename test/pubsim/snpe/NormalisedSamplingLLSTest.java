@@ -57,8 +57,7 @@ public class NormalisedSamplingLLSTest {
         sig.setPhase(phase);
         sig.setNoiseGenerator(noise);
         sig.setSparseGenerator(new PoissonRandomVariable(2));
-        sig.generateSparseSignal(n);
-        double[] trans = sig.generateSparseSignal(n);
+        Integer[] trans = sig.generateSparseSignal();
         Double[] y = sig.generateReceivedSignal();
 
         instance.estimate(y, Tmin, Tmax);

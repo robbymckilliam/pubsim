@@ -6,7 +6,6 @@
 
 package pubsim.distributions.processes;
 
-import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 

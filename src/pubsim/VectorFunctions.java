@@ -592,6 +592,18 @@ public final class VectorFunctions {
         }
         return true;
     }
+    
+    /**
+     * Return true if the vector is increasing
+     */
+    public static boolean increasing(Integer[] x) {
+        for (int i = 0; i < x.length - 1; i++) {
+            if (x[i] > x[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Return a string for the vector

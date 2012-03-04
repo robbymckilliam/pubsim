@@ -6,6 +6,7 @@
 
 package pubsim.distributions;
 
+import pubsim.Complex;
 import pubsim.distributions.circular.CircularRandomVariable;
 
 /**
@@ -42,5 +43,11 @@ public interface ContinuousRandomVariable extends NoiseGenerator<Double> {
      * @return 
      */
     public CircularRandomVariable getWrapped();
+    
+    /**
+     * Return the characteristic function of this random variable E[exp(itX)] where X is
+     * this random variable
+     */
+    public Complex characteristicFunction(double t);
     
 }

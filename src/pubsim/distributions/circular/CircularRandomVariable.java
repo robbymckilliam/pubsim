@@ -7,6 +7,7 @@ package pubsim.distributions.circular;
 
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
+import pubsim.Complex;
 import pubsim.distributions.ContinuousRandomVariable;
 import rngpack.RandomElement;
 import rngpack.RandomSeedable;
@@ -171,5 +172,26 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
     /** Default is the return the wrapped version of this random variable */
     @Override
     public CircularRandomVariable getWrapped() { return this; }
+    
+     /** 
+     * Numerical integration to compute characteristic function.
+     * Apart from very strange circular distributions, this should be reasonably accurate,
+     */
+    @Override
+    public Complex characteristicFunction(final double t){
+        int integralsteps = 5000;
+        double rvar = (new Integration(new IntegralFunction() {
+            public double function(double x) {
+                return Math.cos(t*x)*pdf(x);
+            }
+        }, -0.5, 0.5)).gaussQuad(integralsteps);
+        double cvar = (new Integration(new IntegralFunction() {
+            public double function(double x) {
+                return Math.sin(t*x)*pdf(x);
+            }
+        }, -0.5, 0.5)).gaussQuad(integralsteps);
+           
+        return new Complex(rvar, cvar);
+    }
      
 }

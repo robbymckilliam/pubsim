@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
+import pubsim.Complex;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.WrappedCircularRandomVariable;
 
@@ -158,6 +159,13 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
     public CircularRandomVariable getWrapped() {
         return new WrappedCircularRandomVariable(this);
     }
+
+    @Override
+    public Complex characteristicFunction(double t) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
 
 
 

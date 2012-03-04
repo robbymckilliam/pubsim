@@ -5,6 +5,7 @@
 
 package pubsim.distributions;
 
+import pubsim.Complex;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.WrappedCircularRandomVariable;
 
@@ -31,7 +32,7 @@ public class ImpulseRandomVariable implements ContinuousRandomVariable {
 
     /**
      * Return 1.0 at the impulse.  This makes plotting it easy and is
-     * correct for discrete rv's but isn't strictly correct for continous rv's.
+     * correct for discrete RV's but isn't strictly correct for continuous RV's.
      */
     public double pdf(double x) {
         if(x == dval) return 1.0;
@@ -65,6 +66,11 @@ public class ImpulseRandomVariable implements ContinuousRandomVariable {
     @Override
     public CircularRandomVariable getWrapped() {
         return new WrappedCircularRandomVariable(this);
+    }
+
+    @Override
+    public Complex characteristicFunction(double t) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

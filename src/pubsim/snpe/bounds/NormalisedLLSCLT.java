@@ -6,8 +6,8 @@
 package pubsim.snpe.bounds;
 
 import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.UnwrappedMeanAndVariance;
-import pubsim.distributions.circular.WrappedCircularRandomVariable;
 
 /**
  * Barry's remarkable central limit theorem for the LLS estimator
@@ -30,12 +30,12 @@ public class NormalisedLLSCLT implements CLT{
     public NormalisedLLSCLT(ContinuousRandomVariable noise, double discretemean, double T0){
 
         dmean = discretemean;
-        WrappedCircularRandomVariable wrped = new WrappedCircularRandomVariable(noise);
+        CircularRandomVariable wrped = noise.getWrapped();
         double h = wrped.pdf(-0.5);
 
         //Is is the wrapped variance or not?  Need to check Barry's
         //CLT a little more closely.
-        double wrappedvar = UnwrappedMeanAndVariance.computeWrappedVarianceAbout(0, wrped, 1000);
+        double wrappedvar = wrped.unwrappedVariance(0);
         //double wrappedvar = noise.getVariance();
 
         //this is the the scale factor contructed from these numbers;
@@ -50,12 +50,12 @@ public class NormalisedLLSCLT implements CLT{
 
     @Override
     public double periodVar(int N){
-        return scalefac / (N*N*N);
+        return scalefac / N / N / N;
     }
 
     @Override
     public double periodPhaseCoVar(int N){
-        return - scalefac * dmean / 2.0 / (N*N);
+        return - scalefac * dmean / 2.0 / N / N;
     }
 
 }

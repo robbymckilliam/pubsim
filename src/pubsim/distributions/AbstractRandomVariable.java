@@ -8,6 +8,7 @@ package pubsim.distributions;
 
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
+import pubsim.Complex;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.WrappedCircularRandomVariable;
 import rngpack.RandomElement;
@@ -95,6 +96,29 @@ public abstract class AbstractRandomVariable
     @Override
     public CircularRandomVariable getWrapped() {
         return new WrappedCircularRandomVariable(this);
+    }
+    
+    /** 
+     * Numerical integration to compute characteristic function.
+     * This is very approximate, as it guesses an interval to integrate over.
+     */
+    @Override
+    public Complex characteristicFunction(final double t){
+        int integralsteps = 5000;
+        double startint = getMean() - 30*Math.sqrt(getVariance());
+        double endint = getMean() + 30*Math.sqrt(getVariance());
+        double rvar = (new Integration(new IntegralFunction() {
+            public double function(double x) {
+                return Math.cos(t*x)*pdf(x);
+            }
+        }, startint, endint)).gaussQuad(integralsteps);
+        double cvar = (new Integration(new IntegralFunction() {
+            public double function(double x) {
+                return Math.sin(t*x)*pdf(x);
+            }
+        }, startint, endint)).gaussQuad(integralsteps);
+        
+        return new Complex(rvar, cvar);
     }
 
     

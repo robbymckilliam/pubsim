@@ -8,6 +8,10 @@
 
 package pubsim.distributions;
 
+import pubsim.Complex;
+import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.WrappedCircularRandomVariable;
+import pubsim.distributions.circular.WrappedGaussian;
 import rngpack.Ranlux;
 
 /**
@@ -52,6 +56,18 @@ public class GaussianNoise extends AbstractRandomVariable implements ContinuousR
     public double cdf(double x){
         //just using the Q function from util.
         return 0.5*(1 + pubsim.Util.erf((x - mean)/stdDeviation/Math.sqrt(2)));
+    }
+    
+    /** Default is the return the wrapped version of this random variable */
+    @Override
+    public CircularRandomVariable getWrapped() {
+        return new WrappedGaussian(mean, variance);
+    }
+    
+    @Override
+    public Complex characteristicFunction(double t){
+        double m = Math.exp(-variance*t*t/2.0);
+        return Complex.constructComplexExp(m, mean*t);
     }
 
 
