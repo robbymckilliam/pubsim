@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author uqrmckil
+ * @author Robby McKilliam
  */
 public class CircularMeanVarianceTest {
 

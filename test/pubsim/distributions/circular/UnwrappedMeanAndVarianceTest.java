@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class UnwrappedMeanAndVarianceTest {
 

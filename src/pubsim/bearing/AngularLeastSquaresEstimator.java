@@ -6,7 +6,7 @@
 package pubsim.bearing;
 
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.UniformNoise;
 import pubsim.distributions.circular.CircularProcess;
 import pubsim.distributions.circular.CircularRandomVariable;

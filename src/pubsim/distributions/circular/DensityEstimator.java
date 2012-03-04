@@ -5,7 +5,7 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import static pubsim.Util.fracpart;
 
 /**
@@ -16,12 +16,12 @@ import static pubsim.Util.fracpart;
 public class DensityEstimator extends CircularRandomVariable {
 
     protected final double[] d;
-    protected final RandomVariable ker;
+    protected final ContinuousRandomVariable ker;
 
     /**
      * Constructor takes an array of d and a kernel function.
      */
-    public DensityEstimator(final double[] data, RandomVariable kernel){
+    public DensityEstimator(final double[] data, ContinuousRandomVariable kernel){
         d = data;
         ker = kernel;
     }

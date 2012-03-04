@@ -32,7 +32,7 @@ public class PSKSignal implements SignalGenerator{
     /** Received complex signal */
     protected Complex[] y;
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     protected Random random;
     
     /** Default constructor using 8-ary QAM */

@@ -5,7 +5,7 @@
 
 package pubsim.snpe.bounds;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.circular.UnwrappedMeanAndVariance;
 import pubsim.distributions.circular.WrappedCircularRandomVariable;
 
@@ -13,7 +13,7 @@ import pubsim.distributions.circular.WrappedCircularRandomVariable;
  * Barry's remarkable central limit theorem for the LLS estimator
  * @author Robby McKilliam
  */
-public class NormalisedLLSCLT {
+public class NormalisedLLSCLT implements CLT{
 
     protected final double scalefac;
     protected final double dmean;
@@ -27,7 +27,7 @@ public class NormalisedLLSCLT {
      *                      described the sparseness of the signal
      * @param T0: The `true' period of the signal
      */
-    public NormalisedLLSCLT(RandomVariable noise, double discretemean, double T0){
+    public NormalisedLLSCLT(ContinuousRandomVariable noise, double discretemean, double T0){
 
         dmean = discretemean;
         WrappedCircularRandomVariable wrped = new WrappedCircularRandomVariable(noise);

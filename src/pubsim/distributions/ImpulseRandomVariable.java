@@ -5,11 +5,14 @@
 
 package pubsim.distributions;
 
+import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.WrappedCircularRandomVariable;
+
 /**
  * A `impulse' random variable, or dirac delta etc.
  * @author harprobey
  */
-public class ImpulseRandomVariable implements RandomVariable {
+public class ImpulseRandomVariable implements ContinuousRandomVariable {
 
     protected final double dval;
 
@@ -22,7 +25,7 @@ public class ImpulseRandomVariable implements RandomVariable {
     }
 
     @Override
-    public double getNoise() {
+    public Double getNoise() {
         return dval;
     }
 
@@ -56,6 +59,12 @@ public class ImpulseRandomVariable implements RandomVariable {
     public double cdf(double x) {
         if(x >= dval) return 1.0;
         else return 0;
+    }
+
+    /** Default is the return the wrapped version of this random variable */
+    @Override
+    public CircularRandomVariable getWrapped() {
+        return new WrappedCircularRandomVariable(this);
     }
 
 }

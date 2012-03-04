@@ -22,7 +22,7 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     protected double[] real;
     protected double[] imag;
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
 
     /** default constructor: f = 0.1, rate = 1, N = 10, p = 0.0 */
     protected NoisyComplexSinusoid() {    }

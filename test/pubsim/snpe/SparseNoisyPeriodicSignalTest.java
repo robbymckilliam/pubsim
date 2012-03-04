@@ -52,7 +52,7 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(length);
         instance.setSparseGenerator(new PoissonRandomVariable(2));
 
-        pubsim.distributions.RandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 1.0/3.0);
+        pubsim.distributions.ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 1.0/3.0);
         instance.setNoiseGenerator(noise);   
         double[] rec_sig = instance.generateSparseSignal(length);
         instance.setSparseSignal(rec_sig);

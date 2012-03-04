@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.Complex;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -57,7 +57,7 @@ public class CoxeterCodedPSKSignalTest {
         instance.setLength(32);
         instance.setChannel(-0.4326, -1.6656);
         
-        RandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.0);
+        ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.0);
         instance.setNoiseGenerator(noise); 
                
         instance.generatePSKSignal();

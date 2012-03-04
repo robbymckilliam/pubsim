@@ -5,7 +5,7 @@
 
 package pubsim.poly;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 
 /**

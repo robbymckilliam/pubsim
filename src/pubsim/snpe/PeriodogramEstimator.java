@@ -48,6 +48,7 @@ public class PeriodogramEstimator implements PRIEstimator {
 	return sumur * sumur + sumui * sumui;
     }
 
+    @Override
     public void estimate(double[] y, double Tmin, double Tmax) {
         double maxp = 0;
         double fmin = 1/Tmax; double fmax = 1/Tmin;
@@ -67,7 +68,7 @@ public class PeriodogramEstimator implements PRIEstimator {
 	double f = fhat, lastf = f - 2 * EPSILON, lastp = 0;
 	while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER
 	       && f >= fmin && f <= fmax) {
-	    double p = 0, pd = 0, pdd = 0;
+	    double p, pd, pdd;
 	    double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
 	    sumwr = 0, sumwi = 0;
 	    for (int i = 0; i < N; i++) {
@@ -107,10 +108,12 @@ public class PeriodogramEstimator implements PRIEstimator {
         phat = phasestor.getPhase(y, That);
     }
 
+    @Override
     public double getPeriod() {
         return That;
     }
 
+    @Override
     public double getPhase() {
         return phat;
     }

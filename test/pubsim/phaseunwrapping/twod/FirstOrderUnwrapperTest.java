@@ -8,7 +8,7 @@ package pubsim.phaseunwrapping.twod;
 import pubsim.phaseunwrapping.twod.GaussianPulse;
 import pubsim.phaseunwrapping.twod.FirstOrderUnwrapper;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -89,7 +89,7 @@ public class FirstOrderUnwrapperTest {
         0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,        0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000,    0.4000};
 
         //add a bit of noise
-        RandomVariable noise = new GaussianNoise(0.0, 0.01);
+        ContinuousRandomVariable noise = new GaussianNoise(0.0, 0.01);
         for(int i = 0; i < ywvec.length; i++)
             ywvec[i] += noise.getNoise();
 

@@ -5,17 +5,12 @@
 
 package pubsim.distributions.discrete;
 
-import pubsim.distributions.discrete.GeometricRandomVariable;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class GeometricDistributionTest {
 

@@ -7,7 +7,7 @@ package pubsim.distributions.circular;
 
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import rngpack.RandomElement;
 import rngpack.RandomSeedable;
 import rngpack.Ranlux;
@@ -17,7 +17,7 @@ import rngpack.Ranlux;
  * of unwrapped and circular means.
  * @author Robby McKilliam
  */
-public abstract class CircularRandomVariable implements RandomVariable {
+public abstract class CircularRandomVariable implements ContinuousRandomVariable {
 
     protected UnwrappedMeanAndVariance unwrped;
     protected CircularMeanVariance circ;
@@ -116,7 +116,7 @@ public abstract class CircularRandomVariable implements RandomVariable {
      * by default.
      */
     @Override
-    public double getNoise(){
+    public Double getNoise(){
         return icdf(random.raw());
     };
 
@@ -168,4 +168,8 @@ public abstract class CircularRandomVariable implements RandomVariable {
         return tvar - tmean*tmean;
     }
 
+    /** Default is the return the wrapped version of this random variable */
+    @Override
+    public CircularRandomVariable getWrapped() { return this; }
+     
 }

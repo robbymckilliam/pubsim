@@ -5,7 +5,7 @@
 
 package pubsim.poly.bounds;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

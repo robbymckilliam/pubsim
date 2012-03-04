@@ -6,7 +6,7 @@
 
 package pubsim;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import java.io.Serializable;
 import pubsim.distributions.NoiseGenerator;
 

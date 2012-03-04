@@ -23,7 +23,7 @@ public class FadingNoisyHex implements SignalGenerator{
     protected double Hr, Hi;
     protected double[] xr, xi;
     protected double[] yr, yi;
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     protected Random random;
     protected final HexagonalCode hex;
     

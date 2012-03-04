@@ -6,7 +6,7 @@
 
 package pubsim.distributions.processes;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 
@@ -14,11 +14,11 @@ import pubsim.distributions.NoiseGenerator;
  * Class for outputting vectors of noise.
  * @author Robby McKilliam
  */
-public class NoiseVector implements SignalGenerator{
+public class NoiseVector implements SignalGenerator {
     
     protected int n;
     protected double[] iidsignal;
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
 
     /** Default constructor set length of vector */ 
     public NoiseVector(int length){
@@ -27,7 +27,7 @@ public class NoiseVector implements SignalGenerator{
     }
 
     /** Default constructor set length of vector to 1 */
-    public NoiseVector(NoiseGenerator noise, int length){
+    public NoiseVector(NoiseGenerator<Double> noise, int length){
         this.noise = noise;
         this.n = length;
         iidsignal = new double[n];
@@ -46,7 +46,8 @@ public class NoiseVector implements SignalGenerator{
         this.noise = noise;
     }
     
-    public NoiseGenerator getNoiseGenerator(){
+    @Override
+    public NoiseGenerator<Double> getNoiseGenerator(){
         return noise;
     }
     

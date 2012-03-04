@@ -11,32 +11,34 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
+import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.WrappedCircularRandomVariable;
 
 /**
  * Distribution that is the weighted sum of others.
  * @author Robby McKilliam
  */
-public class SumsOfDistributions implements RandomVariable {
+public class SumsOfDistributions implements ContinuousRandomVariable {
 
-    protected final Collection<RandomVariable> distributions;
+    protected final Collection<ContinuousRandomVariable> distributions;
     protected final Collection<Double> weights;
 
     protected double totalweight = 0.0;
     protected double mean = 0.0;
     protected double variance = 0.0;
 
-    /** Initialize with a coolection of distributions and weights */
-    public SumsOfDistributions(Collection<RandomVariable> dist, Collection<Double> whts){
+    /** Initialize with a collection of distributions and weights */
+    public SumsOfDistributions(Collection<ContinuousRandomVariable> dist, Collection<Double> whts){
         if( dist.size() != whts.size() )
-            throw new ArrayIndexOutOfBoundsException("You can't a different number of distributions and weights!");
+            throw new ArrayIndexOutOfBoundsException("You can't have a different number of distributions and weights!");
         distributions = dist;
         weights = whts;
 
-        Iterator<RandomVariable> distitr = distributions.iterator();
+        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         while( witr.hasNext() ){
             double w = witr.next();
-            RandomVariable d = distitr.next();
+            ContinuousRandomVariable d = distitr.next();
             mean += w*d.getMean();
             variance += w*d.getVariance();
             totalweight += w;
@@ -46,12 +48,12 @@ public class SumsOfDistributions implements RandomVariable {
     }
 
     public SumsOfDistributions(){
-        distributions = new Vector<RandomVariable>();
+        distributions = new Vector<ContinuousRandomVariable>();
         weights = new Vector<Double>();
     }
 
     /** Adds a distribution and weight to the current list */
-    public void addDistribution( RandomVariable dist, double weight ){
+    public void addDistribution( ContinuousRandomVariable dist, double weight ){
         distributions.add(dist);
         weights.add(weight);
         totalweight += weight;
@@ -60,8 +62,8 @@ public class SumsOfDistributions implements RandomVariable {
     }
 
     @Override
-    public double getNoise() {
-        Iterator<RandomVariable> distitr = distributions.iterator();
+    public Double getNoise() {
+        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double wsum = 0.0;
         double r = new Random().nextDouble();
@@ -78,7 +80,7 @@ public class SumsOfDistributions implements RandomVariable {
     }
 
     public double pdf(double x) {
-        Iterator<RandomVariable> distitr = distributions.iterator();
+        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double pdf = 0.0;
         while( witr.hasNext() ){
@@ -149,6 +151,12 @@ public class SumsOfDistributions implements RandomVariable {
             
         }
         return (high + low)/2.0;
+    }
+    
+    /** Default is the return the wrapped version of this random variable */
+    @Override
+    public CircularRandomVariable getWrapped() {
+        return new WrappedCircularRandomVariable(this);
     }
 
 

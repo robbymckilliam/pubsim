@@ -12,7 +12,7 @@ import rngpack.Ranlux;
  *
  * @author Robby McKilliam
  */
-public class UniformNoise extends AbstractRandomVariable implements RandomVariable {
+public class UniformNoise extends AbstractRandomVariable implements ContinuousRandomVariable {
     protected final double range;
     protected final double mean;
     protected final double stdDeviation;
@@ -47,7 +47,7 @@ public class UniformNoise extends AbstractRandomVariable implements RandomVariab
     
     /** Returns a uniformly distributed value */
     @Override
-    public double getNoise(){
+    public Double getNoise(){
         return mean + range * (random.raw() - 0.5);
     }
 

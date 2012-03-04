@@ -13,6 +13,7 @@ package pubsim.distributions.circular;
  */
 public class CircularUniform extends CircularRandomVariable {
 
+    @Override
     public double pdf(double x) {
         return 1.0;
     }

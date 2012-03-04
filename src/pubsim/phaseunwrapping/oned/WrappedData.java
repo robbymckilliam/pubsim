@@ -5,7 +5,7 @@
 
 package pubsim.phaseunwrapping.oned;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 
 /**
  *
@@ -25,6 +25,6 @@ public interface WrappedData {
 
     public int getSize();
 
-    public void setNoiseGenerator(RandomVariable noise);
+    public void setNoiseGenerator(ContinuousRandomVariable noise);
 
 }

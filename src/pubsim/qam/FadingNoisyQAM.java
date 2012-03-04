@@ -22,7 +22,7 @@ public class FadingNoisyQAM implements SignalGenerator{
     protected double Hr, Hi;
     protected double[] xr, xi;
     protected double[] yr, yi;
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     protected Random random;
     
     /** Default constructor using 8-ary QAM */

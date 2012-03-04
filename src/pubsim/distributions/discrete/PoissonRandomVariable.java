@@ -5,19 +5,12 @@
 
 package pubsim.distributions.discrete;
 
-import rngpack.RandomElement;
-import rngpack.RandomSeedable;
-import rngpack.Ranlux;
-import pubsim.distributions.RandomVariable;
-
 /**
  * Class representing the discrete Poisson distribution.
  * @author Robby McKilliam
  */
-public class PoissonRandomVariable implements RandomVariable {
+public class PoissonRandomVariable extends AbstractDiscreteRandomVariable {
     private final double l;
-
-    protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
 
     /**
      * Constructor sets the parameter for this Poisson distribution.
@@ -30,10 +23,11 @@ public class PoissonRandomVariable implements RandomVariable {
     }
 
     /** Knuth's simple method for generating a Poisson r.v. */
-    public double getNoise() {
+    @Override
+    public Integer getNoise() {
         double L = Math.exp(-l);
         double p = 1.0;
-        double k = 0;
+        Integer k = 0;
         while(p > L){
             k++;
             double u = random.raw();
@@ -42,31 +36,29 @@ public class PoissonRandomVariable implements RandomVariable {
         return k - 1;
     }
 
-    public double pdf(double x) {
+    @Override
+    public double pmf(Integer x) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public double icdf(double x) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    @Override
     public double getMean() {
         return l;
     }
 
+    @Override
     public double getVariance() {
         return l;
     }
 
-    /** Randomise the seed for the internal Random */
-    public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
+    @Override
+    public double cmf(Integer k) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-
-    /** Set the seed for the internal Random */
-    public void setSeed(long seed) { random = new Ranlux(seed); }
-
-    public double cdf(double x) {
-       throw new UnsupportedOperationException("Not supported yet.");
+    @Override
+    public Integer icmf(double x) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

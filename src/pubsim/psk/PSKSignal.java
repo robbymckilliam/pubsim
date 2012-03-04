@@ -8,7 +8,7 @@ package pubsim.psk;
 
 import java.util.LinkedList;
 import java.util.Random;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 
@@ -18,7 +18,7 @@ import pubsim.distributions.NoiseGenerator;
  */
 public class PSKSignal implements SignalGenerator{
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     protected Random random;
     protected double symF;
     protected double transF;

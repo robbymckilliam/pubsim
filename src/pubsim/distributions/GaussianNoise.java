@@ -14,7 +14,7 @@ import rngpack.Ranlux;
  * Creates single Gaussian variables
  * @author Robby McKilliam
  */
-public class GaussianNoise extends AbstractRandomVariable implements RandomVariable {
+public class GaussianNoise extends AbstractRandomVariable implements ContinuousRandomVariable {
 
     protected final double mean;
     protected final double stdDeviation;
@@ -35,7 +35,7 @@ public class GaussianNoise extends AbstractRandomVariable implements RandomVaria
     
     /** Returns an instance of Gaussian noise */
     @Override
-    public double getNoise(){
+    public Double getNoise(){
         return stdDeviation * random.gaussian() + mean;
     }
 

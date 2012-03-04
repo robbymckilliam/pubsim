@@ -24,7 +24,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     
     protected int n;
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     
     public PolynomialPhaseSignal(int N){
         this.n = N;

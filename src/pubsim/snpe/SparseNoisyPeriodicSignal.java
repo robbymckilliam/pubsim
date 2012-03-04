@@ -22,8 +22,8 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     
     protected double[] transmittedSignal;
     protected double[] recievedSignal;
-    protected NoiseGenerator noise;
-    protected NoiseGenerator sparsenoise;
+    protected NoiseGenerator<Double> noise;
+    protected NoiseGenerator<Integer> sparsenoise;
     protected double T = 1.0;
     protected int N;
     protected double phase = 0.0;

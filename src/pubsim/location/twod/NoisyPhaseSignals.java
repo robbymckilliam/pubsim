@@ -17,7 +17,7 @@ import pubsim.distributions.NoiseGenerator;
  */
 public class NoisyPhaseSignals implements SignalGenerator{
     
-    NoiseGenerator noise;
+    NoiseGenerator<Double> noise;
     double[] d;
     Point2 x;
     int N;
