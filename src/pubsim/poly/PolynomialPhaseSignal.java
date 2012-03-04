@@ -45,12 +45,12 @@ public class PolynomialPhaseSignal implements SignalGenerator<Double>{
     }
 
     @Override
-    public void setNoiseGenerator(NoiseGenerator noise) {
+    public void setNoiseGenerator(NoiseGenerator<Double> noise) {
         this.noise = noise;
     }
 
     @Override
-    public NoiseGenerator getNoiseGenerator() {
+    public NoiseGenerator<Double> getNoiseGenerator() {
         return noise;
     }
 

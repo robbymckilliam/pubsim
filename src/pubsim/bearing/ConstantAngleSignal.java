@@ -14,7 +14,7 @@ import static pubsim.Util.fracpart;
  * Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robby McKilliam
  */
-public class ConstantAngleSignal extends NoiseVector{
+public class ConstantAngleSignal extends NoiseVector {
 
     protected double angle = 0.0;
 

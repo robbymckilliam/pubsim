@@ -88,16 +88,18 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
     }
 
     /** Set the discrete noise type for sparse signal */
-    public void setSparseGenerator(NoiseGenerator sparsenoise){
+    public void setSparseGenerator(NoiseGenerator<Integer> sparsenoise){
         this.sparsenoise = sparsenoise;
     }
-    public NoiseGenerator getSparseGenerator(){ return sparsenoise; }
+    public NoiseGenerator<Integer> getSparseGenerator(){ return sparsenoise; }
 
     /** Set the noise type for the signal */
-    public void setNoiseGenerator(NoiseGenerator noise){
+    @Override
+    public void setNoiseGenerator(NoiseGenerator<Double> noise){
         this.noise = noise;
     }
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    @Override
+    public NoiseGenerator<Double> getNoiseGenerator(){ return noise; }
     
     /**
      * Set the seed for the random generator used
