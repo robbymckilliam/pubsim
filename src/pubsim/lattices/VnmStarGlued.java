@@ -6,13 +6,10 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.reduction.LLL;
-import pubsim.lattices.util.PointInSphere;
+import static pubsim.Util.*;
 import pubsim.VectorFunctions;
-import static pubsim.Util.binom;
-import static pubsim.Util.factorial;
-import static pubsim.Util.discreteLegendrePolynomial;
 import static pubsim.VectorFunctions.dot;
+import pubsim.lattices.reduction.LLL;
 
 /**
  * Glue vector based algorithm for VnmStar.
@@ -51,6 +48,7 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
         this.m = m;
     }
 
+    @Override
     public void setDimension(int n) {
         this.n = n;
         N = n + m + 1;
@@ -93,6 +91,7 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
 
     }
 
+    @Override
     public void nearestPoint(double[] y) {
 
         //project y into hyperplane of the lattice.
@@ -122,14 +121,17 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
         }
     }
 
+    @Override
     public double[] getLatticePoint() {
         return xlat;
     }
 
+    @Override
     public double[] getIndex() {
         return ulat;
     }
 
+    @Override
     public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -240,6 +242,14 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
 
         }
 
+    }
+    
+    private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
     }
 
 

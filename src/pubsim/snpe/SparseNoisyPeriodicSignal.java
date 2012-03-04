@@ -18,10 +18,10 @@ import pubsim.distributions.NoiseGenerator;
  * 
  * @author Robby McKilliam
  */
-public class SparseNoisyPeriodicSignal implements SignalGenerator {
+public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
     
     protected double[] transmittedSignal;
-    protected double[] recievedSignal;
+    protected Double[] recievedSignal;
     protected NoiseGenerator<Double> noise;
     protected NoiseGenerator<Integer> sparsenoise;
     protected double T = 1.0;
@@ -45,10 +45,11 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     public void setLength(int n){
         this.N = n;
         transmittedSignal = new double[n];
-        recievedSignal = new double[n];
+        recievedSignal = new Double[n];
     }
     
     /** {@inheritDoc} */
+    @Override
     public int getLength() {return N; }
     
     public double[] generateSparseSignal(){
@@ -72,7 +73,8 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     /**
      * Generate sparse noisy signal
      */
-    public double[] generateReceivedSignal() {
+    @Override
+    public Double[] generateReceivedSignal() {
           if(transmittedSignal == null )
               throw new java.lang.NullPointerException
                       ("transmitted signal has not been allocated\n" +
@@ -82,7 +84,6 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
               recievedSignal[i] = T * transmittedSignal[i]
                                     + noise.getNoise() + phase;
           }
-          
           return recievedSignal;
     }
 

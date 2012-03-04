@@ -16,7 +16,7 @@ import pubsim.distributions.processes.NoiseVector;
 import pubsim.VectorFunctions;
 
 /**
- * Generate points uniformly in the Vornoi region using
+ * Generate points uniformly in the Voronoi region using
  * uniformly generate noise.
  * @author Robby McKilliam
  */

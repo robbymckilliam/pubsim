@@ -15,7 +15,7 @@ import pubsim.distributions.NoiseGenerator;
  * Creates a Rayleigh fading QAM symbol with Gaussian noise.
  * @author Robby McKilliam
  */
-public class FadingNoisyQAM implements SignalGenerator{
+public class FadingNoisyQAM implements SignalGenerator<Double>{
     
     protected int T;
     protected int M;
@@ -97,11 +97,11 @@ public class FadingNoisyQAM implements SignalGenerator{
     }
     
     /**
-     * Generate the recived QAM signal.  The signal has
+     * Generate the received QAM signal.  The signal has
      * Rayleigh fading and noise.  Returns null, use
      * getInphase and getQuadrature to get the signal
      */
-    public double[] generateReceivedSignal(){
+    public Double[] generateReceivedSignal(){
         for(int i=0; i < yr.length; i++){
             yr[i] = xr[i]*Hr - xi[i]*Hi + noise.getNoise();
             yi[i] = xr[i]*Hi + xi[i]*Hr + noise.getNoise();
@@ -109,7 +109,7 @@ public class FadingNoisyQAM implements SignalGenerator{
         return null;
     }
     
-    /** Return the inphase (real) part of the recived QAM signal */
+    /** Return the inphase (real) part of the received QAM signal */
     public double[] getInphase() { return yr; }
     public double[] getReal() { return yr; }
     

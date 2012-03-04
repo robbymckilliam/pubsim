@@ -24,14 +24,14 @@ public class HybridEstimator implements BearingEstimator{
         scm = new SampleCircularMean();
     }
 
-    public double estimateBearing(double[] y) {
+    public double estimateBearing(Double[] y) {
         double[] scmr = scm.confidenceInterval(y);
         double[] alsr = als.confidenceInterval(y);
         if(scmr[1] < alsr[1]) return scmr[0];
         else return alsr[0];
     }
 
-    public double[] confidenceInterval(double[] y) {
+    public double[] confidenceInterval(Double[] y) {
         double[] scmr = scm.confidenceInterval(y);
         double[] alsr = als.confidenceInterval(y);
         if(scmr[1] < alsr[1]) return scmr;

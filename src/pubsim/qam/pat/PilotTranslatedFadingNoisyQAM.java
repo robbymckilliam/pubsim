@@ -17,7 +17,7 @@ import pubsim.SignalGenerator;
  * @author Robby McKilliam
  */
 public class PilotTranslatedFadingNoisyQAM extends FadingNoisyQAM
-        implements SignalGenerator, PATSymbol{
+        implements PATSymbol {
     
     public PilotTranslatedFadingNoisyQAM() {
         super();

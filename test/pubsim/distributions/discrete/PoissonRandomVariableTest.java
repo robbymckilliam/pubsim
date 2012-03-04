@@ -39,7 +39,7 @@ public class PoissonRandomVariableTest {
     @Test
     public void testGetNoise() {
         //System.out.println("getNoise");
-        double p = 4;
+        double p = 10;
         int n = 1000000;
         PoissonRandomVariable instance = new PoissonRandomVariable(p);
         double var = 0;

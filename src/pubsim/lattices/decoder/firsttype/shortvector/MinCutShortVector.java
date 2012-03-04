@@ -4,16 +4,16 @@
  */
 package pubsim.lattices.decoder.firsttype.shortvector;
 
-import java.util.Set;
-import org.jgrapht.graph.SimpleWeightedGraph;
 import Jama.Matrix;
+import java.util.Set;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.StoerWagnerMinimumCut;
 import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleWeightedGraph;
+import static pubsim.VectorFunctions.matrixMultVector;
+import static pubsim.VectorFunctions.onesColumn;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.ShortVector;
-import static pubsim.VectorFunctions.onesColumn;
-import static pubsim.VectorFunctions.matrixMultVector;
 
 /**
  * Computes a short vector in a lattice of first type using the Stoer-Wagner minimum cut algorithm

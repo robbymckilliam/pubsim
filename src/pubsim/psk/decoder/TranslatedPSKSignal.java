@@ -20,7 +20,7 @@ public class TranslatedPSKSignal extends PSKSignal
      * added to each symbol.
      */
     @Override
-    public double[] generateReceivedSignal() {
+    public Double[] generateReceivedSignal() {
         for(int i=0; i < y.length; i++){
             Complex xc = new Complex(Math.cos(2*Math.PI*x[i]/M), 
                                      Math.sin(2*Math.PI*x[i]/M));

@@ -15,7 +15,7 @@ import pubsim.VectorFunctions;
 
 /**
  * Near set (aka Bresenham set) version of the location estimator.
- * The gaurantees that it will test the correct unwrapping.  Whether
+ * The guarantees that it will test the correct unwrapping.  Whether
  * Newton's method will converge correctly is another matter.
  * @author Robby McKilliam
  */
@@ -38,7 +38,7 @@ public class NearSetLocationEstimatorMaxDistance
     }
 
     /** Compute the location given phases from each transmitter */
-    public Point2 estimateLocation(double[] phi) {
+    public Point2 estimateLocation(Double[] phi) {
 
         double Lbest = Double.NEGATIVE_INFINITY;
 
@@ -84,7 +84,7 @@ public class NearSetLocationEstimatorMaxDistance
         return loc;
     }
 
-    protected double testPoint(double[] phi, double[] u, Point2 x, double Lbest) {
+    protected double testPoint(Double[] phi, double[] u, Point2 x, double Lbest) {
         //climb the objective function using Newton's method with this unwrapping
         ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(trans, phi, u);
         NewtonRaphson opt = new NewtonRaphson(ofunc, 4, 0.0000001);

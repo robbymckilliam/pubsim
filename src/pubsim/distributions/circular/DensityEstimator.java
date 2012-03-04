@@ -15,13 +15,13 @@ import static pubsim.Util.fracpart;
  */
 public class DensityEstimator extends CircularRandomVariable {
 
-    protected final double[] d;
+    protected final Double[] d;
     protected final ContinuousRandomVariable ker;
 
     /**
      * Constructor takes an array of d and a kernel function.
      */
-    public DensityEstimator(final double[] data, ContinuousRandomVariable kernel){
+    public DensityEstimator(final Double[] data, ContinuousRandomVariable kernel){
         d = data;
         ker = kernel;
     }

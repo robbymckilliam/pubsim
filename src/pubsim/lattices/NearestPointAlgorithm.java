@@ -16,6 +16,8 @@ public interface NearestPointAlgorithm extends Serializable {
     
     void nearestPoint(double[] y);
     
+    void nearestPoint(Double[] y);
+    
     /**
      * Returns the nearest lattice point computed the last time nearestPoint was run.
      */

@@ -5,10 +5,10 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.lattices.Lattice;
-import pubsim.lattices.reduction.LLL;
 import pubsim.VectorFunctions;
+import pubsim.lattices.Lattice;
 import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.reduction.LLL;
 
 /**
  * Sphere decoder that uses the Babai point

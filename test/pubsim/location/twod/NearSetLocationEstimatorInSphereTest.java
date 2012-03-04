@@ -41,21 +41,6 @@ public class NearSetLocationEstimatorInSphereTest {
     }
 
     /**
-     * Test of estimateLocation method, of class NearSetLocationEstimatorInSphere.
-     */
-    @Test
-    public void testEstimateLocation() {
-        System.out.println("estimateLocation");
-        double[] d = null;
-        NearSetLocationEstimatorInSphere instance = null;
-        Point2 expResult = null;
-        Point2 result = instance.estimateLocation(d);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of transmitterRange method, of class NearSetLocationEstimatorInSphere.
      */
     @Test

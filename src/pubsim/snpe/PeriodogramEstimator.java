@@ -39,7 +39,7 @@ public class PeriodogramEstimator implements PRIEstimator {
 	kappa = new double[N];
     }
 
-    private static double calculatePeriodogram(double[] y, double f) {
+    private static double calculatePeriodogram(Double[] y, double f) {
 	double sumur = 0, sumui = 0;
 	for (int i = 0; i < y.length; i++) {
 	    sumur += Math.cos(2 * Math.PI * f * y[i]);
@@ -49,7 +49,7 @@ public class PeriodogramEstimator implements PRIEstimator {
     }
 
     @Override
-    public void estimate(double[] y, double Tmin, double Tmax) {
+    public void estimate(Double[] y, double Tmin, double Tmax) {
         double maxp = 0;
         double fmin = 1/Tmax; double fmax = 1/Tmin;
 	double fhat = fmin;

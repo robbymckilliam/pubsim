@@ -94,6 +94,7 @@ public abstract class AbstractLattice implements Lattice {
         return Ks*Q(Math.sqrt(3*nomgain*S));
     }
 
+    @Override
     public double volume(){
         Matrix B = getGeneratorMatrix();
         return Math.sqrt((B.transpose().times(B)).det());
@@ -108,6 +109,7 @@ public abstract class AbstractLattice implements Lattice {
      * short vector is by sphere decoding.  This is going to
      * be very slow for large dimensions.
      */
+    @Override
     public double inradius(){
         if(inradius == 0){
             ShortVectorSphereDecoded sv = new ShortVectorSphereDecoded(this);

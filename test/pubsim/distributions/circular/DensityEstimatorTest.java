@@ -45,7 +45,7 @@ public class DensityEstimatorTest {
     @Test
     public void testPdf() {
         System.out.println("pdf");
-        double[] data = {0.4, -0.4};
+        Double[] data = {0.4, -0.4};
         ContinuousRandomVariable ker = new UniformNoise(0, 0.3, 0);
         DensityEstimator dest = new DensityEstimator(data, ker);
         assertEquals(10.0/3.0, dest.pdf(0.5), 0.0000001);
@@ -66,7 +66,7 @@ public class DensityEstimatorTest {
         double eres = instance.pdf(-0.5);
         
         int N = 100000;
-        double[] X = new double[N];
+        Double[] X = new Double[N];
         for(int i = 0; i < N; i++) X[i] = instance.getNoise();
         
         DensityEstimator dest = new DensityEstimator(X, new WrappedUniform(0,1.0/10000));

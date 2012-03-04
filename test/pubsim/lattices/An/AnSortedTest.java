@@ -51,7 +51,7 @@ public class AnSortedTest extends TestCase {
         //instance.setDimension(n - 1);
         
         for(int i = 0; i < iters; i++){
-            double[] y = siggen.generateReceivedSignal();
+            Double[] y = siggen.generateReceivedSignal();
             instance.nearestPoint(y);
             assertEquals(0.0, VectorFunctions.sum(instance.getLatticePoint()));
         }

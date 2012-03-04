@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * Abstract class for Nearest point algorithms.  You are not required
  * to use this but it saves you from writing getters and setters and
- * uses some standard variable names.  Please don't use this abstract class
+ * uses some standard variable names.  Don't use this abstract class
  * if you don't intend to use the following numenclature!
  * ie.  u is the index of the nearest lattice point.
  *      v is the nearest lattice point.
@@ -107,6 +107,15 @@ public abstract class NearestPointAlgorithmStandardNumenclature
         
         //assertTrue(true);
         
+    }
+    
+    private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            yDoubletoy = new double[y.length];
+        for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(yDoubletoy);
     }
 
 }

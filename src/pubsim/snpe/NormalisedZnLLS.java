@@ -18,7 +18,7 @@ public class NormalisedZnLLS extends ZnLLS implements PRIEstimator {
     public NormalisedZnLLS(int N) {super(N);}
 
     @Override
-    public void estimate(double[] y, double Tmin, double Tmax){
+    public void estimate(Double[] y, double Tmin, double Tmax){
         double fmin = 1/Tmax; double fmax = 1/Tmin;
 
         AnstarVaughan.project(y, z);

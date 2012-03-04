@@ -36,6 +36,10 @@ public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice imple
     public void nearestPoint(double[] y) {
         decoder.nearestPoint(y);
     }
+    
+    public void nearestPoint(Double[] y) {
+        decoder.nearestPoint(y);
+    }
 
     public double[] getLatticePoint() {
         return decoder.getLatticePoint();

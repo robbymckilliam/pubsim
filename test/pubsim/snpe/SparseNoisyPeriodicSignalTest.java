@@ -58,7 +58,7 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         instance.setSparseSignal(rec_sig);
         instance.setPeriod(T);
        
-        double[] sig = instance.generateReceivedSignal();
+        Double[] sig = instance.generateReceivedSignal();
         boolean result;
         for (int i = 0; i < length; i++){
             result = (sig[i] <= (T*rec_sig[i] + 1.0)) && (sig[i] >= (T*rec_sig[i] - 1.0));

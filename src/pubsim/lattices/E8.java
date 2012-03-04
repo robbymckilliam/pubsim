@@ -103,6 +103,13 @@ public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorit
     public double distance() {
         return dist;
     }
+    
+    private double[] yDoubletoy = new double[8];
+    @Override
+    public void nearestPoint(Double[] y) {
+        for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i]; 
+        this.nearestPoint(y);
+    }
 
 
 }

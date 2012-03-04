@@ -54,7 +54,7 @@ public class NoisyPhaseSignalsTest {
         NoisyPhaseSignals instance = new NoisyPhaseSignals(new Point2(0,0),
                 trans);
         instance.setNoiseGenerator(new GaussianNoise(0,0));
-        double[] phi = instance.generateReceivedSignal();
+        Double[] phi = instance.generateReceivedSignal();
         assertEquals(-0.2, phi[0], 0.0000001);
 
         trans[0] = new Transmitter(new Point2(1.0,0.0), 2.1);
@@ -74,7 +74,7 @@ public class NoisyPhaseSignalsTest {
         NoisyPhaseSignals instance = new NoisyPhaseSignals(new Point2(1,1),
                 trans);
         instance.setNoiseGenerator(new GaussianNoise(0,0));
-        double[] phi = instance.generateReceivedSignal(new Point2(0,0));
+        Double[] phi = instance.generateReceivedSignal(new Point2(0,0));
         assertEquals(-0.2, phi[0], 0.0000001);
 
         trans[0] = new Transmitter(new Point2(1.0,0.0), 2.1);

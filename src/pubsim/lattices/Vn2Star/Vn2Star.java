@@ -5,8 +5,8 @@
 
 package pubsim.lattices.Vn2Star;
 
-import pubsim.lattices.Anstar.AnstarVaughan;
 import Jama.Matrix;
+import pubsim.lattices.Anstar.AnstarVaughan;
 import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
 
 /**
@@ -14,6 +14,15 @@ import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
  * @author Robby McKilliam
  */
 public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
+    
+    private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            yDoubletoy = new double[y.length];
+        for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
+    }
     
     @Override
     public void setDimension(int n){
@@ -26,7 +35,7 @@ public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
     @Override
     public double[] getLatticePoint(){ return v; }
     
-    /**Getter for the interger vector. */
+    /**Getter for the integer vector. */
     @Override
     public double[] getIndex(){ return u; }
     
@@ -47,6 +56,7 @@ public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
             y[i] = y[i] - dot/sumn2 * (i+1-nbar);
     }
     
+    @Override
     public Matrix getGeneratorMatrix() {      
         return getGeneratorMatrix(n);      
     }
@@ -108,6 +118,7 @@ public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
         return sum;
     }
     
+    @Override
     public double distance() { throw new UnsupportedOperationException(); }
 
 }

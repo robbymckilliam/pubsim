@@ -10,7 +10,7 @@ import static pubsim.VectorFunctions.matrixMultVector;
 import static pubsim.VectorFunctions.round;
 
 /**
- * The hexangonal lattice with genertor matrix
+ * The hexagonal lattice with generator matrix
  * [1 1/2; 0 sqrt(3)/2]
  * @author Robby McKilliam
  */
@@ -43,6 +43,7 @@ public class Hexagonal
         return 2;
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         return M;
     }
@@ -54,6 +55,7 @@ public class Hexagonal
         return B;
     }
 
+    @Override
     public void nearestPoint(double[] y) {
         if(y.length != 2)
             throw new ArrayIndexOutOfBoundsException("y must have length 2");
@@ -83,11 +85,12 @@ public class Hexagonal
         }
     }
 
+    @Override
     public final void setDimension(int n) {
         //do nothing
     }
 
-    /**Getter for the interger vector. */
+    /**Getter for the integer vector. */
     @Override
     public double[] getIndex() {
         matrixMultVector(Minv, v, u);
@@ -95,6 +98,7 @@ public class Hexagonal
         return u;
     }
 
+    @Override
     public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

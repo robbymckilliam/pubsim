@@ -7,7 +7,6 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.Util;
 
 /**
  * Nearest point algorithm for the square lattice Zn.
@@ -54,6 +53,7 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
         return 0.5;
     }
 
+    @Override
     public int getDimension() {
         return n;
     }
@@ -63,10 +63,12 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
         return 2*n;
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         return Matrix.identity(n, n);
     }
 
+    @Override
     public double coveringRadius() {
         return Math.sqrt(0.5*n);
     }
@@ -75,8 +77,16 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
         return 0;
     }
 
+    @Override
     public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    private double[] yDoubletoy = new double[24];
+    @Override
+    public void nearestPoint(Double[] y) {
+        for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
     }
     
 }

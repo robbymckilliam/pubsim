@@ -14,35 +14,31 @@ import pubsim.distributions.NoiseGenerator;
  * Class for outputting vectors of noise.
  * @author Robby McKilliam
  */
-public class NoiseVector implements SignalGenerator {
+public class NoiseVector implements SignalGenerator<Double> {
     
     protected int n;
-    protected double[] iidsignal;
+    protected Double[] iidsignal;
     protected NoiseGenerator<Double> noise;
 
     /** Default constructor set length of vector */ 
     public NoiseVector(int length){
         n = length;
-        iidsignal = new double[n];
+        iidsignal = new Double[n];
     }
 
     /** Default constructor set length of vector to 1 */
     public NoiseVector(NoiseGenerator<Double> noise, int length){
         this.noise = noise;
         this.n = length;
-        iidsignal = new double[n];
+        iidsignal = new Double[n];
     }
     
     /** {@inheritDoc} */
-    public void setLength(int n){
-        this.n = n;
-        iidsignal = new double[n];
-    }
-    
-    /** {@inheritDoc} */
+    @Override
     public int getLength() { return n; }
     
-    public void setNoiseGenerator(NoiseGenerator noise){
+    @Override
+    public void setNoiseGenerator(NoiseGenerator<Double> noise){
         this.noise = noise;
     }
     
@@ -54,7 +50,8 @@ public class NoiseVector implements SignalGenerator {
     /** 
      * Generate the iid noise of length n.
      */
-    public double[] generateReceivedSignal(){
+    @Override
+    public Double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++)
             iidsignal[i] = noise.getNoise();
         return iidsignal;

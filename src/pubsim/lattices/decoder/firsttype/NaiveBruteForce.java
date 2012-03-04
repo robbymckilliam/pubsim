@@ -5,14 +5,10 @@
 package pubsim.lattices.decoder.firsttype;
 
 import Jama.Matrix;
-import pubsim.VectorFunctions;
+import static pubsim.VectorFunctions.*;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.NearestPointAlgorithm;
 import pubsim.lattices.util.IntegerVectors;
-import static pubsim.VectorFunctions.onesColumn;
-import static pubsim.Util.fracpart;
-import static pubsim.VectorFunctions.matrixMultVector;
-import static pubsim.VectorFunctions.sum2;
 
 /**
  * The naive algorithm for computing a nearest point in a lattice of first type by just checking

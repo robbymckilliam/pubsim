@@ -15,7 +15,7 @@ public interface PRIEstimator extends Serializable{
     /**
      * Runs the estimator and return the estimated frequency.
      */
-    public void estimate(double[] y, double Tmin, double Tmax);
+    public void estimate(Double[] y, double Tmin, double Tmax);
 
     /**
      * @return the period estimate
@@ -46,7 +46,7 @@ public interface PRIEstimator extends Serializable{
             fz = new double[N];
         }
 
-        public double getPhase(double[] y, double That){
+        public double getPhase(Double[] y, double That){
             AnstarBucketVaughan.project(y, z);
             for(int i = 0; i < N; i++) fz[i] =  z[i] / That;
             lattice.nearestPoint(fz);

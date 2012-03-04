@@ -35,7 +35,7 @@ public class SLS2novlp implements PRIEstimator {
 	u = new int[m];
     }
 
-    public void estimate(double[] y, double Tmin, double Tmax) {
+    public void estimate(Double[] y, double Tmin, double Tmax) {
         double fmin = 1/Tmax; double fmax = 1/Tmin;
 	for (int i = 0; i < m; i++)
 	    d[i] = y[(2 * i) + 1] - y[2 * i];

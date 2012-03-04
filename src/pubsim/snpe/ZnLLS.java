@@ -59,7 +59,8 @@ public class ZnLLS implements PRIEstimator {
         map = new TreeMap();
     }
     
-    public void estimate(double[] y, double Tmin, double Tmax){
+    @Override
+    public void estimate(Double[] y, double Tmin, double Tmax){
         double fmin = 1/Tmax; double fmax = 1/Tmin;
 
         AnstarVaughan.project(y, z);

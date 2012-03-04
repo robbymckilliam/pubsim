@@ -14,7 +14,7 @@ import pubsim.distributions.NoiseGenerator;
  * Returns a noisy constant phase complex signal.
  * @author Robby McKilliam
  */
-public class ConstantPhaseSignal implements SignalGenerator.Generic<Complex>{
+public class ConstantPhaseSignal implements SignalGenerator<Complex>{
 
     protected Complex mean;
     protected Complex[] signal;

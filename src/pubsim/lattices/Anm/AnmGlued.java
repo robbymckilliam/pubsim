@@ -50,7 +50,7 @@ public class AnmGlued extends NearestPointAlgorithmStandardNumenclature {
     
     /** 
      * Set the m part of A_{n/m}.  Note that m must divide
-     * n+1 else this degernates to the lattice An*, however
+     * n+1 else this degenerates to the lattice An*, however
      * the algorithm will not work as a nearest point algorithm
      * for An*.
      */

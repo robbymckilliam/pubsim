@@ -55,7 +55,7 @@ public class AngularLeastSquaresEstimatorTest {
         NoiseVector sig = new NoiseVector(n);
         sig.setNoiseGenerator(noise);
         
-        double[] y = sig.generateReceivedSignal();
+        Double[] y = sig.generateReceivedSignal();
         
         AngularLeastSquaresEstimator instance = new AngularLeastSquaresEstimator(n);
 
@@ -83,7 +83,7 @@ public class AngularLeastSquaresEstimatorTest {
         NoiseVector sig = new NoiseVector(n);
         sig.setNoiseGenerator(noise);
 
-        double[] y = sig.generateReceivedSignal();
+        Double[] y = sig.generateReceivedSignal();
 
         BearingEstimator instance = new AngularLeastSquaresEstimator(n);
 

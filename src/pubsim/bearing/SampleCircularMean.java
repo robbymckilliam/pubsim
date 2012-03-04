@@ -16,7 +16,7 @@ import flanagan.integration.Integration;
  */
 public class SampleCircularMean implements BearingEstimator {
 
-    public double estimateBearing(double[] y) {
+    public double estimateBearing(Double[] y) {
         
         double csum = 0.0, ssum = 0.0;
         double twopi = 2.0 * Math.PI;
@@ -44,7 +44,7 @@ public class SampleCircularMean implements BearingEstimator {
         return Esin2/(N*sigma2*sigma2*4*Math.PI*Math.PI);
     }
 
-    public double[] confidenceInterval(double[] y) {
+    public double[] confidenceInterval(Double[] y) {
         int N = y.length;
         double twopi = 2.0 * Math.PI;
         double mu = estimateBearing(y);

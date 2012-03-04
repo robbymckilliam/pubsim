@@ -24,7 +24,7 @@ import pubsim.Point2;
 public class ObjectiveFunction extends AutoDerivativeFunction{
 
     protected Transmitter[] trans;
-    protected double[] phi;
+    protected Double[] phi;
     protected int N;
 
     /**
@@ -32,7 +32,7 @@ public class ObjectiveFunction extends AutoDerivativeFunction{
      * and any array of measured phases to each
      * transmitter.
      */
-    public ObjectiveFunction(Transmitter[] trans, double[] phi){
+    public ObjectiveFunction(Transmitter[] trans, Double[] phi){
         this.trans = trans;
         this.phi = phi;
         N = trans.length;
@@ -78,7 +78,7 @@ public class ObjectiveFunction extends AutoDerivativeFunction{
         NoisyPhaseSignals sig =  new NoisyPhaseSignals(loc, Transmitter.getRandomArray(N, pnoise, fnoise));
         sig.setNoiseGenerator(new UniformNoise(0,0));
 
-        double[] d = sig.generateReceivedSignal();
+        Double[] d = sig.generateReceivedSignal();
         ObjectiveFunction ofunc = new ObjectiveFunction(sig.getTransmitters(), d);
 
         BufferedImage im = new BufferedImage(imwidth, imheight, BufferedImage.TYPE_USHORT_GRAY);

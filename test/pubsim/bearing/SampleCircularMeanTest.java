@@ -57,7 +57,7 @@ public class SampleCircularMeanTest {
         NoiseVector sig = new NoiseVector(n);
         sig.setNoiseGenerator(noise);
         
-        double[] y = sig.generateReceivedSignal();
+        Double[] y = sig.generateReceivedSignal();
         
         BearingEstimator instance = new SampleCircularMean();
 
@@ -84,7 +84,7 @@ public class SampleCircularMeanTest {
         NoiseVector sig = new NoiseVector(n);
         sig.setNoiseGenerator(noise);
 
-        double[] y = sig.generateReceivedSignal();
+        Double[] y = sig.generateReceivedSignal();
 
         BearingEstimator instance = new SampleCircularMean();
 

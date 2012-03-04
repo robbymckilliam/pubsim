@@ -43,14 +43,17 @@ public class NormalisedLLSCLT implements CLT{
         //System.out.println(scalefac);
     }
 
+    @Override
     public double phaseVar(int N){
         return scalefac * dmean * dmean / 3.0 / N;
     }
 
+    @Override
     public double periodVar(int N){
         return scalefac / (N*N*N);
     }
 
+    @Override
     public double periodPhaseCoVar(int N){
         return - scalefac * dmean / 2.0 / (N*N);
     }

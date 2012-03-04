@@ -42,7 +42,7 @@ public class BruteLocationEstimator
         this.trans = trans;
     }
 
-    public Point2 estimateLocation(double[] phi) {
+    public Point2 estimateLocation(Double[] phi) {
         loc = null;
         points.restart();
         double Lbest = Double.NEGATIVE_INFINITY;
