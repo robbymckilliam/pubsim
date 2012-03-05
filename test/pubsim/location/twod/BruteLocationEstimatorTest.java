@@ -60,7 +60,7 @@ public class BruteLocationEstimatorTest {
         sig.setNoiseGenerator(new GaussianNoise(0,0.000001));
         Transmitter[] trans = sig.getTransmitters();
 
-        double[] phi = sig.generateReceivedSignal();
+        Double[] phi = sig.generateReceivedSignal();
 
         BruteLocationEstimator instance = new BruteLocationEstimator(trans);
         Point2 result = instance.estimateLocation(phi);

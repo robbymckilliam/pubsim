@@ -10,7 +10,7 @@ import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import pubsim.Complex;
 
 /**
- * Noncoherent receiver using the linear time nearest point algorihtm
+ * Noncoherent receiver using the linear time nearest point algorithm
  * for An*.
  * @author Robby McKilliam
  */
@@ -22,7 +22,7 @@ public class AnstarNoncoherent implements PSKReceiver{
     
     public AnstarNoncoherent(){
         setM(4);
-        anstar = new AnstarBucketVaughan(); //this is the O(nlogn) An* algorithm
+        anstar = new AnstarBucketVaughan(); //this is the O(n) An* algorithm
     }
     
     public AnstarNoncoherent(int M){
@@ -40,7 +40,7 @@ public class AnstarNoncoherent implements PSKReceiver{
         anstar.setDimension(T-1);
     }
 
-    /** Implements the Sweldens Noncoherent decoder using the O(nlogn)
+    /** Implements the noncoherent decoder using the lattice An*.
      * nearest point algorithm for An*.
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
@@ -70,7 +70,7 @@ public class AnstarNoncoherent implements PSKReceiver{
         return Util.differentialEncodedBitErrors(anstar.getIndex(), x, M);
     }
 
-    /** This is a noncoherent reciever so setting the channel does nothing*/
+    /** This is a noncoherent receiver so setting the channel does nothing*/
     public void setChannel(Complex h) {  }
     
     public int bitsPerCodeword() {

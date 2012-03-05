@@ -70,8 +70,7 @@ public class DPTEstimatorTest {
         int m = 4;
         int n = 10;
         Complex[] y = VectorFunctions.randomComplex(n);
-        DPTEstimator instance = new DPTEstimator(m);
-        instance.setSize(n);
+        DPTEstimator instance = new DPTEstimator(m,n);
         flanagan.complex.Complex[] result = instance.PPT2(VectorFunctions.simComplexArrayToFlanComplexArray(y));
         //System.out.print(VectorFunctions.print(result));
 
@@ -102,8 +101,7 @@ public class DPTEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        DPTEstimator inst = new DPTEstimator(params.length);
-        inst.setSize(n);
+        DPTEstimator inst = new DPTEstimator(params.length,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
@@ -130,8 +128,7 @@ public class DPTEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        DPTEstimator inst = new DPTEstimator(m);
-        inst.setSize(n);
+        DPTEstimator inst = new DPTEstimator(m,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

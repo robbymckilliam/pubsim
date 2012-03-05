@@ -21,7 +21,7 @@ import pubsim.Point2;
  * 2D location estimation.  This is what we wish to
  * maximise to find the location estimate.
  * You can fix the value of the unwrapping variable
- * here.  This is usefull for the purpose of
+ * here.  This is useful for the purpose of
  * Newton's method.
  * This computes the negative sum of squares error.
  * @author Robby McKilliam
@@ -37,7 +37,7 @@ public class ObjectiveFunctionFixedUnwrapping extends ObjectiveFunction{
      * @param phi phase measured by each transmitter
      * @param u integer unwrapping variables
      */
-    public ObjectiveFunctionFixedUnwrapping(Transmitter[] trans, double[] phi, double[] u){
+    public ObjectiveFunctionFixedUnwrapping(Transmitter[] trans, Double[] phi, double[] u){
         super(trans, phi);
         this.u = u;
         if(u.length != N || phi.length != N){
@@ -81,7 +81,7 @@ public class ObjectiveFunctionFixedUnwrapping extends ObjectiveFunction{
         NoisyPhaseSignals sig = new NoisyPhaseSignals(loc,Transmitter.getLatticeArray(new Zn(2), 2.0, new Point2(0.5,0.5), fnoise));
         sig.setNoiseGenerator(new GaussianNoise(0,0.001));
 
-        double[] d = sig.generateReceivedSignal();
+        Double[] d = sig.generateReceivedSignal();
         double[] u = new double[N];
         ObjectiveFunction ofunc = new ObjectiveFunction(sig.getTransmitters(), d);
         //ObjectiveFunctionFixedUnwrapping ofunc = new ObjectiveFunctionFixedUnwrapping(sig.getTransmitters(), d, u);

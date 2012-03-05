@@ -5,7 +5,7 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import static pubsim.Util.fracpart;
 
 /**
@@ -15,14 +15,14 @@ import static pubsim.Util.fracpart;
  */
 public class WrappedCircularRandomVariable extends CircularRandomVariable{
 
-    protected final RandomVariable dist;
+    protected final ContinuousRandomVariable dist;
 
-    public WrappedCircularRandomVariable(RandomVariable realdist){
+    public WrappedCircularRandomVariable(ContinuousRandomVariable realdist){
         dist = realdist;
     }
 
     @Override
-    public double getNoise(){
+    public Double getNoise(){
         return fracpart(dist.getNoise());
     }
     

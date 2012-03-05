@@ -60,10 +60,10 @@ public class NearSetLocationEstimatorTest {
 
         NoisyPhaseSignals sig = new NoisyPhaseSignals(loc,
                 Transmitter.getRandomArray(N, pnoise, fnoise));
-        sig.setNoiseGenerator(new GaussianNoise(0,0.000001));
+        sig.setNoiseGenerator(new GaussianNoise(0,0.0000001));
         Transmitter[] trans = sig.getTransmitters();
 
-        double[] phi = sig.generateReceivedSignal();
+        Double[] phi = sig.generateReceivedSignal();
 
         NearSetLocationEstimatorMaxDistance instance = new NearSetLocationEstimatorMaxDistance(trans, maxdist);
         Point2 result = instance.estimateLocation(phi);
@@ -72,35 +72,5 @@ public class NearSetLocationEstimatorTest {
 
     }
 
-    /**
-     * Test of computeUnwrapping method, of class NearSetLocationEstimator.
-     */
-    @Test
-    public void testComputeUnwrapping() {
-        System.out.println("computeUnwrapping");
-        Point2 x = null;
-        NearSetLocationEstimatorMaxDistance instance = null;
-        double[] expResult = null;
-        double[] result = instance.computeUnwrapping(x);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of computeSortedTransitions method, of class NearSetLocationEstimator.
-     */
-    @Test
-    public void testComputeSortedTransitions() {
-        System.out.println("computeSortedTransitions");
-        Transmitter tran = null;
-        double rad = 0.0;
-        NearSetLocationEstimatorMaxDistance instance = null;
-        IndexedDouble[] expResult = null;
-        IndexedDouble[] result = instance.computeSortedTransitions(tran, rad);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
 }

@@ -6,7 +6,7 @@
 package pubsim.bearing;
 
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.UniformNoise;
 import pubsim.distributions.circular.CircularProcess;
 import pubsim.distributions.circular.CircularRandomVariable;
@@ -36,7 +36,7 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         anstar.setDimension(n-1);
     }
 
-    public double estimateBearing(double[] y) {
+    public double estimateBearing(Double[] y) {
         if(n != y.length)
             setSize(y.length);
         
@@ -62,7 +62,7 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
         return sigma2/(N*d*d);
     }
 
-    public double[] confidenceInterval(double[] y) {
+    public double[] confidenceInterval(Double[] y) {
         int N = y.length;
         double mu = estimateBearing(y);
 

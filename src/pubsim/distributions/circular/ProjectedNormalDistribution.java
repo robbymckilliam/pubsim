@@ -6,7 +6,7 @@
 package pubsim.distributions.circular;
 
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.Util;
 
 /**
@@ -17,7 +17,7 @@ import pubsim.Util;
  */
 public class ProjectedNormalDistribution extends CircularRandomVariable{
     
-    protected RandomVariable gauss;
+    protected ContinuousRandomVariable gauss;
     double cmean, smean, mean;
     
     public ProjectedNormalDistribution(double mean, double var){
@@ -29,7 +29,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
 
 
     @Override
-    public double getNoise() {       
+    public Double getNoise() {       
         double c = gauss.getNoise() + cmean;
         double s = gauss.getNoise() + smean;
         return Math.atan2(s, c);        
@@ -45,6 +45,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
         gauss.setSeed(seed);
     }
 
+    @Override
     public double pdf(double x){
         double v = 1.0/Math.sqrt(gauss.getVariance());
         return Pdf(Util.fracpart(x - mean),v);

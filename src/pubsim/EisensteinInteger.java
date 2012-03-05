@@ -7,7 +7,6 @@ package pubsim;
 
 import Jama.Matrix;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Vector;
 import pubsim.lattices.Hexagonal;
 import pubsim.lattices.util.PointInSphere;
@@ -29,6 +28,8 @@ public class EisensteinInteger extends Complex {
         double[] a = {x, y};
         hex_lattice.nearestPoint(a);
         double[] r = hex_lattice.getLatticePoint();
+        re = r[0];
+        im = r[1];
     }
 
     public EisensteinInteger(Complex x){
@@ -36,6 +37,8 @@ public class EisensteinInteger extends Complex {
         double[] a = {x.re(), x.im()};
         hex_lattice.nearestPoint(a);
         double[] r = hex_lattice.getLatticePoint();
+        re = r[0];
+        im = r[1];
     }
 
 

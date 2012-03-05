@@ -88,20 +88,30 @@ public class Babai implements NearestPointAlgorithm {
       
     }
 
+    @Override
     public void nearestPoint(double[] y) {
         if(m != y.length)
             throw new RuntimeException("Point y of length " + y.length + 
                     " and Generator matrix of column length " + m +
                     " are of different dimension!");
-        
-        computeBabaiPoint(y);
-              
+        computeBabaiPoint(y);        
+    }
+    
+    private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            yDoubletoy = new double[y.length];
+            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(yDoubletoy);
     }
 
+    @Override
     public double[] getLatticePoint() {
         return x;
     }
 
+    @Override
     public double[] getIndex() {
         return u;
     }

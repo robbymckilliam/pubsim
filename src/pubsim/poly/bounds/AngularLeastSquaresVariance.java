@@ -33,7 +33,7 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
     }
 
 
-    //** Write CRB data to a file */
+    //** Write bound data to a file */
     public static void main(String[] args) throws Exception  {
 
         int N = 200;

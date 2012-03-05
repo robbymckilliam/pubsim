@@ -62,13 +62,12 @@ public class WrappedUniformTest {
     public void testGetWrappedVariance() {
         System.out.println("getWrappedVariance");
         CircularRandomVariable instance = new WrappedUniform(0.0, 1.0/12.0);
-        assertEquals(1.0/12.0, instance.unwrappedVariance(), 0.001);
+        assertEquals(1.0/12.0, instance.unwrappedVariance(), 0.0001);
 
         instance = new WrappedUniform(0.0, 1.0/11.0);
         double result = instance.unwrappedVariance();
         System.out.println(result);
-        assertTrue(1.0/12.0 < result);
-        assertTrue(1.0/11.0 > result);
+        assertTrue(1.0/12.0 > result);
     }
 
     

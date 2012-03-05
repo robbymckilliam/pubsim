@@ -5,19 +5,12 @@
 
 package pubsim;
 
-import pubsim.EisensteinInteger;
-import pubsim.Complex;
-import pubsim.Point2;
 import Jama.Matrix;
 import java.util.Arrays;
+import static org.junit.Assert.*;
+import org.junit.*;
 import pubsim.lattices.Hexagonal;
 import pubsim.lattices.util.PointInSphere;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

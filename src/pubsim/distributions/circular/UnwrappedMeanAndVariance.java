@@ -5,7 +5,7 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import static pubsim.Util.fracpart;
@@ -16,13 +16,13 @@ import static pubsim.Util.fracpart;
  */
 public class UnwrappedMeanAndVariance {
 
-    protected final RandomVariable dist;
+    protected final ContinuousRandomVariable dist;
     protected double mean;
     protected double var;
     protected int numsamples = 1000;
 
     /** Input is a distribution */
-    public UnwrappedMeanAndVariance( RandomVariable tdist ){
+    public UnwrappedMeanAndVariance( ContinuousRandomVariable tdist ){
         this.dist = tdist;
 
         var = Double.POSITIVE_INFINITY;
@@ -43,7 +43,7 @@ public class UnwrappedMeanAndVariance {
      * i.e. this allows you to specify the mean ahead of time. This is much
      * faster if you do know the mean.
      */
-    public UnwrappedMeanAndVariance( RandomVariable tdist, double truemean ){
+    public UnwrappedMeanAndVariance( ContinuousRandomVariable tdist, double truemean ){
         this.dist = tdist;
         var = computeWrappedVarianceAbout(truemean, dist, 10000);
         mean = truemean;
@@ -51,7 +51,7 @@ public class UnwrappedMeanAndVariance {
     }
 
     /** Compute the wrapped variance after applying a rotaton of phi */
-    public static double computeWrappedVarianceAbout(final double phi, final RandomVariable dist, int integralsteps){
+    public static double computeWrappedVarianceAbout(final double phi, final ContinuousRandomVariable dist, int integralsteps){
         double tvar = (new Integration(new IntegralFunction() {
             public double function(double x) {
                 double rot = fracpart(x-phi);

@@ -5,7 +5,7 @@
 
 package pubsim.poly;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 
 /**
@@ -14,7 +14,7 @@ import pubsim.distributions.circular.CircularRandomVariable;
  */
 public class CircularNoisePolynomialPhaseSignal extends PolynomialPhaseSignal{
 
-    double[] phasearray = new double[0];
+    Double[] phasearray = new Double[0];
 
     public CircularNoisePolynomialPhaseSignal(int N){
         super(N);
@@ -27,8 +27,8 @@ public class CircularNoisePolynomialPhaseSignal extends PolynomialPhaseSignal{
      * @return
      */
     @Override
-    public double[] generateReceivedSignal() {
-        if(phasearray.length != n) phasearray = new double[n];
+    public Double[] generateReceivedSignal() {
+        if(phasearray.length != n) phasearray = new Double[n];
 
         for(int t = 0; t < n; t++){
             double phase = 0.0;

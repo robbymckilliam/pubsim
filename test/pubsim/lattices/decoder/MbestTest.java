@@ -52,9 +52,9 @@ public class MbestTest {
         System.out.println("nearestPoint");
         int M = 10;
         double[] y = {1, 2, 3, 4};
-        Mbest instance = new Mbest(M);
+
         GeneralLattice lattice = new GeneralLattice(Matrix.random(6, 5));
-        instance.setLattice(lattice);
+        Mbest instance = new Mbest(lattice,M);
 
         boolean caught = false;
         try{
@@ -76,11 +76,11 @@ public class MbestTest {
         System.out.println("returnsCorrectForZn");
         int M = 10;
         double[] y = {1.1, 2.2, 3.9, -4.1, -100.49};
-        Mbest instance = new Mbest(M);
+        
         //construct the integer lattice
         Zn lattice = new Zn(y.length);
 
-        instance.setLattice(lattice);
+        Mbest instance = new Mbest(lattice,M);
 
         lattice.nearestPoint(y);
         double[] xtrue = lattice.getLatticePoint();
@@ -117,8 +117,7 @@ public class MbestTest {
             LatticeAndNearestPointAlgorithm lattice = new AnstarBucketVaughan(n-1);
             Matrix G = lattice.getGeneratorMatrix();
 
-            Mbest instance = new Mbest(n);
-            instance.setLattice(lattice);
+            Mbest instance = new Mbest(lattice,n);
 
            // System.out.println("G is " + G.getRowDimension() + " by " + G.getColumnDimension());
             double[] x = new double[G.getRowDimension()];

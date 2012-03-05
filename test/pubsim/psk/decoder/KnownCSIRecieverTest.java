@@ -12,7 +12,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -58,7 +58,7 @@ public class KnownCSIRecieverTest {
         //signal.setChannel(-1.0,-1.0);
         signal.generateChannel();
         
-        RandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.01);
+        ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.01);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

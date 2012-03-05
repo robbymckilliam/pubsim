@@ -19,9 +19,9 @@ public abstract class ComplexNoise implements GenericRandomVariable<Complex> {
     final Complex mean;
     final Matrix variance;
     final Matrix L;
-    final RandomVariable noise;
+    final ContinuousRandomVariable noise;
 
-    public ComplexNoise(Complex mean, Matrix variance, RandomVariable doubleNoise){
+    public ComplexNoise(Complex mean, Matrix variance, ContinuousRandomVariable doubleNoise){
         this.mean = mean;
         this.variance = variance;
         L = variance.chol().getL();
@@ -32,7 +32,7 @@ public abstract class ComplexNoise implements GenericRandomVariable<Complex> {
      * Constructor assume the covariance matrix is just variance times
      * by the identity matrix.
      */
-    public ComplexNoise(Complex mean, double variance, RandomVariable doubleNoise){
+    public ComplexNoise(Complex mean, double variance, ContinuousRandomVariable doubleNoise){
         this.mean = mean;
         this.variance = Matrix.identity(2,2).times(variance);
         L = Matrix.identity(2,2).times(Math.sqrt(variance));

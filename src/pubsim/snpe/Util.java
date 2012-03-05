@@ -23,7 +23,7 @@ public class Util {
 
         /**
          * Returns square error of the fraction part difference between
-         * estimated phase phat and true phave p. Requires the
+         * estimated phase phat and true phase p. Requires the
          * true period T.
          */
         public static double phaseError(double phat, double p, double T){

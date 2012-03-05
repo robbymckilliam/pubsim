@@ -14,14 +14,14 @@ import pubsim.distributions.circular.CircularRandomVariable;
  */
 public interface BearingEstimator {
     
-    double estimateBearing(double[] y);
+    double estimateBearing(Double[] y);
     
     /**
      * Compute and estimate and the confidence interval.
      * Returns an double array of length 2. The first element is
      * the estimate and the second element is the confidence interval
      */
-    double[] confidenceInterval(double[] y);
+    double[] confidenceInterval(Double[] y);
 
     /**
      * Return the asymptotic variance of this estimator for the random

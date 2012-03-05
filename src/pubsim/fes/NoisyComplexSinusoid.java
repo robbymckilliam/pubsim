@@ -13,7 +13,7 @@ import pubsim.distributions.NoiseGenerator;
  * Generator for a noisy sinusoid.
  * @author Robby McKilliam
  */
-public class NoisyComplexSinusoid implements SignalGenerator{
+public class NoisyComplexSinusoid implements SignalGenerator<Double>{
     
     protected double f;
     protected double p;
@@ -22,7 +22,7 @@ public class NoisyComplexSinusoid implements SignalGenerator{
     protected double[] real;
     protected double[] imag;
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
 
     /** default constructor: f = 0.1, rate = 1, N = 10, p = 0.0 */
     protected NoisyComplexSinusoid() {    }
@@ -47,9 +47,10 @@ public class NoisyComplexSinusoid implements SignalGenerator{
         this.noise = noise;
     }
     
+    @Override
     public NoiseGenerator getNoiseGenerator(){ return noise; }
     
-    /** Set the freqency of the csiod in Hz */
+    /** Set the frequency of the complex sinusoid in Hz */
     public void setFrequency(double f){
         this.f = f;
     }
@@ -64,7 +65,7 @@ public class NoisyComplexSinusoid implements SignalGenerator{
      * Use getReal and getImag to get the individual components.
      */
     @Override
-    public double[] generateReceivedSignal(){
+    public Double[] generateReceivedSignal(){
         for(int i = 0; i < N; i++){
             real[i] = Math.cos(i*2*Math.PI*f + p) + noise.getNoise();
             imag[i] = Math.sin(i*2*Math.PI*f + p) + noise.getNoise();

@@ -5,11 +5,15 @@
 
 package pubsim.distributions;
 
+import pubsim.Complex;
+import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.WrappedCircularRandomVariable;
+
 /**
  * A `impulse' random variable, or dirac delta etc.
  * @author harprobey
  */
-public class ImpulseRandomVariable implements RandomVariable {
+public class ImpulseRandomVariable implements ContinuousRandomVariable {
 
     protected final double dval;
 
@@ -22,13 +26,13 @@ public class ImpulseRandomVariable implements RandomVariable {
     }
 
     @Override
-    public double getNoise() {
+    public Double getNoise() {
         return dval;
     }
 
     /**
      * Return 1.0 at the impulse.  This makes plotting it easy and is
-     * correct for discrete rv's but isn't strictly correct for continous rv's.
+     * correct for discrete RV's but isn't strictly correct for continuous RV's.
      */
     public double pdf(double x) {
         if(x == dval) return 1.0;
@@ -56,6 +60,17 @@ public class ImpulseRandomVariable implements RandomVariable {
     public double cdf(double x) {
         if(x >= dval) return 1.0;
         else return 0;
+    }
+
+    /** Default is the return the wrapped version of this random variable */
+    @Override
+    public CircularRandomVariable getWrapped() {
+        return new WrappedCircularRandomVariable(this);
+    }
+
+    @Override
+    public Complex characteristicFunction(double t) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

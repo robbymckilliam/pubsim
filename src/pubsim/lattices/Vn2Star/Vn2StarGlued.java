@@ -6,8 +6,8 @@
 
 package pubsim.lattices.Vn2Star;
 
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import pubsim.lattices.Anstar.Anstar;
+import pubsim.lattices.Anstar.AnstarBucketVaughan;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the

@@ -14,8 +14,7 @@ import pubsim.qam.FadingNoisyQAM;
  * by a predetermined sequence of pilot symbols.
  * @author Robby
  */
-public class PilotSequencedFadingNoisyQAM extends FadingNoisyQAM
-        implements SignalGenerator {
+public class PilotSequencedFadingNoisyQAM extends FadingNoisyQAM {
     
     public PilotSequencedFadingNoisyQAM() {
         super();
@@ -29,7 +28,7 @@ public class PilotSequencedFadingNoisyQAM extends FadingNoisyQAM
      * Generate a random QAM signal of the currently
      * specified length.  The pilot is used to translate each.
      * Note that the pilot does not need to be a QAM symbol!
-     * It can be anything.  Infact, analysis suggests that the
+     * It can be anything.  In fact, analysis suggests that the
      * power of this symbol can be very small.
      */
     @Override

@@ -15,7 +15,7 @@ import pubsim.distributions.NoiseGenerator;
  * fading channel with added iid Gaussian noise.
  * @author robertm
  */
-public class PSKSignal implements SignalGenerator{
+public class PSKSignal implements SignalGenerator<Double>{
     
     /** Block length */
     protected int T;
@@ -32,7 +32,7 @@ public class PSKSignal implements SignalGenerator{
     /** Received complex signal */
     protected Complex[] y;
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     protected Random random;
     
     /** Default constructor using 8-ary QAM */
@@ -65,7 +65,7 @@ public class PSKSignal implements SignalGenerator{
     /** Set M for M-PSK. */
     public void setM(int M){ this.M = M; }
 
-    public double[] generateReceivedSignal() {
+    public Double[] generateReceivedSignal() {
         //Complex xc = new Complex();
         //Complex nos = new Complex();
         for(int i=0; i < y.length; i++){

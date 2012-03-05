@@ -58,7 +58,7 @@ public class E8Test {
         SphereDecoder tester = new SphereDecoder(instance);
         
         for(int i = 0; i < iters; i++){
-            double[] y = siggen.generateReceivedSignal();
+            Double[] y = siggen.generateReceivedSignal();
             instance.nearestPoint(y);
             tester.nearestPoint(y);
             //System.out.println(print(instance.getLatticePoint()));

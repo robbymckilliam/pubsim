@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.Complex;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -59,7 +59,7 @@ public class CoxeterNoncoherentRecieverTest {
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        RandomVariable noise = new pubsim.distributions.GaussianNoise(0.0, 0.05);
+        ContinuousRandomVariable noise = new pubsim.distributions.GaussianNoise(0.0, 0.05);
         signal.setNoiseGenerator(noise);
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));

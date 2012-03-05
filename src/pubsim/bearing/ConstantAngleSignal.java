@@ -14,7 +14,7 @@ import static pubsim.Util.fracpart;
  * Assumes that angles are measure in interval [-1/2, 1/2).
  * @author Robby McKilliam
  */
-public class ConstantAngleSignal extends NoiseVector implements SignalGenerator{
+public class ConstantAngleSignal extends NoiseVector {
 
     protected double angle = 0.0;
 
@@ -32,9 +32,9 @@ public class ConstantAngleSignal extends NoiseVector implements SignalGenerator{
      * Generate the noise of length n.
      */
     @Override
-    public double[] generateReceivedSignal(){
+    public Double[] generateReceivedSignal(){
         if( iidsignal.length != n )
-            iidsignal = new double[n];
+            iidsignal = new Double[n];
         for(int i = 0; i < n; i++)
             iidsignal[i] = fracpart(noise.getNoise() + angle);
         return iidsignal;

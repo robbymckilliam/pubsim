@@ -10,7 +10,7 @@ import pubsim.bearing.phase.PhaseEstimator;
 import pubsim.bearing.phase.ConstantPhaseSignal;
 import pubsim.bearing.AngularLeastSquaresEstimator;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.ProjectedNormalDistribution;
 import java.io.BufferedWriter;
@@ -46,7 +46,7 @@ public class RunSimulation {
         //double to_var_db = -40.0;
         double step_var_db = -1;
 
-        Vector<RandomVariable> noise_array = new Vector<RandomVariable>();
+        Vector<ContinuousRandomVariable> noise_array = new Vector<ContinuousRandomVariable>();
         Vector<Double> var_db_array = new Vector<Double>();
         for(double vardb = from_var_db; vardb >= to_var_db; vardb += step_var_db){
             var_db_array.add(new Double(vardb));
@@ -72,7 +72,7 @@ public class RunSimulation {
             java.util.Date start_time = new java.util.Date();
             for(int i = 0; i < noise_array.size(); i++){
 
-                RandomVariable noise = noise_array.get(i);
+                ContinuousRandomVariable noise = noise_array.get(i);
                 signal_gen.setNoiseGenerator(noise);
 
                 double mse = runIterations(est, signal_gen, iterations);
@@ -111,7 +111,7 @@ public class RunSimulation {
         Vector<Double> mse_array = new Vector<Double>(noise_array.size());
         //finally print out the asymptotic circularVariance
         for(int i = 0; i < noise_array.size(); i++){
-                RandomVariable noise = noise_array.get(i);
+                ContinuousRandomVariable noise = noise_array.get(i);
                 CircularRandomVariable circn = new ProjectedNormalDistribution(0.0, noise.getVariance());
                 double mse = new AngularLeastSquaresEstimator(0).asymptoticVariance(circn, n);
                 //double mse = new VectorMeanEstimator().asymptoticVariance(circn, n);

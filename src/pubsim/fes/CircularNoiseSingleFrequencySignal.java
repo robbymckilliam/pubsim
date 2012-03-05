@@ -5,7 +5,7 @@
 
 package pubsim.fes;
 
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 
 /**
@@ -19,7 +19,7 @@ public class CircularNoiseSingleFrequencySignal extends NoisyComplexSinusoid{
     }
 
     @Override
-    public double[] generateReceivedSignal() {
+    public Double[] generateReceivedSignal() {
         for(int t = 0; t < N; t++){
             double phi = t*f + p;
             double pnoise = noise.getNoise();

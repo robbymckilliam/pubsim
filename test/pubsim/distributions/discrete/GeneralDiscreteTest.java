@@ -5,15 +5,11 @@
 
 package pubsim.distributions.discrete;
 
-import pubsim.distributions.discrete.GeneralDiscrete;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import org.junit.*;
 
 /**
  *
@@ -63,12 +59,12 @@ public class GeneralDiscreteTest {
         Map<Integer, Double> pdf = new HashMap<Integer, Double>(2);
         pdf.put(1, 0.5); pdf.put(3, 0.5);
         GeneralDiscrete dist = new GeneralDiscrete(pdf);
-        assertEquals(0.5, dist.pdf(1), 0.000001);
-        assertEquals(0.5, dist.pdf(3), 0.000001);
-        assertEquals(0, dist.pdf(2), 0.000001);
-        assertEquals(0, dist.pdf(5), 0.000001);
-        assertEquals(0, dist.pdf(4), 0.000001);
-        assertEquals(0, dist.pdf(0), 0.000001);
+        assertEquals(0.5, dist.pmf(1), 0.000001);
+        assertEquals(0.5, dist.pmf(3), 0.000001);
+        assertEquals(0, dist.pmf(2), 0.000001);
+        assertEquals(0, dist.pmf(5), 0.000001);
+        assertEquals(0, dist.pmf(4), 0.000001);
+        assertEquals(0, dist.pmf(0), 0.000001);
     }
     
     /**
@@ -80,12 +76,12 @@ public class GeneralDiscreteTest {
         Map<Integer, Double> pdf = new HashMap<Integer, Double>(2);
         pdf.put(1, 0.5); pdf.put(3, 0.5);
         GeneralDiscrete dist = new GeneralDiscrete(pdf);
-        assertEquals(0.5, dist.cdf(1), 0.000001);
-        assertEquals(1.0, dist.cdf(3), 0.000001);
-        assertEquals(0.5, dist.cdf(2), 0.000001);
-        assertEquals(1.0, dist.cdf(5), 0.000001);
-        assertEquals(1.0, dist.cdf(4), 0.000001);
-        assertEquals(0, dist.cdf(0), 0.000001);
+        assertEquals(0.5, dist.cmf(1), 0.000001);
+        assertEquals(1.0, dist.cmf(3), 0.000001);
+        assertEquals(0.5, dist.cmf(2), 0.000001);
+        assertEquals(1.0, dist.cmf(5), 0.000001);
+        assertEquals(1.0, dist.cmf(4), 0.000001);
+        assertEquals(0, dist.cmf(0), 0.000001);
     }
 
 

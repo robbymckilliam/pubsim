@@ -17,12 +17,12 @@ public class LeastSquaresUnwrapping implements PhaseEstimator {
 
     private AngularLeastSquaresEstimator ls;
     private int n;
-    double[] a;
+    Double[] a;
 
     public void setSize(int n) {
         this.n = n;
         ls = new AngularLeastSquaresEstimator(n);
-        a = new double[n];
+        a = new Double[n];
     }
 
     public double estimatePhase(Complex[] y) {

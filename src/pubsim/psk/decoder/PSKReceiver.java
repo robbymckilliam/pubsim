@@ -25,14 +25,14 @@ public interface PSKReceiver {
     double[] decode(Complex[] y);
     
     /** 
-     * Calculate the bit errors between this the recieved
-     * signal and a transmitted signal for this reciever.
+     * Calculate the bit errors between this the received
+     * signal and a transmitted signal for this receiver.
      */
     int bitErrors(double[] x);
     
     /** 
-     * Calculate the symbol errors between this the recieved
-     * signal and a transmitted signal for this reciever.
+     * Calculate the symbol errors between this the received
+     * signal and a transmitted signal for this receiver.
      */
     int symbolErrors(double[] x);
     
@@ -43,12 +43,12 @@ public interface PSKReceiver {
      
     /** 
      * Return the number of bits transmitted per codeword for
-     * this reciever
+     * this receiver
      */
     int bitsPerCodeword();
     
     /**
-     * Set the channel that the reciever should use.
+     * Set the channel that the receiver should use.
      */
     void setChannel(Complex h);
    

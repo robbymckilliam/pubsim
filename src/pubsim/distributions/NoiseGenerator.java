@@ -4,17 +4,19 @@
  */
 package pubsim.distributions;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Robby McKilliam
  */
-public interface NoiseGenerator {
+public interface NoiseGenerator<T> extends Serializable {
     
     /**
      * Returns a random variable from the noise
      * distribution.
      */
-    public double getNoise();
+    public T getNoise();
     
     /** Randomise the seed for the internal Random */ 
     public void randomSeed();

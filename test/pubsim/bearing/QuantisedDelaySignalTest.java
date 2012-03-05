@@ -5,8 +5,6 @@
 
 package pubsim.bearing;
 
-import pubsim.bearing.QuantisedDelaySignal;
-import pubsim.distributions.discrete.GeometricRandomVariable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import pubsim.distributions.GaussianNoise;
 
 /**
  *
@@ -50,16 +49,15 @@ public class QuantisedDelaySignalTest {
     public void testSetDelay() {
 
         int n = 200000;
-        double p = 0.5;
         double P = 1/(4*Math.PI*Math.PI);
 
         QuantisedDelaySignal siggen = new QuantisedDelaySignal(n);
         siggen.setDelay(0);
         siggen.setClockPeriod(P);
 
-        siggen.setNoiseGenerator(new GeometricRandomVariable(p));
+        siggen.setNoiseGenerator(new GaussianNoise(0,0));
 
-        double[] signal = siggen.generateReceivedSignal();
+        Double[] signal = siggen.generateReceivedSignal();
 
         double var = 0;
 

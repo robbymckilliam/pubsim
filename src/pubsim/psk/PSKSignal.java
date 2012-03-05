@@ -8,7 +8,7 @@ package pubsim.psk;
 
 import java.util.LinkedList;
 import java.util.Random;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 
@@ -16,9 +16,9 @@ import pubsim.distributions.NoiseGenerator;
  * Generates a baseband sampled QPSK signal.
  * @author Robby McKilliam
  */
-public class PSKSignal implements SignalGenerator{
+public class PSKSignal implements SignalGenerator<Double>{
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     protected Random random;
     protected double symF;
     protected double transF;
@@ -53,7 +53,8 @@ public class PSKSignal implements SignalGenerator{
      * Use getReal() and getImag() to get the real and 
      * imaginary part of the signal.
      */
-    public double[] generateReceivedSignal(){
+    @Override
+    public Double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++){
             // phase offset associated with each of the M symbols
             double pha = 

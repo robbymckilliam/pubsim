@@ -6,7 +6,7 @@
 package pubsim;
 
 import Jama.Matrix;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import java.util.Date;
 import java.util.Random;
 import rngpack.Ranlux;
@@ -99,6 +99,28 @@ public final class VectorFunctions {
         }
         return Math.sqrt(out);
     }
+    
+    /**
+     * Euclidean distance between two vectors
+     */
+    public static double distance_between(Integer[] x, Double[] s) {
+        double out = 0.0;
+        for (int i = 0; i < x.length; i++) {
+            out += Math.pow(x[i] - s[i], 2.0);
+        }
+        return Math.sqrt(out);
+    }
+    
+    /**
+     * Euclidean distance between two vectors
+     */
+    public static double distance_between(Double[] x, Double[] s) {
+        double out = 0.0;
+        for (int i = 0; i < x.length; i++) {
+            out += Math.pow(x[i] - s[i], 2.0);
+        }
+        return Math.sqrt(out);
+    }
 
     /**
      * Squared Euclidean distance between two vectors
@@ -125,7 +147,7 @@ public final class VectorFunctions {
     /**
      * Generate m x n matrix with random elements taken from given distribution.
      */
-    public static Matrix randomMatrix(int m, int n, RandomVariable noise){
+    public static Matrix randomMatrix(int m, int n, ContinuousRandomVariable noise){
         Matrix M = new Matrix(m, n);
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
@@ -250,6 +272,17 @@ public final class VectorFunctions {
         }
         return out;
     }
+    
+    /**
+     * Return the sum of a vector
+     */
+    public static int sum(Integer[] x) {
+        int out = 0;
+        for (int i = 0; i < x.length; i++) {
+            out += x[i];
+        }
+        return out;
+    }
 
     /**
      * Return the sum of a vector
@@ -271,6 +304,17 @@ public final class VectorFunctions {
     public static void round(double[] x, double[] y) {
         for (int i = 0; i < x.length; i++) {
             y[i] = Math.round(x[i]);
+        }
+    }
+    
+    /**
+     * Return the vector with each element rounded to
+     * the nearest integer.
+     * Pre: x.length = y.length
+     */
+    public static void round(Double[] x, Integer[] y) {
+        for (int i = 0; i < x.length; i++) {
+            y[i] = (int) Math.round(x[i]);
         }
     }
 
@@ -438,6 +482,19 @@ public final class VectorFunctions {
         }
         return d;
     }
+    
+    /**
+     * Compute the mth difference of a vector.
+     * i.e. the mth psuedoderivative.
+     */
+    public static double[] mthDifference(Double[] y, int m){
+        double[] d = new double[y.length];
+        for(int i = 0; i < y.length; i++) d[i] = y[i];
+        for(int i = 1; i<=m; i++){
+            d = firstDifference(d);
+        }
+        return d;
+    }
 
     /**
      * Compute the first difference of a vector.
@@ -528,6 +585,18 @@ public final class VectorFunctions {
      * Return true if the vector is increasing
      */
     public static boolean increasing(double[] x) {
+        for (int i = 0; i < x.length - 1; i++) {
+            if (x[i] > x[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Return true if the vector is increasing
+     */
+    public static boolean increasing(Integer[] x) {
         for (int i = 0; i < x.length - 1; i++) {
             if (x[i] > x[i + 1]) {
                 return false;
@@ -872,6 +941,19 @@ public final class VectorFunctions {
     public static double[] matrixMultVector(Matrix M, double[] x) {
         double[] y = new double[M.getRowDimension()];
         matrixMultVector(M, x, y);
+        return y;
+    }
+    
+    /**
+     * y and x and vector, M is a matrix.
+     * Performs y = M*x.
+     * PRE: x.length = j, y.length = i, M is i by j matrix
+     */
+    public static double[] matrixMultVector(Matrix M, Double[] x) {
+        double[] y = new double[M.getRowDimension()];
+        double[] xd = new double[x.length];
+        for(int i = 0; i < x.length; i++) xd[i] = x[i];
+        matrixMultVector(M, xd, y);
         return y;
     }
 

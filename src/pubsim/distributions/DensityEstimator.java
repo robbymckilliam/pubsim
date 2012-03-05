@@ -22,13 +22,13 @@ import pubsim.optimisation.SingleVariateFunction;
 public class DensityEstimator extends AbstractRandomVariable {
 
     protected final double[] d;
-    protected final RandomVariable ker;
+    protected final ContinuousRandomVariable ker;
 
     /**
      * Constructor takes an array of d and a kernel function represented
-     * by a RandomVariable (really just the pdf function is needed).
+     * by a ContinuousRandomVariable (really just the pdf function is needed).
      */
-    public DensityEstimator(final double[] data, RandomVariable kernel){
+    public DensityEstimator(final double[] data, ContinuousRandomVariable kernel){
         d = data;
         ker = kernel;
     }

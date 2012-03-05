@@ -31,7 +31,7 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(20);
         instance.setSparseGenerator(new PoissonRandomVariable(2));
         
-        double[] sig = instance.generateSparseSignal(20);
+        Integer[] sig = instance.generateSparseSignal();
         boolean result = false;
         result = VectorFunctions.increasing(sig);
         for(int i = 0; i < sig.length; i++){
@@ -52,13 +52,13 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(length);
         instance.setSparseGenerator(new PoissonRandomVariable(2));
 
-        pubsim.distributions.RandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 1.0/3.0);
+        pubsim.distributions.ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 1.0/3.0);
         instance.setNoiseGenerator(noise);   
-        double[] rec_sig = instance.generateSparseSignal(length);
+        Integer[] rec_sig = instance.generateSparseSignal();
         instance.setSparseSignal(rec_sig);
         instance.setPeriod(T);
        
-        double[] sig = instance.generateReceivedSignal();
+        Double[] sig = instance.generateReceivedSignal();
         boolean result;
         for (int i = 0; i < length; i++){
             result = (sig[i] <= (T*rec_sig[i] + 1.0)) && (sig[i] >= (T*rec_sig[i] - 1.0));

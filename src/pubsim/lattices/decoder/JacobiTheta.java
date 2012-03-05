@@ -39,5 +39,10 @@ public class JacobiTheta implements NearestPointAlgorithm{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void nearestPoint(Double[] y) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 }

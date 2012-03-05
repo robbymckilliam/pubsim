@@ -39,7 +39,7 @@ public class DnTest extends TestCase {
         SphereDecoder tester = new SphereDecoder(instance);
         
         for(int i = 0; i < iters; i++){
-            double[] y = siggen.generateReceivedSignal();
+            Double[] y = siggen.generateReceivedSignal();
             instance.nearestPoint(y);
             tester.nearestPoint(y);
             assertEquals(VectorFunctions.distance_between(instance.getLatticePoint(), tester.getLatticePoint())<0.0001, true);

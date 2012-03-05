@@ -15,10 +15,10 @@ import pubsim.distributions.NoiseGenerator;
  * and frequency of some transmitters and the position of a sensor
  * @author Robby McKilliam
  */
-public class NoisyPhaseSignals implements SignalGenerator{
+public class NoisyPhaseSignals implements SignalGenerator<Double>{
     
-    NoiseGenerator noise;
-    double[] d;
+    NoiseGenerator<Double> noise;
+    Double[] d;
     Point2 x;
     int N;
 
@@ -38,7 +38,7 @@ public class NoisyPhaseSignals implements SignalGenerator{
         this.trans = trans;
         this.x = x;
         N = trans.length;
-        d = new double[N];
+        d = new Double[N];
 
     }
 
@@ -47,7 +47,7 @@ public class NoisyPhaseSignals implements SignalGenerator{
         return trans;
     }
 
-    public double[] generateReceivedSignal() {
+    public Double[] generateReceivedSignal() {
         for(int n = 0; n < N; n++){
             double dist = VectorFunctions.distance_between(
                     x.getColumnPackedCopy(), trans[n].point().getColumnPackedCopy());
@@ -58,8 +58,8 @@ public class NoisyPhaseSignals implements SignalGenerator{
         return d;
     }
 
-    /** Generate the recived signal for location x */
-    public double[] generateReceivedSignal(Point2 x) {
+    /** Generate the received signal for location x */
+    public Double[] generateReceivedSignal(Point2 x) {
         for(int n = 0; n < N; n++){
             double dist = VectorFunctions.distance_between(
                     x.getColumnPackedCopy(), trans[n].point().getColumnPackedCopy());

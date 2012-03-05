@@ -6,7 +6,7 @@
 package pubsim.distributions.circular;
 
 import java.util.Random;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import cern.jet.math.Bessel;
 
 /**
@@ -34,6 +34,7 @@ public class VonMises extends CircularRandomVariable{
      * The actually gets the von Mises parameter (usually denoted kappa)
      * which is a dispersion parameter similar to variance.
      */
+    @Override
     public double getVariance() {
         return kappa;
     }
@@ -42,7 +43,8 @@ public class VonMises extends CircularRandomVariable{
      * Generates von Mises noise using an algorithm of Best and Fisher.
      * See Mardia, Directional Statistics, p43.
      */
-    public double getNoise() {
+    @Override
+    public Double getNoise() {
         double a = 1 + Math.sqrt(1 + 4*kappa*kappa);
         double b = (a - Math.sqrt(2*a))/(2*kappa);
         double r = (1 + b*b)/(2*b);

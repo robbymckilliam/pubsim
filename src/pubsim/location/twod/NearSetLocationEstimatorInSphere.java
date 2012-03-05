@@ -28,7 +28,8 @@ public class NearSetLocationEstimatorInSphere
     }
 
     private final Point2 origin = new Point2(0,0);
-    public Point2 estimateLocation(double[] d) {
+    @Override
+    public Point2 estimateLocation(Double[] d) {
 
         double Lbest = Double.NEGATIVE_INFINITY;
 

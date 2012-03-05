@@ -7,7 +7,7 @@ package pubsim.distributions.processes;
 import Jama.Matrix;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.optimisation.AutoIntegralFunction;
 
 /**
@@ -19,19 +19,19 @@ import pubsim.optimisation.AutoIntegralFunction;
 public class InverseCDFStationaryProcess implements StationaryProcess {
     
     protected final ColouredGaussianNoise X;
-    protected final RandomVariable g, y;
+    protected final ContinuousRandomVariable g, y;
     protected double[] ac;
     
     protected InverseCDFStationaryProcess(){ X = null; g = null; y = null;}
     
-    public InverseCDFStationaryProcess(RandomVariable rv, double[] filter){
+    public InverseCDFStationaryProcess(ContinuousRandomVariable rv, double[] filter){
        X = new ColouredGaussianNoise(filter);
        g = X.marginal();
        y = rv;       
     }
 
     @Override
-    public RandomVariable marginal() {
+    public ContinuousRandomVariable marginal() {
         return y;
     }
 
@@ -96,7 +96,7 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
     }
     
     @Override
-    public double getNoise() {
+    public Double getNoise() {
         return y.icdf(g.cdf(X.getNoise()));
     }
 

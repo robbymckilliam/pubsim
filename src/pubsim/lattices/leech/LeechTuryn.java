@@ -147,5 +147,12 @@ public class LeechTuryn extends Leech implements LatticeAndNearestPointAlgorithm
     public double[] getIndex() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    private double[] yDoubletoy = new double[24];
+    @Override
+    public void nearestPoint(Double[] y) {
+        for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
+    }
 
 }

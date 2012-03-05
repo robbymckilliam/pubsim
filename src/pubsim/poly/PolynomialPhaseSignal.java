@@ -16,7 +16,7 @@ import pubsim.distributions.NoiseGenerator;
  * by the setParameters method.
  * @author Robby McKilliam
  */
-public class PolynomialPhaseSignal implements SignalGenerator{
+public class PolynomialPhaseSignal implements SignalGenerator<Double>{
     
     protected double[] params;
     protected double[] real;
@@ -24,7 +24,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     
     protected int n;
     
-    protected NoiseGenerator noise;
+    protected NoiseGenerator<Double> noise;
     
     public PolynomialPhaseSignal(int N){
         this.n = N;
@@ -33,7 +33,7 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     }
 
     @Override
-    public double[] generateReceivedSignal() {
+    public Double[] generateReceivedSignal() {
         for(int t = 0; t < n; t++){
             double phase = 0.0;
             for(int j = 0; j < params.length; j++)
@@ -45,12 +45,12 @@ public class PolynomialPhaseSignal implements SignalGenerator{
     }
 
     @Override
-    public void setNoiseGenerator(NoiseGenerator noise) {
+    public void setNoiseGenerator(NoiseGenerator<Double> noise) {
         this.noise = noise;
     }
 
     @Override
-    public NoiseGenerator getNoiseGenerator() {
+    public NoiseGenerator<Double> getNoiseGenerator() {
         return noise;
     }
 

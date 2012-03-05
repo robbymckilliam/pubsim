@@ -12,7 +12,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.processes.NoiseVector;
 import pubsim.distributions.circular.WrappedGaussian;
@@ -53,11 +53,11 @@ public class SampleCircularMeanTest {
         int n = 20;
         double mean = 0.2;
         
-        RandomVariable noise = new WrappedGaussian(mean, 0.0001);
+        ContinuousRandomVariable noise = new WrappedGaussian(mean, 0.0001);
         NoiseVector sig = new NoiseVector(n);
         sig.setNoiseGenerator(noise);
         
-        double[] y = sig.generateReceivedSignal();
+        Double[] y = sig.generateReceivedSignal();
         
         BearingEstimator instance = new SampleCircularMean();
 
@@ -84,7 +84,7 @@ public class SampleCircularMeanTest {
         NoiseVector sig = new NoiseVector(n);
         sig.setNoiseGenerator(noise);
 
-        double[] y = sig.generateReceivedSignal();
+        Double[] y = sig.generateReceivedSignal();
 
         BearingEstimator instance = new SampleCircularMean();
 

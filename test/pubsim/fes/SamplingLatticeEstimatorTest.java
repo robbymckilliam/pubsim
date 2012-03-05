@@ -5,8 +5,6 @@
 
 package pubsim.fes;
 
-import pubsim.fes.NoisyComplexSinusoid;
-import pubsim.fes.SamplingLatticeEstimator;
 import junit.framework.TestCase;
 
 /**
@@ -24,14 +22,14 @@ public class SamplingLatticeEstimatorTest extends TestCase {
     public void testEstimateFreq() {
         System.out.println("estimateFreq");
         
-        int iters = 100;
+        int iters = 5;
         double f = 0.2;
-        int N = 5;
+        int N = 20;
         SamplingLatticeEstimator instance = new SamplingLatticeEstimator(N,100);
         
         NoisyComplexSinusoid signal = new NoisyComplexSinusoid(N);
         signal.setFrequency(f);
-        pubsim.distributions.GaussianNoise noise = new pubsim.distributions.GaussianNoise(0.0,0.0001);
+        pubsim.distributions.GaussianNoise noise = new pubsim.distributions.GaussianNoise(0.0,0.00001);
         signal.setNoiseGenerator(noise);
         
         signal.generateReceivedSignal();

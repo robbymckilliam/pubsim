@@ -9,7 +9,7 @@ import pubsim.fes.NoisyComplexSinusoid;
 import pubsim.fes.ZnLLS;
 import pubsim.fes.FrequencyEstimator;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.RandomVariable;
+import pubsim.distributions.ContinuousRandomVariable;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
@@ -38,7 +38,7 @@ public class RunComputationalTrials {
         double to_log_snr = -20.0;
         double step_log_snr = -2;
 
-        Vector<RandomVariable> noise_array = new Vector<RandomVariable>();
+        Vector<ContinuousRandomVariable> noise_array = new Vector<ContinuousRandomVariable>();
         Vector<Double> snr_db_array = new Vector<Double>();
         for(double snrdb = from_log_snr; snrdb > to_log_snr; snrdb += step_log_snr){
             snr_db_array.add(new Double(snrdb));
@@ -64,7 +64,7 @@ public class RunComputationalTrials {
             java.util.Date start_time = new java.util.Date();
             Random r = new Random();
             for(int i = 0; i < noise_array.size(); i++){
-                RandomVariable noise = noise_array.get(i);
+                ContinuousRandomVariable noise = noise_array.get(i);
                 signal_gen.setNoiseGenerator(noise);
                 for(int ii = 0; i < iterations; i++){
 

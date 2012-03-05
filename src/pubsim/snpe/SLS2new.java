@@ -32,7 +32,7 @@ public class SLS2new implements PRIEstimator {
 	u = new int[m];
     }
 
-    public void estimate(double[] y, double Tmin, double Tmax) {
+    public void estimate(Double[] y, double Tmin, double Tmax) {
         double fmin = 1/Tmax; double fmax = 1/Tmin;
 	if (N != y.length)
 	    setSize(y.length);

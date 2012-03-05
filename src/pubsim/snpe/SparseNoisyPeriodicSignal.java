@@ -18,22 +18,24 @@ import pubsim.distributions.NoiseGenerator;
  * 
  * @author Robby McKilliam
  */
-public class SparseNoisyPeriodicSignal implements SignalGenerator {
+public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
     
-    protected double[] transmittedSignal;
-    protected double[] recievedSignal;
-    protected NoiseGenerator noise;
-    protected NoiseGenerator sparsenoise;
+    protected Integer[] sparseSignal;
+    protected Double[] recievedSignal;
+    protected NoiseGenerator<Double> noise;
+    protected NoiseGenerator<Integer> sparsenoise;
     protected double T = 1.0;
     protected int N;
     protected double phase = 0.0;
     
     public SparseNoisyPeriodicSignal(int N){
-        setLength(N);
+        this.N = N;
+        sparseSignal = new Integer[N];
+        recievedSignal = new Double[N];
     }
     
-    public void setSparseSignal(double[] transmitted){
-        transmittedSignal = transmitted;
+    public void setSparseSignal(Integer[] S){
+        sparseSignal = S;
     }
     
     public void setPeriod(double T){  this.T = T; }
@@ -41,62 +43,50 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator {
     public void setPhase(double p){  phase = p; }
     public double getPhase(){ return phase; }
     
-    /** {@inheritDoc} */
-    public void setLength(int n){
-        this.N = n;
-        transmittedSignal = new double[n];
-        recievedSignal = new double[n];
-    }
     
     /** {@inheritDoc} */
+    @Override
     public int getLength() {return N; }
     
-    public double[] generateSparseSignal(){
+    public Integer[] generateSparseSignal(){
         int sum = 0;
         for(int i = 0; i < N; i++){
             sum += sparsenoise.getNoise();
-            transmittedSignal[i] = sum;
+            sparseSignal[i] = sum;
         }
-        return transmittedSignal;
+        return sparseSignal;
     }
-    
-    /**
-     * Generate a binomial sequence typical of a transmitted
-     * sparse signal.
-     */
-    public double[] generateSparseSignal(int length){
-        if( N != length ) setLength(length);
-        return generateSparseSignal();
-    }
-    
+
     /**
      * Generate sparse noisy signal
      */
-    public double[] generateReceivedSignal() {
-          if(transmittedSignal == null )
+    @Override
+    public Double[] generateReceivedSignal() {
+          if(sparseSignal == null )
               throw new java.lang.NullPointerException
                       ("transmitted signal has not been allocated\n" +
                       "call generateSparseSignal(length) first ");
           
-          for(int i = 0; i< transmittedSignal.length; i++){
-              recievedSignal[i] = T * transmittedSignal[i]
+          for(int i = 0; i< sparseSignal.length; i++){
+              recievedSignal[i] = T * sparseSignal[i]
                                     + noise.getNoise() + phase;
           }
-          
           return recievedSignal;
     }
 
     /** Set the discrete noise type for sparse signal */
-    public void setSparseGenerator(NoiseGenerator sparsenoise){
+    public void setSparseGenerator(NoiseGenerator<Integer> sparsenoise){
         this.sparsenoise = sparsenoise;
     }
-    public NoiseGenerator getSparseGenerator(){ return sparsenoise; }
+    public NoiseGenerator<Integer> getSparseGenerator(){ return sparsenoise; }
 
     /** Set the noise type for the signal */
-    public void setNoiseGenerator(NoiseGenerator noise){
+    @Override
+    public void setNoiseGenerator(NoiseGenerator<Double> noise){
         this.noise = noise;
     }
-    public NoiseGenerator getNoiseGenerator(){ return noise; }
+    @Override
+    public NoiseGenerator<Double> getNoiseGenerator(){ return noise; }
     
     /**
      * Set the seed for the random generator used

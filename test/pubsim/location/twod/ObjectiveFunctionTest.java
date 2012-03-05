@@ -50,7 +50,7 @@ public class ObjectiveFunctionTest {
         Point2 x = new Point2();
         Transmitter[] trans = new Transmitter[1];
         trans[0] = new Transmitter(new Point2(1.0,0.0), 100);
-        double[] d = new double[1];
+        Double[] d = new Double[1];
         d[0] = 1.0;
         ObjectiveFunction instance = new ObjectiveFunction(trans, d);
         double expResult = -0.0;

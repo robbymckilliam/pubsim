@@ -8,21 +8,15 @@ package pubsim.distributions.discrete;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import rngpack.RandomElement;
-import rngpack.RandomSeedable;
-import rngpack.Ranlux;
-import pubsim.distributions.RandomVariable;
 
 /**
  * General discrete distribution. Uses a map to set the pdf.
  * @author Robby McKilliam
  */
-public class GeneralDiscrete implements RandomVariable{
+public class GeneralDiscrete extends AbstractDiscreteRandomVariable implements DiscreteRandomVariable{
 
     protected final TreeMap<Integer, Double> pdf;
     protected final double mean, variance;
-
-    protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
 
     /**
      * Will rescale the pdf if it doesn't sum to one.
@@ -55,15 +49,18 @@ public class GeneralDiscrete implements RandomVariable{
         variance = varsum;
     }
 
+    @Override
     public double getMean() {
         return mean;
     }
 
+    @Override
     public double getVariance() {
         return variance;
     }
 
-    public double getNoise() {
+    @Override
+    public Integer getNoise() {
         double r = random.raw();
         double pdfsum = 0;
         int k = 0;
@@ -75,28 +72,22 @@ public class GeneralDiscrete implements RandomVariable{
         return k;
     }
 
-    /** Randomise the seed for the internal Random */
-    public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
-
-
-    /** Set the seed for the internal Random */
-    public void setSeed(long seed) { random = new Ranlux(seed); }
-
-    public double pdf(double x) {
-        int k = (int)Math.round(x);
+    @Override
+    public double pmf(Integer k) {
         if(pdf.containsKey(k)) return pdf.get(k);
         else return 0.0;
     }
 
-    public double cdf(double x) {
-        int k = (int)Math.round(x);
+    @Override
+    public double cmf(Integer k) {
         double pdfsum = 0.0;
         for( Entry<Integer, Double> e : pdf.headMap(k+1).entrySet())
             pdfsum += e.getValue();
         return pdfsum;
     }
 
-    public double icdf(double x) {
+    @Override
+    public Integer icmf(double x) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

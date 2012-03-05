@@ -20,7 +20,8 @@ import pubsim.bearing.SampleCircularMean;
  */
 public class KitchenEstimator implements PolynomialPhaseEstimator{
 
-    protected double[] y, p;
+    protected Double[] y;
+    protected double[] p;
     final protected int m, N;
     
     protected AmbiguityRemover ambiguityRemover;
@@ -29,7 +30,7 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
         this.m = m;
         ambiguityRemover = new AmbiguityRemover(m);
         this.N = N;
-        y = new double[N];
+        y = new Double[N];
         p = new double[m+1];
     }
 
@@ -54,7 +55,7 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
     }
 
     /** Estimate the Mth order parameter */
-    protected double estimateM(double[] y, int M){
+    protected double estimateM(Double[] y, int M){
 
         //if it's the last parameter just run sample circular mean
         //otherwise the estimator needs the phase parameter bounded,

@@ -36,7 +36,7 @@ public class SLS2all implements PRIEstimator {
 	kappa = new double[N];
     }
 
-    public void estimate(double[] y, double Tmin, double Tmax) {
+    public void estimate(Double[] y, double Tmin, double Tmax) {
 
         //first compute the period estimate
         double fmin = 1/Tmax; double fmax = 1/Tmin;

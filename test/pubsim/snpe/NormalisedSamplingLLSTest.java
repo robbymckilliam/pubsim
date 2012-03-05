@@ -5,16 +5,10 @@
 
 package pubsim.snpe;
 
-import pubsim.snpe.NormalisedSamplingLLS;
-import pubsim.snpe.SparseNoisyPeriodicSignal;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 import pubsim.distributions.GaussianNoise;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import pubsim.distributions.discrete.PoissonRandomVariable;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -63,9 +57,8 @@ public class NormalisedSamplingLLSTest {
         sig.setPhase(phase);
         sig.setNoiseGenerator(noise);
         sig.setSparseGenerator(new PoissonRandomVariable(2));
-        sig.generateSparseSignal(n);
-        double[] trans = sig.generateSparseSignal(n);
-        double[] y = sig.generateReceivedSignal();
+        Integer[] trans = sig.generateSparseSignal();
+        Double[] y = sig.generateReceivedSignal();
 
         instance.estimate(y, Tmin, Tmax);
         System.out.println(instance.getPeriod() + "\t" + instance.getPhase());

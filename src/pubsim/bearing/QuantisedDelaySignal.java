@@ -11,11 +11,11 @@ import pubsim.SignalGenerator;
 import static pubsim.Util.fracpart;
 
 /**
- * Simulates a quatised timer for delay estimation with incomplete data.
+ * Simulates a quantised timer for delay estimation with incomplete data.
  * The assumes that the period of the signal T = 1.
  * @author Robby McKilliam
  */
-public class QuantisedDelaySignal extends NoiseVector implements SignalGenerator{
+public class QuantisedDelaySignal extends NoiseVector{
 
     protected double delay = 0.0;
     private double P;
@@ -44,9 +44,9 @@ public class QuantisedDelaySignal extends NoiseVector implements SignalGenerator
      * that generates the sparse u
      */
     @Override
-    public double[] generateReceivedSignal(){
+    public Double[] generateReceivedSignal(){
         if( iidsignal.length != n )
-            iidsignal = new double[n];
+            iidsignal = new Double[n];
 
         //WrappedUniform.Mod1 cnoise = new WrappedUniform.Mod1();
         //cnoise.setRange(P);

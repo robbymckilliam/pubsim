@@ -141,4 +141,13 @@ public class MinCutFirstType implements NearestPointAlgorithm {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            yDoubletoy = new double[y.length];
+        for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
+    }
+    
 }

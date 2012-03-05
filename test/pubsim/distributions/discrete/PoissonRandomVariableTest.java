@@ -5,13 +5,8 @@
 
 package pubsim.distributions.discrete;
 
-import pubsim.distributions.discrete.PoissonRandomVariable;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 
 /**
  *
@@ -44,7 +39,7 @@ public class PoissonRandomVariableTest {
     @Test
     public void testGetNoise() {
         //System.out.println("getNoise");
-        double p = 4;
+        double p = 10;
         int n = 1000000;
         PoissonRandomVariable instance = new PoissonRandomVariable(p);
         double var = 0;
