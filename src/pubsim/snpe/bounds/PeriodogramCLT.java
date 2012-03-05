@@ -16,8 +16,8 @@ public class PeriodogramCLT implements CLT {
 
     public PeriodogramCLT(ContinuousRandomVariable noise, double discretemean, double T0) {
 
-        double numer = 3 * T0 * T0 * (1 - noise.characteristicFunction(4 * Math.PI).re());
-        double chrf2pi = noise.characteristicFunction(2*Math.PI).re();
+        double numer = 3 * T0 * T0 * (1 - noise.characteristicFunction(4 * Math.PI*T0).re());
+        double chrf2pi = noise.characteristicFunction(2*Math.PI*T0).re();
         double denom = 2 * Math.PI * Math.PI * discretemean * discretemean * chrf2pi * chrf2pi;
         scalefac = numer / denom;
     }

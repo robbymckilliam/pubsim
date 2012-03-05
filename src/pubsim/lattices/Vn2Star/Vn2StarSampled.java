@@ -6,10 +6,11 @@
 
 package pubsim.lattices.Vn2Star;
 
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.NearestPointAlgorithm;
 import pubsim.*;
+import pubsim.lattices.Anstar.AnstarLinear;
 
 /**
  * Suboptimal (maybe?) algorithm for finding the nearest lattice point in Phin2StarZnLLS.
@@ -20,35 +21,18 @@ import pubsim.*;
  * 
  * @author Robby McKilliam
  */
-public class Vn2StarSampled extends Vn2Star implements NearestPointAlgorithm {
+public class Vn2StarSampled extends Vn2Star {
     
-    protected int num_samples = 100;
-    Anstar anstar;
+    final protected int num_samples;
+    final Anstar anstar;
     
     protected double[] g, vt, ut, y;
-
-    /** Default constructor.  Uses 100 samples */
-    public Vn2StarSampled() {}
-    
-    /** Set dimenion. Uses 100 samples */
-    public Vn2StarSampled(int n) {
-        setDimension(n);
-    }
     
     /** Sets dimension and number of samples */
     public Vn2StarSampled(int n, int samples) {
-        setDimension(n);
+        super(n);
         num_samples = samples;
-    }
-    
-    @Override
-    public void setDimension(int n){
-        this.n = n;
-        
-        anstar = new AnstarBucketVaughan(n+1);
-        
-        u = new double[n+2];
-        v = new double[n+2];
+        anstar = new AnstarLinear(n+1);
         vt = new double[n+2];
         y = new double[n+2];
         g = new double[n+2];
@@ -56,8 +40,7 @@ public class Vn2StarSampled extends Vn2Star implements NearestPointAlgorithm {
     
     @Override
     public void nearestPoint(double[] y){
-        if (n != y.length-2)
-	    setDimension(y.length-2);
+        if (n != y.length-2) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
         
         project(y, this.y);
         

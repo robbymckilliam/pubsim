@@ -39,11 +39,9 @@ public class AnmTest extends TestCase {
      */
     public void testGeneratorMatrix() {
         System.out.println("testGeneratorMatrix");
-        int M = 2;
+        int m = 2;
         int n = 13;
-        LatticeAndNearestPointAlgorithm anm = new AnmSorted(M);
-        anm.setDimension(n);
-
+        LatticeAndNearestPointAlgorithm anm = new AnmSorted(n,m);
         Matrix Mat = anm.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(Mat));
 

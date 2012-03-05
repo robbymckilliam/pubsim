@@ -9,7 +9,7 @@ import pubsim.lattices.decoder.Babai;
 import pubsim.lattices.decoder.SphereDecoder;
 import Jama.Matrix;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.Vn2Star.Vn2StarGlued;
 import pubsim.lattices.Zn;
@@ -142,8 +142,7 @@ public class SphereDecoderTest {
         int iters = 10;
         int n = 7;
         
-        Anstar anstar = new AnstarBucketVaughan();
-        anstar.setDimension(n);
+        Anstar anstar = new AnstarSorted(n);
         
         SphereDecoder decoder = new SphereDecoder(anstar);
         
@@ -172,8 +171,7 @@ public class SphereDecoderTest {
         int iters = 10;
         int n = 6;
         
-        Vn2StarGlued lattice = new Vn2StarGlued();
-        lattice.setDimension(n);
+        Vn2StarGlued lattice = new Vn2StarGlued(n);
         
         SphereDecoder decoder = new SphereDecoder(lattice);
         

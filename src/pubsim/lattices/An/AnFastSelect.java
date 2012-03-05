@@ -7,6 +7,7 @@ package pubsim.lattices.An;
 
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.FastSelection;
+import pubsim.IndexedDouble;
 import pubsim.VectorFunctions;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
@@ -16,16 +17,21 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  * recent version of SPLAG.
  * @author Robby McKilliam
  */
-public class AnFastSelect extends AnSorted implements LatticeAndNearestPointAlgorithm {
+public class AnFastSelect extends An implements LatticeAndNearestPointAlgorithm {
 
+    protected IndexedDouble[] z;
+    
     public AnFastSelect(int n){
-        setDimension(n);
+        this.n = n;
+        u = new double[n+1];
+        z = new IndexedDouble[n+1];
+        for(int i = 0; i < n+1; i++)
+            z[i] = new IndexedDouble();
     }
 
     @Override
-    public void nearestPoint(double[] y) {
-        if (n != y.length-1)
-	    setDimension(y.length-1);
+    public final void nearestPoint(double[] y) {
+        if (n != y.length-1) throw new RuntimeException("y is the wrong length");
         
         Anstar.project(y, y);
         

@@ -17,17 +17,12 @@ package pubsim.lattices.Anstar;
  */
 public class AnstarBucket extends Anstar {
     
-    private IntList[] buckets;
-    private ListElem[] ints;
-    private double[] z;
+    final private IntList[] buckets;
+    final private ListElem[] ints;
+    final private double[] z;
 
     public AnstarBucket(int n){
-        setDimension(n);
-    }
-
-    @Override
-    public void setDimension(int n) {
-        this.n = n;
+        super(n);
         // Allocate some space for arrays
         u = new double[n + 1];
         v = new double[n + 1];
@@ -41,10 +36,10 @@ public class AnstarBucket extends Anstar {
         }
     }
 
+
     @Override
-    public void nearestPoint(double[] y) {
-        if (n != y.length-1)
-	    setDimension(y.length-1);
+    public final void nearestPoint(double[] y) {
+        if (n != y.length-1) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
         
         //make sure that the buckets are empty!
         for(int i = 0; i < n + 1; i++)

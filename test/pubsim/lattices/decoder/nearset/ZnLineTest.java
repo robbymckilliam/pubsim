@@ -8,7 +8,7 @@ package pubsim.lattices.decoder.nearset;
 import pubsim.lattices.decoder.nearset.SampledLine;
 import pubsim.lattices.decoder.nearset.ZnLine;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -60,7 +60,7 @@ public class ZnLineTest {
             double rmax = 1;
 
             ZnLine zn = new ZnLine(y, c, 0, 1);
-            AnstarBucketVaughan anstar = new AnstarBucketVaughan(N-1);
+            AnstarSorted anstar = new AnstarSorted(N-1);
             anstar.nearestPoint(c);
 
             double[] yp = new double[N];

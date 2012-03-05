@@ -12,8 +12,7 @@ import pubsim.Complex;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.WrappedCircularRandomVariable;
 import rngpack.RandomElement;
-import rngpack.RandomSeedable;
-import rngpack.Ranlux;
+import rngpack.Ranmar;
 
 /**
  * Class that contains some standard functions for noise generators
@@ -22,7 +21,11 @@ import rngpack.Ranlux;
 public abstract class AbstractRandomVariable
         implements ContinuousRandomVariable {
     
-    protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
+    protected RandomElement random;
+    
+    public AbstractRandomVariable(){
+        random = new Ranmar(new java.util.Date());
+    }
 
     /**
      * Take standard inverse cumulative density function approach
@@ -85,12 +88,12 @@ public abstract class AbstractRandomVariable
     
     /** Randomise the seed for the internal Random */ 
     @Override
-    public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
+    public void randomSeed(){ random = new Ranmar(new java.util.Date()); }
 
     
     /** Set the seed for the internal Random */
     @Override
-    public void setSeed(long seed) { random = new Ranlux(seed); }
+    public void setSeed(long seed) { random = new Ranmar(seed); }
     
     /** Default is the return the wrapped version of this random variable */
     @Override

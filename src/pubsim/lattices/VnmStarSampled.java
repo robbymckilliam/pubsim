@@ -7,12 +7,10 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
-import pubsim.lattices.decoder.ShortVectorSphereDecoded;
-import pubsim.lattices.util.PointInParallelepiped;
 import pubsim.VectorFunctions;
-import static pubsim.Util.factorial;
+import pubsim.lattices.Anstar.Anstar;
+import pubsim.lattices.Anstar.AnstarLinear;
+import pubsim.lattices.util.PointInParallelepiped;
 
 /**
  * Approximate nearest point algorithm for Vnm* that samples
@@ -20,36 +18,18 @@ import static pubsim.Util.factorial;
  * for An* to help speed things up.
  * @author Robby McKilliam
  */
-public class VnmStarSampled extends VnmStarGlued{
+public class VnmStarSampled extends VnmStar implements LatticeAndNearestPointAlgorithm {
 
-    private Anstar anstar;
-    private double[] x, u;
-    private int[] samples;
-    private Matrix M;
-    private double[] yt;
+    final private Anstar anstar;
+    final private double[] x, u;
+    final private int[] samples;
+    final private Matrix M;
+    final private double[] yt;
 
     public VnmStarSampled(int m, int n, int[] samples){
-        this.m = m;
-        setDimension(n);
-        this.samples = samples;
-    }
+        super(m,n);
 
-    @Override
-    public void setDimension(int n) {
-        this.n = n;
-        N = n + m + 1;
-
-        //compute all the Legendre polynomials
-        //divide then by k! so that we search the appropriate sized space.
-        legendre = new double[m+1][];
-        for(int k = 0; k <= m; k++)
-            legendre[k] = discreteLegendrePolynomialVector(N, k);
-//        for(int k = 0; k <= m; k++){
-//            for(int i = 0; i < N; i++)
-//                legendre[k][i] = legendre[k][i]/factorial(k);
-//        }
-
-        anstar = new AnstarBucketVaughan(N-1);
+        anstar = new AnstarLinear(N-1);
 
         M = new Matrix(legendre).transpose().getMatrix(0, N-1, 1, m);
 
@@ -57,9 +37,10 @@ public class VnmStarSampled extends VnmStarGlued{
         yt = new double[N];
         u = new double[N];
         x = new double[N];
-        
+        this.samples = samples;
     }
 
+    
     @Override
     public void nearestPoint(double[] y) {
 
@@ -92,5 +73,6 @@ public class VnmStarSampled extends VnmStarGlued{
     public double[] getIndex() {
         return u;
     }
+
     
 }

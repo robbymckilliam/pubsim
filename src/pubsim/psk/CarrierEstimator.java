@@ -16,9 +16,6 @@ package pubsim.psk;
  */
 public interface CarrierEstimator {
     
-    /** Set the number of samples */
-    void setSize(int n);
-    
     /** Input is the phase of the reqcieved QPSK signal */
     void estimateCarrier(double[] real, double[] imag);
     

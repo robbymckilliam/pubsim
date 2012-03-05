@@ -9,35 +9,35 @@ import pubsim.lattices.Anstar.AnstarVaughan;
 import pubsim.FastSelection;
 import pubsim.IndexedDouble;
 import pubsim.Util;
-import pubsim.VectorFunctions;
+import pubsim.lattices.Anm.AnmBucket.IndexedDoubleList;
+import pubsim.lattices.Anm.AnmBucket.IndexedDoubleListIterator;
+import pubsim.lattices.Anm.AnmBucket.ListElem;
 
 
 /**
- * Linear nearest point algorithm for the coxeter lattices.  Implementation
+ * Linear nearest point algorithm for the Coxeter lattices.  Implementation
  * mimics the version of the code that ended up in the final paper.  Otherwise
  * this is very similar to AnmBucket.
  *
  * @author Robby McKilliam
  */
-public class AnmLinear extends AnmBucket {
+public class AnmLinear extends Anm {
 
-    private IndexedDouble[] w;
+    private final IndexedDouble[] w;
+    protected final int numBuckets;
+    protected final FastSelection fselect;
+    protected final double[] z;
+    protected final AnmBucket.IndexedDoubleList[] buckets;
+    protected final ListElem[] bes;
 
     /** Constructor can set the m part of A_{n/m}. */
-    public AnmLinear(int M){
-        super(M);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setDimension(int n){
-        this.n = n;
-        u = new double[n+1];
-        v = new double[n+1];
+    public AnmLinear(int n, int m){
+        super(n,m);
+        
         z = new double[n+1];
 
         //setup the buckets.
-        numBuckets = (n+1)/M;
+        numBuckets = (n+1)/m;
 
         buckets = new IndexedDoubleList[numBuckets];
         for(int i = 0; i < numBuckets; i++)
@@ -52,15 +52,13 @@ public class AnmLinear extends AnmBucket {
         w = new IndexedDouble[n+1];
 
         fselect = new FastSelection(n+1);
-
     }
 
     /** {@inheritDoc} */
     @Override
     public void nearestPoint(double[] y){
-        if (n != y.length-1)
-	    setDimension(y.length-1);
-
+        if (n != y.length-1) throw new RuntimeException("y is the wrong length");
+        
         //make sure that the buckets are empty!
         for(int i = 0; i < numBuckets; i++)
             buckets[i].clear();
@@ -96,8 +94,8 @@ public class AnmLinear extends AnmBucket {
 
             R = L + buckets[i].size() - 1;
             
-            int g = Util.mod(M - Util.mod(k, M), M);
-            int p = buckets[i].size() - Util.mod(buckets[i].size() + k, M);
+            int g = Util.mod(this.m - Util.mod(k, this.m), this.m);
+            int p = buckets[i].size() - Util.mod(buckets[i].size() + k, this.m);
 
             //This is quickselect2 from the paper.
             if(g >= 0 && g < buckets[i].size())

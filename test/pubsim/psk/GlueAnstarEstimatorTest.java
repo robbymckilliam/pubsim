@@ -51,9 +51,8 @@ public class GlueAnstarEstimatorTest extends TestCase {
         double[] rr = sig.getReal();
         double[] ri = sig.getImag();
         
-        GlueAnstarCarrierEstimator instance = new GlueAnstarCarrierEstimator();
+        GlueAnstarCarrierEstimator instance = new GlueAnstarCarrierEstimator(n);
         instance.setM(M);
-        instance.setSize(n);
         
         //UNDER CONSTRUCTION
         instance.estimateCarrier(rr, ri);

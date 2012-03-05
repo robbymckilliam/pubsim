@@ -5,24 +5,19 @@
 
 package pubsim.lattices.nearset;
 
-import pubsim.lattices.nearset.NearestInZnToLine;
-import pubsim.lattices.nearset.NSphereForLines;
-import pubsim.lattices.nearset.RegionForLines;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
-import pubsim.lattices.Anstar.AnstarNew;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static pubsim.VectorFunctions.randomGaussian;
-import static pubsim.VectorFunctions.distance_between;
 import static pubsim.VectorFunctions.columnMatrix;
 import static pubsim.VectorFunctions.print;
 import static pubsim.VectorFunctions.ones;
 import static pubsim.Range.range;
 import static org.junit.Assert.*;
+import pubsim.lattices.Anstar.AnstarLinear;
 
 /**
  *
@@ -80,7 +75,7 @@ public class NearestInZnToLineTest {
         System.out.println("ones = " + print(ones));
 
         NearestInZnToLine inst = new NearestInZnToLine(columnMatrix(ones), R);
-        AnstarNew anstar = new AnstarNew(N-1);
+        AnstarLinear anstar = new AnstarLinear(N-1);
 
         for(int k : range(10)){
 

@@ -7,7 +7,7 @@
 package pubsim.psk;
 
 import pubsim.lattices.Vn2Star.Vn2Star;
-import pubsim.lattices.Vn2Star.Vn2StarGlued;
+import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
 
 /**
  * Uses the Glued Pn2 lattice point algorithm.  There is no way to
@@ -25,9 +25,10 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
     
     protected Vn2Star lattice;
     
-    public GlueAnstarCarrierEstimator(){
-        lattice = new Vn2StarGlued();
-        //lattice = new Phin2StarSampled(100);
+    public GlueAnstarCarrierEstimator(int n){
+        lattice = new Vn2StarZnLLS(n-2);
+                marg = new double[n];
+        N = n;
     }
     
     /** Return the estimated phase */
@@ -53,13 +54,6 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
         this.fmax = fmax;
     }
     
-    /** Set the number of samples */
-    public void setSize(int n){
-        lattice.setDimension(n-2);  
-        marg = new double[n];
-        N = n;
-    }
-    
     /** Set to M-ary QPSK */
     public void setM(int M){
         this.M = M;
@@ -73,8 +67,7 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
      */
     public void estimateCarrier(double[] real, double[] imag){
         
-        if(N != real.length)
-            setSize(real.length);
+        if(N != real.length) throw new ArrayIndexOutOfBoundsException("data is the wrong length");
         
         for(int i = 0; i < N; i++)
             marg[i] = M*Math.atan2(imag[i],real[i])/(2*Math.PI);

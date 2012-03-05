@@ -1,11 +1,11 @@
 /*
- * Phin2StarZnLLSTest.java
+ * Vn2StarZnLLSTest.java
  * JUnit based test
  *
  * Created on 12 August 2007, 22:11
  */
 
-package pubsim.lattices.Phin2star;
+package pubsim.lattices.Vn2Star;
 
 import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
 import pubsim.lattices.Vn2Star.Vn2StarGlued;
@@ -17,9 +17,9 @@ import pubsim.*;
  *
  * @author Robby McKilliam
  */
-public class Phin2StarZnLLSTest extends TestCase {
+public class Vn2StarZnLLSTest extends TestCase {
     
-    public Phin2StarZnLLSTest(String testName) {
+    public Vn2StarZnLLSTest(String testName) {
         super(testName);
     }
 
@@ -29,8 +29,7 @@ public class Phin2StarZnLLSTest extends TestCase {
     public void testSetDimension() {
         System.out.println("setDimension");        
         int n = 5;
-        Vn2StarZnLLS instance = new Vn2StarZnLLS();
-        instance.setDimension(5);
+        Vn2StarZnLLS instance = new Vn2StarZnLLS(5);
     }
 
     /**
@@ -44,11 +43,8 @@ public class Phin2StarZnLLSTest extends TestCase {
         
         double[] y = new double[n];
         double[] QgQ1y = new double[n];
-        Vn2StarZnLLS znlls = new Vn2StarZnLLS();
-        Vn2StarGlued glued = new Vn2StarGlued();
-        
-        znlls.setDimension(n-2);
-        glued.setDimension(n-2);
+        Vn2StarZnLLS znlls = new Vn2StarZnLLS(n-2);
+        Vn2StarGlued glued = new Vn2StarGlued(n-2);
         
         for(int i = 0; i < 100; i++){
             for(int j=0; j<n; j++)

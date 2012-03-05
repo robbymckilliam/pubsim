@@ -74,13 +74,6 @@ public interface Lattice extends Serializable {
      * The number of short vectors in the lattice.
      */
     long kissingNumber();
-
-    /**
-     * Set/reset the dimension of this lattice.
-     * There are reasonable arguments for this method being deprecated
-     * (i.e. it's mutable).
-     */
-    void setDimension(int n);
     
     int getDimension();
     

@@ -5,10 +5,10 @@
 
 package pubsim.lattices.Vn2Star;
 
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import pubsim.lattices.Anstar.Anstar;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.lattices.NearestPointAlgorithm;
 
 /**
@@ -18,18 +18,21 @@ import pubsim.lattices.NearestPointAlgorithm;
 public class Vn2StarZnLLS extends
         Vn2Star implements NearestPointAlgorithm {
 
-    double[] g, glue, z, x;
-    Anstar anstar;
-
-    public Vn2StarZnLLS() {};
+    final double[] g, glue, z, x;
+    final Anstar anstar;
 
     public Vn2StarZnLLS(int n){
-        setDimension(n);
+        super(n);
+        glue = new double[n+2];
+        g = Vn2Star.getgVector(n+2);
+        z = new double[n+2];
+        x = new double[n+2];
+
+        anstar = new AnstarLinear(n+1);
     }
 
     public void nearestPoint(double[] y) {
-        if (n != y.length-2)
-            setDimension(y.length-2);
+        if (n != y.length-2) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
 
         Anstar.project(y, z);
         double D = Double.POSITIVE_INFINITY;
@@ -90,17 +93,5 @@ public class Vn2StarZnLLS extends
         
     }
 
-    @Override
-    public void setDimension(int n){
-        this.n = n;
-        u = new double[n+2];
-        v = new double[n+2];
-        glue = new double[n+2];
-        g = Vn2Star.getgVector(n+2);
-        z = new double[n+2];
-        x = new double[n+2];
-
-        anstar = new AnstarBucketVaughan(n+1);
-    }
 
 }

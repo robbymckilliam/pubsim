@@ -5,16 +5,11 @@
 
 package pubsim.lattices.Anstar;
 
-import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarAnGlued;
 import Jama.Matrix;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import org.junit.*;
 import pubsim.VectorFunctions;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -40,37 +35,7 @@ public class AnstarTest {
     @After
     public void tearDown() {
     }
-
-    /**
-     * Test of volume method, of class Anstar.
-     */
-    @Test
-    public void testVolume() {
-        System.out.println("volume");
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of inradius method, of class Anstar.
-     */
-    @Test
-    public void testInradius() {
-        System.out.println("inradius");
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of project method, of class Anstar.
-     */
-    @Test
-    public void testProject() {
-        System.out.println("project");
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+    
     /**
      * Test of getGeneratorMatrix method, of class Anstar.
      */
@@ -78,7 +43,6 @@ public class AnstarTest {
     public void testGetGeneratorMatrix() {
         System.out.println("getGeneratorMatrix");
         Anstar instance = new AnstarAnGlued(4);
-        instance.setDimension(4);
         Matrix result = instance.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(result));
     }

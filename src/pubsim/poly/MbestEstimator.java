@@ -6,8 +6,7 @@
 package pubsim.poly;
 
 import Jama.Matrix;
-import pubsim.lattices.VnmStarSampled;
-import pubsim.lattices.decoder.Babai;
+import pubsim.lattices.VnmStarGlued;
 import pubsim.lattices.decoder.Mbest;
 
 /**
@@ -21,7 +20,7 @@ public class MbestEstimator extends BabaiEstimator {
      * @param m = polynomial order
      */
     public MbestEstimator(int m, int n, int M) {
-        lattice = new VnmStarSampled(m, n - m - 1, new int[m]);
+        lattice = new VnmStarGlued(m, n - m - 1);
         this.m = m;
         npalgorithm = new Mbest(lattice,M);
         ambiguityRemover = new AmbiguityRemover(m);

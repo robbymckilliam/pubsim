@@ -55,9 +55,7 @@ public class SweldensNoncoherentTest extends TestCase {
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
         
-        SweldensNoncoherent instance = new SweldensNoncoherent();
-        instance.setM(M);
-        instance.setT(T);
+        SweldensNoncoherent instance = new SweldensNoncoherent(T,M);
         
         for(int i = 0; i < iters; i++){
             //signal.generateChannel();

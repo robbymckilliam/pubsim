@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices.Phin2star;
+package pubsim.lattices.Vn2Star;
 
 import pubsim.lattices.Vn2Star.Vn2Star;
 import pubsim.lattices.Vn2Star.Vn2StarSampled;
@@ -20,9 +20,9 @@ import static org.junit.Assert.*;
  *
  * @author Robby
  */
-public class Phin2StarTest {
+public class Vn2StarTest {
 
-    public Phin2StarTest() {
+    public Vn2StarTest() {
     }
 
     @BeforeClass
@@ -50,7 +50,7 @@ public class Phin2StarTest {
 
         double volf = Math.sqrt(12.0/((n+3)*(n+2)*(n+1)*(n+2)));
 
-        Vn2Star lattice = new Vn2StarSampled(n);
+        Vn2Star lattice = new Vn2StarZnLLS(n);
         double vol = lattice.volume();
 
         assertEquals(volf, vol, 0.0000000001);

@@ -7,7 +7,6 @@ package pubsim.snpe.bounds;
 
 import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
-import pubsim.distributions.circular.UnwrappedMeanAndVariance;
 
 /**
  * Barry's remarkable central limit theorem for the LLS estimator

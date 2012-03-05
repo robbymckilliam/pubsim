@@ -57,8 +57,8 @@ public class AnmGluedTest {
         double[] v_tester = null;
         double[] x = new double[n];
         
-        AnmGlued instance = new AnmGlued(M);
-        AnmSorted tester = new AnmSorted(M);
+        AnmGlued instance = new AnmGlued(n-1,M);
+        AnmSorted tester = new AnmSorted(n-1,M);
         /*
         double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
         
@@ -75,8 +75,7 @@ public class AnmGluedTest {
             
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         */
-        instance.setDimension(n - 1);
-        tester.setDimension(n - 1);
+
         for(int i=0; i<numTrials; i++){
             for(int k = 0; k < n; k++){
                 y[k] = rand.nextGaussian()*100.0;

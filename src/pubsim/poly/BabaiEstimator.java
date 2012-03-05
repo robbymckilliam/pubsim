@@ -5,11 +5,11 @@
 package pubsim.poly;
 
 import Jama.Matrix;
-import pubsim.lattices.VnmStar;
-import pubsim.lattices.VnmStarSampled;
-import pubsim.lattices.decoder.Babai;
 import pubsim.VectorFunctions;
 import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.VnmStar;
+import pubsim.lattices.VnmStarGlued;
+import pubsim.lattices.decoder.Babai;
 
 /**
  * Uses the Babai nearest plane algorithm
@@ -31,7 +31,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
      * @param m = polynomial order
      */
     public BabaiEstimator(int m, int n) {
-        lattice = new VnmStarSampled(m, n - m - 1, new int[m]);
+        lattice = new VnmStarGlued(m, n - m - 1);
         this.m = m;
         npalgorithm = new Babai(lattice);
         ambiguityRemover = new AmbiguityRemover(m);

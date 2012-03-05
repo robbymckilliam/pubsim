@@ -5,17 +5,11 @@
 
 package pubsim.lattices.nearset;
 
-import pubsim.lattices.nearset.NearestInZnToLine;
-import pubsim.lattices.nearset.NearestInZnToAffineSurface;
-import pubsim.lattices.nearset.NSphereForLines;
-import pubsim.lattices.nearset.RegionForLines;
-import pubsim.lattices.nearset.ParallelepipedForLines;
 import Jama.Matrix;
 import pubsim.lattices.Vn2Star.Vn2Star;
 import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
 import pubsim.lattices.VnmStar;
 import pubsim.lattices.VnmStarGlued;
-import pubsim.lattices.VnmStarSampled;
 import pubsim.lattices.decoder.SphereDecoder;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -175,7 +169,7 @@ public class NearestInZnToAffineSurfaceTest {
 
         SphereDecoder test = new SphereDecoder(new VnmStarGlued(a, N-a-1));
 
-        Matrix P = VnmStarSampled.getMMatrix(a, N-a);
+        Matrix P = VnmStar.getMMatrix(a, N-a);
         Matrix Pt = P.transpose();
         Matrix K = (Pt.times(P)).inverse().times(Pt);
         Matrix G = Matrix.identity(N, N).minus(P.times(K));

@@ -35,9 +35,7 @@ public class NormalisedSamplingLLS extends SamplingLLS implements PRIEstimator {
         double fhat = fmin;
         double fstep = (fmax - fmin) / NUM_SAMPLES;
         for (double f = fmin; f <= fmax; f += fstep) {
-            for (int i = 0; i < N; i++) {
-                fzeta[i] = f * zeta[i];
-            }
+            for (int i = 0; i < N; i++) fzeta[i] = f * zeta[i];
             lattice.nearestPoint(fzeta);
             double[] v = lattice.getLatticePoint();
             double vtz = 0, vtv = 0;

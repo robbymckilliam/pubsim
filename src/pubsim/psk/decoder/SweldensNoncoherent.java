@@ -16,24 +16,13 @@ import pubsim.IndexedDouble;
  */
 public class SweldensNoncoherent implements PSKReceiver{
     
-    double[] arg, g;
+    final double[] arg, g;
     int T, M;
     IndexedDouble[] sorted;
     Complex[] p;
     
-    public SweldensNoncoherent(){
-        setM(4);
-    }
-    
-    public SweldensNoncoherent(int M){
-        setM(M);
-    }
-
-    public void setM(int M) {
+    public SweldensNoncoherent(int T, int M){
         this.M = M;
-    }
-
-    public void setT(int T) {
         this.T = T;
         arg = new double[T];
         g = new double[T];
@@ -50,8 +39,8 @@ public class SweldensNoncoherent implements PSKReceiver{
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
-    public double[] decode(Complex[] y) {
-        if(y.length != T) setT(y.length);
+    public final double[] decode(Complex[] y) {
+        if(y.length != T) throw new RuntimeException("y is the wrong length");
         
         Complex sump = new Complex();
       

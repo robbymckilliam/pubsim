@@ -11,25 +11,14 @@ package pubsim.lattices.Anstar;
  * simpler and a little faster in practice.
  * @author Robby McKilliam
  */
-public class AnstarBucketVaughan extends Anstar {
+public class AnstarLinear extends Anstar {
     
-    private int[] bucket;
-    private int[] link;
-    private double[] z;
+    final private int[] bucket;
+    final private int[] link;
+    final private double[] z;
 
-    public AnstarBucketVaughan(){
-    }
-
-    public AnstarBucketVaughan(int N){
-        setDimension(N);
-    }
-
-    @Override
-    public void setDimension(int n) {
-        this.n = n;
-        // Allocate some space for arrays
-        u = new double[n + 1];
-        v = new double[n + 1];
+    public AnstarLinear(int n){
+        super(n);
         z = new double[n + 1];
         link = new int[n + 1];
         bucket = new int[n+1];
@@ -41,8 +30,7 @@ public class AnstarBucketVaughan extends Anstar {
 
     @Override
     public void nearestPoint(double[] y) {
-        if (n != y.length-1)
-	    setDimension(y.length-1);
+        if (n != y.length-1) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
         
         //make sure that the buckets are empty!
         for(int i = 0; i < n + 1; i++)

@@ -21,7 +21,7 @@ public class Hexagonal
     private final Matrix M, Minv;
 
     public Hexagonal(){
-        n = 2;
+        super(2);
         u = new double[2];
         v = new double[2];
         M = computeGeneratorMatrix();
@@ -83,11 +83,6 @@ public class Hexagonal
             v[0] = vt0;
             v[1] = vt1;
         }
-    }
-
-    @Override
-    public final void setDimension(int n) {
-        //do nothing
     }
 
     /**Getter for the integer vector. */

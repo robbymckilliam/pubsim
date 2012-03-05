@@ -51,11 +51,6 @@ public class ScaledLattice extends AbstractLattice implements LatticeAndNearestP
     public double volume() {
         return Math.pow(d,n)*L.volume();
     }
-    
-    @Override
-    public void setDimension(int n) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public int getDimension() {

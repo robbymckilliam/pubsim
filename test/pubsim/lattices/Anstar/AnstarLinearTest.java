@@ -5,8 +5,6 @@
 
 package pubsim.lattices.Anstar;
 
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
-import pubsim.lattices.Anstar.AnstarVaughan;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author Robby
  */
-public class AnstarBucketVaughanTest {
+public class AnstarLinearTest {
 
-    public AnstarBucketVaughanTest() {
+    public AnstarLinearTest() {
     }
 
     @BeforeClass
@@ -42,7 +40,7 @@ public class AnstarBucketVaughanTest {
     }
 
     /**
-     * Test of nearestPoint method, of class AnstarBucketVaughan.
+     * Test of nearestPoint method, of class AnstarSorted.
      */
     @Test
     public void nearestPoint() {
@@ -55,11 +53,9 @@ public class AnstarBucketVaughanTest {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[n];
-        AnstarBucketVaughan instance = new AnstarBucketVaughan();
-        AnstarVaughan tester = new AnstarVaughan();
+        AnstarSorted instance = new AnstarSorted(n-1);
+        AnstarLinear tester = new AnstarLinear(n-1);
         
-        instance.setDimension(n - 1);
-        tester.setDimension(n - 1);
         for(int i=0; i<numTrials; i++){
             for(int k = 0; k < n; k++){
                 y[k] = rand.nextGaussian()*10.0;
@@ -73,11 +69,6 @@ public class AnstarBucketVaughanTest {
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         }
         
-        //this is actually a test for the matlab code sent to Warren Smith
-        double[] yMTest = {1.1393, 10.6677, 0.5928, -0.9565, -8.3235};
-        double[] Mres = {0.2000, 10.2000, 0.2000, -1.8000, -8.8000};
-        instance.nearestPoint(yMTest);
-        assertEquals(VectorFunctions.distance_between(Mres,  instance.getLatticePoint()) < 0.00001, true);
     }
 
 }

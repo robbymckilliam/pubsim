@@ -8,7 +8,7 @@ package pubsim.lattices.decoder;
 import pubsim.lattices.decoder.Babai;
 import Jama.Matrix;
 import java.util.Random;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.Zn;
@@ -110,7 +110,7 @@ public class BabaiTest {
         double del = 0.0001;
         for(int t = 0; t < iters; t++){
             int n = r.nextInt(10) + 5;
-            LatticeAndNearestPointAlgorithm lattice = new AnstarBucketVaughan(n-1);
+            LatticeAndNearestPointAlgorithm lattice = new AnstarSorted(n-1);
             Matrix G = lattice.getGeneratorMatrix();
             
             Babai babai = new Babai();

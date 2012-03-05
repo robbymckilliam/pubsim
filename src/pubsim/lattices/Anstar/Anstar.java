@@ -4,23 +4,32 @@
  */
 package pubsim.lattices.Anstar;
 
-import pubsim.lattices.*;
 import Jama.Matrix;
+import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
 
 /**
  * Abstract class for any Anstar algorithm
  * @author robertm
  */
 public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
+    
+    public Anstar(int n){
+        super(n);
+        this.v = new double[n+1];
+        this.u = new double[n+1];
+    }
 
+    @Override
     public double volume() {
         return Math.sqrt(1.0 / (n + 1));
     }
 
+    @Override
     public double inradius() {
         return Math.sqrt(1.0 - 1.0 / (n + 1));
     }
 
+    @Override
     public double coveringRadius(){
         return Math.sqrt(n*(n+2)/12.0/(n+1));
     }

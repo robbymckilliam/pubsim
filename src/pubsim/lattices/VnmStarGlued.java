@@ -19,38 +19,23 @@ import pubsim.lattices.reduction.LLL;
  * 
  * @author Robby McKilliam
  */
-public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgorithm {
+ public class VnmStarGlued extends VnmStar {
 
 
     //generator matrix for the dual of the integer valued polynomials
     //assuming they are tranformed to the integer lattice.
-    private Matrix B;
-
-    //store all the legendre polynomials so that we can make projection fast.
-    double[][] legendre;
+    final private Matrix B;
     
-    private double[] ytlat, ylat, ulat, utlat, xlat, p;
-    int N;
+    final private double[] ytlat, ylat, ulat, utlat, xlat, p;
+    final int N;
 
-    private SphereDecoder sd;
+    final private SphereDecoder sd;
 
     //radius of the sphere we are going to use.
     private double radius, BEST_DIST;
 
-    protected VnmStarGlued(){}
-
     public VnmStarGlued(int m, int n){
-        this.m = m;
-        setDimension(n);
-    }
-
-    public VnmStarGlued(int m){
-        this.m = m;
-    }
-
-    @Override
-    public void setDimension(int n) {
-        this.n = n;
+        super(n,m);
         N = n + m + 1;
 
         //compute the matrix mapping the dual to integer valued polys
@@ -74,11 +59,6 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
         B = M.times(L);
         sd = new SphereDecoder(new GeneralLattice(B));
 
-        //compute all the Legendre polynomials
-        legendre = new double[m+1][];
-        for(int k = 0; k <= m; k++)
-            legendre[k] = discreteLegendrePolynomialVector(N, k);
-
         //allocate working memory
         ytlat = new double[N];
         ylat = new double[N];
@@ -86,8 +66,6 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
         utlat = new double[N];
         xlat = new double[N];
         p = new double[m+1];
-
-
 
     }
 
@@ -108,19 +86,6 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
 
     }
 
-    /** Project into the space this lattice lies in. */
-    @Override
-    public void project(double[] x, double[] y){
-        System.arraycopy(x, 0, y, 0, N);
-        for(int k = 0; k <= m; k++){
-            double[] ell = legendre[k];
-            double ytp = dot(y,ell);
-            double ptp = dot(ell,ell);
-            double scale = ytp/ptp;
-            for(int s = 0; s < N; s++) y[s] -= ell[s]*scale;
-        }
-    }
-
     @Override
     public double[] getLatticePoint() {
         return xlat;
@@ -129,11 +94,6 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
     @Override
     public double[] getIndex() {
         return ulat;
-    }
-
-    @Override
-    public double distance() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -242,14 +202,6 @@ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgor
 
         }
 
-    }
-    
-    private double[] yDoubletoy;
-    @Override
-    public void nearestPoint(Double[] y) {
-        if(yDoubletoy == null || yDoubletoy.length != y.length)
-            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
-        this.nearestPoint(y);
     }
 
 

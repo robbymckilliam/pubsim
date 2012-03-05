@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnSorted;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import static org.junit.Assert.*;
@@ -48,7 +48,7 @@ public class MinCutShortVectorTest {
     public void testWithAnStar() {
         System.out.println("testWithAnStar");
         int n = 50;
-        Lattice lattice = new AnstarBucketVaughan(n);
+        Lattice lattice = new AnstarSorted(n);
         MinCutShortVector instance = new MinCutShortVector(lattice);
         ShortVectorSphereDecoded tester = new ShortVectorSphereDecoded(lattice);
         

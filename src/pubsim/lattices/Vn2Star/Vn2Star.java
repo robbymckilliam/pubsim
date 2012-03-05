@@ -15,6 +15,13 @@ import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
  */
 public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
     
+    public Vn2Star(int n){
+        super(n);
+        u = new double[n+2];
+        v = new double[n+2];
+    }
+    
+    
     private double[] yDoubletoy;
     @Override
     public void nearestPoint(Double[] y) {
@@ -22,13 +29,6 @@ public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
             yDoubletoy = new double[y.length];
         for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
         this.nearestPoint(y);
-    }
-    
-    @Override
-    public void setDimension(int n){
-        this.n = n;
-        u = new double[n+2];
-        v = new double[n+2];
     }
     
     /**Getter for the nearest point. */

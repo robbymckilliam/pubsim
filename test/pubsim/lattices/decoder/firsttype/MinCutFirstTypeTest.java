@@ -13,7 +13,7 @@ import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarBucket;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.Vn2Star.Vn2Star;
 import pubsim.lattices.Vn2Star.Vn2StarGlued;
@@ -52,7 +52,7 @@ public class MinCutFirstTypeTest {
     public void testDetectObtuseBasis() {
         System.out.println("Detect Obtuse Basis");
         
-        new MinCutFirstType(new AnstarBucketVaughan(10));
+        new MinCutFirstType(new AnstarSorted(10));
         
         new MinCutFirstType(new AnFastSelect(10));
         
@@ -81,7 +81,7 @@ public class MinCutFirstTypeTest {
     public void testConstructBasicGraph() {
         System.out.println("construct basic graph");
         
-        MinCutFirstType cut =new MinCutFirstType(new AnstarBucketVaughan(3));
+        MinCutFirstType cut =new MinCutFirstType(new AnstarSorted(3));
         
         System.out.println(cut.constructBasicGraph());
         
@@ -134,7 +134,7 @@ public class MinCutFirstTypeTest {
         System.out.println("test nearest point with An*");
         
         int n = 3;
-        LatticeAndNearestPointAlgorithm lattice = new AnstarBucketVaughan(n);      
+        LatticeAndNearestPointAlgorithm lattice = new AnstarSorted(n);      
         MinCutFirstType cut =new MinCutFirstType(lattice);
         
         int iters  = 20;

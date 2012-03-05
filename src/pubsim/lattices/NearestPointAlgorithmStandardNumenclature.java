@@ -29,7 +29,11 @@ public abstract class NearestPointAlgorithmStandardNumenclature
     protected double[] u;
 
     /** Dimension of the lattice */
-    protected int n;
+    final protected int n;
+    
+    public NearestPointAlgorithmStandardNumenclature(int n){
+        this.n = n;
+    }
     
     
     /**Getter for the nearest point. */
@@ -53,6 +57,7 @@ public abstract class NearestPointAlgorithmStandardNumenclature
      * Don't use this abstract class if you don't intend n to
      * be the dimension of your lattice.
      */
+    @Override
     public int getDimension(){ return n; }
     
     
@@ -72,7 +77,7 @@ public abstract class NearestPointAlgorithmStandardNumenclature
         Random rand = new Random();
         double[] y = new double[n];
         
-        LatticeAndNearestPointAlgorithm instance = new AnmBucket(M);
+        LatticeAndNearestPointAlgorithm instance = new AnmBucket(n-1, M);
         /*
         double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
         
@@ -89,8 +94,7 @@ public abstract class NearestPointAlgorithmStandardNumenclature
             
             assertEquals(VectorFunctions.distance_between(v_instance, v_tester) < 0.00001, true);
         */
-        //instance.setDimension(n - 1);
-        
+
         Date timer = new Date();
         long start = timer.getTime();
         

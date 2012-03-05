@@ -5,21 +5,14 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
-import pubsim.distributions.GaussianNoise;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
 import java.util.Vector;
-import pubsim.lattices.An.AnFastSelect;
-import pubsim.lattices.An.AnSorted;
-import pubsim.lattices.Anm.AnmGlued;
-import pubsim.lattices.Anm.AnmLinear;
-import pubsim.lattices.Anm.AnmSorted;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
-import pubsim.lattices.Anstar.AnstarNew;
 import static pubsim.Range.range;
+import pubsim.distributions.GaussianNoise;
+import pubsim.lattices.Anm.AnmGlued;
 
 /**
  * Runs computational trials on lattices.
@@ -52,12 +45,10 @@ public class LatticeTimingTest {
 
             //lattice = new AnSorted(n-1);
             //lattice = new AnFastSelect(n-1);
-            //lattice = new AnstarNew();
-            //lattice = new AnstarBucketVaughan();
-            //lattice = new AnmLinear(M);
-            lattice = new AnmGlued(M);
-            //lattice = new AnmSorted(M);
-            lattice.setDimension(n - 1);
+            //lattice = new AnstarSorted(n-1);
+            //lattice = new AnmLinear(n-1,M);
+            lattice = new AnmGlued(n-1,M);
+            //lattice = new AnmSorted(n-1,M);
 
             Date timer = new Date();
             long start = timer.getTime();

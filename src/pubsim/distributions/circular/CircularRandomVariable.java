@@ -11,7 +11,7 @@ import pubsim.Complex;
 import pubsim.distributions.ContinuousRandomVariable;
 import rngpack.RandomElement;
 import rngpack.RandomSeedable;
-import rngpack.Ranlux;
+import rngpack.Ranmar;
 
 /**
  * Abstract class for circular random variables.  Automates computation
@@ -23,8 +23,12 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
     protected UnwrappedMeanAndVariance unwrped;
     protected CircularMeanVariance circ;
 
-    protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
+    protected RandomElement random;
 
+    public CircularRandomVariable(){
+        random = new Ranmar(new java.util.Date());
+    }
+    
     /**
      * Return the unwrapped variance.
      */
@@ -69,12 +73,12 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
 
     /** Randomise the seed for the internal Random */
     @Override
-    public void randomSeed(){ random = new Ranlux(RandomSeedable.ClockSeed()); }
+    public void randomSeed(){ random = new Ranmar(new java.util.Date()); }
 
 
     /** Set the seed for the internal Random */
     @Override
-    public void setSeed(long seed) { random = new Ranlux(seed); }
+    public void setSeed(long seed) { random = new Ranmar(seed); }
 
     /**
      * Binary search of the cdf to find the inverse cdf (i.e. bisection method).

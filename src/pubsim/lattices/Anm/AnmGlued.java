@@ -2,28 +2,25 @@
 
 package pubsim.lattices.Anm;
 
-import pubsim.lattices.*;
-import pubsim.lattices.An.AnFastSelect;
-import pubsim.lattices.An.AnSorted;
-import Jama.Matrix;
 import pubsim.VectorFunctions;
+import pubsim.lattices.An.An;
+import pubsim.lattices.An.AnFastSelect;
 
 /**
  * Simple Anm algorithm based on glue vector (cosets).
  * This algorithm was known by Conway and Sloane.
  * @author Robby McKilliam
  */
-public class AnmGlued extends NearestPointAlgorithmStandardNumenclature {
+public class AnmGlued extends Anm {
     
-    protected double[] g, yd; 
-    protected int M;
-    private AnSorted an;
+    private final double[] g, yd; 
+    private final An an;
     
      /** 
      * Sets protected variable g to the glue
      * vector [i].  See SPLAG pp109.
      */
-    protected void glueVector(int i){
+    protected final void glueVector(int i){
         
         /*
         int j = n + 1 - i;
@@ -44,41 +41,23 @@ public class AnmGlued extends NearestPointAlgorithmStandardNumenclature {
     }
     
     /** Constructor can set the m part of A_{n/m}. */
-    public AnmGlued(int M){
-        setM(M);
-    }
-    
-    /** 
-     * Set the m part of A_{n/m}.  Note that m must divide
-     * n+1 else this degenerates to the lattice An*, however
-     * the algorithm will not work as a nearest point algorithm
-     * for An*.
-     */
-    protected void setM(int M){
-        this.M = M;
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public void setDimension(int n){
-        this.n = n;
+    public AnmGlued(int n, int m){
+        super(n,m);
         g = new double[n+1];
-        u = new double[n+1];
-        v = new double[n+1];
         yd = new double[n+1];
         an = new AnFastSelect(n);
     }
 
-    public void nearestPoint(double[] y) {
-        if (n != y.length-1)
-	    setDimension(y.length-1);
+    @Override
+    public final void nearestPoint(double[] y) {
+        if (n != y.length-1) throw new RuntimeException("y is the wrong length");
         
         double D = Double.POSITIVE_INFINITY;
         int besti = 0;
-        int q = (n+1)/M;
+        int q = (n+1)/m;
         
         for(int i = 0; i < q; i++){
-            glueVector(i*M);
+            glueVector(i*m);
             
             //System.out.println(VectorFunctions.print(g));
             
@@ -96,7 +75,7 @@ public class AnmGlued extends NearestPointAlgorithmStandardNumenclature {
             
         }
         
-        glueVector(besti*M);
+        glueVector(besti*m);
         for(int j = 0; j < n+1; j++)
             yd[j] = y[j] - g[j];
             
@@ -105,24 +84,6 @@ public class AnmGlued extends NearestPointAlgorithmStandardNumenclature {
         for(int j = 0; j < n+1; j++)
             v[j] = an.getLatticePoint()[j] + g[j];
     }
-
-    public double volume() {
-        return M/Math.sqrt(n+1);
-    }
-
-    public double inradius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-
-    public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double distance() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     
     
 }

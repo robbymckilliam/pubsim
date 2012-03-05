@@ -6,14 +6,12 @@
 package pubsim.bearing;
 
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.ContinuousRandomVariable;
-import pubsim.distributions.UniformNoise;
 import pubsim.distributions.circular.CircularProcess;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.DensityEstimator;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import static pubsim.Util.fracpart;
+import pubsim.lattices.Anstar.AnstarLinear;
 
 /**
  * Least squares phase unwrapping estimator based on the lattice
@@ -22,23 +20,18 @@ import static pubsim.Util.fracpart;
  */
 public class AngularLeastSquaresEstimator implements BearingEstimator{
 
-    int n;
+    final int n;
     protected final Anstar anstar;
     protected double[] u;
     
     public AngularLeastSquaresEstimator(int length){
         this.n = length;
-        anstar = new AnstarBucketVaughan(n-1);
+        anstar = new AnstarLinear(n-1);
     }    
-    
-    public void setSize(int n) {
-        this.n = n;
-        anstar.setDimension(n-1);
-    }
 
-    public double estimateBearing(Double[] y) {
-        if(n != y.length)
-            setSize(y.length);
+    @Override
+    final public double estimateBearing(Double[] y) {
+        if(n != y.length) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
         
         anstar.nearestPoint(y);
         u = anstar.getIndex();

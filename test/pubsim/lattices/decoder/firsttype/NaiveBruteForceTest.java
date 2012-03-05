@@ -4,7 +4,7 @@
  */
 package pubsim.lattices.decoder.firsttype;
 
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.Anstar.Anstar;
@@ -84,7 +84,7 @@ public class NaiveBruteForceTest {
         System.out.println("test nearest point with An*");
         
         int n = 12;
-        LatticeAndNearestPointAlgorithm lattice = new AnstarBucketVaughan(n);      
+        LatticeAndNearestPointAlgorithm lattice = new AnstarSorted(n);      
         NaiveBruteForce cut =new NaiveBruteForce(lattice);
         
         int iters  = 100;

@@ -13,27 +13,14 @@ import pubsim.Complex;
  */
 public class LinearTimeNoncoherent implements PSKReceiver{
     
-    double[] arg, g;
-    int T, M;
-    Complex[] p;
-    protected int numBuckets;
-    private int[] bucket;
-    private int[] link;
+    final double[] arg, g;
+    final int T, M;
+    final Complex[] p;
+    final private int[] bucket;
+    final private int[] link;
     
-    public LinearTimeNoncoherent(){
-        setM(4);
-    }
-    
-    public LinearTimeNoncoherent(int M){
-        setM(M);
-    }
-
-    public void setM(int M) {
+    public LinearTimeNoncoherent(int T, int M){
         this.M = M;
-    }
-
-    @Override
-    public void setT(int T) {
         this.T = T;
         arg = new double[T];
         g = new double[T];
@@ -52,14 +39,14 @@ public class LinearTimeNoncoherent implements PSKReceiver{
      * Implements the linear time noncoherent decoder using 
      * the real likelihood function rather than the phase based
      * likelihood function that arises when An* is used.  It is not
-     * known that this is garauntees ML is computed, but works will in
+     * known that this is guarantees ML is computed, but works will in
      * practice.
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
     @Override
-    public double[] decode(Complex[] y) {
-        if(y.length != T) setT(y.length);
+    public final double[] decode(Complex[] y) {
+        if(y.length != T) throw new RuntimeException("y is the wrong length");
         
          //make sure that the buckets are empty!
         for(int i = 0; i < T; i++)

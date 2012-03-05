@@ -15,20 +15,14 @@ public class Dn extends AbstractLattice implements LatticeAndNearestPointAlgorit
     double dist;
 
     protected Matrix Binv;
-    
-    protected Dn(){}
 
     public Dn(int n){
-        setDimension(n);
-    }
-
-    @Override
-    public void setDimension(int n) {
         this.n = n;
         u = new double[n];
         v = new double[n];
         Binv = null;
     }
+
     
     @Override
     public int getDimension() {
@@ -37,8 +31,7 @@ public class Dn extends AbstractLattice implements LatticeAndNearestPointAlgorit
 
     @Override
     public void nearestPoint(double[] y) {
-        if (n != y.length)
-	    setDimension(y.length);
+        if (n != y.length) throw new RuntimeException("y is the wrong length");
         
         VectorFunctions.round(y, u);
         int m = (int)Math.rint(VectorFunctions.sum(u));

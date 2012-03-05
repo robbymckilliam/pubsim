@@ -7,7 +7,7 @@
 package pubsim.snpe;
 
 import java.util.TreeMap;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Anstar.AnstarVaughan;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
@@ -20,19 +20,24 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  */
 public class ZnLLS implements PRIEstimator {
     
-    double[] g, z, v, fz;
-    double n, N;
-    TreeMap map;
+    final double[] g, z, v, fz;
+    final double n, N;
+    final TreeMap map;
 
-    protected PhaseEstimator phasestor;
+    final protected PhaseEstimator phasestor;
 
     /** Period and phase estimates */
     protected double That, phat;
 
-    protected ZnLLS() {}
-
     public ZnLLS(int N){
-        setSize(N);
+        this.n = N-1;
+        this.N = N;
+        phasestor = new PhaseEstimator(N);
+        g = new double[N];
+        z = new double[N];
+        fz = new double[N];
+        v = new double[N];
+        map = new TreeMap();
     }
      
     /** 
@@ -45,18 +50,6 @@ public class ZnLLS implements PRIEstimator {
             g[k] = i/(n+1);
         for(int k = (int)j; k < n + 1; k++)
             g[k] = -j/(n+1);
-    }
-    
-    private void setSize(int N)
-    {
-        this.n = N-1;
-        this.N = N;
-        phasestor = new PhaseEstimator(N);
-        g = new double[N];
-        z = new double[N];
-        fz = new double[N];
-        v = new double[N];
-        map = new TreeMap();
     }
     
     @Override
@@ -116,10 +109,12 @@ public class ZnLLS implements PRIEstimator {
         
     }
     
+    @Override
     public double getPeriod() {
         return That;
     }
 
+    @Override
     public double getPhase() {
         return phat;
     }

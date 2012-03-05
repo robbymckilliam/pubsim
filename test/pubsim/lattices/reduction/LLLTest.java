@@ -5,21 +5,16 @@
 
 package pubsim.lattices.reduction;
 
-import pubsim.lattices.reduction.LLL;
 import Jama.Matrix;
-import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
+import org.junit.*;
+import pubsim.VectorFunctions;
+import pubsim.lattices.Anstar.Anstar;
+import pubsim.lattices.Anstar.AnstarSorted;
 
 /**
  *
- * @author Robby
+ * @author Robby McKilliam
  */
 public class LLLTest {
 
@@ -173,8 +168,8 @@ public class LLLTest {
         System.out.println("reducesAnStar");
         int m = 4;
         int n = 3;  
-        Anstar anstar = new AnstarBucketVaughan();
-        anstar.setDimension(n);
+        Anstar anstar = new AnstarSorted(n);
+
         Matrix B = anstar.getGeneratorMatrix();
         
         System.out.println(VectorFunctions.print(B));

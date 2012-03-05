@@ -7,10 +7,10 @@ package pubsim.poly.dptspecialm2;
 
 import Jama.Matrix;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import pubsim.lattices.VnmStar;
 import pubsim.Complex;
 import pubsim.VectorFunctions;
+import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.poly.AmbiguityRemover;
 import pubsim.poly.PolynomialPhaseEstimator;
 
@@ -37,7 +37,7 @@ public class AngularLeastSquares implements PolynomialPhaseEstimator{
 
     public void setSize(int n) {
         N = n;
-        anstar = new AnstarBucketVaughan(N-1);
+        anstar = new AnstarLinear(N-1);
         M = VnmStar.getMMatrix(N-m-1, m);
         Matrix Mt = M.transpose();
         K = Mt.times(M).inverse().times(Mt);

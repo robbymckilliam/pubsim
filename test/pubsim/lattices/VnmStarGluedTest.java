@@ -9,7 +9,7 @@ import pubsim.lattices.VnmStarGlued;
 import pubsim.lattices.VnmStar;
 import java.util.Random;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.decoder.SphereDecoder;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -86,7 +86,7 @@ public class VnmStarGluedTest {
         double[] v_instance = null;
         double[] v_tester = null;
         double[] x = new double[N];
-        Anstar tester = new AnstarBucketVaughan(n);
+        Anstar tester = new AnstarSorted(n);
         VnmStarGlued instance = new VnmStarGlued(m, n);
 
         //instance.setDimension(n - 1);

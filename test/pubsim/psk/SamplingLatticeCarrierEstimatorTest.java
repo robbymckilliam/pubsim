@@ -51,9 +51,8 @@ public class SamplingLatticeCarrierEstimatorTest extends TestCase {
         double[] rr = sig.getReal();
         double[] ri = sig.getImag();
         
-        SamplingLatticeCarrierEstimator instance = new SamplingLatticeCarrierEstimator();
+        SamplingLatticeCarrierEstimator instance = new SamplingLatticeCarrierEstimator(n,10*n);
         instance.setM(M);
-        instance.setSize(n);
         
         //UNDER CONSTRUCTION
         instance.estimateCarrier(rr, ri);

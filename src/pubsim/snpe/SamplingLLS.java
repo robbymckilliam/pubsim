@@ -1,10 +1,8 @@
 package pubsim.snpe;
 
 import pubsim.VectorFunctions;
-import pubsim.lattices.Anstar.Anstar;
+import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.lattices.Anstar.AnstarVaughan;
-import pubsim.lattices.Anstar.AnstarBucket;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
@@ -16,37 +14,36 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  */
 public class SamplingLLS implements PRIEstimator {
 
-    protected int NUM_SAMPLES;
-    protected int N;
-    protected PhaseEstimator phasestor;
+    final protected int NUM_SAMPLES;
+    final protected int N;
+    final protected PhaseEstimator phasestor;
+        
+    final double[] zeta, fzeta;
     /**
      * Period and phase estimates
      */
     protected double That, phat;
-    protected final LatticeAndNearestPointAlgorithm lattice = new AnstarBucketVaughan();
+    protected final LatticeAndNearestPointAlgorithm lattice;
 
-    protected SamplingLLS() {
-    }
 
     public SamplingLLS(int N) {
-        setSize(N);
         NUM_SAMPLES = 100;
-    }
-
-    public SamplingLLS(int N, int samples) {
-        setSize(N);
-        NUM_SAMPLES = samples;
-        //System.out.println("using " + NUM_SAMPLES +  " samples");
-    }
-    double[] zeta, fzeta;
-
-    private void setSize(int N) {
+        lattice = new AnstarLinear(N-1);
         phasestor = new PhaseEstimator(N);
-        lattice.setDimension(N - 1); // => N = N-1
         zeta = new double[N];
         fzeta = new double[N];
         this.N = N;
     }
+
+    public SamplingLLS(int N, int samples) {
+        NUM_SAMPLES = samples;
+        lattice = new AnstarLinear(N-1);
+        phasestor = new PhaseEstimator(N);
+        zeta = new double[N];
+        fzeta = new double[N];
+        this.N = N;
+    }
+
 
     @Override
     public void estimate(Double[] y, double Tmin, double Tmax) {

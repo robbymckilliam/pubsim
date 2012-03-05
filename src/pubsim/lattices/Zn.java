@@ -20,19 +20,13 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
     protected int n;
 
     public Zn(int n){
-        setDimension(n);
-    }
-
-    @Override
-    public void setDimension(int n){
         this.n =  n;
         x = new double[n];
     }
     
     @Override
-    public void nearestPoint(double[] y){
-        if (n != y.length)
-	    setDimension(y.length);
+    public final void nearestPoint(double[] y){
+        if (n != y.length) throw new RuntimeException("y is the wrong length");
         
         for(int i = 0; i < n; i++)
             x[i] = Math.round(y[i]);

@@ -9,7 +9,7 @@ import Jama.Matrix;
 import pubsim.lattices.Vn2Star.Vn2Star;
 
 /**
- * Abstract class for the frequency estimators that use the Phina2Star
+ * Abstract class for the frequency estimators that use the Vn2Star
  * lattice.
  * @author Robby McKilliam
  */
@@ -27,7 +27,7 @@ public abstract class LatticeEstimator implements FrequencyEstimator{
         y = new double[N];
     }
 
-        /** Run the estimator on recieved data, @param y */
+        /** Run the estimator on received data, @param y */
     @Override
     public double estimateFreq(double[] real, double[] imag){
         for(int i = 0; i < real.length; i++)

@@ -30,7 +30,7 @@ public interface NearestPointAlgorithm extends Serializable {
     double[] getIndex();
     
     /**
-     * Return the distance between to the nearest point computed 
+     * Return the distance between the nearest point computed 
      * the last time nearestPoint was run.
      */
     double distance();

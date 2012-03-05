@@ -12,15 +12,7 @@ import pubsim.Complex;
  */
 public interface PSKReceiver {
     
-    /** Set the number of symbols in the PSK constellation.  Ie M-PSK */
-    void setM(int M);
-    
-    /** 
-    * Set number of PSK signals to use for
-    * estimating the channel
-    */
-    void setT(int T);
-    
+
     /**Decode the PSK signal*/
     double[] decode(Complex[] y);
     

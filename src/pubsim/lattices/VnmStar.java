@@ -14,13 +14,28 @@ import static pubsim.Util.factorial;
  *
  * @author Robby McKilliam
  */
-public abstract class VnmStar extends AbstractLattice {
+public abstract class VnmStar extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
 
     /** dimension of this lattice*/
-    int n;
+    final protected int n;
 
     /** polynomial order */
-    int m;
+    final protected int m;
+    
+    final protected int N;
+    
+    //store all the legendre polynomials so that we can make projection fast.
+    final double[][] legendre;
+    
+    public VnmStar(int n, int m){
+        this.n = n;
+        this.m = m;
+        N = n+m+1;
+         //compute all the Legendre polynomials
+        legendre = new double[m+1][];
+        for(int k = 0; k <= m; k++)
+            legendre[k] = discreteLegendrePolynomialVector(n+m+1, k);
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -29,6 +44,7 @@ public abstract class VnmStar extends AbstractLattice {
         return Math.sqrt(M.transpose().times(M).det());
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         return getGeneratorMatrix(m, n);
     }
@@ -86,7 +102,14 @@ public abstract class VnmStar extends AbstractLattice {
 
     /** Project into the space this lattice lies in. */
     public void project(double[] x, double[] y){
-        project(x,y,m);
+        System.arraycopy(x, 0, y, 0, N);
+        for(int k = 0; k <= m; k++){
+            double[] ell = legendre[k];
+            double ytp = dot(y,ell);
+            double ptp = dot(ell,ell);
+            double scale = ytp/ptp;
+            for(int s = 0; s < N; s++) y[s] -= ell[s]*scale;
+        }
     }
 
     /**
@@ -121,9 +144,22 @@ public abstract class VnmStar extends AbstractLattice {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public int getDimension() {
         return n;
     }
+    
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
+     private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
+    }
 
 }

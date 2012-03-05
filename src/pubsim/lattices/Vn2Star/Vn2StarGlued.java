@@ -7,7 +7,7 @@
 package pubsim.lattices.Vn2Star;
 
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
+import pubsim.lattices.Anstar.AnstarLinear;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the
@@ -22,28 +22,17 @@ import pubsim.lattices.Anstar.AnstarBucketVaughan;
  */
 public class Vn2StarGlued extends Vn2Star {
     
-    protected Anstar anstar;
+    final protected Anstar anstar;
     
-    protected double[] g, vt, yt, y, ut;
-
-    public Vn2StarGlued(){}
+    final protected double[] g, yt, y;
+    protected double[] vt, ut;
 
     public Vn2StarGlued(int n){
-        setDimension(n);
-    }
-    
-    @Override
-    public void setDimension(int n){
-        this.n = n;
-        
-        anstar = new AnstarBucketVaughan(n+1);
-        
+        super(n);
+        anstar = new AnstarLinear(n+1);   
         g = new double[n+2];
-        v = new double[n+2];
-        u = new double[n+2];
         yt = new double[n+2];
         y = new double[n+2];
-        
     }
     
     /**
@@ -53,8 +42,7 @@ public class Vn2StarGlued extends Vn2Star {
      */
     @Override
     public void nearestPoint(double[] y){
-        if (n != y.length-2)
-	    setDimension(y.length-2);
+        if (n != y.length-2) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
         
         project(y, this.y);
         

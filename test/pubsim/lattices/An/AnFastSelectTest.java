@@ -59,8 +59,6 @@ public class AnFastSelectTest {
         AnFastSelect instance = new AnFastSelect(n-1);
         AnSorted tester = new AnSorted(n - 1);
         
-        instance.setDimension(n - 1);
-        tester.setDimension(n - 1);
         for(int i=0; i<numTrials; i++){
             for(int k = 0; k < n; k++){
                 y[k] = rand.nextGaussian()*10.0;

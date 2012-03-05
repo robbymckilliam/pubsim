@@ -6,13 +6,12 @@
 package pubsim.lattices.Anm;
 
 import java.io.Serializable;
-import pubsim.lattices.Anstar.AnstarVaughan;
-import pubsim.lattices.*;
 import java.util.Collection;
 import java.util.Iterator;
 import pubsim.FastSelection;
 import pubsim.IndexedDouble;
 import pubsim.Util;
+import pubsim.lattices.Anstar.AnstarVaughan;
 
 /**
  * This is an O(n) bucket A_{n/m} nearest point
@@ -20,31 +19,23 @@ import pubsim.Util;
  * idea suggested by Warren.
  * @author Robby McKilliam
  */
-public class AnmBucket extends AnmSorted {
+public class AnmBucket extends Anm {
 
-    protected IndexedDoubleList[] buckets;
-    protected ListElem[] bes;
-    protected double[] z;
+    private final IndexedDoubleList[] buckets;
+    private final ListElem[] bes;
+    private final double[] z;
     
-    protected int numBuckets;
+    protected final int numBuckets;
     
-    protected FastSelection fselect;
+    protected final FastSelection fselect;
     
     /** Constructor can set the m part of A_{n/m}. */
-    public AnmBucket(int M){
-        super(M);
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public void setDimension(int n){
-        this.n = n;
-        u = new double[n+1];
-        v = new double[n+1];
+    public AnmBucket(int n, int m){
+        super(n,m);
         z = new double[n+1];
         
         //setup the buckets.
-        numBuckets = (n+1)/M;
+        numBuckets = (n+1)/m;
         
         buckets = new IndexedDoubleList[numBuckets];
         for(int i = 0; i < numBuckets; i++)
@@ -57,14 +48,13 @@ public class AnmBucket extends AnmSorted {
         }
         
         fselect = new FastSelection(n+1);
-        
     }
+
     
     /** {@inheritDoc} */
     @Override
-    public void nearestPoint(double[] y){
-        if (n != y.length-1)
-	    setDimension(y.length-1);
+    public final void nearestPoint(double[] y){
+        if (n != y.length-1) throw new RuntimeException("y is the wrong length");
         
         //make sure that the buckets are empty!
         for(int i = 0; i < numBuckets; i++)
@@ -85,7 +75,7 @@ public class AnmBucket extends AnmSorted {
         }
         
         double D = Double.POSITIVE_INFINITY;
-        int m = 0, bestbucket = 0;
+        int p = 0, bestbucket = 0;
         for(int i = 0; i < numBuckets; i++){
             
             //approximate value of z[i] in the bucket
@@ -95,9 +85,9 @@ public class AnmBucket extends AnmSorted {
             
             //get the first modularly admissble index in the bucket
             //int j = nearestMultM(k) - k;
-            //int j = M*(int)Math.ceil(((double)k)/M) - k;
-            int j = M - Util.mod(k, M);
-            //if(j < 0) j+=M;
+            //int j = m*(int)Math.ceil(((double)k)/M) - k;
+            int j = this.m - Util.mod(k, this.m);
+            //if(j < 0) j+=m;
             
             //calculate the polynomial approximation
             //double p = b - 2*za*j + j - (a-j)*(a-j)/(n+1);
@@ -125,7 +115,7 @@ public class AnmBucket extends AnmSorted {
                     //System.out.println("dist = " + dist);
                     if(dist < D){
                         D = dist;
-                        m = j;
+                        p = j;
                         bestbucket = i;
                     }
                 //}
@@ -133,9 +123,9 @@ public class AnmBucket extends AnmSorted {
             
             //get the last modularly admissble index in the bucket
             //j = nearestMultM(k + buckets[i].size()) - k;
-            //j = M*(int)Math.floor(((double)k + buckets[i].size())/M) - k;
-            j = buckets[i].size() - Util.mod(buckets[i].size() + k, M);
-            //if(j > buckets[i].size()) j-=M;
+            //j = m*(int)Math.floor(((double)k + buckets[i].size())/M) - k;
+            j = buckets[i].size() - Util.mod(buckets[i].size() + k, this.m);
+            //if(j > buckets[i].size()) j-=m;
 
             //System.out.println(", p = " + j);
             
@@ -161,7 +151,7 @@ public class AnmBucket extends AnmSorted {
                     //System.out.println("dist = " + dist);
                     if(dist < D){
                         D = dist;
-                        m = j;
+                        p = j;
                         bestbucket = i;
                     }
                // }       
@@ -195,7 +185,7 @@ public class AnmBucket extends AnmSorted {
         
         //fast select the best element of the best bucket and add the
         //previous elements
-        fselect.select(m, buckets[bestbucket]);
+        fselect.select(p, buckets[bestbucket]);
         Iterator itr = fselect.smallest().iterator();
         while(itr.hasNext()){
             int ind = ((IndexedDouble)itr.next()).index;
@@ -209,18 +199,18 @@ public class AnmBucket extends AnmSorted {
         
     }
     
-    /** Returns the integer multiple of M to v */
+    /** Returns the integer multiple of m to v */
     public static int nearestMultM(double v, int M){
         return M*(int)Math.round(v/M);
     }
     
-    /** Returns the integer multiple of M to v */
+    /** Returns the integer multiple of m to v */
     protected int nearestMultM(double v){
-        return M*(int)Math.round(v/M);
+        return m*(int)Math.round(v/m);
     }
     
     protected int nearestMultInRange(double v, double min, double max){
-        return nearestMultInRange(v, min, max, M);
+        return nearestMultInRange(v, min, max, m);
     }
     
      public static int nearestMultInRange(double v, double min, double max, int M){
@@ -236,8 +226,7 @@ public class AnmBucket extends AnmSorted {
         }
         return j;
     }
-    
-    
+
     
     /** 
      * Specialised list implementation for the bucket
@@ -248,7 +237,7 @@ public class AnmBucket extends AnmSorted {
      * Also a toArray method is included to allow testing
      * before an implementation of fast sorting is made.
      */
-    protected class IndexedDoubleList implements Collection, Serializable{
+    public static class IndexedDoubleList implements Collection, Serializable{
         protected int size;
         protected ListElem current, first;
         protected IndexedDoubleListIterator itr;
@@ -348,13 +337,13 @@ public class AnmBucket extends AnmSorted {
     }
     
     /** List element for IntList */
-    protected class ListElem implements Serializable{
+    public static class ListElem implements Serializable{
         protected ListElem next;
         protected IndexedDouble elem;
     }
     
     /** An iterator for IntList */
-    protected class IndexedDoubleListIterator implements Iterator, Serializable{
+    public static class IndexedDoubleListIterator implements Iterator, Serializable{
         protected ListElem current;
         
         public IndexedDoubleListIterator(IndexedDoubleList list){

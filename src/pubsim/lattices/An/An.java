@@ -20,7 +20,6 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     protected double[] u;
     protected int n;
 
-    protected An() {}
 
     @Override
     public double[] getLatticePoint() {
@@ -42,6 +41,7 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
         return Math.sqrt(2)/2.0;
     }
 
+    @Override
     public int getDimension() {
         return n;
     }
@@ -49,6 +49,7 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     /**
      * Return the n+1 by n generator matrix for An.
      */
+    @Override
     public Matrix getGeneratorMatrix() {
         return getGeneratorMatrixBig().getMatrix(0, n, 0, n-1);
     }
@@ -106,6 +107,11 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
             yDoubletoy = new double[y.length];
         for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
         this.nearestPoint(yDoubletoy);
+    }
+    
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

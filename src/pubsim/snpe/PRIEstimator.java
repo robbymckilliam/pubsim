@@ -1,9 +1,10 @@
 package pubsim.snpe;
 
 import java.io.Serializable;
-import pubsim.lattices.Anstar.AnstarBucketVaughan;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import static pubsim.Util.fracpart;
+import pubsim.lattices.Anstar.Anstar;
+import pubsim.lattices.Anstar.AnstarLinear;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 
 /**
@@ -41,13 +42,13 @@ public interface PRIEstimator extends Serializable{
 
         public PhaseEstimator(int N){
             this.N = N;
-            lattice = new AnstarBucketVaughan(N-1);
+            lattice = new AnstarLinear(N-1);
             z = new double[N];
             fz = new double[N];
         }
 
         public double getPhase(Double[] y, double That){
-            AnstarBucketVaughan.project(y, z);
+            Anstar.project(y, z);
             for(int i = 0; i < N; i++) fz[i] =  z[i] / That;
             lattice.nearestPoint(fz);
             double[] s = lattice.getIndex();

@@ -1,26 +1,23 @@
 /*
- * Phin2StarSampledTest.java
+ * Vn2StarSampledTest.java
  * JUnit based test
  *
  * Created on 18 August 2007, 17:55
  */
 
-package pubsim.lattices.Phin2star;
+package pubsim.lattices.Vn2Star;
 
-import pubsim.lattices.Vn2Star.Vn2Star;
-import pubsim.lattices.Vn2Star.Vn2StarSampled;
-import pubsim.lattices.Vn2Star.Vn2StarGlued;
-import junit.framework.*;
 import java.util.Random;
-import pubsim.*;
+import junit.framework.TestCase;
+import pubsim.VectorFunctions;
 
 /**
  *
  * @author Robby McKilliam
  */
-public class Phin2StarSampledTest extends TestCase {
+public class Vn2StarSampledTest extends TestCase {
     
-    public Phin2StarSampledTest(String testName) {
+    public Vn2StarSampledTest(String testName) {
         super(testName);
     }
 
@@ -30,14 +27,14 @@ public class Phin2StarSampledTest extends TestCase {
     public void testNearestPoint() {
         System.out.println("nearestPoint");
         
-        int n = 256;
+        int n = 30;
         Random rand = new Random();
         
         double[] y = new double[n];
-        Vn2StarSampled instance = new Vn2StarSampled();
-        Vn2StarGlued tester = new Vn2StarGlued();
+        Vn2StarSampled instance = new Vn2StarSampled(n-2, n*10);
+        Vn2StarGlued tester = new Vn2StarGlued(n-2);
         
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 10; i++){
             for(int j=0; j<n; j++)
                 y[j] = 10 * rand.nextGaussian();
             

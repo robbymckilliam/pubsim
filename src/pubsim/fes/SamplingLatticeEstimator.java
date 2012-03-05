@@ -5,11 +5,10 @@
  */
 
 package pubsim.fes;
-import pubsim.lattices.Vn2Star.Vn2StarRelVecApprox;
 import pubsim.lattices.Vn2Star.Vn2StarSampled;
 
 /**
- * Simple and fast suboptimal (but perharps can be made optimal)
+ * Simple and fast suboptimal (but peharps can be made optimal)
  * lattice frequency estimator based on the pes.SamplingLLS 
  * period estimator.
  * @author Robby McKilliam

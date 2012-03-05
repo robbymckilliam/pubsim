@@ -15,14 +15,11 @@ import pubsim.lattices.Vn2Star.Vn2StarSampled;
 public class SamplingLatticeCarrierEstimator extends GlueAnstarCarrierEstimator 
         implements CarrierEstimator{
     
-    public SamplingLatticeCarrierEstimator() { 
-        lattice = new Vn2StarSampled();
+    public SamplingLatticeCarrierEstimator(int n, int samples) { 
+        super(n);
+        lattice = new Vn2StarSampled(n-2, samples);
     }
     
-    /**Constructor that sets the number of samples used */
-    public SamplingLatticeCarrierEstimator(int samples) { 
-        lattice = new Vn2StarSampled(samples);
-    }
     
     
 }

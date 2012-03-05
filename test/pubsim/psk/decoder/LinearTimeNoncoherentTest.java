@@ -66,10 +66,8 @@ public class LinearTimeNoncoherentTest {
         
         //System.out.println(" recsig = " + VectorFunctions.print(signal.getReceivedSignal()));
         
-        LinearTimeNoncoherent instance = new LinearTimeNoncoherent();
-        instance.setM(M);
-        instance.setT(T);
-        
+        LinearTimeNoncoherent instance = new LinearTimeNoncoherent(T,M);
+
         for(int i = 0; i < iters; i++){
             //signal.generateChannel();
             signal.generatePSKSignal();
