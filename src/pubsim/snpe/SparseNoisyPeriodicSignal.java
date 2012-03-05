@@ -6,7 +6,7 @@
 
 package pubsim.snpe;
 
-import pubsim.*;
+import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 
 /**
@@ -28,10 +28,13 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
     protected int N;
     protected double phase = 0.0;
     
-    public SparseNoisyPeriodicSignal(int N){
+    public SparseNoisyPeriodicSignal(int N, NoiseGenerator<Integer> sparsenoise, NoiseGenerator<Double> noise){
         this.N = N;
         sparseSignal = new Integer[N];
         recievedSignal = new Double[N];
+        this.noise = noise;
+        this.sparsenoise = sparsenoise;
+        generateSparseSignal();   
     }
     
     public void setSparseSignal(Integer[] S){
@@ -62,10 +65,6 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
      */
     @Override
     public Double[] generateReceivedSignal() {
-          if(sparseSignal == null )
-              throw new java.lang.NullPointerException
-                      ("transmitted signal has not been allocated\n" +
-                      "call generateSparseSignal(length) first ");
           
           for(int i = 0; i< sparseSignal.length; i++){
               recievedSignal[i] = T * sparseSignal[i]
@@ -77,6 +76,7 @@ public class SparseNoisyPeriodicSignal implements SignalGenerator<Double> {
     /** Set the discrete noise type for sparse signal */
     public void setSparseGenerator(NoiseGenerator<Integer> sparsenoise){
         this.sparsenoise = sparsenoise;
+        generateSparseSignal();
     }
     public NoiseGenerator<Integer> getSparseGenerator(){ return sparsenoise; }
 

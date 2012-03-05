@@ -7,9 +7,9 @@
 
 package pubsim.snpe;
 
-import pubsim.snpe.SparseNoisyPeriodicSignal;
-import junit.framework.*;
-import pubsim.*;
+import junit.framework.TestCase;
+import pubsim.VectorFunctions;
+import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.discrete.PoissonRandomVariable;
 
 /**
@@ -28,8 +28,8 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
     public void testGenerateTransmittedSignal() {
         System.out.println("generateReceivedSignal");
         
-        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(20);
-        instance.setSparseGenerator(new PoissonRandomVariable(2));
+        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(20,
+                new PoissonRandomVariable(2),new GaussianNoise(0,1));
         
         Integer[] sig = instance.generateSparseSignal();
         boolean result = false;
@@ -49,11 +49,9 @@ public class SparseNoisyPeriodicSignalTest extends TestCase {
         
         int length = 20;
         double T = 2.0;
-        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(length);
-        instance.setSparseGenerator(new PoissonRandomVariable(2));
+        SparseNoisyPeriodicSignal instance = new SparseNoisyPeriodicSignal(length,
+                new PoissonRandomVariable(2),new pubsim.distributions.UniformNoise(0.0, 1.0/3.0));
 
-        pubsim.distributions.ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 1.0/3.0);
-        instance.setNoiseGenerator(noise);   
         Integer[] rec_sig = instance.generateSparseSignal();
         instance.setSparseSignal(rec_sig);
         instance.setPeriod(T);

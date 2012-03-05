@@ -12,7 +12,7 @@ import pubsim.distributions.discrete.PoissonRandomVariable;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class NormalisedSamplingLLSTest {
 
@@ -52,11 +52,9 @@ public class NormalisedSamplingLLSTest {
         double noisestd = 0.001;
         GaussianNoise noise = new pubsim.distributions.GaussianNoise(0.0,noisestd*noisestd);
 
-        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n);
+        SparseNoisyPeriodicSignal sig = new SparseNoisyPeriodicSignal(n,new PoissonRandomVariable(2),noise);
         sig.setPeriod(T);
         sig.setPhase(phase);
-        sig.setNoiseGenerator(noise);
-        sig.setSparseGenerator(new PoissonRandomVariable(2));
         Integer[] trans = sig.generateSparseSignal();
         Double[] y = sig.generateReceivedSignal();
 
