@@ -24,7 +24,7 @@ public abstract class AbstractRandomVariable
     protected RandomElement random;
     
     public AbstractRandomVariable(){
-        random = new Ranmar(new java.util.Date());
+        random = new Ranmar(SeedGenerator.getSeed());
     }
 
     /**

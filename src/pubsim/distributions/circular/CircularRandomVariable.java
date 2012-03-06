@@ -9,6 +9,7 @@ import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import pubsim.Complex;
 import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.SeedGenerator;
 import rngpack.RandomElement;
 import rngpack.RandomSeedable;
 import rngpack.Ranmar;
@@ -26,7 +27,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
     protected RandomElement random;
 
     public CircularRandomVariable(){
-        random = new Ranmar(new java.util.Date());
+        random = new Ranmar(SeedGenerator.getSeed());
     }
     
     /**

@@ -5,19 +5,13 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.circular.CircularRandomVariable;
-import pubsim.distributions.circular.WrappedUniform;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
-import static pubsim.Util.dround6;
+import org.junit.*;
+import static pubsim.Util.fracpart;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class WrappedUniformTest {
 
@@ -48,11 +42,8 @@ public class WrappedUniformTest {
         System.out.println("pdf");
         CircularRandomVariable instance = new WrappedUniform(0.0, 1.0/11.0);
         assertTrue(instance.pdf(0) < 1.0);
-        System.out.println(instance.pdf(0));
         assertTrue(instance.pdf(-0.5) > 1.0);
-        System.out.println(instance.pdf(-0.5));
         assertTrue(instance.pdf(0.5) > 1.0);
-        System.out.println(instance.pdf(0.5));
     }
 
     /**
@@ -63,11 +54,35 @@ public class WrappedUniformTest {
         System.out.println("getWrappedVariance");
         CircularRandomVariable instance = new WrappedUniform(0.0, 1.0/12.0);
         assertEquals(1.0/12.0, instance.unwrappedVariance(), 0.0001);
-
         instance = new WrappedUniform(0.0, 1.0/11.0);
         double result = instance.unwrappedVariance();
-        System.out.println(result);
         assertTrue(1.0/12.0 > result);
+    }
+    
+    @Test
+    public void testNoise() {
+        System.out.println("test noise generator");
+        
+         int iters = 100000;
+        double mean = 0.2;
+        double var = 1.0/11.0;
+        CircularRandomVariable instance = new WrappedUniform(mean, var);
+        
+        double umean = instance.unwrappedMean();
+        assertEquals(-0.3, umean, 0.000001);
+        
+        double sum = 0; double sum2 = 0;
+        for( int i = 0; i <= iters; i++)
+        {
+            double noise = instance.getNoise();
+            boolean result = noise >= -0.5 && noise < 0.5; 
+            sum2 += fracpart(noise - umean)*fracpart(noise - umean);
+            assertEquals(true, result);
+        }
+        
+        //test the unwrapped variance
+        assertTrue( Math.abs(sum2/iters - instance.unwrappedVariance()) < 0.01 );
+        
     }
 
     

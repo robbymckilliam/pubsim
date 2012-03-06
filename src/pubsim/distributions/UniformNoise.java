@@ -6,6 +6,9 @@
 
 package pubsim.distributions;
 
+import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.WrappedCircularRandomVariable;
+import pubsim.distributions.circular.WrappedUniform;
 import rngpack.Ranlux;
 
 /**
@@ -68,6 +71,11 @@ public class UniformNoise extends AbstractRandomVariable implements ContinuousRa
         if(x < min) return 0.0;
         if(x > max) return 1.0;
         else return h*(x - min);
+    }
+    
+    @Override
+    public CircularRandomVariable getWrapped() {
+        return new WrappedUniform(mean, variance);
     }
     
 }

@@ -40,6 +40,6 @@ public class ConstantAngleSignal extends NoiseVector {
         return iidsignal;
     }
 
-
+    
 
 }

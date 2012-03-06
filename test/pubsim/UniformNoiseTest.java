@@ -7,9 +7,8 @@
 
 package pubsim;
 
+import junit.framework.TestCase;
 import pubsim.distributions.UniformNoise;
-import junit.framework.*;
-import java.util.Random;
 
 /**
  *
@@ -33,16 +32,25 @@ public class UniformNoiseTest extends TestCase {
     public void testGetNoise() {
         System.out.println("getNoise");
         
-        UniformNoise instance = new UniformNoise(2.0, 4.0/3.0);
+        int iters = 100000;
+        double mean = 2.0;
+        double var = 4.0/3.0;
+        UniformNoise instance = new UniformNoise(mean, var);
         
-        boolean result;
-        double noise;
-        for( int i = 0; i <= 100; i++)
+        
+        double sum = 0; double sum2 = 0;
+        for( int i = 0; i <= iters; i++)
         {
-            noise = instance.getNoise();
-            result = noise >= 0.0 && noise <= 4.0; 
+            double noise = instance.getNoise();
+            boolean result = noise >= 0.0 && noise <= 4.0; 
+            sum += noise;
+            sum2 += (noise - 2)*(noise - 2);
             assertEquals(true, result);
         }
+        
+        //test the mean and variance
+        assertTrue( Math.abs(sum/iters - mean) < 0.01 );
+        assertTrue( Math.abs(sum2/iters - var) < 0.01 );
        
     }
     

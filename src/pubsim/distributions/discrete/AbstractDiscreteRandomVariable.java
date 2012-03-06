@@ -4,6 +4,7 @@
  */
 package pubsim.distributions.discrete;
 
+import pubsim.distributions.SeedGenerator;
 import rngpack.RandomElement;
 import rngpack.RandomSeedable;
 import rngpack.Ranlux;
@@ -14,7 +15,7 @@ import rngpack.Ranlux;
  */
 public abstract class AbstractDiscreteRandomVariable implements DiscreteRandomVariable {
 
-    protected RandomElement random = new Ranlux(RandomSeedable.ClockSeed());
+    protected RandomElement random = new Ranlux(SeedGenerator.getSeed());
 
     /** Randomise the seed for the internal Random */
     @Override
