@@ -11,10 +11,10 @@ import pubsim.distributions.NoiseGenerator;
 
 /**
  * Generates a set of recieved times that are sparse and
- * noisy versions of the recieved signal.
+ * noisy versions of the received signal.
  * <p>
  * The specific sparse pulses that will be transmitted can
- * be specefied by @func setSparseSignal.
+ * be specified by @func setSparseSignal.
  * 
  * @author Robby McKilliam
  */

@@ -27,7 +27,7 @@ public class SamplingLLS implements PRIEstimator {
 
 
     public SamplingLLS(int N) {
-        NUM_SAMPLES = 100;
+        NUM_SAMPLES = 4*N; //default is to oversample by 4
         lattice = new AnstarLinear(N-1);
         phasestor = new PhaseEstimator(N);
         zeta = new double[N];

@@ -7,6 +7,14 @@ import pubsim.lattices.Anstar.AnstarVaughan;
 // Written by Vaughan Clarkson, 11-Jan-07 (fork from PeriodogramEstimator).
 
 public class NormalisedPeriodogram extends PeriodogramEstimator implements PRIEstimator {
+    
+    public NormalisedPeriodogram(int N){
+        super(N);
+    }
+    
+    public NormalisedPeriodogram(int N, int samples){
+        super(N, samples);
+    }
 
 
     private static double calculateObjective(Double[] y, double f) {

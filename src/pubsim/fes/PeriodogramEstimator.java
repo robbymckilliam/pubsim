@@ -47,11 +47,12 @@ public class PeriodogramEstimator implements FrequencyEstimator{
     }
     
     /** Run the periodogram estimator on recieved data, @param y */
+    @Override
     public double estimateFreq(double[] real, double[] imag){
 
-	// Coarse search
-	double maxp = 0;
-	double fhat= 0.0;
+        // Coarse search
+        double maxp = 0;
+        double fhat= 0.0;
         double fstep = 1.0/num_samples;
 	for (double f = -0.5; f <= 0.5; f += fstep) {
 	    double p = calculatePeriodogram(real, imag, f);

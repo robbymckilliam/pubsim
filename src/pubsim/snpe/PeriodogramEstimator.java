@@ -10,7 +10,7 @@ import pubsim.lattices.Anstar.AnstarVaughan;
 
 public class PeriodogramEstimator implements PRIEstimator {
 
-    protected int NUM_SAMPLES = 100;
+    protected final int NUM_SAMPLES;
     protected static final int MAX_ITER = 10;
     protected static final double EPSILON = 1e-10;
 
@@ -22,10 +22,9 @@ public class PeriodogramEstimator implements PRIEstimator {
     int N;
     double[] kappa;
 
-    protected PeriodogramEstimator() {}
-
     public PeriodogramEstimator(int N){
         setSize(N);
+        NUM_SAMPLES = 4*N; //default is to oversample by 4
     }
     
     public PeriodogramEstimator(int N, int samples){
@@ -34,9 +33,9 @@ public class PeriodogramEstimator implements PRIEstimator {
     }
     
     private void setSize(int N) {
-	this.N = N;
+        this.N = N;
         phasestor = new PhaseEstimator(N);
-	kappa = new double[N];
+        kappa = new double[N];
     }
 
     private static double calculatePeriodogram(Double[] y, double f) {

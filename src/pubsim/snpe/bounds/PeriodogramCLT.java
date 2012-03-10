@@ -7,7 +7,8 @@ package pubsim.snpe.bounds;
 import pubsim.distributions.ContinuousRandomVariable;
 
 /**
- *
+ * Computes the asymptotic variance of the periodogram estimator of a sparse
+ * noisy periodic signal.
  * @author Robby McKilliam
  */
 public class PeriodogramCLT implements CLT {

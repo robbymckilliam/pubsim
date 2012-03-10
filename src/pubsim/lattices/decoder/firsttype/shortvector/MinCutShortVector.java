@@ -67,7 +67,7 @@ public class MinCutShortVector implements ShortVector{
         
         //compute the minimum cut
         StoerWagnerMinimumCut<Integer, DefaultWeightedEdge> mincut = 
-                new StoerWagnerMinimumCut<Integer, DefaultWeightedEdge>(G, DefaultWeightedEdge.class);
+                new StoerWagnerMinimumCut<Integer, DefaultWeightedEdge>(G);
         
         u = new double[N+1];
         v = new double[N+1];
