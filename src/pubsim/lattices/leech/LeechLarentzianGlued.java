@@ -6,11 +6,10 @@
 package pubsim.lattices.leech;
 
 import Jama.Matrix;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
-import pubsim.lattices.Zn;
-import pubsim.Util;
 import pubsim.VectorFunctions;
 import pubsim.lattices.AbstractLattice;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.Zn;
 
 /**
  * Decoder for the Leech lattice based on the Lorezentian construction.
@@ -109,7 +108,8 @@ public class LeechLarentzianGlued extends AbstractLattice implements LatticeAndN
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public int getDimension() {
+    @Override
+    public final int getDimension() {
         return 24;
     }
 

@@ -21,13 +21,13 @@ public class IndexedDouble implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
+    public final int compareTo(Object o) {
         IndexedDouble co = (IndexedDouble) o;
         return Double.compare(value, co.value);
     } 
    
     @Override
-    public String toString() {
+    public final String toString() {
         return "(" + value + ", " + index + ")";
     }
     

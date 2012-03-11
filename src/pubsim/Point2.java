@@ -47,14 +47,14 @@ public class Point2 extends Matrix{
         return get(1,0);
     }
 
-    public double magnitude(){
+    public final double magnitude(){
         return normF();
     }
 
     /**
      * @return x^2 + y^2
      */
-    public double magnitude2(){
+    public final double magnitude2(){
         return getX()*getX() + getY()*getY();
     }
 

@@ -4,17 +4,13 @@
  */
 package pubsim.lattices.decoder.firsttype.shortvector;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnSorted;
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
-import static org.junit.Assert.*;
 
 /**
  *

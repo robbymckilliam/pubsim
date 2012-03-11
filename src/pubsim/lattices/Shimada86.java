@@ -13,6 +13,7 @@ import Jama.Matrix;
  */
 public class Shimada86 extends AbstractLattice{
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -21,10 +22,12 @@ public class Shimada86 extends AbstractLattice{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public int getDimension() {
+    @Override
+    public final int getDimension() {
         return 86;
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -40,7 +43,7 @@ public class Shimada86 extends AbstractLattice{
     }
 
     @Override
-    public long kissingNumber(){
+    public final long kissingNumber(){
         return 109421928;
     }
 

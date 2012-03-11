@@ -76,11 +76,13 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private double[] yDoubletoy = new double[24];
+    private double[] yDoubletoy;
     @Override
     public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            yDoubletoy = new double[y.length];
         for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
-        this.nearestPoint(y);
+        this.nearestPoint(yDoubletoy);
     }
     
 }

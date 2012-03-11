@@ -19,15 +19,17 @@ public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorit
     final protected Dn dn1 = new Dn(8),dn2 = new Dn(8);
     protected double dist;
 
+    @Override
     public double coveringRadius() {
         return 1.0;
     }
 
-    public void setDimension(int n) {
+    public final void setDimension(int n) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public int getDimension() {
+    @Override
+    public final int getDimension() {
         return 8;
     }
     
@@ -62,7 +64,7 @@ public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorit
     }
 
     @Override
-    public long kissingNumber(){
+    public final long kissingNumber(){
         return 240;
     }
 

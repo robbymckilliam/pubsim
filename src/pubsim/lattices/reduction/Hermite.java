@@ -5,7 +5,6 @@
 package pubsim.lattices.reduction;
 
 import Jama.Matrix;
-import pubsim.VectorFunctions;
 
 /**
  * The Hermite lattice reduction algorithm.
@@ -17,6 +16,7 @@ public class Hermite implements LatticeReduction{
     protected Matrix M;
     
     /** {@inheritDoc} */
+    @Override
     public Matrix reduce(Matrix B) {
         if(B == null){
             M = null;

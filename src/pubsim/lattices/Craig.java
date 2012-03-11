@@ -5,14 +5,9 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.*;
 import Jama.Matrix;
-import pubsim.lattices.An.AnSorted;
-import pubsim.VectorFunctions;
 import static pubsim.Util.log2;
-import static pubsim.Util.pow2;
-import static pubsim.Util.erf;
-import static pubsim.Util.erfc;
+import pubsim.lattices.An.AnSorted;
 
 /**
  *
@@ -33,6 +28,7 @@ public class Craig extends AbstractLattice{
         this.r = r;
     }
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -41,6 +37,7 @@ public class Craig extends AbstractLattice{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public int getDimension() {
         return n;
     }
@@ -79,6 +76,7 @@ public class Craig extends AbstractLattice{
      * A better way would be to use the cyclic nature of the matrix.
      * This is simple to code though.
      */
+    @Override
     public Matrix getGeneratorMatrix() {
         if(r == 0) return Matrix.identity(n+1, n+1);
 

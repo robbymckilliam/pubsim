@@ -26,6 +26,7 @@ public class Leech extends AbstractLattice{
         return 1.0;
     }
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -34,7 +35,8 @@ public class Leech extends AbstractLattice{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public int getDimension() {
+    @Override
+    public final int getDimension() {
         return 24;
     }
 
@@ -68,12 +70,13 @@ public class Leech extends AbstractLattice{
     protected static final Matrix mat
                     = new Matrix(dMat).times(1.0/Math.sqrt(8.0)).transpose();
 
+    @Override
     public Matrix getGeneratorMatrix() {
         return mat;
     }
 
     @Override
-    public long kissingNumber(){
+    public final long kissingNumber(){
         return 196560;
     }
 

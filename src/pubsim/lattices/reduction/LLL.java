@@ -18,6 +18,7 @@ public class LLL implements LatticeReduction{
     /** Unimodular matrix such that reduce(B) = BM */
     protected Matrix M;
 
+    @Override
     public Matrix reduce(Matrix B){
         if(B == null){
             M = null;
@@ -78,13 +79,12 @@ public class LLL implements LatticeReduction{
         Bcopy = hermite.reduce(Bcopy);
         M = M.times(hermite.getUnimodularMatrix());
         //M = hermite.getUnimodularMatrix().times(M);
-
-        //System.out.println("THIS SHOULD NOT BE CALLED!");
         
         return Bcopy;
     }
 
     /** {@inheritDoc} */
+    @Override
     public Matrix getUnimodularMatrix() {
         return M;
     }

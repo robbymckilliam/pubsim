@@ -21,6 +21,7 @@ public class BarnesWall extends AbstractLattice{
         n = (int)Math.round(Math.pow(2, m+1));
     }
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -29,10 +30,12 @@ public class BarnesWall extends AbstractLattice{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public int getDimension() {
         return n;
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
