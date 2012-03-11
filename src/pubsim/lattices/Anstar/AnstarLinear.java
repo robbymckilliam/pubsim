@@ -29,7 +29,7 @@ public class AnstarLinear extends Anstar {
     }
 
     @Override
-    public void nearestPoint(double[] y) {
+    public final void nearestPoint(double[] y) {
         if (n != y.length-1) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
         
         //make sure that the buckets are empty!

@@ -5,11 +5,10 @@
 
 package pubsim.lattices.An;
 
-import pubsim.lattices.An.AnSorted;
 import junit.framework.TestCase;
-import pubsim.distributions.processes.NoiseVector;
-import pubsim.distributions.UniformNoise;
 import pubsim.VectorFunctions;
+import pubsim.distributions.UniformNoise;
+import pubsim.distributions.processes.NoiseVector;
 
 /**
  *

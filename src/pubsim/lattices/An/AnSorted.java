@@ -1,9 +1,9 @@
 package pubsim.lattices.An;
 
-import pubsim.lattices.Anstar.Anstar;
 import java.util.Arrays;
 import pubsim.IndexedDouble;
 import pubsim.VectorFunctions;
+import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
@@ -13,7 +13,7 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  */
 public class AnSorted extends An implements LatticeAndNearestPointAlgorithm{
 
-    protected IndexedDouble[] z;
+    protected final IndexedDouble[] z;
 
     public AnSorted(int n){
         this.n = n;
@@ -36,13 +36,11 @@ public class AnSorted extends An implements LatticeAndNearestPointAlgorithm{
             z[i].value = Math.signum(m)*(y[i] - u[i]);
             z[i].index = i;
         }
-        //System.out.println(VectorFunctions.print(y));
-        //System.out.println(VectorFunctions.print(u));
-        //System.out.println(m);
+
         Arrays.sort(z);
         for(int i = 0; i < Math.abs(m); i++)
             u[z[i].index] -= Math.signum(m);
-        //System.out.println(VectorFunctions.print(u));
+        
     }
     
 

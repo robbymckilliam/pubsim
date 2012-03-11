@@ -7,25 +7,25 @@ package pubsim.lattices.Anstar;
 
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.An;
-import pubsim.lattices.An.AnFastSelect;
+import pubsim.lattices.An.AnSorted;
 
 /**
  * Nearest point algorithm that uses the n+1 glue vectors that
- * glue the lattice An into An*.  This is Conway and Sloanes
- * original algorithm.  It requires O(n^2 logn) operations.
+ * glue the lattice An into An*.  This is Conway and Sloane's
+ * original algorithm.  It requires O(n^2 log n) operations.
  * It's very slow!
  * @author Robby McKilliam
  */
 public class AnstarAnGlued extends Anstar{
 
-    private double[] g, yd;
-    private An an;
+    private final double[] g, yd;
+    private final An an;
 
     public AnstarAnGlued(int n){
         super(n);
         g = new double[n+1];
         yd = new double[n+1];
-        an = new AnFastSelect(n);
+        an = new AnSorted(n);
     }
 
     /** 
@@ -52,7 +52,8 @@ public class AnstarAnGlued extends Anstar{
     
     
     /** Simple nearest point algorithm based on glue vectors */
-    public void nearestPoint(double[] y) {
+    @Override
+    public final void nearestPoint(double[] y) {
         if (n != y.length-1) throw new ArrayIndexOutOfBoundsException("y is the wrong length");
         
         double D = Double.POSITIVE_INFINITY;
@@ -60,17 +61,13 @@ public class AnstarAnGlued extends Anstar{
         
         for(int i = 0; i < n+1; i++){
             glueVector(i);
-            
-            System.out.println(VectorFunctions.print(g));
-            
+
             for(int j = 0; j < n+1; j++)
                 yd[j] = y[j] - g[j];
             
-            an.nearestPoint(yd);
+            an.nearestPoint(yd);          
             
             double d = VectorFunctions.distance_between2(yd, an.getLatticePoint());
-
-            
             if( d < D ){
                 besti = i;
                 D = d;

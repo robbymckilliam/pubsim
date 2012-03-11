@@ -5,12 +5,12 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarAnGlued;
-import pubsim.lattices.Anstar.AnstarBucket;
 import java.util.Random;
 import junit.framework.TestCase;
 import pubsim.VectorFunctions;
+import pubsim.lattices.Anstar.Anstar;
+import pubsim.lattices.Anstar.AnstarAnGlued;
+import pubsim.lattices.Anstar.AnstarBucket;
 
 /**
  *
@@ -41,8 +41,8 @@ public class AnstarAnGluedTest extends TestCase {
         int n = 8;
         Random rand = new Random();
         double[] y = new double[n];
-        double[] v_instance = null;
-        double[] v_tester = null;
+        double[] v_instance;
+        double[] v_tester;
         double[] x = new double[n];
         Anstar tester = new AnstarBucket(n-1);
         Anstar instance = new AnstarAnGlued(n-1);

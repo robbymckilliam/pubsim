@@ -1,13 +1,9 @@
 package pubsim.snpe;
 
-import pubsim.lattices.Anstar.AnstarVaughan;
-
-// Implementation of Fogel & Gavish's periodogram estimator.
-
-// Written by Vaughan Clarkson, 05-Jan-07.
-// New method calculatePeriodogram and fixed the Newton iteration
-// steps, 08-Jan-07.
-
+/**
+ * Written by Vaughan Clarkson, 05-Jan-07.
+ * New method calculatePeriodogram and fixed the Newton iteration steps, 08-Jan-07.
+ * */
 public class PeriodogramEstimator implements PRIEstimator {
 
     protected final int NUM_SAMPLES;
@@ -38,7 +34,7 @@ public class PeriodogramEstimator implements PRIEstimator {
         kappa = new double[N];
     }
 
-    private static double calculatePeriodogram(Double[] y, double f) {
+    public static double calculatePeriodogram(Double[] y, double f) {
 	double sumur = 0, sumui = 0;
 	for (int i = 0; i < y.length; i++) {
 	    sumur += Math.cos(2 * Math.PI * f * y[i]);

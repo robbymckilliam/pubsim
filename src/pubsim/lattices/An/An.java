@@ -5,9 +5,10 @@
 
 package pubsim.lattices.An;
 
-import pubsim.lattices.*;
 import Jama.Matrix;
 import pubsim.Util;
+import pubsim.lattices.AbstractLattice;
+import pubsim.lattices.NearestPointAlgorithm;
 
 /**
  * Abstract for the lattice An.  Protected variable u and n
@@ -91,7 +92,7 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     }
 
     @Override
-    public long kissingNumber() {
+    public final long kissingNumber() {
         return n*(n+1);
     }
     
@@ -102,7 +103,7 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     
     private double[] yDoubletoy;
     @Override
-    public void nearestPoint(Double[] y) {
+    public final void nearestPoint(Double[] y) {
         if(yDoubletoy == null || yDoubletoy.length != y.length) 
             yDoubletoy = new double[y.length];
         for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];

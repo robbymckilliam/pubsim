@@ -5,14 +5,10 @@
 
 package pubsim.lattices.Anm;
 
-import Jama.Matrix;
 import java.util.Arrays;
 import pubsim.IndexedDouble;
 import pubsim.Util;
-import pubsim.lattices.An.AnSorted;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Lattice;
-import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
 
 /**
  * Implementation of the O(n log(n)) algorithm to find the nearest

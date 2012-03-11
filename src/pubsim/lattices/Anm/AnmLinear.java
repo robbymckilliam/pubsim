@@ -5,13 +5,13 @@
 
 package pubsim.lattices.Anm;
 
-import pubsim.lattices.Anstar.AnstarVaughan;
 import pubsim.FastSelection;
 import pubsim.IndexedDouble;
 import pubsim.Util;
 import pubsim.lattices.Anm.AnmBucket.IndexedDoubleList;
 import pubsim.lattices.Anm.AnmBucket.IndexedDoubleListIterator;
 import pubsim.lattices.Anm.AnmBucket.ListElem;
+import pubsim.lattices.Anstar.AnstarVaughan;
 
 
 /**
@@ -56,7 +56,7 @@ public class AnmLinear extends Anm {
 
     /** {@inheritDoc} */
     @Override
-    public void nearestPoint(double[] y){
+    public final void nearestPoint(double[] y){
         if (n != y.length-1) throw new RuntimeException("y is the wrong length");
         
         //make sure that the buckets are empty!

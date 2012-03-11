@@ -19,7 +19,7 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  */
 public class AnFastSelect extends An implements LatticeAndNearestPointAlgorithm {
 
-    protected IndexedDouble[] z;
+    protected final IndexedDouble[] z;
     
     public AnFastSelect(int n){
         this.n = n;
