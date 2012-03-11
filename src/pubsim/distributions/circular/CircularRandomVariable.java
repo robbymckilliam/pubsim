@@ -11,7 +11,6 @@ import pubsim.Complex;
 import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.distributions.SeedGenerator;
 import rngpack.RandomElement;
-import rngpack.RandomSeedable;
 import rngpack.Ranmar;
 
 /**

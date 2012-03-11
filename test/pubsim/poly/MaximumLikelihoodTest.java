@@ -5,17 +5,12 @@
 
 package pubsim.poly;
 
-import pubsim.poly.MaximumLikelihood;
-import pubsim.poly.PolynomialPhaseSignal;
 import Jama.Matrix;
-import pubsim.distributions.GaussianNoise;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.*;
 import pubsim.VectorFunctions;
+import pubsim.distributions.GaussianNoise;
 
 /**
  *
