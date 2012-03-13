@@ -18,7 +18,7 @@ public class PSCFDEstimator implements FrequencyEstimator {
         this.N = N;
     }
 
-    /** Run the estimator on recieved data, @param y */
+    /** Run the estimator on received data, @param y */
     public double estimateFreq(double[] real, double[] imag){
         
         double ks = 0.0;

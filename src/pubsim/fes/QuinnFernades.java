@@ -42,7 +42,7 @@ public class QuinnFernades implements FrequencyEstimator{
     }
 
     /**
-     * Contructor that sets the number of samples to be taken of
+     * Constructor that sets the number of samples to be taken of
      * the periodogram. You don't really need to oversample though.
      */
     public QuinnFernades(int N, int oversampled) {
@@ -54,7 +54,7 @@ public class QuinnFernades implements FrequencyEstimator{
     }
 
     @Override
-    public double estimateFreq(double[] real, double[] imag) {
+    public final double estimateFreq(double[] real, double[] imag) {
         //construct zero padded complex signal
         for (int i = 0; i < N; i++) {
             sig[i] = new Complex(real[i], imag[i]);
@@ -71,8 +71,7 @@ public class QuinnFernades implements FrequencyEstimator{
         fft.transform();
         Complex[] ft = fft.getTransformedDataAsComplex();
 
-        //note that the FFT is generally defined with exp(-jw) but
-        //periodogram has exp(jw) so freq are -ve here.
+        //FFT output is backwards, flip it
         double maxp = 0;
         double fhat = 0.0;
         double f = 0.0;
@@ -109,10 +108,10 @@ public class QuinnFernades implements FrequencyEstimator{
                 den += eta[t].squareAbs();
             }
             fhat += 2*num/den/2/Math.PI;
-            //System.out.println(fhat);
+
             numIter++;
         }
-        //System.out.println(fhat);
+
         return fhat - Math.round(fhat);
     }
 

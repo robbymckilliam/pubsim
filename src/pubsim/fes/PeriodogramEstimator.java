@@ -27,7 +27,7 @@ public class PeriodogramEstimator implements FrequencyEstimator{
         this.N = N;
     }
     
-    /** Contructor that sets the number of samples to be taken of
+    /** Constructor that sets the number of samples to be taken of
      * the periodogram.
      */
     public PeriodogramEstimator(int N, int samples){
@@ -46,7 +46,7 @@ public class PeriodogramEstimator implements FrequencyEstimator{
         return sumur * sumur + sumui * sumui;
     }
     
-    /** Run the periodogram estimator on recieved data, @param y */
+    /** Run the periodogram estimator on received data, @param y */
     @Override
     public double estimateFreq(double[] real, double[] imag){
 

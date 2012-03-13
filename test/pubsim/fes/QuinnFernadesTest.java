@@ -5,18 +5,12 @@
 
 package pubsim.fes;
 
-import pubsim.fes.NoisyComplexSinusoid;
-import pubsim.fes.QuinnFernades;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class QuinnFernadesTest {
 
@@ -47,7 +41,7 @@ public class QuinnFernadesTest {
         System.out.println("estimateFreq");
 
         int iters = 10;
-        double f = 0.1;
+        double f = -0.41111;
         QuinnFernades instance = new QuinnFernades(64);
 
         NoisyComplexSinusoid signal = new NoisyComplexSinusoid(64);

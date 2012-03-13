@@ -35,7 +35,7 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
         fft = new FourierTransform();
     }
 
-    /** Contructor that sets the number of samples to be taken of
+    /** Constructor that sets the number of samples to be taken of
      * the periodogram.
      */
     public PeriodogramFFTEstimator(int N, int oversampled) {
@@ -45,6 +45,7 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
         fft = new FourierTransform();
     }
     
+    @Override
     public double estimateFreq(double[] real, double[] imag) {
         for (int i = 0; i < N; i++) {
             sig[i] = new Complex(real[i], imag[i]);
@@ -57,8 +58,7 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
         fft.transform();
         Complex[] ft = fft.getTransformedDataAsComplex();
 
-        //note that the FFT is generally defined with exp(-jw) but
-        //periodogram has exp(jw) so freq are -ve here.
+        //FFT output is backwards, flip it
         double maxp = 0;
         double fhat = 0.0;
         double f = 0.0;
@@ -71,8 +71,6 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
             }
             f-=fstep;
         }
-
-        //System.out.println(fhat);
 
         //Newton Raphson
         int numIter = 0;
@@ -115,8 +113,6 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
             }
             numIter++;
         }
-
-        //System.out.println("f = " + fhat);
 
         return fhat - Math.round(fhat);
     }
