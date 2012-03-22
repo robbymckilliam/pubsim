@@ -41,14 +41,14 @@ public class TestWeakConvergenceOfApproximatingPolynomial {
     public void test() {
         System.out.println("testPolyFunctionValue");
         
-        long fromN = 10000;
+        long fromN = 10000000;
         int numruns = 20;
         
         CircularRandomVariable rv = new CircularUniform();
         
         for(long N = fromN; N < fromN + numruns; N++){
             double sum = 0.0;
-            for(int n = 0; n < N; n++) sum += polyn(rv.getNoise(),N);
+            for(int n = 0; n < N; n++) sum += polyn(rv.getNoise(),Math.round(Math.pow(N,1.0/2 + 0.01)));
             System.out.println("N = " + N + ", mean = " + (sum/N));
         }
         

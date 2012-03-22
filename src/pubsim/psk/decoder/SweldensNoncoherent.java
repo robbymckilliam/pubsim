@@ -39,6 +39,7 @@ public class SweldensNoncoherent implements PSKReceiver{
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
+    @Override
     public final double[] decode(Complex[] y) {
         if(y.length != T) throw new RuntimeException("y is the wrong length");
         
@@ -79,22 +80,27 @@ public class SweldensNoncoherent implements PSKReceiver{
         
     }
 
+    @Override
     public int bitErrors(double[] x) {
         return Util.differentialEncodedBitErrors(g, x, M);
     }
 
     /** This is a noncoherent reciever so setting the channel does nothing*/
+    @Override
     public void setChannel(Complex h) {  }
     
+    @Override
     public int bitsPerCodeword() {
         return (int)Math.round((T-1)*Math.log(M)/Math.log(2));
         //return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
     
+    @Override
     public int symbolErrors(double[] x) {
         return Util.differentialEncodedSymbolErrors(g, x, M);
     }
 
+    @Override
     public boolean codewordError(double[] x) {
         return !Util.differentialEncodedEqual(g, x, M);
     }

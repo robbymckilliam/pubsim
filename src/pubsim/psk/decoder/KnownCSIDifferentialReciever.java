@@ -11,12 +11,8 @@ package pubsim.psk.decoder;
  */
 public class KnownCSIDifferentialReciever extends KnownCSIReciever{
 
-    public KnownCSIDifferentialReciever(){
-        setM(4);
-    }
-
     public KnownCSIDifferentialReciever(int M){
-        setM(M);
+        super(M);
     }
 
     @Override

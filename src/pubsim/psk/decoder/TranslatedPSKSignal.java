@@ -34,14 +34,17 @@ public class TranslatedPSKSignal extends PSKSignal
     /** The PAT symbol used */
     protected Complex PAT;
 
+    @Override
     public void setPATSymbol(double real, double imag) {
         PAT = new Complex(real, imag);
     }
 
+    @Override
     public void setPATSymbol(Complex c) {
         PAT = new Complex(c);
     }
 
+    @Override
     public Complex getPATSymbol() {
         return PAT;
     }
