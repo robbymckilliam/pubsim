@@ -4,12 +4,12 @@ package pubsim;
 
 /** 
  * Class used for storing a double and an index.
- * Acts a little bit like simulator.Sorter.ComparibleHolder but
+ * Acts a little bit like pubsim.Sorter.ComparibleHolder but
  * is more specialised and probably faster and is just simpler
  * and nicer to look at.
  * @author Robby McKilliam
  */
-public class IndexedDouble implements Comparable{
+public class IndexedDouble implements Comparable<IndexedDouble> {
     public double value;
     public int index;
     
@@ -21,9 +21,8 @@ public class IndexedDouble implements Comparable{
     }
 
     @Override
-    public final int compareTo(Object o) {
-        IndexedDouble co = (IndexedDouble) o;
-        return Double.compare(value, co.value);
+    public final int compareTo(IndexedDouble that) {
+        return Double.compare(value, that.value);
     } 
    
     @Override

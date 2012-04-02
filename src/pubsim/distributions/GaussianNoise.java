@@ -10,9 +10,7 @@ package pubsim.distributions;
 
 import pubsim.Complex;
 import pubsim.distributions.circular.CircularRandomVariable;
-import pubsim.distributions.circular.WrappedCircularRandomVariable;
 import pubsim.distributions.circular.WrappedGaussian;
-import rngpack.Ranlux;
 
 /**
  * Creates single Gaussian variables

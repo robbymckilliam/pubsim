@@ -35,7 +35,7 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
         this.k = k;
     }
 
-    public void setM(int M) {
+    private void setM(int M) {
         this.M = M;
         setT(T);
     }
@@ -60,6 +60,7 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
      * @param y the PSK symbols
      * @return the index of the nearest lattice point
      */
+    @Override
     public double[] decode(Complex[] y) {
         if(y.length != T) setT(y.length);
         
@@ -119,8 +120,10 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
     }
 
     /** This is a noncoherent receiver so setting the channel does nothing*/
+    @Override
     public void setChannel(Complex h) {  }
     
+    @Override
     public int bitsPerCodeword() {
         return (int)Math.round((T-k)*Math.log(M)/Math.log(2));
         //return (int)Math.round((T)*Math.log(M)/Math.log(2));
@@ -130,6 +133,7 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
      * We simply ignore the last symbol when calculating the bit errors.
      * It is only used to ensure that parity occurs.
      */
+    @Override
     public int bitErrors(double[] x) {
         if(u.length != x.length) 
              throw new Error("x and y must have equal length");
@@ -144,11 +148,13 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
          return errors;
     }
 
+    @Override
     public int symbolErrors(double[] x) {
         //return Util.SymbolErrors(u, x, M);
         return Util.differentialEncodedSymbolErrors(x, u, M);
     }
 
+    @Override
     public boolean codewordError(double[] x) {
         return Util.codewordError(x, u, M);
         //return !Util.differentialEncodedEqual(x, u, M);

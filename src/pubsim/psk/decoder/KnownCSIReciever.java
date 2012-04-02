@@ -6,7 +6,6 @@
 package pubsim.psk.decoder;
 
 import pubsim.Complex;
-import pubsim.VectorFunctions;
 
 /**
  * PSK receiver with perfect channel information
@@ -20,16 +19,12 @@ public class KnownCSIReciever implements PSKReceiver{
     /** The decoded signal */
     double[] x;
     
-    public KnownCSIReciever(){
-        setM(4);
-    }
-    
     public KnownCSIReciever(int M){
         setM(M);
     }
     
     
-    public void setM(int M) {
+    private void setM(int M) {
         this.M = M;
     }
 
@@ -38,10 +33,12 @@ public class KnownCSIReciever implements PSKReceiver{
         x = new double[T];
     }
     
+    @Override
     public void setChannel(Complex h){
         this.h = h;
     }
 
+    @Override
     public double[] decode(Complex[] y) {
         
         for(int i = 0; i < T; i++){
@@ -53,18 +50,22 @@ public class KnownCSIReciever implements PSKReceiver{
         return x;
     }
 
+    @Override
     public int bitErrors(double[] x) {
         return Util.bitErrors(this.x, x, M);
     }
 
+    @Override
     public int bitsPerCodeword() {
         return (int)Math.round(T*Math.log(M)/Math.log(2));
     }
     
+    @Override
     public int symbolErrors(double[] x) {
         return Util.SymbolErrors(this.x, x, M);
     }
 
+    @Override
     public boolean codewordError(double[] x) {
         return Util.codewordError(this.x, x, M);
     }

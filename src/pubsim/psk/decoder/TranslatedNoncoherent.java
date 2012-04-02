@@ -34,6 +34,7 @@ public class TranslatedNoncoherent implements PSKReceiver, PATSymbol{
             s[i] = new IndexedDouble();
     }
 
+    @Override
     public double[] decode(Complex[] y) {
         
         //calculate the array of indicies and intersections
