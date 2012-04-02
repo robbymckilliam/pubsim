@@ -6,10 +6,8 @@
 package pubsim.psk.decoder;
 
 import java.util.Arrays;
-import pubsim.lattices.Anm.AnmSorted;
 import pubsim.Complex;
 import pubsim.IndexedDouble;
-import pubsim.VectorFunctions;
 
 /**
  *
@@ -57,7 +55,7 @@ public class CoxeterNoncoherentReciever implements PSKReceiver{
             z[i] = new IndexedDouble();
     }
 
-    /** Implements the Swelden's Noncoherent decoder using the O(nlogn)
+    /** Implements the Mackenthun's Noncoherent decoder using the O(nlogn)
      * nearest point algorithm for the Coxeter lattices.
      * @param y the PSK symbols
      * @return the index of the nearest lattice point

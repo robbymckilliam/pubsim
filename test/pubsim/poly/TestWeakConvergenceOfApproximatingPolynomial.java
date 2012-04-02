@@ -41,8 +41,8 @@ public class TestWeakConvergenceOfApproximatingPolynomial {
     public void test() {
         System.out.println("testPolyFunctionValue");
         
-        long fromN = 10000;
-        int numruns = 20;
+        long fromN = 100000;
+        int numruns = 30;
         
         CircularRandomVariable rv = new CircularUniform();
         
