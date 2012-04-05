@@ -6,15 +6,10 @@
 package pubsim;
 
 import java.math.BigInteger;
-import pubsim.Point2;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
-import static pubsim.Util.solveQuadratic;
+import org.junit.*;
 import static pubsim.Util.logGamma;
+import static pubsim.Util.solveQuadratic;
 
 /**
  *
@@ -214,7 +209,7 @@ public class UtilTest {
 
     }
 
-        /**
+    /**
      * Test of mod method, of class Util.
      */
     @Test
@@ -296,7 +291,7 @@ public class UtilTest {
 
             double upper = Math.exp(2.0*logGamma(n/2.0 + 1.0)/n + logGamma(2.0/n + 1.0))/n/Math.PI;
 
-            System.out.println(n +" " + upper);
+            //System.out.println(n +" " + upper);
         }
 
     }

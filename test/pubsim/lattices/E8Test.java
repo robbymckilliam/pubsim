@@ -4,17 +4,14 @@
  */
 package pubsim.lattices;
 
-import pubsim.lattices.util.PowerOfEuclideanNorm;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 import static pubsim.VectorFunctions.distance_between;
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.processes.NoiseVector;
 import pubsim.lattices.decoder.SphereDecoder;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import pubsim.lattices.util.PowerOfEuclideanNorm;
 
 /**
  *

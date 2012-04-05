@@ -28,7 +28,8 @@ public class LatticeTimingTest {
 
         System.out.println("timingTest");
 
-        int numTrials = 20000;
+        //int numTrials = 20000;
+        int numTrials = 200;
         GaussianNoise rand = new GaussianNoise(0.0, 1000.0);
         Vector<Double> timearray = new Vector<Double>();
 

@@ -5,14 +5,10 @@
 
 package pubsim.lattices.leech;
 
-import pubsim.lattices.leech.LeechLarentzianGlued;
-import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -39,18 +35,6 @@ public class LeechLarentzianGluedTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of nearestPoint method, of class LeechLarentzianGlued.
-     */
-    @Test
-    public void testNearestPoint() {
-        System.out.println("nearestPoint");
-        double[] y = null;
-        LeechLarentzianGlued instance = new LeechLarentzianGlued();
-        instance.nearestPoint(y);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     
 }
