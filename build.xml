@@ -21,7 +21,10 @@
 	    includeantruntime="false">
       <include name="src/**/*.java"   />
     </javac>
-    <jar destfile="${base.dir}/lib/PubSim.jar" basedir="${build.dir}" />
+    <jar destfile="${base.dir}/lib/PubSim.jar">
+      <fileset dir="src/"/>
+      <fileset dir="build/"/>
+    </jar>
   </target>
 
 
