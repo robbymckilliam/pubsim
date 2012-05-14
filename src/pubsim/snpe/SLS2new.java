@@ -32,6 +32,7 @@ public class SLS2new implements PRIEstimator {
 	u = new int[m];
     }
 
+    @Override
     public void estimate(Double[] y, double Tmin, double Tmax) {
         double fmin = 1/Tmax; double fmax = 1/Tmin;
 	if (N != y.length)
@@ -66,10 +67,12 @@ public class SLS2new implements PRIEstimator {
         phat = phasestor.getPhase(y, That);
     }
 
+    @Override
     public double getPeriod() {
         return That;
     }
 
+    @Override
     public double getPhase() {
         return phat;
     }
