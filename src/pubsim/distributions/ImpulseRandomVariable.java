@@ -11,7 +11,7 @@ import pubsim.distributions.circular.WrappedCircularRandomVariable;
 
 /**
  * A `impulse' random variable, or dirac delta etc.
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class ImpulseRandomVariable implements RealRandomVariable {
 

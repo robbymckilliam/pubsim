@@ -5,9 +5,8 @@
 
 package pubsim.distributions.circular;
 
-import java.util.Random;
-import pubsim.distributions.RealRandomVariable;
 import cern.jet.math.Bessel;
+import java.util.Random;
 
 /**
  * von Mises distribution of

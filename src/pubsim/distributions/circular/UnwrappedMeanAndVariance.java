@@ -5,10 +5,10 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.RealRandomVariable;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import static pubsim.Util.fracpart;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * Computes the unwrapped mean and variance of a circular distribution
