@@ -5,7 +5,7 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import static pubsim.Util.fracpart;
 
 /**
@@ -15,9 +15,9 @@ import static pubsim.Util.fracpart;
  */
 public class WrappedCircularRandomVariable extends CircularRandomVariable{
 
-    protected final ContinuousRandomVariable dist;
+    protected final RealRandomVariable dist;
 
-    public WrappedCircularRandomVariable(ContinuousRandomVariable realdist){
+    public WrappedCircularRandomVariable(RealRandomVariable realdist){
         dist = realdist;
     }
 
@@ -28,7 +28,7 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
     
     /** pdf is computed by wrapping and summing */
     @Override
-    public double pdf(double x) {
+    public double pdf(Double x) {
         double PDF_TOLERANCE = 1e-15;
         double pdf = 0.0;
         int n = 1;
@@ -48,7 +48,7 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
      * cdf is computed by wrapping and summing
      */
     @Override
-    public double cdf(double x){
+    public double cdf(Double x){
         double CDF_TOL = 1e-15;
         double cdfval = dist.cdf(x) - dist.cdf(-0.5); 
         double toadd = 1.0;

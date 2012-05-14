@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.UniformNoise;
 import pubsim.distributions.circular.VonMises;
 import pubsim.distributions.circular.WrappedGaussian;

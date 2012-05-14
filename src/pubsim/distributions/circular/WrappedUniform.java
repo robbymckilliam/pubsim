@@ -24,7 +24,7 @@ public class WrappedUniform extends WrappedCircularRandomVariable{
      * Return the unwrapped variance.
      */
     @Override
-    public double unwrappedVariance(){
+    public Double unwrappedVariance(){
         if( uvar < 1.0/12.0 ) return uvar;
         else if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
         return unwrped.getUnwrappedVariance();
@@ -35,7 +35,7 @@ public class WrappedUniform extends WrappedCircularRandomVariable{
      * This is much faster and more accurate if you know the mean in advance.
      */
     @Override
-    public double unwrappedVariance(double truemean){
+    public Double unwrappedVariance(double truemean){
         if( uvar < 1.0/12.0 ) return uvar;
         else if(unwrped == null || unwrped.getUnwrappedMean() != truemean)
             unwrped = new UnwrappedMeanAndVariance(this,truemean);
@@ -46,7 +46,7 @@ public class WrappedUniform extends WrappedCircularRandomVariable{
      * Return the wrapped mean
      */
     @Override
-    public double unwrappedMean(){
+    public Double unwrappedMean(){
         if( uvar < 1.0/12.0 ) return umean;
         else if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
         return unwrped.getUnwrappedMean();

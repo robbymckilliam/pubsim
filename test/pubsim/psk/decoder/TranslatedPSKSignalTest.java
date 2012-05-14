@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pubsim.Complex;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.VectorFunctions;
 
 /**
@@ -55,7 +55,7 @@ public class TranslatedPSKSignalTest {
         instance.setChannel(-0.4326, -1.6656);
         instance.setPATSymbol(0.1,0.1);
         
-        ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.0);
+        RealRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.0);
         instance.setNoiseGenerator(noise);  
                
         instance.setPSKSignal(xr);

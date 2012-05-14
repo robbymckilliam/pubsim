@@ -41,7 +41,7 @@ public class WrappedUniformTest {
     public void testPdf() {
         System.out.println("pdf");
         CircularRandomVariable instance = new WrappedUniform(0.0, 1.0/11.0);
-        assertTrue(instance.pdf(0) < 1.0);
+        assertTrue(instance.pdf(0.0) < 1.0);
         assertTrue(instance.pdf(-0.5) > 1.0);
         assertTrue(instance.pdf(0.5) > 1.0);
     }

@@ -13,7 +13,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -59,7 +59,7 @@ public class LinearTimeNoncoherentTest {
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.001);
+        RealRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

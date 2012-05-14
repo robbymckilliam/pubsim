@@ -11,7 +11,7 @@ import pubsim.psk.PSKSignal;
 import junit.framework.*;
 import java.util.Random;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.SignalGenerator;
 
 /**

@@ -33,7 +33,7 @@ public class ZeroMeanSmallVarianceUniform extends CircularRandomVariable {
     }
 
     @Override
-    public double pdf(double x){
+    public double pdf(Double x){
         double h = 1.0/range;
         double min =  -0.5*range;
         double max =  0.5*range;
@@ -42,7 +42,7 @@ public class ZeroMeanSmallVarianceUniform extends CircularRandomVariable {
     }
 
     @Override
-    public double cdf(double x){
+    public double cdf(Double x){
         double h = 1.0/range;
         double min = -0.5*range;
         double max = 0.5*range;

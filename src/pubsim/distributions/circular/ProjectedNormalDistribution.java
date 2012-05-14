@@ -5,9 +5,9 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.ContinuousRandomVariable;
 import pubsim.Util;
+import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * This is a circular distribution associated with projecting bivariate
@@ -17,7 +17,7 @@ import pubsim.Util;
  */
 public class ProjectedNormalDistribution extends CircularRandomVariable{
     
-    protected ContinuousRandomVariable gauss;
+    protected RealRandomVariable gauss;
     double cmean, smean, mean;
     
     public ProjectedNormalDistribution(double mean, double var){
@@ -46,7 +46,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
     }
 
     @Override
-    public double pdf(double x){
+    public double pdf(Double x){
         double v = 1.0/Math.sqrt(gauss.getVariance());
         return Pdf(Util.fracpart(x - mean),v);
     }

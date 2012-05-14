@@ -19,31 +19,34 @@ import pubsim.optimisation.SingleVariateFunction;
  *
  * @author Robby McKilliam
  */
-public class DensityEstimator extends AbstractRandomVariable {
+public class DensityEstimator extends AbstractRealRandomVariable {
 
     protected final double[] d;
-    protected final ContinuousRandomVariable ker;
+    protected final RealRandomVariable ker;
 
     /**
      * Constructor takes an array of d and a kernel function represented
      * by a ContinuousRandomVariable (really just the pdf function is needed).
      */
-    public DensityEstimator(final double[] data, ContinuousRandomVariable kernel){
+    public DensityEstimator(final double[] data, RealRandomVariable kernel){
         d = data;
         ker = kernel;
     }
 
-    public double pdf(double x) {
+    @Override
+    public double pdf(Double x) {
         double pdfsum = 0.0;
         for(int n = 0; n < d.length; n++) pdfsum += ker.pdf(x - d[n]);
         return pdfsum/d.length;
     }
 
-    public double getMean() {
+    @Override
+    public Double getMean() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public double getVariance() {
+    @Override
+    public Double getVariance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -5,8 +5,6 @@
 
 package pubsim.distributions;
 
-import Jama.Matrix;
-
 /**
  *
  * @author Robby McKilliam
@@ -14,7 +12,7 @@ import Jama.Matrix;
 public interface GenericRandomVariable<T> extends NoiseGenerator<T> {
 
     public T getMean();
-    public Matrix getVariance();
+    public T getVariance();
 
     /** Return the pdf evaluate at x */
     public double pdf(T x);

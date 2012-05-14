@@ -8,7 +8,7 @@ package pubsim.psk;
 
 import java.util.LinkedList;
 import java.util.Random;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 

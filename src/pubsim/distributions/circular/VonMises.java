@@ -6,7 +6,7 @@
 package pubsim.distributions.circular;
 
 import java.util.Random;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import cern.jet.math.Bessel;
 
 /**
@@ -26,7 +26,7 @@ public class VonMises extends CircularRandomVariable{
     
 
     @Override
-    public double getMean() {
+    public Double getMean() {
         return mu;
     }
 
@@ -35,7 +35,7 @@ public class VonMises extends CircularRandomVariable{
      * which is a dispersion parameter similar to variance.
      */
     @Override
-    public double getVariance() {
+    public Double getVariance() {
         return kappa;
     }
 
@@ -74,7 +74,7 @@ public class VonMises extends CircularRandomVariable{
     }
 
     @Override
-    public double pdf(double x) {
+    public double pdf(Double x) {
         double d = kappa*Math.cos(2*Math.PI*(x - mu));
         return Math.exp(d)/Bessel.i0(kappa);
     }
@@ -95,17 +95,17 @@ public class VonMises extends CircularRandomVariable{
     }
 
     @Override
-    public double unwrappedMean() {
+    public Double unwrappedMean() {
         return mu;
     }
 
     @Override
-    public double circularMean() {
+    public Double circularMean() {
         return mu;
     }
 
     @Override
-    public double circularVariance() {
+    public Double circularVariance() {
         return 1.0 - Bessel.i1(kappa)/Bessel.i0(kappa);
     }
 

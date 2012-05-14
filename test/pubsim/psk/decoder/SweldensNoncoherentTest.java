@@ -9,7 +9,7 @@ import pubsim.psk.decoder.PSKSignal;
 import pubsim.psk.decoder.Util;
 import pubsim.psk.decoder.SweldensNoncoherent;
 import junit.framework.TestCase;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.VectorFunctions;
 
 /**
@@ -48,7 +48,7 @@ public class SweldensNoncoherentTest extends TestCase {
         signal.setChannel(1.0/Math.sqrt(2.0), 1.0/Math.sqrt(2.0));
         //signal.generateChannel();
         
-        ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.001);
+        RealRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

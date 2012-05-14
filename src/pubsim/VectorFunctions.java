@@ -6,7 +6,7 @@
 package pubsim;
 
 import Jama.Matrix;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import java.util.Date;
 import java.util.Random;
 import rngpack.Ranlux;
@@ -147,7 +147,7 @@ public final class VectorFunctions {
     /**
      * Generate m x n matrix with random elements taken from given distribution.
      */
-    public static Matrix randomMatrix(int m, int n, ContinuousRandomVariable noise){
+    public static Matrix randomMatrix(int m, int n, RealRandomVariable noise){
         Matrix M = new Matrix(m, n);
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){

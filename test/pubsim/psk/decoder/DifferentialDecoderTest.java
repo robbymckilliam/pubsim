@@ -13,7 +13,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
 
@@ -58,7 +58,7 @@ public class DifferentialDecoderTest {
         //signal.setChannel(-1.0,-1.0);
         signal.generateChannel();
         
-        ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.00001);
+        RealRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.00001);
         signal.setNoiseGenerator(noise);  
                
         signal.generateReceivedSignal();

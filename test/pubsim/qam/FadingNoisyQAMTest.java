@@ -11,7 +11,7 @@ import pubsim.qam.FadingNoisyQAM;
 import junit.framework.*;
 import pubsim.SignalGenerator;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import java.util.Random;
 import pubsim.VectorFunctions;
 
@@ -55,7 +55,7 @@ public class FadingNoisyQAMTest extends TestCase {
         double[] xi ={1.0, -3.0, 1.0};
         instance.setChannel(-0.4326, -1.6656);
         
-        ContinuousRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.0);
+        RealRandomVariable noise = new pubsim.distributions.UniformNoise(0.0, 0.0);
         instance.setNoiseGenerator(noise);  
                
         instance.setTransmittedSignal(xr, xi);

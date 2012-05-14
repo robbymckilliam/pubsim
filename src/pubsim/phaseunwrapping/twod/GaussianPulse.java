@@ -6,7 +6,7 @@
 package pubsim.phaseunwrapping.twod;
 
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * Construct a wrapped, noisy, 2D gaussian pulse.
@@ -15,7 +15,7 @@ import pubsim.distributions.ContinuousRandomVariable;
  */
 public class GaussianPulse implements WrappedData{
 
-    ContinuousRandomVariable noise = new GaussianNoise(0.0,0.0);
+    RealRandomVariable noise = new GaussianNoise(0.0,0.0);
     int N, M;
     double[][] y, yw, u;
     double a, b;
@@ -68,7 +68,7 @@ public class GaussianPulse implements WrappedData{
         u = new double[M][N];
     }
 
-    public void setNoiseGenerator(ContinuousRandomVariable noise) {
+    public void setNoiseGenerator(RealRandomVariable noise) {
         this.noise = noise;
     }
 

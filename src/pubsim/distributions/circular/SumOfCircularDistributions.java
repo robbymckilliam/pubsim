@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * Circular distribution that is the weighted sum of others.
@@ -19,7 +19,7 @@ import pubsim.distributions.ContinuousRandomVariable;
  */
 public class SumOfCircularDistributions extends CircularRandomVariable {
 
-    protected final Collection<ContinuousRandomVariable> distributions;
+    protected final Collection<RealRandomVariable> distributions;
     protected final Collection<Double> weights;
 
     protected double totalweight = 0.0;
@@ -27,17 +27,17 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
     protected double variance = 0.0;
 
     /** Initialize with a collection of distributions and weights */
-    public SumOfCircularDistributions(Collection<ContinuousRandomVariable> dist, Collection<Double> whts){
+    public SumOfCircularDistributions(Collection<RealRandomVariable> dist, Collection<Double> whts){
         if( dist.size() != whts.size() )
             throw new ArrayIndexOutOfBoundsException("You can't have a different number of distributions and weights!");
         distributions = dist;
         weights = whts;
 
-        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
+        Iterator<RealRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         while( witr.hasNext() ){
             double w = witr.next();
-            ContinuousRandomVariable d = distitr.next();
+            RealRandomVariable d = distitr.next();
             mean += w*d.getMean();
             variance += w*d.getVariance();
             totalweight += w;
@@ -46,12 +46,12 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
     }
 
     public SumOfCircularDistributions(){
-        distributions = new Vector<ContinuousRandomVariable>();
+        distributions = new Vector<RealRandomVariable>();
         weights = new Vector<Double>();
     }
 
     /** Adds a distribution and weight to the current list */
-    public void addDistribution( ContinuousRandomVariable dist, double weight ){
+    public void addDistribution( RealRandomVariable dist, double weight ){
         distributions.add(dist);
         weights.add(weight);
         totalweight += weight;
@@ -61,7 +61,7 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
 
     @Override
     public Double getNoise() {
-        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
+        Iterator<RealRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double wsum = 0.0;
         double r = new Random().nextDouble();
@@ -76,9 +76,10 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
         }
         return noise;
     }
-
-    public double pdf(double x) {
-        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
+    
+    @Override
+    public double pdf(Double x) {
+        Iterator<RealRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double pdf = 0.0;
         while( witr.hasNext() ){
@@ -90,12 +91,12 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
     }
 
     @Override
-    public double getMean() {
+    public Double getMean() {
         return mean;
     }
 
     @Override
-    public double getVariance() {
+    public Double getVariance() {
         return variance;
     }
 
@@ -113,7 +114,7 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
      * integrate the pdf by default
      */
     @Override
-    public double cdf(double x){
+    public double cdf(Double x){
         double startint = mean - 100*Math.sqrt(variance);
         final int INTEGRAL_STEPS = 1000;
         double cdfval = (new Integration(new IntegralFunction() {
@@ -130,7 +131,7 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
      * optimised.
      */
     @Override
-    public double icdf(double x){
+    public Double icdf(double x){
         double TOL = 1e-9;
         double high = mean + 100*Math.sqrt(variance) + 0.5;
         double low = mean - 100*Math.sqrt(variance) - 0.5;

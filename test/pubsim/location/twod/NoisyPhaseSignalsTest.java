@@ -8,7 +8,7 @@ package pubsim.location.twod;
 import pubsim.location.twod.Transmitter;
 import pubsim.location.twod.NoisyPhaseSignals;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

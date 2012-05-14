@@ -6,7 +6,7 @@
 package pubsim.phaseunwrapping.oned;
 
 import pubsim.phaseunwrapping.oned.GaussianPulse;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

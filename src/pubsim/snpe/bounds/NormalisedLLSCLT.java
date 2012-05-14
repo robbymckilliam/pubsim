@@ -5,7 +5,7 @@
 
 package pubsim.snpe.bounds;
 
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 
 /**
@@ -26,7 +26,7 @@ public class NormalisedLLSCLT implements CLT{
      *                      described the sparseness of the signal
      * @param T0: The `true' period of the signal
      */
-    public NormalisedLLSCLT(ContinuousRandomVariable noise, double discretemean, double T0){
+    public NormalisedLLSCLT(RealRandomVariable noise, double discretemean, double T0){
 
         dmean = discretemean;
         CircularRandomVariable wrped = noise.getWrapped();

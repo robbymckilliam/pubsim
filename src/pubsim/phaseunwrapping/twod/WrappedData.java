@@ -5,7 +5,7 @@
 
 package pubsim.phaseunwrapping.twod;
 
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * Interface for generating 2D wrapped data
@@ -23,6 +23,6 @@ public interface WrappedData {
 
     public void setSize(int M, int N);
 
-    public void setNoiseGenerator(ContinuousRandomVariable noise);
+    public void setNoiseGenerator(RealRandomVariable noise);
 
 }

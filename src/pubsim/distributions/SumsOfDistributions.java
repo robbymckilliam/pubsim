@@ -19,9 +19,9 @@ import pubsim.distributions.circular.WrappedCircularRandomVariable;
  * Distribution that is the weighted sum of others.
  * @author Robby McKilliam
  */
-public class SumsOfDistributions implements ContinuousRandomVariable {
+public class SumsOfDistributions implements RealRandomVariable {
 
-    protected final Collection<ContinuousRandomVariable> distributions;
+    protected final Collection<RealRandomVariable> distributions;
     protected final Collection<Double> weights;
 
     protected double totalweight = 0.0;
@@ -29,17 +29,17 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
     protected double variance = 0.0;
 
     /** Initialize with a collection of distributions and weights */
-    public SumsOfDistributions(Collection<ContinuousRandomVariable> dist, Collection<Double> whts){
+    public SumsOfDistributions(Collection<RealRandomVariable> dist, Collection<Double> whts){
         if( dist.size() != whts.size() )
             throw new ArrayIndexOutOfBoundsException("You can't have a different number of distributions and weights!");
         distributions = dist;
         weights = whts;
 
-        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
+        Iterator<RealRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         while( witr.hasNext() ){
             double w = witr.next();
-            ContinuousRandomVariable d = distitr.next();
+            RealRandomVariable d = distitr.next();
             mean += w*d.getMean();
             variance += w*d.getVariance();
             totalweight += w;
@@ -49,12 +49,12 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
     }
 
     public SumsOfDistributions(){
-        distributions = new Vector<ContinuousRandomVariable>();
+        distributions = new Vector<RealRandomVariable>();
         weights = new Vector<Double>();
     }
 
     /** Adds a distribution and weight to the current list */
-    public void addDistribution( ContinuousRandomVariable dist, double weight ){
+    public void addDistribution( RealRandomVariable dist, double weight ){
         distributions.add(dist);
         weights.add(weight);
         totalweight += weight;
@@ -64,7 +64,7 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
 
     @Override
     public Double getNoise() {
-        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
+        Iterator<RealRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double wsum = 0.0;
         double r = new Random().nextDouble();
@@ -80,8 +80,9 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
         return noise;
     }
 
-    public double pdf(double x) {
-        Iterator<ContinuousRandomVariable> distitr = distributions.iterator();
+    @Override
+    public double pdf(Double x) {
+        Iterator<RealRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double pdf = 0.0;
         while( witr.hasNext() ){
@@ -92,26 +93,31 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
         return pdf/totalweight;
     }
 
-    public double getMean() {
+    @Override
+    public Double getMean() {
         return mean;
     }
 
-    public double getVariance() {
+    @Override
+    public Double getVariance() {
         return variance;
     }
 
     /** Does nothing. */
+    @Override
     public void randomSeed() {
     }
 
     /** Does nothing. */
+    @Override
     public void setSeed(long seed) {
     }
 
     /**
      * integrate the pdf by default
      */
-    public double cdf(double x){
+    @Override
+    public double cdf(Double x){
         double startint = mean - 100*Math.sqrt(variance);
         final int INTEGRAL_STEPS = 1000;
         double cdfval = (new Integration(new IntegralFunction() {
@@ -127,7 +133,8 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
      * This might fail for really weird looking cdfs and is highly non
      * optimised.
      */
-    public double icdf(double x){
+    @Override
+    public Double icdf(double x){
         double TOL = 1e-9;
         double high = mean + 100*Math.sqrt(variance) + 0.5;
         double low = mean - 100*Math.sqrt(variance) - 0.5;
@@ -153,18 +160,16 @@ public class SumsOfDistributions implements ContinuousRandomVariable {
         }
         return (high + low)/2.0;
     }
-    
-    /** Default is the return the wrapped version of this random variable */
+
     @Override
     public CircularRandomVariable getWrapped() {
-        return new WrappedCircularRandomVariable(this);
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Complex characteristicFunction(double t) {
+    public Complex characteristicFunction(Double t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
     
 
 

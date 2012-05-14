@@ -4,7 +4,7 @@
  */
 package pubsim.snpe.bounds;
 
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * Computes the asymptotic variance of the periodogram estimator of a sparse
@@ -15,7 +15,7 @@ public class PeriodogramCLT implements CLT {
 
     protected final double scalefac;
 
-    public PeriodogramCLT(ContinuousRandomVariable noise, double discretemean, double T0) {
+    public PeriodogramCLT(RealRandomVariable noise, double discretemean, double T0) {
 
         double numer = 3 * T0 * T0 * (1 - noise.characteristicFunction(4 * Math.PI*T0).re());
         double chrf2pi = noise.characteristicFunction(2*Math.PI*T0).re();

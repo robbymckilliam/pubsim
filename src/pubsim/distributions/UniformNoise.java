@@ -15,7 +15,7 @@ import rngpack.Ranlux;
  *
  * @author Robby McKilliam
  */
-public class UniformNoise extends AbstractRandomVariable implements ContinuousRandomVariable {
+public class UniformNoise extends AbstractRealRandomVariable implements RealRandomVariable {
     protected final double range;
     protected final double mean;
     protected final double stdDeviation;
@@ -41,12 +41,12 @@ public class UniformNoise extends AbstractRandomVariable implements ContinuousRa
     }
 
     @Override
-    public double getMean(){ return mean; }
+    public Double getMean(){ return mean; }
 
     @Override
-    public double getVariance(){ return variance; }
+    public Double getVariance(){ return variance; }
 
-    public double getRange() { return range; }
+    public Double getRange() { return range; }
     
     /** Returns a uniformly distributed value */
     @Override
@@ -55,7 +55,7 @@ public class UniformNoise extends AbstractRandomVariable implements ContinuousRa
     }
 
     @Override
-    public double pdf(double x){
+    public double pdf(Double x){
         double h = 1.0/range;
         double min = mean - 0.5*range;
         double max = mean + 0.5*range;
@@ -64,7 +64,7 @@ public class UniformNoise extends AbstractRandomVariable implements ContinuousRa
     }
     
     @Override
-    public double cdf(double x){
+    public double cdf(Double x){
         double h = 1.0/range;
         double min = mean - 0.5*range;
         double max = mean + 0.5*range;

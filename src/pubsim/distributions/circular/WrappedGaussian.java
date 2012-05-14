@@ -23,12 +23,12 @@ public class WrappedGaussian extends WrappedCircularRandomVariable {
     }
 
     @Override
-    public double unwrappedMean() {
+    public Double unwrappedMean() {
         return thismean - Math.round(thismean);
     }
 
     @Override
-    public double unwrappedVariance() {
+    public Double unwrappedVariance() {
         
         //if the variance is really small, wrapping does change the variance much
         //this is just a guess threshold value
@@ -50,7 +50,7 @@ public class WrappedGaussian extends WrappedCircularRandomVariable {
     }
 
     @Override
-    public double unwrappedVariance(double truemean) {
+    public Double unwrappedVariance(double truemean) {
         return unwrappedVariance();
     }
   

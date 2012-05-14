@@ -13,7 +13,7 @@ import pubsim.distributions.circular.WrappedCircularRandomVariable;
  * A `impulse' random variable, or dirac delta etc.
  * @author harprobey
  */
-public class ImpulseRandomVariable implements ContinuousRandomVariable {
+public class ImpulseRandomVariable implements RealRandomVariable {
 
     protected final double dval;
 
@@ -34,30 +34,37 @@ public class ImpulseRandomVariable implements ContinuousRandomVariable {
      * Return 1.0 at the impulse.  This makes plotting it easy and is
      * correct for discrete RV's but isn't strictly correct for continuous RV's.
      */
-    public double pdf(double x) {
+    @Override
+    public double pdf(Double x) {
         if(x == dval) return 1.0;
         else return 0;
     }
 
-    public double icdf(double x) {
+    @Override
+    public Double icdf(double x) {
         throw new UnsupportedOperationException("The inverse cumulative density function of an impulse is not well defined");
     }
 
-    public double getMean() {
+    @Override
+    public Double getMean() {
         return dval;
     }
 
-    public double getVariance() {
-        return 0;
+    @Override
+    public Double getVariance() {
+        return 0.0;
     }
 
+    @Override
     public void randomSeed() {
     }
 
+    @Override
     public void setSeed(long seed) {
     }
 
-    public double cdf(double x) {
+    @Override
+    public double cdf(Double x) {
         if(x >= dval) return 1.0;
         else return 0;
     }
@@ -69,7 +76,7 @@ public class ImpulseRandomVariable implements ContinuousRandomVariable {
     }
 
     @Override
-    public Complex characteristicFunction(double t) {
+    public Complex characteristicFunction(Double t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

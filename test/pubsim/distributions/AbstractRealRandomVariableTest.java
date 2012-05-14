@@ -14,9 +14,9 @@ import pubsim.Complex;
  *
  * @author Robby McKilliam
  */
-public class AbstractRandomVariableTest {
+public class AbstractRealRandomVariableTest {
 
-    public AbstractRandomVariableTest() {
+    public AbstractRealRandomVariableTest() {
     }
 
     @BeforeClass
@@ -36,7 +36,7 @@ public class AbstractRandomVariableTest {
     }
 
     /**
-     * Test of icdf method, of class AbstractRandomVariable.
+     * Test of icdf method, of class AbstractRealRandomVariable.
      */
     @Test
     public void testIcdf() {
@@ -56,7 +56,7 @@ public class AbstractRandomVariableTest {
     }
 
     /**
-     * Test of characteristic function method, of class AbstractRandomVariable.
+     * Test of characteristic function method, of class AbstractRealRandomVariable.
      */
     @Test
     public void testCharFunction() {
@@ -67,10 +67,10 @@ public class AbstractRandomVariableTest {
         
         GaussianNoise test = new GaussianNoise(mean, var);
         
-        AbstractRandomVariable inst = new AbstractRandomVariable() {
-            public double getMean() {  return mean; }
-            public double getVariance() { return var; }
-            public double pdf(double x) {
+        AbstractRealRandomVariable inst = new AbstractRealRandomVariable() {
+            public Double getMean() {  return mean; }
+            public Double getVariance() { return var; }
+            public double pdf(Double x) {
                 double s = 1.0/Math.sqrt(2*Math.PI*var);
                 double d = x - mean;
                 return s * Math.exp( -(d*d)/(2*var) );

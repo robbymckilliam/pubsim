@@ -8,7 +8,7 @@ package pubsim.distributions.circular;
 import flanagan.integration.IntegralFunction;
 import flanagan.integration.Integration;
 import pubsim.Complex;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.SeedGenerator;
 import rngpack.RandomElement;
 import rngpack.Ranmar;
@@ -18,7 +18,7 @@ import rngpack.Ranmar;
  * of unwrapped and circular means.
  * @author Robby McKilliam
  */
-public abstract class CircularRandomVariable implements ContinuousRandomVariable {
+public abstract class CircularRandomVariable implements RealRandomVariable {
 
     protected UnwrappedMeanAndVariance unwrped;
     protected CircularMeanVariance circ;
@@ -32,7 +32,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
     /**
      * Return the unwrapped variance.
      */
-    public double unwrappedVariance(){
+    public Double unwrappedVariance(){
         if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
         return unwrped.getUnwrappedVariance();
     }
@@ -41,7 +41,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
      * Return the unwrapped variance assuming that the mean is true mean.
      * This is much faster and more accurate if you know the mean in advance.
      */
-    public double unwrappedVariance(double truemean){
+    public Double unwrappedVariance(double truemean){
         if(unwrped == null || unwrped.getUnwrappedMean() != truemean)
             unwrped = new UnwrappedMeanAndVariance(this,truemean);
         return unwrped.getUnwrappedVariance();
@@ -50,7 +50,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
     /**
      * Return the wrapped mean
      */
-    public double unwrappedMean(){
+    public Double unwrappedMean(){
         if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
         return unwrped.getUnwrappedMean();
     }
@@ -58,7 +58,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
     /**
      * Return the circular mean
      */
-    public double circularMean(){
+    public Double circularMean(){
         if(circ == null) circ = new CircularMeanVariance(this);
         return circ.circularMean();
     }
@@ -66,7 +66,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
     /**
      * Return the circular variance
      */
-    public double circularVariance(){
+    public Double circularVariance(){
         if(circ == null) circ = new CircularMeanVariance(this);
         return circ.circularVariance();
     }
@@ -86,7 +86,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
      * [0.5, 0.5].
      */
     @Override
-    public double icdf(double x){
+    public Double icdf(double x){
         double TOL = 1e-8;
         int maxiters = 50, iters = 0;
         double high = 0.5;
@@ -129,7 +129,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
      * integrate the pdf by default
      */
     @Override
-    public double cdf(double x){
+    public double cdf(Double x){
         double startint = -0.5;
         final int INTEGRAL_STEPS = 1000;
         double cdfval = (new Integration(new IntegralFunction() {
@@ -146,7 +146,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
      * `mean direction.  See my thesis or papers.
      */
     @Override
-    public double getMean(){
+    public Double getMean(){
         final int INTEGRAL_STEPS = 1000;
         double tmean = (new Integration(new IntegralFunction() {
                 public double function(double x) {
@@ -162,7 +162,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
      * circular variance or the unwrapped variance.  See my thesis or papers.
      */
     @Override
-    public double getVariance(){
+    public Double getVariance(){
         final int INTEGRAL_STEPS = 1000;
         double tvar = (new Integration(new IntegralFunction() {
                 public double function(double x) {
@@ -182,7 +182,7 @@ public abstract class CircularRandomVariable implements ContinuousRandomVariable
      * Apart from very strange circular distributions, this should be reasonably accurate,
      */
     @Override
-    public Complex characteristicFunction(final double t){
+    public Complex characteristicFunction(final Double t){
         int integralsteps = 5000;
         double rvar = (new Integration(new IntegralFunction() {
             public double function(double x) {

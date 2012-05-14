@@ -3,7 +3,7 @@ package pubsim.distributions.processes;
 import pubsim.CircularBufferDouble;
 import pubsim.VectorFunctions;
 import pubsim.distributions.GaussianNoise;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * Returns a zero mean stationary correlated Gaussian noise process.  The 
@@ -31,7 +31,7 @@ public class ColouredGaussianNoise implements StationaryProcess {
     }
 
     @Override
-    public ContinuousRandomVariable marginal() {
+    public RealRandomVariable marginal() {
         return new GaussianNoise(0, autocor[0]);
     }
     

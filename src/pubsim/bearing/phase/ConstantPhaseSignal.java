@@ -5,7 +5,7 @@
 
 package pubsim.bearing.phase;
 
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 import pubsim.SignalGenerator;
 import pubsim.Complex;
 import pubsim.distributions.NoiseGenerator;

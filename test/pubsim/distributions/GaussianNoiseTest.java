@@ -72,17 +72,17 @@ public class GaussianNoiseTest {
         double var = 1;
         GaussianNoise instance = new GaussianNoise(mean, var);
 
-        System.out.println(instance.cdf(0));
-        System.out.println(instance.cdf(100000));
-        System.out.println(instance.cdf(-100000));
-        System.out.println(instance.cdf(1));
-        System.out.println(instance.cdf(-1));
+        System.out.println(instance.cdf(0.0));
+        System.out.println(instance.cdf(100000.0));
+        System.out.println(instance.cdf(-100000.0));
+        System.out.println(instance.cdf(1.0));
+        System.out.println(instance.cdf(-1.0));
 
-        assertEquals(instance.cdf(0), 0.5, 0.00001);     
-        assertEquals(instance.cdf(100000), 1.0, 0.00001);       
-        assertEquals(instance.cdf(-100000), 0.0, 0.00001);
-        assertEquals(instance.cdf(1), 0.5 + 0.341, 0.001);
-        assertEquals(instance.cdf(-1), 0.5 - 0.341, 0.001);
+        assertEquals(instance.cdf(0.0), 0.5, 0.00001);     
+        assertEquals(instance.cdf(100000.0), 1.0, 0.00001);       
+        assertEquals(instance.cdf(-100000.0), 0.0, 0.00001);
+        assertEquals(instance.cdf(1.0), 0.5 + 0.341, 0.001);
+        assertEquals(instance.cdf(-1.0), 0.5 - 0.341, 0.001);
 
     }
 

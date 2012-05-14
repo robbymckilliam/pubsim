@@ -14,7 +14,7 @@ package pubsim.distributions.circular;
 public class CircularUniform extends CircularRandomVariable {
 
     @Override
-    public double pdf(double x) {
+    public double pdf(Double x) {
         return 1.0;
     }
 
@@ -22,7 +22,7 @@ public class CircularUniform extends CircularRandomVariable {
      * Returns 1/12
      */
     @Override
-    public double unwrappedVariance(){
+    public Double unwrappedVariance(){
         return 1.0/12.0;
     }
 
@@ -30,7 +30,7 @@ public class CircularUniform extends CircularRandomVariable {
      * The circular uniform has NO unwrapped mean!
      */
     @Override
-    public double unwrappedMean(){
+    public Double unwrappedMean(){
         System.out.println("Warning: Circular uniform has no unwrapped mean. Returning zero");
         return 0.0;
     }
@@ -39,7 +39,7 @@ public class CircularUniform extends CircularRandomVariable {
      * The circular uniform has NO circular mean!
      */
     @Override
-    public double circularMean(){
+    public Double circularMean(){
         System.out.println("Warning: Circular uniform has no circular mean. Returning zero");
         return 0.0;
     }
@@ -48,17 +48,17 @@ public class CircularUniform extends CircularRandomVariable {
      * Return 1.0
      */
     @Override
-    public double circularVariance(){
+    public Double circularVariance(){
         return 1.0;
     }
 
     @Override
-    public double cdf(double x){
+    public double cdf(Double x){
         return x + 0.5;
     }
     
     @Override
-    public double icdf(double x){
+    public Double icdf(double x){
         return x - 0.5;
     }
 
@@ -66,7 +66,7 @@ public class CircularUniform extends CircularRandomVariable {
      * return zero.
      */
     @Override
-    public double getMean(){
+    public Double getMean(){
         return 0.0;
     }
 
@@ -74,7 +74,7 @@ public class CircularUniform extends CircularRandomVariable {
      * returns 1/12.
      */
     @Override
-    public double getVariance(){
+    public Double getVariance(){
         return 1.0/12.0;
     }
 

@@ -1,5 +1,5 @@
 /*
- * AbstractRandomVariable.java
+ * AbstractRealRandomVariable.java
  *
  * Created on 23 October 2007, 15:28
  */
@@ -18,12 +18,12 @@ import rngpack.Ranmar;
  * Class that contains some standard functions for noise generators
  * @author Robby McKilliam
  */
-public abstract class AbstractRandomVariable
-        implements ContinuousRandomVariable {
+public abstract class AbstractRealRandomVariable
+        implements RealRandomVariable {
     
     protected RandomElement random;
     
-    public AbstractRandomVariable(){
+    public AbstractRealRandomVariable(){
         random = new Ranmar(SeedGenerator.getSeed());
     }
 
@@ -40,7 +40,7 @@ public abstract class AbstractRandomVariable
      * integrate the pdf by default.  This is highly non-optimised.
      */
     @Override
-    public double cdf(double x){
+    public double cdf(Double x){
         double startint = getMean() - 20*Math.sqrt(getVariance());
         final int INTEGRAL_STEPS = 1000;
         double cdfval = (new Integration(new IntegralFunction() {
@@ -57,7 +57,7 @@ public abstract class AbstractRandomVariable
      * optimised.
      */
     @Override
-    public double icdf(double x){
+    public Double icdf(double x){
         double TOL = 1e-8;
         double mean = getMean(); 
         double stdDeviation = Math.sqrt(getVariance());
@@ -106,18 +106,19 @@ public abstract class AbstractRandomVariable
      * This is very approximate, as it guesses an interval to integrate over.
      */
     @Override
-    public Complex characteristicFunction(final double t){
+    public Complex characteristicFunction(Double t){
+        final double ft = t;
         int integralsteps = 5000;
         double startint = getMean() - 30*Math.sqrt(getVariance());
         double endint = getMean() + 30*Math.sqrt(getVariance());
         double rvar = (new Integration(new IntegralFunction() {
             public double function(double x) {
-                return Math.cos(t*x)*pdf(x);
+                return Math.cos(ft*x)*pdf(x);
             }
         }, startint, endint)).gaussQuad(integralsteps);
         double cvar = (new Integration(new IntegralFunction() {
             public double function(double x) {
-                return Math.sin(t*x)*pdf(x);
+                return Math.sin(ft*x)*pdf(x);
             }
         }, startint, endint)).gaussQuad(integralsteps);
         

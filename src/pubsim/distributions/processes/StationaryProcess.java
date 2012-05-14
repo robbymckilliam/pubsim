@@ -5,7 +5,7 @@
 package pubsim.distributions.processes;
 
 import pubsim.distributions.NoiseGenerator;
-import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.RealRandomVariable;
 
 /**
  * Interface for a stationary process
@@ -14,7 +14,7 @@ import pubsim.distributions.ContinuousRandomVariable;
 public interface StationaryProcess extends NoiseGenerator<Double>{
     
     /** Return the random variable with the marginal pdf/cdf of this process */
-    public ContinuousRandomVariable marginal();
+    public RealRandomVariable marginal();
     
     public double[] autocorrelation();
     
