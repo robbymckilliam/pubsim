@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package pubsim;
+package pubsim.lattices;
 
 import Jama.Matrix;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;

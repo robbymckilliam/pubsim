@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package pubsim;
+package pubsim.lattices;
 
-import pubsim.VoronoiCodeAutoTranslation;
+import pubsim.lattices.VoronoiCodeAutoTranslation;
 import pubsim.lattices.Hexagonal;
 import org.junit.After;
 import org.junit.AfterClass;

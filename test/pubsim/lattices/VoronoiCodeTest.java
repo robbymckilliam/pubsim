@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package pubsim;
+package pubsim.lattices;
 
-import pubsim.VoronoiCode;
+import pubsim.lattices.VoronoiCode;
 import Jama.Matrix;
 import pubsim.lattices.Hexagonal;
 import pubsim.lattices.util.IntegerVectors;
@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import pubsim.VectorFunctionsTest;
 import pubsim.qam.hex.HexagonalCode;
 import static pubsim.VectorFunctions.print;
 import static pubsim.VectorFunctions.randomGaussian;

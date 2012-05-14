@@ -3,18 +3,12 @@
  * and open the template in the editor.
  */
 
-package pubsim;
+package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.VectorFunctions;
+import static pubsim.VectorFunctions.*;
 import pubsim.lattices.util.IntegerVectors;
-import static pubsim.VectorFunctions.matrixMultVector;
-import static pubsim.VectorFunctions.multiplyInPlace;
-import static pubsim.VectorFunctions.modInPlace;
-import static pubsim.VectorFunctions.round;
-import static pubsim.VectorFunctions.subtract;
-import static pubsim.VectorFunctions.add;
-import static pubsim.VectorFunctions.sum2;
 
 /**
  * Implements Conway and Sloane's Voronoi codes.
@@ -125,7 +119,7 @@ public class VoronoiCode implements java.io.Serializable{
     public LatticeAndNearestPointAlgorithm getLattice(){ return lattice; }
 
     /**
-     * @return codeword with minum energy (closest to the origin)
+     * @return codeword with minimum energy (closest to the origin)
      */
     public double[] minimumEnergyCodeword(){
         double[] minc = null;

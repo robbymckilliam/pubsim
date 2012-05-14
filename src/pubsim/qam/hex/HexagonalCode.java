@@ -6,7 +6,7 @@
 package pubsim.qam.hex;
 
 import pubsim.lattices.Hexagonal;
-import pubsim.VoronoiCodeAutoTranslation;
+import pubsim.lattices.VoronoiCodeAutoTranslation;
 import pubsim.Complex;
 
 /**

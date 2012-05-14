@@ -3,11 +3,14 @@
  * and open the template in the editor.
  */
 
-package pubsim.distributions;
+package pubsim.distributions.complex;
 
 import Jama.Matrix;
 import pubsim.Complex;
 import pubsim.VectorFunctions;
+import pubsim.distributions.ContinuousRandomVariable;
+import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.GenericRandomVariable;
 
 /**
  * Abstract class for correlated complex noise distribution.

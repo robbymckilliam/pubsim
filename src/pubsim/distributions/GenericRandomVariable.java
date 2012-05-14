@@ -6,11 +6,10 @@
 package pubsim.distributions;
 
 import Jama.Matrix;
-import java.io.Serializable;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public interface GenericRandomVariable<T> extends NoiseGenerator<T> {
 

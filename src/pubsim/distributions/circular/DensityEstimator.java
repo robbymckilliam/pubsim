@@ -5,8 +5,8 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.ContinuousRandomVariable;
 import static pubsim.Util.fracpart;
+import pubsim.distributions.ContinuousRandomVariable;
 
 /**
  * Circular kernel density estimator based on periodic convolution with a
