@@ -5,18 +5,12 @@
 
 package pubsim.distributions;
 
-import pubsim.distributions.GaussianNoise;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import rngpack.RandomSeedable;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class GaussianNoiseTest {
 

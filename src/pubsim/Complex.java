@@ -25,7 +25,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
         im = imag;
     }
 
-    /** Compy constructor */
+    /** Copy constructor */
     public Complex(Complex x) {
         re = x.re;
         im = x.im;
@@ -43,20 +43,6 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     public static Complex constructComplexExp(double m, double a){
         return new Complex(m*Math.cos(a), m*Math.sin(a));
     }
-    
-//    /** Set the real and imaginary parts */
-//    public Complex set(double re, double im){
-//        this.re = re;
-//        this.im = im;
-//        return this;
-//    }
-//    
-//    /** Copy the real and imaginary parts */
-//    public Complex copy(Complex c){
-//        this.re = c.re;
-//        this.im = c.im;
-//        return this;
-//    }
     
     /** return a string representation of the invoking Complex object */
     @Override
@@ -210,18 +196,22 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
         return c.re == re && c.im == im;
     }
 
+    @Override
     public Complex add(Complex that) {
         return this.plus(that);
     }
 
+    @Override
     public Complex multiply(Complex that) {
         return this.times(that);
     }
 
+    @Override
     public Complex subtract(Complex that) {
         return this.minus(that);
     }
 
+    @Override
     public Complex divide(Complex that) {
         return this.divides(that);
     }
@@ -230,6 +220,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
      * Compares complex numbers based on magnitude.
      * This is not strictly natural, but it is useful.
      */
+    @Override
     public int compareTo(Complex o) {
         return Double.compare(abs2(), o.abs2());
     }
