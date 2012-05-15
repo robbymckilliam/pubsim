@@ -4,9 +4,7 @@
  */
 package pubsim.distributions.complex;
 
-import flanagan.integration.IntegralFunction;
 import pubsim.Complex;
-import pubsim.distributions.AbstractRealRandomVariable;
 import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 
