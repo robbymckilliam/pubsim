@@ -7,6 +7,7 @@ package pubsim.distributions.complex;
 import pubsim.Complex;
 import pubsim.distributions.GenericRandomVariable;
 import pubsim.distributions.RealRandomVariable;
+import pubsim.distributions.circular.CircularRandomVariable;
 
 /**
  *
@@ -14,9 +15,9 @@ import pubsim.distributions.RealRandomVariable;
  */
 public interface ComplexRandomVariable extends GenericRandomVariable<Complex> {
     
-    RealRandomVariable realMarginal();
-    RealRandomVariable imaginaryMarginal();
-    RealRandomVariable magnitudeMarginal();
-    RealRandomVariable phaseMarginal();    
+    public RealRandomVariable realMarginal();
+    public RealRandomVariable imaginaryMarginal();
+    public RealRandomVariable magnitudeMarginal();
+    public CircularRandomVariable angleMarginal();
     
 }

@@ -81,7 +81,7 @@ public final class Util {
     
     /** 
      * The error function.
-     * Calculates erf with accuracy atleast as small as the parameter tol.
+     * Calculates erf with accuracy at least as small as the parameter tol.
      * Uses BigRational's so there is no numerical problems unless you get to double precision!
      */
     public static double erf(BigRational x, BigRational tol) {

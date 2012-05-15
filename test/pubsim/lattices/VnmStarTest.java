@@ -5,19 +5,15 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.reduction.LLL;
 import Jama.Matrix;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 import pubsim.VectorFunctions;
-import static org.junit.Assert.*;
+import pubsim.lattices.reduction.LLL;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class VnmStarTest {
 
@@ -70,7 +66,7 @@ public class VnmStarTest {
         Matrix ym = VectorFunctions.rowMatrix(y);
         Matrix ret = ym.times(VnmStar.getMMatrix(m, 100 - m - 1));
         for(int i = 0; i <= m; i++){
-            assertEquals(0.0, ret.get(0,i), 0.000001);
+            assertEquals(0.0, ret.get(0,i), 0.0001);
         }
 
 

@@ -26,7 +26,7 @@ public abstract class AbstractRealRandomVariable
     public AbstractRealRandomVariable(){
         random = new Ranmar(SeedGenerator.getSeed());
     }
-
+    
     /**
      * Take standard inverse cumulative density function approach
      * by default.
@@ -37,7 +37,7 @@ public abstract class AbstractRealRandomVariable
     }
 
     /**
-     * integrate the pdf by default.  This is highly non-optimised.
+     * Integrate the pdf by default.  This is highly non-optimised.
      */
     @Override
     public double cdf(Double x){

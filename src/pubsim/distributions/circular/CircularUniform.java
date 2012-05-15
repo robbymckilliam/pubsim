@@ -6,7 +6,7 @@
 package pubsim.distributions.circular;
 
 /**
- * Circular uniform distribution. This is really the same of the wrapped
+ * Circular uniform distribution. This is the same as the wrapped
  * uniform set to have unwrapped variance 1/12.  But doing that leads to
  * numerical imprecision when trying the plot the pdf.  This sorts that out.
  * @author Robby McKilliam

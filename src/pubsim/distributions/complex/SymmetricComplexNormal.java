@@ -4,46 +4,37 @@
  */
 package pubsim.distributions.complex;
 
-import flanagan.integration.IntegralFunction;
 import pubsim.Complex;
-import pubsim.distributions.AbstractRealRandomVariable;
+import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
+import pubsim.distributions.circular.CircularUniform;
 
 /**
- * A complex random variable constructed from two independent real random
- * variables representing the real and imaginary parts.
- *
+ * The circularly symmetric complex normal distribution.
  * @author Robby McKilliam
  */
-public class IndependentRealandImaginary implements ComplexRandomVariable {
+public class SymmetricComplexNormal implements ComplexRandomVariable {
 
-    final protected RealRandomVariable real;
-    final protected RealRandomVariable imag;
-    final protected RealRandomVariable mag;
-    final protected CircularRandomVariable angle;
+    final protected GaussianNoise rv;
 
-    public IndependentRealandImaginary(RealRandomVariable real, RealRandomVariable imag) {
-        this.real = real;
-        this.imag = imag;
-        
-        mag = null;
-        angle = null;
+    public SymmetricComplexNormal(double variance) {
+        rv = new GaussianNoise(0.0, variance);
     }
 
     @Override
     public Complex getMean() {
-        return new Complex(real.getMean(), imag.getMean());
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public Complex getVariance() {
-        return new Complex(real.getVariance(), imag.getVariance());
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public double pdf(Complex x) {
-        return real.pdf(x.re())*imag.pdf(x.im());
+        return rv.pdf(x.re())*rv.pdf(x.im());
     }
 
     @Override
@@ -58,13 +49,12 @@ public class IndependentRealandImaginary implements ComplexRandomVariable {
 
     @Override
     public Complex getNoise() {
-        return new Complex(real.getNoise(),imag.getNoise());
+        return new Complex(rv.getNoise(), rv.getNoise());
     }
 
     @Override
     public void randomSeed() {
-        real.randomSeed();
-        imag.randomSeed();
+        rv.randomSeed();
     }
 
     @Override
@@ -74,12 +64,12 @@ public class IndependentRealandImaginary implements ComplexRandomVariable {
 
     @Override
     public RealRandomVariable realMarginal() {
-        return real;
+        return rv;
     }
 
     @Override
     public RealRandomVariable imaginaryMarginal() {
-        return imag;
+        return rv;
     }
 
     @Override
@@ -89,6 +79,6 @@ public class IndependentRealandImaginary implements ComplexRandomVariable {
 
     @Override
     public CircularRandomVariable angleMarginal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new CircularUniform();
     }
 }
