@@ -4,7 +4,9 @@
  */
 package pubsim.distributions.complex;
 
+import cern.jet.random.ChiSquare;
 import pubsim.Complex;
+import pubsim.distributions.ChiSquared;
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
@@ -74,7 +76,7 @@ public class SymmetricComplexNormal implements ComplexRandomVariable {
 
     @Override
     public RealRandomVariable magnitudeMarginal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ChiSquared.ChiSquared2(rv.getVariance());
     }
 
     @Override

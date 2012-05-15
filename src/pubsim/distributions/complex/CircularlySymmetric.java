@@ -19,7 +19,11 @@ public class CircularlySymmetric implements ComplexRandomVariable {
     final protected RealRandomVariable mag;
     final protected CircularUniform angle = new CircularUniform();
 
-    /** Constructor takes a random variable representing the magnitude. */
+    /** 
+     * Constructor takes a random variable representing the magnitude.
+     * The code will not enforce that mag is a non negative random variable,
+     * but this is assumed by all the mathematics, so be careful!
+     */
     public CircularlySymmetric(RealRandomVariable mag) {
         this.mag = mag;
     }
@@ -83,7 +87,7 @@ public class CircularlySymmetric implements ComplexRandomVariable {
 
     @Override
     public RealRandomVariable magnitudeMarginal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return mag;
     }
 
     /** 
