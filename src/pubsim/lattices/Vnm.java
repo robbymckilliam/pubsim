@@ -6,18 +6,10 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.Util;
+import static pubsim.Util.*;
 import pubsim.VectorFunctions;
-import static pubsim.Util.binom;
-import static pubsim.Util.log2Binom;
-import static pubsim.Util.log2;
-import static pubsim.Util.pow2;
-import static pubsim.Util.erf;
-import static pubsim.Util.erfc;
-import static pubsim.Util.Q;
-import static pubsim.Util.log2HyperSphereVolume;
-import static pubsim.Util.hyperSphereVolume;
+import pubsim.lattices.An.AnFastSelect;
 
 /**
  * Class for the lattice Vnm, ie the integer lattice that is that
@@ -31,16 +23,8 @@ public class Vnm extends AbstractLattice{
     protected int a;
     protected int n;
     
-    public Vnm(int a){
-        this.a = a;
-    }
-    
     public Vnm(int a,int n){
         this.a = a;
-        this.n = n;
-    }
-
-    public void setDimension(int n) {
         this.n = n;
     }
 
@@ -78,37 +62,10 @@ public class Vnm extends AbstractLattice{
         return vol/2.0;
     }
 
-    /**
-     * This is Conway and Sloane's approximation for high SNR
-     * probability of error in lattice coding.  Returrns log
-     * base 10 of the probability of error.
-     */
     @Override
-    public double probCodingError(double S) {
-        double deln = pow2((log2HyperSphereVolume(n) - logVolume())/n)*inradius();
-        //System.out.println(deln);
-        double erfcSdel = erfc( Math.sqrt(n*S/2.0) * deln );
-        //System.out.println(erfcSdel);
-        return 0.5*kissingNumber()*erfcSdel;
-    }
-
-    /**
-     * Inradius is known for sufficiently large n and a less than 7.
-     * Otherwise compute it by brute force.
-     * The inradius is always greater that 2a.  This is due to a result
-     * about the Tarry-Eschott problem.
-     */
-//    @Override
-//    public double inradius() {
-//        if(a > 6 || n < 27){
-//            ShortestVector sv = new ShortestVector(this);
-//            double norm = VectorFunctions.sum2(sv.getShortestVector());
-//            return Math.sqrt(norm)/2.0;
-//        }
-//        else return Math.sqrt(2*a)/2.0;
-//    }
-
     public Matrix getGeneratorMatrix() {
+        
+        if( a == 0 ) return Matrix.identity(n, n);
         
         double[] cv  = {1, -1};
         double[] bv = {1, -1};
@@ -129,28 +86,39 @@ public class Vnm extends AbstractLattice{
         return gen;
     }
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public int getDimension() {
         return n;
     }
 
-//    public double unshapedProbCodingError(double S){
-//        double nomgain = Math.pow(2.0, log2(2*a) - 2/n*logVolume());
-//        double Ks = 2*kissingNumber()/n;
-//        return Ks*Q(Math.sqrt(3*nomgain*S));
-//    }
-
     /**
-     * This is actually an upper bound on the kissing number for this
-     * lattice.
+     * When m = 0, this is the integer lattice
      */
-//    @Override
-//    public long kissingNumber() {
-//        return (long)Math.pow(2.0, log2Binom(n+a, 2*a) + log2Binom(2*a, a));
-//        //return n*n;
-//    }
-
+    public static class Vn0 extends Zn {
+        public Vn0(int n){ super(n); }
+    }
+    
+     /**
+     * When m = 1, this is the root An
+     */
+    public static class Vn1 extends AnFastSelect {
+        public Vn1(int n){ super(n); }
+    }
+    
+    /** 
+     * When m = 2, we know the kissing number
+     */
+    public static class Vn2 extends Vnm {
+        public Vn2(int n) { super(2, n); }
+        
+        //public long kissingNumber() {
+        //    reuturn 0.0;
+        //}
+    }
+    
 }

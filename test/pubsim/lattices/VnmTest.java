@@ -5,16 +5,10 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.Vnm;
 import Jama.Matrix;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import pubsim.Util;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 import pubsim.VectorFunctions;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -47,31 +41,30 @@ public class VnmTest {
     @Test
     public void testLogVolume() {
         System.out.println("logVolume");
-        Vnm instance = new Vnm(5, 12);
+        Vnm instance = new Vnm(4, 12);
         Matrix gen = instance.getGeneratorMatrix();
         Matrix gram = gen.transpose().times(gen);
 
-        System.out.println(VectorFunctions.print(gram));
+        //System.out.println(VectorFunctions.print(gram));
 
         assertEquals(Math.sqrt(gram.det()), instance.volume(), 0.0001);
     }
 
+//    /**
+//     * Test of logVolume method, of class Vnm.
+//     */
+//    @Test
+//    public void testPrintOutShortVects() {
+//        System.out.println("print out short vectors");
+//        Vnm instance = new Vnm(6, 40);
+//
+//        System.out.println(instance.kissingNumber());
+//
+//        double inrad = instance.inradius();
+//        System.out.println(inrad * inrad * 4);
+//    }
+
     /**
-     * Test of logVolume method, of class Vnm.
-     */
-    @Test
-    public void testPrintOutShortVects() {
-        System.out.println("print out short vectors");
-        Vnm instance = new Vnm(6, 40);
-
-        System.out.println(instance.kissingNumber());
-
-        double inrad = instance.inradius();
-        System.out.println(inrad * inrad * 4);
-    }
-
-    /**
-     * Test of logVolume method, of class Vnm.
      */
     @Test
     public void searchForSquares() {
@@ -81,10 +74,47 @@ public class VnmTest {
             double vol = (new Vnm(4,n)).volume();
             String marker = "";
             if(Math.abs(vol - Math.round(vol)) < 0.000001 ) marker = "******";
-            System.out.println(n + "\t" + vol + "\t" + marker);
+            //System.out.println(n + "\t" + vol + "\t" + marker);
         }
 
     }
+    
+    /**
+     * Test of Vn0.
+     */
+    @Test
+    public void testVn0() {
+        System.out.println("test Vn0");
+        int minn = 1;
+        int maxn = 40;
+        int m = 0;
+        for(int n = minn; n < maxn; n++){
+            Vnm.Vn0 testee = new Vnm.Vn0(n);
+            Vnm tester = new Vnm(m,n);
+            assertEquals(testee.volume(), tester.volume(), 0.00001);
+            assertEquals(testee.kissingNumber(), tester.kissingNumber());
+        }
+    }
+    
+     /**
+     * Test of Vn1.
+     */
+    @Test
+    public void testVn1() {
+        System.out.println("test Vn1");
+        int minn = 1;
+        int maxn = 40;
+        int m = 1;
+        for(int n = minn; n < maxn; n++){
+            Vnm.Vn1 testee = new Vnm.Vn1(n);
+            Vnm tester = new Vnm(m,n);
+            assertEquals(testee.volume(), tester.volume(), 0.00001);
+            assertEquals(testee.kissingNumber(), tester.kissingNumber());
+        }
+    }
+    
+    
+    
 
 
 }

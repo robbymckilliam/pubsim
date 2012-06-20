@@ -24,24 +24,30 @@ import static pubsim.Util.hyperSphereVolume;
  */
 public abstract class AbstractLattice implements Lattice {
     
+    @Override
     public double secondMoment() {throw new UnsupportedOperationException(); }
 
+    @Override
     public double centerDensity() {
         return pow2(logCenterDensity());
     }
 
+    @Override
     public double logCenterDensity() {
         return getDimension()*log2(inradius()) - logVolume();
     }
 
+    @Override
     public double logVolume(){
         return log2(volume());
     }
 
+    @Override
     public double logPackingDensity() {
         return logCenterDensity() + log2HyperSphereVolume(getDimension());
     }
 
+    @Override
     public double packingDensity() {
         return pow2(logPackingDensity());
     }
@@ -51,6 +57,7 @@ public abstract class AbstractLattice implements Lattice {
      * This is Conway and Sloane's approximation for high SNR
      * probability of error in lattice coding.
      */
+    @Override
     public double probCodingError(double S) {
         int n = getDimension();
         double deln = Math.pow(hyperSphereVolume(n)/volume(), 1.0/n)*inradius();
@@ -70,12 +77,6 @@ public abstract class AbstractLattice implements Lattice {
         double logdel = Math.log10(hyperSphereVolume(n)/volume()) + n*Math.log10(inradius());
         double t2 = Math.log10(kissingNumber()/(2.0*Math.sqrt(Math.PI)));
         double loge = Math.log10(Math.exp(1));
-//        System.out.println("nS2 = " + nS2);
-//        System.out.println("del2n = " + del2n);
-//        System.out.println("logdel = " + logdel);
-//        System.out.println("t2 = " + t2);
-//        System.out.println("loge = " + loge);
-//        System.out.println("Math.log10(nS2)/2 = " + Math.log10(nS2)/2);
         return t2 - Math.log10(nS2)/2 - logdel/n - loge*nS2*del2n;
     }
 
@@ -123,6 +124,7 @@ public abstract class AbstractLattice implements Lattice {
      * By default this brute forces the kissing number by sphere decoding.
      * Lattices with known kissing numbers can override this.
      */
+    @Override
     public long kissingNumber() {
         if(kissingnumber == 0){
             pubsim.lattices.decoder.KissingNumber k = new KissingNumber(this);

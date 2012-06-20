@@ -6,9 +6,9 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import static pubsim.VectorFunctions.dot;
 import static pubsim.Util.binom;
 import static pubsim.Util.factorial;
+import static pubsim.VectorFunctions.dot;
 
 /**
  *
@@ -140,6 +140,7 @@ public abstract class VnmStar extends AbstractLattice implements LatticeAndNeare
         }
     }
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
