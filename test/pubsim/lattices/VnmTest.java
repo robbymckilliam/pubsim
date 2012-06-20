@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pubsim.lattices;
 
 import pubsim.lattices.Vnm;
@@ -18,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class VnmTest {
 
@@ -51,7 +50,7 @@ public class VnmTest {
         Matrix gen = instance.getGeneratorMatrix();
         Matrix gram = gen.transpose().times(gen);
 
-        System.out.println(VectorFunctions.print(gram));
+        //System.out.println(VectorFunctions.print(gram));
 
         assertEquals(Math.sqrt(gram.det()), instance.volume(), 0.0001);
     }
@@ -62,29 +61,28 @@ public class VnmTest {
     @Test
     public void testPrintOutShortVects() {
         System.out.println("print out short vectors");
-        Vnm instance = new Vnm(6, 40);
-
-        System.out.println(instance.kissingNumber());
-
-        double inrad = instance.inradius();
-        System.out.println(inrad * inrad * 4);
-    }
-
-    /**
-     * Test of logVolume method, of class Vnm.
-     */
-    @Test
-    public void searchForSquares() {
-        System.out.println("search for squares");
-        int m = 1;
-        for(int n = m+1; n < 1000; n++){
-            double vol = (new Vnm(4,n)).volume();
-            String marker = "";
-            if(Math.abs(vol - Math.round(vol)) < 0.000001 ) marker = "******";
-            System.out.println(n + "\t" + vol + "\t" + marker);
+        int maxn = 60;
+        for (int n = 2; n < maxn; n=n+2) {
+            Vnm instance = new Vnm(2, n);
+            System.out.println(n + ", " + instance.kissingNumber() + ", " + Math.pow(2*instance.inradius(),2));
         }
-
     }
 
-
+//    /**
+//     * Test of logVolume method, of class Vnm.
+//     */
+//    @Test
+//    public void searchForSquares() {
+//        System.out.println("search for squares");
+//        int m = 1;
+//        for (int n = m + 1; n < 1000; n++) {
+//            double vol = (new Vnm(4, n)).volume();
+//            String marker = "";
+//            if (Math.abs(vol - Math.round(vol)) < 0.000001) {
+//                marker = "******";
+//            }
+//            System.out.println(n + "\t" + vol + "\t" + marker);
+//        }
+//
+//    }
 }
