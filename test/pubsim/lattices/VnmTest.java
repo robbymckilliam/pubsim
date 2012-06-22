@@ -55,9 +55,10 @@ public class VnmTest {
     @Test
     public void testPrintOutShortVects() {
         System.out.println("print out short vectors");
-        int maxn = 60;
-        for (int n = 2; n < maxn; n=n+2) {
-            Vnm instance = new Vnm(1, n);
+        int maxn = 15;
+        int m = 2;
+        for (int n = 1; n < maxn; n=n+1) {
+            Vnm instance = new Vnm(m, n);
             System.out.println(n + ", " + instance.kissingNumber() + ", " + Math.pow(2*instance.inradius(),2));
         }
     }
@@ -86,14 +87,14 @@ public class VnmTest {
     public void testVn1() {
         System.out.println("test Vn1");
         int minn = 2;
-        int maxn = 50;
+        int maxn = 60;
         int m = 1;
         for(int n = minn; n < maxn; n=n+1){
             Vnm.Vn1 testee = new Vnm.Vn1(n);
             Vnm tester = new Vnm(m,n);
             assertEquals(testee.volume(), tester.volume(), 0.00001);
-            System.out.println(testee.kissingNumber() + ", " + tester.kissingNumber());
-            //assertEquals(testee.kissingNumber(), tester.kissingNumber());
+            //System.out.println(testee.kissingNumber() + ", " + tester.kissingNumber());
+            assertEquals(testee.kissingNumber(), tester.kissingNumber());
         }
     }
     

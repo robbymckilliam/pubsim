@@ -119,9 +119,8 @@ public class Vnm extends AbstractLattice{
         
         @Override
         public long kissingNumber() {
-            int N = n+m+1;
-            int K = (int)Math.floor(N/2.0);    
-            return K*(5 - 9*K + 4*K*K)/3;
+            if(n%2 == 0) return n*(2+n)*(2*n-1)/12;
+            else return (n-1)*(n+1)*(2*n+3)/12;
         }
     }
     
