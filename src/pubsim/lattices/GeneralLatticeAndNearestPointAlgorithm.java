@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
 import Jama.Matrix;
@@ -33,22 +28,27 @@ public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice imple
         decoder = np;
     }
 
+    @Override
     public void nearestPoint(double[] y) {
         decoder.nearestPoint(y);
     }
     
+    @Override
     public void nearestPoint(Double[] y) {
         decoder.nearestPoint(y);
     }
 
+    @Override
     public double[] getLatticePoint() {
         return decoder.getLatticePoint();
     }
 
+    @Override
     public double[] getIndex() {
         return decoder.getIndex();
     }
 
+    @Override
     public double distance() {
         return decoder.distance();
     }

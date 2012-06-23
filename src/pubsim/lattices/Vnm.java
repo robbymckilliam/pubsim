@@ -96,6 +96,11 @@ public class Vnm extends AbstractLattice{
     public int getDimension() {
         return n;
     }
+    
+    @Override
+    public String name() {
+        return "Vn" + n + "m" + m;
+    }
 
 //    /**
 //     * When m = 0, this is the integer lattice
@@ -121,6 +126,12 @@ public class Vnm extends AbstractLattice{
         public long kissingNumber() {
             if(n%2 == 0) return n*(2+n)*(2*n-1)/12;
             else return (n-1)*(n+1)*(2*n+3)/12;
+        }
+        
+        @Override
+        public double inradius() {
+            if(n == 1) return Math.sqrt(6.0)/2.0;
+            else return 1.0;
         }
     }
     

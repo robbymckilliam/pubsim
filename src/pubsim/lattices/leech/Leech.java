@@ -7,7 +7,6 @@ package pubsim.lattices.leech;
 
 import Jama.Matrix;
 import pubsim.lattices.AbstractLattice;
-import pubsim.Util;
 
 /**
  * Standard, unimodular, self-dual representation of the Leech lattice.
@@ -28,11 +27,7 @@ public class Leech extends AbstractLattice{
 
     @Override
     public double coveringRadius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setDimension(int n) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Math.sqrt(2.0);
     }
 
     @Override
@@ -86,6 +81,11 @@ public class Leech extends AbstractLattice{
     @Override
     public double secondMoment(){
         return 24 * 0.065771;
+    }
+    
+    @Override
+    public String name() {
+        return "Leech";
     }
     
 }

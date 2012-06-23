@@ -4,10 +4,10 @@
  */
 package pubsim.lattices.leech;
 
-import pubsim.lattices.ScaledLattice;
 import static pubsim.VectorFunctions.add;
 import pubsim.lattices.E8;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.ScaledLattice;
 
 /**
  * Nearest point algorithm for the Leech lattice based on the Turyn
@@ -15,6 +15,8 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  * Conway and Sloane in:
  * "Soft decoding techniques for codes and lattices, including the
  * Golay code and the Leech lattice", IEEE Trans. Info. Th., vol. 32, 1986.
+ * 
+ * UNFINISHED!
  * 
  * @author Robby McKilliam
  */
@@ -155,7 +157,7 @@ public class LeechTuryn extends Leech implements LatticeAndNearestPointAlgorithm
     @Override
     public void nearestPoint(Double[] y) {
         for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
-        this.nearestPoint(y);
+        this.nearestPoint(yDoubletoy);
     }
 
 }

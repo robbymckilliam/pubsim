@@ -7,6 +7,7 @@ package pubsim.lattices;
 import Jama.Matrix;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
+import pubsim.Util;
 import pubsim.VectorFunctions;
 
 /**
@@ -96,6 +97,18 @@ public class VnmTest {
             //System.out.println(testee.kissingNumber() + ", " + tester.kissingNumber());
             assertEquals(testee.kissingNumber(), tester.kissingNumber());
         }
+    }
+    
+    /**
+     * Test ProbCodingError.
+     */
+    @Test
+    public void testProbCodingError() {
+        System.out.println("ProbCodingError");
+        Vnm instance = new Vnm(1, 12);
+        Matrix gen = instance.getGeneratorMatrix();
+        Matrix gram = gen.transpose().times(gen);
+        for(double S = 0.1; S < 5; S+=0.1) System.out.println(instance.probCodingError(S));
     }
     
     

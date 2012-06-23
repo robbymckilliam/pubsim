@@ -53,7 +53,7 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
     }
 
     @Override
-    public long kissingNumber() {
+    public final long kissingNumber() {
         return 2*n;
     }
 
@@ -63,7 +63,7 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
     }
 
     @Override
-    public double coveringRadius() {
+    public final double coveringRadius() {
         return Math.sqrt(0.5*n);
     }
 
@@ -83,6 +83,11 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
             yDoubletoy = new double[y.length];
         for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
         this.nearestPoint(yDoubletoy);
+    }
+    
+    @Override
+    public String name() {
+        return "Zn" + n;
     }
     
 }

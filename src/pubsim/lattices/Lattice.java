@@ -82,5 +82,10 @@ public interface Lattice extends Serializable {
      * @return double[][] containing the generator matrix
      */
     Matrix getGeneratorMatrix();
+    
+    /**
+     * Return the name for this lattice, if it has one
+     */
+    String name();
 
 }

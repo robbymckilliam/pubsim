@@ -59,9 +59,10 @@ public abstract class AbstractLattice implements Lattice {
      */
     @Override
     public double probCodingError(double S) {
+        if(S < 0) throw new RuntimeException("S cannot be negative input for probCodingError");
         int n = getDimension();
         double deln = Math.pow(hyperSphereVolume(n)/volume(), 1.0/n)*inradius();
-        double erfcSdel = erfc( Math.sqrt(n*S/2.0) * deln );
+        double erfcSdel = erfc( Math.sqrt(n*S/2.0) * deln );     
         return 0.5*kissingNumber()*erfcSdel;
     }
 
@@ -157,6 +158,12 @@ public abstract class AbstractLattice implements Lattice {
                             + Math.log10(v);
         return 10*( num - den );
     }
+    
+    @Override
+    public String name() { 
+        throw new UnsupportedOperationException("This lattice doesn't have a name!"); 
+    }
+
 
     
 }

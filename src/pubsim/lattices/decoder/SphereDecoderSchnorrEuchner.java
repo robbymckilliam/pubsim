@@ -20,16 +20,27 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
         super(L);
     }
 
+    /** 
+     * Computes the nearest point using Schnorr and Euchner's sphere decoder.
+     * Default is to set starting distance to positive infinity.  This implicitly compute the Babai
+     * point to start with.
+     * @param y 
+     */     
     @Override
     public void nearestPoint(double[] y) {
+        nearestPoint(y, Double.POSITIVE_INFINITY);
+    }
+    
+    //Allows you to set the initial starting distance for the sphere decoder
+    public void nearestPoint(double[] y, double D) {
         if(m != y.length)
             throw new RuntimeException("Point y and Generator matrix are of different dimension!");
 
         //don't need to compute the Babai point.  This strategy automattically computes
         //the Babai point.
         VectorFunctions.matrixMultVector(Qtrans, y, yr);
-        D = Double.POSITIVE_INFINITY;
-
+        this.D = D;
+        
         //current element being decoded
         int k = n-1;
 
@@ -61,7 +72,7 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
         //this is the first point to test
         ut[k] = Math.round((yr[k] - rsum)/R.get(k,k));
 
-        //this update the ut[k] in the order of Schnorr and Euchner.
+        //this updates the ut[k] in the order of Schnorr and Euchner.
         double del = Math.signum( 
                 pubsim.Util.fracpart( (yr[k] - rsum)/R.get(k,k) )  );
         
