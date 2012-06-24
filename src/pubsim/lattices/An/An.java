@@ -114,5 +114,10 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public String name() {
+        return "An" + n;
+    }
 
 }

@@ -39,7 +39,7 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
         //don't need to compute the Babai point.  This strategy automattically computes
         //the Babai point.
         VectorFunctions.matrixMultVector(Qtrans, y, yr);
-        this.D = D;
+        this.D = D*D; //the decode function uses the square of the distance!
         
         //current element being decoded
         int k = n-1;

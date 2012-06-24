@@ -51,9 +51,9 @@ public abstract class AbstractLattice implements Lattice {
      */
     @Override
     public double hermiteParameter(){
-        double rho = inradius();
+        double dmin = 2.0*inradius();
         double logv = 2.0*logVolume()/getDimension(); //using logarithm tests to be more stable
-        return rho*rho/Math.pow(2.0,logv);
+        return dmin*dmin/Math.pow(2.0,logv);
     }
     @Override
     public double nominalCodingGain() { return hermiteParameter(); }

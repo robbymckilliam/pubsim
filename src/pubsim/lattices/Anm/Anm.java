@@ -64,4 +64,9 @@ public class Anm extends NearestPointAlgorithmStandardNumenclature{
         return Math.sqrt(2.0)/2.0;
     }
     
+    @Override
+    public String name() {
+        return "An" + n + "m" + m;
+    }
+    
 }

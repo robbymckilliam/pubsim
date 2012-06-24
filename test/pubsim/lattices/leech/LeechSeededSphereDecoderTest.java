@@ -55,7 +55,7 @@ public class LeechSeededSphereDecoderTest {
 
             double decdist = VectorFunctions.distance_between2(instance.getLatticePoint(), tester.getLatticePoint());
             
-            System.out.println(decdist);
+            //System.out.println(decdist);
 
             assertTrue(decdist <= 0.000001);
         }

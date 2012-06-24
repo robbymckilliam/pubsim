@@ -46,6 +46,9 @@ public class P48 extends AbstractLattice{
     public final long kissingNumber(){
         return 52416000;
     }
+    
+    @Override
+    public String name() { return "P48"; }
 
 
 }

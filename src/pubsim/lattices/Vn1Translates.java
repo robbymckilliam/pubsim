@@ -7,23 +7,23 @@ package pubsim.lattices;
 
 import Jama.Matrix;
 import pubsim.lattices.Vn2Star.Vn2Star;
-import pubsim.Util;
 
 /**
  * Lattices that lie between the frequency estimation lattice and
  * it's dual.
  * @author Robby McKilliam
  */
-public class Vn2Translates extends AbstractLattice {
+public class Vn1Translates extends AbstractLattice {
 
     protected final int n, j, k;
 
-    public Vn2Translates(int n, int j, int k){
+    public Vn1Translates(int n, int j, int k){
         this.n = n;
         this.j = j;
         this.k = k;
     }
 
+    @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -32,12 +32,14 @@ public class Vn2Translates extends AbstractLattice {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public int getDimension() {
         return n;
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
-        Matrix Mat = new Vnm(2, n).getGeneratorMatrix();
+        Matrix Mat = new Vnm(1, n).getGeneratorMatrix();
 
         double[] g = Vn2Star.getgVector(n+2);
         double sg = Vn2Star.sumg2(n+2);

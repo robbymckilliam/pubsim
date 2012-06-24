@@ -8,7 +8,6 @@ package pubsim.lattices;
 import Jama.Matrix;
 import static pubsim.Util.*;
 import pubsim.VectorFunctions;
-import static pubsim.VectorFunctions.dot;
 import pubsim.lattices.reduction.LLL;
 
 /**

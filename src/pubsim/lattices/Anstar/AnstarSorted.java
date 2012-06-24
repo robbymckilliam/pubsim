@@ -6,8 +6,8 @@
 
 package pubsim.lattices.Anstar;
 
-import pubsim.IndexedDouble;
 import java.util.Arrays;
+import pubsim.IndexedDouble;
 
 /**
  * This is a new, simpler and faster version of the AnstarVaughan algorithm.

@@ -68,6 +68,7 @@ public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
         }
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         Matrix on = new Matrix(n + 1, n);
         for (int i = 0; i < n + 1; i++) {
@@ -104,6 +105,12 @@ public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
 
     }
     
+    @Override
     public double distance() { throw new UnsupportedOperationException(); }
+    
+    @Override
+    public String name() {
+        return "An" + n + "star";
+    }
     
 }
