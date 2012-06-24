@@ -1,17 +1,17 @@
 /*
- * Vn2StarGlued.java
+ * Vn1StarGlued.java
  *
  * Created on 12 August 2007, 20:15
  */
 
-package pubsim.lattices.Vn2Star;
+package pubsim.lattices.Vn1Star;
 
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarLinear;
 
 /**
  * O(n^4 log(n)) nearest point algorithm for the lattice Pn.  This just runs the
- * An* nearest point algorithm for all O(n^3) glue vectors.  Vn2Star is a faster
+ * An* nearest point algorithm for all O(n^3) glue vectors.  Vn1Star is a faster
  * O(n^3 log(n)) algorithm.  
  * <p>
  * This currently only works for odd n.  The glue vectors are slightly different
@@ -20,14 +20,14 @@ import pubsim.lattices.Anstar.AnstarLinear;
  * 
  * @author Robby McKilliam
  */
-public class Vn2StarGlued extends Vn2Star {
+public class Vn1StarGlued extends Vn1Star {
     
     final protected Anstar anstar;
     
     final protected double[] g, yt, y;
     protected double[] vt, ut;
 
-    public Vn2StarGlued(int n){
+    public Vn1StarGlued(int n){
         super(n);
         anstar = new AnstarLinear(n+1);   
         g = new double[n+2];
@@ -36,7 +36,7 @@ public class Vn2StarGlued extends Vn2Star {
     }
     
     /**
-     * Find the nearest point in Vn2Star by searching the o(n^3)
+     * Find the nearest point in Vn1Star by searching the o(n^3)
      * translates/glues of An*.  Currently, this only works
      * for odd n.
      */

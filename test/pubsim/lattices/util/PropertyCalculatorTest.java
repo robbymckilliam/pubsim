@@ -8,7 +8,7 @@ package pubsim.lattices.util;
 import pubsim.lattices.util.PropertyCalculator;
 import pubsim.lattices.Anm.AnmLinear;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
-import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
+import pubsim.lattices.Vn1Star.Vn1StarZnLLS;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -128,7 +128,7 @@ public class PropertyCalculatorTest {
 //        int N = 6;
 //        //construct a lattice 2Dn
 //
-//        PropertyCalculator prop = new PropertyCalculator(new Vn2StarZnLLS(N), 0.00001);
+//        PropertyCalculator prop = new PropertyCalculator(new Vn1StarZnLLS(N), 0.00001);
 //        //assertEquals(prop.outRadius()*prop.outRadius(), 5*0.5*0.5, 0.00001);
 //
 //        System.out.println(prop.dimensionalessSecondMoment());

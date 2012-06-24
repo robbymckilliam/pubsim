@@ -6,8 +6,8 @@
 
 package pubsim.psk;
 
-import pubsim.lattices.Vn2Star.Vn2Star;
-import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
+import pubsim.lattices.Vn1Star.Vn1Star;
+import pubsim.lattices.Vn1Star.Vn1StarZnLLS;
 
 /**
  * Uses the Glued Pn2 lattice point algorithm.  There is no way to
@@ -23,10 +23,10 @@ public class GlueAnstarCarrierEstimator implements CarrierEstimator{
     protected double fmin, fmax;
     protected double phase, frequency;
     
-    protected Vn2Star lattice;
+    protected Vn1Star lattice;
     
     public GlueAnstarCarrierEstimator(int n){
-        lattice = new Vn2StarZnLLS(n-2);
+        lattice = new Vn1StarZnLLS(n-2);
                 marg = new double[n];
         N = n;
     }

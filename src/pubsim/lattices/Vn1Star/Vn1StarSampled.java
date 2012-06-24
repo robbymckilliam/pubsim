@@ -1,10 +1,10 @@
 /*
- * Vn2StarSampled.java
+ * Vn1StarSampled.java
  *
  * Created on 18 August 2007, 12:53
  */
 
-package pubsim.lattices.Vn2Star;
+package pubsim.lattices.Vn1Star;
 
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Anstar.Anstar;
@@ -21,7 +21,7 @@ import pubsim.lattices.Anstar.AnstarLinear;
  * 
  * @author Robby McKilliam
  */
-public class Vn2StarSampled extends Vn2Star {
+public class Vn1StarSampled extends Vn1Star {
     
     final protected int num_samples;
     final Anstar anstar;
@@ -29,7 +29,7 @@ public class Vn2StarSampled extends Vn2Star {
     protected double[] g, vt, ut, y;
     
     /** Sets dimension and number of samples */
-    public Vn2StarSampled(int n, int samples) {
+    public Vn1StarSampled(int n, int samples) {
         super(n);
         num_samples = samples;
         anstar = new AnstarLinear(n+1);

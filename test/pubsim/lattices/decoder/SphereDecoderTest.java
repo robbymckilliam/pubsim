@@ -11,7 +11,7 @@ import Jama.Matrix;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.GeneralLattice;
-import pubsim.lattices.Vn2Star.Vn2StarGlued;
+import pubsim.lattices.Vn1Star.Vn1StarGlued;
 import pubsim.lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -171,7 +171,7 @@ public class SphereDecoderTest {
         int iters = 10;
         int n = 6;
         
-        Vn2StarGlued lattice = new Vn2StarGlued(n);
+        Vn1StarGlued lattice = new Vn1StarGlued(n);
         
         SphereDecoder decoder = new SphereDecoder(lattice);
         

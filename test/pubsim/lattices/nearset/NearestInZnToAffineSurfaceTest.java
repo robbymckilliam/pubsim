@@ -6,8 +6,8 @@
 package pubsim.lattices.nearset;
 
 import Jama.Matrix;
-import pubsim.lattices.Vn2Star.Vn2Star;
-import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
+import pubsim.lattices.Vn1Star.Vn1Star;
+import pubsim.lattices.Vn1Star.Vn1StarZnLLS;
 import pubsim.lattices.VnmStar;
 import pubsim.lattices.VnmStarGlued;
 import pubsim.lattices.decoder.SphereDecoder;
@@ -112,12 +112,12 @@ public class NearestInZnToAffineSurfaceTest {
         int iters = 100;
 
         int N = 10;
-        Matrix P = Vn2Star.getMMatrix(N-2);
+        Matrix P = Vn1Star.getMMatrix(N-2);
         Matrix Pt = P.transpose();
         Matrix K = (Pt.times(P)).inverse().times(Pt);
         Matrix G = Matrix.identity(N, N).minus(P.times(K));
 
-        Vn2Star test = new Vn2StarZnLLS(N-2);
+        Vn1Star test = new Vn1StarZnLLS(N-2);
 
         for( int i = 0; i < iters; i++){
 

@@ -3,10 +3,11 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices.Vn2Star;
+package pubsim.lattices.Vn1Star;
 
-import pubsim.lattices.Vn2Star.Vn2Star;
-import pubsim.lattices.Vn2Star.Vn2StarSampled;
+import pubsim.lattices.Vn1Star.Vn1StarZnLLS;
+import pubsim.lattices.Vn1Star.Vn1Star;
+import pubsim.lattices.Vn1Star.Vn1StarSampled;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,9 +21,9 @@ import static org.junit.Assert.*;
  *
  * @author Robby
  */
-public class Vn2StarTest {
+public class Vn1StarTest {
 
-    public Vn2StarTest() {
+    public Vn1StarTest() {
     }
 
     @BeforeClass
@@ -50,14 +51,14 @@ public class Vn2StarTest {
 
         double volf = Math.sqrt(12.0/((n+3)*(n+2)*(n+1)*(n+2)));
 
-        Vn2Star lattice = new Vn2StarZnLLS(n);
+        Vn1Star lattice = new Vn1StarZnLLS(n);
         double vol = lattice.volume();
 
         assertEquals(volf, vol, 0.0000000001);
     }
 
 //    /**
-//     * Test of inradius method, of class Vn2Star.
+//     * Test of inradius method, of class Vn1Star.
 //     */
 //    @Test
 //    public void testInradius() {
@@ -66,7 +67,7 @@ public class Vn2StarTest {
 //    }
 //
 //    /**
-//     * Test of getGeneratorMatrix method, of class Vn2Star.
+//     * Test of getGeneratorMatrix method, of class Vn1Star.
 //     */
 //    @Test
 //    public void testGetGeneratorMatrix() {
@@ -75,12 +76,12 @@ public class Vn2StarTest {
 //    }
 
     /**
-     * Test of getMMatrix method, of class Vn2Star.
+     * Test of getMMatrix method, of class Vn1Star.
      */
     @Test
     public void testGetMMatrix() {
         int N = 10;
-        Matrix M = Vn2Star.getMMatrix(N-2);
+        Matrix M = Vn1Star.getMMatrix(N-2);
         for(int n = 0; n < n; n++){
             assertEquals(1.0, M.get(n, 0), 0.000000001);
             assertEquals(n+1, M.get(n, 0), 0.000000001);
@@ -88,19 +89,19 @@ public class Vn2StarTest {
     }
 
     /**
-     * Test of getgVector method, of class Vn2Star.
+     * Test of getgVector method, of class Vn1Star.
      */
     @Test
     public void testGetgVector() {
         System.out.println("getgVector");
         int n = 5;
-        double[] result = Vn2Star.getgVector(n);
+        double[] result = Vn1Star.getgVector(n);
         double[] expResult = {-2, -1, 0, 1, 2};
         for(int i = 0; i < n; i++)
             assertEquals(expResult[i], result[i], 0.000001);
 
         n = 6;
-        result = Vn2Star.getgVector(n);
+        result = Vn1Star.getgVector(n);
         double[] expResult2 = {-2.5, -1.5, -.5, .5, 1.5, 2.5};
         for(int i = 0; i < n; i++)
             assertEquals(expResult2[i], result[i], 0.000001);
@@ -108,14 +109,14 @@ public class Vn2StarTest {
     }
 
     /**
-     * Test of sumg2 method, of class Vn2Star.
+     * Test of sumg2 method, of class Vn1Star.
      */
     @Test
     public void testSumg2() {
         System.out.println("sumg2");
         for(int n = 3; n < 50; n++){
-            double test = VectorFunctions.sum2(Vn2Star.getgVector(n));
-            double val = Vn2Star.sumg2(n);
+            double test = VectorFunctions.sum2(Vn1Star.getgVector(n));
+            double val = Vn1Star.sumg2(n);
             assertEquals(test, val, 0.000001);
         }
     }

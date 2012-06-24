@@ -5,7 +5,7 @@
  */
 
 package pubsim.fes;
-import pubsim.lattices.Vn2Star.Vn2StarSampled;
+import pubsim.lattices.Vn1Star.Vn1StarSampled;
 
 /**
  * Simple and fast suboptimal (but peharps can be made optimal)
@@ -23,7 +23,7 @@ public class SamplingLatticeEstimator extends LatticeEstimator
      */
     public SamplingLatticeEstimator(int N, int numsamples){
         super(N);
-        lattice = new Vn2StarSampled(N-2, numsamples);
+        lattice = new Vn1StarSampled(N-2, numsamples);
     }
    
 }

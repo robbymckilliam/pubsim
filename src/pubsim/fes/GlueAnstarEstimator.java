@@ -6,7 +6,7 @@
 
 package pubsim.fes;
 
-import pubsim.lattices.Vn2Star.Vn2StarGlued;
+import pubsim.lattices.Vn1Star.Vn1StarGlued;
 
 /**
  * Frequency estimator that uses Vn1 glue vector algorithm to solve the nearest
@@ -19,7 +19,7 @@ public class GlueAnstarEstimator
     
    public GlueAnstarEstimator(int N){
        super(N);
-       lattice = new Vn2StarGlued(N-2);
+       lattice = new Vn1StarGlued(N-2);
     }
     
 }

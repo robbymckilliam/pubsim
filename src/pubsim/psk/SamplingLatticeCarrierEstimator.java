@@ -6,7 +6,7 @@
 
 package pubsim.psk;
 
-import pubsim.lattices.Vn2Star.Vn2StarSampled;
+import pubsim.lattices.Vn1Star.Vn1StarSampled;
 
 /**
  *
@@ -17,7 +17,7 @@ public class SamplingLatticeCarrierEstimator extends GlueAnstarCarrierEstimator
     
     public SamplingLatticeCarrierEstimator(int n, int samples) { 
         super(n);
-        lattice = new Vn2StarSampled(n-2, samples);
+        lattice = new Vn1StarSampled(n-2, samples);
     }
     
     

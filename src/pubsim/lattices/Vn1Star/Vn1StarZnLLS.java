@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices.Vn2Star;
+package pubsim.lattices.Vn1Star;
 
 import pubsim.lattices.Anstar.Anstar;
 import java.util.Map.Entry;
@@ -15,16 +15,16 @@ import pubsim.lattices.NearestPointAlgorithm;
  * O(N^3log(N)) version of the nearest point algorithm for Vnm*.
  * @author Robby McKilliam
  */
-public class Vn2StarZnLLS extends
-        Vn2Star implements NearestPointAlgorithm {
+public class Vn1StarZnLLS extends
+        Vn1Star implements NearestPointAlgorithm {
 
     final double[] g, glue, z, x;
     final Anstar anstar;
 
-    public Vn2StarZnLLS(int n){
+    public Vn1StarZnLLS(int n){
         super(n);
         glue = new double[n+2];
-        g = Vn2Star.getgVector(n+2);
+        g = Vn1Star.getgVector(n+2);
         z = new double[n+2];
         x = new double[n+2];
 

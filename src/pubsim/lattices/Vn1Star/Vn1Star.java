@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices.Vn2Star;
+package pubsim.lattices.Vn1Star;
 
 import Jama.Matrix;
 import pubsim.lattices.Anstar.AnstarVaughan;
@@ -13,9 +13,9 @@ import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
  *
  * @author Robby McKilliam
  */
-public abstract class Vn2Star extends NearestPointAlgorithmStandardNumenclature{
+public abstract class Vn1Star extends NearestPointAlgorithmStandardNumenclature{
     
-    public Vn2Star(int n){
+    public Vn1Star(int n){
         super(n);
         u = new double[n+2];
         v = new double[n+2];

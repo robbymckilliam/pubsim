@@ -6,17 +6,17 @@
 package pubsim.fes;
 
 import Jama.Matrix;
-import pubsim.lattices.Vn2Star.Vn2Star;
+import pubsim.lattices.Vn1Star.Vn1Star;
 
 /**
- * Abstract class for the frequency estimators that use the Vn2Star
+ * Abstract class for the frequency estimators that use the Vn1Star
  * lattice.
  * @author Robby McKilliam
  */
 public abstract class LatticeEstimator implements FrequencyEstimator{
 
     protected final int N;
-    protected Vn2Star lattice;
+    protected Vn1Star lattice;
     protected final double[] y;
     //protected Matrix K;
 

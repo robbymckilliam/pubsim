@@ -5,7 +5,7 @@
 
 package pubsim.fes;
 
-import pubsim.lattices.Vn2Star.Vn2StarZnLLS;
+import pubsim.lattices.Vn1Star.Vn1StarZnLLS;
 
 /**
  * O(N^3log(N)) version of the LSPU estimator.
@@ -15,7 +15,7 @@ public class ZnLLS extends LatticeEstimator implements FrequencyEstimator{
 
     public ZnLLS(int N){
         super(N);
-        lattice = new Vn2StarZnLLS(N-2);
+        lattice = new Vn1StarZnLLS(N-2);
     }
 
 }
