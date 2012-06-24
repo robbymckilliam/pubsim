@@ -57,10 +57,17 @@ public interface Lattice extends Serializable {
      * Sphere packing density.
      */
     double packingDensity();
+    
+    /*
+     * Hermite parameter, also known as nomial coding gain
+     */
+    double hermiteParameter();
+    double nominalCodingGain();
 
     /*
-     * Coding bound.  This is the probability of error estimate
-     * given by Conway and Sloane SPLAG page 71.
+     * Effective coding gain.  See page 2396 of 
+     * FORNEY AND UNGERBOECK: MODULATION AND CODING FOR LINEAR GAUSSIAN CHANNELS.
+     * The argument S is a 'normalised' signal to noise ratio.
      */
     double probCodingError(double S);
     

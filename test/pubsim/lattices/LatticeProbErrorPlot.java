@@ -5,17 +5,12 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.Craig;
-import pubsim.lattices.AbstractLattice;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Vector;
-import pubsim.lattices.leech.Leech;
-import pubsim.lattices.An.AnFastSelect;
-import pubsim.lattices.E8;
-import static pubsim.Range.*;
-import static pubsim.Util.*;
+import static pubsim.Range.range;
+import static pubsim.Util.dround6;
 
 /**
  *
@@ -54,11 +49,7 @@ public class LatticeProbErrorPlot {
         System.out.println(L.inradius() + ", " + L.kissingNumber() + ", " + L.logVolume() + ", " + L.centerDensity());
 
         for(double S : range(Sstart, Send, Sstep) ){
-            //double d = L.probCodingError(S);
-            //double d = L.log10ProbCodingError(S);
-            //double d = L.unshapedProbCodingError(Math.pow(10, S/10));
-            double d = L.unshapedProbCodingErrorUseLogVolume(Math.pow(10, S/10));
-            //double d = L.probCodingErrorPer2Dim(10*Math.log10(S));
+            double d = L.probCodingError(S);
             proberr.add(d);
             System.out.println(dround6(S) + " " + d);
         }

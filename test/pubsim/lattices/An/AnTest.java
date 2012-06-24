@@ -89,20 +89,5 @@ public class AnTest {
         assertEquals(momentmc, instance.secondMoment(), 0.01);
 
     }
-
-    /**
-     * Test the variance to SNR conversions.
-     */
-    @Test
-    public void testvarToSNR() {
-        System.out.println("test variance to SNR conversion");
-        int n = 8;
-        An l = new AnSorted(n);
-        
-        assertEquals(10*Math.log10(l.noiseVarianceToSNR(0.1)), l.noiseVarianceToSNRdB(0.1), 0.0000001);
-        assertEquals(10*Math.log10(l.noiseVarianceToSNR(1.0)), l.noiseVarianceToSNRdB(1.0), 0.0000001);
-        assertTrue(l.noiseVarianceToSNRdB(1.0) != 0.0);
-        
-    }
     
 }

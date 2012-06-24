@@ -42,7 +42,6 @@ public class Vnm extends AbstractLattice{
 
     /**
      * Uses nifty binomial formula to compute the log of the volume.
-     * @return
      */
     @Override
     public double logVolume() {
@@ -51,7 +50,6 @@ public class Vnm extends AbstractLattice{
 
     /**
      * Uses nifty binomial formula to compute the log of the volume.
-     * @return
      */
     public static double logVolume(int m, int n) {
         double vol = 0.0;
