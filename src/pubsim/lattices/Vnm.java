@@ -9,6 +9,7 @@ import Jama.Matrix;
 import pubsim.Util;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnFastSelect;
+import pubsim.lattices.decoder.KissingNumber;
 
 /**
  * Class for the lattice Vnm, ie the integer lattice that is that
@@ -99,7 +100,7 @@ public class Vnm extends AbstractLattice{
     public String name() {
         return "Vn" + n + "m" + m;
     }
-
+    
 //    /**
 //     * When m = 0, this is the integer lattice
 //     */
@@ -128,9 +129,56 @@ public class Vnm extends AbstractLattice{
         
         @Override
         public double inradius() {
-            if(n == 1) return Math.sqrt(6.0)/2.0;
+            if(n == 1) return Math.sqrt(4.0)/2.0;
             else return 1.0;
         }
     }
+    
+    /** 
+     * When m = 1, we know the kissing number
+     */
+    public static class Vn2 extends Vnm {
+        public Vn2(int n) { super(2, n); }
+        
+        private long kissingnumber;
+        @Override
+        public long kissingNumber() {
+            if(kissingnumber == 0){
+                pubsim.lattices.decoder.KissingNumber k = new KissingNumber(this, 2.0*inradius());
+                kissingnumber = k.kissingNumber();
+            }
+            return kissingnumber;
+        }
+        
+        @Override
+        public double inradius() {
+            if(n > 4) return Math.sqrt(6.0)/2.0;
+            else return super.inradius();
+        }
+    }
+    
+        /** 
+     * When m = 1, we know the kissing number
+     */
+    public static class Vn3 extends Vnm {
+        public Vn3(int n) { super(3, n); }
+        
+        private long kissingnumber;
+        @Override
+        public long kissingNumber() {
+            if(kissingnumber == 0){
+                pubsim.lattices.decoder.KissingNumber k = new KissingNumber(this, 2.0*inradius());
+                kissingnumber = k.kissingNumber();
+            }
+            return kissingnumber;
+        }
+        
+        @Override
+        public double inradius() {
+            if(n > 8) return Math.sqrt(8.0)/2.0;
+            else return super.inradius();
+        }
+    }
+    
     
 }

@@ -57,7 +57,7 @@ public class VnmTest {
     public void testPrintOutShortVects() {
         System.out.println("print out short vectors");
         int maxn = 15;
-        int m = 2;
+        int m = 3;
         for (int n = 1; n < maxn; n=n+1) {
             Vnm instance = new Vnm(m, n);
             System.out.println(n + ", " + instance.kissingNumber() + ", " + Math.pow(2*instance.inradius(),2));

@@ -65,5 +65,10 @@ public class BarnesWall extends AbstractLattice{
         }
         return prod;
     }
+    
+    @Override
+    public String name() {
+        return "BWn" + n;
+    }
 
 }

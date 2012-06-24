@@ -5,8 +5,8 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.lattices.Lattice;
 import pubsim.VectorFunctions;
+import pubsim.lattices.Lattice;
 
 /**
  * Returns the kissing number of a lattice.  This finds all the short vector
@@ -26,6 +26,16 @@ public class KissingNumber {
 
         ssd = new ModSphereDecoder(L);
         ssd.countVectorsShorterThan(D);
+
+    }
+    
+    /** 
+     * Constructor seeds the kissing number search with a given length.
+     * Useful if you know the lattices norm in advance.
+     */
+    public KissingNumber(Lattice L, double D){
+        ssd = new ModSphereDecoder(L);
+        ssd.countVectorsShorterThan(D*D);
 
     }
 
