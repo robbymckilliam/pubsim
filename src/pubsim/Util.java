@@ -106,7 +106,7 @@ public final class Util {
      * 1 - erf(x)
      */
     public static double erfc(double x){
-        return 1 - erf(x);
+        return 1.0 - erf(x);
     }
 
     /**
