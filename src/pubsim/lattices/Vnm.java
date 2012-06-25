@@ -101,6 +101,14 @@ public class Vnm extends AbstractLattice{
         return "Vn" + n + "m" + m;
     }
     
+    /** 
+     * Returns the kissing number under the assumption that n is large enough
+     * for the norm to be 2(m+1), otherwise zero will be returned.
+     */
+    public long seededKissingNumber(){
+        return new KissingNumber(this, Math.sqrt(2.0*(m+1))).kissingNumber();
+    }
+    
 //    /**
 //     * When m = 0, this is the integer lattice
 //     */
@@ -123,13 +131,14 @@ public class Vnm extends AbstractLattice{
         
         @Override
         public long kissingNumber() {
-            if(n%2 == 0) return n*(2+n)*(2*n-1)/12;
+            if(n==1) return 2;
+            else if(n%2 == 0) return n*(2+n)*(2*n-1)/12;
             else return (n-1)*(n+1)*(2*n+3)/12;
         }
         
         @Override
         public double inradius() {
-            if(n == 1) return Math.sqrt(4.0)/2.0;
+            if(n == 1) return Math.sqrt(6.0)/2.0;
             else return 1.0;
         }
     }

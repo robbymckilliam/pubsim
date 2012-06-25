@@ -67,10 +67,6 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
         return Math.sqrt(0.5*n);
     }
 
-    public double effectiveCodingGain(double SNR){
-        return 0;
-    }
-
     @Override
     public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");

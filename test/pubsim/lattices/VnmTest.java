@@ -87,14 +87,15 @@ public class VnmTest {
     @Test
     public void testVn1() {
         System.out.println("test Vn1");
-        int minn = 2;
-        int maxn = 60;
+        int minn = 1;
+        int maxn = 40;
         int m = 1;
         for(int n = minn; n < maxn; n=n+1){
             Vnm.Vn1 testee = new Vnm.Vn1(n);
             Vnm tester = new Vnm(m,n);
             assertEquals(testee.volume(), tester.volume(), 0.00001);
             //System.out.println(testee.kissingNumber() + ", " + tester.kissingNumber());
+            //System.out.println(testee.inradius() + ", " + tester.inradius());
             assertEquals(testee.kissingNumber(), tester.kissingNumber());
         }
     }
@@ -109,6 +110,21 @@ public class VnmTest {
         Matrix gen = instance.getGeneratorMatrix();
         Matrix gram = gen.transpose().times(gen);
         for(double S = 0.1; S < 5; S+=0.1) System.out.println(instance.probCodingError(S));
+    }
+    
+    /**
+     * Test ProbCodingError.
+     */
+    @Test
+    public void testSeededKissingNumber() {
+        System.out.println("SeededKissingNumber");
+        int minn = 1;
+        int maxn = 40;
+        int m = 2;
+        for(int n = minn; n < maxn; n=n+1){
+            Vnm tester = new Vnm(m,n);
+            System.out.println(tester.seededKissingNumber() + ", " + tester.kissingNumber());
+        }
     }
     
     

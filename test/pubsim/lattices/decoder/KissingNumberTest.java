@@ -5,19 +5,14 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.lattices.decoder.KissingNumber;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 import pubsim.lattices.Zn;
 import pubsim.lattices.leech.Leech;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class KissingNumberTest {
 

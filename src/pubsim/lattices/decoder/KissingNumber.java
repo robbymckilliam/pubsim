@@ -20,13 +20,9 @@ public class KissingNumber {
     protected long kissingNumber;
 
     public KissingNumber(Lattice L){
-
-        ShortVectorSphereDecoded sv = new ShortVectorSphereDecoded(L);
-        double D = VectorFunctions.sum2(sv.getShortestVector());
-
+        double rho = L.inradius();
         ssd = new ModSphereDecoder(L);
-        ssd.countVectorsShorterThan(D);
-
+        ssd.countVectorsShorterThan(rho*rho*4.0);
     }
     
     /** 
