@@ -38,8 +38,8 @@ public class P48 extends AbstractLattice{
     }
     
     @Override
-    public double inradius(){
-        return Math.sqrt(6.0)/2.0;
+    public double norm(){
+        return 6;
     }
 
     @Override

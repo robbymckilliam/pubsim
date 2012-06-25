@@ -1,8 +1,8 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.VectorFunctions;
 import pubsim.Util;
+import pubsim.VectorFunctions;
 
 /**
  * Nearest point algorithm for the lattice Dn.

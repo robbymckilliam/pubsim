@@ -5,7 +5,6 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.VectorFunctions;
 import pubsim.lattices.Lattice;
 
 /**
@@ -20,19 +19,17 @@ public class KissingNumber {
     protected long kissingNumber;
 
     public KissingNumber(Lattice L){
-        double rho = L.inradius();
         ssd = new ModSphereDecoder(L);
-        ssd.countVectorsShorterThan(rho*rho*4.0);
+        ssd.countVectorsShorterThan(L.norm());
     }
     
     /** 
      * Constructor seeds the kissing number search with a given length.
      * Useful if you know the lattices norm in advance.
      */
-    public KissingNumber(Lattice L, double D){
+    public KissingNumber(Lattice L, double norm){
         ssd = new ModSphereDecoder(L);
-        ssd.countVectorsShorterThan(D*D);
-
+        ssd.countVectorsShorterThan(norm);
     }
 
     public long kissingNumber(){

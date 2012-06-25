@@ -17,12 +17,8 @@ import pubsim.lattices.NearestPointAlgorithm;
 public class BabaiNoLLL extends Babai
                         implements NearestPointAlgorithm {
 
-    public BabaiNoLLL(){
-
-    }
-
     public BabaiNoLLL(Lattice L){
-        setLattice(L);
+        super(L);
     }
 
     public void setLattice(Lattice L) {

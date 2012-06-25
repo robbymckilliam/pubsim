@@ -49,7 +49,7 @@ public class KissingNumberTest {
 
     }
 
-        /**
+     /**
      * Test of kissingNumber method, of class KissingNumber.
      */
     @Test

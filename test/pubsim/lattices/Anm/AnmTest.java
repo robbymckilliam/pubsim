@@ -5,15 +5,12 @@
 
 package pubsim.lattices.Anm;
 
-import pubsim.lattices.Anm.AnmSorted;
 import Jama.Matrix;
 import junit.framework.TestCase;
-import pubsim.lattices.GeneralLatticeAndNearestPointAlgorithm;
-import pubsim.lattices.Lattice;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.VectorFunctions;
 import pubsim.VectorFunctionsTest;
-import static org.junit.Assert.*;
+import pubsim.lattices.GeneralLatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
  *

@@ -29,12 +29,12 @@ public class Hexagonal
     }
 
     @Override
-    public final double inradius() {
-        return 1.0/2.0;
+    public double norm() {
+        return 1;
     }
 
     @Override
-    public final double coveringRadius(){
+    public double coveringRadius(){
         return 1.0/sqrt3;
     }
 

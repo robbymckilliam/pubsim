@@ -38,8 +38,8 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     }
 
     @Override
-   public double inradius() {
-        return Math.sqrt(2)/2.0;
+   public double norm() {
+        return 2;
     }
 
     @Override

@@ -5,10 +5,8 @@
 
 package pubsim.lattices.decoder;
 
-import Jama.Matrix;
-import pubsim.lattices.Lattice;
-import pubsim.lattices.reduction.LLL;
 import pubsim.VectorFunctions;
+import pubsim.lattices.Lattice;
 
 /**
  *
@@ -31,7 +29,6 @@ public class ShortVectorSphereDecoded implements ShortVector{
     public ShortVectorSphereDecoded(Lattice L, double d){
         ssd = new ModSphereDecoder(L);
         ssd.findShortVector(d);
-
     }
 
     @Override

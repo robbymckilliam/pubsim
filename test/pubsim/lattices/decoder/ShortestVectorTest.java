@@ -5,20 +5,17 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.lattices.decoder.ShortVectorSphereDecoded;
-import pubsim.lattices.Fermat;
-import pubsim.lattices.Vnm;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static pubsim.VectorFunctions.print;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
 import static pubsim.VectorFunctions.sum2;
+import pubsim.lattices.An.AnFastSelect;
+import pubsim.lattices.E8;
+import pubsim.lattices.Vnm;
+import pubsim.lattices.leech.Leech;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class ShortestVectorTest {
 
@@ -41,47 +38,19 @@ public class ShortestVectorTest {
     public void tearDown() {
     }
 
-//    /**
-//     * Test of getShortestVector method, of class ShortestVector.
-//     */
-//    @Test
-//    public void testGetShortestVectorAn() {
-//        System.out.println("getShortestVector An");
-//        int n = 10;
-//        ShortestVector sv = new ShortestVector(new AnFastSelect(n));
-//        System.out.println(print(sv.getShortestVector()));
-//        System.out.println(print(sv.getShortestIndex()));
-//
-//    }
-    
     /**
      * Test of getShortestVector method, of class ShortestVector.
      */
     @Test
-    public void testGetShortestVectorPhi() {
-        System.out.println("getShortestVector Phi");
-        int n = 78;
-        int a = 7;
-        ShortVectorSphereDecoded sv = new ShortVectorSphereDecoded(new Vnm(a, n), 14);
-        System.out.println(print(sv.getShortestVector()));
-        System.out.println(print(sv.getShortestIndex()));
-        System.out.println(sum2(sv.getShortestVector()));
-
+    public void testShortVectorNorm() {
+        System.out.println("testShortVectorNorm");
+        assertEquals(4.0, sum2(new ShortVectorSphereDecoded(new Vnm(1, 30)).getShortestVector()), 0.000001);
+        assertEquals(8.0, sum2(new ShortVectorSphereDecoded(new Vnm(3, 30)).getShortestVector()), 0.000001);
+        assertEquals(6.0, sum2(new ShortVectorSphereDecoded(new Vnm(2, 30)).getShortestVector()), 0.000001);
+        assertEquals(2.0, sum2(new ShortVectorSphereDecoded(new E8()).getShortestVector()), 0.000001);
+        assertEquals(2.0, sum2(new ShortVectorSphereDecoded(new AnFastSelect(10)).getShortestVector()), 0.000001);
+        assertEquals(4.0, sum2(new ShortVectorSphereDecoded(new Leech()).getShortestVector()), 0.000001);
     }
 
-//        /**
-//     * Test of getShortestVector method, of class ShortestVector.
-//     */
-//    @Test
-//    public void testGetShortestVectorFermat() {
-//        System.out.println("getShortestVector Fermat");
-//        int n = 55;
-//        int a = 2;
-//        ShortestVector sv = new ShortestVector(new Fermat(n,a));
-//        System.out.println(print(sv.getShortestVector()));
-//        System.out.println(print(sv.getShortestIndex()));
-//        System.out.println(sum2(sv.getShortestVector()));
-//
-//    }
 
 }

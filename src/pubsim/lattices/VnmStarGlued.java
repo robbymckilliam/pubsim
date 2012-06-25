@@ -106,40 +106,11 @@ import pubsim.lattices.reduction.LLL;
             super(L);
         }
 
-        @Override
-        public void setLattice(Lattice L) {
-            G = L.getGeneratorMatrix().copy();
-            m = G.getRowDimension();
-            n = G.getColumnDimension();
-            u = new double[n];
-            uh = new double[n];
-            x = new double[m];
-            yr = new double[n];
-            ut = new double[n];
-            ubest = new double[n];
-            xr = new double[n];
-
-            lll = new LLL();
-            B = lll.reduce(G);
-            U = lll.getUnimodularMatrix();
-
-            //CAREFULL!  This version of the sphere decoder requires R to
-            //have positive diagonal entries.
-            pubsim.QRDecomposition QR = new pubsim.QRDecomposition(B);
-            R = QR.getR();
-            Q = QR.getQ();
-
-        }
-
         public void run() {
-
             D = radius;
-
             //current element being decoded
             int k = n-1;
-
             decode(k, 0);
-
         }
 
         /**

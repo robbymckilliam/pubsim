@@ -43,8 +43,8 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
     public double volume(){ return 1.0;}
 
     @Override
-    public double inradius() {
-        return 0.5;
+    public double norm() {
+        return 1.0;
     }
 
     @Override

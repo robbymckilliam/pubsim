@@ -60,16 +60,7 @@ public class Babai implements NearestPointAlgorithm {
     protected int n, m;
     protected LatticeReduction lll;
     
-    
-    protected Babai(){
-        
-    }
-    
     public Babai(Lattice L){
-        setLattice(L);
-    }
-    
-    public void setLattice(Lattice L) {
         G = L.getGeneratorMatrix().copy();
         m = G.getRowDimension();
         n = G.getColumnDimension();
@@ -85,7 +76,6 @@ public class Babai implements NearestPointAlgorithm {
         R = QR.getR();
         Q = QR.getQ();
         Qtrans = Q.transpose();
-      
     }
 
     @Override
@@ -95,15 +85,6 @@ public class Babai implements NearestPointAlgorithm {
                     " and Generator matrix of column length " + m +
                     " are of different dimension!");
         computeBabaiPoint(y);        
-    }
-    
-    private double[] yDoubletoy;
-    @Override
-    public void nearestPoint(Double[] y) {
-        if(yDoubletoy == null || yDoubletoy.length != y.length)
-            yDoubletoy = new double[y.length];
-            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
-        this.nearestPoint(yDoubletoy);
     }
 
     @Override
@@ -128,15 +109,8 @@ public class Babai implements NearestPointAlgorithm {
             }
             uh[i] = Math.round((yr[i] - rsum) / R.get(i, i));
         }
-
-        //System.out.println(VectorFunctions.print(R));
-        //System.out.println(VectorFunctions.print(Q));
-        //System.out.println(VectorFunctions.print(Q));
-
-        //System.out.println(VectorFunctions.print(uh));
-
-        //compute index u = Uuh so that Gu is Babai
-        //point
+    
+        //compute index u = Uuh so that Gu is Babai point
         VectorFunctions.matrixMultVector(U, uh, u);
         
         //compute Babai point
@@ -147,6 +121,15 @@ public class Babai implements NearestPointAlgorithm {
     @Override
     public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            yDoubletoy = new double[y.length];
+            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(yDoubletoy);
     }
     
 }

@@ -51,9 +51,8 @@ public abstract class AbstractLattice implements Lattice {
      */
     @Override
     public double hermiteParameter(){
-        double dmin = 2.0*inradius();
         double logv = 2.0*logVolume()/getDimension(); //using logarithm tests to be more stable
-        return dmin*dmin/Math.pow(2.0,logv);
+        return norm()/Math.pow(2.0,logv);
     }
     @Override
     public double nominalCodingGain() { return hermiteParameter(); }
@@ -76,24 +75,31 @@ public abstract class AbstractLattice implements Lattice {
     }
 
     //make consecutive calls to inradius and kissing number run fast.
-    private double inradius;
+    private double norm;
     private long kissingnumber;
 
     /**
-     * Default way to compute the inradius is to compute
-     * short vector is by sphere decoding.  This is going to
+     * Half the square root of the norm
+     */
+    @Override
+    public final double inradius(){
+        return Math.sqrt(norm)/2.0;
+    }
+
+    /**
+     * Default way to compute the norm is to compute
+     * short vector by sphere decoding.  This is going to
      * be very slow for large dimensions.
      */
     @Override
-    public double inradius(){
-        if(inradius == 0){
+    public double norm(){
+        if(norm == 0){
             ShortVectorSphereDecoded sv = new ShortVectorSphereDecoded(this);
-            double norm = VectorFunctions.sum2(sv.getShortestVector());
-            inradius = Math.sqrt(norm)/2.0;
+            norm = VectorFunctions.sum2(sv.getShortestVector());
         }
-        return inradius;
+        return norm;
     }
-
+    
     /**
      * By default this brute forces the kissing number by sphere decoding.
      * Lattices with known kissing numbers can override this.

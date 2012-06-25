@@ -6,7 +6,6 @@
 package pubsim.lattices.decoder;
 
 import Jama.Matrix;
-import java.util.Date;
 import static org.junit.Assert.assertTrue;
 import org.junit.*;
 import pubsim.VectorFunctions;

@@ -51,8 +51,8 @@ public class BarnesWall extends AbstractLattice{
     }
 
     @Override
-    public double inradius(){
-        return Math.pow(2.0, m/2.0)/2.0;
+    public double norm(){
+        return Math.pow(2.0, m);
     }
 
     @Override

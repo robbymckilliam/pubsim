@@ -41,8 +41,8 @@ public class ScaledLattice extends AbstractLattice implements LatticeAndNearestP
     }
     
     @Override
-    public double inradius() {
-        return d*L.inradius();
+    public double norm() {
+        return d*d*L.norm();
     }
 
     @Override

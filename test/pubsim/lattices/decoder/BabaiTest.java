@@ -5,20 +5,16 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.lattices.decoder.Babai;
 import Jama.Matrix;
 import java.util.Random;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.*;
+import pubsim.VectorFunctions;
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.Zn;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import pubsim.VectorFunctions;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -49,9 +45,8 @@ public class BabaiTest {
     public void returnsErrorWhenDimensionAreWrong() {
         System.out.println("nearestPoint");
         double[] y = {1, 2, 3, 4};
-        Babai instance = new Babai();
         GeneralLattice lattice = new GeneralLattice(Matrix.random(6, 5));
-        instance.setLattice(lattice);
+        Babai instance = new Babai(lattice);
         
         boolean caught = false;
         try{
@@ -72,11 +67,10 @@ public class BabaiTest {
     public void returnsCorrectForZn() {
         System.out.println("returnsCorrectForZn");
         double[] y = {1.1, 2.2, 3.9, -4.1, -100.49};
-        Babai babai = new Babai();
         //construc the integer lattice
         Zn lattice = new Zn(y.length);
         
-        babai.setLattice(lattice);
+        Babai babai = new Babai(lattice);
         
         lattice.nearestPoint(y);
         double[] xtrue = lattice.getLatticePoint();
@@ -113,8 +107,7 @@ public class BabaiTest {
             LatticeAndNearestPointAlgorithm lattice = new AnstarSorted(n-1);
             Matrix G = lattice.getGeneratorMatrix();
             
-            Babai babai = new Babai();
-            babai.setLattice(lattice);
+            Babai babai = new Babai(lattice);
             
            // System.out.println("G is " + G.getRowDimension() + " by " + G.getColumnDimension());
             double[] x = new double[G.getRowDimension()];

@@ -25,6 +25,11 @@ public interface Lattice extends Serializable {
      * Return the in radius for this lattice
      */
     double inradius();
+    
+    /**
+     * The squared Euclidean length of the shortest non zero vector
+     */
+    double norm();
 
     /**
      * Return the covering radius for this lattice

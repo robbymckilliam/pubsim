@@ -106,7 +106,7 @@ public class Vnm extends AbstractLattice{
      * for the norm to be 2(m+1), otherwise zero will be returned.
      */
     public long seededKissingNumber(){
-        return new KissingNumber(this, Math.sqrt(2.0*(m+1))).kissingNumber();
+        return new KissingNumber(this, norm()).kissingNumber();
     }
     
 //    /**
@@ -137,9 +137,9 @@ public class Vnm extends AbstractLattice{
         }
         
         @Override
-        public double inradius() {
-            if(n == 1) return Math.sqrt(6.0)/2.0;
-            else return 1.0;
+        public double norm() {
+            if(n == 1) return 6;
+            else return 4;
         }
     }
     
@@ -153,16 +153,16 @@ public class Vnm extends AbstractLattice{
         @Override
         public long kissingNumber() {
             if(kissingnumber == 0){
-                pubsim.lattices.decoder.KissingNumber k = new KissingNumber(this, 2.0*inradius());
+                pubsim.lattices.decoder.KissingNumber k = new KissingNumber(this, norm());
                 kissingnumber = k.kissingNumber();
             }
             return kissingnumber;
         }
         
         @Override
-        public double inradius() {
-            if(n > 4) return Math.sqrt(6.0)/2.0;
-            else return super.inradius();
+        public double norm() {
+            if(n > 4) return 6;
+            else return super.norm();
         }
     }
     
@@ -176,16 +176,16 @@ public class Vnm extends AbstractLattice{
         @Override
         public long kissingNumber() {
             if(kissingnumber == 0){
-                pubsim.lattices.decoder.KissingNumber k = new KissingNumber(this, 2.0*inradius());
+                pubsim.lattices.decoder.KissingNumber k = new KissingNumber(this, norm());
                 kissingnumber = k.kissingNumber();
             }
             return kissingnumber;
         }
         
         @Override
-        public double inradius() {
-            if(n > 8) return Math.sqrt(8.0)/2.0;
-            else return super.inradius();
+        public double norm() {
+            if(n > 8) return 8;
+            else return super.norm();
         }
     }
     

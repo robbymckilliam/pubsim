@@ -52,17 +52,6 @@ public class Anm extends NearestPointAlgorithmStandardNumenclature{
         return m/Math.sqrt(n+1);
     }
 
-    /** 
-     * This is only valid for some values of m and n.
-     * See: 
-     * Perfect Lattice in Euclidean Spaces
-     * (section on Coxeter lattices)
-     *  
-     */
-    @Override
-    public double inradius() {
-        return Math.sqrt(2.0)/2.0;
-    }
     
     @Override
     public String name() {

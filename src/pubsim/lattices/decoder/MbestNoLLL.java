@@ -14,22 +14,9 @@ import pubsim.lattices.Lattice;
  */
 public class MbestNoLLL extends Mbest {
 
-    /**
-     * Contructor sets the M parameter for the M best method.
-     * This is the maximum number of points that can be kept at
-     * each iteration of the decoder.
-     */
-    public MbestNoLLL(int M){
-        super();
-        this.M = M;
-    }
-
     public MbestNoLLL(Lattice L, int M){
         super(L,M);
-    }
-
-    @Override
-    public void setLattice(Lattice L) {
+        
         G = L.getGeneratorMatrix().copy();
         m = G.getRowDimension();
         n = G.getColumnDimension();
@@ -50,7 +37,6 @@ public class MbestNoLLL extends Mbest {
         Q = QR.getQ();
 
         Qtrans = Q.transpose();
-
     }
     
 

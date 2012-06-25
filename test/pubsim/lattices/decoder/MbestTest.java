@@ -5,26 +5,21 @@
 
 package pubsim.lattices.decoder;
 
-import pubsim.lattices.decoder.Mbest;
-import pubsim.lattices.decoder.Babai;
 import Jama.Matrix;
 import java.util.Random;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.*;
+import pubsim.VectorFunctions;
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.Zn;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import pubsim.VectorFunctions;
-import static org.junit.Assert.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class MbestTest {
 
@@ -143,8 +138,8 @@ public class MbestTest {
      * Test a column matrix.
      */
     @Test
-    public void testBeatsOrBettersBabai() {
-        System.out.println("testBeatsOrBettersBabai");
+    public void testBeatsOrEqualsBabai() {
+        System.out.println("testBeatsOrEqualsBabai");
 
         //run nearest point test by making small deviations (del) to lattice points.
         int iters = 100;
@@ -175,7 +170,6 @@ public class MbestTest {
 
             System.out.println(babaidist + ", " + instdist);
             //System.out.println(VectorFunctions.print(babai.getIndex()));
-            System.out.println();
             assertTrue(instdist <= babaidist);
 
         }

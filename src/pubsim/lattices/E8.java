@@ -24,10 +24,6 @@ public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorit
         return 1.0;
     }
 
-    public final void setDimension(int n) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     @Override
     public final int getDimension() {
         return 8;
@@ -59,8 +55,8 @@ public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorit
     }
 
     @Override
-    public double inradius(){
-        return Math.sqrt(2.0)/2.0;
+    public double norm(){
+        return 2.0;
     }
 
     @Override

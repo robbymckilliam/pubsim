@@ -38,8 +38,8 @@ public class Shimada86 extends AbstractLattice{
     }
 
     @Override
-    public double inradius(){
-        return Math.sqrt(8.0)/2.0;
+    public double norm(){
+        return 8;
     }
 
     @Override

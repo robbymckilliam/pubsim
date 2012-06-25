@@ -8,9 +8,9 @@ package pubsim.lattices.decoder;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.Vector;
+import pubsim.VectorFunctions;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.reduction.LLL;
-import pubsim.VectorFunctions;
 
 /**
  * 
@@ -32,8 +32,6 @@ public class Mbest extends Babai {
     /** M for the M-best method */
     protected int M;
 
-    protected Mbest(){}
-
     /**
      * Constructor sets the M parameter for the M best method.
      * This is the maximum number of points that can be kept at
@@ -42,24 +40,10 @@ public class Mbest extends Babai {
     public Mbest(Lattice L, int M){
         super(L);
         this.M = M;
-    }
-
-    @Override
-    public void setLattice(Lattice L) {
-        G = L.getGeneratorMatrix().copy();
-        m = G.getRowDimension();
-        n = G.getColumnDimension();
-        u = new double[n];
-        uh = new double[n];
-        x = new double[m];
-        yr = new double[n];
+        
         ut = new double[n];
         ubest = new double[n];
         xr = new double[n];
-
-        lll = new LLL();
-        B = lll.reduce(G);
-        U = lll.getUnimodularMatrix();
 
         //CAREFULL!  This version of the decoder requires R to
         //have positive diagonal entries.
@@ -68,7 +52,6 @@ public class Mbest extends Babai {
         R = QR.getR();
         Q = QR.getQ();
         Qtrans = Q.transpose();
-
     }
 
     @Override

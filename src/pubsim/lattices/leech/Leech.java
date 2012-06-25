@@ -21,8 +21,8 @@ public class Leech extends AbstractLattice{
     }
 
     @Override
-    public double inradius() {
-        return 1.0;
+    public double norm() {
+        return 4;
     }
 
     @Override

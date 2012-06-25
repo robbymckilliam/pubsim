@@ -25,8 +25,8 @@ public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
     }
 
     @Override
-    public double inradius() {
-        return Math.sqrt(1.0 - 1.0 / (n + 1));
+    public double norm() {
+        return 4.0*(1.0 - 1.0 / (n + 1));
     }
 
     @Override

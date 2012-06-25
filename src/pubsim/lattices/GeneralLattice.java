@@ -6,9 +6,6 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.decoder.ShortVectorSphereDecoded;
-import pubsim.Util;
-import pubsim.VectorFunctions;
 
 /**
  * Class that represents a lattice with arbitrary
@@ -31,31 +28,18 @@ public class GeneralLattice extends AbstractLattice {
         this.B = new Matrix(B);
     }
 
+    @Override
     public Matrix getGeneratorMatrix() {
         return B;
     }
 
-    public void setDimension(int n) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    @Override
     public int getDimension() {
         return B.rank();
     }
 
+    @Override
     public double coveringRadius() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void nearestPoint(double[] y) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double[] getLatticePoint() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double[] getIndex() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
