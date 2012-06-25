@@ -119,11 +119,11 @@ public class VnmTest {
     public void testSeededKissingNumber() {
         System.out.println("SeededKissingNumber");
         int minn = 1;
-        int maxn = 40;
+        int maxn = 30;
         int m = 2;
         for(int n = minn; n < maxn; n=n+1){
             Vnm tester = new Vnm(m,n);
-            System.out.println(tester.seededKissingNumber() + ", " + tester.kissingNumber());
+            System.out.println(tester.seededKissingNumber() + ", " + tester.kissingNumber() + ", " + tester.norm());
         }
     }
     
