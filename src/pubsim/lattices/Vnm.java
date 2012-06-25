@@ -106,7 +106,7 @@ public class Vnm extends AbstractLattice{
      * for the norm to be 2(m+1), otherwise zero will be returned.
      */
     public long seededKissingNumber(){
-        return new KissingNumber(this, norm()).kissingNumber();
+        return new KissingNumber(this, 2*(m+1)).kissingNumber();
     }
     
 //    /**
