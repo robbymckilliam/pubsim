@@ -312,6 +312,19 @@ public final class VectorFunctions {
      * the nearest integer.
      * Pre: x.length = y.length
      */
+    public static double[] round(double[] x) {
+        double[] y = new double[x.length];
+        for (int i = 0; i < x.length; i++) {
+            y[i] = Math.round(x[i]);
+        }
+        return y;
+    }
+    
+    /**
+     * Return the vector with each element rounded to
+     * the nearest integer.
+     * Pre: x.length = y.length
+     */
     public static void round(Double[] x, Integer[] y) {
         for (int i = 0; i < x.length; i++) {
             y[i] = (int) Math.round(x[i]);

@@ -5,10 +5,11 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.*;
-import pubsim.Util;
 import pubsim.VectorFunctions;
+import pubsim.lattices.decoder.SphereDecoder;
+import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
 
 /**
  *
@@ -127,9 +128,32 @@ public class VnmTest {
         }
     }
     
+//    /**
+//     * Test ProbCodingError.
+//     */
+//    @Test
+//    public void testRangeHypothesis() {
+//        System.out.println("testing range hypothesis");
+//        int n = 32;
+//        int m = 1;
+//        int iters = 100;
+//        Vnm lattice = new Vnm(m,n);
+//        SphereDecoder decoder = new SphereDecoderSchnorrEuchner(lattice);
+//        Matrix G = lattice.getGeneratorMatrix();
+//        Matrix invG = ((G.transpose().times(G)).inverse()).times(G.transpose());
+//        for(int i = 1; i < iters; i++){
+//            double[] y = VectorFunctions.randomGaussian(n+m+1, 0.0, 1000.0);
+//            double[] z = VectorFunctions.round(VectorFunctions.matrixMultVector(invG, y));
+//            decoder.nearestPoint(y);
+//            double[] sdz = decoder.getIndex();
+//            for(int j = 0; j < z.length; j++){
+//                //System.out.println(sdz[j] - z[j]);
+//                assertTrue(Math.abs(sdz[j] - z[j]) <= m+1);
+//            }
+//        }
+//    }
     
     
-
 //    /**
 //     * Test of logVolume method, of class Vnm.
 //     */
