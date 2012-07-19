@@ -17,10 +17,10 @@ public class ComplexMatrix {
     protected final Jama.Matrix J;
 
     /** Number of columns */
-    protected final int N;
+    public final int N;
 
     /** Number of rows*/
-    protected final int M;
+    public final int M;
 
     public ComplexMatrix(Complex[][] C){
         N = C[0].length; //number of columns
@@ -28,6 +28,29 @@ public class ComplexMatrix {
         this.C = C;
         D = complexToDouble(C);
         J = new Jama.Matrix(D);
+    }
+    
+    public ComplexMatrix times(Complex c){
+        Complex[][] Cnew = new Complex[M][N];
+        for(int m = 0; m < M; m++)
+            for(int n = 0; n < N; n++)
+                Cnew[n][m] = C[n][m].multiply(c);
+        return new ComplexMatrix(Cnew);
+    }
+    
+    public static ComplexMatrix kroneckerProduct(ComplexMatrix A, ComplexMatrix B){
+        Complex[][] C = new Complex[A.M*B.M][A.N*B.N];
+        for(int am = 0; am < A.M; am++){
+            for(int an = 0; an < A.N; an++){
+                Complex a = A.getComplexArray()[am][an];
+                for(int bm = 0; bm < B.M; bm++){
+                    for(int bn = 0; bn < B.N; bn++){
+                        C[am*B.M + bm][an*B.N + bn] = a.times(B.getComplexArray()[bm][bn]);
+                    }
+                }
+            }
+        }
+        return new ComplexMatrix(C);
     }
 
     /**

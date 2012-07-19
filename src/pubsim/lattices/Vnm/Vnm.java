@@ -3,11 +3,12 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Vnm;
 
 import Jama.Matrix;
 import pubsim.Util;
 import pubsim.VectorFunctions;
+import pubsim.lattices.AbstractLattice;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.decoder.KissingNumber;
 

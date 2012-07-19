@@ -5,7 +5,7 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.Vnm;
+import pubsim.lattices.Vnm.Vnm;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;

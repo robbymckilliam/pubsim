@@ -10,7 +10,7 @@ import org.junit.*;
 import static pubsim.VectorFunctions.sum2;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.E8;
-import pubsim.lattices.Vnm;
+import pubsim.lattices.Vnm.Vnm;
 import pubsim.lattices.leech.Leech;
 
 /**

@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pubsim.lattices;
+package pubsim.lattices.Vnm;
 
+import pubsim.lattices.Vnm.Vnm;
 import Jama.Matrix;
 import static org.junit.Assert.*;
 import org.junit.*;
@@ -126,16 +127,17 @@ public class VnmTest {
             Vnm tester = new Vnm(m,n);
             System.out.println(tester.seededKissingNumber() + ", " + tester.kissingNumber() + ", " + tester.norm());
         }
-    }
+    }    
     
+//    
 //    /**
 //     * Test ProbCodingError.
 //     */
 //    @Test
 //    public void testRangeHypothesis() {
 //        System.out.println("testing range hypothesis");
-//        int n = 32;
-//        int m = 1;
+//        int n = 64;
+//        int m = 0;
 //        int iters = 100;
 //        Vnm lattice = new Vnm(m,n);
 //        SphereDecoder decoder = new SphereDecoderSchnorrEuchner(lattice);
@@ -147,8 +149,8 @@ public class VnmTest {
 //            decoder.nearestPoint(y);
 //            double[] sdz = decoder.getIndex();
 //            for(int j = 0; j < z.length; j++){
-//                //System.out.println(sdz[j] - z[j]);
-//                assertTrue(Math.abs(sdz[j] - z[j]) <= m+1);
+//                System.out.println(sdz[j] - z[j]);
+//                //assertTrue(Math.abs(sdz[j] - z[j]) <= m+1);
 //            }
 //        }
 //    }
