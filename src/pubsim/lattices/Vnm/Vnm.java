@@ -13,7 +13,7 @@ import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.decoder.KissingNumber;
 
 /**
- * Class for the lattice Vnm, ie the integer lattice that is that
+ * Class for the lattice Vnm, ie the integer lattice that is the
  * dual of the polynomial phase estimation lattices Vnm*.  There is
  * no nearest point algorithms for these lattices (yet?).  
  * @author Robby McKilliam
