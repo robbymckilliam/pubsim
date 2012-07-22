@@ -136,6 +136,12 @@ public class Vnm extends AbstractLattice{
             else return (n-1)*(n+1)*(2*n+3)/12;
         }
         
+        public static long kissingNumber(int m, int n){
+            if(n==1) return 2;
+            else if(n%2 == 0) return n*(2+n)*(2*n-1)/12;
+            else return (n-1)*(n+1)*(2*n+3)/12;
+        }
+        
         @Override
         public double norm() {
             if(n == 1) return 6;
@@ -186,6 +192,26 @@ public class Vnm extends AbstractLattice{
         public double norm() {
             if(n > 8) return 8;
             else return super.norm();
+        }
+    }
+    
+    /**
+     * Returns the approximated norm and kissing numbers.  The norm returned is always a
+     * lower bound.  The kissing number returned is a known to be an upper bound when the
+     * dimension n is not too large.  I conjecture it to be a lower bound provided that n is not larger
+     * that 1000.
+     */
+    public static class Approximator extends Vnm {
+        public Approximator(int m, int n){
+            super(m,n);
+        }
+        
+        @Override
+        public double norm() { return 2*(m+1); }
+        
+        @Override
+        public long kissingNumber() {
+            return Vn1.kissingNumber(m, n);
         }
     }
     
