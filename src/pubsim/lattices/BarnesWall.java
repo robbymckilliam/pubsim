@@ -6,6 +6,8 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
+import pubsim.ComplexMatrix;
+import pubsim.Complex;
 
 /**
  *
@@ -37,7 +39,13 @@ public class BarnesWall extends AbstractLattice{
 
     @Override
     public Matrix getGeneratorMatrix() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Complex[][] C = new Complex[2][2];
+        C[0][0] = new Complex(1,0); C[0][1] = new Complex(0,0);
+        C[1][0] = new Complex(1,0); C[1][1] = new Complex(1,1);
+        ComplexMatrix G = new ComplexMatrix(C);
+        ComplexMatrix B = G;
+        for(int i = 1; i < m; i++) B = ComplexMatrix.kroneckerProduct(B, G);
+        return B.getJamaMatrix();
     }
 
     @Override

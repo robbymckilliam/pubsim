@@ -10,7 +10,7 @@ import Jama.Matrix;
 import pubsim.lattices.Dn;
 import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.Lattice;
-import pubsim.lattices.Vnm;
+import pubsim.lattices.Vnm.Vnm;
 import pubsim.lattices.VnmStar;
 import pubsim.lattices.VnmStarGlued;
 import static pubsim.Util.discreteLegendrePolynomial;

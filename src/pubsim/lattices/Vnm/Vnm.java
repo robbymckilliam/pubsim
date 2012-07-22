@@ -3,19 +3,19 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Vnm;
 
 import Jama.Matrix;
 import pubsim.Util;
 import pubsim.VectorFunctions;
+import pubsim.lattices.AbstractLattice;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.decoder.KissingNumber;
 
 /**
- * Class for the lattice Vnm, ie the integer lattice that is that
- * duel of the polynomial phase estimation lattices Vnm*.  There is
- * no nearest point algorithms for these lattices (yet?).  Currently
- * only the volume method is implemented.
+ * Class for the lattice Vnm, ie the integer lattice that is the
+ * dual of the polynomial phase estimation lattices Vnm*.  There is
+ * no nearest point algorithms for these lattices (yet?).  
  * @author Robby McKilliam
  */
 public class Vnm extends AbstractLattice{

@@ -7,10 +7,11 @@ package pubsim.lattices;
 import Jama.Matrix;
 import org.junit.*;
 import static org.junit.Assert.*;
+import pubsim.VectorFunctions;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class BarnesWallTest {
     
@@ -44,5 +45,23 @@ public class BarnesWallTest {
             System.out.println(lattice.getDimension() + ", " + lattice.nominalCodingGain());
         }
     }
+    
+    @Test
+    public void testGenerator() {
+        for(int m = 1; m < 5; m++){
+            BarnesWall lattice = new BarnesWall(m);
+            Matrix B = lattice.getGeneratorMatrix();
+            GeneralLattice gl = new GeneralLattice(B);
+            //System.out.println(VectorFunctions.print(B));
+            //System.out.println(gl.norm() + ", " + lattice.norm());
+            //System.out.println(gl.volume() + ", " + lattice.volume());
+            //System.out.println(gl.kissingNumber() + ", " + lattice.kissingNumber());
+            
+            assertEquals(gl.norm(),lattice.norm(),0.00001);
+            //assertEquals(gl.volume(),lattice.volume(),0.00001);
+            assertEquals(gl.kissingNumber(),lattice.kissingNumber(),0.00001);
+        }
+    }
+    
     
 }

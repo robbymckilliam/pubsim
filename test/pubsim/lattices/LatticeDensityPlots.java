@@ -6,7 +6,7 @@
 package pubsim.lattices;
 
 import pubsim.lattices.Lattice;
-import pubsim.lattices.Vnm;
+import pubsim.lattices.Vnm.Vnm;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
