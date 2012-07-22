@@ -94,6 +94,7 @@ draw begingraph(plotwidth, plotheight/2);
   %setrange(4.9,"1e-13", 22,2);
 
   gdraw "pem3"; glabel.rt(btex $BW_{16}$ etex, 1000);
+  gdraw "pem2"; glabel.rt(btex $BW_{8}$ etex, 1000);
   
 endgraph;
 

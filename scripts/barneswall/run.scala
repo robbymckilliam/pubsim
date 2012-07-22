@@ -12,7 +12,7 @@ val starttime = (new java.util.Date).getTime
 //generate some data conjecturing about kissing numbers
 println("Computing probability of error")
 
-val SNRs = -10.0 to -8.0 by 0.1
+val SNRs = -9.5 to -8.1 by 0.1
 val vars = SNRs.map( snr => scala.math.pow(snr/10.0,10.0)  )
 val toerrs = 10
 val m = 4
