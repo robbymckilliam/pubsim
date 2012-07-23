@@ -6,6 +6,7 @@ package pubsim.lattices.Vnm;
 
 import pubsim.lattices.Vnm.Vnm;
 import Jama.Matrix;
+import Jama.QRDecomposition;
 import static org.junit.Assert.*;
 import org.junit.*;
 import pubsim.VectorFunctions;
@@ -43,11 +44,12 @@ public class VnmTest {
     @Test
     public void testLogVolume() {
         System.out.println("logVolume");
-        Vnm instance = new Vnm(0, 12);
+        Vnm instance = new Vnm(4,44);
         Matrix gen = instance.getGeneratorMatrix();
         Matrix gram = gen.transpose().times(gen);
 
-        //System.out.println(VectorFunctions.print(gen));
+        System.out.println(VectorFunctions.print(gen));
+        System.out.println(VectorFunctions.print(new QRDecomposition(gen).getR()));
 
         assertEquals(Math.sqrt(gram.det()), instance.volume(), 0.0001);
     }
