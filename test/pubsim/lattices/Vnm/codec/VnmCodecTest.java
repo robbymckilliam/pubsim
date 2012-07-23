@@ -42,7 +42,7 @@ public class VnmCodecTest {
     public void computeAugmentedLattice() {
         System.out.println("Compute augmented lattice");
         int m = 1;
-        int n = 60;
+        int n = 12;
         int k = 10;
         Matrix VnmMat = new Vnm(m,n).getGeneratorMatrix();
             Matrix M = Matrix.identity(n+m+1, n+m+1).times(k);
@@ -55,4 +55,16 @@ public class VnmCodecTest {
             System.out.println(lattice.norm());
             System.out.println(lattice.kissingNumber());
     }
+    
+     /**
+     * Test shaping loss.
+     */
+    @Test
+    public void testShapingLoss() {
+        System.out.println("test Shaping loss");
+        int m = 3;
+        int n = 500;
+        System.out.println(VnmCodec.shapingLoss(n, m));
+    }
+    
 }
