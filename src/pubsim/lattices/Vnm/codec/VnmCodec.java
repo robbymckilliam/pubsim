@@ -14,7 +14,7 @@ import pubsim.lattices.Vnm.codec.generators.UpperTriangularGenerator;
  * R. G McKilliam, "Convolutional lattice codes and the Prouhet-Tarry-Escott problem"
  * @author Robby McKilliam
  */
-public class VnmCodec {
+public abstract class VnmCodec {
 
     
     final protected int n, m, N;
@@ -24,6 +24,12 @@ public class VnmCodec {
         this.m = m;
         this.N = n + m + 1;
     }
+    
+    /** Encode a set of integers */
+    abstract public double[] encode(int[] u);
+    
+    /** Decode a given vector of doubles */
+    abstract public int[] decode(double[] y);
     
     /** 
      * Return the shaping loss with respect to the hypercube for this code.  Value returned in dB.
@@ -50,7 +56,7 @@ public class VnmCodec {
      * assumption that the baseband rate is 1.
      */
     public static double modifiedShapingLoss(int n, int m, int k){
-        if( k >= n) throw new RuntimeException("n must be greater than k, otherwise this code has rate zero!");
+        if( k >= n ) throw new RuntimeException("n must be greater than k, otherwise this code has rate zero!");
         if(n==1) return 0.0;
 
         UpperTriangularGenerator R = new UpperTriangularGenerator(n, m); 
