@@ -52,7 +52,7 @@ public class PhinaTest {
         int n = 20;
         int a = 3;
         
-        Vnm instance = new Vnm(a, n);
+        Vnm instance = new Vnm(n, a);
 
         Matrix gen = instance.getGeneratorMatrix();
         //System.out.println(VectorFunctions.print(gen));
@@ -74,7 +74,7 @@ public class PhinaTest {
         int n = 10;
         int a = 3;
 
-        Vnm instance = new Vnm(a, n);
+        Vnm instance = new Vnm(n, a);
         Matrix M = instance.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(M));
         System.out.println(VectorFunctions.print(M.transpose().times(M)));
@@ -91,7 +91,7 @@ public class PhinaTest {
         int n = 48;
         int a = 7;
 
-        Vnm instance = new Vnm(a, n);
+        Vnm instance = new Vnm(n, a);
 
         System.out.println(instance.inradius());
         System.out.println(instance.kissingNumber());

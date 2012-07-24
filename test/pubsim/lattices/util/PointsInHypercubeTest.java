@@ -143,7 +143,7 @@ public class PointsInHypercubeTest {
         System.out.println(L.det());
         System.out.println(B.det());
 
-        Lattice Vnm = new Vnm(m+1,n);
+        Lattice Vnm = new Vnm(n, m+1);
         double volume = Vnm.volume();
         double det = volume*volume;
         //assertEquals(1.0/det, B.det(), 0.000001);

@@ -44,9 +44,9 @@ public class ShortestVectorTest {
     @Test
     public void testShortVectorNorm() {
         System.out.println("testShortVectorNorm");
-        assertEquals(4.0, sum2(new ShortVectorSphereDecoded(new Vnm(1, 30)).getShortestVector()), 0.000001);
-        assertEquals(8.0, sum2(new ShortVectorSphereDecoded(new Vnm(3, 30)).getShortestVector()), 0.000001);
-        assertEquals(6.0, sum2(new ShortVectorSphereDecoded(new Vnm(2, 30)).getShortestVector()), 0.000001);
+        assertEquals(4.0, sum2(new ShortVectorSphereDecoded(new Vnm(30, 1)).getShortestVector()), 0.000001);
+        assertEquals(8.0, sum2(new ShortVectorSphereDecoded(new Vnm(30, 3)).getShortestVector()), 0.000001);
+        assertEquals(6.0, sum2(new ShortVectorSphereDecoded(new Vnm(30, 2)).getShortestVector()), 0.000001);
         assertEquals(2.0, sum2(new ShortVectorSphereDecoded(new E8()).getShortestVector()), 0.000001);
         assertEquals(2.0, sum2(new ShortVectorSphereDecoded(new AnFastSelect(10)).getShortestVector()), 0.000001);
         assertEquals(4.0, sum2(new ShortVectorSphereDecoded(new Leech()).getShortestVector()), 0.000001);

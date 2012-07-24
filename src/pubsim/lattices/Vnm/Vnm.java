@@ -23,7 +23,7 @@ public class Vnm extends AbstractLattice{
     protected int m;
     protected int n;
     
-    public Vnm(int m,int n){
+    public Vnm(int n, int m){
         this.m = m;
         this.n = n;
     }
@@ -34,11 +34,11 @@ public class Vnm extends AbstractLattice{
      */
     @Override
     public double volume() {
-        return volume(m, n);
+        return volume(n, m);
     }
 
-    public static double volume(int m, int n){
-        return Math.pow(2, logVolume(m, n));
+    public static double volume(int n, int m){
+        return Math.pow(2, logVolume(n, m));
     }
 
     /**
@@ -46,13 +46,13 @@ public class Vnm extends AbstractLattice{
      */
     @Override
     public double logVolume() {
-        return logVolume(m, n);
+        return logVolume(n, m);
     }
 
     /**
      * Uses nifty binomial formula to compute the log of the volume.
      */
-    public static double logVolume(int m, int n) {
+    public static double logVolume(int n, int m) {
         double vol = 0.0;
         int N = n+m+1;
         for(int k = 0; k <= m; k++){
@@ -66,11 +66,7 @@ public class Vnm extends AbstractLattice{
         
         if( m == -1 ) return Matrix.identity(n, n);
         
-        double[] cv  = {1, -1};
-        double[] bv = {1, -1};
-        for(int i = 0; i < m; i++){
-            bv = VectorFunctions.conv(cv, bv);
-        }
+        double[] bv = getGeneratorColumn(n, m); 
         
         int N = n+m+1;
         Matrix gen = new Matrix(N, n);
@@ -86,6 +82,15 @@ public class Vnm extends AbstractLattice{
         return gen;
     }
 
+    public static double[] getGeneratorColumn(int n, int m){
+        double[] cv  = {1, -1};
+        double[] bv = {1, -1};
+        for(int i = 0; i < m; i++){
+            bv = VectorFunctions.conv(cv, bv);
+        }
+        return bv;
+    }
+    
     @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -127,7 +132,7 @@ public class Vnm extends AbstractLattice{
      * When m = 1, we know the kissing number
      */
     public static class Vn1 extends Vnm {
-        public Vn1(int n) { super(1, n); }
+        public Vn1(int n) { super(n, 1); }
         
         @Override
         public long kissingNumber() {
@@ -136,7 +141,7 @@ public class Vnm extends AbstractLattice{
             else return (n-1)*(n+1)*(2*n+3)/12;
         }
         
-        public static long kissingNumber(int m, int n){
+        public static long kissingNumber(int n, int m){
             if(n==1) return 2;
             else if(n%2 == 0) return n*(2+n)*(2*n-1)/12;
             else return (n-1)*(n+1)*(2*n+3)/12;
@@ -153,7 +158,7 @@ public class Vnm extends AbstractLattice{
      * When m = 1, we know the kissing number
      */
     public static class Vn2 extends Vnm {
-        public Vn2(int n) { super(2, n); }
+        public Vn2(int n) { super(n, 2); }
         
         private long kissingnumber;
         @Override
@@ -176,7 +181,7 @@ public class Vnm extends AbstractLattice{
      * When m = 1, we know the kissing number
      */
     public static class Vn3 extends Vnm {
-        public Vn3(int n) { super(3, n); }
+        public Vn3(int n) { super(n, 3); }
         
         private long kissingnumber;
         @Override
@@ -202,8 +207,8 @@ public class Vnm extends AbstractLattice{
      * that 1000.
      */
     public static class Approximator extends Vnm {
-        public Approximator(int m, int n){
-            super(m,n);
+        public Approximator(int n, int m){
+            super(n, m);
         }
         
         @Override
@@ -211,7 +216,7 @@ public class Vnm extends AbstractLattice{
         
         @Override
         public long kissingNumber() {
-            return Vn1.kissingNumber(m, n);
+            return Vn1.kissingNumber(n, m);
         }
     }
     

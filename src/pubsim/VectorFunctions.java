@@ -462,7 +462,9 @@ public final class VectorFunctions {
      * Apply a Given's rotation to matrix M.  The rotation will
      * make M[m2,n] = 0.  It affects the rows m1 and m2 in M.
      * In this implementation m2 > m1 so it's only applicable to
-     * lower triangular matrixes.
+     * lower triangular matrixes (i.e. it can only be used to zero lower
+     * triangular elements.  For the purpose of QR decomposition it
+     * can only compute upper triangular R matrices).
      */
     public static void givensRotate(Matrix M, int m1, int m2, int n){
         if(n > M.getColumnDimension()-1 || m2 > M.getRowDimension())

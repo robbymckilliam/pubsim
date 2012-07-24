@@ -5,6 +5,7 @@
 package pubsim.lattices.Vnm.codec;
 
 import Jama.Matrix;
+import pubsim.VectorFunctions;
 import pubsim.lattices.Vnm.Vnm;
 
 /**
@@ -13,6 +14,7 @@ import pubsim.lattices.Vnm.Vnm;
  * @author Robby McKilliam
  */
 public class VnmCodec {
+
     
     final protected int n, m, N;
     
@@ -27,11 +29,9 @@ public class VnmCodec {
      */
     public static double shapingLoss(int n, int m){
         if(n==1) return 0.0;
-        
-        Vnm lattice = new Vnm(m,n);
-        Matrix G = lattice.getGeneratorMatrix();
-        Matrix R = new  Jama.QRDecomposition(G).getR();
-        double scale = Math.pow(2.0, lattice.logVolume()/n);
+
+        Matrix R = getR(n,m);  
+        double scale = Math.pow(2.0, new Vnm(n, m).logVolume()/n);
         double secmom = 0.0;
         for(int i = 0; i < n; i++){
             double d = Math.abs(R.get(i,i))/scale;
@@ -41,6 +41,21 @@ public class VnmCodec {
         //System.out.println(secmom + ", " + scale);
         double hypercubesecmom = 1.0/12.0;
         return 10.0 * Math.log10(secmom/hypercubesecmom);
+    }
+    
+    /**
+     * Get the R part of the QR decomposition of the generator matrix of Vnm.
+     * Makes use of Given's rotations and is much faster than the usual QR decomposition.
+     */
+    public static Matrix  getR(int n, int m) {
+        //compute the R part of the QR decomposition by Givens rotations
+        Matrix R = new Vnm(n, m).getGeneratorMatrix();
+        for( int k = m; k >= 0; k--){
+            for( int i = 0; i < n; i++){
+                VectorFunctions.givensRotate(R, k+i, k+i+1, i);
+            }
+        }
+        return R;
     }
     
 }
