@@ -4,6 +4,7 @@
  */
 package pubsim.lattices.Vnm.codec;
 
+import pubsim.lattices.Vnm.Vnm;
 import pubsim.lattices.Vnm.codec.generators.UpperTriangularGenerator;
 
 /**
@@ -11,12 +12,12 @@ import pubsim.lattices.Vnm.codec.generators.UpperTriangularGenerator;
  * large enough.  Decoder is a standard trellis that incorporates the shaping.
  * @author Robby McKilliam
  */
-public class TomlinsonHarashimaShaped extends VnmCodec {
+public class TomlinsonHarashimaShaped implements VnmCodec {
     
     final double[] x;
     final int[] u, k;
-    final int M;
-    UpperTriangularGenerator R;
+    final int n,m,M;
+    final UpperTriangularGenerator R;
     
     /** 
      * @param n code length/lattice dimension
@@ -24,7 +25,8 @@ public class TomlinsonHarashimaShaped extends VnmCodec {
      * @param M size of symbol alphabet, i.e. M=2 would mean a rate 1 code.
      */
     public TomlinsonHarashimaShaped(int n, int m, int M){
-        super(n,m);
+        this.n = n;
+        this.m = m;
         this.M = M;
         x = new double[n];
         u = new int[n];
@@ -54,6 +56,25 @@ public class TomlinsonHarashimaShaped extends VnmCodec {
     public int[] decode(double[] y) {
         throw new UnsupportedOperationException("Not supported yet.");
         //return u;
+    }
+    
+     /** 
+     * Return the shaping loss with respect to the hypercube for this code.  Value returned in dB.
+     */
+    @Override
+    public double shapingLoss(){
+        if(n==1) return 0.0;
+
+        double scale = Math.pow(2.0, new Vnm(n, m).logVolume()/n);
+        double secmom = 0.0;
+        for(int i = 0; i < n; i++){
+            double d = Math.abs(R.get(i,i))/scale;
+            secmom +=d*d*d/12.0;
+        }
+        secmom /= n;
+        //System.out.println(secmom + ", " + scale);
+        double hypercubesecmom = 1.0/12.0;
+        return 10.0 * Math.log10(secmom/hypercubesecmom);
     }
     
     
