@@ -45,7 +45,8 @@ public class VnmCodec {
     
      /** 
      * Return the shaping loss with respect to the hypercube for this code.  Value returned in dB.
-     * Modified to model the situation where rate can be sacrificed for shaping gain.
+     * Modified to model the situation where rate can be sacrificed for shaping gain.  This works under the 
+     * assumption that the baseband rate is 1.
      */
     public static double modifiedShapingLoss(int n, int m, int k){
         if( k >= n) throw new RuntimeException("n must be greater than k, otherwise this code has rate zero!");
