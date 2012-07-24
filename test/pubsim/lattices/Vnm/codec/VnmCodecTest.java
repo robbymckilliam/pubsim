@@ -64,30 +64,8 @@ public class VnmCodecTest {
     public void testShapingLoss() {
         System.out.println("test Shaping loss");
         int m = 2;
-        int n = 10;
+        int n = 10000;
         System.out.println(VnmCodec.shapingLoss(n, m));
-    }
-    
-    /**
-     * Test shaping loss.
-     */
-    @Test
-    public void testR() {
-        System.out.println("test R matrix");
-        int n = 100;
-        int m = 2;
-        Vnm lattice = new Vnm(n,m);
-        Matrix Rtest = lattice.getGeneratorMatrix().qr().getR();
-        Matrix R = VnmCodec.getR(n, m);
-        //System.out.println(VectorFunctions.print(R.getMatrix(0, n-1, 0, n-1)));
-        //System.out.println(VectorFunctions.print(Rtest.getMatrix(0, n-1, 0, n-1)));
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                R.set(i,j, Math.abs(R.get(i,j)));
-                Rtest.set(i,j, Math.abs(Rtest.get(i,j)));
-            }
-        }
-        assertTrue(Rtest.getMatrix(0, n-1, 0, n-1).minus(R.getMatrix(0, n-1, 0, n-1)).normF() < 0.01);
     }
     
 }

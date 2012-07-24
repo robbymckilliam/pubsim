@@ -11,12 +11,12 @@ import pubsim.lattices.Vnm.Vnm;
  * format.
  * @author Robby McKilliam
  */
-public class VnmGenerator implements BandedGenerator {
+public class StandardGenerator implements BandedGenerator {
     
     protected final double[] gcol;
     protected final int n, m;
     
-    public VnmGenerator(int n, int m){
+    public StandardGenerator(int n, int m){
         gcol = Vnm.getGeneratorColumn(n, m);
         this.n = n;
         this.m = m;
