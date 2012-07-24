@@ -4,8 +4,6 @@
  */
 package pubsim.lattices.Vnm.codec;
 
-import Jama.Matrix;
-import pubsim.VectorFunctions;
 import pubsim.lattices.Vnm.Vnm;
 import pubsim.lattices.Vnm.codec.generators.UpperTriangularGenerator;
 
