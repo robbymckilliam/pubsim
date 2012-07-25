@@ -1321,12 +1321,22 @@ public final class VectorFunctions {
         return det;
     }
     
-    /** Returns vector of length j of randomGaussian integer in the range -M to M-1 */ 
+    /** Returns vector of length n of randomGaussian integer in the range -M to M-1 */ 
     public static double[] randomIntegerVector(int n, int M) {
         double[] u = new double[n];
         Random r = new Random();
         for (int t = 0; t < n; t++) {
             u[t] = r.nextInt(2*M) - M;
+        }
+        return u;
+    }
+    
+     /** Returns vector of length n of randomGaussian integer in the range 0 to M-1 */ 
+    public static int[] randomIntegers(int n, int M) {
+        int[] u = new int[n];
+        Random r = new Random();
+        for (int t = 0; t < n; t++) {
+            u[t] = r.nextInt(M);
         }
         return u;
     }

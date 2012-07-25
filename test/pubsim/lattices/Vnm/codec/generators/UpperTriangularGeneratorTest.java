@@ -91,8 +91,8 @@ public class UpperTriangularGeneratorTest {
     @Test
     public void printGenerator() {
         System.out.println("print the generator");
-        int n = 30;
-        int m = 2;
+        int n = 2;
+        int m = 0;
         UpperTriangularGenerator instance = new UpperTriangularGenerator(n, m);
         System.out.print(instance);
     }

@@ -115,5 +115,24 @@ public class VnmStarTest {
         Matrix Mpt = M.transpose().times(M);
         System.out.println(VectorFunctions.print(Mpt));
     }
+    
+    
+    @Test
+    public void printGeneratorAndInverse(){
+        System.out.println("print generators");
+
+        int n = 5;
+        int m = 1;
+        
+        Matrix M = VnmStar.getGeneratorMatrix(m, n);
+        System.out.println(VectorFunctions.print(M));
+
+        Matrix Minv = ((M.transpose().times(M)).inverse()).times(M.transpose());
+        for(int i = 0; i < Minv.getRowDimension(); i++)
+            for(int j = 0; j < Minv.getColumnDimension(); j++)
+                Minv.set(i,j, Math.round(Minv.get(i,j)));
+        System.out.println(VectorFunctions.print(Minv));
+
+    }
 
 }

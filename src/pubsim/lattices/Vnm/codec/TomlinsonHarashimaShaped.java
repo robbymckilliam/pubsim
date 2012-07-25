@@ -35,15 +35,15 @@ public class TomlinsonHarashimaShaped implements VnmCodec {
     }
 
     /**
-     * Encodes and shapes the transmitted symbols u.
-     * Currently runs in O(N^2) but can easily be made O(N).
+     * Encodes and shapes the transmitted symbols u.  Using standard Tomlinson Harashima
+     * encoding.
      */
     @Override
     public double[] encode(int[] u) {
         for(int i = 0; i < n; i++) k[i] = 0; //clear working memory
         for( int i = n-1; i >= 0; i-- ){
             double sum = 0.0;
-            for( int j = n-1; j>=i; j-- ){
+            for( int j = Math.min(n-1,i+m+1); j>=i; j-- ){
                 sum += R.get(i,j) * (u[j] + k[j]);
             }
             k[i] = (int)Math.round(-sum/M/R.get(i,i));
