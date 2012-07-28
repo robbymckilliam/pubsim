@@ -53,7 +53,7 @@ public abstract class Vn1Star extends NearestPointAlgorithmStandardNumenclature{
         for(int i = 0; i < x.length; i++)
             dot += y[i]*(i+1-nbar);
         for(int i = 0; i < x.length; i++)
-            y[i] = y[i] - dot/sumn2 * (i+1-nbar);
+            y[i] -= dot/sumn2 * (i+1-nbar);
     }
     
     @Override

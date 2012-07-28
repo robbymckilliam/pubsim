@@ -176,7 +176,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         }
 
         //System.out.println("fine fhat = " + fhat);
-        fhat = fhat - Math.round(fhat);
+        fhat -= Math.round(fhat);
         return fhat / Util.factorial(M) / Math.pow(tau, M - 1);
     }
 
@@ -242,7 +242,7 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         }
         err = ambiguityRemover.disambiguate(err);
         for (int i = 0; i < err.length; i++) {
-            err[i] = err[i]*err[i];
+            err[i] *= err[i];
         }
         return err;
     }

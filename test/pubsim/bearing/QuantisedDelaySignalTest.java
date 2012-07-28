@@ -76,7 +76,7 @@ public class QuantisedDelaySignalTest {
             System.out.println(e.toString());
         }
 
-        var = var/n;
+        var /= n;
         
         double expvar = Math.pow(P/2.0 , 2)/3.0;
 

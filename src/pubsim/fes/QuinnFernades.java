@@ -85,7 +85,7 @@ public class QuinnFernades implements FrequencyEstimator{
             f-=fstep;
         }
 
-        fhat = fhat - Math.round(fhat);
+        fhat -= Math.round(fhat);
 
         //Now implement QuinnFernandes iterations.
         int numIter = 0;

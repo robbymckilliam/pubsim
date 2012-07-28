@@ -4,14 +4,12 @@
  */
 package pubsim.lattices.Vnm;
 
-import pubsim.lattices.Vnm.Vnm;
 import Jama.Matrix;
 import Jama.QRDecomposition;
 import static org.junit.Assert.*;
 import org.junit.*;
 import pubsim.VectorFunctions;
-import pubsim.lattices.decoder.SphereDecoder;
-import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
+import pubsim.lattices.Vnm.Vnm;
 
 /**
  *
@@ -62,7 +60,7 @@ public class VnmTest {
         System.out.println("print out short vectors");
         int maxn = 15;
         int m = 3;
-        for (int n = 1; n < maxn; n=n+1) {
+        for (int n = 1; n < maxn; n += 1) {
             Vnm instance = new Vnm(n, m);
             System.out.println(n + ", " + instance.kissingNumber() + ", " + Math.pow(2*instance.inradius(),2));
         }
@@ -94,7 +92,7 @@ public class VnmTest {
         int minn = 1;
         int maxn = 40;
         int m = 1;
-        for(int n = minn; n < maxn; n=n+1){
+        for(int n = minn; n < maxn; n += 1){
             Vnm.Vn1 testee = new Vnm.Vn1(n);
             Vnm tester = new Vnm(n, m);
             assertEquals(testee.volume(), tester.volume(), 0.00001);
@@ -125,7 +123,7 @@ public class VnmTest {
         int minn = 1;
         int maxn = 30;
         int m = 2;
-        for(int n = minn; n < maxn; n=n+1){
+        for(int n = minn; n < maxn; n += 1){
             Vnm tester = new Vnm(n, m);
             System.out.println(tester.seededKissingNumber() + ", " + tester.kissingNumber() + ", " + tester.norm());
         }

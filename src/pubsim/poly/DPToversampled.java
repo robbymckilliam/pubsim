@@ -32,7 +32,7 @@ public class DPToversampled extends DPTEstimator {
 
         //err = ambiguityRemover.disambiguate(err);
         for (int i = 0; i < err.length; i++) {
-            err[i] = err[i]*err[i];
+            err[i] *= err[i];
         }
         return err;
     }
