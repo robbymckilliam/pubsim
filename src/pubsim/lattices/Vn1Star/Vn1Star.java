@@ -120,5 +120,11 @@ public abstract class Vn1Star extends NearestPointAlgorithmStandardNumenclature{
     
     @Override
     public double distance() { throw new UnsupportedOperationException(); }
+    
+    @Override
+    public String name() { 
+        return "Vn" + n + "m1star";
+    }
+
 
 }

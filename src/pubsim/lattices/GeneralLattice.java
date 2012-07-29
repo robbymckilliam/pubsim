@@ -43,4 +43,9 @@ public class GeneralLattice extends AbstractLattice {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public String name() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

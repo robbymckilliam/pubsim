@@ -88,5 +88,10 @@ public class Craig extends AbstractLattice{
         return A;
 
     }
+    
+    @Override
+    public String name() { 
+        return "Craign" + n + "r" + r;
+    }
 
 }

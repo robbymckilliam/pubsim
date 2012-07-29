@@ -2,54 +2,50 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pubsim.lattices;
 
 import Jama.Matrix;
 
 /**
- *
+ * The Kschischang-Pasupathy 36-d lattice, the densest packing 
+ * known in 36 dimensions.
  * @author Robby McKilliam
  */
-public class Shimada86 extends AbstractLattice{
+public class KP36 extends AbstractLattice {
 
     @Override
     public double coveringRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void setDimension(int n) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     @Override
-    public final int getDimension() {
-        return 86;
+    public int getDimension() {
+        return 36;
     }
 
     @Override
     public Matrix getGeneratorMatrix() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
     @Override
-    public double volume(){
-        return 256 * Math.sqrt(3);
+    public double volume() {
+        return 3486784401.0;
     }
-
+    
     @Override
-    public double norm(){
-        return 8;
-    }
-
+    public double norm() {
+        return 8.0;
+    } 
+    
     @Override
-    public final long kissingNumber(){
-        return 109421928;
+    public long kissingNumber() {
+        return 239598;
     }
     
     @Override
     public String name() { 
-        return "Shimada86";
+        return "KP36";
     }
-
+    
 }

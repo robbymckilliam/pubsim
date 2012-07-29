@@ -97,5 +97,10 @@ public class Hexagonal
     public double distance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public String name() { 
+        return "Hexagaonal";
+    }
 
 }

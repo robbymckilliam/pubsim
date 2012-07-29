@@ -162,5 +162,11 @@ public abstract class VnmStar extends AbstractLattice implements LatticeAndNeare
             for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
         this.nearestPoint(y);
     }
+    
+    @Override
+    public String name() { 
+        return "Vn" + n + "m" + m + "star";
+    }
+
 
 }

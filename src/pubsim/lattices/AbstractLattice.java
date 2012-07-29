@@ -112,12 +112,6 @@ public abstract class AbstractLattice implements Lattice {
         }
         return kissingnumber;
     }
-    
-    @Override
-    public String name() { 
-        throw new UnsupportedOperationException("This lattice doesn't have a name!"); 
-    }
-
 
     
 }
