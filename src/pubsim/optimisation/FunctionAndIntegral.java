@@ -12,6 +12,7 @@ import Jama.Matrix;
  */
 public interface FunctionAndIntegral extends MultivariateFunction{
 
+    @Override
     double value(Matrix x);
     
     /** 

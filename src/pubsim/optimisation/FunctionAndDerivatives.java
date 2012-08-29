@@ -13,6 +13,7 @@ import Jama.Matrix;
  */
 public interface FunctionAndDerivatives extends MultivariateFunction{
 
+    @Override
     double value(Matrix x);
 
     /** Return the Hessian matrix calculated at x */

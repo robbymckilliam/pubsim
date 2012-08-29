@@ -26,6 +26,7 @@ public abstract class AutoIntegralFunction implements FunctionAndIntegral {
     }
     
     /** Recursively computes a multi-integral */
+    @Override
     public double integral(double[] min, double[] max) {
         
         final AutoIntegralFunction savethis = this;
