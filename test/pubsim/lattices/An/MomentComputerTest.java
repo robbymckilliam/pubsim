@@ -4,11 +4,11 @@
  */
 package pubsim.lattices.An;
 
-import java.math.BigInteger;
+import pubsim.bignums.BigInteger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.*;
-import pubsim.BigRational;
+import pubsim.bignums.BigRational;
 import pubsim.Util;
 
 /**

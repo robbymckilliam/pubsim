@@ -1,11 +1,7 @@
 /*
  * Ration arithmetic class taken from the Rosetta stone website.
  */
-package pubsim;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
+package pubsim.bignums;
  
 
 public class BigRational extends Number implements Comparable<BigRational>

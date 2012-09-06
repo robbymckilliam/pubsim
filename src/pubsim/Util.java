@@ -4,6 +4,8 @@
  */
 package pubsim;
 
+import pubsim.bignums.BigRational;
+
 /**
  * Utility class for common math operations etc.
  * @author Robby McKilliam
