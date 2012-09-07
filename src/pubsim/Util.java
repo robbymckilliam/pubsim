@@ -4,7 +4,7 @@
  */
 package pubsim;
 
-import pubsim.bignums.BigRational;
+import bignums.BigRational;
 
 /**
  * Utility class for common math operations etc.

@@ -5,8 +5,8 @@
 package pubsim.lattices.An;
 
 import java.io.*;
-import pubsim.bignums.BigInteger;
-import pubsim.bignums.BigRational;
+import bignums.BigInteger;
+import bignums.BigRational;
 
 /**
  * Runs the recursion to compute moments for An and also the probability of error
