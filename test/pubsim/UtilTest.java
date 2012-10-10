@@ -5,8 +5,8 @@
 
 package pubsim;
 
-import pubsim.bignums.BigRational;
-import pubsim.bignums.BigInteger;
+import bignums.BigRational;
+import bignums.BigInteger;
 import static org.junit.Assert.*;
 import org.junit.*;
 import static pubsim.Util.logGamma;
