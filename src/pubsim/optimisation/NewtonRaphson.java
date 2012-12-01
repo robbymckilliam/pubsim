@@ -39,8 +39,6 @@ public class NewtonRaphson {
         Matrix xnext;
         while(e > tolerance && itr < max_iterations){
 
-            //System.out.println(VectorFunctions.print(xprev));
-
             Matrix H = f.hessian(xprev);
             Matrix G = f.gradient(xprev);
 
