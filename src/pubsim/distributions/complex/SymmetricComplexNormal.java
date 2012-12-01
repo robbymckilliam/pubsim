@@ -19,6 +19,7 @@ public class SymmetricComplexNormal implements ComplexRandomVariable {
 
     final protected GaussianNoise rv;
 
+    /** Set variance of real and imaginary parts */
     public SymmetricComplexNormal(double variance) {
         rv = new GaussianNoise(0.0, variance);
     }
