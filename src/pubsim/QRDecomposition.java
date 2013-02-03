@@ -22,6 +22,8 @@ public class QRDecomposition {
        int m = B.getRowDimension();
        int n = B.getColumnDimension();
        
+       System.out.println("QRDecomp: B = ");
+       B.print(8, 2);
        Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
        Matrix Rd = QR.getR();
        System.out.println("QRDecomp: R = ");

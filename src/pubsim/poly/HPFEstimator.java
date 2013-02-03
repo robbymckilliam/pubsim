@@ -32,7 +32,7 @@ public class HPFEstimator implements PolynomialPhaseEstimator {
 
     /**
      * Returns the volume of the functional regions of
-     * the DPT estimator.  This is just for comparison
+     * the HPF estimator.  This is just for comparison
      * with the identifiable region.
      * @return volume of functional region
      */
