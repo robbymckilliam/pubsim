@@ -14,7 +14,8 @@ import Jama.Matrix;
  */
 public class QRDecomposition {
 
-    Matrix R, Q;
+    Matrix R, Q, Id;
+    final Jama.QRDecomposition QR;
     
     
    public QRDecomposition(Matrix B){
@@ -22,15 +23,13 @@ public class QRDecomposition {
        int m = B.getRowDimension();
        int n = B.getColumnDimension();
        
-       System.out.println("QRDecomp: B = ");
-       B.print(8, 2);
-       Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
+       QR = new Jama.QRDecomposition(B);
        Matrix Rd = QR.getR();
        System.out.println("QRDecomp: R = ");
        Rd.print(8, 2);
        System.out.println("QRDecomp: Q = ");
        QR.getQ().print(8, 2);
-       Matrix Id = Matrix.identity(n, n);
+       Id = Matrix.identity(n, n);
        
        //construct a matrix to correct for negative diagonal entries
        for(int i = 0; i < n; i ++){
@@ -40,7 +39,7 @@ public class QRDecomposition {
        }
        
        R = Id.times(Rd);
-       Q = QR.getQ().times(Id);
+       //Q = QR.getQ().times(Id);
        
    }
    
@@ -49,6 +48,7 @@ public class QRDecomposition {
    }
     
    public Matrix getQ(){
+       if(Q==null) Q = QR.getQ().times(Id);
        return Q;
    }
        
