@@ -5,19 +5,17 @@
 
 package pubsim;
 
-import pubsim.VectorFunctions;
-import pubsim.QRDecomposition;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class QRDecompositionTest {
 
@@ -48,7 +46,7 @@ public class QRDecompositionTest {
         System.out.println("getR");
         
         int n = 11;
-        int m = 15;
+        int m = 12;
         Matrix B = Matrix.random(m, n);
         
         QRDecomposition instance = new QRDecomposition(B);
@@ -58,6 +56,50 @@ public class QRDecompositionTest {
             assertTrue(R.get(i, i) >= 0);
         }
     }   
+    
+    /**
+     * Test with zero column.
+     */
+    @Test
+    public void testWithZeroColumn() {
+        System.out.println("test with zero column and row");
+        
+        int n = 11;
+        Matrix B = Matrix.random(n, n);
+        for(int i = 0; i < n; i++) B.set(i,0,0.0);
+        
+        QRDecomposition instance = new QRDecomposition(B);
+        Matrix R = instance.getR();
+        //R.print(n, n);
+        //instance.getQ().print(n,n);
+        
+        for(int i = 0; i<n; i++){
+            assertTrue(R.get(i, i) >= 0);
+        }
+    } 
+    
+    /**
+     * Test with zero column and row.
+     */
+    @Test
+    public void testWithZeroColumnAndRow() {
+        System.out.println("test with zero column");
+        
+        int n = 5;
+        Matrix B = Matrix.random(n, n);
+        for(int i = 0; i < n; i++) B.set(i,0,0.0);
+        for(int i = 0; i < n; i++) B.set(n-1,i,0.0);
+        B.print(n, n);
+        
+        QRDecomposition instance = new QRDecomposition(B);
+        Matrix R = instance.getR();
+        R.print(n, n);
+        instance.getQ().print(n,n);
+        
+        for(int i = 0; i<n; i++){
+            assertTrue(R.get(i, i) >= 0);
+        }
+    } 
 
     /**
      * Test of getQ method, of class QRDecomposition.
@@ -89,7 +131,6 @@ public class QRDecompositionTest {
         }
         
         assertTrue(Q.transpose().times(Q).minus(Matrix.identity(n, n)).normF() < 0.00001);
-        
         
     }
 
