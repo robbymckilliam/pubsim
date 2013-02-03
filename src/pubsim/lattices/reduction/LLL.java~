@@ -55,6 +55,17 @@ public class LLL implements LatticeReduction{
 	j = 0;
 	int iter = 0;
         while(notDone()){
+	    if (iter < 40) {
+		System.out.println("j = " + j);
+		System.out.println("R = ");
+		R.print(8, 2);
+		System.out.println("M = ");
+		M.print(8, 2);
+		System.out.println("Bin - B * M = ");
+		Bin.minus(B.times(M)).print(8, 2);
+	    }
+	    iter++;
+
 
             double rjj = R.get(j,j);
             double rj1j1 = R.get(j+1, j+1);
@@ -62,6 +73,7 @@ public class LLL implements LatticeReduction{
             if( rjj*rjj > 2 * rj1j1*rj1j1 ){
                 
                 double k = Math.round( R.get(j, j+1) / rjj );
+		System.out.println("k = " + k);
                 
                 for(int t = 0; t < n; t++){
                     double rval = R.get(t,j+1) - k*R.get(t,j);

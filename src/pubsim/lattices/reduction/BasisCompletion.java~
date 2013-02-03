@@ -41,21 +41,21 @@ public class BasisCompletion extends LLL {
 	Matrix Bnew = new Matrix(m, n);
 	Bnew.setMatrix(0, m-1, 0, 0, v);
 	Bnew.setMatrix(0, m-1, 1, n-1, B);
+	System.out.println("Bnew = ");
+	Bnew.print(8, 2);
 	Matrix Bred = reduce(Bnew);
 	return Bred.getMatrix(0, m-1, 1, n-1);
     }
 
     @Override
     public Matrix getUnimodularMatrix() {
-	Matrix X = M.getMatrix(1, n-1, 0, 0).times(M.getMatrix(0, 0, 1, n-1))
-	    .times(M.get(0, 0));
+	Matrix X = M.getMatrix(1, n-1, 0, 0).times(M.getMatrix(0, 0, 1, n-1));
 	return M.getMatrix(1, n-1, 1, n-1).minus(X);
     }
 
     // Test harness
     public static void main(String args[]) {
-	int dim = 5;
-	Matrix B = Matrix.random(dim, dim);
+	Matrix B = Matrix.random(3, 3);
 	ShortVectorSphereDecoded svsd
 	    = new ShortVectorSphereDecoded(new GeneralLattice(B));
 	BasisCompletion cb = new BasisCompletion();
@@ -64,11 +64,9 @@ public class BasisCompletion extends LLL {
 	cb.completeBasis(sv, B).print(8, 2);
 	System.out.println("final M = ");
 	cb.getUnimodularMatrix().print(8, 2);
-	System.out.println("det M = " + cb.getUnimodularMatrix().det());
-	System.out.println("error = "
-			   + B.times(cb.getUnimodularMatrix()
-				     .getMatrix(0, dim-1, 0, 0))
-			   .minus(sv).norm2());
+	System.out.println("error = ");
+	B.times(cb.getUnimodularMatrix().getMatrix(0, 2, 0, 0)).minus(sv).print(8, 2);
     }
 }
 
+    
