@@ -24,6 +24,10 @@ public class QRDecomposition {
        
        Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
        Matrix Rd = QR.getR();
+       System.out.println("QRDecomp: R = ");
+       Rd.print(8, 2);
+       System.out.println("QRDecomp: Q = ");
+       QR.getQ().print(8, 2);
        Matrix Id = Matrix.identity(n, n);
        
        //construct a matrix to correct for negative diagonal entries

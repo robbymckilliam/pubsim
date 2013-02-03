@@ -10,6 +10,8 @@ import pubsim.VectorFunctions;
 /**
  * The Lenstra, Lenstra and Lovas lattice reduction algorithm.
  * @author Robby McKilliam
+ * Modified by Vaughan Clarkson to make it extensible for the purpose
+ * of lattice basis completion.
  */
 public class LLL implements LatticeReduction{
     
@@ -17,6 +19,14 @@ public class LLL implements LatticeReduction{
     
     /** Unimodular matrix such that reduce(B) = BM */
     protected Matrix M;
+    protected Matrix R; // triangularised basis
+    protected int j; // loop variable
+    protected int m; // embedded dimension
+    protected int n; // lattice rank
+
+    protected boolean notDone() {
+	return j < n-1;
+    }
 
     @Override
     public Matrix reduce(Matrix B){
@@ -28,23 +38,34 @@ public class LLL implements LatticeReduction{
         Matrix Bcopy = B.copy();
         
         //this is the dimension of the lattice.  Need to check this!
-        int n = B.getColumnDimension();
-        int m = B.getRowDimension();
+        n = B.getColumnDimension();
+        m = B.getRowDimension();
         
         //set the unimodular matrix
         M = Matrix.identity(n, n);
         
         Jama.QRDecomposition QR = new Jama.QRDecomposition(Bcopy);
-        Matrix R = QR.getR();
-        int j = 0;
-        while( j < n-1 ){
-            
+        R = QR.getR();
+	j = 0;
+	int iter = 0;
+        while(notDone()){
+	    if (iter < 40) {
+		System.out.println("j = " + j);
+		System.out.println("R = ");
+		R.print(8, 2);
+		System.out.println("M = ");
+		M.print(8, 2);
+	    }
+	    iter++;
+
+
             double rjj = R.get(j,j);
             double rj1j1 = R.get(j+1, j+1);
             
             if( rjj*rjj > 2 * rj1j1*rj1j1 ){
                 
                 double k = Math.round( R.get(j, j+1) / rjj );
+		System.out.println("k = " + k);
                 
                 for(int t = 0; t < n; t++){
                     double rval = R.get(t,j+1) - k*R.get(t,j);

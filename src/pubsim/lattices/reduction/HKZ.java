@@ -1,0 +1,14 @@
+/*
+ * Simple-minded implementation of Hermite-Korkin-Zolotarev reduction.
+ * Uses Siegel-LLL with Schnorr-Euchner sphere decoding.
+ * @author Vaughan Clarkson
+ */
+
+package pubsim.lattices.reduction;
+
+import Jama.Matrix;
+import pubsim.VectorFunctions;
+
+public class HKZ { // implements LatticeReduction {
+    //    protected LatticeReduction LLL 
+}
