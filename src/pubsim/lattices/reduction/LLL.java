@@ -97,7 +97,7 @@ public class LLL implements LatticeReduction{
             }
         }
         
-        Bcopy = hermite.reduce(Bcopy);
+	Bcopy = hermite.reduce(Bcopy);
         M = M.times(hermite.getUnimodularMatrix());
         //M = hermite.getUnimodularMatrix().times(M);
         
