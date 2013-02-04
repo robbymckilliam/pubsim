@@ -15,7 +15,7 @@ import pubsim.VectorFunctions;
  */
 public class LLL implements LatticeReduction{
     
-    protected LatticeReduction hermite = new Hermite();
+    protected Hermite hermite = new Hermite();
     
     protected Matrix B; // the lattice basis
     /** Unimodular matrix such that reduce(B) = BM */
@@ -31,6 +31,7 @@ public class LLL implements LatticeReduction{
 
     protected void finishUp() {
         B = hermite.reduce(B);
+	R = hermite.getR();
         M = M.times(hermite.getUnimodularMatrix());
     }
 
@@ -104,5 +105,8 @@ public class LLL implements LatticeReduction{
     public Matrix getUnimodularMatrix() {
         return M;
     }
-    
+
+    public Matrix getR() {
+	return R;
+    }
 }

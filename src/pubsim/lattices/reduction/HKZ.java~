@@ -9,5 +9,6 @@ package pubsim.lattices.reduction;
 import Jama.Matrix;
 import pubsim.VectorFunctions;
 
-public class HKZ implements LatticeReduction {
-    protected LatticeReduction LLL 
+public class HKZ { // implements LatticeReduction {
+    //    protected LatticeReduction LLL 
+}
