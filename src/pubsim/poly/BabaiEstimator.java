@@ -20,27 +20,29 @@ import pubsim.distributions.GaussianNoise;
 
 /**
  * Uses the Babai nearest plane algorithm
- * @author Robby
- * Modified by Vaughan Clarkson to allow different underlying reduction
- * algorithms (especially HKZ).
+ *
+ * @author Robby Modified by Vaughan Clarkson to allow different underlying
+ * reduction algorithms (especially HKZ).
  */
 public class BabaiEstimator implements PolynomialPhaseEstimator {
 
-    protected double[] ya,  p;
-    protected int n,  m;
+    protected double[] ya, p;
+    protected int n, m;
     protected VnmStar lattice;
     protected NearestPointAlgorithm npalgorithm;
-    protected Matrix M,  K;
+    protected Matrix M, K;
     protected AmbiguityRemover ambiguityRemover;
-    
-    protected BabaiEstimator() {}
-    
-    /** 
+
+    protected BabaiEstimator() {
+    }
+
+    /**
      * You must set the polynomial order in the constructor
+     *
      * @param m = polynomial order
      */
     public BabaiEstimator(int m, int n) {
-	this(m, n, new LLL());
+        this(m, n, new LLL());
     }
 
     public BabaiEstimator(int m, int n, LatticeReduction lr) {
@@ -50,7 +52,7 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         ambiguityRemover = new AmbiguityRemover(m);
 
         ya = new double[n];
-        p = new double[m+1];
+        p = new double[m + 1];
         this.n = n;
 
         M = lattice.getMMatrix();
@@ -60,8 +62,10 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
 
     @Override
     public double[] estimate(double[] real, double[] imag) {
-        if(n != real.length) throw new RuntimeException("Data length does not equal " + n);
-        
+        if (n != real.length) {
+            throw new RuntimeException("Data length does not equal " + n);
+        }
+
         for (int i = 0; i < real.length; i++) {
             ya[i] = Math.atan2(imag[i], real[i]) / (2 * Math.PI);
         }
@@ -75,22 +79,21 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         System.arraycopy(ya, u.length, ymu, u.length, ya.length - u.length);
 
         //compute the parameters
-        VectorFunctions.matrixMultVector(K, ymu, p); 
-        
+        VectorFunctions.matrixMultVector(K, ymu, p);
+
         return ambiguityRemover.disambiguate(p);
     }
 
-
     /**
-     * Run the estimator and return the square error wrapped modulo the the ambiguity
-     * region between the estimate and the truth. i.e. dealias the estimate before
-     * computing the square error.
+     * Run the estimator and return the square error wrapped modulo the the
+     * ambiguity region between the estimate and the truth. i.e. dealias the
+     * estimate before computing the square error.
      */
-    public double[] error(double[] real, double[] imag, double[] truth){
-        
+    public double[] error(double[] real, double[] imag, double[] truth) {
+
         double[] est = estimate(real, imag);
         double[] err = new double[est.length];
-        
+
         for (int i = 0; i < err.length; i++) {
             err[i] = est[i] - truth[i];
         }
@@ -101,37 +104,49 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         return err;
     }
 
+    @Override
     public int getOrder() {
         return m;
     }
 
     // Test harness
     public static void main(String args[]) {
-	int numTrials = 2000;
-	int N = 24;
-	int order = 1; // frequency estimation
-	double minSNRdB = 0, maxSNRdB = 20, stepSNRdB = 1;
-	PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(N);
-	BabaiEstimator estlll = new BabaiEstimator(order, N, new LLL());
-	BabaiEstimator esthkz = new BabaiEstimator(order, N, new HKZ());
-	double mselll = 0, msehkz = 0;
-	for (double SNRdB = minSNRdB; SNRdB <= maxSNRdB; SNRdB += stepSNRdB) {
-	    double SNR = Math.pow(10, SNRdB/10);
-	    GaussianNoise noise = new GaussianNoise(0, 1/SNR);
-	    siggen.setNoiseGenerator(noise);
-	    for (int trial = 0; trial < numTrials; trial++) {
-		siggen.generateRandomParameters(order);
-		double[] p0 = siggen.getParameters();
-		siggen.generateReceivedSignal();
-		double[] err
-		    = estlll.error(siggen.getReal(), siggen.getImag(), p0);
-		mselll += err[order];
-		err = esthkz.error(siggen.getReal(), siggen.getImag(), p0);
-		msehkz += err[order];
-	    }
-	    mselll /= numTrials;
-	    msehkz /= numTrials;
-	    System.out.println("" + SNRdB + " " + mselll + " " + msehkz);
-	}
+        int numTrials = 2000;
+        int N = 140;
+        int order = 1; // frequency estimation
+        double minSNRdB = -5, maxSNRdB = 10, stepSNRdB = 1;
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(N);
+        BabaiEstimator estlll = new BabaiEstimator(order, N, new LLL());
+        BabaiEstimator esthkz = new BabaiEstimator(order, N, new HKZ());
+        SphereDecoderEstimator estsd = new SphereDecoderEstimator(order, N);
+        MbestEstimator estmbest = new MbestEstimator(order, N, 4*N);
+        MbestEstimator estmbesthkz = new MbestEstimator(order, N, 4*N, new HKZ());
+        double mselll = 0, msehkz = 0, msesd = 0, msembest = 0, msembesthkz = 0;
+        for (double SNRdB = minSNRdB; SNRdB <= maxSNRdB; SNRdB += stepSNRdB) {
+            double SNR = Math.pow(10, SNRdB / 10);
+            GaussianNoise noise = new GaussianNoise(0, 1 / SNR);
+            siggen.setNoiseGenerator(noise);
+            for (int trial = 0; trial < numTrials; trial++) {
+                siggen.generateRandomParameters(order);
+                double[] p0 = siggen.getParameters();
+                siggen.generateReceivedSignal();
+                double[] err = estlll.error(siggen.getReal(), siggen.getImag(), p0);
+                mselll += err[order];
+                err = esthkz.error(siggen.getReal(), siggen.getImag(), p0);
+                msehkz += err[order];
+                //err = estsd.error(siggen.getReal(), siggen.getImag(), p0);
+                //msesd += err[order];
+                err = estmbest.error(siggen.getReal(), siggen.getImag(), p0);
+                msembest += err[order];
+                err = estmbesthkz.error(siggen.getReal(), siggen.getImag(), p0);
+                msembesthkz += err[order];
+            }
+            mselll /= numTrials;
+            msehkz /= numTrials;
+            msesd /= numTrials;
+            msembest /= numTrials;
+            msembesthkz /= numTrials;
+            System.out.println("" + SNRdB + " " + mselll + " " + msehkz + " " + msesd + " "+ msembest + " " + msembesthkz);
+        }
     }
 }
