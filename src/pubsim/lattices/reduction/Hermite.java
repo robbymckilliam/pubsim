@@ -10,7 +10,7 @@ import Jama.Matrix;
  * The Hermite lattice reduction algorithm.
  * @author Robby McKilliam
  */
-public class Hermite implements LatticeReduction{
+public class Hermite implements TriangularLatticeReduction{
     
     /** Unimodular matrix such that reduce(B) = BM */
     protected Matrix M;
@@ -59,10 +59,12 @@ public class Hermite implements LatticeReduction{
     }
 
     /** {@inheritDoc} */
+    @Override
     public Matrix getUnimodularMatrix() {
         return M;
     }
     
+    @Override
     public Matrix getR() {
 	return R;
     }
