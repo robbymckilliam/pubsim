@@ -13,7 +13,7 @@ import pubsim.VectorFunctions;
  * Modified by Vaughan Clarkson to make it extensible for the purpose
  * of lattice basis completion.
  */
-public class LLL implements LatticeReduction{
+public class LLL implements TriangularLatticeReduction{
     
     protected Hermite hermite = new Hermite();
     
@@ -106,6 +106,7 @@ public class LLL implements LatticeReduction{
         return M;
     }
 
+    @Override
     public Matrix getR() {
 	return R;
     }
