@@ -34,7 +34,8 @@ public class Hermite implements LatticeReduction{
         pubsim.QRDecomposition QR = new pubsim.QRDecomposition(Bcopy);
         Matrix R = QR.getR();
         
-        //System.out.println("Hermite R = \n" + VectorFunctions.print(R));
+        System.out.println("Hermite R = ");
+        //R.print(2,2);
         
         for(int j = 0; j < n; j++){
             for(int i = j-1; i >= 0; i--){
