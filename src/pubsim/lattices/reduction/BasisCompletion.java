@@ -23,6 +23,16 @@ public class BasisCompletion extends LLL {
 	return R.getMatrix(0, m-1, 0, 0).normF() >= shortest / 2;
     }
 
+    @Override
+    protected void finishUp() {
+	B.setMatrix(0, m-1, n-m, n-1,
+		    hermite.reduce(B.getMatrix(0, m-1, n-m, n-1)));
+	R = hermite.getR();
+	Matrix sub = M.getMatrix(0, n-1, n-m, n-1);
+	sub = sub.times(hermite.getUnimodularMatrix());
+	M.setMatrix(0, n-1, n-m, n-1, sub);
+    }
+
     // Pre: v is a column vector containing the shortest vector of
     // the lattice basis in B
     public Matrix completeBasis(Matrix v, Matrix B) {
@@ -32,26 +42,41 @@ public class BasisCompletion extends LLL {
 	Matrix Bnew = new Matrix(m, n);
 	Bnew.setMatrix(0, m-1, 0, 0, v);
 	Bnew.setMatrix(0, m-1, 1, n-1, B);
-	System.out.println("Bnew = ");
-	Bnew.print(8, 2);
 	Matrix Bred = reduce(Bnew);
 	return Bred.getMatrix(0, m-1, 1, n-1);
     }
 
     @Override
     public Matrix getUnimodularMatrix() {
-	return M.getMatrix(1, n-1, 1, n-1);
+	Matrix X = M.getMatrix(1, n-1, 0, 0).times(M.getMatrix(0, 0, 1, n-1))
+	    .times(M.get(0, 0));
+	return M.getMatrix(1, n-1, 1, n-1).minus(X);
+    }
+
+    @Override
+    public Matrix getR() {
+	return R;
     }
 
     // Test harness
     public static void main(String args[]) {
-	Matrix B = Matrix.random(3, 3);
+	int dim = 5;
+	Matrix B = Matrix.random(dim, dim);
 	ShortVectorSphereDecoded svsd
 	    = new ShortVectorSphereDecoded(new GeneralLattice(B));
 	BasisCompletion cb = new BasisCompletion();
-	cb.completeBasis(VectorFunctions.columnMatrix(svsd.getShortestVector()), B).print(8, 2);
+	Matrix sv = VectorFunctions.columnMatrix(svsd.getShortestVector());
+	System.out.println("final B = ");
+	cb.completeBasis(sv, B).print(8, 2);
+	System.out.println("final R = ");
+	cb.getR().print(8, 2);
+	System.out.println("final M = ");
 	cb.getUnimodularMatrix().print(8, 2);
+	System.out.println("det M = " + cb.getUnimodularMatrix().det());
+	System.out.println("error = "
+			   + B.times(cb.getUnimodularMatrix()
+				     .getMatrix(0, dim-1, 0, 0))
+			   .minus(sv).norm2());
     }
 }
 
-    

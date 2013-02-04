@@ -15,8 +15,9 @@ import pubsim.VectorFunctions;
  */
 public class LLL implements LatticeReduction{
     
-    protected LatticeReduction hermite = new Hermite();
+    protected Hermite hermite = new Hermite();
     
+    protected Matrix B; // the lattice basis
     /** Unimodular matrix such that reduce(B) = BM */
     protected Matrix M;
     protected Matrix R; // triangularised basis
@@ -28,14 +29,20 @@ public class LLL implements LatticeReduction{
 	return j < n-1;
     }
 
+    protected void finishUp() {
+        B = hermite.reduce(B);
+	R = hermite.getR();
+        M = M.times(hermite.getUnimodularMatrix());
+    }
+
     @Override
-    public Matrix reduce(Matrix B){
-        if(B == null){
+    public Matrix reduce(Matrix Bin){
+        if(Bin == null){
             M = null;
             return null;
         }
         
-        Matrix Bcopy = B.copy();
+        B = Bin.copy();
         
         //this is the dimension of the lattice.  Need to check this!
         n = B.getColumnDimension();
@@ -44,20 +51,11 @@ public class LLL implements LatticeReduction{
         //set the unimodular matrix
         M = Matrix.identity(n, n);
         
-        Jama.QRDecomposition QR = new Jama.QRDecomposition(Bcopy);
+        Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
         R = QR.getR();
 	j = 0;
 	int iter = 0;
         while(notDone()){
-	    if (iter < 40) {
-		System.out.println("j = " + j);
-		System.out.println("R = ");
-		R.print(8, 2);
-		System.out.println("M = ");
-		M.print(8, 2);
-	    }
-	    iter++;
-
 
             double rjj = R.get(j,j);
             double rj1j1 = R.get(j+1, j+1);
@@ -65,7 +63,6 @@ public class LLL implements LatticeReduction{
             if( rjj*rjj > 2 * rj1j1*rj1j1 ){
                 
                 double k = Math.round( R.get(j, j+1) / rjj );
-		System.out.println("k = " + k);
                 
                 for(int t = 0; t < n; t++){
                     double rval = R.get(t,j+1) - k*R.get(t,j);
@@ -74,15 +71,15 @@ public class LLL implements LatticeReduction{
                     M.set(t, j+1, mval);
                 }
                 for(int t = 0; t < m; t++){
-                    double bval = Bcopy.get(t,j+1) - k*Bcopy.get(t,j);
-                    Bcopy.set(t, j+1, bval);
+                    double bval = B.get(t,j+1) - k*B.get(t,j);
+                    B.set(t, j+1, bval);
                 }
                 
-                VectorFunctions.swapColumns(Bcopy, j, j+1);
+                VectorFunctions.swapColumns(B, j, j+1);
                 VectorFunctions.swapColumns(M, j, j+1);
                                
                 //QR decomposition version.  Superceeded by Given's rotation
-//                Jama.QRDecomposition QRt = new Jama.QRDecomposition(Bcopy);
+//                Jama.QRDecomposition QRt = new Jama.QRDecomposition(B);
 //                R = QRt.getR();
                             
                 //Swap columns and Given's rotate R to make it triangular.
@@ -97,11 +94,10 @@ public class LLL implements LatticeReduction{
             }
         }
         
-        Bcopy = hermite.reduce(Bcopy);
-        M = M.times(hermite.getUnimodularMatrix());
+	finishUp();
+
         //M = hermite.getUnimodularMatrix().times(M);
-        
-        return Bcopy;
+        return B;
     }
 
     /** {@inheritDoc} */
@@ -109,5 +105,8 @@ public class LLL implements LatticeReduction{
     public Matrix getUnimodularMatrix() {
         return M;
     }
-    
+
+    public Matrix getR() {
+	return R;
+    }
 }

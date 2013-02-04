@@ -5,6 +5,7 @@ package pubsim.lattices.reduction;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,10 +43,19 @@ public class BasisCompletionTest {
      */
     @Test
     public void testWorking() {
-        Matrix B = Matrix.random(3, 3);
-        ShortVectorSphereDecoded svsd = new ShortVectorSphereDecoded(new GeneralLattice(B));
-        BasisCompletion cb = new BasisCompletion();
-        cb.completeBasis(VectorFunctions.columnMatrix(svsd.getShortestVector()), B).print(8, 2);
-        cb.getUnimodularMatrix().print(8, 2);
+        double tol = 1e-7;
+	int dim = 5;
+	Matrix B = Matrix.random(dim, dim);
+	ShortVectorSphereDecoded svsd
+	    = new ShortVectorSphereDecoded(new GeneralLattice(B));
+	BasisCompletion cb = new BasisCompletion();
+	Matrix sv = VectorFunctions.columnMatrix(svsd.getShortestVector());
+	//System.out.println("final B = ");
+	cb.completeBasis(sv, B);
+	//System.out.println("final M = ");
+	cb.getUnimodularMatrix();
+	//System.out.println("det M = " + cb.getUnimodularMatrix().det());
+        double error = B.times(cb.getUnimodularMatrix().getMatrix(0, dim-1, 0, 0)).minus(sv).norm2();
+        assertEquals(error, 0.0, tol);
     }
 }
