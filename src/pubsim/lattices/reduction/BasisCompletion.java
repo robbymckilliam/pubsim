@@ -27,6 +27,7 @@ public class BasisCompletion extends LLL {
     protected void finishUp() {
 	B.setMatrix(0, m-1, n-m, n-1,
 		    hermite.reduce(B.getMatrix(0, m-1, n-m, n-1)));
+	R = hermite.getR();
 	Matrix sub = M.getMatrix(0, n-1, n-m, n-1);
 	sub = sub.times(hermite.getUnimodularMatrix());
 	M.setMatrix(0, n-1, n-m, n-1, sub);
@@ -52,6 +53,11 @@ public class BasisCompletion extends LLL {
 	return M.getMatrix(1, n-1, 1, n-1).minus(X);
     }
 
+    @Override
+    public Matrix getR() {
+	return R;
+    }
+
     // Test harness
     public static void main(String args[]) {
 	int dim = 5;
@@ -62,6 +68,8 @@ public class BasisCompletion extends LLL {
 	Matrix sv = VectorFunctions.columnMatrix(svsd.getShortestVector());
 	System.out.println("final B = ");
 	cb.completeBasis(sv, B).print(8, 2);
+	System.out.println("final R = ");
+	cb.getR().print(8, 2);
 	System.out.println("final M = ");
 	cb.getUnimodularMatrix().print(8, 2);
 	System.out.println("det M = " + cb.getUnimodularMatrix().det());

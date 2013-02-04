@@ -14,7 +14,8 @@ public class Hermite implements LatticeReduction{
     
     /** Unimodular matrix such that reduce(B) = BM */
     protected Matrix M;
-    
+    protected Matrix R;
+
     /** {@inheritDoc} */
     @Override
     public Matrix reduce(Matrix B) {
@@ -32,7 +33,7 @@ public class Hermite implements LatticeReduction{
         M = Matrix.identity(n, n);
         
         pubsim.QRDecomposition QR = new pubsim.QRDecomposition(Bcopy);
-        Matrix R = QR.getR();
+        R = QR.getR();
         
         //System.out.println("Hermite R = \n" + VectorFunctions.print(R));
         
@@ -62,4 +63,7 @@ public class Hermite implements LatticeReduction{
         return M;
     }
     
+    public Matrix getR() {
+	return R;
+    }
 }
