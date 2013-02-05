@@ -20,9 +20,11 @@
             classpathref="build.classpath"
 	    includeantruntime="false">
       <include name="src/**/*.java"   />
+      <include name="test/**/*.java"   />
     </javac>
     <jar destfile="${base.dir}/lib/PubSim.jar">
       <fileset dir="src/"/>
+      <fileset dir="test/"/>
       <fileset dir="build/"/>
     </jar>
   </target>
@@ -33,6 +35,21 @@
     </delete>
   </target>
 
+  <target name="test" depends="init">
+    <junit printsummary="yes">
+      <classpath>
+	<fileset dir="${base.dir}/lib">
+	  <include name="*.jar" />
+	</fileset>
+      </classpath>
+      <!-- <formatter type="plain" usefile="false"/> -->
+      <batchtest fork="yes" todir="${base.dir}">
+	<fileset dir="${build.dir}">
+	  <include name="**/*Test.class"/>
+	</fileset>
+      </batchtest>
+    </junit>
+  </target>
 
 
 </project>

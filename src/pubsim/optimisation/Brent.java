@@ -1,6 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 package pubsim.optimisation;
 
@@ -29,15 +27,15 @@ public class Brent {
     public final double fmin() { return fx; }
     public final double xmin() { return x; }
     
-    Brent(SingleVariateFunction f, double ax, double bx, double cx){
+    public Brent(SingleVariateFunction f, double ax, double bx, double cx){
         this(f,ax,bx,cx,1e-8,100);
     } 
     
-    Brent(SingleVariateFunction f, double ax, double bx, double cx, double tol){
+    public Brent(SingleVariateFunction f, double ax, double bx, double cx, double tol){
         this(f,ax,bx,cx,tol,100);
     } 
 
-    Brent(SingleVariateFunction f, double ax, double bx, double cx, double tol, int ITRMAX) {
+    public Brent(SingleVariateFunction f, double ax, double bx, double cx, double tol, int ITRMAX) {
         double e = 0.0;
         double d = 0.0;
         double a = (ax < cx ? ax : cx);
