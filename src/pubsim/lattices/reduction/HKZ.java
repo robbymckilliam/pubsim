@@ -13,7 +13,7 @@ import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.GeneralLattice;
 
-public class HKZ implements LatticeReduction {
+public class HKZ implements TriangularLatticeReduction {
     protected BasisCompletion bc = new BasisCompletion();
     protected ShortVectorSphereDecoded svsd;
     protected Matrix R, M;
@@ -50,6 +50,7 @@ public class HKZ implements LatticeReduction {
 	return M;
     }
 
+    @Override
     public Matrix getR() {
 	return R;
     }

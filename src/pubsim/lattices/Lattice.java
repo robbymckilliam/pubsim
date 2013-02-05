@@ -6,98 +6,46 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import java.io.Serializable;
 
 /**
- * Interface for a Lattice
+ * Class that represents a lattice with arbitrary
+ * generator matrix.
  * @author Robby McKilliam
  */
-public interface Lattice extends Serializable {
-    
-    /** 
-     * Return the volume of the fundamental region
-     * of the lattice.  This is the square root of 
-     * the determinant of the gram matrix
-     */
-    double volume();
+public class GeneralLattice extends AbstractLattice {
 
-    /**
-     * Return the in radius for this lattice
-     */
-    double inradius();
+    /** The generator matrix for the lattice */
+    protected Matrix B;
     
-    /**
-     * The squared Euclidean length of the shortest non zero vector
-     */
-    double norm();
-
-    /**
-     * Return the covering radius for this lattice
-     */
-    double coveringRadius();
+    protected GeneralLattice(){
+    }
     
-    /*
-     * Return the center density:
-     * inradius^n / volume;
-     */
-    double centerDensity();
-
-    /*
-     * Return the log2 of the center density:
-     * inradius^n / volume;
-     */
-    double logCenterDensity();
-
-    /*
-     * log2 logarithm of the sphere packing density
-     */
-    double logPackingDensity();
-
-    /*
-     * log2 of the volume of the lattice.
-     */
-    double logVolume();
-
-    /*
-     * Sphere packing density.
-     */
-    double packingDensity();
+    public GeneralLattice(Matrix B){
+        this.B = B;
+    }
     
-    /*
-     * Hermite parameter, also known as nomial coding gain
-     */
-    double hermiteParameter();
-    double nominalCodingGain();
+    public GeneralLattice(double[][] B){
+        this.B = new Matrix(B);
+    }
 
-    /*
-     * Effective coding gain.  See page 2396 of 
-     * FORNEY AND UNGERBOECK: MODULATION AND CODING FOR LINEAR GAUSSIAN CHANNELS.
-     * The argument S is a 'normalised' signal to noise ratio.
-     */
-    double probCodingError(double S);
-    
-    /** 
-     * Second moment of the Voronoi cell of this lattice.
-     * This is NOT normalised for volume.
-     */
-    double secondMoment();
+    @Override
+    public Matrix getGeneratorMatrix() {
+        return B;
+    }
 
-     /*
-     * The number of short vectors in the lattice.
-     */
-    long kissingNumber();
-    
-    int getDimension();
-    
-    /**
-     * Return the generator matrix for this lattice
-     * @return double[][] containing the generator matrix
-     */
-    Matrix getGeneratorMatrix();
-    
-    /**
-     * Return the name for this lattice, if it has one
-     */
-    String name();
+    @Override
+    public int getDimension() {
+        return B.rank();
+    }
+
+    @Override
+    public double coveringRadius() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String name() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

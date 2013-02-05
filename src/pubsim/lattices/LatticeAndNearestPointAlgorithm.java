@@ -1,17 +1,56 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
+import Jama.Matrix;
+import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
+
 /**
- * Interface for lattices with nearest specific nearest point algorithms
- * for that lattice.  There is some argument that this should be refactored,
- * in some way along with SphereDecoder and Babai.
- * 
+ * General lattice with a nearest point algorithm included with it.
+ * By default the sphere decoder is used but you can use other
+ * algorithms by using the appropriate constructor
  * @author Robby McKilliam
  */
-public interface LatticeAndNearestPointAlgorithm extends Lattice, NearestPointAlgorithm {
+public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice implements LatticeAndNearestPointAlgorithm {
+
+    private NearestPointAlgorithm decoder;
+
+    public GeneralLatticeAndNearestPointAlgorithm(Matrix B){
+        this.B = B;
+        decoder = new SphereDecoderSchnorrEuchner(this);
+    }
+
+    public GeneralLatticeAndNearestPointAlgorithm(double[][] B){
+        this.B = new Matrix(B);
+        decoder = new SphereDecoderSchnorrEuchner(this);
+    }
+
+     public GeneralLatticeAndNearestPointAlgorithm(Matrix B, NearestPointAlgorithm np){
+        this.B = B;
+        decoder = np;
+    }
+
+    @Override
+    public void nearestPoint(double[] y) {
+        decoder.nearestPoint(y);
+    }
     
+    @Override
+    public void nearestPoint(Double[] y) {
+        decoder.nearestPoint(y);
+    }
+
+    @Override
+    public double[] getLatticePoint() {
+        return decoder.getLatticePoint();
+    }
+
+    @Override
+    public double[] getIndex() {
+        return decoder.getIndex();
+    }
+
+    @Override
+    public double distance() {
+        return decoder.distance();
+    }
+
 }

@@ -11,6 +11,7 @@ import java.util.Vector;
 import pubsim.VectorFunctions;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.reduction.LLL;
+import pubsim.lattices.reduction.LatticeReduction;
 
 /**
  * 
@@ -35,10 +36,19 @@ public class Mbest extends Babai {
     /**
      * Constructor sets the M parameter for the M best method.
      * This is the maximum number of points that can be kept at
-     * each iteration of the decoder.
+     * each iteration of the decoder.  Default uses LLL reduction first
      */
     public Mbest(Lattice L, int M){
-        super(L);
+        this(L, M, new LLL());
+    }
+    
+    /**
+     * Constructor sets the M parameter for the M best method.
+     * This is the maximum number of points that can be kept at
+     * each iteration of the decoder.  This allows you to set an initial lattice reduction.
+     */
+    public Mbest(Lattice L, int M, LatticeReduction lr){
+        super(L,lr);
         this.M = M;
         
         ut = new double[n];
@@ -72,13 +82,13 @@ public class Mbest extends Babai {
 
         //COMPUTE THE NEAREST POINT!
         //set least possible ut[k]
-        TreeMap<Double, Vector<Integer>> prevmap = new TreeMap<Double, Vector<Integer>>();
+        TreeMap<Double, Vector<Integer>> prevmap = new TreeMap<>();
         
         //ok, set up the initial tree map with the first M elements
         int k = n-1;
         int u = (int)Math.round(yr[k]/R.get(k,k));
         double d = R.get(k, k)*u - yr[k];
-        Vector<Integer> vec = new Vector<Integer>();
+        Vector<Integer> vec = new Vector<>();
         vec.add(u);
         addToMap( prevmap, d*d, vec);
         int m = 0;
@@ -88,13 +98,13 @@ public class Mbest extends Babai {
         //while(m < M/2 + 1 ) {
         while(m < M/2 + 1 && keepAdding ){
             //add u+m
-            vec = new Vector<Integer>();
+            vec = new Vector<>();
             vec.add(u+m);
             d = R.get(k, k)*(u+m) - yr[k];
             keepAdding = addToMap( prevmap, d*d, vec);
 
             //add u-m
-            vec = new Vector<Integer>();
+            vec = new Vector<>();
             vec.add(u-m);
             d = R.get(k, k)*(u-m) - yr[k];
             keepAdding |= addToMap( prevmap, d*d, vec);
@@ -107,7 +117,7 @@ public class Mbest extends Babai {
         //now run the algorithm
         for(k = n-2; k >= 0; k--){
 
-            TreeMap<Double, Vector<Integer>> nextmap = new TreeMap<Double, Vector<Integer>>();
+            TreeMap<Double, Vector<Integer>> nextmap = new TreeMap<>();
             
             for(int Mtimes = 0; Mtimes < prevmap.size(); Mtimes++){
 
