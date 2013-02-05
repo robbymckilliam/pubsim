@@ -1,6 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 package pubsim.fes;
 
@@ -8,10 +6,10 @@ import flanagan.complex.Complex;
 import flanagan.math.FourierTransform;
 
 /**
- * The is a periodogram estimator that uses the FFT implemented
+ * Periodogram estimator of a single frequency.  Uses the FFT implemented
  * by Michael Flagan
  * (http://www.ee.ucl.ac.uk/~mflanaga/java/FourierTransform.html#fft).
- * This librarby automatically zero pads if the data is not a power of 2
+ * This library automatically zero pads if the data is not a power of 2
  * so, you need to be concious of this when choosing data length.
  * @author Robby McKilliam
  */
@@ -29,10 +27,7 @@ public class PeriodogramFFTEstimator implements FrequencyEstimator {
 
     /** oversampling defaults to 4 as per Rife and Borstyn */
     public PeriodogramFFTEstimator(int N) {
-        oversampled = 4;
-        this.N = N;
-        sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * N)];
-        fft = new FourierTransform();
+        this(N,4);
     }
 
     /** Constructor that sets the number of samples to be taken of

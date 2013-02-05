@@ -1,6 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 
 package pubsim.bearing.phase;
@@ -8,7 +6,7 @@ package pubsim.bearing.phase;
 import pubsim.Complex;
 
 /**
- *
+ * Standard least squares estimator of phase
  * @author Robby McKilliam
  */
 public class SampleCircularMean implements PhaseEstimator{

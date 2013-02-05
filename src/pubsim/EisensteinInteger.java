@@ -22,6 +22,10 @@ public class EisensteinInteger extends Complex {
 
     /** Tolerance when testing equality */
     private static final double tol = 0.0000001;
+    
+    public EisensteinInteger(Complex x){
+        this(x.re,x.im);
+    }
 
     public EisensteinInteger(double x, double y){
         super(x,y);
@@ -31,16 +35,6 @@ public class EisensteinInteger extends Complex {
         re = r[0];
         im = r[1];
     }
-
-    public EisensteinInteger(Complex x){
-        super(x);
-        double[] a = {x.re(), x.im()};
-        hex_lattice.nearestPoint(a);
-        double[] r = hex_lattice.getLatticePoint();
-        re = r[0];
-        im = r[1];
-    }
-
 
     public boolean isUnit(){
         return (this.abs2() - 1.0) < tol;

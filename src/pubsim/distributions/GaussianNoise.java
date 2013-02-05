@@ -65,7 +65,7 @@ public class GaussianNoise extends AbstractRealRandomVariable implements RealRan
     @Override
     public Complex characteristicFunction(Double t){
         double m = Math.exp(-variance*t*t/2.0);
-        return Complex.constructComplexExp(m, mean*t);
+        return Complex.polar(m, mean*t);
     }
 
 

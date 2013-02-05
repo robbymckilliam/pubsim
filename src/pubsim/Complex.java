@@ -18,6 +18,9 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     
     protected double re;   // the real part
     protected double im;   // the imaginary part
+    
+    final public static Complex zero = new Complex(0,0);
+    final public static Complex one = new Complex(1,0);
 
     /** create a new object with the given real and imaginary parts */
     public Complex(double real, double imag) {
@@ -40,7 +43,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     /**
      * Construct a complex number with magnitude m and phase a in radians
      */
-    public static Complex constructComplexExp(double m, double a){
+    public static Complex polar(double m, double a){
         return new Complex(m*Math.cos(a), m*Math.sin(a));
     }
     
@@ -54,16 +57,16 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     }
 
     /** return abs/modulus/magnitude */
-    public double abs()   { return Math.hypot(re, im); }  // Math.sqrt(re*re + im*im)
+    final public double abs()   { return Math.hypot(re, im); }  // Math.sqrt(re*re + im*im)
     
     /** Return the angle/phase/argument */
-    public double phase() { return Math.atan2(im, re); }  // between -pi and pi
+    final public double phase() { return Math.atan2(im, re); }  // between -pi and pi
     
     /** Return abs/modulus/magnitude */
-    public double abs2()   { return re*re + im*im; }
+    final public double abs2()   { return re*re + im*im; }
 
     /** return a new Complex object whose value is (this + b) */
-    public Complex plus(Complex b) {
+    final public Complex plus(Complex b) {
         return new Complex(re + b.re, im + b.im);
     }
     
@@ -73,7 +76,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
 //    }
 
     /** return a new Complex object whose value is (this - b) */
-    public Complex minus(Complex b) {
+    final  public Complex minus(Complex b) {
         return new Complex(re - b.re, im - b.im);
     }
     
@@ -83,7 +86,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
 //    }
 
     /** return a new Complex object whose value is (this * b) */
-    public Complex times(Complex b) {
+    final public Complex times(Complex b) {
         Complex a = this;
         double real = a.re * b.re - a.im * b.im;
         double imag = a.re * b.im + a.im * b.re;
@@ -142,8 +145,8 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
 //    }
 
     /** return the real or imaginary part */
-    public double re() { return re; }
-    public double im() { return im; }
+    final public double re() { return re; }
+    final public double im() { return im; }
 
     /** return a / b */
     public Complex divides(Complex b) {
@@ -185,10 +188,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     
     /** a static version of plus */
     public static Complex plus(Complex a, Complex b) {
-        double real = a.re + b.re;
-        double imag = a.im + b.im;
-        Complex sum = new Complex(real, imag);
-        return sum;
+        return new Complex(a.re + b.re, a.im + b.im);
     }
     
     /** Test if this complex number is equal to c */

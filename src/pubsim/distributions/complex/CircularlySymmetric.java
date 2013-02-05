@@ -60,8 +60,7 @@ public class CircularlySymmetric implements ComplexRandomVariable {
 
     @Override
     public Complex getNoise() {
-        return Complex.constructComplexExp(mag.getNoise(), 
-                                            2*Math.PI*angle.getNoise());
+        return Complex.polar(mag.getNoise(), 2*Math.PI*angle.getNoise());
     }
 
     @Override
