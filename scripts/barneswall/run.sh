@@ -1,1 +1,0 @@
-scala -nocompdaemon -cp ../../lib/PubSim.jar:../../lib/Jama-1.0.2.jar:../../lib/flanagan.jar:../../lib/colt.jar:../../lib/RngPack.jar run.scala
