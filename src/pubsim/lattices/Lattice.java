@@ -12,19 +12,19 @@ import Jama.Matrix;
  * generator matrix.
  * @author Robby McKilliam
  */
-public class GeneralLattice extends AbstractLattice {
+public class Lattice extends AbstractLattice {
 
     /** The generator matrix for the lattice */
     protected Matrix B;
     
-    protected GeneralLattice(){
+    protected Lattice(){
     }
     
-    public GeneralLattice(Matrix B){
+    public Lattice(Matrix B){
         this.B = B;
     }
     
-    public GeneralLattice(double[][] B){
+    public Lattice(double[][] B){
         this.B = new Matrix(B);
     }
 

@@ -9,10 +9,10 @@ import Jama.Matrix;
 import java.io.Serializable;
 
 /**
- * Interface for a Lattice
+ * Interface for a LatticeInterface
  * @author Robby McKilliam
  */
-public interface Lattice extends Serializable {
+public interface LatticeInterface extends Serializable {
     
     /** 
      * Return the volume of the fundamental region

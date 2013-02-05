@@ -9,7 +9,7 @@ import pubsim.lattices.util.PointInSphere;
 import Jama.Matrix;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarBucket;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 import pubsim.lattices.Zn;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -74,7 +74,7 @@ public class PointInSphereTest {
 
         for(radius = 2.0; radius < 100.0; radius += 3.0){
             System.out.println(radius);
-            PointInSphere instance = new PointInSphere(new GeneralLattice(B), radius);
+            PointInSphere instance = new PointInSphere(new Lattice(B), radius);
             while(instance.hasMoreElements()){
                 double[] p = instance.nextElementDouble();
                 //System.out.println(VectorFunctions.print(p));
@@ -99,7 +99,7 @@ public class PointInSphereTest {
         for(radius = 2.0; radius < 100.0; radius += 3.0){
             System.out.println(radius);
             double[] c = VectorFunctions.randomGaussian(2, 0, 1000);
-            PointInSphere instance = new PointInSphere(new GeneralLattice(B), radius, c);
+            PointInSphere instance = new PointInSphere(new Lattice(B), radius, c);
             while(instance.hasMoreElements()){
                 double[] p = instance.nextElementDouble();
                 //System.out.println(VectorFunctions.print(p));

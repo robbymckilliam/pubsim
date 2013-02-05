@@ -6,7 +6,7 @@
 package pubsim.lattices.util;
 
 import java.io.Serializable;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  * Abstract class for brute forcing approximating properties of lattices.
@@ -15,12 +15,12 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  */
 abstract class PropertyCalculator implements Serializable{
 
-    protected final LatticeAndNearestPointAlgorithm L;
+    protected final LatticeAndNearestPointAlgorithmInterface L;
     protected int numsamples;
 
     protected PropertyCalculator(){L = null;}
 
-    public PropertyCalculator(LatticeAndNearestPointAlgorithm L){
+    public PropertyCalculator(LatticeAndNearestPointAlgorithmInterface L){
         this.L = L;
     }
 

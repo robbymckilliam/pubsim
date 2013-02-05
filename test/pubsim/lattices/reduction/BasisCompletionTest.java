@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 
 /**
@@ -47,7 +47,7 @@ public class BasisCompletionTest {
 	int dim = 5;
 	Matrix B = Matrix.random(dim, dim);
 	ShortVectorSphereDecoded svsd
-	    = new ShortVectorSphereDecoded(new GeneralLattice(B));
+	    = new ShortVectorSphereDecoded(new Lattice(B));
 	BasisCompletion cb = new BasisCompletion();
 	Matrix sv = VectorFunctions.columnMatrix(svsd.getShortestVector());
 	//System.out.println("final B = ");

@@ -20,7 +20,7 @@ import java.util.Random;
  * @author Robby McKilliam
  */
 public abstract class NearestPointAlgorithmStandardNumenclature
-    extends AbstractLattice implements LatticeAndNearestPointAlgorithm{
+    extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface{
     
     /** The nearest lattice point */
     protected double[] v;
@@ -77,7 +77,7 @@ public abstract class NearestPointAlgorithmStandardNumenclature
         Random rand = new Random();
         double[] y = new double[n];
         
-        LatticeAndNearestPointAlgorithm instance = new AnmBucket(n-1, M);
+        LatticeAndNearestPointAlgorithmInterface instance = new AnmBucket(n-1, M);
         /*
         double[] y = {0.21, 0.211, 0.2111, 0.21111, 0.211111, 0.21112};
         

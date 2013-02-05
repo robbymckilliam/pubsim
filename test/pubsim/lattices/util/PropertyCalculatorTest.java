@@ -7,7 +7,7 @@ package pubsim.lattices.util;
 
 import pubsim.lattices.util.PropertyCalculator;
 import pubsim.lattices.Anm.AnmLinear;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.Vn1Star.Vn1StarZnLLS;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -105,7 +105,7 @@ public class PropertyCalculatorTest {
 //        int N = 4;
 //        //construct a lattice 2Dn
 //        Matrix B = (new Dn(N)).getGeneratorMatrix().times(0.5);
-//        LatticeAndNearestPointAlgorithm L
+//        LatticeAndNearestPointAlgorithmInterface L
 //                = new GeneralLatticeAndNearestPointAlgorithm(B);
 //
 //        PropertyCalculator prop = new PropertyCalculator(L, samples);
@@ -144,7 +144,7 @@ public class PropertyCalculatorTest {
 //        System.out.println("testCoxeter");
 //        int N = 8;
 //        int M = 3;
-//        LatticeAndNearestPointAlgorithm anm =  new AnmLinear(M);
+//        LatticeAndNearestPointAlgorithmInterface anm =  new AnmLinear(M);
 //        anm.setDimension(N);
 //
 //        PropertyCalculator prop = new PropertyCalculator(anm);

@@ -11,9 +11,9 @@ import static pubsim.VectorFunctions.times;
  * Class for storing scaled versions of lattices
  * @author Robby McKilliam
  */
-public class ScaledLattice extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
+public class ScaledLattice extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface {
     
-    protected final LatticeAndNearestPointAlgorithm L;
+    protected final LatticeAndNearestPointAlgorithmInterface L;
     protected final double d;
     protected final Matrix B;
     protected final int n,m;
@@ -24,7 +24,7 @@ public class ScaledLattice extends AbstractLattice implements LatticeAndNearestP
      * @param L the lattice
      * @param d the scale factor
      */
-    public ScaledLattice(LatticeAndNearestPointAlgorithm L, double d){
+    public ScaledLattice(LatticeAndNearestPointAlgorithmInterface L, double d){
         this.L = L;
         this.d = d;
         this.B = L.getGeneratorMatrix().times(d);

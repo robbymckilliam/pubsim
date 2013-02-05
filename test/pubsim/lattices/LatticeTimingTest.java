@@ -37,7 +37,7 @@ public class LatticeTimingTest {
         int nend = 250;
         int nstep = 16;
 
-        LatticeAndNearestPointAlgorithm lattice = null;
+        LatticeAndNearestPointAlgorithmInterface lattice = null;
 
         for(int n : range(nstart, nend, nstep) ){
 

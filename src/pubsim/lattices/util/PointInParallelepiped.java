@@ -8,7 +8,7 @@ package pubsim.lattices.util;
 import Jama.Matrix;
 import java.util.Enumeration;
 import java.util.Iterator;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 
 /**
  * Return a set of point uniformly (kind of) distributed in the
@@ -35,7 +35,7 @@ public class PointInParallelepiped
      * @param L is the lattice
      * @param samples is the number of samples used per dimension
      */
-    public PointInParallelepiped(Lattice L, int samples){
+    public PointInParallelepiped(LatticeInterface L, int samples){
         init(L.getGeneratorMatrix(), samples);
     }
 
@@ -51,7 +51,7 @@ public class PointInParallelepiped
      * @param L is the lattice
      * @param samples is the number of samples used per dimension
      */
-    public PointInParallelepiped(Lattice L, int[] samples){
+    public PointInParallelepiped(LatticeInterface L, int[] samples){
         init(L.getGeneratorMatrix(), samples);
     }
 

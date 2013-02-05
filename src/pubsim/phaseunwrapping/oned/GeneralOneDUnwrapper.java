@@ -6,10 +6,10 @@
 package pubsim.phaseunwrapping.oned;
 
 import Jama.Matrix;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.VectorFunctions;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 
 /**
  * The most general of the 1D unwrappers.  You can set
@@ -28,7 +28,7 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
 
     int m, w, N;
     Matrix B;
-    NearestPointAlgorithm decoder;
+    NearestPointAlgorithmInterface decoder;
     double[] u;
 
     protected GeneralOneDUnwrapper(){
@@ -77,7 +77,7 @@ public class GeneralOneDUnwrapper implements OneDUnwrapperInterface{
         
         Jama.QRDecomposition QR = new Jama.QRDecomposition(B);
         System.out.println("R = \n" + VectorFunctions.print(QR.getR()));
-        decoder = new SphereDecoder(new GeneralLattice(
+        decoder = new SphereDecoder(new Lattice(
                 B.getMatrix(0,B.getRowDimension()-1, 0, N-3)));
         
     }

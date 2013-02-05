@@ -4,7 +4,7 @@ import java.io.Serializable;
 import static pubsim.Util.fracpart;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarLinear;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 
 /**
@@ -36,7 +36,7 @@ public interface PRIEstimator extends Serializable{
      */
     public static class PhaseEstimator {
 
-        protected final LatticeAndNearestPointAlgorithm lattice;
+        protected final LatticeAndNearestPointAlgorithmInterface lattice;
         protected final double[] z, fz;
         protected final int N;
 

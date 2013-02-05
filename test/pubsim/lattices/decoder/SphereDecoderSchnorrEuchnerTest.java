@@ -9,8 +9,8 @@ import Jama.Matrix;
 import static org.junit.Assert.assertTrue;
 import org.junit.*;
 import pubsim.VectorFunctions;
-import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 
 /**
  *
@@ -44,7 +44,7 @@ public class SphereDecoderSchnorrEuchnerTest {
         int iters = 100;
         int n = 20;
 
-        Lattice lattice = new GeneralLattice(Matrix.random(n, n));
+        LatticeInterface lattice = new Lattice(Matrix.random(n, n));
 
         SphereDecoder decoder = new SphereDecoder(lattice);
         SphereDecoder sdSE = new SphereDecoderSchnorrEuchner(lattice);
@@ -71,7 +71,7 @@ public class SphereDecoderSchnorrEuchnerTest {
 //        int iters = 1000;
 //        int n = 30;
 //
-//        Lattice lattice = new GeneralLattice(Matrix.random(n, n));
+//        LatticeInterface lattice = new Lattice(Matrix.random(n, n));
 //
 //        SphereDecoder decoder = new SphereDecoderSchnorrEuchner(lattice);
 //

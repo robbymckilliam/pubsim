@@ -5,7 +5,7 @@
 package pubsim.lattices.util;
 
 import pubsim.distributions.NoiseGenerator;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class ProbabilityOfCodingError {
      * Estimates the probability of the random variable ngen being outside the Voronoi
      * cell of L.
      */
-    public ProbabilityOfCodingError(LatticeAndNearestPointAlgorithm L, NoiseGenerator<Double> ngen, int numerrors){
+    public ProbabilityOfCodingError(LatticeAndNearestPointAlgorithmInterface L, NoiseGenerator<Double> ngen, int numerrors){
         
         int errorcount = 0;
         long itercount = 0;

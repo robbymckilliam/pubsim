@@ -51,7 +51,7 @@ public class BarnesWallTest {
         for(int m = 1; m < 5; m++){
             BarnesWall lattice = new BarnesWall(m);
             Matrix B = lattice.getGeneratorMatrix();
-            GeneralLattice gl = new GeneralLattice(B);
+            Lattice gl = new Lattice(B);
             //System.out.println(VectorFunctions.print(B));
             //System.out.println(gl.norm() + ", " + lattice.norm());
             //System.out.println(gl.volume() + ", " + lattice.volume());

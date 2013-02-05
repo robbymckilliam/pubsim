@@ -12,7 +12,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 import static pubsim.VectorFunctions.matrixMultVector;
 import static pubsim.VectorFunctions.onesColumn;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.decoder.ShortVector;
 
 /**
@@ -27,7 +27,7 @@ public class MinCutShortVector implements ShortVector{
     
     final double[] u,v;
     
-    public MinCutShortVector(Lattice L){
+    public MinCutShortVector(LatticeInterface L){
         Matrix Bs = L.getGeneratorMatrix();
         M = Bs.getRowDimension();
         N = Bs.getColumnDimension();

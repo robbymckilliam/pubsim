@@ -7,7 +7,7 @@ package pubsim.lattices.leech;
 
 import Jama.Matrix;
 import pubsim.VectorFunctions;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.Zn;
 
 /**
@@ -15,7 +15,7 @@ import pubsim.lattices.Zn;
  * This doesn't work.
  * @author Robby McKilliam
  */
-public class LeechLarentzianGlued extends Leech implements LatticeAndNearestPointAlgorithm {
+public class LeechLarentzianGlued extends Leech implements LatticeAndNearestPointAlgorithmInterface {
 
     protected final double[] u = new double[25];
     protected final double[] v = new double[25];

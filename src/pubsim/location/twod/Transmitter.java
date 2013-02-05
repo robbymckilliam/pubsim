@@ -8,7 +8,7 @@ package pubsim.location.twod;
 import Jama.Matrix;
 import pubsim.distributions.RealRandomVariable;
 import java.util.Vector;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.util.PointInSphere;
 import pubsim.Point2;
 import pubsim.VectorFunctions;
@@ -56,7 +56,7 @@ public class Transmitter extends Object {
      * @param radius radius of the sphere
      * @param wgen generator for transmitter wavelengths.
      */
-    public static Transmitter[] getLatticeArray(Lattice L, double radius, Point2 y, RealRandomVariable wgen){
+    public static Transmitter[] getLatticeArray(LatticeInterface L, double radius, Point2 y, RealRandomVariable wgen){
         PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
         Vector<Transmitter> tvec = new Vector<Transmitter>();
         while(points.hasMoreElements()){
@@ -74,7 +74,7 @@ public class Transmitter extends Object {
      * @param ngen generator for position noise.
      * @param wgen generator for transmitter wavelengths.
      */
-    public static Transmitter[] getNoisyLatticeArray(Lattice L, double radius, Point2 y, RealRandomVariable ngen, RealRandomVariable wgen){
+    public static Transmitter[] getNoisyLatticeArray(LatticeInterface L, double radius, Point2 y, RealRandomVariable ngen, RealRandomVariable wgen){
         PointInSphere points = new PointInSphere(L, radius, y.getColumnPackedCopy());
         Vector<Transmitter> tvec = new Vector<Transmitter>();
         while(points.hasMoreElements()){

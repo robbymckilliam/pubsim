@@ -5,7 +5,7 @@
 package pubsim.lattices.util;
 
 import static pubsim.VectorFunctions.sum2;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  *
@@ -20,7 +20,7 @@ public class PowerOfEuclideanNorm extends PropertyCalculator {
      * @param L lattice to compute a moment from
      * @param m order of the moment, i.e. compute the mth moment
      */
-    public PowerOfEuclideanNorm(LatticeAndNearestPointAlgorithm L, int m){
+    public PowerOfEuclideanNorm(LatticeAndNearestPointAlgorithmInterface L, int m){
         super(L);
         this.m = m;
     }

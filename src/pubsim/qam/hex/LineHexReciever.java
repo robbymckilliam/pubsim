@@ -5,7 +5,7 @@
 
 package pubsim.qam.hex;
 
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.Complex;
 import pubsim.Point2;
 import pubsim.VectorFunctions;

@@ -6,7 +6,7 @@ package pubsim.lattices.Anm;
 
 import Jama.Matrix;
 import pubsim.lattices.An.AnSorted;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
 
 /**
@@ -31,7 +31,7 @@ public class Anm extends NearestPointAlgorithmStandardNumenclature{
 
     @Override
     public Matrix getGeneratorMatrix() {
-        Lattice an = new AnSorted(n);
+        LatticeInterface an = new AnSorted(n);
         Matrix Mat = an.getGeneratorMatrix();
         double d = ((double) m)/(n+1);
         for(int i = 0; i < n+1; i++){

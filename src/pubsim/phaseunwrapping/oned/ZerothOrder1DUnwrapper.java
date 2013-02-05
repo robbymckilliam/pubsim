@@ -6,10 +6,10 @@
 package pubsim.phaseunwrapping.oned;
 
 import Jama.Matrix;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.BabaiNoLLL;
 import pubsim.VectorFunctions;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 
 /**
  * Uses the sphere decoder to perform 0th order unwrapping
@@ -18,7 +18,7 @@ import pubsim.lattices.NearestPointAlgorithm;
 public class ZerothOrder1DUnwrapper implements OneDUnwrapperInterface {
 
     protected Matrix B;
-    NearestPointAlgorithm decoder;
+    NearestPointAlgorithmInterface decoder;
     int N;
     double[] u;
 
@@ -43,7 +43,7 @@ public class ZerothOrder1DUnwrapper implements OneDUnwrapperInterface {
 
         System.out.println(VectorFunctions.print(B));
 
-        decoder = new BabaiNoLLL(new GeneralLattice(B.getMatrix(0, N-2, 0, N-2)));
+        decoder = new BabaiNoLLL(new Lattice(B.getMatrix(0, N-2, 0, N-2)));
         
     }
 

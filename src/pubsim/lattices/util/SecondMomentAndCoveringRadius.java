@@ -6,7 +6,7 @@
 package pubsim.lattices.util;
 
 import pubsim.VectorFunctions;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  *
@@ -18,7 +18,7 @@ public class SecondMomentAndCoveringRadius extends PropertyCalculator{
     protected final int N;
     protected double sm = 0.0, outradius = 0.0;
 
-    public SecondMomentAndCoveringRadius(LatticeAndNearestPointAlgorithm L){
+    public SecondMomentAndCoveringRadius(LatticeAndNearestPointAlgorithmInterface L){
         super(L);
         vol = L.volume();
         N = L.getDimension();

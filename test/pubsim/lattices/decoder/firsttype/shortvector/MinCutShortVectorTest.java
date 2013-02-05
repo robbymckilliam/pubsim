@@ -9,7 +9,7 @@ import org.junit.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnSorted;
 import pubsim.lattices.Anstar.AnstarSorted;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 
 /**
@@ -44,7 +44,7 @@ public class MinCutShortVectorTest {
     public void testWithAnStar() {
         System.out.println("testWithAnStar");
         int n = 50;
-        Lattice lattice = new AnstarSorted(n);
+        LatticeInterface lattice = new AnstarSorted(n);
         MinCutShortVector instance = new MinCutShortVector(lattice);
         ShortVectorSphereDecoded tester = new ShortVectorSphereDecoded(lattice);
         
@@ -65,7 +65,7 @@ public class MinCutShortVectorTest {
     public void testWithAn() {
         System.out.println("testWithAn");
         int n = 50;
-        Lattice lattice = new AnSorted(n);
+        LatticeInterface lattice = new AnSorted(n);
         MinCutShortVector instance = new MinCutShortVector(lattice);
         ShortVectorSphereDecoded tester = new ShortVectorSphereDecoded(lattice);
         

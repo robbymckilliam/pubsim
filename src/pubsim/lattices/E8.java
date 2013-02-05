@@ -12,7 +12,7 @@ import pubsim.VectorFunctions;
  * The E8 lattice with nearest point algorithm based on gluing two translates of D8.
  * @author Robby McKilliam
  */
-public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
+public class E8 extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface {
     
     final protected int n = 8;
     final protected double[] yt= new double[8],u = new double[8], v = new double[8];

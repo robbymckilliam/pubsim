@@ -12,9 +12,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.Anstar.AnstarSorted;
-import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.Lattice;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeInterface;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.Zn;
 
 /**
@@ -48,7 +48,7 @@ public class MbestTest {
         int M = 10;
         double[] y = {1, 2, 3, 4};
 
-        GeneralLattice lattice = new GeneralLattice(Matrix.random(6, 5));
+        Lattice lattice = new Lattice(Matrix.random(6, 5));
         Mbest instance = new Mbest(lattice,M);
 
         boolean caught = false;
@@ -109,7 +109,7 @@ public class MbestTest {
         double del = 0.0001;
         for(int t = 0; t < iters; t++){
             int n = r.nextInt(100) + 5;
-            LatticeAndNearestPointAlgorithm lattice = new AnstarSorted(n-1);
+            LatticeAndNearestPointAlgorithmInterface lattice = new AnstarSorted(n-1);
             Matrix G = lattice.getGeneratorMatrix();
 
             Mbest instance = new Mbest(lattice,n);
@@ -147,8 +147,8 @@ public class MbestTest {
         double del = 1000.0;
         for(int t = 0; t < iters; t++){
             int n = r.nextInt(100) + 5;
-            Lattice lattice
-                    = new GeneralLattice(Matrix.random(n, n));
+            LatticeInterface lattice
+                    = new Lattice(Matrix.random(n, n));
             Matrix G = lattice.getGeneratorMatrix();
 
             Mbest instance = new Mbest(lattice, n);

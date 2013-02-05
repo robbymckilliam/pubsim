@@ -18,7 +18,7 @@ import pubsim.lattices.util.PointInParallelepiped;
  * for An* to help speed things up.
  * @author Robby McKilliam
  */
-public class VnmStarSampled extends VnmStar implements LatticeAndNearestPointAlgorithm {
+public class VnmStarSampled extends VnmStar implements LatticeAndNearestPointAlgorithmInterface {
 
     final private Anstar anstar;
     final private double[] x, u;

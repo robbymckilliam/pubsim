@@ -6,7 +6,7 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.util.IntegerVectors;
 import static pubsim.VectorFunctions.add;
 import static pubsim.VectorFunctions.times;
@@ -33,7 +33,7 @@ public class VoronoiCodeAutoTranslation
     private final int MAX_ITER = 11;
 
     public VoronoiCodeAutoTranslation(
-            LatticeAndNearestPointAlgorithm lattice, int scale) {
+            LatticeAndNearestPointAlgorithmInterface lattice, int scale) {
         super(lattice, scale);
         //small translation of a so that Nearest point algorithm
         //wont be ambiguous.  It shouldn't anyway, this is just

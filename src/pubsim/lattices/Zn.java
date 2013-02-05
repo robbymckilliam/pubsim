@@ -14,7 +14,7 @@ import Jama.Matrix;
  * for completeness.
  * @author Robby McKilliam
  */
-public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
+public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface {
     
     protected double[] x;
     protected int n;

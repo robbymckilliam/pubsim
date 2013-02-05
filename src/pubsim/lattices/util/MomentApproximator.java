@@ -6,7 +6,7 @@
 package pubsim.lattices.util;
 
 import static pubsim.VectorFunctions.norm;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  * Approximate moments of the Voronoi cell of a lattice by brute force
@@ -22,7 +22,7 @@ public class MomentApproximator extends PropertyCalculator {
      * @param L lattice to compute a moment from
      * @param m order of the moment, i.e. compute the mth moment
      */
-    public MomentApproximator(LatticeAndNearestPointAlgorithm L, int m){
+    public MomentApproximator(LatticeAndNearestPointAlgorithmInterface L, int m){
         super(L);
         this.m = m;
     }

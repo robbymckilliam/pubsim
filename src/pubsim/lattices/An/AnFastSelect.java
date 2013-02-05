@@ -9,7 +9,7 @@ import pubsim.lattices.Anstar.Anstar;
 import pubsim.FastSelection;
 import pubsim.IndexedDouble;
 import pubsim.VectorFunctions;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  * Simple linear time An algorithm using the Rivest Tarjan
@@ -17,7 +17,7 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
  * recent version of SPLAG.
  * @author Robby McKilliam
  */
-public class AnFastSelect extends An implements LatticeAndNearestPointAlgorithm {
+public class AnFastSelect extends An implements LatticeAndNearestPointAlgorithmInterface {
 
     protected final IndexedDouble[] z;
     

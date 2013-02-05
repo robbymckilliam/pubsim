@@ -7,7 +7,7 @@ package pubsim.lattices.leech;
 import org.junit.*;
 import static org.junit.Assert.*;
 import pubsim.VectorFunctions;
-import pubsim.lattices.GeneralLatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
  *
@@ -45,7 +45,7 @@ public class LeechSeededSphereDecoderTest {
         int n = 24;
         
         LeechSeededSphereDecoder instance = new LeechSeededSphereDecoder();
-        GeneralLatticeAndNearestPointAlgorithm tester = new GeneralLatticeAndNearestPointAlgorithm(instance.getGeneratorMatrix());
+        LatticeAndNearestPointAlgorithm tester = new LatticeAndNearestPointAlgorithm(instance.getGeneratorMatrix());
         
         for(int t = 0; t < iters; t++){
 

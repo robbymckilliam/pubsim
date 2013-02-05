@@ -11,7 +11,7 @@ import org.junit.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarSorted;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 import pubsim.lattices.Vn1Star.Vn1StarGlued;
 import pubsim.lattices.Zn;
 
@@ -45,7 +45,7 @@ public class SphereDecoderTest {
         System.out.println("returnsErrorWhenDimensionAreWrong");
         double[] y = {1, 2, 3, 4};
         
-        GeneralLattice lattice = new GeneralLattice(Matrix.random(6, 5));
+        Lattice lattice = new Lattice(Matrix.random(6, 5));
         SphereDecoder decoder = new SphereDecoder(lattice);
         
         boolean caught = false;
@@ -104,7 +104,7 @@ public class SphereDecoderTest {
         int m = 6;
         for(int t = 0; t < iters; t++){
             
-            GeneralLattice lattice = new GeneralLattice(Matrix.random(m, n));
+            Lattice lattice = new Lattice(Matrix.random(m, n));
             
             SphereDecoder decoder = new SphereDecoder(lattice);
             Babai babai = new Babai(lattice);

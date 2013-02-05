@@ -8,8 +8,8 @@ package pubsim.lattices.util;
 import pubsim.lattices.util.PointsInHypercube;
 import Jama.Matrix;
 import pubsim.lattices.Dn;
-import pubsim.lattices.GeneralLattice;
 import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.Vnm.Vnm;
 import pubsim.lattices.VnmStar;
 import pubsim.lattices.VnmStarGlued;
@@ -58,7 +58,7 @@ public class PointsInHypercubeTest {
         System.out.println("testWithScaledZn");
         int n = 3;
         Matrix M = Matrix.identity(n, n).times(0.5);
-        Lattice L = new GeneralLattice(M);
+        LatticeInterface L = new Lattice(M);
         PointsInHypercube points = new PointsInHypercube(L);
 
         int count = 0;
@@ -80,7 +80,7 @@ public class PointsInHypercubeTest {
 
         Matrix M = Matrix.identity(2, 2);
         M.set(0,1, 0.5); M.set(1,1, 0.5);
-        Lattice L = new GeneralLattice(M);
+        LatticeInterface L = new Lattice(M);
         PointsInHypercube points = new PointsInHypercube(L);
         int count = 0;
         while(points.hasMoreElements()){
@@ -143,12 +143,12 @@ public class PointsInHypercubeTest {
         System.out.println(L.det());
         System.out.println(B.det());
 
-        Lattice Vnm = new Vnm(n, m+1);
+        LatticeInterface Vnm = new Vnm(n, m+1);
         double volume = Vnm.volume();
         double det = volume*volume;
         //assertEquals(1.0/det, B.det(), 0.000001);
 
-        PointsInHypercube points = new PointsInHypercube(new GeneralLattice(B));
+        PointsInHypercube points = new PointsInHypercube(new Lattice(B));
 
 
         int count = 0;

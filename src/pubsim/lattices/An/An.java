@@ -8,7 +8,7 @@ package pubsim.lattices.An;
 import Jama.Matrix;
 import pubsim.Util;
 import pubsim.lattices.AbstractLattice;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 
 /**
  * Abstract for the lattice An.  Protected variable u and n
@@ -16,7 +16,7 @@ import pubsim.lattices.NearestPointAlgorithm;
  * and n is the dimension.
  * @author Robby McKilliam
  */
-public abstract class An extends AbstractLattice implements NearestPointAlgorithm {
+public abstract class An extends AbstractLattice implements NearestPointAlgorithmInterface {
 
     protected double[] u;
     protected int n;

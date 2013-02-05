@@ -8,7 +8,7 @@ package pubsim.lattices.Vn1Star;
 
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 import pubsim.*;
 import pubsim.lattices.Anstar.AnstarLinear;
 

@@ -7,7 +7,7 @@ package pubsim.lattices.util;
 
 import Jama.Matrix;
 import java.util.concurrent.LinkedBlockingQueue;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.VectorFunctions;
 
 /**
@@ -42,7 +42,7 @@ public class PointInSphere
      * @param radius The radius of the sphere
      * @param center The position of the center of the sphere
      */
-    public PointInSphere(Lattice lattice, double radius, double[] center){
+    public PointInSphere(LatticeInterface lattice, double radius, double[] center){
         init(lattice, radius, center);
     }
 
@@ -51,12 +51,12 @@ public class PointInSphere
      * @param lattice
      * @param radius The radius of the sphere
      */
-    public PointInSphere(Lattice lattice, double radius){
+    public PointInSphere(LatticeInterface lattice, double radius){
         double[] center = new double[lattice.getGeneratorMatrix().getRowDimension()];
         init(lattice, radius, center);
     }
 
-    protected void init(Lattice lattice, double radius, double[] center){
+    protected void init(LatticeInterface lattice, double radius, double[] center){
         M = lattice.getGeneratorMatrix();
         m = M.getRowDimension();
         n = M.getColumnDimension();

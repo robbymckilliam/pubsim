@@ -6,7 +6,7 @@
 package pubsim.lattices.decoder;
 
 import Jama.Matrix;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 
 /**
  * 
@@ -14,7 +14,7 @@ import pubsim.lattices.Lattice;
  */
 public class MbestNoLLL extends Mbest {
 
-    public MbestNoLLL(Lattice L, int M){
+    public MbestNoLLL(LatticeInterface L, int M){
         super(L,M);
         
         G = L.getGeneratorMatrix().copy();

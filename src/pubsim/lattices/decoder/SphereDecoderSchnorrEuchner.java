@@ -6,7 +6,7 @@
 package pubsim.lattices.decoder;
 
 import pubsim.VectorFunctions;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 
 /**
  * This is a sphere decoder that searches the 'planes' in a greedy
@@ -16,7 +16,7 @@ import pubsim.lattices.Lattice;
  */
 public class SphereDecoderSchnorrEuchner extends SphereDecoder{
 
-    public SphereDecoderSchnorrEuchner(Lattice L){
+    public SphereDecoderSchnorrEuchner(LatticeInterface L){
         super(L);
     }
 

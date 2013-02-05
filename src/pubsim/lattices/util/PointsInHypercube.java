@@ -7,7 +7,7 @@ package pubsim.lattices.util;
 
 import Jama.Matrix;
 import java.util.concurrent.LinkedBlockingQueue;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.VectorFunctions;
 
 /**
@@ -35,7 +35,7 @@ public class PointsInHypercube extends PointInSphere {
     /**
      * @param lattice
      */
-    public PointsInHypercube(Lattice lattice, double[] center){
+    public PointsInHypercube(LatticeInterface lattice, double[] center){
         int rows = lattice.getGeneratorMatrix().getRowDimension();
         double radius = 0.5 * Math.sqrt(rows);
         init(lattice, radius, center);
@@ -43,7 +43,7 @@ public class PointsInHypercube extends PointInSphere {
         
     }
 
-    public PointsInHypercube(Lattice lattice){
+    public PointsInHypercube(LatticeInterface lattice){
         int rows = lattice.getGeneratorMatrix().getRowDimension();
         double radius = 0.5 * Math.sqrt(rows);
 

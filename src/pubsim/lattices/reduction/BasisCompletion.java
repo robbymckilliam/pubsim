@@ -13,7 +13,7 @@ import Jama.Matrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.lattices.reduction.LLL;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 
 public class BasisCompletion extends LLL {
     protected double shortest;
@@ -63,7 +63,7 @@ public class BasisCompletion extends LLL {
 	int dim = 5;
 	Matrix B = Matrix.random(dim, dim);
 	ShortVectorSphereDecoded svsd
-	    = new ShortVectorSphereDecoded(new GeneralLattice(B));
+	    = new ShortVectorSphereDecoded(new Lattice(B));
 	BasisCompletion cb = new BasisCompletion();
 	Matrix sv = VectorFunctions.columnMatrix(svsd.getShortestVector());
 	System.out.println("final B = ");

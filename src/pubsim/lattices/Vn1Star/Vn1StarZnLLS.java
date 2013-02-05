@@ -9,14 +9,14 @@ import pubsim.lattices.Anstar.Anstar;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import pubsim.lattices.Anstar.AnstarLinear;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 
 /**
  * O(N^3log(N)) version of the nearest point algorithm for Vnm*.
  * @author Robby McKilliam
  */
 public class Vn1StarZnLLS extends
-        Vn1Star implements NearestPointAlgorithm {
+        Vn1Star implements NearestPointAlgorithmInterface {
 
     final double[] g, glue, z, x;
     final Anstar anstar;

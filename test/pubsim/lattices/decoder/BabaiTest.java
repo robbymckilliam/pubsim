@@ -12,8 +12,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.Anstar.AnstarSorted;
-import pubsim.lattices.GeneralLattice;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.Zn;
 
 /**
@@ -45,7 +45,7 @@ public class BabaiTest {
     public void returnsErrorWhenDimensionAreWrong() {
         System.out.println("nearestPoint");
         double[] y = {1, 2, 3, 4};
-        GeneralLattice lattice = new GeneralLattice(Matrix.random(6, 5));
+        Lattice lattice = new Lattice(Matrix.random(6, 5));
         Babai instance = new Babai(lattice);
         
         boolean caught = false;
@@ -104,7 +104,7 @@ public class BabaiTest {
         double del = 0.0001;
         for(int t = 0; t < iters; t++){
             int n = r.nextInt(10) + 5;
-            LatticeAndNearestPointAlgorithm lattice = new AnstarSorted(n-1);
+            LatticeAndNearestPointAlgorithmInterface lattice = new AnstarSorted(n-1);
             Matrix G = lattice.getGeneratorMatrix();
             
             Babai babai = new Babai(lattice);

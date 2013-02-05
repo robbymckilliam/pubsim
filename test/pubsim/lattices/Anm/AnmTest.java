@@ -9,8 +9,8 @@ import Jama.Matrix;
 import junit.framework.TestCase;
 import pubsim.VectorFunctions;
 import pubsim.VectorFunctionsTest;
-import pubsim.lattices.GeneralLatticeAndNearestPointAlgorithm;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  *
@@ -38,7 +38,7 @@ public class AnmTest extends TestCase {
         System.out.println("testGeneratorMatrix");
         int m = 2;
         int n = 13;
-        LatticeAndNearestPointAlgorithm anm = new AnmSorted(n,m);
+        LatticeAndNearestPointAlgorithmInterface anm = new AnmSorted(n,m);
         Matrix Mat = anm.getGeneratorMatrix();
         System.out.println(VectorFunctions.print(Mat));
 
@@ -48,8 +48,8 @@ public class AnmTest extends TestCase {
 
 
         double[] r = VectorFunctions.randomGaussian(n+1, 100, 1000);
-        GeneralLatticeAndNearestPointAlgorithm sd
-                = new GeneralLatticeAndNearestPointAlgorithm(Mat);
+        LatticeAndNearestPointAlgorithm sd
+                = new LatticeAndNearestPointAlgorithm(Mat);
 
         sd.nearestPoint(r);
         anm.nearestPoint(r);

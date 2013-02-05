@@ -6,7 +6,7 @@ package pubsim.lattices.leech;
 
 import static pubsim.VectorFunctions.add;
 import pubsim.lattices.E8;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.ScaledLattice;
 
 /**
@@ -20,7 +20,7 @@ import pubsim.lattices.ScaledLattice;
  * 
  * @author Robby McKilliam
  */
-public class LeechTuryn extends Leech implements LatticeAndNearestPointAlgorithm {
+public class LeechTuryn extends Leech implements LatticeAndNearestPointAlgorithmInterface {
     
     protected static final double[][] aT
             = { {0,0,0,0,0,0,0,0},

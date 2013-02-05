@@ -6,7 +6,7 @@
 package pubsim.lattices.decoder;
 
 import pubsim.VectorFunctions;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 
 /**
  *
@@ -16,7 +16,7 @@ public class ShortVectorSphereDecoded implements ShortVector{
 
     protected final ModSphereDecoder ssd;
 
-    public ShortVectorSphereDecoded(Lattice L){
+    public ShortVectorSphereDecoded(LatticeInterface L){
         ssd = new ModSphereDecoder(L);
         ssd.findShortVector();
 
@@ -26,7 +26,7 @@ public class ShortVectorSphereDecoded implements ShortVector{
      * distance for sphere decoder.  d needs to be bigger than
      * smallest distance
      */
-    public ShortVectorSphereDecoded(Lattice L, double d){
+    public ShortVectorSphereDecoded(LatticeInterface L, double d){
         ssd = new ModSphereDecoder(L);
         ssd.findShortVector(d);
     }
@@ -43,7 +43,7 @@ public class ShortVectorSphereDecoded implements ShortVector{
 
     protected class ModSphereDecoder extends SphereDecoder{
 
-        public ModSphereDecoder(Lattice L){
+        public ModSphereDecoder(LatticeInterface L){
             super(L);
         }
 

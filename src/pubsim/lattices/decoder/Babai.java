@@ -6,13 +6,13 @@
 package pubsim.lattices.decoder;
 
 import Jama.Matrix;
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.reduction.HKZ;
 import pubsim.lattices.reduction.LatticeReduction;
 import pubsim.VectorFunctions;
-import pubsim.lattices.NearestPointAlgorithm;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.NearestPointAlgorithmInterface;
+import pubsim.lattices.Lattice;
 
 /**
  * Implements the Babai nearest plane algorithm.
@@ -22,7 +22,7 @@ import pubsim.lattices.GeneralLattice;
  * @author Robby McKilliam
  * Modified to use any sort of LatticeReduction (with LLL as the default)
  */
-public class Babai implements NearestPointAlgorithm {
+public class Babai implements NearestPointAlgorithmInterface {
 
     /** Generator matrix of the lattice */
     protected Matrix G;
@@ -63,11 +63,11 @@ public class Babai implements NearestPointAlgorithm {
     protected int n, m;
     protected LatticeReduction reducer;
     
-    public Babai(Lattice L){
+    public Babai(LatticeInterface L){
 	this(L, new LLL());
     }
 
-    public Babai(Lattice L, LatticeReduction lr) {
+    public Babai(LatticeInterface L, LatticeReduction lr) {
 	reducer = lr;
         G = L.getGeneratorMatrix().copy();
         m = G.getRowDimension();
@@ -148,7 +148,7 @@ public class Babai implements NearestPointAlgorithm {
 	Matrix y = Matrix.random(dim, 1);
 	System.out.println("y = ");
 	y.transpose().print(6, 2);
-	GeneralLattice Lambda = new GeneralLattice(B);
+	Lattice Lambda = new Lattice(B);
 	Babai blll = new Babai(Lambda, new LLL());
 	Babai bhkz = new Babai(Lambda, new HKZ());
 	blll.computeBabaiPoint(y.getRowPackedCopy());

@@ -14,7 +14,7 @@ import static pubsim.VectorFunctions.dot;
  *
  * @author Robby McKilliam
  */
-public abstract class VnmStar extends AbstractLattice implements LatticeAndNearestPointAlgorithm {
+public abstract class VnmStar extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface {
 
     /** dimension of this lattice*/
     final protected int n;

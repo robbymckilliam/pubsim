@@ -12,6 +12,6 @@ package pubsim.lattices;
  * 
  * @author Robby McKilliam
  */
-public interface LatticeAndNearestPointAlgorithm extends Lattice, NearestPointAlgorithm {
+public interface LatticeAndNearestPointAlgorithmInterface extends LatticeInterface, NearestPointAlgorithmInterface {
     
 }

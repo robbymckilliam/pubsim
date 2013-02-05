@@ -4,7 +4,7 @@
  */
 package pubsim.lattices.leech;
 
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
 
 /**
@@ -13,7 +13,7 @@ import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
  * with the Babai point.
  * @author Robby McKilliam
  */
-public class LeechSeededSphereDecoder extends Leech implements LatticeAndNearestPointAlgorithm {
+public class LeechSeededSphereDecoder extends Leech implements LatticeAndNearestPointAlgorithmInterface {
     
     protected final SphereDecoderSchnorrEuchner decoder;
     

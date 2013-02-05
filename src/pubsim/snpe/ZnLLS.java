@@ -9,7 +9,7 @@ package pubsim.snpe;
 import java.util.TreeMap;
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Anstar.AnstarVaughan;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  * Zn->An->An* line search.  Uses the sorted

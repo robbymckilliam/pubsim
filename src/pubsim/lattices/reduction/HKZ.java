@@ -11,7 +11,7 @@ import Jama.QRDecomposition;
 import pubsim.VectorFunctions;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 import pubsim.lattices.reduction.LLL;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 
 public class HKZ implements TriangularLatticeReduction {
     protected BasisCompletion bc = new BasisCompletion();
@@ -30,7 +30,7 @@ public class HKZ implements TriangularLatticeReduction {
 	M = lll.getUnimodularMatrix();
 	for (int j = 0; j < n-1; j++) {
 	    Matrix Rsub = R.getMatrix(j, n-1, j, n-1);
-	    svsd = new ShortVectorSphereDecoded(new GeneralLattice(Rsub));
+	    svsd = new ShortVectorSphereDecoded(new Lattice(Rsub));
 	    Matrix sv = VectorFunctions.columnMatrix(svsd.getShortestVector());
 	    bc.completeBasis(sv, Rsub);
 	    Rsub = bc.getR();

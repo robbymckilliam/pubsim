@@ -56,7 +56,7 @@ import pubsim.lattices.reduction.LLL;
             }
         }
         B = M.times(L);
-        sd = new SphereDecoder(new GeneralLattice(B));
+        sd = new SphereDecoder(new Lattice(B));
 
         //allocate working memory
         ytlat = new double[N];
@@ -102,7 +102,7 @@ import pubsim.lattices.reduction.LLL;
      */
     private class SphereDecoder extends pubsim.lattices.decoder.SphereDecoder{
 
-        public SphereDecoder(Lattice L){
+        public SphereDecoder(LatticeInterface L){
             super(L);
         }
 

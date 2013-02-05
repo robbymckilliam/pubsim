@@ -5,7 +5,7 @@
 
 package pubsim.lattices.decoder.nearset;
 
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import static pubsim.VectorFunctions.dot;
 import static pubsim.VectorFunctions.distance_between2;
 
@@ -20,7 +20,7 @@ public class SampledLine implements NearSetDecoder<Double>{
     protected final double[] u;
 
     public SampledLine(double[] y, double[] c, double rmin, double rmax,
-            int samples, LatticeAndNearestPointAlgorithm lattice){
+            int samples, LatticeAndNearestPointAlgorithmInterface lattice){
         if(y.length != c.length)
             throw new RuntimeException("y and c must be the same length");
 

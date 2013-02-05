@@ -7,10 +7,10 @@ package pubsim.phaseunwrapping.twod;
 
 import Jama.Matrix;
 import java.util.Vector;
-import pubsim.lattices.GeneralLattice;
+import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.Babai;
 import pubsim.VectorFunctions;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 
 /**
  * First order two dimensional unwrapper with window size 3x3
@@ -21,7 +21,7 @@ public class FirstOrderUnwrapper implements TwoDUnwrapperInterface{
     protected int N, M;
     Vector<Double[]> Yv, Pv;
     Matrix Y, P, B;
-    NearestPointAlgorithm decoder;
+    NearestPointAlgorithmInterface decoder;
 
     public double[][] unwrap(double[][] y) {
         double[][] u = unwrapIntegers(y);
@@ -87,7 +87,7 @@ public class FirstOrderUnwrapper implements TwoDUnwrapperInterface{
         //is a little abitrary.  I am only doing this after
         //observing the rref, and am not sure why the matrix
         //has this form.
-        decoder = new Babai(new GeneralLattice(
+        decoder = new Babai(new Lattice(
                 B.getMatrix(0, M*N-3, 1, M*N-3)));
 
     }

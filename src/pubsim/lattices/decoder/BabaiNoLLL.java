@@ -6,8 +6,8 @@
 package pubsim.lattices.decoder;
 
 import Jama.Matrix;
-import pubsim.lattices.Lattice;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.LatticeInterface;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 
 /**
  * Lazy Babai algorithm that does not bother to
@@ -15,13 +15,13 @@ import pubsim.lattices.NearestPointAlgorithm;
  * @author Robby McKilliam
  */
 public class BabaiNoLLL extends Babai
-                        implements NearestPointAlgorithm {
+                        implements NearestPointAlgorithmInterface {
 
-    public BabaiNoLLL(Lattice L){
+    public BabaiNoLLL(LatticeInterface L){
         super(L);
     }
 
-    public void setLattice(Lattice L) {
+    public void setLattice(LatticeInterface L) {
         G = L.getGeneratorMatrix().copy();
         m = G.getRowDimension();
         n = G.getColumnDimension();

@@ -5,7 +5,7 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.Vnm.Vnm;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,7 +33,7 @@ public class LatticeDensityPlots {
 
         int a = 6;
         for(int n : range(nstart, nend, nstep) ){
-            Lattice L = new Vnm(n, a);
+            LatticeInterface L = new Vnm(n, a);
             //Lattice L = new Craig(n, a);
             double d = L.logCenterDensity();
             //double d = L.inradius();

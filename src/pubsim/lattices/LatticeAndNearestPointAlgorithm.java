@@ -9,21 +9,21 @@ import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
  * algorithms by using the appropriate constructor
  * @author Robby McKilliam
  */
-public class GeneralLatticeAndNearestPointAlgorithm extends GeneralLattice implements LatticeAndNearestPointAlgorithm {
+public class LatticeAndNearestPointAlgorithm extends Lattice implements LatticeAndNearestPointAlgorithmInterface {
 
-    private NearestPointAlgorithm decoder;
+    private NearestPointAlgorithmInterface decoder;
 
-    public GeneralLatticeAndNearestPointAlgorithm(Matrix B){
+    public LatticeAndNearestPointAlgorithm(Matrix B){
         this.B = B;
         decoder = new SphereDecoderSchnorrEuchner(this);
     }
 
-    public GeneralLatticeAndNearestPointAlgorithm(double[][] B){
+    public LatticeAndNearestPointAlgorithm(double[][] B){
         this.B = new Matrix(B);
         decoder = new SphereDecoderSchnorrEuchner(this);
     }
 
-     public GeneralLatticeAndNearestPointAlgorithm(Matrix B, NearestPointAlgorithm np){
+     public LatticeAndNearestPointAlgorithm(Matrix B, NearestPointAlgorithmInterface np){
         this.B = B;
         decoder = np;
     }

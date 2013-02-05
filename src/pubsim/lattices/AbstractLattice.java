@@ -13,10 +13,10 @@ import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 
 /**
  * Abstract lattice that contains default operations for many of the
- * methods in interface Lattice.
+ * methods in interface LatticeInterface.
  * @author Robby McKilliam
  */
-public abstract class AbstractLattice implements Lattice {
+public abstract class AbstractLattice implements LatticeInterface {
     
     @Override
     public double secondMoment() {throw new UnsupportedOperationException(); }

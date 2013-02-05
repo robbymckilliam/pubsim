@@ -3,7 +3,7 @@ package pubsim.snpe;
 import pubsim.VectorFunctions;
 import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.lattices.Anstar.AnstarVaughan;
-import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  * A modification of the Bresenham estimator which samples the line segment
@@ -23,7 +23,7 @@ public class SamplingLLS implements PRIEstimator {
      * Period and phase estimates
      */
     protected double That, phat;
-    protected final LatticeAndNearestPointAlgorithm lattice;
+    protected final LatticeAndNearestPointAlgorithmInterface lattice;
 
 
     public SamplingLLS(int N) {

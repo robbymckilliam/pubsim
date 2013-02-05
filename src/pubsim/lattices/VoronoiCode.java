@@ -16,7 +16,7 @@ import pubsim.lattices.util.IntegerVectors;
  */
 public class VoronoiCode implements java.io.Serializable{
 
-    LatticeAndNearestPointAlgorithm lattice;
+    LatticeAndNearestPointAlgorithmInterface lattice;
 
     /** translation */
     protected final double[] a;
@@ -39,7 +39,7 @@ public class VoronoiCode implements java.io.Serializable{
      * @param trans translation of the lattice
      * @param scale scale factor for the code boundary
      */
-    public VoronoiCode(LatticeAndNearestPointAlgorithm lattice, double[] trans, int scale){
+    public VoronoiCode(LatticeAndNearestPointAlgorithmInterface lattice, double[] trans, int scale){
         this.lattice = lattice;
         a = trans;
         r = scale;
@@ -53,7 +53,7 @@ public class VoronoiCode implements java.io.Serializable{
     }
 
     /** Voronoi code without a translation */
-    protected VoronoiCode(LatticeAndNearestPointAlgorithm lattice, int scale){
+    protected VoronoiCode(LatticeAndNearestPointAlgorithmInterface lattice, int scale){
         this.lattice = lattice;
         r = scale;
         B = lattice.getGeneratorMatrix();
@@ -116,7 +116,7 @@ public class VoronoiCode implements java.io.Serializable{
     public double getScale(){ return r; }
 
     /** Return the lattice used for this Voronoi code */
-    public LatticeAndNearestPointAlgorithm getLattice(){ return lattice; }
+    public LatticeAndNearestPointAlgorithmInterface getLattice(){ return lattice; }
 
     /**
      * @return codeword with minimum energy (closest to the origin)
