@@ -34,10 +34,7 @@ public class Hermite implements LatticeReduction{
         
         pubsim.QRDecomposition QR = new pubsim.QRDecomposition(Bcopy);
         R = QR.getR();
-        
-        System.out.println("Hermite R = ");
-        //R.print(2,2);
-        
+              
         for(int j = 0; j < n; j++){
             for(int i = j-1; i >= 0; i--){
                 double k = Math.round(R.get(i, j)/R.get(i, i));
@@ -60,6 +57,7 @@ public class Hermite implements LatticeReduction{
     }
 
     /** {@inheritDoc} */
+    @Override
     public Matrix getUnimodularMatrix() {
         return M;
     }
