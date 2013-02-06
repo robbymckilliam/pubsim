@@ -29,7 +29,7 @@ public class NewtonRaphson {
         this.tolerance = tolerance;
     }
 
-    public Matrix maximise(Matrix x) throws Exception{
+    public Matrix maximise(Matrix x) {
 
         double e = Double.POSITIVE_INFINITY;
         int itr = 0;
@@ -41,7 +41,7 @@ public class NewtonRaphson {
             Matrix G = f.gradient(xprev);
 
             if(H.rank() != H.getColumnDimension())
-                throw new Exception("Matrix is not full rank!");
+                throw new RuntimeException("Matrix is not full rank!");
 
             xnext = xprev.minus(H.inverse().times(G));
 
