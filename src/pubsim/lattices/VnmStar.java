@@ -14,7 +14,7 @@ import static pubsim.VectorFunctions.dot;
  *
  * @author Robby McKilliam
  */
-public abstract class VnmStar extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface {
+public class VnmStar extends AbstractLattice {
 
     /** dimension of this lattice*/
     final protected int n;
@@ -25,16 +25,12 @@ public abstract class VnmStar extends AbstractLattice implements LatticeAndNeare
     final protected int N;
     
     //store all the legendre polynomials so that we can make projection fast.
-    final double[][] legendre;
+    double[][] legendre;
     
-    public VnmStar(int n, int m){
+    public VnmStar(int m, int n){
         this.n = n;
         this.m = m;
         N = n+m+1;
-         //compute all the Legendre polynomials
-        legendre = new double[m+1][];
-        for(int k = 0; k <= m; k++)
-            legendre[k] = discreteLegendrePolynomialVector(n+m+1, k);
     }
 
     /** {@inheritDoc} */
@@ -101,7 +97,8 @@ public abstract class VnmStar extends AbstractLattice implements LatticeAndNeare
     }
 
     /** Project into the space this lattice lies in. */
-    public void project(double[] x, double[] y){
+    public void project(double[] x, double[] y) {
+        if(legendre == null) computeLegendreVectors(m, n);
         System.arraycopy(x, 0, y, 0, N);
         for(int k = 0; k <= m; k++){
             double[] ell = legendre[k];
@@ -151,21 +148,15 @@ public abstract class VnmStar extends AbstractLattice implements LatticeAndNeare
     }
     
     @Override
-    public double distance() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-     private double[] yDoubletoy;
-    @Override
-    public void nearestPoint(Double[] y) {
-        if(yDoubletoy == null || yDoubletoy.length != y.length)
-            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
-        this.nearestPoint(y);
-    }
-    
-    @Override
     public String name() { 
         return "Vn" + n + "m" + m + "star";
+    }
+
+    final protected void computeLegendreVectors(int m, int n) {
+        //compute all the Legendre polynomials
+       legendre = new double[m+1][];
+       for(int k = 0; k <= m; k++)
+           legendre[k] = discreteLegendrePolynomialVector(n+m+1, k);
     }
 
 

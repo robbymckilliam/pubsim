@@ -1,18 +1,16 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 
 package pubsim.lattices.decoder;
 
 import Jama.Matrix;
-import pubsim.lattices.LatticeInterface;
-import pubsim.lattices.reduction.LLL;
-import pubsim.lattices.reduction.HKZ;
-import pubsim.lattices.reduction.LatticeReduction;
 import pubsim.VectorFunctions;
-import pubsim.lattices.NearestPointAlgorithmInterface;
 import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeInterface;
+import pubsim.lattices.NearestPointAlgorithmInterface;
+import pubsim.lattices.reduction.HKZ;
+import pubsim.lattices.reduction.LLL;
+import pubsim.lattices.reduction.LatticeReduction;
 
 /**
  * Implements the Babai nearest plane algorithm.
@@ -68,7 +66,7 @@ public class Babai implements NearestPointAlgorithmInterface {
     }
 
     public Babai(LatticeInterface L, LatticeReduction lr) {
-	reducer = lr;
+        reducer = lr;
         G = L.getGeneratorMatrix().copy();
         m = G.getRowDimension();
         n = G.getColumnDimension();

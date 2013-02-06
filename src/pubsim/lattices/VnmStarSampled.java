@@ -73,6 +73,19 @@ public class VnmStarSampled extends VnmStar implements LatticeAndNearestPointAlg
     public double[] getIndex() {
         return u;
     }
+    
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+     private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
+    }
 
     
 }

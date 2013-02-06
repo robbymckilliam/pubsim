@@ -18,7 +18,7 @@ import pubsim.lattices.reduction.LLL;
  * 
  * @author Robby McKilliam
  */
- public class VnmStarGlued extends VnmStar {
+ public class VnmStarGlued extends VnmStar implements LatticeAndNearestPointAlgorithmInterface {
 
 
     //generator matrix for the dual of the integer valued polynomials
@@ -34,7 +34,7 @@ import pubsim.lattices.reduction.LLL;
     private double radius, BEST_DIST;
 
     public VnmStarGlued(int m, int n){
-        super(n,m);
+        super(m,n);
         N = n + m + 1;
 
         //compute the matrix mapping the dual to integer valued polys
@@ -83,6 +83,19 @@ import pubsim.lattices.reduction.LLL;
 
         project(ulat, xlat);
 
+    }
+    
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+     private double[] yDoubletoy;
+    @Override
+    public void nearestPoint(Double[] y) {
+        if(yDoubletoy == null || yDoubletoy.length != y.length)
+            for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
+        this.nearestPoint(y);
     }
 
     @Override
