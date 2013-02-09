@@ -9,9 +9,8 @@ package pubsim.lattices.reduction;
 import Jama.Matrix;
 import Jama.QRDecomposition;
 import pubsim.VectorFunctions;
-import pubsim.lattices.decoder.ShortVectorSphereDecoded;
-import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.Lattice;
+import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 
 public class HKZ implements TriangularLatticeReduction {
     protected BasisCompletion bc = new BasisCompletion();

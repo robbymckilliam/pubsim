@@ -14,9 +14,7 @@ import pubsim.VectorFunctions;
  * of lattice basis completion.
  */
 public class LLL implements TriangularLatticeReduction{
-    
-    protected Hermite hermite = new Hermite();
-    
+
     protected Matrix B; // the lattice basis
     /** Unimodular matrix such that reduce(B) = BM */
     protected Matrix M;
@@ -30,8 +28,9 @@ public class LLL implements TriangularLatticeReduction{
     }
 
     protected void finishUp() {
+        Hermite hermite = new Hermite();
         B = hermite.reduce(B);
-	R = hermite.getR();
+        R = hermite.getR();
         M = M.times(hermite.getUnimodularMatrix());
     }
 
