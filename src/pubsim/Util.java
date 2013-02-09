@@ -352,6 +352,7 @@ public final class Util {
     public static long binom(int n, int m){
         if(m > n) return 0;
         if(n==m || m==0) return 1;
+        if(n/2 > m) return binom(n,n-m);
         return binom(n-1, m-1) + binom(n-1, m);
     }
 

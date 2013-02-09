@@ -4,10 +4,11 @@
 package pubsim.lattices.Vnmstar;
 
 import Jama.Matrix;
-import pubsim.lattices.AbstractLattice;
+import pubsim.HilbertMatrix;
 import static pubsim.Util.binom;
 import static pubsim.Util.factorial;
 import static pubsim.VectorFunctions.dot;
+import pubsim.lattices.AbstractLattice;
 
 /**
  *
@@ -45,10 +46,12 @@ public class VnmStar extends AbstractLattice {
     }
 
     public static Matrix getGeneratorMatrix(int m, int n) {
+        int N = n+m+1;
         Matrix M = getMMatrix(m, n);
         Matrix Mt = M.transpose();
-        Matrix K = (Mt.times(M)).inverse().times(Mt);
-        Matrix G = Matrix.identity(n+m+1, n+m+1).minus(M.times(K));
+        //Matrix K = (Mt.times(M)).inverse();
+        Matrix K = new HilbertMatrix(m+1,N).Hinverse();
+        Matrix G = Matrix.identity(N, N).minus(M.times(K).times(Mt));
 
         return G.getMatrix(0, n+m, 0, n-1);
     }
@@ -70,7 +73,7 @@ public class VnmStar extends AbstractLattice {
         Matrix M = new Matrix(N, m+1);
 
         for(int i = 0; i < N; i++){
-            for(int j = 0; j < m+1; j++){
+            for(int j = 0; j <= m; j++){
                 M.set(i, j, Math.pow(i+1, j));
             }
         }

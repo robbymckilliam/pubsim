@@ -148,6 +148,7 @@ public class MomentComputer {
         
         public BigInteger binom(int m, int k){
             if(B[m][k]!=null) return B[m][k];
+            if(m/2 > k) return binom(m,m-k);
             else B[m][k] = binom(m-1,k-1).add(binom(m-1,k));
             return B[m][k];
         }

@@ -65,6 +65,7 @@ public class HilbertMatrix {
     public static BigInteger binom(int n, int m) {
         if(m > n) return BigInteger.ZERO;
         if(n==m || m==0) return BigInteger.ONE;
+        if(n/2 > m) return binom(n,n-m);
         return binom(n-1, m-1) + binom(n-1, m);
     }
     
