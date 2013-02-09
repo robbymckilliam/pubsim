@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Vnmstar;
 
+import pubsim.lattices.Vnmstar.VnmStar;
 import Jama.Matrix;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;

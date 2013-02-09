@@ -5,13 +5,12 @@
 
 package pubsim.lattices;
 
-import pubsim.lattices.LatticeInterface;
-import pubsim.lattices.Vnm.Vnm;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Vector;
 import static pubsim.Range.*;
+import pubsim.lattices.Vnm.Vnm;
 
 /**
  * Class draws a plot of the density of a lattice.
@@ -19,10 +18,6 @@ import static pubsim.Range.*;
  */
 public class LatticeDensityPlots {
 
-    /**
-     * Main function for testing the practical running times
-     * of nearest point algorithms.
-     */
     public static void main(String[] args) throws Exception {
 
 

@@ -3,11 +3,14 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Vnmstar;
 
 import Jama.Matrix;
 import static pubsim.Util.*;
 import pubsim.VectorFunctions;
+import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.reduction.LLL;
 
 /**

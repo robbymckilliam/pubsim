@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Vnmstar;
 
-import pubsim.lattices.VnmStarGlued;
-import pubsim.lattices.VnmStar;
+import pubsim.lattices.Vnmstar.VnmStarGlued;
+import pubsim.lattices.Vnmstar.VnmStar;
 import java.util.Random;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarSorted;

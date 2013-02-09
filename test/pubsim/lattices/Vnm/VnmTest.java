@@ -129,6 +129,64 @@ public class VnmTest {
         }
     }    
     
+    
+       /**
+     * Test of volume method, of class Vnm.
+     */
+    @Test
+    public void volume() {
+        System.out.println("volume");
+        
+        int n = 20;
+        int a = 3;
+        
+        Vnm instance = new Vnm(n, a);
+
+        Matrix gen = instance.getGeneratorMatrix();
+        //System.out.println(VectorFunctions.print(gen));
+        Matrix gram = gen.transpose().times(gen);
+        double expResult = Math.sqrt(gram.det());
+        
+        double result = instance.volume();
+        assertEquals(expResult, result, 0.001);
+
+    }
+
+        /**
+     * Test of volume method, of class Vnm.
+     */
+    @Test
+    public void generatorMatrix() {
+        System.out.println("generatorMatrix");
+
+        int n = 10;
+        int a = 3;
+
+        Vnm instance = new Vnm(n, a);
+        Matrix M = instance.getGeneratorMatrix();
+        System.out.println(VectorFunctions.print(M));
+        System.out.println(VectorFunctions.print(M.transpose().times(M)));
+
+    }
+
+            /**
+     * Test of volume method, of class Vnm.
+     */
+    @Test
+    public void generateKissingNumbers() {
+        System.out.println("generateKissingNumbers");
+
+        int n = 48;
+        int a = 7;
+
+        Vnm instance = new Vnm(n, a);
+
+        System.out.println(instance.inradius());
+        System.out.println(instance.kissingNumber());
+
+    }
+
+    
 //    
 //    /**
 //     * Test ProbCodingError.

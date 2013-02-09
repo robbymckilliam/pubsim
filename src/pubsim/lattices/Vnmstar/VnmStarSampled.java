@@ -4,12 +4,13 @@
  * Created on 2 November 2007, 13:24
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Vnmstar;
 
 import Jama.Matrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarLinear;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.util.PointInParallelepiped;
 
 /**

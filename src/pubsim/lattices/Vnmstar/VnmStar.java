@@ -1,11 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Vnmstar;
 
 import Jama.Matrix;
+import pubsim.lattices.AbstractLattice;
 import static pubsim.Util.binom;
 import static pubsim.Util.factorial;
 import static pubsim.VectorFunctions.dot;
