@@ -142,14 +142,14 @@ public class MomentComputer {
         
         public BigInteger factorial(int n){
             if(F[n]!=null) return F[n];
-            else F[n] = new BigInteger(Integer.toString(n)).multiply(factorial(n-1));
+            else F[n] = new BigInteger(Integer.toString(n,2),2).multiply(factorial(n-1));
             return F[n];
         }
         
         public BigInteger binom(int m, int k){
             if(B[m][k]!=null) return B[m][k];
             if(m-k < k) return binom(m,m-k);
-            else B[m][k] = binom(m-1,k-1).multiply(new BigInteger(Integer.toString(m))).divide(new BigInteger(Integer.toString(k)));
+            else B[m][k] = binom(m-1,k-1).multiply(new BigInteger(Integer.toString(m,2),2)).divide(new BigInteger(Integer.toString(k,2),2));
             return B[m][k];
         }
         

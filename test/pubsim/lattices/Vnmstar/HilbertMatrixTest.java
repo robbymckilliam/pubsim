@@ -1,7 +1,8 @@
 /*
  */
-package pubsim;
+package pubsim.lattices.Vnmstar;
 
+import pubsim.lattices.Vnmstar.HilbertMatrix;
 import bignums.BigInteger;
 import bignums.BigRational;
 import org.junit.After;
@@ -89,7 +90,7 @@ public class HilbertMatrixTest {
     }
     
      /**
-     * Test of Hinverse method, of class HilbertMatrix.
+     * Test of HinverseDouble method, of class HilbertMatrix.
      */
     @Test
     public void testHinverse2() {
@@ -101,7 +102,7 @@ public class HilbertMatrixTest {
         Matrix M = VnmStar.getMMatrix(m, N-m-1);
         Matrix inv = (M.transpose().times(M)).inverse();
         //inv.print(3,4);
-        Matrix test = inst.Hinverse();
+        Matrix test = inst.HinverseDouble();
         //test.print(3,4);
         for(int i = 0; i <= m; i++)
             for(int j = 0; j <= m; j++)
@@ -109,7 +110,7 @@ public class HilbertMatrixTest {
     }
     
     /**
-     * Test of Hinverse method, of class HilbertMatrix.
+     * Test of HinverseDouble method, of class HilbertMatrix.
      */
     @Test
     public void testHinverse3() {
@@ -121,7 +122,7 @@ public class HilbertMatrixTest {
         Matrix M = VnmStar.getMMatrix(m, N-m-1);
         Matrix inv = (M.transpose().times(M)).inverse();
         //inv.print(3,4);
-        Matrix test = inst.Hinverse();
+        Matrix test = inst.HinverseDouble();
         //test.print(3,4);
         for(int i = 0; i <= m; i++)
             for(int j = 0; j <= m; j++)
@@ -129,7 +130,7 @@ public class HilbertMatrixTest {
     }
     
     /**
-     * Test of Hinverse method, of class HilbertMatrix.
+     * Test of HinverseDouble method, of class HilbertMatrix.
      */
     @Test
     public void testHinverse4() {
@@ -141,11 +142,53 @@ public class HilbertMatrixTest {
         Matrix M = VnmStar.getMMatrix(m, N-m-1);
         Matrix inv = (M.transpose().times(M)).inverse();
         //inv.print(3,4);
-        Matrix test = inst.Hinverse();
+        Matrix test = inst.HinverseDouble();
         //test.print(3,4);
         for(int i = 0; i <= m; i++)
             for(int j = 0; j <= m; j++)
                 assertEquals(inv.get(i,j), test.get(i, j), tol);
+    }
+    
+    /**
+     * Test of HinverseDouble method, of class HilbertMatrix.
+     */
+    @Test
+    public void testKProjection() {
+        System.out.println("Test the K matrix");
+        double tol = 1e-6;
+        int m = 4;
+        int N = 10;
+        HilbertMatrix inst = new HilbertMatrix(m+1,N);
+        Matrix M = VnmStar.getMMatrix(m, N-m-1);
+        Matrix Mt = M.transpose();
+        Matrix Kexp = (Mt.times(M)).inverse().times(Mt);
+        //Kexp.print(4,4);
+        Matrix test = inst.KDouble();
+        //test.print(4,4);
+        for(int i = 0; i <= m; i++)
+            for(int j = 0; j < N; j++)
+                assertEquals(Kexp.get(i,j), test.get(i, j), tol);
+    }
+    
+    /**
+     * Test of HinverseDouble method, of class HilbertMatrix.
+     */
+    @Test
+    public void testVnmStarGenerator() {
+        System.out.println("Test the VnmStar generator matrix");
+        double tol = 1e-6;
+        int m = 4;
+        int N = 10;
+        HilbertMatrix inst = new HilbertMatrix(m+1,N);
+        Matrix M = VnmStar.getMMatrix(m, N-m-1);
+        Matrix Mt = M.transpose();
+        Matrix Gexp = Matrix.identity(N, N).minus(M.times((Mt.times(M)).inverse().times(Mt)));
+        //Gexp.print(4,4);
+        Matrix test = inst.VnmStarGeneratorDouble();
+        //test.print(4,4);
+        for(int i = 0; i <= m; i++)
+            for(int j = 0; j < N; j++)
+                assertEquals(Gexp.get(i,j), test.get(i, j), tol);
     }
     
 }

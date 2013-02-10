@@ -6,7 +6,7 @@
 package pubsim;
 
 /**
- * Mathematical field.  Implements multiple, divide, add, subtract and equals.
+ * Mathematical field.  Implements multiply, divide, add, subtract and equals.
  * @author Robby McKilliam
  */
 public interface Field<T> extends Ring<T>{
