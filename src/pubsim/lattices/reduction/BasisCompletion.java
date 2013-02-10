@@ -58,23 +58,4 @@ public class BasisCompletion extends LLL {
         return R;
     }
 
-    // Test harness
-    public static void main(String args[]) {
-        int dim = 5;
-        Matrix B = Matrix.random(dim, dim);
-        ShortVectorSphereDecoded svsd = new ShortVectorSphereDecoded(new Lattice(B));
-        BasisCompletion cb = new BasisCompletion();
-        Matrix sv = VectorFunctions.columnMatrix(svsd.getShortestVector());
-        System.out.println("final B = ");
-        cb.completeBasis(sv, B).print(8, 2);
-        System.out.println("final R = ");
-        cb.getR().print(8, 2);
-        System.out.println("final M = ");
-        cb.getUnimodularMatrix().print(8, 2);
-        System.out.println("det M = " + cb.getUnimodularMatrix().det());
-        System.out.println("error = "
-                + B.times(cb.getUnimodularMatrix()
-                .getMatrix(0, dim - 1, 0, 0))
-                .minus(sv).norm2());
-    }
 }

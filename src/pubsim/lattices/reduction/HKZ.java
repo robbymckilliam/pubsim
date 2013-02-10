@@ -54,28 +54,4 @@ public class HKZ implements TriangularLatticeReduction {
 	return R;
     }
 
-    // Test harness
-    public static void main(String args[]) {
-	int dim = 5;
-	Matrix B = Matrix.random(dim, dim);
-	System.out.println("B = ");
-	B.print(8, 2);
-	HKZ hkz = new HKZ();
-	Matrix Bred = hkz.reduce(B);
-	System.out.println("Bred = ");
-	Bred.print(8, 2);
-	Matrix Rred = hkz.getR();
-	System.out.println("Rred = ");
-	Rred.print(8, 2);
-	System.out.println("Mred = ");
-	hkz.getUnimodularMatrix().print(8, 2);
-	hkz.reduce(Bred);
-	Matrix Rredred = hkz.getR();
-	double sqtr = 0;
-	for (int j = 0; j < dim; j++) {
-	    double dd = Rred.get(j, j) - Rredred.get(j, j);
-	    sqtr += dd * dd;
-	}
-	System.out.println("error = " + sqtr);
-    }
 }
