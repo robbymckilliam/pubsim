@@ -4,22 +4,26 @@
  */
 package pubsim;
 
+import bignums.BigInteger;
 import bignums.BigRational;
 
 /**
  * Utility class for common math operations etc.
+ *
  * @author Robby McKilliam
  */
 public final class Util {
 
-    /** Round a double to 6 decimal places. Usefull for printing */
-    public static Double dround6(double x){
-        return Math.round(1e6*x)/1e6;
+    /**
+     * Round a double to 6 decimal places. Usefull for printing
+     */
+    public static Double dround6(double x) {
+        return Math.round(1e6 * x) / 1e6;
     }
 
-    /** 
-     * Takes x mod y and works for negative numbers.  Ie is not
-     * just a remainder like java's % operator.
+    /**
+     * Takes x mod y and works for negative numbers. Ie is not just a remainder
+     * like java's % operator.
      */
     public static int mod(int x, int y) {
         int t = x % y;
@@ -30,8 +34,8 @@ public final class Util {
     }
 
     /**
-     * Takes x mod y and works for negative numbers.  Ie is not
-     * just a remainder like java's % operator.
+     * Takes x mod y and works for negative numbers. Ie is not just a remainder
+     * like java's % operator.
      */
     public static long mod(long x, long y) {
         long t = x % y;
@@ -42,27 +46,68 @@ public final class Util {
     }
 
     /**
-     * Returns the centered fractional part of x.
-     * i.e. x - round(x);
+     * Return greatest common divisor of p and q
+     */
+    public static int gcd(int p, int q) {
+        if (q == 0) {
+            return p;
+        }
+        return gcd(q, p % q);
+    }
+
+    /**
+     * Return array [d, a, b] such that d = gcd(p, q), ap + bq = d
+     */
+    public static int[] extended_gcd(int p, int q) {
+        if (q == 0) {
+            return new int[]{p, 1, 0};
+        }
+        int[] vals = extended_gcd(q, p % q);
+        int d = vals[0];
+        int a = vals[2];
+        int b = vals[1] - (p / q) * vals[2];
+        return new int[]{d, a, b};
+    }
+    
+    /**
+     * Return array [d, a, b] such that d = gcd(p, q), ap + bq = d
+     */
+    public static BigInteger[] extended_gcd(BigInteger p, BigInteger q) {
+        if (q.compareTo(BigInteger.ZERO)==0) {
+            return new BigInteger[]{p, BigInteger.ONE, BigInteger.ZERO};
+        }
+        BigInteger[] vals = extended_gcd(q, p.mod(q));
+        BigInteger d = vals[0];
+        BigInteger a = vals[2];
+        BigInteger b = vals[1] - (p / q) * vals[2];
+        return new BigInteger[]{d, a, b};
+    }
+
+    /**
+     * Returns the centered fractional part of x. i.e. x - round(x);
      */
     public static double centeredFracPart(double x) {
         return x - Math.round(x);
     }
-    /** The desired accuracy of the erf function */
+    /**
+     * The desired accuracy of the erf function
+     */
     public static double ERF_TOLERANCE = 1e-10;
 
-    /** 
-     * The error function.
-     * Calculates erf with accuracy tolerance specified by ERF_TOLERANCE.
-     * Or when 100 elements of the Talyor series have been summed.
+    /**
+     * The error function. Calculates erf with accuracy tolerance specified by
+     * ERF_TOLERANCE. Or when 100 elements of the Talyor series have been
+     * summed.
      */
     public static double erf(double x) {
 
-        if(x < 0) return -erf(-x);
+        if (x < 0) {
+            return -erf(-x);
+        }
 
         //if x is sufficiently large use asymptotic approximation
-        if(x > 3.5){
-            return 1.0 - 1.0/(x*Math.sqrt(Math.PI))*Math.exp(-x*x);
+        if (x > 3.5) {
+            return 1.0 - 1.0 / (x * Math.sqrt(Math.PI)) * Math.exp(-x * x);
         }
 
         double prod = 1.0;
@@ -80,23 +125,23 @@ public final class Util {
         return 2.0 / Math.sqrt(Math.PI) * sum;
 
     }
-    
-    /** 
-     * The error function.
-     * Calculates erf with accuracy at least as small as the parameter tol.
-     * Uses BigRational's so there is no numerical problems unless you get to double precision!
+
+    /**
+     * The error function. Calculates erf with accuracy at least as small as the
+     * parameter tol. Uses BigRational's so there is no numerical problems
+     * unless you get to double precision!
      */
     public static double erf(BigRational x, BigRational tol) {
 
-        BigRational prod = new BigRational(1,1);
-        BigRational sum = new BigRational(0,1);
-        BigRational tooAdd = new BigRational(1,1);
+        BigRational prod = new BigRational(1, 1);
+        BigRational sum = new BigRational(0, 1);
+        BigRational tooAdd = new BigRational(1, 1);
 
         int n = 0;
-        while (tooAdd.abs().compareTo(tol) > 0){
-            tooAdd = x.divide(new BigRational(2*n+1,1)).multiply(prod);
+        while (tooAdd.abs().compareTo(tol) > 0) {
+            tooAdd = x.divide(new BigRational(2 * n + 1, 1)).multiply(prod);
             sum = sum.add(tooAdd);
-            prod = prod.multiply(x.pow(2).negate()).divide(new BigRational(n+1,1));
+            prod = prod.multiply(x.pow(2).negate()).divide(new BigRational(n + 1, 1));
             n++;
         }
 
@@ -107,18 +152,20 @@ public final class Util {
     /**
      * 1 - erf(x)
      */
-    public static double erfc(double x){
+    public static double erfc(double x) {
         return 1.0 - erf(x);
     }
 
     /**
      * Q function.
      */
-    public static double Q(double x){
-        return 0.5*(1.0 - erf(x/Math.sqrt(2.0)));
+    public static double Q(double x) {
+        return 0.5 * (1.0 - erf(x / Math.sqrt(2.0)));
     }
 
-    /** Factorial */
+    /**
+     * Factorial
+     */
     public static long factorial(int i) {
         long ret = 1;
         for (int j = 1; j <= i; j++) {
@@ -127,7 +174,7 @@ public final class Util {
         return ret;
     }
 
-    /** 
+    /**
      * This is just a wrapper for Math.IEEEremainder
      */
     public static double modPart(double x, double m) {
@@ -135,9 +182,8 @@ public final class Util {
     }
 
     /**
-     * Compute the intersection points of two circles.
-     * Returns an array of  Point2 objects.
-     * Return null if the circles don't intersect.
+     * Compute the intersection points of two circles. Returns an array of
+     * Point2 objects. Return null if the circles don't intersect.
      */
     public static Point2[] circleIntersections(Point2 c1, double r1, Point2 c2, double r2) {
         double D = c1.minus(c2).normF();
@@ -170,9 +216,8 @@ public final class Util {
     }
 
     /**
-     * Return the angles with respect to c1 where the intersections occur between
-     *  circles c1 and c2.
-     * Return null if the circles don't intersect.
+     * Return the angles with respect to c1 where the intersections occur
+     * between circles c1 and c2. Return null if the circles don't intersect.
      */
     public static double[] circleIntersectionAngles(Point2 c1, double r1, Point2 c2, double r2) {
         double D = c1.minus(c2).normF();
@@ -210,6 +255,7 @@ public final class Util {
 
     /**
      * Return atan2 in the range [0, 2pi] rather than [-pi,pi]
+     *
      * @param y
      * @param x
      */
@@ -220,6 +266,7 @@ public final class Util {
 
     /**
      * Convert an angle in [-pi,pi] to [0,2pi] interval
+     *
      * @param a
      */
     public static double convertAtan2Angle(double a) {
@@ -251,10 +298,8 @@ public final class Util {
     }
 
     /**
-     * Solves the quadratic equation
-     * ax^2 + bx + c = 0
-     * Returns null if solution is complex.
-     * Returns the solution in vector of length two.  Least result is
+     * Solves the quadratic equation ax^2 + bx + c = 0 Returns null if solution
+     * is complex. Returns the solution in vector of length two. Least result is
      * the first element.
      */
     public static double[] solveQuadratic(double a, double b, double c) {
@@ -279,9 +324,9 @@ public final class Util {
     }
 
     /**
-     * Returns the natural logarithm of the gamma function
-     * Gamma(x) = integral( t^(x-1) e^(-t), t = 0 .. infinity)
-     * Uses Lanczos approximation formula. See Numerical Recipes 6.1.
+     * Returns the natural logarithm of the gamma function Gamma(x) = integral(
+     * t^(x-1) e^(-t), t = 0 .. infinity) Uses Lanczos approximation formula.
+     * See Numerical Recipes 6.1.
      */
     public static double logGamma(double x) {
         double tmp = (x - 0.5) * Math.log(x + 4.5) - (x + 4.5);
@@ -301,124 +346,143 @@ public final class Util {
     /**
      * Volume of hypersphere of radiis 1
      */
-    public static double hyperSphereVolume(int n){
+    public static double hyperSphereVolume(int n) {
         return Math.exp(logHyperSphereVolume(n));
     }
 
     /**
      * Natural logarithm of the volume of hypersphere of radiis 1
      */
-    public static double logHyperSphereVolume(int n){
-        if( n%2 == 0 ){
-            double lnumer = n/2.0 * Math.log(Math.PI);
+    public static double logHyperSphereVolume(int n) {
+        if (n % 2 == 0) {
+            double lnumer = n / 2.0 * Math.log(Math.PI);
             double ldenom = 0.0;
-            for(int i = 1; i <= n/2; i++) ldenom += Math.log(i);
+            for (int i = 1; i <= n / 2; i++) {
+                ldenom += Math.log(i);
+            }
             return lnumer - ldenom;
-        }else{
-            double lnumer = n*Math.log(2) + (n-1)/2 * Math.log(Math.PI);
-            for(int i = 1; i <= (n-1)/2; i++) lnumer += Math.log(i);
+        } else {
+            double lnumer = n * Math.log(2) + (n - 1) / 2 * Math.log(Math.PI);
+            for (int i = 1; i <= (n - 1) / 2; i++) {
+                lnumer += Math.log(i);
+            }
             double ldenom = 0.0;
-            for(int i = 1; i <= n; i++) ldenom += Math.log(i);
+            for (int i = 1; i <= n; i++) {
+                ldenom += Math.log(i);
+            }
             return lnumer - ldenom;
         }
     }
 
     /**
-     * Natural logarithm of the surface area of the hypersphere of dimension n and radius 1
+     * Natural logarithm of the surface area of the hypersphere of dimension n
+     * and radius 1
      */
-    public static double logHyperSphereSurfaceArea(int n){
-        return Math.log(2) + n*Math.log(Math.PI)/2.0 - logGamma(n/2.0);
+    public static double logHyperSphereSurfaceArea(int n) {
+        return Math.log(2) + n * Math.log(Math.PI) / 2.0 - logGamma(n / 2.0);
     }
 
     /**
      * Log base 2 of the volume of hypersphere of radiis 1
      */
-    public static double log2HyperSphereVolume(int n){
+    public static double log2HyperSphereVolume(int n) {
         double e = Math.exp(1);
-        return logHyperSphereVolume(n)/log2(e);
+        return logHyperSphereVolume(n) / log2(e);
     }
 
     /**
      * Log base 2 of the volume of hypersphere of radiis 1
      */
-    public static double pow2(double d){
+    public static double pow2(double d) {
         return Math.pow(d, 2);
     }
 
     /**
-     * Calculate the binomial coefficient
-     * using a recursive procedure.
+     * Calculate the binomial coefficient using a recursive procedure.
      */
-    public static long binom(int n, int m){
-        if(m > n) return 0;
-        if(n==m || m==0) return 1;
-        if(n-m < m) return binom(n,n-m);
-        return binom(n-1, m-1)*n/m;
+    public static long binom(int n, int m) {
+        if (m > n) {
+            return 0;
+        }
+        if (n == m || m == 0) {
+            return 1;
+        }
+        if (n - m < m) {
+            return binom(n, n - m);
+        }
+        return binom(n - 1, m - 1) * n / m;
     }
 
     /**
      * Return log2 of the binomial coefficient.
      */
-    public static double log2Binom(int n, int m){
+    public static double log2Binom(int n, int m) {
         double num = 0, den = 0;
-        for(int t = n-m+1; t <= n; t++) num += log2(t);
-        for(int t = 1; t <= m; t++) den += log2(t);
+        for (int t = n - m + 1; t <= n; t++) {
+            num += log2(t);
+        }
+        for (int t = 1; t <= m; t++) {
+            den += log2(t);
+        }
         return num - den;
     }
 
     /**
-     * Returns the value of the mth discrete Legendre polynomial
-     * of length N evalated at x.
+     * Returns the value of the mth discrete Legendre polynomial of length N
+     * evalated at x.
      */
-    public static double discreteLegendrePolynomial(int m, int N, int x){
+    public static double discreteLegendrePolynomial(int m, int N, int x) {
         double p = 0.0;
-        double scale = factorial(m)/((double)binom(2*m, m));
+        double scale = factorial(m) / ((double) binom(2 * m, m));
         //System.out.println("factorial(m) = " + factorial(m));
         //System.out.println("binom(2*m, m) = " + binom(2*m, m));
-        for(int s = 0; s <= m; s++){
-            p += scale*Math.pow(-1, s+m)*binom(s+m, s)*binom(N-s-1, N-m-1)*binom(x,s);
+        for (int s = 0; s <= m; s++) {
+            p += scale * Math.pow(-1, s + m) * binom(s + m, s) * binom(N - s - 1, N - m - 1) * binom(x, s);
         }
         return p;
     }
 
-    /** Return the centered fractional part of x.  i.e. x - round(x) */
-    public static double fracpart(double x){
+    /**
+     * Return the centered fractional part of x. i.e. x - round(x)
+     */
+    public static double fracpart(double x) {
         return x - Math.round(x);
     }
 
-    /** Return the fractional part 'mod 2pi' */
-    public static double mod2pi(double x){
-        return Math.IEEEremainder(x, 2*Math.PI);
+    /**
+     * Return the fractional part 'mod 2pi'
+     */
+    public static double mod2pi(double x) {
+        return Math.IEEEremainder(x, 2 * Math.PI);
     }
 
     /**
-     * Returns the power sum i.e. 1 + 2^m + ... + N^m.
-     * This is just a brute force approach.  Could be a lot smarter.
+     * Returns the power sum i.e. 1 + 2^m + ... + N^m. This is just a brute
+     * force approach. Could be a lot smarter.
      */
-    public static double powerSum(int N, int m){
+    public static double powerSum(int N, int m) {
         double sum = 0;
-        for( int i = 1; i <= N; i++){
+        for (int i = 1; i <= N; i++) {
             sum += Math.pow(i, m);
         }
         return sum;
     }
-    
-    /** 
-     * Returns the value of the nth modified Bessel function at x.
-     * For some reason, the colt library does not have this.
+
+    /**
+     * Returns the value of the nth modified Bessel function at x. For some
+     * reason, the colt library does not have this.
      */
-    public static double besselI(int n, double x){
+    public static double besselI(int n, double x) {
         double sum = 0, toadd = 1, tol = 1e-10;
         int m = 0;
-        while(Math.abs(toadd) > tol){
+        while (Math.abs(toadd) > tol) {
             long mf = factorial(m);
             long nf = factorial(m + n);
-            toadd = Math.pow(x/2, 2*m+n)/mf/nf;
+            toadd = Math.pow(x / 2, 2 * m + n) / mf / nf;
             //System.out.println(toadd);
-            sum+=toadd;
+            sum += toadd;
             m++;
         }
         return sum;
     }
-
 }

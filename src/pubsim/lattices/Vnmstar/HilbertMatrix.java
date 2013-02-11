@@ -35,7 +35,7 @@ public class HilbertMatrix {
     public BigRational q(int s, int i) {
         if(i < 0 || s < 0) return BigRational.ZERO;
         else if(i == 0 && s==0) return BigRational.ONE;
-        else if(s == 0) return BigRational.ZERO;
+        else if(s == 0) return BigRational.ZERO; 
         else if(i <= m && s <= m && qmem[s][i] != null) return qmem[s][i];
         BigRational num = (q(s-1,i-1) / new BigRational(s,1)) - q(s-1,i);
         if(i <= m && s <= m) qmem[s][i] = num;

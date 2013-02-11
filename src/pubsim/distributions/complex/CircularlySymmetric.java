@@ -81,7 +81,7 @@ public class CircularlySymmetric implements ComplexRandomVariable {
 
     @Override
     public RealRandomVariable imaginaryMarginal() {
-        return mag;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
