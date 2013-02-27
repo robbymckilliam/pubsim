@@ -6,6 +6,7 @@
 package pubsim;
 
 import Jama.Matrix;
+import java.util.Arrays;
 import pubsim.distributions.RealRandomVariable;
 import java.util.Date;
 import java.util.Random;
@@ -19,6 +20,13 @@ import static pubsim.Range.range;
  * a fat matrix is input.
  */
 public final class VectorFunctions {
+    
+    /** Returns an array of ints of length n each element equal to c */
+    public static int[] filledArray(int n, int c){
+        int[] array = new int[n];
+        Arrays.fill(array, c);
+        return array;
+    }
 
     /**
      * A slow Fourier Tranform.  It will work on
@@ -263,7 +271,29 @@ public final class VectorFunctions {
         for (int n = 0; n < N; n++) B.set(n,0,1.0);
         return B;
     }
+    
+     /**
+     * Return the product of elements in a vector
+     */
+    public static long prod(int[] x) {
+        int out = 1;
+        for (int i = 0; i < x.length; i++) {
+            out *= x[i];
+        }
+        return out;
+    }
 
+    /**
+     * Return the sum of a vector
+     */
+    public static double prod(double[] x) {
+        double out = 1.0;
+        for (int i = 0; i < x.length; i++) {
+            out *= x[i];
+        }
+        return out;
+    }
+    
     /**
      * Return the sum of a vector
      */

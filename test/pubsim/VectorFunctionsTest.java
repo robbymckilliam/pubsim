@@ -7,12 +7,10 @@
 
 package pubsim;
 
-import pubsim.Complex;
 import Jama.Matrix;
 import junit.framework.*;
-import java.util.Random;
-import static pubsim.VectorFunctions.*;
 import static org.junit.Assert.*;
+import static pubsim.VectorFunctions.*;
 
 /**
  *
@@ -43,6 +41,14 @@ public class VectorFunctionsTest extends TestCase {
      */
     public static void assertVectorsEqual(double[] x, double[] y){
         assertVectorsEqual(x, y, 0.0000001);
+    }
+    
+    public void testFilledArrayInt() {
+        int n = 10;
+        int c = 4;
+        int[] a = filledArray(n,c);
+        assertEquals(a.length,n);
+        for(int i = 0; i < n; i++) assertEquals(a[i],c);
     }
 
     /**
@@ -239,6 +245,25 @@ public class VectorFunctionsTest extends TestCase {
         double expResult = 6;
         double result = VectorFunctions.sum(x);
         assertEquals(expResult, result, 1e-9);
+       
+    }
+    
+    public void testProd() {
+        System.out.println("prod");
+        
+        {
+        double[] x = {1,2,4};
+        double expResult = 8;
+        double result = VectorFunctions.prod(x);
+        assertEquals(expResult, result, 1e-9);
+        }
+        
+        {
+        int[] x = {1,2,4};
+        long expResult = 8;
+        long result = VectorFunctions.prod(x);
+        assertEquals(expResult, result);
+        }
        
     }
 

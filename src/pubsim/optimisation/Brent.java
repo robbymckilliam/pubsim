@@ -28,7 +28,7 @@ public class Brent {
     public final double xmin() { return x; }
     
     public Brent(SingleVariateFunction f, double ax, double bx, double cx){
-        this(f,ax,bx,cx,1e-8,100);
+        this(f,ax,bx,cx,1e-7,100);
     } 
     
     public Brent(SingleVariateFunction f, double ax, double bx, double cx, double tol){
