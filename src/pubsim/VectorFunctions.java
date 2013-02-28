@@ -675,7 +675,7 @@ public final class VectorFunctions {
         }
         return st;
     }
-
+   
     /**
      * Return a string for the vector
      */
