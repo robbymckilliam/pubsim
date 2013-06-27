@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pubsim.lattices.Vnm;
 
 import Jama.Matrix;
@@ -169,7 +165,7 @@ public class VnmTest {
 
     }
 
-            /**
+     /**
      * Test of volume method, of class Vnm.
      */
     @Test
@@ -188,9 +184,6 @@ public class VnmTest {
 
     
 //    
-//    /**
-//     * Test ProbCodingError.
-//     */
 //    @Test
 //    public void testRangeHypothesis() {
 //        System.out.println("testing range hypothesis");
@@ -214,9 +207,6 @@ public class VnmTest {
 //    }
     
     
-//    /**
-//     * Test of logVolume method, of class Vnm.
-//     */
 //    @Test
 //    public void searchForSquares() {
 //        System.out.println("search for squares");
