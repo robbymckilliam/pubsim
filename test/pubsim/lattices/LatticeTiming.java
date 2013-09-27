@@ -18,7 +18,7 @@ import pubsim.lattices.Anm.AnmGlued;
  * Runs computational trials on lattices.
  * @author Robby McKilliam
  */
-public class LatticeTimingTest {
+public class LatticeTiming {
 
      /**
      * Main function for testing the practical running times

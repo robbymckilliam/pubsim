@@ -20,7 +20,7 @@ public class AngularLeastSquaresCLT {
     /** Constructor.  The amplitude defaults to 1. */
     public AngularLeastSquaresCLT(CircularRandomVariable circdist){
         h = circdist.pdf(0.5);
-        unwrpvar = circdist.unwrappedVariance();
+        unwrpvar = circdist.intrinsicVariance();
     }
 
     public double getBound(int N) {

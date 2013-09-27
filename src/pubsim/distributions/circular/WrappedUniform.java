@@ -24,10 +24,10 @@ public class WrappedUniform extends WrappedCircularRandomVariable{
      * Return the unwrapped variance.
      */
     @Override
-    public Double unwrappedVariance(){
+    public Double intrinsicVariance(){
         if( uvar < 1.0/12.0 ) return uvar;
-        else if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
-        return unwrped.getUnwrappedVariance();
+        else if(unwrped == null) unwrped = new InstrinsicMeanAndVariance(this);
+        return unwrped.getIntrinsicVariance();
     }
 
     /**
@@ -35,21 +35,21 @@ public class WrappedUniform extends WrappedCircularRandomVariable{
      * This is much faster and more accurate if you know the mean in advance.
      */
     @Override
-    public Double unwrappedVariance(double truemean){
+    public Double intrinsicVariance(double truemean){
         if( uvar < 1.0/12.0 ) return uvar;
-        else if(unwrped == null || unwrped.getUnwrappedMean() != truemean)
-            unwrped = new UnwrappedMeanAndVariance(this,truemean);
-        return unwrped.getUnwrappedVariance();
+        else if(unwrped == null || unwrped.getIntrinsicMean() != truemean)
+            unwrped = new InstrinsicMeanAndVariance(this,truemean);
+        return unwrped.getIntrinsicVariance();
     }
 
     /**
      * Return the wrapped mean
      */
     @Override
-    public Double unwrappedMean(){
+    public Double intrinsicMean(){
         if( uvar < 1.0/12.0 ) return umean;
-        else if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
-        return unwrped.getUnwrappedMean();
+        else if(unwrped == null) unwrped = new InstrinsicMeanAndVariance(this);
+        return unwrped.getIntrinsicMean();
     }
 
 }

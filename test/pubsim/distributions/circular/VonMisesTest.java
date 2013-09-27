@@ -73,7 +73,7 @@ public class VonMisesTest {
         System.out.println("testWrappedVarianceSmall");
         double invar = 0.0001;
         VonMises instance = new VonMises(0.0,invar);
-        double v = instance.unwrappedVariance();
+        double v = instance.intrinsicVariance();
         assertEquals(1.0/12.0, v, 0.0001);
 
     }

@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * @author Robby McKilliam
  */
 
 package pubsim.distributions.circular;
@@ -20,7 +19,7 @@ import rngpack.Ranmar;
  */
 public abstract class CircularRandomVariable implements RealRandomVariable {
 
-    protected UnwrappedMeanAndVariance unwrped;
+    protected InstrinsicMeanAndVariance unwrped;
     protected CircularMeanVariance circ;
 
     protected RandomElement random;
@@ -30,29 +29,29 @@ public abstract class CircularRandomVariable implements RealRandomVariable {
     }
     
     /**
-     * Return the unwrapped variance.
+     * Return the intrinsic variance.
      */
-    public Double unwrappedVariance(){
-        if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
-        return unwrped.getUnwrappedVariance();
+    public Double intrinsicVariance(){
+        if(unwrped == null) unwrped = new InstrinsicMeanAndVariance(this);
+        return unwrped.getIntrinsicVariance();
     }
 
     /**
-     * Return the unwrapped variance assuming that the mean is true mean.
-     * This is much faster and more accurate if you know the mean in advance.
+     * Return the intrinsic (or wrapped) variance assuming that the mean is 
+     * intrinsic mean. This is much faster and more accurate if you know the mean in advance.
      */
-    public Double unwrappedVariance(double truemean){
-        if(unwrped == null || unwrped.getUnwrappedMean() != truemean)
-            unwrped = new UnwrappedMeanAndVariance(this,truemean);
-        return unwrped.getUnwrappedVariance();
+    public Double intrinsicVariance(double truemean){
+        if(unwrped == null || unwrped.getIntrinsicMean() != truemean)
+            unwrped = new InstrinsicMeanAndVariance(this,truemean);
+        return unwrped.getIntrinsicVariance();
     }
 
     /**
-     * Return the wrapped mean
+     * Return the intrinsic (or wrapped) mean
      */
-    public Double unwrappedMean(){
-        if(unwrped == null) unwrped = new UnwrappedMeanAndVariance(this);
-        return unwrped.getUnwrappedMean();
+    public Double intrinsicMean(){
+        if(unwrped == null) unwrped = new InstrinsicMeanAndVariance(this);
+        return unwrped.getIntrinsicMean();
     }
 
     /**

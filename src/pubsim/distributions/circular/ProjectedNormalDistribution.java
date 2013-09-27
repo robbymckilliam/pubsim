@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * @Robby McKilliam
  */
 
 package pubsim.distributions.circular;
@@ -20,13 +19,18 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
     protected RealRandomVariable gauss;
     double cmean, smean, mean;
     
+    /** 
+     * Construct a projection normal random variable.  This is obtained by projecting a 
+     * bivariate normal random variable onto the unit circle.
+     * @param mean    the circular mean of this random variable
+     * @param var       the variance of the i.i.d. component of the bivariate normal random variable used in generate the projection normal random variable.
+     */
     public ProjectedNormalDistribution(double mean, double var){
         gauss = new GaussianNoise(0.0, var);
         this.mean = mean;
         cmean = Math.cos(mean);
         smean = Math.sin(mean);
     }
-
 
     @Override
     public Double getNoise() {       
@@ -53,7 +57,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
 
     /**
      * Returns the value of the PDF of this distribution
-     * v^2 is the SNR of the gaussian distribution used.
+     * v^2 is the SNR of the Gaussian distribution used.
      * v = p/sigma.
      * See Quinn, "Estimating the mode of a phase distribution", Asilomar, 2007
      */
@@ -73,7 +77,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
 
     /**
      * Returns the derivative of the PDF of this distribution
-     * v^2 is the SNR of the gaussian distribution used.
+     * v^2 is the SNR of the Gaussian distribution used.
      * v = p/sigma.
      * See Quinn, "Estimating the mode of a phase distribution", Asilomar, 2007
      */

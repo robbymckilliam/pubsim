@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * @author Robby McKilliam
  */
 
 package pubsim.distributions.circular;
@@ -17,6 +16,10 @@ public class VonMises extends CircularRandomVariable{
     protected double mu, kappa;
     Random U;
     
+    /** 
+     * Construct a Von Mises circular random variable with circular (also intrinsic mean)
+     * equal to mu and concentration parameter equal to kappa
+     */
     public VonMises(double mu, double kappa){
         U = new Random();
         this.mu = mu;
@@ -94,7 +97,7 @@ public class VonMises extends CircularRandomVariable{
     }
 
     @Override
-    public Double unwrappedMean() {
+    public Double intrinsicMean() {
         return mu;
     }
 

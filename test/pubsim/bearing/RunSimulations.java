@@ -79,7 +79,7 @@ public class RunSimulations {
                 double mse = runIterations(est, signal_gen, iterations);
 
                 mse_array.add(mse/iterations);
-                double wrappedvar = noise.unwrappedVariance();
+                double wrappedvar = noise.intrinsicVariance();
                 wrappedvar_array.add(wrappedvar);
 
                 System.out.println(wrappedvar + "\t" + mse/iterations);
@@ -116,7 +116,7 @@ public class RunSimulations {
                 CircularRandomVariable noise = var_array.get(i);
                 //double mse = new SampleCircularMean().asymptoticVariance(noise, n);
                 double mse = new AngularLeastSquaresEstimator(0).asymptoticVariance(noise, n);
-                double wrappedvar = noise.unwrappedVariance();
+                double wrappedvar = noise.intrinsicVariance();
                 wrappedvar_array.add(wrappedvar);
                 mse_array.add(mse);
                 System.out.println(wrappedvar + "\t" + mse);

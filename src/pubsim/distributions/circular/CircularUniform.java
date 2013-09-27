@@ -22,7 +22,7 @@ public class CircularUniform extends CircularRandomVariable {
      * Returns 1/12
      */
     @Override
-    public Double unwrappedVariance(){
+    public Double intrinsicVariance(){
         return 1.0/12.0;
     }
 
@@ -30,7 +30,7 @@ public class CircularUniform extends CircularRandomVariable {
      * The circular uniform has NO unwrapped mean!
      */
     @Override
-    public Double unwrappedMean(){
+    public Double intrinsicMean(){
         System.out.println("Warning: Circular uniform has no unwrapped mean. Returning zero");
         return 0.0;
     }
