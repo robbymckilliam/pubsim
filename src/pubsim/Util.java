@@ -72,6 +72,21 @@ public final class Util {
     /**
      * Return array [d, a, b] such that d = gcd(p, q), ap + bq = d
      */
+    public static long[] extended_gcd(long p, long q) {
+        if (q == 0) {
+            return new long[]{p, 1, 0};
+        }
+        long[] vals = extended_gcd(q, p % q);
+        long d = vals[0];
+        long a = vals[2];
+        long b = vals[1] - (p / q) * vals[2];
+        return new long[]{d, a, b};
+    }
+    
+    
+    /**
+     * Return array [d, a, b] such that d = gcd(p, q), ap + bq = d
+     */
     public static BigInteger[] extended_gcd(BigInteger p, BigInteger q) {
         if (q.compareTo(BigInteger.ZERO)==0) {
             return new BigInteger[]{p, BigInteger.ONE, BigInteger.ZERO};
