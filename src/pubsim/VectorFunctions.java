@@ -1419,6 +1419,15 @@ public final class VectorFunctions {
         }
         return M;
     }
+    
+        /** Construct a column matrix (vector) from a double[] */
+    public static Matrix columnMatrix(int[] x){
+        Matrix M = new Matrix(x.length, 1);
+        for(int n = 0; n < x.length; n++){
+            M.set(n, 0, x[n]);
+        }
+        return M;
+    }
    
 
      /** Construct a row matrix (vector) from a double[] */
@@ -1430,6 +1439,15 @@ public final class VectorFunctions {
         return M;
     }
 
+    /** Construct a row matrix (vector) from a double[] */
+    public static Matrix rowMatrix(int[] x){
+        Matrix M = new Matrix(1, x.length);
+        for(int n = 0; n < x.length; n++){
+            M.set(0, n, x[n]);
+        }
+        return M;
+    }
+    
      /**
       * Generate a banded matrix with random elements.  The
       * elements are Gaussian distributed zero mean and

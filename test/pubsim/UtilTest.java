@@ -88,6 +88,15 @@ public class UtilTest {
     }
     
     @Test
+    public void testextendedgcdLong() {
+        System.out.println("extended gcd long");
+        long[] t = extended_gcd(new Long(10), new Long(2));
+        assertTrue((t[0] == 2) && ((10 * t[1] + 2 * t[2]) == t[0]));
+        t = extended_gcd(new Long(3458), new Long(4864));
+        assertTrue((t[0] == 38) && ((3458 * t[1] + 4864 * t[2]) == t[0]));
+    }
+    
+    @Test
     public void testextendedgcdBigInteger() {
         System.out.println("extended gcd BigInteger");
         BigInteger a = new BigInteger("10");
