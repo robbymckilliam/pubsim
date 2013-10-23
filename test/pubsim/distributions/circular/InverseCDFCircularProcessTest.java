@@ -105,7 +105,7 @@ public class InverseCDFCircularProcessTest {
         InverseCDFCircularProcess instance = new InverseCDFCircularProcess(new WrappedGaussian(0,0.01), filter);
         
         double[] ac = instance.autocorrelation();
-        double wv = new WrappedGaussian(0,0.01).unwrappedVariance();
+        double wv = new WrappedGaussian(0,0.01).intrinsicVariance();
         
         System.out.println(ac[0] + ", " + wv);
 

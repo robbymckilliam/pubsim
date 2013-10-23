@@ -53,9 +53,9 @@ public class WrappedUniformTest {
     public void testGetWrappedVariance() {
         System.out.println("getWrappedVariance");
         CircularRandomVariable instance = new WrappedUniform(0.0, 1.0/12.0);
-        assertEquals(1.0/12.0, instance.unwrappedVariance(), 0.0001);
+        assertEquals(1.0/12.0, instance.intrinsicVariance(), 0.0001);
         instance = new WrappedUniform(0.0, 1.0/11.0);
-        double result = instance.unwrappedVariance();
+        double result = instance.intrinsicVariance();
         assertTrue(1.0/12.0 > result);
     }
     
@@ -68,7 +68,7 @@ public class WrappedUniformTest {
         double var = 1.0/11.0;
         CircularRandomVariable instance = new WrappedUniform(mean, var);
         
-        double umean = instance.unwrappedMean();
+        double umean = instance.intrinsicMean();
         assertEquals(-0.3, umean, 0.000001);
         
         double sum = 0; double sum2 = 0;
@@ -81,7 +81,7 @@ public class WrappedUniformTest {
         }
         
         //test the unwrapped variance
-        assertTrue( Math.abs(sum2/iters - instance.unwrappedVariance()) < 0.01 );
+        assertTrue( Math.abs(sum2/iters - instance.intrinsicVariance()) < 0.01 );
         
     }
 

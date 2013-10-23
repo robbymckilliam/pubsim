@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * @author Robby McKilliam
  */
 
 package pubsim.distributions.circular;
@@ -11,10 +10,10 @@ import static pubsim.Util.fracpart;
 import pubsim.distributions.RealRandomVariable;
 
 /**
- * Computes the unwrapped mean and variance of a circular distribution
+ * Computes the intrinsic (wrapped) mean and variance of a circular distribution
  * @author Robby McKilliam
  */
-public class UnwrappedMeanAndVariance {
+public class InstrinsicMeanAndVariance {
 
     protected final RealRandomVariable dist;
     protected double mean;
@@ -22,14 +21,14 @@ public class UnwrappedMeanAndVariance {
     protected int numsamples = 1000;
 
     /** Input is a distribution */
-    public UnwrappedMeanAndVariance( RealRandomVariable tdist ){
+    public InstrinsicMeanAndVariance( RealRandomVariable tdist ){
         this.dist = tdist;
 
         var = Double.POSITIVE_INFINITY;
         mean = 0;
 
         for(double t = -0.5; t < 0.5; t += 1.0/numsamples){
-            double tvar = computeWrappedVarianceAbout(t, dist, 1000);
+            double tvar = computeIntrinsicVarianceAbout(t, dist, 1000);
             if( tvar < var ){
                 var = tvar;
                 mean = t;
@@ -43,15 +42,15 @@ public class UnwrappedMeanAndVariance {
      * i.e. this allows you to specify the mean ahead of time. This is much
      * faster if you do know the mean.
      */
-    public UnwrappedMeanAndVariance( RealRandomVariable tdist, double truemean ){
+    public InstrinsicMeanAndVariance( RealRandomVariable tdist, double truemean ){
         this.dist = tdist;
-        var = computeWrappedVarianceAbout(truemean, dist, 10000);
+        var = computeIntrinsicVarianceAbout(truemean, dist, 10000);
         mean = truemean;
 
     }
 
     /** Compute the wrapped variance after applying a rotaton of phi */
-    public static double computeWrappedVarianceAbout(final double phi, final RealRandomVariable dist, int integralsteps){
+    public static double computeIntrinsicVarianceAbout(final double phi, final RealRandomVariable dist, int integralsteps){
         double tvar = (new Integration(new IntegralFunction() {
             public double function(double x) {
                 double rot = fracpart(x-phi);
@@ -61,7 +60,7 @@ public class UnwrappedMeanAndVariance {
         return tvar;
     }
 
-    public double getUnwrappedVariance(){
+    public double getIntrinsicVariance(){
         return var;
     }
 
@@ -70,7 +69,7 @@ public class UnwrappedMeanAndVariance {
      * This could be improved by an optimisation routine but
      * I have not implemented it.
      */
-    public double getUnwrappedMean(){
+    public double getIntrinsicMean(){
         return mean;
     }
 

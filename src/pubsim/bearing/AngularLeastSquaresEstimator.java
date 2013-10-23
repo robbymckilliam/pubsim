@@ -50,7 +50,7 @@ public class AngularLeastSquaresEstimator implements BearingEstimator{
      * zero unwrapped mean. It will be incorrect if this is not the case.
      */
     public double asymptoticVariance(CircularRandomVariable noise, int N){
-        double sigma2 = noise.unwrappedVariance(0.0);
+        double sigma2 = noise.intrinsicVariance(0.0);
         double d = 1 - noise.pdf(-0.5);
         return sigma2/(N*d*d);
     }

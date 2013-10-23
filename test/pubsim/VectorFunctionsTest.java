@@ -502,20 +502,20 @@ public class VectorFunctionsTest extends TestCase {
     }
     
     /**
-     * Test of min method, of class simulator.VectorFunctions.
+     * Test of stable determinant method, of class simulator.VectorFunctions.
      */
-    public void testStableDet() {
-        System.out.println("stableDet");
-        
-        int m = 10;
-        
-        Matrix mat = Matrix.identity(m,m);
-        assertEquals(true, Math.abs(mat.det() - VectorFunctions.stableDet(mat)) < 0.00001);
-        
-        mat = Matrix.random(m,m);
-        assertEquals(true, Math.abs(mat.det() - VectorFunctions.stableDet(mat)) < 0.00001);
-
-    }
+//    public void testStableDet() {
+//        System.out.println("stableDet");
+//        
+//        int m = 10;
+//        
+//        Matrix mat = Matrix.identity(m,m);
+//        assertEquals(true, Math.abs(mat.det() - VectorFunctions.stableDet(mat)) < 0.00001);
+//        
+//        mat = Matrix.random(m,m);
+//        assertEquals(true, Math.abs(mat.det() - VectorFunctions.stableDet(mat)) < 0.00001);
+//
+//    }
     
         /**
      * Test of min method, of class simulator.VectorFunctions.

@@ -16,6 +16,14 @@ public class WrappedGaussian extends WrappedCircularRandomVariable {
 
     private final double thismean, thisvar;
 
+    /** 
+     * Construct a wrapped Gaussian (or wrapped normal) circular random variable.
+     * @param mean      mean of the underlying Gaussian random variable
+     * @param var         variance of the underlying Gaussin random variable
+     * 
+     * You can obtain the intrinsic mean and intrinsic varianace using the intrinsicMean() and
+     * intrinsicVariance() member function.
+     */
     public WrappedGaussian(double mean, double var) {
         super(new GaussianNoise(mean, var));
         thismean = mean;
@@ -23,12 +31,12 @@ public class WrappedGaussian extends WrappedCircularRandomVariable {
     }
 
     @Override
-    public Double unwrappedMean() {
+    public Double intrinsicMean() {
         return thismean - Math.round(thismean);
     }
 
     @Override
-    public Double unwrappedVariance() {
+    public Double intrinsicVariance() {
         
         //if the variance is really small, wrapping does change the variance much
         //this is just a guess threshold value
@@ -50,8 +58,8 @@ public class WrappedGaussian extends WrappedCircularRandomVariable {
     }
 
     @Override
-    public Double unwrappedVariance(double truemean) {
-        return unwrappedVariance();
+    public Double intrinsicVariance(double truemean) {
+        return intrinsicVariance();
     }
   
 }

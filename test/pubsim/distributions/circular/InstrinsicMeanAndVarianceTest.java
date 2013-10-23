@@ -6,7 +6,7 @@
 package pubsim.distributions.circular;
 
 import pubsim.distributions.circular.WrappedGaussian;
-import pubsim.distributions.circular.UnwrappedMeanAndVariance;
+import pubsim.distributions.circular.InstrinsicMeanAndVariance;
 import pubsim.distributions.SumsOfDistributions;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,9 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author Robby McKilliam
  */
-public class UnwrappedMeanAndVarianceTest {
+public class InstrinsicMeanAndVarianceTest {
 
-    public UnwrappedMeanAndVarianceTest() {
+    public InstrinsicMeanAndVarianceTest() {
     }
 
     @BeforeClass
@@ -48,17 +48,17 @@ public class UnwrappedMeanAndVarianceTest {
     public void testWrappedNormal() {
         System.out.println("getUnwrappedMeanAndVariance");
 
-        UnwrappedMeanAndVariance test =
-                new UnwrappedMeanAndVariance(
+        InstrinsicMeanAndVariance test =
+                new InstrinsicMeanAndVariance(
                 new WrappedGaussian(0.1, 0.1));
 
-        assertEquals(0.1, test.getUnwrappedMean(), 0.001);
+        assertEquals(0.1, test.getIntrinsicMean(), 0.001);
 
 
     }
 
     /**
-     * Test of getUnwrappedVariance method, of class UnwrappedMeanAndVariance.
+     * Test of getIntrinsicVariance method, of class InstrinsicMeanAndVariance.
      */
     @Test
     public void testAdditiveDist() {
@@ -68,10 +68,10 @@ public class UnwrappedMeanAndVarianceTest {
         dist.addDistribution(new WrappedGaussian(0.25, 0.02), 0.5);
         dist.addDistribution(new WrappedGaussian(-0.25, 0.02), 0.5);
 
-        UnwrappedMeanAndVariance test = new UnwrappedMeanAndVariance(dist);
+        InstrinsicMeanAndVariance test = new InstrinsicMeanAndVariance(dist);
 
-        System.out.println(test.getUnwrappedMean());
-        System.out.println(test.getUnwrappedVariance());
+        System.out.println(test.getIntrinsicMean());
+        System.out.println(test.getIntrinsicVariance());
 
         //test.computeAndPrint(200);
     

@@ -75,7 +75,7 @@ public class WrappedGaussianNoiseTest {
         System.out.println("testWrappedVarianceSmall");
         double invar = 0.01;
         WrappedGaussian instance = new WrappedGaussian(0.0,invar);
-        double v = instance.unwrappedVariance();
+        double v = instance.intrinsicVariance();
         assertEquals(invar, v, 0.0001);
 
     }

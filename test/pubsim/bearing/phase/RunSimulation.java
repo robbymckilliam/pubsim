@@ -80,7 +80,7 @@ public class RunSimulation {
                 mse_array.add(mse/iterations);
 
                 System.out.println(
-                        new ProjectedNormalDistribution(0.0, noise.getVariance()).unwrappedVariance()
+                        new ProjectedNormalDistribution(0.0, noise.getVariance()).intrinsicVariance()
                         + "\t" + mse/iterations);
 
 
@@ -116,7 +116,7 @@ public class RunSimulation {
                 double mse = new AngularLeastSquaresEstimator(0).asymptoticVariance(circn, n);
                 //double mse = new VectorMeanEstimator().asymptoticVariance(circn, n);
                 mse_array.add(mse);
-                System.out.println(circn.unwrappedVariance() + "\t" + mse);
+                System.out.println(circn.intrinsicVariance() + "\t" + mse);
         }
         try{
             String fname = "asymp_arg_" + noise_array.get(0).getClass().getName();

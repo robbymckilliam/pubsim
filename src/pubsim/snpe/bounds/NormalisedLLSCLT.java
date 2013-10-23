@@ -34,7 +34,7 @@ public class NormalisedLLSCLT implements CLT{
 
         //Is is the wrapped variance or not?  Need to check Barry's
         //CLT a little more closely.
-        double wrappedvar = wrped.unwrappedVariance(0);
+        double wrappedvar = wrped.intrinsicVariance(0);
         //double wrappedvar = noise.getVariance();
 
         //this is the the scale factor contructed from these numbers;
