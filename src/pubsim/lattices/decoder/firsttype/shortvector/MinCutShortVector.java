@@ -40,10 +40,7 @@ public class MinCutShortVector implements ShortVector{
         
         //compute the extended Gram matrix (i.e. the Selling parameters)
         Q = B.transpose().times(B);
-        
-        //System.out.println(VectorFunctions.print(B));
-        //System.out.println(VectorFunctions.print(Q));
-        
+                
         //check it actually is obtuse
         for(int n = 0; n < N+1; n++) 
             for(int m = 0; m < M; m++)
@@ -71,7 +68,7 @@ public class MinCutShortVector implements ShortVector{
         Set<Integer> C = mincut.minCut();
         for( Integer i : C ) u[i] = 1;
         
-        //compute the nearest point from the index
+        //compute the short vector from the index
         matrixMultVector(B, u, v); 
         
     } 

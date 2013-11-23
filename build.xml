@@ -19,6 +19,8 @@
             destdir="${build.dir}"
             classpathref="build.classpath"
 	    includeantruntime="false">
+      <!--<compilerarg value="-Xlint:deprecation" />-->
+      <!--<compilerarg value="-Xlint:unchecked" />-->
       <include name="src/**/*.java"   />
       <include name="test/**/*.java"   />
     </javac>
