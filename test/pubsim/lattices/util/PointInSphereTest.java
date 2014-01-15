@@ -109,25 +109,25 @@ public class PointInSphereTest {
 //
 //    }
 
-    /**
-     * Test of nextElementDouble method, of class PointInSphere.
-     */
-    @Test
-    public void testNextElementAnStar() {
-        System.out.println("testNextElementAnstar");
-        int N = 4;
-
-        for(double radius = 1.0; radius < 5.0; radius += 1.0){
-            System.out.println(radius);
-            PointInSphere instance = new PointInSphere(new AnstarBucket(N), radius);
-            while(instance.hasMoreElements()){
-                double[] p = instance.nextElementDouble();
-                //System.out.println(VectorFunctions.print(p));
-                assertTrue(VectorFunctions.magnitude(p) <= radius + 0.00001);
-            }
-
-        }
-
-    }
+//    /**
+//     * Test of nextElementDouble method, of class PointInSphere.
+//     */
+//    @Test
+//    public void testNextElementAnStar() {
+//        System.out.println("testNextElementAnstar");
+//        int N = 4;
+//
+//        for(double radius = 1.0; radius < 5.0; radius += 1.0){
+//            System.out.println(radius);
+//            PointInSphere instance = new PointInSphere(new AnstarBucket(N), radius);
+//            while(instance.hasMoreElements()){
+//                double[] p = instance.nextElementDouble();
+//                //System.out.println(VectorFunctions.print(p));
+//                assertTrue(VectorFunctions.magnitude(p) <= radius + 0.00001);
+//            }
+//
+//        }
+//
+//    }
 
 }

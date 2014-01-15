@@ -22,6 +22,7 @@ public class Lattice extends AbstractLattice {
     
     public Lattice(Matrix B){
         this.B = B;
+        
     }
     
     public Lattice(double[][] B){

@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pubsim.lattices.decoder.firsttype.shortvector;
+package pubsim.lattices.decoder.firstkind.shortvector;
 
+import pubsim.lattices.decoder.firstkind.shortvector.MinCutShortVector;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import pubsim.VectorFunctions;

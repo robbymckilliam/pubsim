@@ -1,4 +1,4 @@
-package pubsim.lattices.decoder.firsttype.shortvector;
+package pubsim.lattices.decoder.firstkind.shortvector;
 
 import Jama.Matrix;
 import java.util.Set;
