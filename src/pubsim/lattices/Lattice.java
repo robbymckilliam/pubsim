@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
 import Jama.Matrix;
@@ -17,12 +12,8 @@ public class Lattice extends AbstractLattice {
     /** The generator matrix for the lattice */
     protected Matrix B;
     
-    protected Lattice(){
-    }
-    
     public Lattice(Matrix B){
-        this.B = B;
-        
+        this.B = B;     
     }
     
     public Lattice(double[][] B){

@@ -1,8 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pubsim.lattices.decoder.firstkind;
+
+import Jama.Matrix;
+import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 
 /**
  * Class describes lattices of Voronoi's first kind.  These lattices have an obtuse superbasis.
@@ -15,6 +15,37 @@ package pubsim.lattices.decoder.firstkind;
  * 
  * @author Robby McKilliam
  */
-public class LatticeOfFirstKind {
+public class LatticeOfFirstKind extends Lattice implements LatticeAndNearestPointAlgorithmInterface {
     
+    public LatticeOfFirstKind(Matrix B){
+        super(B);
+    }
+    
+
+    @Override
+    public void nearestPoint(double[] y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void nearestPoint(Double[] y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public double[] getLatticePoint() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public double[] getIndex() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public double distance() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }
