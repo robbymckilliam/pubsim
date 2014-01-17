@@ -7,8 +7,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
+import pubsim.distributions.UniformNoise;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.Anstar.AnstarBucket;
+import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 
 /**
  *
@@ -72,6 +74,7 @@ public class LatticeOfFirstKindTest {
         assertEquals(anlattice.norm(), instance.norm(), 0.00001);
         assertEquals(anlattice.volume(), instance.volume(), 0.00001);
         assertEquals(anlattice.packingDensity(), instance.packingDensity(), 0.00001);
+        assertEquals(anlattice.centerDensity(), instance.centerDensity(), 0.00001);
     }
     
      /**
@@ -87,6 +90,37 @@ public class LatticeOfFirstKindTest {
         assertEquals(anlattice.norm(), instance.norm(), 0.00001);
         assertEquals(anlattice.volume(), instance.volume(), 0.00001);
         assertEquals(anlattice.packingDensity(), instance.packingDensity(), 0.00001);
+        assertEquals(anlattice.centerDensity(), instance.centerDensity(), 0.00001);
+    }
+    
+     /**
+     * Test of construct random first kind lattice
+     */
+    @Test
+    public void testconstructrandom() {
+        System.out.println("construct random");
+        for(int n = 1; n <= 24; n++){
+            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, new UniformNoise(-0.5,1,0));
+            //System.out.println(VectorFunctions.print(lattice.extendedGram()));
+        }
     }
  
+    /**
+     * Test of construct random first kind lattice
+     */
+    @Test
+    public void testconstructnorm() {
+        System.out.println("test norm");
+        for(int n = 2; n <= 24; n++){
+            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, new UniformNoise(-0.5,1,0));
+            ShortVectorSphereDecoded sd = new ShortVectorSphereDecoded(lattice);
+            double sdnorm = VectorFunctions.sum2(sd.getShortestVector());
+            double mincutnorm = lattice.norm();
+            //System.out.println(n + ", " + sdnorm + ", " + mincutnorm + ", " + lattice.getGeneratorMatrix().cond());
+            //System.out.println(VectorFunctions.print(lattice.extendedGram()));
+            assertEquals(sdnorm,mincutnorm,0.00001);
+        }
+    }
+
+
 }

@@ -1,17 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pubsim.lattices.decoder.firstkind.shortvector;
 
-import pubsim.lattices.decoder.firstkind.shortvector.MinCutShortVector;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnSorted;
 import pubsim.lattices.Anstar.AnstarSorted;
-import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
+import pubsim.lattices.decoder.firstkind.LatticeOfFirstKind;
 
 /**
  *
@@ -45,7 +40,7 @@ public class MinCutShortVectorTest {
     public void testWithAnStar() {
         System.out.println("testWithAnStar");
         int n = 50;
-        LatticeInterface lattice = new AnstarSorted(n);
+        LatticeOfFirstKind lattice = new LatticeOfFirstKind(new AnstarSorted(n).getGeneratorMatrix());
         MinCutShortVector instance = new MinCutShortVector(lattice);
         ShortVectorSphereDecoded tester = new ShortVectorSphereDecoded(lattice);
         
@@ -66,7 +61,7 @@ public class MinCutShortVectorTest {
     public void testWithAn() {
         System.out.println("testWithAn");
         int n = 50;
-        LatticeInterface lattice = new AnSorted(n);
+        LatticeOfFirstKind lattice = new LatticeOfFirstKind(new AnSorted(n).getGeneratorMatrix());
         MinCutShortVector instance = new MinCutShortVector(lattice);
         ShortVectorSphereDecoded tester = new ShortVectorSphereDecoded(lattice);
         
