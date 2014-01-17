@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.*;
 import pubsim.VectorFunctions;
+import pubsim.lattices.decoder.KissingNumber;
 
 /**
  *
@@ -60,5 +61,17 @@ public class AnstarTest {
         assertEquals(glue[0], i*(1.0 - dn), 0.000001);
         assertEquals(glue[1], i*(-dn), 0.000001);
     }
+    
+    /**
+     * Test of kissing number method, of class Anstar.
+     */
+    @Test
+    public void testKissingNumber() {
+        System.out.println("kissing number");
+        final int n = 8;
+        AnstarBucket lattice = new AnstarBucket(n);
+        KissingNumber kissingnumber = new KissingNumber(lattice);
+        assertEquals(kissingnumber.kissingNumber(),lattice.kissingNumber());
+    }    
 
 }

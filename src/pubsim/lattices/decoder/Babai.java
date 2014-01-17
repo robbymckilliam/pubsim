@@ -44,7 +44,7 @@ public class Babai implements NearestPointAlgorithmInterface {
     protected double[] yr;
     
     /** LLL reduced basis matrix. G = BU */
-    protected Matrix B; 
+    final protected Matrix B; 
     
     /** 
      * Unimodular transform between G and it's LLL

@@ -10,7 +10,7 @@ import Jama.Matrix;
 public class Lattice extends AbstractLattice {
 
     /** The generator matrix for the lattice */
-    protected Matrix B;
+    final protected Matrix B;
     
     public Lattice(Matrix B){
         this.B = B;     

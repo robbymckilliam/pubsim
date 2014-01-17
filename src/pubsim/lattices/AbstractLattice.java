@@ -86,6 +86,7 @@ public abstract class AbstractLattice implements LatticeInterface {
      */
     @Override
     public final double inradius(){
+        if(norm==0.0) norm = norm();
         return Math.sqrt(norm)/2.0;
     }
 
