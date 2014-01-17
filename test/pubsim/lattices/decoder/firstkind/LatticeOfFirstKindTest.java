@@ -5,12 +5,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
 import pubsim.distributions.UniformNoise;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.Anstar.AnstarBucket;
-import pubsim.lattices.decoder.ShortVectorSphereDecoded;
+import pubsim.lattices.Lattice;
 
 /**
  *
@@ -91,6 +90,7 @@ public class LatticeOfFirstKindTest {
         assertEquals(anlattice.volume(), instance.volume(), 0.00001);
         assertEquals(anlattice.packingDensity(), instance.packingDensity(), 0.00001);
         assertEquals(anlattice.centerDensity(), instance.centerDensity(), 0.00001);
+        assertEquals(anlattice.logCenterDensity(), instance.logCenterDensity(), 0.00001);
     }
     
      /**
@@ -113,8 +113,8 @@ public class LatticeOfFirstKindTest {
         System.out.println("test norm");
         for(int n = 2; n <= 24; n++){
             LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, new UniformNoise(-0.5,1,0));
-            ShortVectorSphereDecoded sd = new ShortVectorSphereDecoded(lattice);
-            double sdnorm = VectorFunctions.sum2(sd.getShortestVector());
+            Lattice blat = new Lattice(lattice.getGeneratorMatrix());
+            double sdnorm = blat.norm();
             double mincutnorm = lattice.norm();
             //System.out.println(n + ", " + sdnorm + ", " + mincutnorm + ", " + lattice.getGeneratorMatrix().cond());
             //System.out.println(VectorFunctions.print(lattice.extendedGram()));
