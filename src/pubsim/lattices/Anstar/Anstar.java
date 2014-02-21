@@ -6,6 +6,7 @@ package pubsim.lattices.Anstar;
 
 import Jama.Matrix;
 import pubsim.lattices.NearestPointAlgorithmStandardNumenclature;
+import pubsim.lattices.decoder.KissingNumber;
 
 /**
  * Abstract class for any Anstar algorithm
@@ -26,7 +27,7 @@ public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
 
     @Override
     public double norm() {
-        return 4.0*(1.0 - 1.0 / (n + 1));
+        return n / (n + 1.0);
     }
 
     @Override
@@ -103,6 +104,11 @@ public abstract class Anstar extends NearestPointAlgorithmStandardNumenclature {
             glue[j] = -i * dn;
         }
 
+    }
+    
+    @Override
+    public long kissingNumber() {
+        return 2*(n+1);
     }
     
     @Override

@@ -308,6 +308,17 @@ public final class VectorFunctions {
     /**
      * Return the sum of a vector
      */
+    public static int sum(int[] x) {
+        int out = 0;
+        for (int i = 0; i < x.length; i++) {
+            out += x[i];
+        }
+        return out;
+    }
+    
+    /**
+     * Return the sum of a vector
+     */
     public static int sum(Integer[] x) {
         int out = 0;
         for (int i = 0; i < x.length; i++) {

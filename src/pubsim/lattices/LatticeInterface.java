@@ -95,6 +95,11 @@ public interface LatticeInterface extends Serializable {
      */
     Matrix getGeneratorMatrix();
     
+    /** 
+     * Return the Gram matrix of this lattice, i.e., if the generator it B then return B'B. 
+     */
+    Matrix gramMatrix();
+    
     /**
      * Return the name for this lattice, if it has one
      */

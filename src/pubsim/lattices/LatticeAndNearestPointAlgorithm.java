@@ -14,17 +14,17 @@ public class LatticeAndNearestPointAlgorithm extends Lattice implements LatticeA
     private NearestPointAlgorithmInterface decoder;
 
     public LatticeAndNearestPointAlgorithm(Matrix B){
-        this.B = B;
+        super(B);
         decoder = new SphereDecoderSchnorrEuchner(this);
     }
 
     public LatticeAndNearestPointAlgorithm(double[][] B){
-        this.B = new Matrix(B);
+        super(new Matrix(B));
         decoder = new SphereDecoderSchnorrEuchner(this);
     }
 
      public LatticeAndNearestPointAlgorithm(Matrix B, NearestPointAlgorithmInterface np){
-        this.B = B;
+        super(B);
         decoder = np;
     }
 

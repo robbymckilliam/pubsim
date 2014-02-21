@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package pubsim.lattices;
+package pubsim.lattices.Anstar;
 
 import java.util.Random;
 import junit.framework.TestCase;

@@ -4,12 +4,15 @@
  */
 package pubsim.lattices;
 
+import Jama.Matrix;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
+import pubsim.VectorFunctions;
 import static pubsim.VectorFunctions.distance_between;
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.processes.NoiseVector;
+import static pubsim.lattices.E8.dMat;
 import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.lattices.util.PowerOfEuclideanNorm;
 
@@ -81,5 +84,27 @@ public class E8Test {
         assertEquals(momentmc, instance.secondMoment(), 0.01);
 
     }
+    
+//    @Test
+//    public void testObtuseSuperbasis() {
+//        final double[][] Bmat
+//            = { {2,0,0,0,0,0,0,0},
+//                {-1,1,0,0,0,0,0,0},
+//                {0,-1,1,0,0,0,0,0},
+//                {0,0,-1,1,0,0,0,0},
+//                {0,0,0,-1,1,0,0,0},
+//                {0,0,0,0,-1,1,0,0},
+//                {0,0,0,0,0,-1,1,0},
+//                {-1.0/2,-1.0/2,-1.0/2,-1.0/2,-1.0/2,-1.0/2,-1.0/2,-1.0/2}, 
+//                {-1.0/2,1.0/2,1.0/2,1.0/2,1.0/2,1.0/2,-1.0/2,1.0/2}, 
+//            };
+//        for(int i = 0; i < 8; i++) {
+//            double b = 0.0;
+//            for(int j = 0; j < 9; j++) b = b + Bmat[j][i];
+//            assertEquals(b, 0.0, 0.0001);
+//        }
+//         final Matrix B = new Matrix(dMat);
+//         System.out.println(VectorFunctions.print(B.times(B.transpose())));
+//    }
     
 }

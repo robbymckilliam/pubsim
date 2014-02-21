@@ -18,6 +18,9 @@ import pubsim.lattices.decoder.ShortVectorSphereDecoded;
  */
 public abstract class AbstractLattice implements LatticeInterface {
     
+    /** Stores the Gram matrix for this lattice */
+    protected Matrix Q;
+    
     @Override
     public double secondMoment() {throw new UnsupportedOperationException(); }
 
@@ -83,6 +86,7 @@ public abstract class AbstractLattice implements LatticeInterface {
      */
     @Override
     public final double inradius(){
+        if(norm==0.0) norm = norm();
         return Math.sqrt(norm)/2.0;
     }
 
@@ -111,6 +115,15 @@ public abstract class AbstractLattice implements LatticeInterface {
             kissingnumber = k.kissingNumber();
         }
         return kissingnumber;
+    }
+    
+    @Override
+    public Matrix gramMatrix() {
+        if(Q==null) { //lazy evaluation of Q (silly Java)
+            Matrix B = getGeneratorMatrix();
+            Q = B.transpose().times(B);
+        } 
+        return Q;
     }
 
     

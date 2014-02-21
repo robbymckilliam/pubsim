@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
 import pubsim.lattices.Anm.AnmBucket;
@@ -20,7 +15,7 @@ import java.util.Random;
  * @author Robby McKilliam
  */
 public abstract class NearestPointAlgorithmStandardNumenclature
-    extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface{
+    extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface {
     
     /** The nearest lattice point */
     protected double[] v;
