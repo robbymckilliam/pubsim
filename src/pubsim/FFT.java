@@ -76,4 +76,18 @@ public class FFT {
     private void frommem(Complex[] y) {
         for (int i = 0; i < N; i++) y[i] = new Complex(mem[2*i], mem[2*i+1]);
     }
+    
+    /** Returns the FFT of x into y */
+    public static void fft(Complex[] x, Complex[] y) {
+        if(x.length != y.length) throw new ArrayIndexOutOfBoundsException("Arrays into fft(x,y) must be the same length");
+        else new FFT(x.length).forward(x, y);
+    }
+    
+    /** Return the FFT of x */
+    public static Complex[] fft(Complex[] x) {
+        Complex[] y = new Complex[x.length];
+        fft(x,y);
+        return y;
+    }
+    
 }
