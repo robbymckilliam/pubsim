@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pubsim.distributions.discrete;
 
 import rngpack.RandomSeedable;
@@ -19,7 +15,7 @@ public class GeometricRandomVariable extends AbstractDiscreteRandomVariable {
 
     /**
      * Constructor sets the parameter for this geometric distribution. p must be
-     * between 0 and 1.
+     * between 0 and 1.  Mean is 1/p
      */
     public GeometricRandomVariable(double p) {
         if (p <= 0 || p > 1) {
