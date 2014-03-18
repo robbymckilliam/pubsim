@@ -90,4 +90,30 @@ public class FFT {
         return y;
     }
     
+  /** Compute a convolution using the fft.  The output is identical to Matlab's conv command */
+  public static Complex[] conv(Complex[] a, Complex[] b){
+    int L = a.length + b.length - 1;
+    FFT fft = new FFT(L);
+    Complex[] afft = fft.forward(a);
+    Complex[] bfft = fft.forward(b);
+    Complex[] cfft = new Complex[L];
+    for(int i = 0; i < L; i++) cfft[i] = afft[i] * bfft[i];
+    return fft.inverse(cfft);
+  }
+    
+   /** 
+   * Compute a convolution using the fft with the convolution `tails' removed.  
+   * The output is identical to Matlab's:
+   * conv(a,b,`valid')  when the length(a) >= length(b),  and 
+   * conv(b,a,`valid') when length(a) =< length(b).
+   */
+    public static Complex[] conv_valid(Complex[] a, Complex[] b){
+        int L = a.length + b.length - 1;
+        int M = Math.min(a.length,b.length);
+        Complex[] c = conv(a,b);
+        Complex[] cslice = new Complex[2+L-2*M];
+        for(int i = M-1; i <= L-M; i++) cslice[i-M+1] =c[i];
+        return cslice;
+  }
+    
 }
