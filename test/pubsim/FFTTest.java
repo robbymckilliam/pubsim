@@ -53,6 +53,26 @@ public class FFTTest {
     }
     
   }
+  
+    @Test
+   public void convTest() {
+    Complex[] a = {new Complex(1,0), new Complex(2,1)};
+    Complex[] b = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
+    Complex[] c = FFT.conv(a,b);
+    Complex[] expected = {new Complex(3,0), new Complex(8,3), new Complex(5,2), new Complex(2,1) };
+    //for( i <- c ) println(i)
+    for( int i = 0; i < c.length; i++ ) {
+      assertEquals(expected[i].re, c[i].re, tolerance);
+      assertEquals(expected[i].im, c[i].im, tolerance);
+    }
+    Complex[] cvalid = FFT.conv_valid(a,b);
+    Complex[] expvalid = {new Complex(8,3), new Complex(5,2)};
+    //for( i <- cvalid ) println(i)
+    for( int i = 0; i < expvalid.length; i++ ) {
+      assertEquals(expvalid[i].re, cvalid[i].re, tolerance);
+    }
+    
+  }
     
     
     
