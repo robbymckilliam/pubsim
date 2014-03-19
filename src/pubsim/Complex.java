@@ -195,6 +195,13 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     public boolean equals(Complex c){
         return c.re == re && c.im == im;
     }
+    
+    /** Returns this complex number to the power of r */
+    public Complex pow(double r){
+        final double theta = r*phase();
+        final double A = Math.pow(abs(), r);
+        return polar(A,theta);
+    }
 
     @Override
     public Complex add(Complex that) {

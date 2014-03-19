@@ -56,6 +56,7 @@ public class FFTTest {
   
     @Test
    public void convTest() {
+     System.out.println("Testing conv versus Matlab");
     Complex[] a = {new Complex(1,0), new Complex(2,1)};
     Complex[] b = {new Complex(3,0), new Complex(2,0), new Complex(1,0)};
     Complex[] c = FFT.conv(a,b);
