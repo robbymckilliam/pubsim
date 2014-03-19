@@ -76,4 +76,9 @@ public class ChirpZ {
         return X;
     }
     
+    /// Return chirp z-transform of x containing M points along the spiral defined by A and W
+    public static Complex[] compute(Complex A, Complex W, int M, Complex[] x) {
+        return new ChirpZ(A,W,M,x.length).compute(x);
+    }
+    
 }

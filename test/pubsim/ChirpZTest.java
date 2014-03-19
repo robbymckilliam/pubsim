@@ -56,7 +56,7 @@ public class ChirpZTest {
         int M = 10;
         Complex A = new Complex(0.5, 0.8);
         Complex W = new Complex(1.0,0.1);
-        Complex[] Xres = new ChirpZ(A,W,M,N).compute(x);
+        Complex[] Xres = ChirpZ.compute(A,W,M,x);
         Complex[] Xexp = slowChirpZ(A,W,M,N,x);
         assertTrue(Xres.length == M);
         assertTrue(Xexp.length == M);
