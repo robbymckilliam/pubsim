@@ -29,7 +29,7 @@ public class ChirpZ {
     public final int L;
     
     protected final FFT fft; //fft algorithm we use
-    protected final Complex[] y, v; //working memory
+    protected final Complex[] y, v, Y, V, G, g; //working memory
     
     public ChirpZ(Complex A, Complex W, int M, int N){
         this.A = A;
@@ -40,10 +40,14 @@ public class ChirpZ {
         fft = new FFT(L);
         y = new Complex[L];
         v = new Complex[L];
+        Y = new Complex[L];
+        V = new Complex[L];
+        G = new Complex[L];
+        g = new Complex[L];
     }
     
-    /** Returns the FFT of x into X */
-    public void forward(Complex[] x, Complex[] X) {
+    /// Returns the Chirp-Z transform of x into X
+    public void compute(Complex[] x, Complex[] X) {
         if(x.length != N) throw new ArrayIndexOutOfBoundsException("Length of input vector x must be " + N);
         if(X.length != M) throw new ArrayIndexOutOfBoundsException("Length of output vector X must be " + M);
         
@@ -53,6 +57,23 @@ public class ChirpZ {
         for(int n = 0; n < M; n++) v[n] = W.pow(-n*n/2.0);
         for(int n = L-N+1; n < L; n++) v[n] = W.pow(-(L-n)*(L-n)/2.0);
         
+        //compute the Fourier transforms of y and v
+        fft.forward(y,Y);
+        fft.forward(v,V);
+        
+        //compute elementwise product of the transforms followed by the inverse Fourier transform
+        for(int r = 0; r < L; r++) G[r] = Y[r].multiply(V[r]);
+        fft.inverse(G, g);
+        
+        //fill output
+        for(int k = 0; k < M; k++) X[k] = W.pow(k*k/2.0).multiply(g[k]);    
+    }
+    
+    /// Returns the Chirp-Z transform.  Allocates memory 
+    public Complex[] compute(Complex[] x){
+        Complex[] X = new Complex[M];
+        compute(x,X);
+        return X;
     }
     
 }
