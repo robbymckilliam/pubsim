@@ -116,7 +116,7 @@ public class PilotSequencedT2LogTSuboptimalTest {
                 instance.getReal(),
                 instance.getImag(),
                 siggen.getTransmittedRealQAMSignal(),
-                siggen.getTransmittedImagQAMSignal()));
+                siggen.getTransmittedImagQAMSignal()), 0.00001);
     }
 
 

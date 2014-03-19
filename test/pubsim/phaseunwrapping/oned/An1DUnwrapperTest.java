@@ -76,17 +76,5 @@ public class An1DUnwrapperTest {
         System.out.println(VectorFunctions.print(u));
     }
 
-    /**
-     * Test of setSize method, of class An1DUnwrapper.
-     */
-    @Test
-    public void testSetSize() {
-        System.out.println("setSize");
-        int N = 0;
-        An1DUnwrapper instance = new An1DUnwrapper();
-        instance.setSize(N);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
 }

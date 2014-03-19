@@ -99,12 +99,12 @@ public class UtilTest {
         BigInteger b = new BigInteger("2");
         BigInteger gcd = new BigInteger("2");
         BigInteger[] t = extended_gcd(a, b);
-        assertTrue((t[0].compareTo(gcd)==0) && (a * t[1] + b * t[2]).compareTo(t[0])==0);
+        assertTrue((t[0].compareTo(gcd)==0) && ((a.multiply(t[1])).add(b.multiply(t[2]))).compareTo(t[0])==0);
         a = new BigInteger("3458");
         b = new BigInteger("4864");
         gcd = new BigInteger("38");
         t = extended_gcd(a, b);
-        assertTrue((t[0].compareTo(gcd)==0) && (a * t[1] + b * t[2]).compareTo(t[0])==0);
+        assertTrue((t[0].compareTo(gcd)==0) && ((a.multiply(t[1])).add(b.multiply(t[2]))).compareTo(t[0])==0);
     }
 
     /**

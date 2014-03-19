@@ -29,7 +29,7 @@ public class ChirpZ {
     public final int L;
     
     protected final FFT fft; //fft algorithm we use
-    protected final Complex[] y; //working memory
+    protected final Complex[] y, v; //working memory
     
     public ChirpZ(Complex A, Complex W, int M, int N){
         this.A = A;
@@ -39,6 +39,7 @@ public class ChirpZ {
         L = N+M-1;
         fft = new FFT(L);
         y = new Complex[L];
+        v = new Complex[L];
     }
     
     /** Returns the FFT of x into X */
@@ -46,9 +47,11 @@ public class ChirpZ {
         if(x.length != N) throw new ArrayIndexOutOfBoundsException("Length of input vector x must be " + N);
         if(X.length != M) throw new ArrayIndexOutOfBoundsException("Length of output vector X must be " + M);
         
-        //fill the vector y
-        //for(int n = 0; n < N-1; n++) y[n] = A.
-        
+        //fill the vectors y and v
+        for(int n = 0; n < N; n++) y[n] = A.pow(-n).times(W.pow(n*n/2.0)).times(x[n]);
+        for(int n = N; n < L; n++) y[n] = Complex.zero;
+        for(int n = 0; n < M; n++) v[n] = W.pow(-n*n/2.0);
+        for(int n = L-N+1; n < L; n++) v[n] = W.pow(-(L-n)*(L-n)/2.0);
         
     }
     

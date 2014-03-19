@@ -1,5 +1,3 @@
-/*
- */
 package pubsim.lattices.Vnmstar;
 
 import bignums.BigInteger;
@@ -37,7 +35,7 @@ public class HilbertMatrix {
         else if(i == 0 && s==0) return BigRational.ONE;
         else if(s == 0) return BigRational.ZERO; 
         else if(i <= m && s <= m && qmem[s][i] != null) return qmem[s][i];
-        BigRational num = (q(s-1,i-1) / new BigRational(s,1)) - q(s-1,i);
+        BigRational num = (q(s-1,i-1).divide(new BigRational(s,1))).subtract(q(s-1,i));
         if(i <= m && s <= m) qmem[s][i] = num;
         return num;
     }
@@ -51,8 +49,8 @@ public class HilbertMatrix {
         if(i <= m && k <= m && Pmem[k][i] != null) return Pmem[k][i];
         BigRational sum = BigRational.ZERO;
         for(int s = 0; s <= k; s++){
-            BigInteger v = BigInteger.ONE.negate().pow(s+k) * binom(s+k,s) * binom(N-s-1,N-k-1);
-            sum = sum + (q(s,i) * new BigRational(v));
+            BigInteger v = BigInteger.ONE.negate().pow(s+k).multiply(binom(s+k,s)).multiply(binom(N-s-1,N-k-1));
+            sum = sum.add(q(s,i).multiply(new BigRational(v)));
         }
         if(i <= m && k <= m && Pmem[k][i] != null) Pmem[k][i] = sum;
         return sum;
@@ -77,8 +75,8 @@ public class HilbertMatrix {
         if(i <= m && j <= m && Hinvmem[i][j] != null) return Hinvmem[i][j];
         BigRational sum = BigRational.ZERO;
         for(int k = 0; k <= m; k++){
-            BigInteger b = binom(2*k, k) * binom(N+k, 2*k+1);
-            sum = sum + (P(k,i) * P(k,j) * new BigRational(BigInteger.ONE,b));
+            BigInteger b = binom(2*k, k).multiply(binom(N+k, 2*k+1));
+            sum = sum.add(P(k,i).multiply(P(k,j).multiply(new BigRational(BigInteger.ONE,b))));
         }
         if(i <= m && j <= m) Hinvmem[i][j] = sum;
         return sum;
@@ -101,7 +99,7 @@ public class HilbertMatrix {
         BigRational sum = BigRational.ZERO;
         for(int k = 0; k <=m; k++) {
             BigInteger v = new BigInteger(Integer.toString(j+1)).pow(k);
-            sum = sum + (Hinv(i,k) * new BigRational(v));
+            sum = sum.add(Hinv(i,k).multiply(new BigRational(v)));
         }
         return sum;
     }
@@ -149,9 +147,9 @@ public class HilbertMatrix {
         BigRational sum = BigRational.ZERO;
         for(int k = 0; k <= m; k++){
             BigInteger v = new BigInteger(Integer.toString(i+1)).pow(k);
-            sum = sum + (new BigRational(v) * K[k][j]);
+            sum = sum.add((new BigRational(v)).multiply(K[k][j]));
         }
-        if(i==j) return BigRational.ONE - sum;
+        if(i==j) return BigRational.ONE.subtract(sum);
         else return sum.negate();
     }
     

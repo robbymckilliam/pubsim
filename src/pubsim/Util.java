@@ -90,7 +90,7 @@ public final class Util {
         BigInteger[] vals = extended_gcd(q, p.mod(q));
         BigInteger d = vals[0];
         BigInteger a = vals[2];
-        BigInteger b = vals[1] - (p / q) * vals[2];
+        BigInteger b = vals[1].subtract( p.divide(q).multiply(vals[2]) );
         return new BigInteger[]{d, a, b};
     }
 

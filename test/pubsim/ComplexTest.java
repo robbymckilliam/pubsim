@@ -41,7 +41,9 @@ public class ComplexTest {
     public void testPow() {
         System.out.println("pow");
         Complex A = new Complex(1,0);
-        assertTrue( (A - A.pow(10)).abs() < tol );
+        assertTrue( (A.minus(A.pow(10))).abs() < tol );
+        A = new Complex(2,3).pow(2.2); //testing versus Mathematica output
+        assertTrue( (A.minus(new Complex(-9.36631, 13.9481))).abs() < 0.0001);
     }
 
     

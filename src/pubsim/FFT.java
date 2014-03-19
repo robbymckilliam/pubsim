@@ -97,7 +97,7 @@ public class FFT {
     Complex[] afft = fft.forward(a);
     Complex[] bfft = fft.forward(b);
     Complex[] cfft = new Complex[L];
-    for(int i = 0; i < L; i++) cfft[i] = afft[i] * bfft[i];
+    for(int i = 0; i < L; i++) cfft[i] = afft[i].times(bfft[i]);
     return fft.inverse(cfft);
   }
     
