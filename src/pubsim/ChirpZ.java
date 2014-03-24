@@ -29,7 +29,7 @@ public class ChirpZ {
     public final int L;
     
     protected final FFT fft; //fft algorithm we use
-    protected final Complex[] y, v, Y, V, G, g; //working memory
+    protected final Complex[] y, Y, V, G, g; //working memory
     
     public ChirpZ(Complex A, Complex W, int M, int N){
         this.A = A;
@@ -39,11 +39,16 @@ public class ChirpZ {
         L = N+M-1;
         fft = new FFT(L);
         y = new Complex[L];
-        v = new Complex[L];
         Y = new Complex[L];
         V = new Complex[L];
         G = new Complex[L];
         g = new Complex[L];
+        
+        //fill v and compute its fft
+        Complex[] v = new Complex[L];
+        for(int n = 0; n < M; n++) v[n] = W.pow(-n*n/2.0);
+        for(int n = L-N+1; n < L; n++) v[n] = W.pow(-(L-n)*(L-n)/2.0);
+        fft.forward(v,V);
     }
     
     /// Returns the Chirp-Z transform of x into X
@@ -54,12 +59,9 @@ public class ChirpZ {
         //fill the vectors y and v
         for(int n = 0; n < N; n++) y[n] = A.pow(-n).times(W.pow(n*n/2.0)).times(x[n]);
         for(int n = N; n < L; n++) y[n] = Complex.zero;
-        for(int n = 0; n < M; n++) v[n] = W.pow(-n*n/2.0);
-        for(int n = L-N+1; n < L; n++) v[n] = W.pow(-(L-n)*(L-n)/2.0);
         
         //compute the Fourier transforms of y and v
         fft.forward(y,Y);
-        fft.forward(v,V);
         
         //compute elementwise product of the transforms followed by the inverse Fourier transform
         for(int r = 0; r < L; r++) G[r] = Y[r].multiply(V[r]);

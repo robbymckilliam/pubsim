@@ -235,7 +235,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
      * Represents a complex number on the unit circle. Optimises multiplications
      * and powering for this case.
      */
-    static class UnitCircle extends Complex {
+    public static class UnitCircle extends Complex {
 
         final protected double phase;
 
