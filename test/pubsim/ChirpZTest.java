@@ -1,5 +1,6 @@
 package pubsim;
 
+import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -60,8 +61,28 @@ public class ChirpZTest {
         Complex[] Xexp = slowChirpZ(A,W,M,N,x);
         assertTrue(Xres.length == M);
         assertTrue(Xexp.length == M);
-        System.out.println(VectorFunctions.print(Xexp));
-        System.out.println(VectorFunctions.print(Xres));
+        //System.out.println(VectorFunctions.print(Xexp));
+        //System.out.println(VectorFunctions.print(Xres));
+        for(int m = 0; m < M; m++) assertTrue( (Xres[m].subtract(Xexp[m])).abs() < tol );
+    }
+    
+    /**
+     * If the chirp z-transform is the be computing on the unit circle thin much can be gained
+     * by using Complex.UnitCircle for the input A and W.  The transform is both faster, and more
+     * stable if this is done.
+     */
+    @Test
+    public void testUnitCircle() {
+        System.out.println("test on unit circle");
+        Complex A = Complex.one;
+        Complex W = new Complex.UnitCircle(0.4);
+        int N = 500;
+        int M = 1000;
+        Random rand = new Random();
+        Complex[] x = new Complex[N];
+        for(int n = 0; n < N; n++) x[n] = new Complex(rand.nextGaussian(), rand.nextGaussian());
+        Complex[] Xres = ChirpZ.compute(A,W,M,x);
+        Complex[] Xexp = slowChirpZ(A,W,M,N,x);
         for(int m = 0; m < M; m++) assertTrue( (Xres[m].subtract(Xexp[m])).abs() < tol );
     }
     

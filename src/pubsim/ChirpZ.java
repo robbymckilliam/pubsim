@@ -9,6 +9,10 @@ package pubsim;
  * L. Rabiner, R. Schafer and C. Rader, "The Chirp z-Transform algorithm and its application",
  * Bell Systems Technical Journal, May-June 1969
  * 
+ * If the chirp z-transform is the be computing on the unit circle thin much can be gained
+ * by using Complex.UnitCircle for A and W.  The transform is both faster, and more
+ * stable if this is done.
+ * 
  * @author Robby McKilliam
  */
 public class ChirpZ {
