@@ -20,7 +20,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     final public double imag;   // the imaginary part
     
     final public static Complex zero = new Complex(0,0);
-    final public static Complex one = new UnitCircle(1.0);
+    final public static Complex one = new UnitCircle(0.0);
 
     /** create a new object with the given real and imaginary parts */
     public Complex(double real, double imag) {
@@ -254,7 +254,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
         
         /** UnitCircle retained if multiplying two UnitCircles together */
         public UnitCircle times(UnitCircle c){
-            return new UnitCircle(phase * c.phase);
+            return new UnitCircle(phase + c.phase);
         }
 
         /**

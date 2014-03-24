@@ -34,9 +34,6 @@ public class ComplexTest {
 
     final double tol = 1e-7;
     
-    /**
-     * Test of polar method, of class Complex.
-     */
     @Test
     public void testPow() {
         System.out.println("pow");
@@ -46,9 +43,6 @@ public class ComplexTest {
         assertTrue( (A.minus(new Complex(-9.36631, 13.9481))).abs() < 0.0001);
     }
     
-    /**
-     * Test of polar method, of class Complex.
-     */
     @Test
     public void testUnitCirclePow() {
         System.out.println("unit circle pow");
@@ -59,6 +53,18 @@ public class ComplexTest {
         assertTrue( (A.subtract(B)).abs() < 0.000001);
         assertTrue( ((A.pow(3.3)).subtract(B.pow(3.3))).abs() < 0.000001);
     }
-
+    
+    @Test
+    public void testUnitTimes() {
+        System.out.println("Unit circle multiplied by unit circle");
+        Complex.UnitCircle A = new Complex.UnitCircle(0.4);
+        Complex.UnitCircle B = new Complex.UnitCircle(0.6);
+        Complex.UnitCircle C = new Complex.UnitCircle(1.0);
+        assertTrue( ((A.times(B).subtract(C)) ).abs() < 0.000001);
+        Complex Ap = Complex.polar(1,0.4);
+        Complex Bp = Complex.polar(1, 0.6);
+        Complex Cp = Ap.times(Bp);
+        assertTrue( ((Cp.subtract(C))).abs() < 0.000001);
+    }
     
 }

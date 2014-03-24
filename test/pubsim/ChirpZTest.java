@@ -41,7 +41,10 @@ public class ChirpZTest {
         Complex[] X = new Complex[M];
         for(int k = 0; k < M; k++){
             X[k] = Complex.zero;
-            for(int n = 0; n < N; n++) X[k] = X[k].add( x[n].multiply(A.pow(-n)).multiply(W.pow(n*k)) );
+            for(int n = 0; n < N; n++) {
+                Complex term = x[n].multiply(A.pow(-n)).multiply(W.pow(n*k));
+                X[k] = X[k].add( term );
+            }
         }
         return X;
     }
@@ -76,14 +79,33 @@ public class ChirpZTest {
         System.out.println("test on unit circle");
         Complex A = Complex.one;
         Complex W = new Complex.UnitCircle(0.4);
-        int N = 500;
-        int M = 1000;
+        int N = 10;
+        int M = 20;
         Random rand = new Random();
         Complex[] x = new Complex[N];
         for(int n = 0; n < N; n++) x[n] = new Complex(rand.nextGaussian(), rand.nextGaussian());
         Complex[] Xres = ChirpZ.compute(A,W,M,x);
         Complex[] Xexp = slowChirpZ(A,W,M,N,x);
+        System.out.println(VectorFunctions.print(Xexp));
+        System.out.println(VectorFunctions.print(Xres));
         for(int m = 0; m < M; m++) assertTrue( (Xres[m].subtract(Xexp[m])).abs() < tol );
     }
     
+    /// Test computation of the FFT using the Chirp z-transform
+    @Test
+    public void testFFT() {
+        System.out.println("test on unit circle");
+        int N = 7;
+        int M = N;
+        Complex A = Complex.one;
+        Complex W = new Complex.UnitCircle(-2.0*Math.PI/N);
+        Random rand = new Random();
+        Complex[] x = new Complex[N];
+        for(int n = 0; n < N; n++) x[n] = new Complex(rand.nextGaussian(), rand.nextGaussian());
+        Complex[] Xres = ChirpZ.compute(A,W,M,x);
+        Complex[] Xexp = FFT.fft(x);
+        System.out.println(VectorFunctions.print(Xexp));
+        System.out.println(VectorFunctions.print(Xres));
+        for(int m = 0; m < M; m++) assertTrue( (Xres[m].subtract(Xexp[m])).abs() < tol );
+    }
 }
