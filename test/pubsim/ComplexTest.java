@@ -45,6 +45,20 @@ public class ComplexTest {
         A = new Complex(2,3).pow(2.2); //testing versus Mathematica output
         assertTrue( (A.minus(new Complex(-9.36631, 13.9481))).abs() < 0.0001);
     }
+    
+    /**
+     * Test of polar method, of class Complex.
+     */
+    @Test
+    public void testUnitCirclePow() {
+        System.out.println("unit circle pow");
+        final double phase = 0.4;
+        Complex.UnitCircle A = new Complex.UnitCircle(phase);
+        assertEquals(phase*3, A.pow(3).phase(), 0.00001);
+        Complex B = Complex.polar(1.0, phase);
+        assertTrue( (A.subtract(B)).abs() < 0.000001);
+        assertTrue( ((A.pow(3.3)).subtract(B.pow(3.3))).abs() < 0.000001);
+    }
 
     
 }

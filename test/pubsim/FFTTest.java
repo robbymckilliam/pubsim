@@ -63,14 +63,14 @@ public class FFTTest {
     Complex[] expected = {new Complex(3,0), new Complex(8,3), new Complex(5,2), new Complex(2,1) };
     //for( i <- c ) println(i)
     for( int i = 0; i < c.length; i++ ) {
-      assertEquals(expected[i].re, c[i].re, tolerance);
-      assertEquals(expected[i].im, c[i].im, tolerance);
+      assertEquals(expected[i].real, c[i].real, tolerance);
+      assertEquals(expected[i].imag, c[i].imag, tolerance);
     }
     Complex[] cvalid = FFT.conv_valid(a,b);
     Complex[] expvalid = {new Complex(8,3), new Complex(5,2)};
     //for( i <- cvalid ) println(i)
     for( int i = 0; i < expvalid.length; i++ ) {
-      assertEquals(expvalid[i].re, cvalid[i].re, tolerance);
+      assertEquals(expvalid[i].real, cvalid[i].real, tolerance);
     }
     
   }

@@ -16,28 +16,28 @@ import java.io.Serializable;
  */
 public class Complex extends Object implements Serializable, Field<Complex>, Comparable<Complex>{
     
-    protected double re;   // the real part
-    protected double im;   // the imaginary part
+    final public double real;   // the real part
+    final public double imag;   // the imaginary part
     
     final public static Complex zero = new Complex(0,0);
-    final public static Complex one = new Complex(1,0);
+    final public static Complex one = new UnitCircle(1.0);
 
     /** create a new object with the given real and imaginary parts */
     public Complex(double real, double imag) {
-        re = real;
-        im = imag;
+        this.real = real;
+        this.imag = imag;
     }
 
     /** Copy constructor */
     public Complex(Complex x) {
-        re = x.re;
-        im = x.im;
+        real = x.real;
+        imag = x.imag;
     }
     
     /** Default constructor has zero real and imaginary components */
     public Complex() {
-        re = 0;
-        im = 0;
+        real = 0;
+        imag = 0;
     }
 
     /**
@@ -50,53 +50,52 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     /** return a string representation of the invoking Complex object */
     @Override
     public String toString() {
-        if (im == 0) return re + "";
-        if (re == 0) return im + "i";
-        if (im <  0) return re + " - " + (-im) + "i";
-        return re + " + " + im + "i";
+        if (imag == 0) return real + "";
+        if (real == 0) return imag + "i";
+        if (imag <  0) return real + " - " + (-imag) + "i";
+        return real + " + " + imag + "i";
     }
 
     /** return abs/modulus/magnitude */
-    final public double abs()   { return Math.hypot(re, im); }  // Math.sqrt(re*re + im*im)
+    public double abs()   { return Math.hypot(real, imag); }  // Math.sqrt(real*real + imag*imag)
     
     /** Return the angle/phase/argument */
-    final public double phase() { return Math.atan2(im, re); }  // between -pi and pi
+    public double phase() { return Math.atan2(imag, real); }  // between -pi and pi
     
     /** Return abs/modulus/magnitude */
-    final public double abs2()   { return re*re + im*im; }
+    public double abs2()   { return real*real + imag*imag; }
 
     /** return a new Complex object whose value is (this + b) */
-    final public Complex plus(Complex b) {
-        return new Complex(re + b.re, im + b.im);
+    public Complex plus(Complex b) {
+        return new Complex(real + b.real, imag + b.imag);
     }
     
 //    /** Complex addition (this + b) in place */
 //    public Complex plusP(Complex b) {
-//        return set(re + b.re, im + b.im);
+//        return set(real + b.real, imag + b.imag);
 //    }
 
     /** return a new Complex object whose value is (this - b) */
-    final  public Complex minus(Complex b) {
-        return new Complex(re - b.re, im - b.im);
+    public Complex minus(Complex b) {
+        return new Complex(real - b.real, imag - b.imag);
     }
     
 //    /** Complex subtraction (this + b) in place */
 //    public Complex minusP(Complex b) {
-//        return set(re - b.re, im - b.im);
+//        return set(real - b.real, imag - b.imag);
 //    }
 
     /** return a new Complex object whose value is (this * b) */
-    final public Complex times(Complex b) {
-        Complex a = this;
-        double real = a.re * b.re - a.im * b.im;
-        double imag = a.re * b.im + a.im * b.re;
-        return new Complex(real, imag);
+    public Complex times(Complex b) {
+        double r = this.real * b.real - this.imag * b.imag;
+        double i = this.real * b.imag + this.imag * b.real;
+        return new Complex(r, i);
     }
     
 //    /** multiply in place */
 //    public Complex timesP(Complex b){
-//        double real = this.re * b.re - this.im * b.im;
-//        double imag = this.re * b.im + this.im * b.re;
+//        double real = this.real * b.real - this.imag * b.imag;
+//        double imag = this.real * b.imag + this.imag * b.real;
 //        return set(real, imag);
 //    }
 
@@ -105,7 +104,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
      * return a new object whose value is (this * alpha)
      */
     public Complex times(double alpha) {
-        return new Complex(alpha * re, alpha * im);
+        return new Complex(alpha * real, alpha * imag);
     }
     
 //    /** 
@@ -113,7 +112,7 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
 //     * return a new object whose value is (this * alpha)
 //     */
 //    public Complex timesP(double alpha) {
-//        return set(alpha * re, alpha * im);
+//        return set(alpha * real, alpha * imag);
 //    }
 
     /** 
@@ -121,32 +120,32 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
      * flanagan library.
      */
     public flanagan.complex.Complex toFlanComplex(){
-        return new flanagan.complex.Complex(re, im);
+        return new flanagan.complex.Complex(real, imag);
     }
 
     /** return a new Complex object whose value is the conjugate of this */
-    public Complex conjugate() {  return new Complex(re, -im); }
+    public Complex conjugate() {  return new Complex(real, -imag); }
     
 //    /** conjugate in place. */
 //    public Complex conjugateP() {  
-//        return set(re, -im); 
+//        return set(real, -imag); 
 //    }
 
     /** return a new Complex object whose value is the reciprocal of this */
     public Complex reciprocal() {
-        double scale = re*re + im*im;
-        return new Complex(re / scale, -im / scale);
+        double scale = real*real + imag*imag;
+        return new Complex(real / scale, -imag / scale);
     }
     
 //    /** calculate the reciprocal of this Complex in place. */
 //    public Complex reciprocalP() {
-//        double scale = re*re + im*im;
-//        return  set(re / scale, -im / scale);
+//        double scale = real*real + imag*imag;
+//        return  set(real / scale, -imag / scale);
 //    }
 
     /** return the real or imaginary part */
-    final public double re() { return re; }
-    final public double im() { return im; }
+    final public double re() { return real; }
+    final public double im() { return imag; }
 
     /** return a / b */
     public Complex divides(Complex b) {
@@ -165,20 +164,20 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
      * value is the complex exponential of this
      */
     public Complex exp() {
-        return new Complex(Math.exp(re) * Math.cos(im), 
-                Math.exp(re) * Math.sin(im));
+        return new Complex(Math.exp(real) * Math.cos(imag), 
+                Math.exp(real) * Math.sin(imag));
     }
 
     /** return a new Complex object whose value is the complex sine of this */
     public Complex sin() {
-        return new Complex(Math.sin(re) * Math.cosh(im), 
-                Math.cos(re) * Math.sinh(im));
+        return new Complex(Math.sin(real) * Math.cosh(imag), 
+                Math.cos(real) * Math.sinh(imag));
     }
 
     /** return a new Complex object whose value is the complex cosine of this */
     public Complex cos() {
-        return new Complex(Math.cos(re) * Math.cosh(im), 
-                -Math.sin(re) * Math.sinh(im));
+        return new Complex(Math.cos(real) * Math.cosh(imag), 
+                -Math.sin(real) * Math.sinh(imag));
     }
 
     /** return a new Complex object whose value is the tangent of this */
@@ -188,12 +187,12 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
     
     /** a static version of plus */
     public static Complex plus(Complex a, Complex b) {
-        return new Complex(a.re + b.re, a.im + b.im);
+        return new Complex(a.real + b.real, a.imag + b.imag);
     }
     
     /** Test if this complex number is equal to c */
     public boolean equals(Complex c){
-        return c.re == re && c.im == im;
+        return c.real == real && c.imag == imag;
     }
     
     /** Returns this complex number to the power of r */
@@ -232,5 +231,56 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
         return Double.compare(abs2(), o.abs2());
     }
 
+    /**
+     * Represents a complex number on the unit circle. Optimises multiplications
+     * and powering for this case.
+     */
+    static class UnitCircle extends Complex {
+
+        final protected double phase;
+
+        public UnitCircle(double phase) {
+            super(Complex.polar(1.0, phase));
+            this.phase = phase;
+        }
+        
+        /**
+         * Returns this complex number to the power of r
+         */
+        @Override
+        public Complex pow(double r) {
+            return new UnitCircle(phase * r);
+        }
+        
+        /** UnitCircle retained if multiplying two UnitCircles together */
+        public UnitCircle times(UnitCircle c){
+            return new UnitCircle(phase * c.phase);
+        }
+
+        /**
+         * return abs/modulus/magnitude
+         */
+        @Override
+        public double abs() {
+            return 1.0;
+        }  
+
+        /**
+         * Return the angle/phase/argument
+         */
+        @Override
+        public double phase() {
+            return phase;
+        }  
+
+        /**
+         * Return abs/modulus/magnitude
+         */
+        @Override
+        public double abs2() {
+            return 1.0;
+        }
+
+    }
     
 }

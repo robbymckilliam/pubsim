@@ -1,8 +1,5 @@
 package pubsim.location.twod;
 
-import pubsim.location.twod.Transmitter;
-import pubsim.location.twod.NoisyPhaseSignals;
-import pubsim.location.twod.NearSetLocationEstimatorMaxDistance;
 import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.UniformNoise;
 import org.junit.After;
@@ -11,7 +8,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import pubsim.IndexedDouble;
 import pubsim.Point2;
 import pubsim.VectorFunctions;
 

@@ -19,16 +19,18 @@ public class EisensteinInteger extends Complex {
     private static final double tol = 0.0000001;
     
     public EisensteinInteger(Complex x){
-        this(x.re,x.im);
+        this(x.real,x.imag);
     }
 
     public EisensteinInteger(double x, double y){
-        super(x,y);
+        super(toNearestEisensteinInteger(x, y));
+    }
+
+    static public Complex toNearestEisensteinInteger(double x, double y) {
         double[] a = {x, y};
         hex_lattice.nearestPoint(a);
         double[] r = hex_lattice.getLatticePoint();
-        re = r[0];
-        im = r[1];
+        return new Complex(r[0], r[1]);
     }
 
     public boolean isUnit(){
