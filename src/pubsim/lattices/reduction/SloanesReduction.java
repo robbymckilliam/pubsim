@@ -1,6 +1,3 @@
-/*
- */
-
 package pubsim.lattices.reduction;
 
 import Jama.Matrix;

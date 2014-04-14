@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices.util;
 
 import Jama.Matrix;
-import java.util.Enumeration;
 import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.NearestPointAlgorithmInterface;

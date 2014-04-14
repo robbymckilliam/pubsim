@@ -1,9 +1,3 @@
-/*
- * Simple-minded implementation of Hermite-Korkin-Zolotarev reduction.
- * Uses Siegel-LLL with Schnorr-Euchner sphere decoding.
- * @author Vaughan Clarkson
- */
-
 package pubsim.lattices.reduction;
 
 import Jama.Matrix;
@@ -12,6 +6,11 @@ import pubsim.VectorFunctions;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 
+/*
+ * Simple-minded implementation of Hermite-Korkin-Zolotarev reduction.
+ * Uses Siegel-LLL with Schnorr-Euchner sphere decoding.
+ * @author Vaughan Clarkson
+ */
 public class HKZ implements TriangularLatticeReduction {
     protected BasisCompletion bc = new BasisCompletion();
     protected ShortVectorSphereDecoded svsd;
