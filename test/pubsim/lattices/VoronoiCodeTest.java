@@ -1,21 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
-import pubsim.lattices.VoronoiCode;
 import Jama.Matrix;
-import pubsim.lattices.Hexagonal;
 import pubsim.lattices.util.IntegerVectors;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pubsim.VectorFunctionsTest;
-import pubsim.qam.hex.HexagonalCode;
 import static pubsim.VectorFunctions.print;
 import static pubsim.VectorFunctions.randomGaussian;
 import static pubsim.VectorFunctions.add;
@@ -110,15 +101,4 @@ public class VoronoiCodeTest {
         }
     }
 
-
-    /**
-     * Test of decode method, of class VoronoiCode.
-     */
-    @Test
-    public void testDecodeMinimumEnergyCodeword() {
-        HexagonalCode hex = new HexagonalCode(4);
-        double[] exp = {0.0, 0.0};
-        double[] res = hex.minimumEnergyCodeword();
-        VectorFunctionsTest.assertVectorsEqual(exp, res);
-    }
 }
