@@ -1,9 +1,6 @@
 package pubsim.lattices.reduction;
 
 import Jama.Matrix;
-import pubsim.VectorFunctions;
-import pubsim.lattices.Lattice;
-import pubsim.lattices.decoder.ShortVectorSphereDecoded;
 
 /*
  * Schnorr's 'trick' to complete a basis from a shortest vector,

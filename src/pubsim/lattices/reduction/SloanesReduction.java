@@ -50,7 +50,7 @@ public class SloanesReduction {
     }
 
     /**
-     * Compute the Lw matrix in Sloanes paper. Note I acutally
+     * Compute the Lw matrix in Sloanes paper. Note I actually
      * use the transpose of Sloanes Lw. Assumes that L is square
      * and upper triangular.
      */
