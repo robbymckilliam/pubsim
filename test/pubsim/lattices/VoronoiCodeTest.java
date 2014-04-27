@@ -7,7 +7,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pubsim.VectorFunctionsTest;
 import static pubsim.VectorFunctions.print;
 import static pubsim.VectorFunctions.randomGaussian;
 import static pubsim.VectorFunctions.add;
