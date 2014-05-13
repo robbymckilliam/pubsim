@@ -19,9 +19,9 @@ public class WrappedGaussian extends WrappedCircularRandomVariable {
     /** 
      * Construct a wrapped Gaussian (or wrapped normal) circular random variable.
      * @param mean      mean of the underlying Gaussian random variable
-     * @param var         variance of the underlying Gaussin random variable
+     * @param var       variance of the underlying Gaussian random variable
      * 
-     * You can obtain the intrinsic mean and intrinsic varianace using the intrinsicMean() and
+     * You can obtain the intrinsic mean and intrinsic variance using the intrinsicMean() and
      * intrinsicVariance() member function.
      */
     public WrappedGaussian(double mean, double var) {

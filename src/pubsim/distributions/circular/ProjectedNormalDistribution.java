@@ -23,7 +23,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
      * Construct a projection normal random variable.  This is obtained by projecting a 
      * bivariate normal random variable onto the unit circle.
      * @param mean    the circular mean of this random variable
-     * @param var       the variance of the i.i.d. component of the bivariate normal random variable used in generate the projection normal random variable.
+     * @param var     the variance of the i.i.d. component of the bivariate normal random variable used to generate the projected normal random variable.
      */
     public ProjectedNormalDistribution(double mean, double var){
         gauss = new GaussianNoise(0.0, var);
