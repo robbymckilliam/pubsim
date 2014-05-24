@@ -57,7 +57,7 @@ abstract class PropertyCalculator implements Serializable{
      */
     public void uniformlyDistributed(int samples){
         numsamples = samples;
-        final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
+        final PointEnumerator points = new UniformInVoronoi(L, Integer.MAX_VALUE);
         double oldG = 0;
         int count = 0;
         for(int n = 0; n < samples; n++)
@@ -70,7 +70,7 @@ abstract class PropertyCalculator implements Serializable{
      */
     public void uniformlyDistributedPrintPercentage(int samples){
         numsamples = samples;
-        final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
+        final PointEnumerator points = new UniformInVoronoi(L, Integer.MAX_VALUE);
         double oldG = 0;
         int count = 0;
         int lastpercent = 0;
