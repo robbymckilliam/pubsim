@@ -3,10 +3,13 @@ package pubsim.lattices.relevant;
 import Jama.Matrix;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import pubsim.VectorFunctions;
+import pubsim.lattices.Zn;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  *
@@ -39,7 +42,10 @@ public class RelevantVectorsTest {
     @Test
     public void testWithIntegerLattice() {
         System.out.println("nextElementDouble");
-        fail("Test not written yet");
+        PointEnumerator rvs = new RelevantVectors(new Zn(2));
+        while(rvs.hasMoreElements())
+            System.out.println(VectorFunctions.print(rvs.nextElement()));
+            
     }
     
 }

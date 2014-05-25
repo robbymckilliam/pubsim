@@ -3,6 +3,8 @@ package pubsim.lattices.relevant;
 import Jama.Matrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.Lattice;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
 import pubsim.lattices.util.AbstractPointEnumerator;
@@ -24,23 +26,18 @@ public class RelevantVectors
         implements PointEnumerator{
 
     public final long totalvectors; //the total number of strict and lax relevant vectors
-    public final Lattice L; //the lattice for will find the relevant vectors of
+    public final LatticeAndNearestPointAlgorithmInterface L; //the lattice for will find the relevant vectors of
     public final Matrix B;  //the basis matrix of the lattice
-    
-    ///The sphere decoder will will use find the closest point to the origin in each coset
-    public final SphereDecoder sphereDecoder; 
-    
+        
     protected long vectorscounted = 0;
     protected final IntegerVectors intenum;
     
-    public RelevantVectors(Lattice L){
+    public RelevantVectors(LatticeAndNearestPointAlgorithmInterface L){
         this.L = L;
         B = L.getGeneratorMatrix();
-        sphereDecoder = new SphereDecoderSchnorrEuchner(L);
         int N = L.getDimension();
         totalvectors = (long)(Math.pow(2,N+1)-2);
         intenum = new IntegerVectors(N, 2);
-        intenum.nextElement(); //drop the first element which is all zeros
     }
     
     @Override
@@ -64,11 +61,15 @@ public class RelevantVectors
     public Matrix nextElement() {
         if(!hasMoreElements()) throw new ArrayIndexOutOfBoundsException("There are no more relevant vectors!");
         vectorscounted++;
-        if(vectorscounted%2 == 0) return prev.times(-1.0); //every second relevant vector is just the negation of the last
-        Matrix v = B.times(intenum.nextElement()).times(0.5);
-        sphereDecoder.nearestPoint(v.getColumnPackedCopy());
-        prev = VectorFunctions.columnMatrix(sphereDecoder.getLatticePoint());
-        return prev;
+        //every second relevant vector is just the negation of the last
+        if(vectorscounted%2 == 0) {
+            return prev.times(-1.0);
+        } else {
+            Matrix v = B.times(intenum.nextElement()).times(0.5);
+            L.nearestPoint(v.getColumnPackedCopy());
+            prev = VectorFunctions.columnMatrix(L.getLatticePoint());
+            return prev;
+        }
     }
 
 }

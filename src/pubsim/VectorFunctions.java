@@ -595,11 +595,31 @@ public final class VectorFunctions {
 
     /**
      * Return a vector of length n with zeros everywhere
-     * excepect the e[i] = 1.0
+     * except the e[i] = 1.0
      */
     public static double[] eVector(int i, int n) {
         double[] e = new double[n];
         e[i] = 1.0;
+        return e;
+    }
+    
+    /**
+     * Return a column vector of length n with zeros everywhere
+     * except the e[i] = 1.0
+     */
+    public static Matrix eColumn(int i, int n) {
+        Matrix e = new Matrix(n,1,0.0);
+        e.set(i,0,1.0);
+        return e;
+    }
+    
+    /**
+     * Return a row vector of length n with zeros everywhere
+     * except the e[i] = 1.0
+     */
+    public static Matrix eRow(int i, int n) {
+        Matrix e = new Matrix(1,n,0.0);
+        e.set(0,i,1.0);
         return e;
     }
 

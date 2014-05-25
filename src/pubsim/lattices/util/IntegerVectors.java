@@ -27,7 +27,6 @@ public class IntegerVectors
         counter = 0;
     }
 
-
     @Override
     public double[] nextElementDouble() {
         return U.getColumnPackedCopy();

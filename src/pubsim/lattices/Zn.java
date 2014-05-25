@@ -7,6 +7,9 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
+import java.util.Iterator;
+import pubsim.lattices.util.AbstractPointEnumerator;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  * Nearest point algorithm for the square lattice Zn.
@@ -64,7 +67,7 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
 
     @Override
     public final double coveringRadius() {
-        return Math.sqrt(0.5*n);
+        return Math.sqrt(n)/2;
     }
 
     @Override
@@ -84,6 +87,47 @@ public class Zn extends AbstractLattice implements LatticeAndNearestPointAlgorit
     @Override
     public String name() {
         return "Zn" + n;
+    }
+    
+    /** @return An enumeration of the integer lattice */
+    @Override
+    public PointEnumerator relevantVectors() {
+        return new ZnRelevantVectorsEnumerator(n);
+    }
+    
+    public static class ZnRelevantVectorsEnumerator 
+        extends AbstractPointEnumerator implements PointEnumerator {
+        
+        protected int count = 0;
+        public final int finishedcount;
+        public final int n;
+        
+        public ZnRelevantVectorsEnumerator(int n){
+            finishedcount = 2*n;
+            this.n = n;
+        }
+        
+        @Override
+        public double percentageComplete() {
+            return (100.0*count) / finishedcount;
+        }
+
+        @Override
+        public boolean hasMoreElements() {
+            return count < finishedcount;
+        }
+
+        @Override
+        public Matrix nextElement() {
+            if( !hasMoreElements() ) throw new ArrayIndexOutOfBoundsException("No more relevant vectors to get!");
+            int sign = count%2==0 ? 1 : -1;
+            int i = count/2;
+            Matrix ei = new Matrix(n,1,0.0);
+            ei.set(i,0,sign);
+            count++;
+            return ei;
+        }
+        
     }
     
 }
