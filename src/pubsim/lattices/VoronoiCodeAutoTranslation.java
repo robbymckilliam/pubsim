@@ -1,18 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
 import Jama.Matrix;
-import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.util.IntegerVectors;
 import static pubsim.VectorFunctions.add;
 import static pubsim.VectorFunctions.times;
 import static pubsim.VectorFunctions.distance_between;
 import static pubsim.VectorFunctions.copy;
-import static pubsim.VectorFunctions.print;
 
 /**
  * This implements Conway and Sloane's iterative scheme for finding

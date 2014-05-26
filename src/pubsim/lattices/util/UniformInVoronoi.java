@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices.util;
 
 import Jama.Matrix;
 import pubsim.distributions.UniformNoise;
-import java.util.Enumeration;
 import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.NearestPointAlgorithmInterface;
@@ -20,7 +14,7 @@ import pubsim.VectorFunctions;
  * uniformly generate noise.
  * @author Robby McKilliam
  */
-public class UniformInVornoi 
+public class UniformInVoronoi 
         extends AbstractPointEnumerator
         implements PointEnumerator{
     
@@ -30,14 +24,14 @@ public class UniformInVornoi
     Matrix B;
 
 
-    protected UniformInVornoi() {}
+    protected UniformInVoronoi() {}
 
     /**
      * Default to using the sphere decoder to compute nearest points
      * @param L is the lattice
      * @param samples is the number of samples used per dimension
      */
-    public UniformInVornoi(LatticeInterface L, int samples){
+    public UniformInVoronoi(LatticeInterface L, int samples){
         B = L.getGeneratorMatrix();
         decoder = new SphereDecoder(L);
         numsamples = samples;
@@ -49,7 +43,7 @@ public class UniformInVornoi
      * @param L is the lattice with included nearest point algorithm.
      * @param samples is the number of samples used per dimension
      */
-    public UniformInVornoi(LatticeAndNearestPointAlgorithmInterface L, int samples){
+    public UniformInVoronoi(LatticeAndNearestPointAlgorithmInterface L, int samples){
         B = L.getGeneratorMatrix();
         decoder = L;
         numsamples = samples;

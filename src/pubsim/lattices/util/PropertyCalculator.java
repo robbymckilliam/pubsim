@@ -27,7 +27,7 @@ abstract class PropertyCalculator implements Serializable{
         numsamples = samples;
         PointEnumerator points = new SampledInVoronoi(L, samples);
         while(points.hasMoreElements()){
-            calculateProperty(points.nextElementDouble());
+            calculateProperty(points.nextElement().getColumnPackedCopy());
 
         }
     }
@@ -41,7 +41,7 @@ abstract class PropertyCalculator implements Serializable{
         PointEnumerator points = new SampledInVoronoi(L, samples);
         int oldper = 0;
         while(points.hasMoreElements()){
-            calculateProperty(points.nextElementDouble());
+            calculateProperty(points.nextElement().getColumnPackedCopy());
             int p = (int)points.percentageComplete();
             if(p == oldper){
                 System.out.println(p + "%");
@@ -57,11 +57,11 @@ abstract class PropertyCalculator implements Serializable{
      */
     public void uniformlyDistributed(int samples){
         numsamples = samples;
-        final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
+        final PointEnumerator points = new UniformInVoronoi(L, Integer.MAX_VALUE);
         double oldG = 0;
         int count = 0;
         for(int n = 0; n < samples; n++)
-            calculateProperty(points.nextElementDouble());
+            calculateProperty(points.nextElement().getColumnPackedCopy());
     }
 
     /**
@@ -70,12 +70,12 @@ abstract class PropertyCalculator implements Serializable{
      */
     public void uniformlyDistributedPrintPercentage(int samples){
         numsamples = samples;
-        final PointEnumerator points = new UniformInVornoi(L, Integer.MAX_VALUE);
+        final PointEnumerator points = new UniformInVoronoi(L, Integer.MAX_VALUE);
         double oldG = 0;
         int count = 0;
         int lastpercent = 0;
         for(int n = 0; n < samples; n++){
-            calculateProperty(points.nextElementDouble());
+            calculateProperty(points.nextElement().getColumnPackedCopy());
 
             int percentComplete = (int)(100*(((double)n)/samples));
             if( (percentComplete%10) == 0 && percentComplete != lastpercent){

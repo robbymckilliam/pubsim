@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
 import Jama.Matrix;
 import java.io.Serializable;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  * Interface for a LatticeInterface
@@ -96,13 +92,16 @@ public interface LatticeInterface extends Serializable {
     Matrix getGeneratorMatrix();
     
     /** 
-     * Return the Gram matrix of this lattice, i.e., if the generator it B then return B'B. 
+     * @return the Gram matrix of this lattice, i.e., if the generator it B then return B'B. 
      */
     Matrix gramMatrix();
     
     /**
-     * Return the name for this lattice, if it has one
+     * @return the name for this lattice, if it has one
      */
     String name();
 
+    /** @return an enumeration of the relevant vectors for this lattice */
+    PointEnumerator relevantVectors();
+    
 }

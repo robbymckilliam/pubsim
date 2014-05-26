@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices.util;
 
 import Jama.Matrix;
@@ -16,8 +11,9 @@ public class IntegerVectors
         implements PointEnumerator{
 
     private final Matrix U;
-    private final int N, r;
+    public final int N, r;
     private long numsamples, counter;
+    int n = 0;
     private boolean finished = false;
 
     /**
@@ -31,7 +27,6 @@ public class IntegerVectors
         numsamples = (long)Math.pow(r, N);
         counter = 0;
     }
-
 
     @Override
     public double[] nextElementDouble() {
@@ -56,6 +51,7 @@ public class IntegerVectors
         return U;
     }
 
+    /** This should be tail recursively optimisable (how does I assert that in java) */
     protected void addto(int i){
         if(U.get(i, 0) >= r - 1){
             U.set(i, 0, 0.0);

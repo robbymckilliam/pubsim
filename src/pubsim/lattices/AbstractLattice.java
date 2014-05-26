@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices;
 
 import Jama.Matrix;
@@ -10,6 +5,7 @@ import static pubsim.Util.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.decoder.KissingNumber;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  * Abstract lattice that contains default operations for many of the
@@ -124,6 +120,12 @@ public abstract class AbstractLattice implements LatticeInterface {
             Q = B.transpose().times(B);
         } 
         return Q;
+    }
+    
+    /** Return an enumeration of the relevant vectors for this lattice */
+    @Override
+    public PointEnumerator relevantVectors() {
+        throw new UnsupportedOperationException("Not written yet");
     }
 
     
