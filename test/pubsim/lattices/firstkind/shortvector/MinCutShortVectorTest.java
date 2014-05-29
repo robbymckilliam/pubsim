@@ -1,12 +1,13 @@
-package pubsim.lattices.decoder.firstkind.shortvector;
+package pubsim.lattices.firstkind.shortvector;
 
+import pubsim.lattices.firstkind.shortvector.MinCutShortVector;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnSorted;
 import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
-import pubsim.lattices.decoder.firstkind.LatticeOfFirstKind;
+import pubsim.lattices.firstkind.LatticeOfFirstKind;
 
 /**
  *
@@ -54,7 +55,7 @@ public class MinCutShortVectorTest {
         
     }
     
-        /**
+    /**
      * Test of getShortestVector method, of class MinCutShortVector.
      */
     @Test

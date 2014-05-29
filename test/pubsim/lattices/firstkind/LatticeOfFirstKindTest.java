@@ -1,5 +1,6 @@
-package pubsim.lattices.decoder.firstkind;
+package pubsim.lattices.firstkind;
 
+import pubsim.lattices.firstkind.LatticeOfFirstKind;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
