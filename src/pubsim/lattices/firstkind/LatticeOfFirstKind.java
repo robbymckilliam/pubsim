@@ -1,11 +1,9 @@
 package pubsim.lattices.firstkind;
 
 import Jama.Matrix;
-import pubsim.VectorFunctions;
 import pubsim.distributions.RealRandomVariable;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
-import pubsim.lattices.firstkind.shortvector.MinCutShortVector;
 
 /**
  * Class describes lattices of Voronoi's first kind.  These lattices have an obtuse superbasis.
