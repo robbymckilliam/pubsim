@@ -1,7 +1,5 @@
 package pubsim.lattices.Anstar;
 
-import pubsim.Sorter;
-
 /**
  * Vaughan's original An* O(nlogn) nearest point algorithm.
  * Modified by Robby McKilliam 5/3/2012 

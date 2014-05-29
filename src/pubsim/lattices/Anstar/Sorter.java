@@ -1,4 +1,4 @@
-package pubsim;
+package pubsim.lattices.Anstar;
 
 import java.util.Arrays;
 

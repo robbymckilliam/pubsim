@@ -2,11 +2,7 @@ package pubsim.lattices.relevant;
 
 import Jama.Matrix;
 import pubsim.VectorFunctions;
-import pubsim.lattices.Lattice;
 import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
-import pubsim.lattices.LatticeInterface;
-import pubsim.lattices.decoder.SphereDecoder;
-import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
 import pubsim.lattices.util.AbstractPointEnumerator;
 import pubsim.lattices.util.IntegerVectors;
 import pubsim.lattices.util.PointEnumerator;
@@ -16,8 +12,6 @@ import pubsim.lattices.util.PointEnumerator;
  * computing a closest lattice point to the origin in the cosets of L/2L. This code should reliably
  * return all of the 'strict' relevant vectors, but might only return a subset of the 'lax' relevant
  * as a result of numerical imprecision.
- * 
- * This will only run in reasonable time for lattices of small dimensions, say 8 or less.
  * 
  * @author Robby McKilliam
  */
@@ -47,7 +41,7 @@ public class RelevantVectors
 
     @Override
     public double percentageComplete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (1.0*vectorscounted) / totalvectors;
     }
 
     @Override
@@ -67,7 +61,7 @@ public class RelevantVectors
         } else {
             Matrix v = B.times(intenum.nextElement()).times(0.5);
             L.nearestPoint(v.getColumnPackedCopy());
-            prev = VectorFunctions.columnMatrix(L.getLatticePoint());
+            prev = (VectorFunctions.columnMatrix(L.getLatticePoint()).minus(v)).times(2.0);
             return prev;
         }
     }
