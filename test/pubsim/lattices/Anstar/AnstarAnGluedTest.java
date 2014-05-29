@@ -1,20 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices.Anstar;
 
 import java.util.Random;
 import junit.framework.TestCase;
 import pubsim.VectorFunctions;
-import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarAnGlued;
-import pubsim.lattices.Anstar.AnstarBucket;
 
 /**
  *
- * @author robertm
+ * @author Robby McKilliam
  */
 public class AnstarAnGluedTest extends TestCase {
     
@@ -44,7 +36,7 @@ public class AnstarAnGluedTest extends TestCase {
         double[] v_instance;
         double[] v_tester;
         double[] x = new double[n];
-        Anstar tester = new AnstarBucket(n-1);
+        Anstar tester = new AnstarLinear(n-1);
         Anstar instance = new AnstarAnGlued(n-1);
         
         //instance.setDimension(n - 1);

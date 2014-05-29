@@ -7,7 +7,7 @@ package pubsim.lattices.util;
 import pubsim.lattices.util.PointInSphere;
 import Jama.Matrix;
 import pubsim.lattices.Anstar.Anstar;
-import pubsim.lattices.Anstar.AnstarBucket;
+import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.Zn;
 import org.junit.After;

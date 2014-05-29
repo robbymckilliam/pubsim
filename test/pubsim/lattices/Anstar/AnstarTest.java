@@ -69,7 +69,7 @@ public class AnstarTest {
     public void testKissingNumber() {
         System.out.println("kissing number");
         final int n = 8;
-        AnstarBucket lattice = new AnstarBucket(n);
+        Anstar lattice = new AnstarLinear(n);
         KissingNumber kissingnumber = new KissingNumber(lattice);
         assertEquals(kissingnumber.kissingNumber(),lattice.kissingNumber());
     }    
