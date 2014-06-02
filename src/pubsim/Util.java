@@ -2,6 +2,8 @@ package pubsim;
 
 import bignums.BigInteger;
 import bignums.BigRational;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Utility class for common math operations etc.
@@ -496,4 +498,13 @@ public final class Util {
         }
         return sum;
     }
+    
+    /** Make a copy of set S with element v removed */    
+    public static <T> Set<T> set_remove(Set<T> S, T v) {
+       HashSet<T> Sm1 = new HashSet();
+       for( T x : S ) if( ! v.equals(x) ) Sm1.add(x);
+       return Sm1;
+    }
+
+    
 }

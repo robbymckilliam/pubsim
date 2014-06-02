@@ -1,13 +1,15 @@
 package pubsim;
 
-import bignums.BigRational;
 import bignums.BigInteger;
-import static org.junit.Assert.*;
+import bignums.BigRational;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.*;
+import static org.junit.Assert.*;
+import static pubsim.Util.extended_gcd;
+import static pubsim.Util.gcd;
 import static pubsim.Util.logGamma;
 import static pubsim.Util.solveQuadratic;
-import static pubsim.Util.gcd;
-import static pubsim.Util.extended_gcd;
 
 /**
  *
@@ -457,4 +459,24 @@ public class UtilTest {
         }
 
     }
+    
+    /**
+     * Test of Bessel method, of class Util.
+     */
+    @Test
+    public void testSetRemove() {
+        System.out.println("test remove from Set");
+        HashSet<Integer> S = new HashSet();
+        for(Integer i = 1; i < 6; i++) S.add(i);
+        Set<Integer> D = Util.set_remove(S, 1);
+        assertTrue(D.size()==4);
+        assertTrue(D.contains(2));
+        assertTrue(D.contains(3));
+        assertTrue(D.contains(4));
+        assertTrue(D.contains(5));
+        assertTrue(!D.contains(1));
+        System.out.print("S = { "); for( Integer i : S) System.out.print(i + " "); System.out.println("}");
+        System.out.print("D = { "); for( Integer i : D) System.out.print(i + " "); System.out.println("}");
+    }
+    
 }
