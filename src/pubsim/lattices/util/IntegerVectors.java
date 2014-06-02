@@ -12,7 +12,8 @@ public class IntegerVectors
 
     private final Matrix U;
     public final int N, r;
-    private long numsamples, counter;
+    public final long numsamples;
+    protected long counter;
     int n = 0;
     private boolean finished = false;
 
