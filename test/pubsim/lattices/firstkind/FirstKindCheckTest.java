@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices.firstkind;
 
 import Jama.Matrix;
@@ -75,16 +69,19 @@ public class FirstKindCheckTest {
     @Test
     public void testRandom2DisfirstKind() {
         System.out.println("random 2-dimensional lattice is first kind");
-        Matrix B = Matrix.random(4, 2);
-        assertTrue(new FirstKindCheck(new LatticeAndNearestPointAlgorithm(B)).isFirstKind);    
+        Matrix B = Matrix.random(2, 2);
+        LatticeAndNearestPointAlgorithm L = new LatticeAndNearestPointAlgorithm(B);
+        //for( Matrix v : L.relevantVectors() ) System.out.println(VectorFunctions.print(v));
+        FirstKindCheck f = new FirstKindCheck(L);
+        assertTrue(f.isFirstKind);    
     }
     
-//    @Test
-//    public void testRandom3DisfirstKind() {
-//        System.out.println("random 3-dimensional lattice is first kind");
-//        Matrix B = Matrix.random(4, 3);
-//        assertTrue(new FirstKindCheck(new LatticeAndNearestPointAlgorithm(B)).isFirstKind);    
-//    }
+    @Test
+    public void testRandom3DisfirstKind() {
+        System.out.println("random 3-dimensional lattice is first kind");
+        Matrix B = Matrix.random(4, 3);
+        assertTrue(new FirstKindCheck(new LatticeAndNearestPointAlgorithm(B)).isFirstKind);    
+    }
     
     @Test
     public void testD3isfirstKind() {
@@ -95,9 +92,9 @@ public class FirstKindCheckTest {
     @Test
     public void testD4isfirstKind() {
         System.out.println("Test that the root lattice D4 is not first kind");
-        FirstKindCheck fkc = new FirstKindCheck(new Dn(5));
+        FirstKindCheck fkc = new FirstKindCheck(new Dn(4));
         assertTrue(fkc.isFirstKind);
-        for(Matrix v : fkc.obtuseSuperbase() ) System.out.println(VectorFunctions.print(v));
+        //for(Matrix v : fkc.obtuseSuperbase() ) System.out.println(VectorFunctions.print(v));
     }
     
     /**

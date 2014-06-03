@@ -23,7 +23,7 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
      */     
     @Override
     public void nearestPoint(double[] y) {
-        //nearestPoint(y, Double.POSITIVE_INFINITY);
+        nearestPoint(y, Double.POSITIVE_INFINITY);
     }
     
     //Allows you to set the initial starting distance for the sphere decoder
