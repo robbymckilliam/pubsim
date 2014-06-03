@@ -70,7 +70,7 @@ public class UniformInVoronoi
 
     protected void initNoiseVector(int N) {
         //System.out.println("N = " + N);
-        UniformNoise noise = new UniformNoise(0,1.0,0);
+        UniformNoise noise =UniformNoise.constructFromMeanAndRange(0,1.0);
         noise.randomSeed();
         nv = new NoiseVector(noise, N);
     }

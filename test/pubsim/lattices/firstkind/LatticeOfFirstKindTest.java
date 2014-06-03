@@ -102,7 +102,7 @@ public class LatticeOfFirstKindTest {
     public void testconstructrandom() {
         System.out.println("construct random");
         for(int n = 1; n <= 24; n++){
-            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, new UniformNoise(-0.5,1,0));
+            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, UniformNoise.constructFromMeanAndRange(-0.5,1));
             //System.out.println(VectorFunctions.print(lattice.extendedGram()));
         }
     }
@@ -114,7 +114,7 @@ public class LatticeOfFirstKindTest {
     public void testconstructnorm() {
         System.out.println("test norm");
         for(int n = 2; n <= 24; n++){
-            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, new UniformNoise(-0.5,1,0));
+            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, UniformNoise.constructFromMeanAndRange(-0.5,1));
             Lattice blat = new Lattice(lattice.getGeneratorMatrix());
             double sdnorm = blat.norm();
             double mincutnorm = lattice.norm();
