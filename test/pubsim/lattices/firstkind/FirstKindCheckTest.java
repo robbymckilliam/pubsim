@@ -97,6 +97,19 @@ public class FirstKindCheckTest {
         //for(Matrix v : fkc.obtuseSuperbase() ) System.out.println(VectorFunctions.print(v));
     }
     
+//    @Test
+//    public void testHowManyIn4D() {
+//        System.out.println("Calculate proportion of first type lattices in 4 dimensions");
+//        int N = 100;
+//        int count = 0;
+//        for(int i = 0; i < N; i++) {
+//            Matrix B = Matrix.random(4,4);
+//            if(new FirstKindCheck(new LatticeAndNearestPointAlgorithm(B)).isFirstKind)
+//                count++;
+//        }
+//        System.out.println(1.0*count/N);
+//    }
+    
     /**
      * Test of isObtuse method, of class FirstKindCheck.
      */
