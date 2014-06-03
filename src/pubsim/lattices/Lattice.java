@@ -1,6 +1,8 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
+import pubsim.lattices.relevant.RelevantVectors;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  * Class that represents a lattice with arbitrary

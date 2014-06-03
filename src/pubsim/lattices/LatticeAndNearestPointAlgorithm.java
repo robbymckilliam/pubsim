@@ -1,7 +1,10 @@
 package pubsim.lattices;
 
 import Jama.Matrix;
+import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
+import pubsim.lattices.relevant.RelevantVectors;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  * General lattice with a nearest point algorithm included with it.
@@ -11,16 +14,18 @@ import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
  */
 public class LatticeAndNearestPointAlgorithm extends Lattice implements LatticeAndNearestPointAlgorithmInterface {
 
-    private NearestPointAlgorithmInterface decoder;
+    private final NearestPointAlgorithmInterface decoder;
 
     public LatticeAndNearestPointAlgorithm(Matrix B){
         super(B);
         decoder = new SphereDecoderSchnorrEuchner(this);
+        //decoder = new SphereDecoder(this);
     }
 
     public LatticeAndNearestPointAlgorithm(double[][] B){
         super(new Matrix(B));
         decoder = new SphereDecoderSchnorrEuchner(this);
+        //decoder = new SphereDecoder(this);
     }
 
      public LatticeAndNearestPointAlgorithm(Matrix B, NearestPointAlgorithmInterface np){
@@ -51,6 +56,12 @@ public class LatticeAndNearestPointAlgorithm extends Lattice implements LatticeA
     @Override
     public double distance() {
         return decoder.distance();
+    }
+    
+    /** @return an enumeration of the relevant vectors for this lattice */
+    @Override
+    public PointEnumerator relevantVectors() {
+        return new RelevantVectors(this);
     }
 
 }

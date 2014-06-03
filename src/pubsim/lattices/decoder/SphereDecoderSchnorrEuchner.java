@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.lattices.decoder;
 
-import pubsim.VectorFunctions;
+import static pubsim.VectorFunctions.matrixMultVector;
 import pubsim.lattices.LatticeInterface;
 
 /**
@@ -28,7 +23,7 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
      */     
     @Override
     public void nearestPoint(double[] y) {
-        nearestPoint(y, Double.POSITIVE_INFINITY);
+        //nearestPoint(y, Double.POSITIVE_INFINITY);
     }
     
     //Allows you to set the initial starting distance for the sphere decoder
@@ -38,7 +33,7 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
 
         //don't need to compute the Babai point.  This strategy automattically computes
         //the Babai point.
-        VectorFunctions.matrixMultVector(Qtrans, y, yr);
+        matrixMultVector(Qtrans, y, yr);
         this.D = D*D; //the decode function uses the square of the distance!
         
         //current element being decoded
@@ -47,10 +42,10 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
         decode(k, 0);
 
         //compute index u = Uuh so that Gu is nearest point
-        VectorFunctions.matrixMultVector(U, ubest, u);
+        matrixMultVector(U, ubest, u);
 
         //compute nearest point
-        VectorFunctions.matrixMultVector(G, u, x);
+        matrixMultVector(G, u, x);
 
     }
 
@@ -68,13 +63,12 @@ public class SphereDecoderSchnorrEuchner extends SphereDecoder{
             rsum += ut[i]*R.get(k, i);
         }
 
-
         //this is the first point to test
         ut[k] = Math.round((yr[k] - rsum)/R.get(k,k));
 
         //this updates the ut[k] in the order of Schnorr and Euchner.
-        double del = Math.signum( 
-                pubsim.Util.fracpart( (yr[k] - rsum)/R.get(k,k) )  );
+        double del = Math.signum( pubsim.Util.fracpart( (yr[k] - rsum)/R.get(k,k) )  );
+        if(Math.abs(del) < 0.5) del = 1.0;
         
         while( Math.abs(ut[k]*R.get(k,k) + rsum - yr[k]) <= Math.sqrt(D - d) ){
             double kd = R.get(k, k)*ut[k] + rsum - yr[k];

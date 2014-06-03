@@ -1,12 +1,12 @@
-/*
- */
-
 package pubsim.lattices.An;
 
 import Jama.Matrix;
 import pubsim.Util;
 import pubsim.lattices.AbstractLattice;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.NearestPointAlgorithmInterface;
+import pubsim.lattices.relevant.RelevantVectors;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  * Abstract for the lattice An.  Protected variable u and n
@@ -14,7 +14,7 @@ import pubsim.lattices.NearestPointAlgorithmInterface;
  * and n is the dimension.
  * @author Robby McKilliam
  */
-public abstract class An extends AbstractLattice implements NearestPointAlgorithmInterface {
+public abstract class An extends AbstractLattice implements LatticeAndNearestPointAlgorithmInterface {
 
     protected double[] u;
     protected int n;
@@ -82,7 +82,7 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     }
 
     /**
-     * Return the covering radius for this lattice
+     * @return  the covering radius for this lattice
      */
     @Override
     public double coveringRadius(){
@@ -116,6 +116,12 @@ public abstract class An extends AbstractLattice implements NearestPointAlgorith
     @Override
     public String name() {
         return "An" + n;
+    }
+    
+    /** @return an enumeration of the relevant vectors for this lattice */
+    @Override
+    public PointEnumerator relevantVectors() {
+        return new RelevantVectors(this);
     }
 
 }

@@ -7,11 +7,13 @@ package pubsim;
 
 import Jama.Matrix;
 import java.util.Arrays;
-import pubsim.distributions.RealRandomVariable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
-import rngpack.Ranlux;
+import java.util.Set;
 import static pubsim.Range.range;
+import pubsim.distributions.RealRandomVariable;
+import rngpack.Ranlux;
 
 /**
  * Miscellaneous functions to run on arrays/vectors/matrices.
@@ -919,6 +921,11 @@ public final class VectorFunctions {
         }
         return sum;
     }
+    
+    /** Dot product between two vectors, ignores whether row or column */
+    public static double dot(Matrix x, Matrix y) {
+        return dot(unpackRowise(x), unpackRowise(y));
+    }
 
     /**
      * Return the min value of a vector
@@ -934,7 +941,7 @@ public final class VectorFunctions {
     }
 
     /**
-     * Return true if every element in the vectors is equal, esle false.
+     * Return true if every element in the vectors is equal, else false.
      */
     public static boolean equal(double[] x, double[] y) {
         for (int i = 0; i < x.length; i++) {
@@ -1509,6 +1516,15 @@ public final class VectorFunctions {
      */
     public static Matrix randomBandedMatrix(int n, int band){
         return randomBandedMatrix(n, n, 0, band - 1);
+    }
+    
+    /** Split matrix B into a set of column vectors */
+    public static Set<Matrix> splitColumns(Matrix B){
+        int M = B.getColumnDimension();
+        int N = B.getRowDimension();
+        HashSet<Matrix> S = new HashSet();
+        for(int n = 0; n < N; n++) S.add(B.getMatrix(0, M-1, n, n));
+        return S;
     }
 
 }

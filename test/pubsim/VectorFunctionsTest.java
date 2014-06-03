@@ -8,6 +8,7 @@
 package pubsim;
 
 import Jama.Matrix;
+import java.util.Set;
 import junit.framework.*;
 import static org.junit.Assert.*;
 import static pubsim.VectorFunctions.*;
@@ -359,6 +360,32 @@ public class VectorFunctionsTest extends TestCase {
         double result = VectorFunctions.dot(x, y);
         assertEquals(expResult, result, 1e-9);
        
+    }
+    
+     /**
+     * Test of dot method for Matrix
+     */
+    public void testDotMatrix() {
+        System.out.println("dot with Matrix");
+        
+        double[] x = {1,2,3};
+        double[] y = {1,-1,4};
+        Matrix xr = VectorFunctions.rowMatrix(x);
+        Matrix xc = VectorFunctions.columnMatrix(x);
+        Matrix yr = VectorFunctions.rowMatrix(y);
+        Matrix yc = VectorFunctions.columnMatrix(y);
+        
+        double expResult = 11.0;
+        double result = VectorFunctions.dot(x, y);
+        assertEquals(expResult, result, 1e-9);
+        result = VectorFunctions.dot(xr, yr);
+        assertEquals(expResult, result, 1e-9);
+       result = VectorFunctions.dot(xc, yr);
+        assertEquals(expResult, result, 1e-9);
+        result = VectorFunctions.dot(xc, yc);
+        assertEquals(expResult, result, 1e-9);
+        result = VectorFunctions.dot(xr, yc);
+        assertEquals(expResult, result, 1e-9);
     }
 
     /**
@@ -790,5 +817,14 @@ public class VectorFunctionsTest extends TestCase {
        
     }
 
-    
+    public void testsplitColumns() {
+        System.out.println("test split matrix into set of columns");
+        
+        Matrix M = Matrix.identity(3, 3);
+        System.out.println(print(M));
+        Set<Matrix> S = VectorFunctions.splitColumns(M);
+        for(Matrix v : S) System.out.println(print(v));
+       
+    }
+        
 }

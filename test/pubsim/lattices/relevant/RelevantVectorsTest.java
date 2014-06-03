@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnFastSelect;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.Zn;
 import pubsim.lattices.util.PointEnumerator;
 
@@ -57,9 +58,20 @@ public class RelevantVectorsTest {
         System.out.println("test with An");
         PointEnumerator rvs = new RelevantVectors(new AnFastSelect(2));
         while(rvs.hasMoreElements())
-            System.out.println(VectorFunctions.print(rvs.nextElement()));
-            
+            System.out.println(VectorFunctions.print(rvs.nextElement()));            
     }
 
+    
+    /**
+     * Test with the randomlattice.
+     */
+    @Test
+    public void testWithRandomLattice() {
+        System.out.println("test with random lattice");
+        Matrix B = Matrix.random(3, 2);
+        PointEnumerator rvs = new RelevantVectors(new LatticeAndNearestPointAlgorithm(B));
+        while(rvs.hasMoreElements())
+            System.out.println(VectorFunctions.print(rvs.nextElement()));            
+    }
     
 }

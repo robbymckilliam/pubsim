@@ -10,6 +10,8 @@ import pubsim.lattices.Anstar.AnstarSorted;
 import pubsim.lattices.Lattice;
 import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.Zn;
+import pubsim.lattices.reduction.HKZ;
+import pubsim.lattices.reduction.LLL;
 
 /**
  *
@@ -124,5 +126,28 @@ public class BabaiTest {
         }
     }
     
+    @Test
+    public void testVaughanTests() {
+        	int dim = 10;
+	Matrix B = Matrix.random(dim, dim);
+	System.out.println("B = ");
+	B.print(6, 2);
+	Matrix y = Matrix.random(dim, 1);
+	System.out.println("y = ");
+	y.transpose().print(6, 2);
+	Lattice Lambda = new Lattice(B);
+	Babai blll = new Babai(Lambda, new LLL());
+	Babai bhkz = new Babai(Lambda, new HKZ());
+	blll.computeBabaiPoint(y.getRowPackedCopy());
+	bhkz.computeBabaiPoint(y.getRowPackedCopy());
+	Matrix xlll = new Matrix(blll.getLatticePoint(), dim);
+	Matrix xhkz = new Matrix(bhkz.getLatticePoint(), dim);
+	System.out.println("xlll = ");
+	xlll.transpose().print(6, 2);
+	System.out.println("xhkz = ");
+	xhkz.transpose().print(6, 2);
+	System.out.println("||xlll - y|| = " + xlll.minus(y).norm2());
+	System.out.println("||xhkz - y|| = " + xhkz.minus(y).norm2());
+    }
 
 }

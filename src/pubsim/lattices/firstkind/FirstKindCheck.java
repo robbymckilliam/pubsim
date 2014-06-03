@@ -1,10 +1,12 @@
 package pubsim.lattices.firstkind;
 
-import java.util.Set;
-import java.util.HashSet;
-import pubsim.lattices.Lattice;
 import Jama.Matrix;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import pubsim.CombinationEnumerator;
+import pubsim.lattices.LatticeInterface;
+import static pubsim.VectorFunctions.dot;
 
 /**
  * Tests whether a given lattice is of first kind or not.  Will run in reasonable time only
@@ -16,33 +18,63 @@ public class FirstKindCheck {
     ///Set containing all relevant vectors
     protected final Set<Matrix> R;
     
+    ///Set containing vectors from the obtuse superbase if it exists
+    protected Set<Matrix> B = new HashSet();
+    
     ///True if this lattice is of first kind
     public final boolean isFirstKind;
     
     ///Dimension of the lattice
     public final int n;
     
-    public FirstKindCheck(Lattice L) {
+    public FirstKindCheck(LatticeInterface L) {
         n = L.getDimension();
         R = new HashSet(); 
         for( Matrix v : L.relevantVectors() ) R.add(v); //load all relevant vectors into the set R
-        isFirstKind = containsObtuseSuperBasis(R, n+1);
+        isFirstKind = containsObtuseSuperBasis(R);
     }
     
     ///Given a set of atleast k vectors R, decide whether the set contains an obtuse super basis
-    public static boolean containsObtuseSuperBasis(Set<Matrix> R, int k) {
-        for( Set<Matrix> C : new CombinationEnumerator<>(R,k) ) {
-            if( isObtuse(C) && isSuperbase(C) ) return true;
+    protected final boolean containsObtuseSuperBasis(Set<Matrix> R) {
+        for( Set<Matrix> C : new CombinationEnumerator<>(R,n+1) ) {
+            if( isObtuse(C) && isSuperbase(C) ) {
+                B = new HashSet(C);
+                return true;
+            }
         }
         return false;
-    }
+    }    
     
-    public static boolean isObtuse(Set<Matrix> C) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    ///@return true if this lattice is of first kind
+    public boolean isFirstKind() { return isFirstKind; }
     
-    public static boolean isSuperbase(Set<Matrix> C) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * @return set containing vectors from the obtuse supersbase if it 
+     * exists, i.e., if this lattice is of first kind. Returns null emptyset otherwise.
+     * */
+    public Set<Matrix> obtuseSuperbase() { return B; }
+    
+    ///Returns true if the vectos in C are all obtuse or orthogonal. TOL > 0 decides how close to zero is considered zero.
+    public static boolean isObtuse(Set<Matrix> C, double TOL) {
+        int N = C.size();
+        Matrix[] b = new Matrix[N];
+        C.toArray(b); //build an array with pointers to vectors in C
+        for(int i = 0; i < N; i++)
+            for(int j = i+1; j < N; j++)
+                if( dot(b[i],b[j]) > Math.abs(TOL) ) return false;
+        return true;
     }
+    ///Default TOL = 1e-10
+    public static boolean isObtuse(Set<Matrix> C) { return isObtuse(C, 1e-10); }
+    
+    ///Returns true if the vectors in C sum to zero.  TOL decides how close to zero each element must be
+    public static boolean isSuperbase(Set<Matrix> C, double TOL) {
+        Iterator<Matrix> itr = C.iterator();
+        Matrix s = itr.next();
+        while(itr.hasNext()) s = s.plus(itr.next());
+        return s.normInf() < TOL;
+    }
+    ///Default TOL = 1e-8
+    public static boolean isSuperbase(Set<Matrix> C) { return isSuperbase(C, 1e-8); }
     
 }

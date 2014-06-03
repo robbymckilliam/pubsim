@@ -73,8 +73,8 @@ public interface LatticeInterface extends Serializable {
     double probCodingError(double S);
     
     /** 
-     * Second moment of the Voronoi cell of this lattice.
-     * This is NOT normalised for volume.
+     * @return second moment of the Voronoi cell of this lattice.
+     * This is NOT normalised for volume. 
      */
     double secondMoment();
 

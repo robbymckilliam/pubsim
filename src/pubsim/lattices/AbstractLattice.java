@@ -5,6 +5,7 @@ import static pubsim.Util.*;
 import pubsim.VectorFunctions;
 import pubsim.lattices.decoder.KissingNumber;
 import pubsim.lattices.decoder.ShortVectorSphereDecoded;
+import pubsim.lattices.relevant.RelevantVectors;
 import pubsim.lattices.util.PointEnumerator;
 
 /**
@@ -122,11 +123,10 @@ public abstract class AbstractLattice implements LatticeInterface {
         return Q;
     }
     
-    /** Return an enumeration of the relevant vectors for this lattice */
+     /** @return an enumeration of the relevant vectors for this lattice */
     @Override
     public PointEnumerator relevantVectors() {
-        throw new UnsupportedOperationException("Not written yet");
+        return new RelevantVectors(new LatticeAndNearestPointAlgorithm(this.getGeneratorMatrix()));
     }
-
     
 }

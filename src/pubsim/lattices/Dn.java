@@ -3,6 +3,8 @@ package pubsim.lattices;
 import Jama.Matrix;
 import pubsim.Util;
 import pubsim.VectorFunctions;
+import pubsim.lattices.relevant.RelevantVectors;
+import pubsim.lattices.util.PointEnumerator;
 
 /**
  * Nearest point algorithm for the lattice Dn.
@@ -101,6 +103,12 @@ public class Dn extends AbstractLattice implements LatticeAndNearestPointAlgorit
     @Override
     public String name() { 
         return "D" + n;
+    }
+    
+     /** @return an enumeration of the relevant vectors for this lattice */
+    @Override
+    public PointEnumerator relevantVectors() {
+        return new RelevantVectors(this);
     }
 
 }
