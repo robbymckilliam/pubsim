@@ -30,7 +30,7 @@ public class CombinationEnumerator<T> implements Iterable<Set<T>>, Serializable 
         return new CombinationEnumerator.Iterator();
     }
 
-    protected class Iterator implements java.util.Iterator<Iterable<T>> {
+    protected class Iterator implements java.util.Iterator<Set<T>> {
 
         public final long total = pubsim.Util.binom(S.size(), k);  
         protected long count = 0;
@@ -57,7 +57,7 @@ public class CombinationEnumerator<T> implements Iterable<Set<T>>, Serializable 
         }
 
         @Override
-        public Iterable<T> next() {
+        public Set<T> next() {
             count++;
             if (!C.hasNext()) setupv();
             HashSet<T> ret = new HashSet();
