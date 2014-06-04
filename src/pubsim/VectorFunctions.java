@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import static pubsim.Range.range;
+import pubsim.distributions.GaussianNoise;
 import pubsim.distributions.RealRandomVariable;
 import rngpack.Ranlux;
 
@@ -1527,6 +1528,28 @@ public final class VectorFunctions {
         return S;
     }
 
-   
+    /** Returns a real values Matrix with entries that model an n/2 by n/2 MIMO matrix */
+   public static Matrix randomMIMObasis(int n){
+       RealRandomVariable noise = new GaussianNoise(0,1);
+       int h = (int)Math.ceil(n/2.0);
+       double[][] R = new double[h][h];
+       double[][] C = new double[h][h];
+       for(int i = 0; i < h; i++){
+           for(int j = 0; j < h; j++){
+               R[i][j] = noise.getNoise();
+               C[i][j] = noise.getNoise();
+           }
+       }
+       Matrix B = new Matrix(n,n);
+       for(int i = 0; i < h; i++){
+           for(int j = 0; j < h; j++) B.set(i,j,R[i][j]);
+           for(int j = h; j < n; j++) B.set(i,j,C[i][j-h]);
+       }
+       for(int i = h; i < n; i++){
+           for(int j = 0; j < h; j++) B.set(i,j,-C[i-h][j]);
+           for(int j = h; j < n; j++) B.set(i,j,R[i-h][j-h]);
+       }
+       return B;
+   }
     
 }

@@ -826,5 +826,12 @@ public class VectorFunctionsTest extends TestCase {
         for(Matrix v : S) System.out.println(print(v));
        
     }
+    
+    public void testrandomMIMObasis() {
+        System.out.println("print some random MIMO bases");
+        System.out.println(print(randomMIMObasis(2)));
+        System.out.println(print(randomMIMObasis(3)));
+        System.out.println(print(randomMIMObasis(4)));
+    }
         
 }
