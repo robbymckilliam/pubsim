@@ -7,6 +7,7 @@ import java.util.Set;
 import pubsim.CombinationEnumerator;
 import pubsim.lattices.LatticeInterface;
 import static pubsim.VectorFunctions.dot;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
  * Tests whether a given lattice is of first kind or not.  Will run in reasonable time only
@@ -26,7 +27,13 @@ public class FirstKindCheck {
     
     ///Dimension of the lattice
     public final int n;
+   
+    /** Asserts if the lattice with generator B is of first kind */
+    public FirstKindCheck(Matrix B) {
+        this(new LatticeAndNearestPointAlgorithm(B));
+    }
     
+    /** Asserts if the lattice L is of first kind */
     public FirstKindCheck(LatticeInterface L) {
         n = L.getDimension();
         R = new HashSet(); 
@@ -34,7 +41,7 @@ public class FirstKindCheck {
         isFirstKind = containsObtuseSuperBasis(R);
     }
     
-    ///Given a set of atleast k vectors R, decide whether the set contains an obtuse super basis
+    ///Given a set R of atleast k, decide whether the set contains an obtuse super basis
     protected final boolean containsObtuseSuperBasis(Set<Matrix> R) {
         for( Set<Matrix> C : new CombinationEnumerator<>(R,n+1) ) {
             if( isObtuse(C) && isSuperbase(C) ) {
@@ -49,8 +56,8 @@ public class FirstKindCheck {
     public boolean isFirstKind() { return isFirstKind; }
     
     /**
-     * @return set containing vectors from the obtuse supersbase if it 
-     * exists, i.e., if this lattice is of first kind. Returns null emptyset otherwise.
+     * @return set containing vectors from the obtuse superbase if it 
+     * exists, i.e., if this lattice is of first kind. Returns emptyset otherwise.
      * */
     public Set<Matrix> obtuseSuperbase() { return B; }
     

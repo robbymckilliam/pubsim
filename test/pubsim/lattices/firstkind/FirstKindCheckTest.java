@@ -62,8 +62,7 @@ public class FirstKindCheckTest {
     @Test
     public void testRandom1DisfirstKind() {
         System.out.println("random 1-dimensional lattice is first kind");
-        Matrix B = Matrix.random(4, 1);
-        assertTrue(new FirstKindCheck(new LatticeAndNearestPointAlgorithm(B)).isFirstKind);    
+        assertTrue(new FirstKindCheck(Matrix.random(4, 1)).isFirstKind);    
     }
     
     @Test
@@ -80,7 +79,7 @@ public class FirstKindCheckTest {
     public void testRandom3DisfirstKind() {
         System.out.println("random 3-dimensional lattice is first kind");
         Matrix B = Matrix.random(4, 3);
-        assertTrue(new FirstKindCheck(new LatticeAndNearestPointAlgorithm(B)).isFirstKind);    
+        assertTrue(new FirstKindCheck(B).isFirstKind);    
     }
     
     @Test
