@@ -1528,7 +1528,7 @@ public final class VectorFunctions {
         return S;
     }
 
-    /** Returns a real values Matrix with entries that model an n/2 by n/2 MIMO matrix */
+    /** Returns a real valued n by n Matrix with entries that model an n/2 by n/2 MIMO matrix */
    public static Matrix randomMIMObasis(int n){
        RealRandomVariable noise = new GaussianNoise(0,1);
        int h = (int)Math.ceil(n/2.0);

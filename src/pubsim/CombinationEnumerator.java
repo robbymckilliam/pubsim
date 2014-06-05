@@ -39,7 +39,7 @@ public class CombinationEnumerator<T> implements Iterable<Set<T>>, Serializable 
         protected Set<T> H = new HashSet(S); //make a copy of S
         
         ///Store list of iterators for generating elements
-        protected java.util.Iterator<Iterable<T>> C = null;
+        protected java.util.Iterator<Set<T>> C = null;
 
         public Iterator() {
             setupv();
@@ -67,6 +67,7 @@ public class CombinationEnumerator<T> implements Iterable<Set<T>>, Serializable 
 
         @Override
         public void remove() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
     }
