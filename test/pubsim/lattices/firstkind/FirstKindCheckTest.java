@@ -46,9 +46,10 @@ public class FirstKindCheckTest {
     public void testFirstKindCheckAn() {
         System.out.println("An is first kind");
         int n = 4;
+        assertTrue(new FirstKindCheckSlow(new AnFastSelect(n)).isFirstKind);       
         assertTrue(new FirstKindCheck(new AnFastSelect(n)).isFirstKind);       
     }
-
+    
     /**
      * Test that the lattice An is of first kind.
      */
@@ -56,13 +57,14 @@ public class FirstKindCheckTest {
     public void testFirstKindCheckAnstar() {
         System.out.println("Anstar is first kind");
         int n = 4;
-        assertTrue(new FirstKindCheck(new AnstarLinear(n)).isFirstKind);       
+        assertTrue(new FirstKindCheckSlow(new AnstarLinear(n)).isFirstKind);       
+        assertTrue(new FirstKindCheck(new AnstarLinear(n)).isFirstKind);  
     }
     
     @Test
     public void testRandom1DisfirstKind() {
         System.out.println("random 1-dimensional lattice is first kind");
-        assertTrue(new FirstKindCheck(Matrix.random(4, 1)).isFirstKind);    
+        assertTrue(new FirstKindCheckSlow(Matrix.random(4, 1)).isFirstKind);    
     }
     
     @Test
@@ -71,7 +73,7 @@ public class FirstKindCheckTest {
         Matrix B = Matrix.random(2, 2);
         LatticeAndNearestPointAlgorithm L = new LatticeAndNearestPointAlgorithm(B);
         //for( Matrix v : L.relevantVectors() ) System.out.println(VectorFunctions.print(v));
-        FirstKindCheck f = new FirstKindCheck(L);
+        FirstKindCheckSlow f = new FirstKindCheckSlow(L);
         assertTrue(f.isFirstKind);    
     }
     
@@ -79,19 +81,19 @@ public class FirstKindCheckTest {
     public void testRandom3DisfirstKind() {
         System.out.println("random 3-dimensional lattice is first kind");
         Matrix B = Matrix.random(4, 3);
-        assertTrue(new FirstKindCheck(B).isFirstKind);    
+        assertTrue(new FirstKindCheckSlow(B).isFirstKind);    
     }
     
     @Test
     public void testD3isfirstKind() {
         System.out.println("Test that the root lattice D3 is first kind");
-        assertTrue(new FirstKindCheck(new Dn(3)).isFirstKind);    
+        assertTrue(new FirstKindCheckSlow(new Dn(3)).isFirstKind);    
     }
     
     @Test
     public void testD4isfirstKind() {
         System.out.println("Test that the root lattice D4 is not first kind");
-        FirstKindCheck fkc = new FirstKindCheck(new Dn(4));
+        FirstKindCheckSlow fkc = new FirstKindCheckSlow(new Dn(4));
         assertTrue(fkc.isFirstKind);
         //for(Matrix v : fkc.obtuseSuperbase() ) System.out.println(VectorFunctions.print(v));
     }
@@ -118,19 +120,19 @@ public class FirstKindCheckTest {
         int n = 5;
         Matrix B = new AnFastSelect(n).getGeneratorMatrixBig();
         Set<Matrix> S = VectorFunctions.splitColumns(B);
-        assertTrue(FirstKindCheck.isObtuse(S));
+        assertTrue(FirstKindCheckSlow.isObtuse(S));
         
         B = new AnstarLinear(n).getGeneratorMatrixBig();
         S = VectorFunctions.splitColumns(B);
-        assertTrue(FirstKindCheck.isObtuse(S));
+        assertTrue(FirstKindCheckSlow.isObtuse(S));
         
         B = Matrix.identity(n, n);
         S = VectorFunctions.splitColumns(B);
-        assertTrue(FirstKindCheck.isObtuse(S));
+        assertTrue(FirstKindCheckSlow.isObtuse(S));
         
         B.set(1,0,1.0);
         S = VectorFunctions.splitColumns(B);
-        assertFalse(FirstKindCheck.isObtuse(S));
+        assertFalse(FirstKindCheckSlow.isObtuse(S));
     }
 
     /**
@@ -142,15 +144,15 @@ public class FirstKindCheckTest {
         int n = 5;
         Matrix B = new AnFastSelect(n).getGeneratorMatrixBig();
         Set<Matrix> S = VectorFunctions.splitColumns(B);
-        assertTrue(FirstKindCheck.isSuperbase(S));
+        assertTrue(FirstKindCheckSlow.isSuperbase(S));
         
         B = new AnstarLinear(n).getGeneratorMatrixBig();
         S = VectorFunctions.splitColumns(B);
-        assertTrue(FirstKindCheck.isSuperbase(S));
+        assertTrue(FirstKindCheckSlow.isSuperbase(S));
         
         B = Matrix.identity(n, n);
         S = VectorFunctions.splitColumns(B);
-        assertFalse(FirstKindCheck.isSuperbase(S));
+        assertFalse(FirstKindCheckSlow.isSuperbase(S));
     }
     
 }
