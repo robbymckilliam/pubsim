@@ -41,7 +41,7 @@ public class FirstKindCheck {
         isFirstKind = containsObtuseSuperBasis(R);
     }
     
-    ///Given a set R of atleast k, decide whether the set contains an obtuse super basis
+    ///Given a set R containingatleast k vectors, decide whether the set contains an obtuse super basis
     protected final boolean containsObtuseSuperBasis(Set<Matrix> R) {
         for( Set<Matrix> C : new CombinationEnumerator<>(R,n+1) ) {
             if( isObtuse(C) && isSuperbase(C) ) {

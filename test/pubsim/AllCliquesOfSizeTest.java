@@ -3,6 +3,7 @@ package pubsim;
 import java.util.Iterator;
 import java.util.Set;
 import org.jgrapht.Graph;
+import org.jgrapht.generate.CompleteGraphGenerator;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.junit.After;
@@ -121,6 +122,60 @@ public class AllCliquesOfSizeTest {
         assertTrue(!S1.containsEdge(2, 4));
         assertTrue(!S1.containsEdge(3, 4));
         assertTrue(S1.edgesOf(4).isEmpty());
+              
+    }
+    
+    @Test
+    public void testAllCliquesOfSize() {
+        System.out.println("all cliques");
+        Graph G = new SimpleGraph<Integer, DefaultEdge>(DefaultEdge.class);
+        
+        //4 vertices
+        G.addVertex(1);
+        G.addVertex(2);
+        G.addVertex(3);
+        G.addVertex(4);
+        
+        G.addEdge(1, 2);
+        G.addEdge(1, 3);
+        G.addEdge(1, 4);
+        G.addEdge(2, 3);
+        
+        for (int i = 1; i <= 3; i++) {
+            AllCliquesOfSize<Integer> C = new AllCliquesOfSize<Integer>(i, G);
+            for (Set<Integer> S : C) {
+                assertTrue(S.size() == i);
+                for (Integer s : S) {
+                    System.out.print(s + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+              
+    }
+    
+    @Test
+    public void testAllCliquesOfCompleteGraph() {
+        System.out.println("all cliques of complete graph");
+        Graph G = new SimpleGraph<Integer, DefaultEdge>(DefaultEdge.class);
+        
+        //construct complete graph
+        for(int i = 1; i <= 5; i++) G.addVertex(i);
+        for(int i = 1; i <= 5; i++) 
+            for(int j = i+1; j <=5; j++) G.addEdge(i, j);
+        
+        for (int i = 1; i <= 5; i++) {
+            AllCliquesOfSize<Integer> C = new AllCliquesOfSize<Integer>(i, G);
+            for (Set<Integer> S : C) {
+                assertTrue(S.size() == i);
+                for (Integer s : S) {
+                    System.out.print(s + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
               
     }
     

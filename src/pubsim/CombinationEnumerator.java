@@ -67,7 +67,6 @@ public class CombinationEnumerator<T> implements Iterable<Set<T>>, Serializable 
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
     }
