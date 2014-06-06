@@ -18,9 +18,7 @@ import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.lattices.Dn;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.LatticeInterface;
-import static pubsim.lattices.firstkind.FirstKindCheck.obtuseConnectedGraph;
 import static pubsim.lattices.firstkind.FirstKindCheckSlow.isObtuse;
-import static pubsim.lattices.firstkind.FirstKindCheckSlow.isSuperbase;
 
 /**
  *
@@ -125,6 +123,19 @@ public class FirstKindCheckTest {
 //        }
 //        System.out.println(1.0*count/N);
 //    }
+    
+    @Test
+    public void testSlowAndFastSameFor4D() {
+        System.out.println("check that slow and fast verions are the same in 4 dimensions");
+        int N = 10;
+        int count = 0;
+        for(int i = 0; i < N; i++) {
+            Matrix B = Matrix.random(4,4);
+            FirstKindCheck ffast = new FirstKindCheck(B);
+            FirstKindCheckSlow fslow = new FirstKindCheckSlow(B);
+            assertTrue(ffast.isFirstKind == fslow.isFirstKind);
+        }
+    }
     
     /**
      * Test of isObtuse method, of class FirstKindCheck.
