@@ -834,4 +834,31 @@ public class VectorFunctionsTest extends TestCase {
         System.out.println(print(randomMIMObasis(4)));
     }
         
+    public void testIsUnimodular() {
+        Matrix I = Matrix.identity(5,5);
+        assertTrue(isUnimodular(I)); //test identity is unimodular
+        
+        //construct lower triangular matrix with unit diagonal
+        Matrix A = Matrix.identity(5,5);
+        A.set(1,0, 10);
+        A.set(2,1, -3);
+        A.set(2,0, 4);
+        A.set(4,3, -2);
+        assertTrue(isUnimodular(A)); //test identity is unimodular
+        assertTrue(isUnimodular(A.inverse())); //assert invere is unimodular
+        
+        //construct upper triangular matrix with unit diagonal
+        Matrix B = Matrix.identity(5,5);
+        B.set(0,2, 10);
+        B.set(0,2, -3);
+        B.set(1,3, 4);
+        B.set(2,4, -2);
+        assertTrue(isUnimodular(B)); //test identity is unimodular
+        assertTrue(isUnimodular(B.inverse())); //assert invere is unimodular
+        
+        //check product of A and B
+        assertTrue(isUnimodular(A.times(B)));
+         assertTrue(isUnimodular(B.times(A)));
+    }
+    
 }

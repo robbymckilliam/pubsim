@@ -33,7 +33,7 @@ public class FirstKindCheck extends FirstKindCheckSlow {
         for( Matrix v : L.relevantVectors() ) R.add(v); //load all relevant vectors into the set R
         Graph<Matrix,?> G = obtuseConnectedGraph(R);
         for( Set<Matrix> C : new AllCliquesOfSize<>(n+1,G) ) {
-            if( isSuperbase(C) ) { //no need to check for obtuse
+            if( isSuperbase(C) && isRankn(C) ) { //no need to check for obtuse
                 B = new HashSet(C);
                 return true;
             }

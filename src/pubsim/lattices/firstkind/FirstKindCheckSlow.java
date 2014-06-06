@@ -5,8 +5,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import pubsim.CombinationEnumerator;
-import pubsim.lattices.LatticeInterface;
+import pubsim.VectorFunctions;
 import static pubsim.VectorFunctions.dot;
+import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
@@ -45,7 +46,7 @@ public class FirstKindCheckSlow {
         Set<Matrix> R = new HashSet(); 
         for( Matrix v : L.relevantVectors() ) R.add(v); //load all relevant vectors into the set R
         for( Set<Matrix> C : new CombinationEnumerator<>(R,n+1) ) {
-            if( isObtuse(C) && isSuperbase(C) ) {
+            if( isObtuse(C) && isSuperbase(C) && isRankn(C) ) {
                 B = new HashSet(C);
                 return true;
             }
@@ -84,5 +85,44 @@ public class FirstKindCheckSlow {
     }
     ///Default TOL = 1e-8
     public static boolean isSuperbase(Set<Matrix> C) { return isSuperbase(C, 1e-8); }
+    
+    ///Check that the first n vectors are linearly independent. TOL is how small the determinant can be
+    public static boolean isRankn(Set<Matrix> C, double TOL){
+        int n = C.size();
+        Matrix[] b = new Matrix[n];
+        C.toArray(b); //build an array with pointers to vectors in R (also vertices in G)
+        Matrix bGram = new Matrix(n-1,n-1);
+        for(int i = 0; i < n-1; i++)
+            for(int j = 0; j < n-1; j++)
+                bGram.set(i,j, dot(b[i],b[j]) ); 
+        return Math.abs(bGram.det()) > TOL; 
+    }
+    ///Default TOL = 1e-10
+    public static boolean isRankn(Set<Matrix> C) { return isRankn(C, 1e-10); }
+    
+        /** Check that a given obtuse basis actually is a basis for the lattice */
+    public static boolean isBasis(Set<Matrix> B, LatticeInterface L) {
+        int n = L.getDimension();
+        if( B.size() != n+1 ) return false; //wrong number of vectors
+        
+        //stash superbase vectors into an array
+        Matrix[] b = new Matrix[n+1];
+        B.toArray(b); //build an array with pointers to vectors in R (also vertices in G)
+        
+        //compute the Gram matrix corresponding with first n superbase vectors
+        int m = b[0].getRowDimension();
+        Matrix bLattice = new Matrix(m,n);
+        for(int i = 0; i < m; i++)
+            for(int j = 0; j < n; j++)
+                bLattice.set(i,j, b[j].get(i,0) );
+        System.out.println(VectorFunctions.print(bLattice));
+        
+        Matrix latticeBasis = L.getGeneratorMatrix();
+        Matrix U = (bLattice.transpose().times(bLattice)).inverse().times(bLattice.transpose().times(latticeBasis));
+        System.out.println(VectorFunctions.print(U));
+        System.out.println(U.det());
+
+        return VectorFunctions.isUnimodular(U);
+    }
     
 }

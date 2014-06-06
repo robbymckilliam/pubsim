@@ -16,8 +16,11 @@ import pubsim.VectorFunctions;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.lattices.Dn;
+import pubsim.lattices.E6;
+import pubsim.lattices.E8;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.LatticeInterface;
+import static pubsim.lattices.firstkind.FirstKindCheckSlow.isObtuse;
 import static pubsim.lattices.firstkind.FirstKindCheckSlow.isObtuse;
 
 /**
@@ -83,33 +86,47 @@ public class FirstKindCheckTest {
         FirstKindCheckSlow f = new FirstKindCheckSlow(L);
         FirstKindCheckSlow ffast = new FirstKindCheckSlow(L);
         assertTrue(f.isFirstKind);    
-        assertTrue(ffast.isFirstKind);    
+        assertTrue(ffast.isFirstKind);
+        assertTrue(FirstKindCheckSlow.isBasis(ffast.obtuseSuperbase(), L));
     }
     
     @Test
     public void testRandom3DisfirstKind() {
         System.out.println("random 3-dimensional lattice is first kind");
-        Matrix B = Matrix.random(4, 3);
+        Matrix B = Matrix.random(3, 3);
         assertTrue(new FirstKindCheckSlow(B).isFirstKind);    
         assertTrue(new FirstKindCheck(B).isFirstKind); 
     }
     
-    @Test
-    public void testD3isfirstKind() {
-        System.out.println("Test that the root lattice D3 is first kind");
-        assertTrue(new FirstKindCheckSlow(new Dn(3)).isFirstKind);    
-        assertTrue(new FirstKindCheck(new Dn(3)).isFirstKind); 
-    }
+//    @Test
+//    public void testDnlatticesisfirstKind() {
+//        System.out.println("Test that the root lattice D3 is first kind");
+//        for(int n = 2; n <= 3; n++){
+//            FirstKindCheck f = new FirstKindCheck(new Dn(n));
+//            assertTrue(f.isFirstKind); 
+//           // for( Matrix v : f.obtuseSuperbase() ) System.out.print(VectorFunctions.print(v.transpose()));
+//            //System.out.println();
+//        }
+//    }
+   
+//    @Test
+//    public void testE6latticesisfirstKind() {
+//        System.out.println("Test that the root lattice E6 is first kind");
+//        FirstKindCheck f = new FirstKindCheck(new E6());
+//        assertTrue(f.isFirstKind); 
+//        for( Matrix v : f.obtuseSuperbase() ) System.out.print(VectorFunctions.print(v.transpose()));
+//        System.out.println();
+//    }
     
-    @Test
-    public void testD4isfirstKind() {
-        System.out.println("Test that the root lattice D4 is not first kind");
-        FirstKindCheckSlow fkc = new FirstKindCheckSlow(new Dn(4));
-        FirstKindCheckSlow fkcfast = new FirstKindCheckSlow(new Dn(4));
-        assertTrue(fkc.isFirstKind);
-        assertTrue(fkcfast.isFirstKind);
-        //for(Matrix v : fkc.obtuseSuperbase() ) System.out.println(VectorFunctions.print(v));
-    }
+//    @Test
+//    public void testE8latticesisfirstKind() {
+//        System.out.println("Test that the root lattice E8 is first kind");
+//        FirstKindCheck f = new FirstKindCheck(new E8());
+//        assertTrue(f.isFirstKind); 
+//        for( Matrix v : f.obtuseSuperbase() ) System.out.print(VectorFunctions.print(v.transpose()));
+//        System.out.println();
+//        assertTrue(FirstKindCheck.isBasis(f.obtuseSuperbase(), new E8()));
+//    }
     
 //    @Test
 //    public void testHowManyIn4D() {

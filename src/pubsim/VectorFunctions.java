@@ -1551,5 +1551,18 @@ public final class VectorFunctions {
        }
        return B;
    }
+   
+   /** Tests whether a matrix U is unimodular.  TOL determines what counts as zero. */
+   public static boolean isUnimodular(Matrix U, double TOL) {
+        int n = U.getColumnDimension();
+        if(n != U.getRowDimension() ) return false; //matrix must be square
+        if( Math.abs(U.det()) - 1.0 > TOL ) return false; //determinant is not one
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                if( Math.abs(pubsim.Util.fracpart(U.get(i,j))) > TOL ) return false; //elements aren't integers
+        return true;
+   }
+   ///Default TOL = 10e-9
+   public static boolean isUnimodular(Matrix U) { return isUnimodular(U,1e-9); }
     
 }
