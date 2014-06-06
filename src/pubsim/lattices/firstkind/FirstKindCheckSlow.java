@@ -17,7 +17,7 @@ import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 public class FirstKindCheckSlow {
     
     ///Set containing all relevant vectors
-    protected final Set<Matrix> R;
+    protected final LatticeInterface L;
     
     ///Set containing vectors from the obtuse superbase if it exists
     protected Set<Matrix> B = new HashSet();
@@ -36,13 +36,14 @@ public class FirstKindCheckSlow {
     /** Asserts if the lattice L is of first kind */
     public FirstKindCheckSlow(LatticeInterface L) {
         n = L.getDimension();
-        R = new HashSet(); 
-        for( Matrix v : L.relevantVectors() ) R.add(v); //load all relevant vectors into the set R
-        isFirstKind = containsObtuseSuperBasis(R);
+        this.L = L;
+        isFirstKind = containsObtuseSuperBasis();
     }
     
     ///Given a set R containingatleast k vectors, decide whether the set contains an obtuse super basis
-    protected boolean containsObtuseSuperBasis(Set<Matrix> R) {
+    protected boolean containsObtuseSuperBasis() {
+        Set<Matrix> R = new HashSet(); 
+        for( Matrix v : L.relevantVectors() ) R.add(v); //load all relevant vectors into the set R
         for( Set<Matrix> C : new CombinationEnumerator<>(R,n+1) ) {
             if( isObtuse(C) && isSuperbase(C) ) {
                 B = new HashSet(C);

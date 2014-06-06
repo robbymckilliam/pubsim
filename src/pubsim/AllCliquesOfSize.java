@@ -34,10 +34,13 @@ public class AllCliquesOfSize<T> implements Iterable<Set<T>>, Serializable {
         protected class Iterator implements java.util.Iterator<Set<T>> {
 
             protected T v; //current value of itr
-            protected final java.util.Iterator<T> itr = G.vertexSet().iterator();
+            protected final java.util.Iterator<T> vertexiterator = G.vertexSet().iterator();
 
             ///Store current subgraph we are searching
             protected Graph<T,?> S = new Subgraph<>(G,G.vertexSet()); //make a copy of G
+            
+            //Store current subgraph we are searching
+            protected Graph<T,?> W = new Subgraph<>(G,G.vertexSet()); //make a copy of G
 
             ///Store list of iterators for generating vertices in the subgraph
             protected java.util.Iterator<Set<T>> C;
@@ -47,15 +50,16 @@ public class AllCliquesOfSize<T> implements Iterable<Set<T>>, Serializable {
             }
 
             private void setupv() {
-                v = itr.next();
-                S = subgraphConnectedTo(v, S); //remove v from S
+                v = vertexiterator.next();
+                S = subgraphConnectedTo(v, W); //remove v from S
+                W.removeVertex(v);
                 C = new AllCliquesOfSize<>(k-1,S).iterator();
             }
 
             @Override
             public boolean hasNext() {
-                while( !C.hasNext() && itr.hasNext() ) setupv();
-                return C.hasNext() || itr.hasNext();
+                while( !C.hasNext() && vertexiterator.hasNext() ) setupv();
+                return C.hasNext() || vertexiterator.hasNext();
             }
 
             @Override
@@ -73,7 +77,7 @@ public class AllCliquesOfSize<T> implements Iterable<Set<T>>, Serializable {
             }
 
         }
-
+        
         /** Return the subgraph of G connected to vertex v */
         public static <T> Graph<T,?> subgraphConnectedTo(T v, Graph<T,?> G){
             Set<T> H = new HashSet();
