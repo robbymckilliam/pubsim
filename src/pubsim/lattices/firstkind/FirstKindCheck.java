@@ -13,7 +13,8 @@ import static pubsim.VectorFunctions.dot;
 import static pubsim.lattices.firstkind.FirstKindCheckSlow.isSuperbase;
 
 /**
- *
+ * Tests whether a given lattice is of first kind or not.  Efficiently searches over the obtuse 
+ * combinations of relevant vectors.  Can be used for n up to 8.
  * @author Robby McKilliam
  */
 public class FirstKindCheck extends FirstKindCheckSlow {

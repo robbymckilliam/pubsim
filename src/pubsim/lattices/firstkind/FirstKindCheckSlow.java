@@ -11,7 +11,8 @@ import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 
 /**
- * Tests whether a given lattice is of first kind or not.  Will run in reasonable time only
+ * Tests whether a given lattice is of first kind or not.  This slow implementation searches
+ * over all combinations of relevant vectors.  It will run in reasonable time only
  * for lattices of small dimension, say 5 or less.
  * @author Robby McKilliam
  */
@@ -109,7 +110,7 @@ public class FirstKindCheckSlow {
         Matrix[] b = new Matrix[n+1];
         B.toArray(b); //build an array with pointers to vectors in R (also vertices in G)
         
-        //compute the Gram matrix corresponding with first n superbase vectors
+        //compute the basis matrix corresponding with first n superbase vectors
         int m = b[0].getRowDimension();
         Matrix bLattice = new Matrix(m,n);
         for(int i = 0; i < m; i++)

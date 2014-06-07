@@ -4,6 +4,8 @@ import Jama.Matrix;
 import java.util.HashSet;
 import java.util.Set;
 import pubsim.VectorFunctions;
+import static pubsim.VectorFunctions.matrixMultVector;
+import static pubsim.VectorFunctions.columnMatrix;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.LatticeInterface;
@@ -31,8 +33,8 @@ public class AllClosestPoints {
     public Set<Matrix> closestPoints(double[] y) {
         L.nearestPoint(y);
         double[] x = L.getLatticePoint();
-        double D = VectorFunctions.distance_between(x, y); //distance to the closest point
-        return sd.findVectorsCloserThan(D, y);
+        double d = VectorFunctions.distance_between(x, y); //distance to the closest point
+        return sd.findVectorsCloserThan(d, y);
     }
     
     protected static class ModSphereDecoder extends SphereDecoder{
@@ -45,21 +47,19 @@ public class AllClosestPoints {
 
         public Set<Matrix> findVectorsCloserThan(double d, double[] y){
             closestPoints = new HashSet<>();
-            //this will initialize variables in superclass
-            computeBabaiPoint(y);
             
-            //compute the radius squared of the sphere we are decoding in.
+            //iinitialise yr variable for decode function
+            matrixMultVector(Qtrans, y, yr);
+            
             //Add DELTA to avoid numerical error causing the
-            //Babai point to be rejected.
-            D = d + DELTA;
+            D = d*d + DELTA;
 
             //current element being decoded
             int k = n-1;
 
             decode(k, 0);
             
-            return closestPoints;
-            
+            return closestPoints;          
         }
 
         /**
@@ -91,8 +91,9 @@ public class AllClosestPoints {
                 if( k > 0)
                     decode(k-1, sumd);
                 else{
-                    if(sumd <= D && sumd > DELTA){
-                        Matrix v = G.times(U).times(VectorFunctions.columnMatrix(ut)); //this is a closest point
+                    if(sumd <= D){
+                        if(sumd < D - 2*DELTA) throw new RuntimeException("You have found a vector closest than the closest point. This should not happen!");
+                        Matrix v = G.times(U).times(columnMatrix(ut)); //this is a closest point
                         closestPoints.add(v);
                     }
                 }
