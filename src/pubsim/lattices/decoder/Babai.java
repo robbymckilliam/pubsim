@@ -5,10 +5,8 @@ package pubsim.lattices.decoder;
 
 import Jama.Matrix;
 import pubsim.VectorFunctions;
-import pubsim.lattices.Lattice;
 import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.NearestPointAlgorithmInterface;
-import pubsim.lattices.reduction.HKZ;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.reduction.LatticeReduction;
 

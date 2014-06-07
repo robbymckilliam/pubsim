@@ -21,7 +21,7 @@ public class SphereDecoder extends Babai
     protected double[] xr;
     
     //small number to avoid numerical errors in branches.
-    protected double DELTA = 0.000001;
+    protected double DELTA = 1e-8;
 
     public SphereDecoder(LatticeInterface L){
         super(L);

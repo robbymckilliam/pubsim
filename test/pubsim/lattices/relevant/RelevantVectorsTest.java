@@ -43,7 +43,7 @@ public class RelevantVectorsTest {
      */
     @Test
     public void testWithIntegerLattice() {
-        System.out.println("test with integer lattice");
+        System.out.println("test with integer lattice Z2");
         PointEnumerator rvs = new RelevantVectors(new Zn(2));
         while(rvs.hasMoreElements())
             System.out.println(VectorFunctions.print(rvs.nextElement()));
@@ -54,9 +54,20 @@ public class RelevantVectorsTest {
      * Test with the integer lattice.
      */
     @Test
-    public void testWithAn() {
-        System.out.println("test with An");
+    public void testWithA2() {
+        System.out.println("test with A2");
         PointEnumerator rvs = new RelevantVectors(new AnFastSelect(2));
+        while(rvs.hasMoreElements())
+            System.out.println(VectorFunctions.print(rvs.nextElement()));            
+    }
+    
+    /**
+     * Test with the integer lattice.
+     */
+    @Test
+    public void testWithA3() {
+        System.out.println("test with A3");
+        PointEnumerator rvs = new RelevantVectors(new AnFastSelect(3));
         while(rvs.hasMoreElements())
             System.out.println(VectorFunctions.print(rvs.nextElement()));            
     }

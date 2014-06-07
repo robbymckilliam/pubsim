@@ -1,57 +1,65 @@
 package pubsim.lattices.decoder;
 
+import Jama.Matrix;
+import java.util.HashSet;
+import java.util.Set;
+import pubsim.VectorFunctions;
+import pubsim.lattices.LatticeAndNearestPointAlgorithm;
+import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.LatticeInterface;
 
 /**
- * Returns the kissing number of a lattice.  This finds all the short vector
- * by sphere decoding.  It is exponential time, so you can only run it
- * for small dimensions, less than 60 or so.
+ * Finds all lattices points closest to a given point.  If the solution is unique, this returns
+ * a single point, the same as the sphere decoder.
  * @author Robby McKilliam
  */
-public class KissingNumber {
-
-    protected final long kissingNumber;
-
-    public KissingNumber(LatticeInterface L){
-        this(L,L.norm());
+public class AllClosestPoints {
+    
+    protected final ModSphereDecoder sd;
+    
+    protected final LatticeAndNearestPointAlgorithmInterface L;
+    
+    public AllClosestPoints(LatticeInterface L) {
+        this(new LatticeAndNearestPointAlgorithm(L.getGeneratorMatrix()));
+    } 
+    
+    public AllClosestPoints(LatticeAndNearestPointAlgorithmInterface L) {
+        this.L = L;
+        sd = new ModSphereDecoder(L);
     }
     
-    /** 
-     * Constructor seeds the kissing number search with a given length.
-     * Useful if you know the lattices norm in advance.
-     */
-    public KissingNumber(LatticeInterface L, double norm){
-        ModSphereDecoder ssd = new ModSphereDecoder(L);
-        kissingNumber = ssd.countVectorsShorterThan(norm);
+    public Set<Matrix> closestPoints(double[] y) {
+        L.nearestPoint(y);
+        double[] x = L.getLatticePoint();
+        double D = VectorFunctions.distance_between(x, y); //distance to the closest point
+        return sd.findVectorsCloserThan(D, y);
     }
-
-    public long kissingNumber(){
-        return kissingNumber;
-    }
-
+    
     protected static class ModSphereDecoder extends SphereDecoder{
-
-        protected long kissingNumber = 0;
         
+        protected Set<Matrix> closestPoints;
+
         public ModSphereDecoder(LatticeInterface L){
             super(L);
         }
 
-        public long countVectorsShorterThan(double d){
-
+        public Set<Matrix> findVectorsCloserThan(double d, double[] y){
+            closestPoints = new HashSet<>();
+            //this will initialize variables in superclass
+            computeBabaiPoint(y);
+            
             //compute the radius squared of the sphere we are decoding in.
             //Add DELTA to avoid numerical error causing the
             //Babai point to be rejected.
             D = d + DELTA;
-
-            kissingNumber = 0;
 
             //current element being decoded
             int k = n-1;
 
             decode(k, 0);
             
-            return kissingNumber;
+            return closestPoints;
+            
         }
 
         /**
@@ -82,13 +90,10 @@ public class KissingNumber {
                 //if this is not the first element then recurse
                 if( k > 0)
                     decode(k-1, sumd);
-                //otherwise check if this is the best point so far encounted
-                //and update if required.  This is modified so that it doesn't
                 else{
                     if(sumd <= D && sumd > DELTA){
-                        kissingNumber++;
-                        //System.out.println(VectorFunctions.print(VectorFunctions.matrixMultVector(G.times(U), ut)));
-                        //System.out.println(VectorFunctions.print(VectorFunctions.matrixMultVector(U, ut)));
+                        Matrix v = G.times(U).times(VectorFunctions.columnMatrix(ut)); //this is a closest point
+                        closestPoints.add(v);
                     }
                 }
                 ut[k]++;
@@ -98,5 +103,5 @@ public class KissingNumber {
 
 
     }
-
+    
 }

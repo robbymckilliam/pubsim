@@ -98,25 +98,26 @@ public class FirstKindCheckTest {
         assertTrue(new FirstKindCheck(B).isFirstKind); 
     }
     
-//    @Test
-//    public void testDnlatticesisfirstKind() {
-//        System.out.println("Test that the root lattice D3 is first kind");
-//        for(int n = 2; n <= 3; n++){
-//            FirstKindCheck f = new FirstKindCheck(new Dn(n));
-//            assertTrue(f.isFirstKind); 
-//           // for( Matrix v : f.obtuseSuperbase() ) System.out.print(VectorFunctions.print(v.transpose()));
-//            //System.out.println();
-//        }
-//    }
+    @Test
+    public void testDnlatticesisfirstKind() {
+        System.out.println("Test that the root lattice D3 is first kind");
+        for(int n = 2; n <= 3; n++){
+            FirstKindCheck f = new FirstKindCheck(new Dn(n));
+            assertTrue(f.isFirstKind); 
+            for( Matrix v : f.obtuseSuperbase() ) System.out.print(VectorFunctions.print(v.transpose()));
+            System.out.println();
+        }
+    }
    
-//    @Test
-//    public void testE6latticesisfirstKind() {
-//        System.out.println("Test that the root lattice E6 is first kind");
-//        FirstKindCheck f = new FirstKindCheck(new E6());
-//        assertTrue(f.isFirstKind); 
-//        for( Matrix v : f.obtuseSuperbase() ) System.out.print(VectorFunctions.print(v.transpose()));
-//        System.out.println();
-//    }
+    @Test
+    public void testE6latticesisfirstKind() {
+        System.out.println("Test that the root lattice E6 is first kind");
+        FirstKindCheck f = new FirstKindCheck(new E6());
+        assertTrue(f.isFirstKind); 
+        assertTrue(FirstKindCheckSlow.isBasis(f.obtuseSuperbase(), new E6()));
+        for( Matrix v : f.obtuseSuperbase() ) System.out.print(VectorFunctions.print(v.transpose()));
+        System.out.println();
+    }
     
 //    @Test
 //    public void testE8latticesisfirstKind() {
@@ -141,18 +142,18 @@ public class FirstKindCheckTest {
 //        System.out.println(1.0*count/N);
 //    }
     
-    @Test
-    public void testSlowAndFastSameFor4D() {
-        System.out.println("check that slow and fast verions are the same in 4 dimensions");
-        int N = 10;
-        int count = 0;
-        for(int i = 0; i < N; i++) {
-            Matrix B = Matrix.random(4,4);
-            FirstKindCheck ffast = new FirstKindCheck(B);
-            FirstKindCheckSlow fslow = new FirstKindCheckSlow(B);
-            assertTrue(ffast.isFirstKind == fslow.isFirstKind);
-        }
-    }
+//    @Test
+//    public void testSlowAndFastSameFor4D() {
+//        System.out.println("check that slow and fast verions are the same in 4 dimensions");
+//        int N = 10;
+//        int count = 0;
+//        for(int i = 0; i < N; i++) {
+//            Matrix B = Matrix.random(4,4);
+//            FirstKindCheck ffast = new FirstKindCheck(B);
+//            FirstKindCheckSlow fslow = new FirstKindCheckSlow(B);
+//            assertTrue(ffast.isFirstKind == fslow.isFirstKind);
+//        }
+//    }
     
     /**
      * Test of isObtuse method, of class FirstKindCheck.
@@ -201,7 +202,7 @@ public class FirstKindCheckTest {
     @Test
     public void obtuseConnectedGraphAn() {
         System.out.println("testing obtuse connected graph with An");
-        int n = 4;
+        int n = 3;
         LatticeInterface L = new AnFastSelect(n);
         Set<Matrix> R = new HashSet(); 
         for( Matrix v : L.relevantVectors() ) R.add(v); //load all relevant vectors into the set R
@@ -248,7 +249,7 @@ public class FirstKindCheckTest {
     @Test
     public void obtuseConnectedGraphAnstar() {
         System.out.println("testing obtuse connected graph with An*");
-        int n = 4;
+        int n = 3;
         LatticeInterface L = new AnstarLinear(n);
         Set<Matrix> R = new HashSet(); 
         for( Matrix v : L.relevantVectors() ) R.add(v); //load all relevant vectors into the set R

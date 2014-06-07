@@ -1,37 +1,41 @@
 package pubsim.lattices.relevant;
 
 import Jama.Matrix;
-import pubsim.VectorFunctions;
-import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
+import pubsim.lattices.LatticeInterface;
+import pubsim.lattices.decoder.AllClosestPoints;
 import pubsim.lattices.util.AbstractPointEnumerator;
 import pubsim.lattices.util.IntegerVectors;
 import pubsim.lattices.util.PointEnumerator;
 
 /**
- * Returns all relevant vectors in the lattice.  Each relevant vector is computed by
- * computing a closest lattice point to the origin in the cosets of L/2L. This code should reliably
- * return all of the 'strict' relevant vectors, but might only return a subset of the 'lax' relevant
- * as a result of numerical imprecision.
- * 
+ * Returns all relevant vectors in the lattice.  This returns all of the 'strict' and 'lax' relevant 
+ * vectors.
  * @author Robby McKilliam
  */
 public class RelevantVectors 
     extends AbstractPointEnumerator
         implements PointEnumerator{
 
-    public final long totalvectors; //the total number of strict and lax relevant vectors
-    public final LatticeAndNearestPointAlgorithmInterface L; //the lattice for will find the relevant vectors of
+    public final LatticeInterface L; //the lattice for will find the relevant vectors of
     public final Matrix B;  //the basis matrix of the lattice
         
-    protected long vectorscounted = 0;
+    protected final AllClosestPoints allcps;
     protected final IntegerVectors intenum;
+    protected java.util.Iterator<Matrix> currentvecs; //stores the relevant vectors found on the last iter
+    protected Matrix v; //the current point we have computed closest lattice points for
     
-    public RelevantVectors(LatticeAndNearestPointAlgorithmInterface L){
+    public RelevantVectors(LatticeInterface L){
         this.L = L;
+        allcps = new AllClosestPoints(L);
         B = L.getGeneratorMatrix();
         int N = L.getDimension();
-        totalvectors = (long)(Math.pow(2,N+1)-2);
         intenum = new IntegerVectors(N, 2);
+        setupnext(); 
+    }
+    
+    private void setupnext() {
+        v = B.times(intenum.nextElement()).times(0.5);
+        currentvecs = allcps.closestPoints(v.getColumnPackedCopy()).iterator(); //setup first relevant vectors
     }
     
     @Override
@@ -41,29 +45,19 @@ public class RelevantVectors
 
     @Override
     public double percentageComplete() {
-        return (1.0*vectorscounted) / totalvectors;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public boolean hasMoreElements() {
-        return vectorscounted < totalvectors;
+        while(!currentvecs.hasNext() && intenum.hasMoreElements()) setupnext();
+        return currentvecs.hasNext() || intenum.hasMoreElements();
     }
-
-    protected Matrix prev; //stores the previous vector so that negatives can be efficiently returned
     
     @Override
     public Matrix nextElement() {
         if(!hasMoreElements()) throw new ArrayIndexOutOfBoundsException("There are no more relevant vectors!");
-        vectorscounted++;
-        //every second relevant vector is just the negation of the last
-        if(vectorscounted%2 == 0) {
-            return prev.times(-1.0);
-        } else {
-            Matrix v = B.times(intenum.nextElement()).times(0.5);
-            L.nearestPoint(v.getColumnPackedCopy());
-            prev = (VectorFunctions.columnMatrix(L.getLatticePoint()).minus(v)).times(2.0);
-            return prev;
-        }
+        return currentvecs.next().minus(v).times(2.0);
     }
 
 }
