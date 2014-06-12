@@ -28,7 +28,7 @@ public class VonMises extends CircularRandomVariable{
     
 
     @Override
-    public Double getMean() {
+    public Double mean() {
         return mu;
     }
 
@@ -37,7 +37,7 @@ public class VonMises extends CircularRandomVariable{
      * which is a dispersion parameter similar to variance.
      */
     @Override
-    public Double getVariance() {
+    public Double variance() {
         return kappa;
     }
 
@@ -46,7 +46,7 @@ public class VonMises extends CircularRandomVariable{
      * See Mardia, Directional Statistics, p43.
      */
     @Override
-    public Double getNoise() {
+    public Double noise() {
         double a = 1 + Math.sqrt(1 + 4*kappa*kappa);
         double b = (a - Math.sqrt(2*a))/(2*kappa);
         double r = (1 + b*b)/(2*b);

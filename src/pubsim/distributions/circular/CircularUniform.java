@@ -66,7 +66,7 @@ public class CircularUniform extends CircularRandomVariable {
      * return zero.
      */
     @Override
-    public Double getMean(){
+    public Double mean(){
         return 0.0;
     }
 
@@ -74,7 +74,7 @@ public class CircularUniform extends CircularRandomVariable {
      * returns 1/12.
      */
     @Override
-    public Double getVariance(){
+    public Double variance(){
         return 1.0/12.0;
     }
 

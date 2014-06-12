@@ -46,8 +46,8 @@ public class GeneralDiscreteTest {
         Map<Integer, Double> pdf = new HashMap<Integer, Double>(2);
         pdf.put(1, 0.5); pdf.put(3, 0.5);
         GeneralDiscrete dist = new GeneralDiscrete(pdf);
-        assertEquals(2.0, dist.getMean(), 0.000001);
-        assertEquals(1.0, dist.getVariance(), 0.000001);
+        assertEquals(2.0, dist.mean(), 0.000001);
+        assertEquals(1.0, dist.variance(), 0.000001);
     }
 
     /**
@@ -98,7 +98,7 @@ public class GeneralDiscreteTest {
         int iters = 100000;
         double count1s = 0; double count3s = 0;
         for(int i = 0; i < iters; i++){
-            int n = (int)Math.round(dist.getNoise());
+            int n = (int)Math.round(dist.noise());
             if(n == 1) count1s++;
             else if (n == 3) count3s++;
             else fail("noise returned a value of zero probability!");

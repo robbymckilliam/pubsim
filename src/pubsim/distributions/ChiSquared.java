@@ -29,12 +29,12 @@ public class ChiSquared extends AbstractRealRandomVariable {
     }
     
     @Override
-    public Double getMean() {
+    public Double mean() {
         return var*k;
     }
 
     @Override
-    public Double getVariance() {
+    public Double variance() {
         return 2.0*var*var*k;
     }
 
@@ -47,10 +47,10 @@ public class ChiSquared extends AbstractRealRandomVariable {
     }
     
     @Override
-    public Double getNoise() {
+    public Double noise() {
         double sum = 0.0;
         for(int i = 0; i < k; i++) {
-            double X = noise.getNoise();
+            double X = noise.noise();
             sum += X*X;
         }
         return sum;

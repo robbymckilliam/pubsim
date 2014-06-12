@@ -6,8 +6,8 @@ package pubsim.distributions;
  */
 public interface GenericRandomVariable<T> extends NoiseGenerator<T> {
 
-    public T getMean();
-    public T getVariance();
+    public T mean();
+    public T variance();
 
     /** Return the pdf evaluate at x */
     public double pdf(T x);

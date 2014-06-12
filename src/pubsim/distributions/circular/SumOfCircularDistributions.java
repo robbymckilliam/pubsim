@@ -38,8 +38,8 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
         while( witr.hasNext() ){
             double w = witr.next();
             RealRandomVariable d = distitr.next();
-            mean += w*d.getMean();
-            variance += w*d.getVariance();
+            mean += w*d.mean();
+            variance += w*d.variance();
             totalweight += w;
         }
 
@@ -55,12 +55,12 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
         distributions.add(dist);
         weights.add(weight);
         totalweight += weight;
-        mean += weight*dist.getMean();
-        variance += weight*dist.getVariance();
+        mean += weight*dist.mean();
+        variance += weight*dist.variance();
     }
 
     @Override
-    public Double getNoise() {
+    public Double noise() {
         Iterator<RealRandomVariable> distitr = distributions.iterator();
         Iterator<Double> witr = weights.iterator();
         double wsum = 0.0;
@@ -68,7 +68,7 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
         double noise = 0.0;
         while( witr.hasNext() ){
             wsum += witr.next().doubleValue();
-            double rv = distitr.next().getNoise();
+            double rv = distitr.next().noise();
             if(wsum/totalweight > r){
                 noise = rv;
                 break;
@@ -91,12 +91,12 @@ public class SumOfCircularDistributions extends CircularRandomVariable {
     }
 
     @Override
-    public Double getMean() {
+    public Double mean() {
         return mean;
     }
 
     @Override
-    public Double getVariance() {
+    public Double variance() {
         return variance;
     }
 

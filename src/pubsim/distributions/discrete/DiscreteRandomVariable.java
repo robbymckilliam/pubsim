@@ -8,8 +8,8 @@ import pubsim.distributions.NoiseGenerator;
  */
 public interface DiscreteRandomVariable extends NoiseGenerator<Integer> {
     
-    public double getMean();
-    public double getVariance();
+    public double mean();
+    public double variance();
 
     /** Return the probability mass function evaluated at x */
     public double pmf(Integer k);

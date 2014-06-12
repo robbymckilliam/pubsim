@@ -42,16 +42,16 @@ public class UniformNoise extends AbstractRealRandomVariable implements RealRand
     }
     
     @Override
-    public Double getMean(){ return mean; }
+    public Double mean(){ return mean; }
 
     @Override
-    public Double getVariance(){ return variance; }
+    public Double variance(){ return variance; }
 
     public Double getRange() { return range; }
     
     /** Returns a uniformly distributed value */
     @Override
-    public Double getNoise(){
+    public Double noise(){
         return mean + range * (random.raw() - 0.5);
     }
 
@@ -75,7 +75,7 @@ public class UniformNoise extends AbstractRealRandomVariable implements RealRand
     }
     
     @Override
-    public CircularRandomVariable getWrapped() {
+    public CircularRandomVariable wrapped() {
         return new WrappedUniform(mean, variance);
     }
     

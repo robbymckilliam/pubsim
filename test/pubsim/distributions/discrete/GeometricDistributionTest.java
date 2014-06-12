@@ -45,7 +45,7 @@ public class GeometricDistributionTest {
         double var = 0;
         double mean = 0;
         for(int i = 0; i < n; i++){
-            double s  = instance.getNoise();
+            double s  = instance.noise();
             //System.out.println(instance.getNoise());
             mean += s;
             double d = s - 1/p;

@@ -63,7 +63,7 @@ public class DensityEstimatorTest {
         
         int N = 100000;
         Double[] X = new Double[N];
-        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
+        for(int i = 0; i < N; i++) X[i] = instance.noise();
         
         DensityEstimator dest = new DensityEstimator(X, new WrappedUniform(0,1.0/10000));
         double res = dest.pdf(-0.5);

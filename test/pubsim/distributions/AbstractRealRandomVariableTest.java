@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pubsim.distributions;
 
 import static org.junit.Assert.assertEquals;
@@ -68,8 +63,8 @@ public class AbstractRealRandomVariableTest {
         GaussianNoise test = new GaussianNoise(mean, var);
         
         AbstractRealRandomVariable inst = new AbstractRealRandomVariable() {
-            public Double getMean() {  return mean; }
-            public Double getVariance() { return var; }
+            public Double mean() {  return mean; }
+            public Double variance() { return var; }
             public double pdf(Double x) {
                 double s = 1.0/Math.sqrt(2*Math.PI*var);
                 double d = x - mean;

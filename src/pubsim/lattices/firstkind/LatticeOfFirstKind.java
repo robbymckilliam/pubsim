@@ -87,7 +87,7 @@ public class LatticeOfFirstKind extends Lattice implements LatticeAndNearestPoin
         //generate random offdiagonal entries
         for(int i = 0; i < n+1; i++){
             for(int j = i+1; j < n+1; j++){
-                double noiseval = gen.getNoise();
+                double noiseval = gen.noise();
                 if(noiseval > 0.0) throw new RuntimeException("The random generator produced a positive number.  It must be negative only produce negative numbers to construct the diagonals of an obtuse superbasis");
                 extQ.set(i,j,noiseval);
                 extQ.set(j,i,noiseval);

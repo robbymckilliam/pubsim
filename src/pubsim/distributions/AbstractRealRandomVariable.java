@@ -32,7 +32,7 @@ public abstract class AbstractRealRandomVariable
      * by default.
      */
     @Override
-    public Double getNoise(){
+    public Double noise(){
         return icdf(random.raw());
     }
 
@@ -41,7 +41,7 @@ public abstract class AbstractRealRandomVariable
      */
     @Override
     public double cdf(Double x){
-        double startint = getMean() - 20*Math.sqrt(getVariance());
+        double startint = mean() - 20*Math.sqrt(variance());
         final int INTEGRAL_STEPS = 1000;
         double cdfval = (new Integration(new IntegralFunction() {
                 public double function(double x) {
@@ -59,8 +59,8 @@ public abstract class AbstractRealRandomVariable
     @Override
     public Double icdf(double x){
         double TOL = 1e-8;
-        double mean = getMean(); 
-        double stdDeviation = Math.sqrt(getVariance());
+        double mean = mean(); 
+        double stdDeviation = Math.sqrt(variance());
         double high = mean + 10*stdDeviation + 0.5;
         double low = mean - 10*stdDeviation - 0.5;
         double cdfhigh = cdf(high);
@@ -97,7 +97,7 @@ public abstract class AbstractRealRandomVariable
     
     /** Default is the return the wrapped version of this random variable */
     @Override
-    public CircularRandomVariable getWrapped() {
+    public CircularRandomVariable wrapped() {
         return new WrappedCircularRandomVariable(this);
     }
     
@@ -109,8 +109,8 @@ public abstract class AbstractRealRandomVariable
     public Complex characteristicFunction(Double t){
         final double ft = t;
         int integralsteps = 5000;
-        double startint = getMean() - 30*Math.sqrt(getVariance());
-        double endint = getMean() + 30*Math.sqrt(getVariance());
+        double startint = mean() - 30*Math.sqrt(variance());
+        double endint = mean() + 30*Math.sqrt(variance());
         double rvar = (new Integration(new IntegralFunction() {
             public double function(double x) {
                 return Math.cos(ft*x)*pdf(x);

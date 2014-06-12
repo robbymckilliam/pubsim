@@ -74,7 +74,7 @@ public class WrappedUniformTest {
         double sum = 0; double sum2 = 0;
         for( int i = 0; i <= iters; i++)
         {
-            double noise = instance.getNoise();
+            double noise = instance.noise();
             boolean result = noise >= -0.5 && noise < 0.5; 
             sum2 += fracpart(noise - umean)*fracpart(noise - umean);
             assertEquals(true, result);

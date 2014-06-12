@@ -45,17 +45,17 @@ public class GeneralDiscrete extends AbstractDiscreteRandomVariable implements D
     }
 
     @Override
-    public double getMean() {
+    public double mean() {
         return mean;
     }
 
     @Override
-    public double getVariance() {
+    public double variance() {
         return variance;
     }
 
     @Override
-    public Integer getNoise() {
+    public Integer noise() {
         double r = random.raw();
         double pdfsum = 0;
         int k = 0;

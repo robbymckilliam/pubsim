@@ -57,7 +57,7 @@ public class ColouredGaussianNoiseTest {
 
         int N = 100000;
         double[] X = new double[N];
-        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
+        for(int i = 0; i < N; i++) X[i] = instance.noise();
 
         for(int k = 0; k < autocor.length; k++){
             for(int i = 0; i < N-k; i++) estac[k] += X[i]*X[i+k];

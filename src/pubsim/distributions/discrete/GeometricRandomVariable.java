@@ -25,7 +25,7 @@ public class GeometricRandomVariable extends AbstractDiscreteRandomVariable {
     }
 
     @Override
-    public Integer getNoise() {
+    public Integer noise() {
         Integer v = 1;
         while (random.raw() > p) {
             v++;
@@ -44,12 +44,12 @@ public class GeometricRandomVariable extends AbstractDiscreteRandomVariable {
     }
 
     @Override
-    public double getMean() {
+    public double mean() {
         return 1.0 / p;
     }
 
     @Override
-    public double getVariance() {
+    public double variance() {
         return (1 - p) / (p * p);
     }
 

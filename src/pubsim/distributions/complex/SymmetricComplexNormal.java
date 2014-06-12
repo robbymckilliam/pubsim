@@ -25,12 +25,12 @@ public class SymmetricComplexNormal implements ComplexRandomVariable {
     }
 
     @Override
-    public Complex getMean() {
+    public Complex mean() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Complex getVariance() {
+    public Complex variance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -50,8 +50,8 @@ public class SymmetricComplexNormal implements ComplexRandomVariable {
     }
 
     @Override
-    public Complex getNoise() {
-        return new Complex(rv.getNoise(), rv.getNoise());
+    public Complex noise() {
+        return new Complex(rv.noise(), rv.noise());
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SymmetricComplexNormal implements ComplexRandomVariable {
 
     @Override
     public RealRandomVariable magnitudeMarginal() {
-        return new Chi.Chi2(rv.getVariance());
+        return new Chi.Chi2(rv.variance());
     }
 
     @Override

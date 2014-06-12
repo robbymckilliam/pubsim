@@ -164,7 +164,7 @@ public final class VectorFunctions {
         Matrix M = new Matrix(m, n);
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
-                M.set(i,j, noise.getNoise());
+                M.set(i,j, noise.noise());
             }
         }
         return M;
@@ -1536,8 +1536,8 @@ public final class VectorFunctions {
        double[][] C = new double[h][h];
        for(int i = 0; i < h; i++){
            for(int j = 0; j < h; j++){
-               R[i][j] = noise.getNoise();
-               C[i][j] = noise.getNoise();
+               R[i][j] = noise.noise();
+               C[i][j] = noise.noise();
            }
        }
        Matrix B = new Matrix(n,n);

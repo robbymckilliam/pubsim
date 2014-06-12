@@ -56,7 +56,7 @@ public class LatticeTiming {
 
             for(int i=0; i<numTrials; i++){
                 for(int k = 0; k < n; k++){
-                    y[k] = rand.getNoise();
+                    y[k] = rand.noise();
                 }
                 lattice.nearestPoint(y);
             }

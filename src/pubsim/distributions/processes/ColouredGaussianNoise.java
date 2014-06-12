@@ -27,7 +27,7 @@ public class ColouredGaussianNoise implements StationaryProcess {
 
         X = new CircularBufferDouble(f.length);
         //fill up the buffer to remove `start up' effect.
-        for(int i = 0; i < f.length; i++) X.add(noisegen.getNoise());
+        for(int i = 0; i < f.length; i++) X.add(noisegen.noise());
     }
 
     @Override
@@ -50,8 +50,8 @@ public class ColouredGaussianNoise implements StationaryProcess {
     
     private int n = 0;
     @Override
-    public Double getNoise(){
-        X.add(noisegen.getNoise());
+    public Double noise(){
+        X.add(noisegen.noise());
         double Y = 0;
         for(int k = 0; k < f.length; k++)
             Y += f[k]*X.get(n-k);

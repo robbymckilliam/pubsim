@@ -51,7 +51,7 @@ public class NoiseVector implements SignalGenerator<Double> {
     @Override
     public Double[] generateReceivedSignal(){
         for(int i = 0; i < n; i++)
-            iidsignal[i] = noise.getNoise();
+            iidsignal[i] = noise.noise();
         return iidsignal;
     }
     

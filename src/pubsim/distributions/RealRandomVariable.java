@@ -21,7 +21,7 @@ public interface RealRandomVariable extends GenericRandomVariable<Double> {
      * this random variable modulo 1 into [-1/2, 1/2).
      * @return 
      */
-    public CircularRandomVariable getWrapped();
+    public CircularRandomVariable wrapped();
     
     /**
      * Return the characteristic function of this random variable E[exp(itX)] where X is

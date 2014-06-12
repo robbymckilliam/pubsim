@@ -41,12 +41,12 @@ public class DensityEstimator extends AbstractRealRandomVariable {
     }
 
     @Override
-    public Double getMean() {
+    public Double mean() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Double getVariance() {
+    public Double variance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

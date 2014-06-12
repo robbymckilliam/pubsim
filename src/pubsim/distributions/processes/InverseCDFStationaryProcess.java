@@ -96,8 +96,8 @@ public class InverseCDFStationaryProcess implements StationaryProcess {
     }
     
     @Override
-    public Double getNoise() {
-        return y.icdf(g.cdf(X.getNoise()));
+    public Double noise() {
+        return y.icdf(g.cdf(X.noise()));
     }
 
     @Override

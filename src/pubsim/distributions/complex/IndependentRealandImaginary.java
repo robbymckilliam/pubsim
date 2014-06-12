@@ -30,13 +30,13 @@ public class IndependentRealandImaginary implements ComplexRandomVariable {
     }
 
     @Override
-    public Complex getMean() {
-        return new Complex(real.getMean(), imag.getMean());
+    public Complex mean() {
+        return new Complex(real.mean(), imag.mean());
     }
 
     @Override
-    public Complex getVariance() {
-        return new Complex(real.getVariance(), imag.getVariance());
+    public Complex variance() {
+        return new Complex(real.variance(), imag.variance());
     }
 
     @Override
@@ -55,8 +55,8 @@ public class IndependentRealandImaginary implements ComplexRandomVariable {
     }
 
     @Override
-    public Complex getNoise() {
-        return new Complex(real.getNoise(),imag.getNoise());
+    public Complex noise() {
+        return new Complex(real.noise(),imag.noise());
     }
 
     @Override

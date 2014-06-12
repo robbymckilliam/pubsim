@@ -22,8 +22,8 @@ public class WrappedCircularRandomVariable extends CircularRandomVariable{
     }
 
     @Override
-    public Double getNoise(){
-        return fracpart(dist.getNoise());
+    public Double noise(){
+        return fracpart(dist.noise());
     }
     
     /** pdf is computed by wrapping and summing */

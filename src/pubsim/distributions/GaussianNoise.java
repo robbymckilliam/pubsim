@@ -30,23 +30,23 @@ public class GaussianNoise extends AbstractRealRandomVariable implements RealRan
     }
 
     @Override
-    public Double getMean(){ return mean; }
+    public Double mean(){ return mean; }
 
     @Override
-    public Double getVariance(){ return variance; }
+    public Double variance(){ return variance; }
     
     /** Returns an instance of Gaussian noise */
     @Override
-    public Double getNoise(){
+    public Double noise(){
         return stdDeviation * random.gaussian() + mean;
     }
 
     /** Return the Gaussian pdf */
     @Override
     public double pdf(Double x) {
-        double s = 1.0/Math.sqrt(2*Math.PI*getVariance());
-        double d = x - getMean();
-        return s * Math.exp( -(d*d)/(2*getVariance()) );
+        double s = 1.0/Math.sqrt(2*Math.PI*variance());
+        double d = x - mean();
+        return s * Math.exp( -(d*d)/(2*variance()) );
     }
 
     /** Return the cdf of the Gaussian evaluated at x */
@@ -58,7 +58,7 @@ public class GaussianNoise extends AbstractRealRandomVariable implements RealRan
     
     /** Default is the return the wrapped version of this random variable */
     @Override
-    public CircularRandomVariable getWrapped() {
+    public CircularRandomVariable wrapped() {
         return new WrappedGaussian(mean, variance);
     }
     

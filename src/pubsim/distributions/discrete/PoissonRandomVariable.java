@@ -19,7 +19,7 @@ public class PoissonRandomVariable extends AbstractDiscreteRandomVariable {
 
     /** Knuth's simple method for generating a Poisson r.v. */
     @Override
-    public Integer getNoise() {
+    public Integer noise() {
         double L = Math.exp(-l);
         double p = 1.0;
         Integer k = 0;
@@ -37,12 +37,12 @@ public class PoissonRandomVariable extends AbstractDiscreteRandomVariable {
     }
 
     @Override
-    public double getMean() {
+    public double mean() {
         return l;
     }
 
     @Override
-    public double getVariance() {
+    public double variance() {
         return l;
     }
 

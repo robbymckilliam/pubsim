@@ -16,7 +16,7 @@ public interface NoiseGenerator<T> extends Serializable {
      * Returns a random variable from the noise
      * distribution.
      */
-    public T getNoise();
+    public T noise();
     
     /** Randomise the seed for the internal Random */ 
     public void randomSeed();

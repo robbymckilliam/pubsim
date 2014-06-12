@@ -33,9 +33,9 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
     }
 
     @Override
-    public Double getNoise() {       
-        double c = gauss.getNoise() + cmean;
-        double s = gauss.getNoise() + smean;
+    public Double noise() {       
+        double c = gauss.noise() + cmean;
+        double s = gauss.noise() + smean;
         return Math.atan2(s, c);        
     }
 
@@ -51,7 +51,7 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
 
     @Override
     public double pdf(Double x){
-        double v = 1.0/Math.sqrt(gauss.getVariance());
+        double v = 1.0/Math.sqrt(gauss.variance());
         return Pdf(Util.fracpart(x - mean),v);
     }
 

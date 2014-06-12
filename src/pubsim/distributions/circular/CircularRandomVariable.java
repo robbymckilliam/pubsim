@@ -120,7 +120,7 @@ public abstract class CircularRandomVariable implements RealRandomVariable {
      * by default.
      */
     @Override
-    public Double getNoise(){
+    public Double noise(){
         return icdf(random.raw());
     };
 
@@ -145,7 +145,7 @@ public abstract class CircularRandomVariable implements RealRandomVariable {
      * `mean direction.  See my thesis or papers.
      */
     @Override
-    public Double getMean(){
+    public Double mean(){
         final int INTEGRAL_STEPS = 1000;
         double tmean = (new Integration(new IntegralFunction() {
                 public double function(double x) {
@@ -161,20 +161,20 @@ public abstract class CircularRandomVariable implements RealRandomVariable {
      * circular variance or the unwrapped variance.  See my thesis or papers.
      */
     @Override
-    public Double getVariance(){
+    public Double variance(){
         final int INTEGRAL_STEPS = 1000;
         double tvar = (new Integration(new IntegralFunction() {
                 public double function(double x) {
                     return x*x*pdf(x);
                 }
             }, -0.5, 0.5)).trapezium(INTEGRAL_STEPS);
-            double tmean = getMean();
+            double tmean = mean();
         return tvar - tmean*tmean;
     }
 
     /** Default is the return the wrapped version of this random variable */
     @Override
-    public CircularRandomVariable getWrapped() { return this; }
+    public CircularRandomVariable wrapped() { return this; }
     
      /** 
      * Numerical integration to compute characteristic function.

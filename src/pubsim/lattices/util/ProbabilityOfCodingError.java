@@ -25,7 +25,7 @@ public class ProbabilityOfCodingError {
         nvec = new double[n];
         
         while(errorcount < numerrors){
-            for(int i = 0; i < n; i++) nvec[i] = ngen.getNoise();
+            for(int i = 0; i < n; i++) nvec[i] = ngen.noise();
             L.nearestPoint(nvec);
             double[] latticep = L.getLatticePoint();
             if( !isOrigin(latticep) ) errorcount++;

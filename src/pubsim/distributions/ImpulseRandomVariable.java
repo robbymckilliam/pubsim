@@ -26,7 +26,7 @@ public class ImpulseRandomVariable implements RealRandomVariable {
     }
 
     @Override
-    public Double getNoise() {
+    public Double noise() {
         return dval;
     }
 
@@ -46,12 +46,12 @@ public class ImpulseRandomVariable implements RealRandomVariable {
     }
 
     @Override
-    public Double getMean() {
+    public Double mean() {
         return dval;
     }
 
     @Override
-    public Double getVariance() {
+    public Double variance() {
         return 0.0;
     }
 
@@ -71,7 +71,7 @@ public class ImpulseRandomVariable implements RealRandomVariable {
 
     /** Default is the return the wrapped version of this random variable */
     @Override
-    public CircularRandomVariable getWrapped() {
+    public CircularRandomVariable wrapped() {
         return new WrappedCircularRandomVariable(this);
     }
 

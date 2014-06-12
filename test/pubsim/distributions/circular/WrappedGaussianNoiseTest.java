@@ -49,7 +49,7 @@ public class WrappedGaussianNoiseTest {
         WrappedGaussian instance = new WrappedGaussian(Math.PI*0.5, 5);
 
         for(int i = 0; i < 50; i++){
-            double result = instance.getNoise();
+            double result = instance.noise();
             assertTrue(result <= Math.PI);
             assertTrue(result >= -Math.PI);
         }

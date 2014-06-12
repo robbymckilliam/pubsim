@@ -53,7 +53,7 @@ public class InverseCDFStationaryProcessTest {
         
         int N = 100000;
         double[] X = new double[N];
-        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
+        for(int i = 0; i < N; i++) X[i] = instance.noise();
         
         //check average is near the mean, i.e. zero
         assertEquals(0,VectorFunctions.mean(X), 0.01);
@@ -114,7 +114,7 @@ public class InverseCDFStationaryProcessTest {
         
         int N = 100000;
         double[] X = new double[N];
-        for(int i = 0; i < N; i++) X[i] = instance.getNoise();
+        for(int i = 0; i < N; i++) X[i] = instance.noise();
         
         //check average is near the mean, i.e. zero
         assertEquals(0,VectorFunctions.mean(X), 0.3);
@@ -145,12 +145,12 @@ public class InverseCDFStationaryProcessTest {
         
         InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new WrappedGaussian(0,1), filter);
         long starttime = (new java.util.Date()).getTime();
-        for(int i = 0; i < N; i++) instance.getNoise();
+        for(int i = 0; i < N; i++) instance.noise();
         System.out.println( "wrappg ran for " + (((new java.util.Date()).getTime() - starttime)/1000.0) );
         
         instance = new InverseCDFStationaryProcess(new UniformNoise(0,1.0/20), filter);
         starttime = (new java.util.Date()).getTime();
-        for(int i = 0; i < N; i++) instance.getNoise();
+        for(int i = 0; i < N; i++) instance.noise();
         System.out.println( "wrappu ran for " + (((new java.util.Date()).getTime() - starttime)/1000.0) );
         
 //        instance = new InverseCDFStationaryProcess(new VonMises(0,3), filter);

@@ -34,12 +34,12 @@ public class CircularlySymmetric implements ComplexRandomVariable {
      * @return 
      */
     @Override
-    public Complex getMean() {
+    public Complex mean() {
         return new Complex(0.0,0.0);
     }
 
     @Override
-    public Complex getVariance() {
+    public Complex variance() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -59,8 +59,8 @@ public class CircularlySymmetric implements ComplexRandomVariable {
     }
 
     @Override
-    public Complex getNoise() {
-        return Complex.polar(mag.getNoise(), 2*Math.PI*angle.getNoise());
+    public Complex noise() {
+        return Complex.polar(mag.noise(), 2*Math.PI*angle.noise());
     }
 
     @Override

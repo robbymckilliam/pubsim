@@ -44,11 +44,11 @@ public class ChiTest {
         int iters = 50000;
         double sum = 0.0;
         for(int i = 0; i < iters; i++){
-            double val = instance.getNoise() - instance.getMean();
+            double val = instance.noise() - instance.mean();
             sum += val*val;
         }
         double sampvar = sum/iters;
-        assertEquals(instance.getVariance(), sampvar,0.05);
+        assertEquals(instance.variance(), sampvar,0.05);
 
     }
 
@@ -68,16 +68,16 @@ public class ChiTest {
                     return x*instance.pdf(x);
                 }
             }, 0, 500)).gaussQuad(INTEGRAL_STEPS);
-        assertEquals(instance.getMean(), meanint,0.001);
+        assertEquals(instance.mean(), meanint,0.001);
         
         //check variance numerically
         double varint = (new Integration(new IntegralFunction() {
                 public double function(double x) {
-                    double xm = x - instance.getMean();
+                    double xm = x - instance.mean();
                     return xm*xm*instance.pdf(x);
                 }
             }, 0, 500)).gaussQuad(INTEGRAL_STEPS);
-        assertEquals(instance.getVariance(), varint,0.001);
+        assertEquals(instance.variance(), varint,0.001);
         
         
         final Chi instance2 = new Chi.Chi2(0.333);
@@ -88,16 +88,16 @@ public class ChiTest {
                     return x*instance2.pdf(x);
                 }
             }, 0, 500)).gaussQuad(INTEGRAL_STEPS);
-        assertEquals(instance2.getMean(), meanint2,0.001);
+        assertEquals(instance2.mean(), meanint2,0.001);
         
         //check variance numerically
         double varint2 = (new Integration(new IntegralFunction() {
                 public double function(double x) {
-                    double xm = x - instance2.getMean();
+                    double xm = x - instance2.mean();
                     return xm*xm*instance2.pdf(x);
                 }
             }, 0, 500)).gaussQuad(INTEGRAL_STEPS);
-        assertEquals(instance2.getVariance(), varint2,0.001);
+        assertEquals(instance2.variance(), varint2,0.001);
         
     }
 }

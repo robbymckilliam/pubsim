@@ -41,7 +41,7 @@ public class UniformNoiseTest extends TestCase {
         double sum = 0; double sum2 = 0;
         for( int i = 0; i <= iters; i++)
         {
-            double noise = instance.getNoise();
+            double noise = instance.noise();
             boolean result = noise >= 0.0 && noise <= 4.0; 
             sum += noise;
             sum2 += (noise - 2)*(noise - 2);
