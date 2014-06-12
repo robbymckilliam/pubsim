@@ -6,7 +6,6 @@
 
 package pubsim.distributions.processes;
 
-import pubsim.SignalGenerator;
 import pubsim.distributions.NoiseGenerator;
 
 /**

@@ -11,7 +11,7 @@ import pubsim.distributions.RealRandomVariable;
  * Interface for a stationary process
  * @author Robby McKilliam
  */
-public interface StationaryProcess extends NoiseGenerator<Double>{
+public interface StationaryProcess extends NoiseGenerator<Double> {
     
     /** Return the random variable with the marginal pdf/cdf of this process */
     public RealRandomVariable marginal();

@@ -109,6 +109,16 @@ public class FirstKindCheckTest {
             assertTrue(FirstKindCheckSlow.isBasis(f.obtuseSuperbase(), new Dn(n)));
         }
     }
+    
+    @Test
+    public void testD4isfirstKind() {
+        System.out.println("Test for D4");
+        FirstKindCheck f = new FirstKindCheck(new Dn(4));
+        assertTrue(f.isFirstKind);
+        for (Matrix v : f.obtuseSuperbase()) System.out.print(VectorFunctions.print(v.transpose()));
+        System.out.println();
+        assertTrue(FirstKindCheckSlow.isBasis(f.obtuseSuperbase(), new Dn(4)));
+    }
    
     @Test
     public void testE6latticesisfirstKind() {

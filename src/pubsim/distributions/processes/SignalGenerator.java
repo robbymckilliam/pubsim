@@ -4,7 +4,7 @@
  * Created on 13 April 2007, 14:48
  */
 
-package pubsim;
+package pubsim.distributions.processes;
 
 import java.io.Serializable;
 import pubsim.distributions.NoiseGenerator;
