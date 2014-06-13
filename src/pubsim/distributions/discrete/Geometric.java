@@ -11,7 +11,7 @@ import rngpack.Ranlux;
  */
 public class Geometric extends AbstractDiscreteRandomVariable {
 
-    private final double p;
+    public final double p;
 
     /**
      * Constructor sets the parameter for this geometric distribution. p must be
@@ -73,4 +73,44 @@ public class Geometric extends AbstractDiscreteRandomVariable {
     public double cmf(Integer k) {
         return 1.0 - Math.pow(1 - p, k);
     }
+    
+    
+    /** A geometric random variable starting at zero */
+    public static class StartingAtZero extends Geometric {
+
+        public StartingAtZero(double p) {
+            super(p);
+        }
+
+        @Override
+        public Integer noise() {
+            Integer v = 0;
+            while(random.raw() > p) {
+                v++;
+            }
+            return v;
+        }
+
+        @Override
+        public double pmf(Integer k) {
+            return p * Math.pow(1 - p, k);
+        }
+
+        @Override
+        public double mean() {
+            return (1.0 - p) / p;
+        }
+
+        @Override
+        public double variance() {
+            return (1 - p) / (p * p);
+        }
+
+        @Override
+        public double cmf(Integer k) {
+            return 1.0 - Math.pow(1 - p, k+1);
+        }
+    
+    }
+    
 }
