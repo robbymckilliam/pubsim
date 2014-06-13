@@ -10,18 +10,18 @@ public class ChiSquared extends AbstractRealRandomVariable {
     final protected int k;
     final protected double var;
     
-    final protected GaussianNoise noise;
+    final protected Gaussian noise;
     
     public ChiSquared(int k){
         this.k = k;
         var = 1.0;
-        noise = new GaussianNoise(0, var);
+        noise = new Gaussian(0, var);
     }
     
     public ChiSquared(int k, double var){
         this.k = k;
         this.var = var;
-        noise = new GaussianNoise(0, var);
+        noise = new Gaussian(0, var);
     }
     
     @Override

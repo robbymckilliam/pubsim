@@ -3,7 +3,7 @@ package pubsim.distributions.circular;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import pubsim.distributions.RealRandomVariable;
-import pubsim.distributions.UniformNoise;
+import pubsim.distributions.Uniform;
 
 /**
  *
@@ -37,7 +37,7 @@ public class DensityEstimatorTest {
     public void testPdf() {
         System.out.println("pdf");
         Double[] data = {0.4, -0.4};
-        RealRandomVariable ker = UniformNoise.constructFromMeanAndRange(0, 0.3);
+        RealRandomVariable ker = Uniform.constructFromMeanAndRange(0, 0.3);
         DensityEstimator dest = new DensityEstimator(data, ker);
         assertEquals(10.0/3.0, dest.pdf(0.5), 0.0000001);
         assertEquals(5.0/3.0, dest.pdf(0.39), 0.0000001);

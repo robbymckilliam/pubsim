@@ -4,7 +4,7 @@
  */
 package pubsim.distributions.circular;
 
-import pubsim.distributions.circular.ProjectedNormalDistribution;
+import pubsim.distributions.circular.ProjectedNormal;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class ProjectedNormalDistributionTest {
         //System.out.println("plotPdf");
         double mean = 0.0;
         double var = 0.01;
-        ProjectedNormalDistribution instance = new ProjectedNormalDistribution(mean, var);
+        ProjectedNormal instance = new ProjectedNormal(mean, var);
 
         double step = 0.001;
         for (double x = -0.5; x <= 0.5; x += step) {

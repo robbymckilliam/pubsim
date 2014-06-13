@@ -5,7 +5,7 @@
 package pubsim.distributions.circular;
 
 import pubsim.Util;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.distributions.RealRandomVariable;
 
 /**
@@ -14,7 +14,7 @@ import pubsim.distributions.RealRandomVariable;
  * This is modified so that it returns values about -[0.5, 0.5]
  * @author Robby McKilliam
  */
-public class ProjectedNormalDistribution extends CircularRandomVariable{
+public class ProjectedNormal extends CircularRandomVariable{
     
     protected RealRandomVariable gauss;
     double cmean, smean, mean;
@@ -25,8 +25,8 @@ public class ProjectedNormalDistribution extends CircularRandomVariable{
      * @param mean    the circular mean of this random variable
      * @param var     the variance of the i.i.d. component of the bivariate normal random variable used to generate the projected normal random variable.
      */
-    public ProjectedNormalDistribution(double mean, double var){
-        gauss = new GaussianNoise(0.0, var);
+    public ProjectedNormal(double mean, double var){
+        gauss = new Gaussian(0.0, var);
         this.mean = mean;
         cmean = Math.cos(mean);
         smean = Math.sin(mean);

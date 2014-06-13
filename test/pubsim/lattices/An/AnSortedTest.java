@@ -7,7 +7,7 @@ package pubsim.lattices.An;
 
 import junit.framework.TestCase;
 import pubsim.VectorFunctions;
-import pubsim.distributions.UniformNoise;
+import pubsim.distributions.Uniform;
 import pubsim.distributions.processes.NoiseVector;
 
 /**
@@ -43,7 +43,7 @@ public class AnSortedTest extends TestCase {
         int n = 10;
         int iters = 100;
         
-        UniformNoise noise = UniformNoise.constructFromMeanAndRange(0,1.0);
+        Uniform noise = Uniform.constructFromMeanAndRange(0,1.0);
         NoiseVector siggen = new NoiseVector(noise, n);
         
         AnSorted instance = new AnSorted(n-1);

@@ -13,13 +13,13 @@ public class Chi extends AbstractRealRandomVariable {
     final protected double stdev;
     final protected double mu;
     protected double gammak2;
-    final protected GaussianNoise noise;
+    final protected Gaussian noise;
     
     public Chi(int k){
         this.k = k;
         var = 1.0;
         stdev = 1.0;
-        noise = new GaussianNoise(0, var);
+        noise = new Gaussian(0, var);
         gammak2 = gamma(k/2.0);
         mu = Math.sqrt(2.0)*gamma((k+1.0)/2.0)/gammak2;
     }
@@ -28,7 +28,7 @@ public class Chi extends AbstractRealRandomVariable {
         this.k = k;
         this.var = var;
         stdev = Math.sqrt(var);
-        noise = new GaussianNoise(0, var);
+        noise = new Gaussian(0, var);
         gammak2 = gamma(k/2.0);
         mu = stdev*Math.sqrt(2.0)*gamma((k+1.0)/2.0)/gammak2;
     }

@@ -41,7 +41,7 @@ public class DensityEstimatorTest {
     public void testPdf() {
         System.out.println("pdf");
         double[] data = {1, -1};
-        RealRandomVariable ker = UniformNoise.constructFromMeanAndRange(0, 3);
+        RealRandomVariable ker = Uniform.constructFromMeanAndRange(0, 3);
         DensityEstimator dest = new DensityEstimator(data, ker);
         assertEquals(1/3.0, dest.pdf(0.0), 0.0000001);
         assertEquals(1/6.0, dest.pdf(1.0), 0.0000001);

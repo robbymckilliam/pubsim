@@ -11,7 +11,7 @@ import java.io.FileWriter;
 import java.util.Date;
 import java.util.Vector;
 import static pubsim.Range.range;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.lattices.Anm.AnmGlued;
 
 /**
@@ -30,7 +30,7 @@ public class LatticeTiming {
 
         //int numTrials = 20000;
         int numTrials = 200;
-        GaussianNoise rand = new GaussianNoise(0.0, 1000.0);
+        Gaussian rand = new Gaussian(0.0, 1000.0);
         Vector<Double> timearray = new Vector<Double>();
 
         int nstart = 4;

@@ -5,7 +5,7 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.UniformNoise;
+import pubsim.distributions.Uniform;
 
 /**
  * 
@@ -16,7 +16,7 @@ public class WrappedUniform extends WrappedCircularRandomVariable{
     protected final double umean, uvar;
 
     public WrappedUniform(double mean, double var){
-        super(new UniformNoise(mean, var));
+        super(new Uniform(mean, var));
         umean = mean; uvar = var;
     }
 

@@ -12,7 +12,7 @@ import org.junit.Test;
 import pubsim.VectorFunctions;
 import static org.junit.Assert.*;
 import pubsim.distributions.RealRandomVariable;
-import pubsim.distributions.UniformNoise;
+import pubsim.distributions.Uniform;
 import pubsim.distributions.circular.VonMises;
 import pubsim.distributions.circular.WrappedGaussian;
 import pubsim.distributions.circular.WrappedUniform;
@@ -49,7 +49,7 @@ public class InverseCDFStationaryProcessTest {
     public void testGetNoiseWithUniform() {
         System.out.println("test with uniform");
         double[] filter = {1.0, 0.25, 0.25};
-        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new UniformNoise(0,1.0/20), filter);
+        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new Uniform(0,1.0/20), filter);
         
         int N = 100000;
         double[] X = new double[N];
@@ -148,7 +148,7 @@ public class InverseCDFStationaryProcessTest {
         for(int i = 0; i < N; i++) instance.noise();
         System.out.println( "wrappg ran for " + (((new java.util.Date()).getTime() - starttime)/1000.0) );
         
-        instance = new InverseCDFStationaryProcess(new UniformNoise(0,1.0/20), filter);
+        instance = new InverseCDFStationaryProcess(new Uniform(0,1.0/20), filter);
         starttime = (new java.util.Date()).getTime();
         for(int i = 0; i < N; i++) instance.noise();
         System.out.println( "wrappu ran for " + (((new java.util.Date()).getTime() - starttime)/1000.0) );
@@ -168,7 +168,7 @@ public class InverseCDFStationaryProcessTest {
         System.out.println("test the autocorellation speed of some of the generators");
         double[] filter = {1.0, 0.5, 0.25};
         
-        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new UniformNoise(0,1.0/20), filter);
+        InverseCDFStationaryProcess instance = new InverseCDFStationaryProcess(new Uniform(0,1.0/20), filter);
         long starttime = (new java.util.Date()).getTime();
         instance.autocorrelation();
         System.out.println( "wrappu ran for " + (((new java.util.Date()).getTime() - starttime)/1000.0) );

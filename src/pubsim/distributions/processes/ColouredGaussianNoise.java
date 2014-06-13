@@ -2,7 +2,7 @@ package pubsim.distributions.processes;
 
 import pubsim.CircularBufferDouble;
 import pubsim.VectorFunctions;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.distributions.RealRandomVariable;
 
 /**
@@ -14,7 +14,7 @@ public class ColouredGaussianNoise implements StationaryProcess {
 
     protected final double[] f;
     protected final double[] autocor;
-    protected final GaussianNoise noisegen = new GaussianNoise(0, 1);
+    protected final Gaussian noisegen = new Gaussian(0, 1);
     protected final CircularBufferDouble X;
    
     public ColouredGaussianNoise(double[] filter){
@@ -32,7 +32,7 @@ public class ColouredGaussianNoise implements StationaryProcess {
 
     @Override
     public RealRandomVariable marginal() {
-        return new GaussianNoise(0, autocor[0]);
+        return new Gaussian(0, autocor[0]);
     }
     
     /** Return the value of the bivariate pdf between X1 and Xk */

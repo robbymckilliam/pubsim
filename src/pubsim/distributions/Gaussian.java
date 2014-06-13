@@ -16,14 +16,14 @@ import pubsim.distributions.circular.WrappedGaussian;
  * Creates single Gaussian variables
  * @author Robby McKilliam
  */
-public class GaussianNoise extends AbstractRealRandomVariable implements RealRandomVariable {
+public class Gaussian extends AbstractRealRandomVariable implements RealRandomVariable {
 
     protected final double mean;
     protected final double stdDeviation;
     protected final double variance;
     
     /** Creates a new instance of GaussianNoise with specific variance and mean */
-    public GaussianNoise(double mean, double variance){
+    public Gaussian(double mean, double variance){
         this.mean = mean;
         this.variance = variance;
         this.stdDeviation = Math.sqrt(variance);

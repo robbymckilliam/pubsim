@@ -9,7 +9,7 @@ import rngpack.Ranlux;
  *
  * @author Robby McKilliam
  */
-public class GeometricRandomVariable extends AbstractDiscreteRandomVariable {
+public class Geometric extends AbstractDiscreteRandomVariable {
 
     private final double p;
 
@@ -17,7 +17,7 @@ public class GeometricRandomVariable extends AbstractDiscreteRandomVariable {
      * Constructor sets the parameter for this geometric distribution. p must be
      * between 0 and 1.  Mean is 1/p
      */
-    public GeometricRandomVariable(double p) {
+    public Geometric(double p) {
         if (p <= 0 || p > 1) {
             throw new RuntimeException("p must be between 0 and 1.");
         }

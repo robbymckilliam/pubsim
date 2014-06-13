@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import pubsim.distributions.UniformNoise;
+import pubsim.distributions.Uniform;
 import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.Anstar.Anstar;
 import pubsim.lattices.Anstar.AnstarLinear;
@@ -102,7 +102,7 @@ public class LatticeOfFirstKindTest {
     public void testconstructrandom() {
         System.out.println("construct random");
         for(int n = 1; n <= 24; n++){
-            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, UniformNoise.constructFromMeanAndRange(-0.5,1));
+            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, Uniform.constructFromMeanAndRange(-0.5,1));
             //System.out.println(VectorFunctions.print(lattice.extendedGram()));
         }
     }
@@ -114,7 +114,7 @@ public class LatticeOfFirstKindTest {
     public void testconstructnorm() {
         System.out.println("test norm");
         for(int n = 2; n <= 24; n++){
-            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, UniformNoise.constructFromMeanAndRange(-0.5,1));
+            LatticeOfFirstKind lattice = LatticeOfFirstKind.randomLatticeOfFirstKind(n, Uniform.constructFromMeanAndRange(-0.5,1));
             Lattice blat = new Lattice(lattice.getGeneratorMatrix());
             double sdnorm = blat.norm();
             double mincutnorm = lattice.norm();

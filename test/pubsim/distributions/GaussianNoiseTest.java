@@ -64,7 +64,7 @@ public class GaussianNoiseTest {
         //System.out.println("plotPdf");
         double mean = 0.0;
         double var = 1;
-        GaussianNoise instance = new GaussianNoise(mean, var);
+        Gaussian instance = new Gaussian(mean, var);
 
         System.out.println(instance.cdf(0.0));
         System.out.println(instance.cdf(100000.0));

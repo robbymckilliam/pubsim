@@ -8,7 +8,7 @@ package pubsim.lattices.reduction;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.reduction.SloanesReduction;
 import Jama.Matrix;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.lattices.leech.Leech;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -76,7 +76,7 @@ public class SloanesReductionTest {
     public void testGetProjectionVector() {
         System.out.println("test get projection vector");
         int n = 24;
-        Matrix B = VectorFunctions.randomMatrix(n, n, new GaussianNoise(0, 1.0));
+        Matrix B = VectorFunctions.randomMatrix(n, n, new Gaussian(0, 1.0));
         Matrix L = SloanesReduction.upperTriangularBasis(B);
         Matrix Lw = SloanesReduction.computeSlonesLw(L, 1);
         Matrix Lt = SloanesReduction.specialColumnReduce(Lw);
@@ -112,7 +112,7 @@ public class SloanesReductionTest {
         
         double mean = 0, var = 0;
         for(int i = 0; i < iters; i++){
-            Matrix B = VectorFunctions.randomMatrix(n, n, new GaussianNoise(0, 1.0));
+            Matrix B = VectorFunctions.randomMatrix(n, n, new Gaussian(0, 1.0));
             Matrix L = new LLL().reduce(B); //LLL seems to make B smaller.
             L = SloanesReduction.upperTriangularBasis(L);
             //Matrix L = SloanesReduction.upperTriangularBasis(B);

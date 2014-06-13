@@ -34,7 +34,7 @@ public class UniformNoiseTest extends TestCase {
         int iters = 100000;
         double mean = 2.0;
         double var = 4.0/3.0;
-        UniformNoise instance = new UniformNoise(mean, var);
+        Uniform instance = new Uniform(mean, var);
         
         
         double sum = 0; double sum2 = 0;

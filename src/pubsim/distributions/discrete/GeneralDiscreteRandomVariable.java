@@ -8,7 +8,7 @@ import java.util.TreeMap;
  * General discrete distribution. Uses a map to set the pdf.
  * @author Robby McKilliam
  */
-public class GeneralDiscrete extends AbstractDiscreteRandomVariable implements DiscreteRandomVariable{
+public class GeneralDiscreteRandomVariable extends AbstractDiscreteRandomVariable implements DiscreteRandomVariable{
 
     protected final TreeMap<Integer, Double> pdf;
     protected final double mean, variance;
@@ -19,7 +19,7 @@ public class GeneralDiscrete extends AbstractDiscreteRandomVariable implements D
      * @param pdf, a Map from Integer to Double that describes the
      * non-zero part of the pdf.
      */
-    public GeneralDiscrete(Map<Integer, Double> pdf){
+    public GeneralDiscreteRandomVariable(Map<Integer, Double> pdf){
 
         //compute the mean and pdfsum first.
         double msum = 0.0, pdfsum = 0.0;

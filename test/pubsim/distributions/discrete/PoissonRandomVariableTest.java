@@ -41,7 +41,7 @@ public class PoissonRandomVariableTest {
         //System.out.println("getNoise");
         double p = 10;
         int n = 1000000;
-        PoissonRandomVariable instance = new PoissonRandomVariable(p);
+        Poisson instance = new Poisson(p);
         double var = 0;
         double mean = 0;
         for(int i = 0; i < n; i++){

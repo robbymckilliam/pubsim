@@ -6,7 +6,7 @@ package pubsim.distributions.complex;
 
 import pubsim.Complex;
 import pubsim.distributions.Chi;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.distributions.RealRandomVariable;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.CircularUniform;
@@ -17,11 +17,11 @@ import pubsim.distributions.circular.CircularUniform;
  */
 public class SymmetricComplexNormal implements ComplexRandomVariable {
 
-    final protected GaussianNoise rv;
+    final protected Gaussian rv;
 
     /** Set variance of real and imaginary parts */
     public SymmetricComplexNormal(double variance) {
-        rv = new GaussianNoise(0.0, variance);
+        rv = new Gaussian(0.0, variance);
     }
 
     @Override

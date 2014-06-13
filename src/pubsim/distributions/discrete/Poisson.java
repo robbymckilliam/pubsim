@@ -4,14 +4,14 @@ package pubsim.distributions.discrete;
  * Class representing the discrete Poisson distribution.
  * @author Robby McKilliam
  */
-public class PoissonRandomVariable extends AbstractDiscreteRandomVariable {
+public class Poisson extends AbstractDiscreteRandomVariable {
     private final double l;
 
     /**
      * Constructor sets the parameter for this Poisson distribution.
      * p must be between 0 and 1.
      */
-    public PoissonRandomVariable(double l){
+    public Poisson(double l){
         if(l <= 0)
             throw new RuntimeException("l must be > 0.");
         this.l = l;

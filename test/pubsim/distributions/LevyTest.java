@@ -88,4 +88,11 @@ public class LevyTest {
         
     }
     
+    @Test
+    public void testNoise() {
+        System.out.println("generating some instances of Levy noise");
+        Levy d = new Levy(1.0);
+        for(int i = 0; i < 10; i++) System.out.println(d.noise());
+    }
+    
 }

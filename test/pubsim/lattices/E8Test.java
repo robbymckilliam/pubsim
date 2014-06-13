@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import pubsim.VectorFunctions;
 import static pubsim.VectorFunctions.distance_between;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.distributions.processes.NoiseVector;
 import static pubsim.lattices.E8.dMat;
 import pubsim.lattices.decoder.SphereDecoder;
@@ -51,7 +51,7 @@ public class E8Test {
         int n = 8;
         int iters = 100;
         
-        GaussianNoise noise = new GaussianNoise(0.0, 1000.0);
+        Gaussian noise = new Gaussian(0.0, 1000.0);
         NoiseVector siggen = new NoiseVector(noise, n);
         
         E8 instance = new E8();

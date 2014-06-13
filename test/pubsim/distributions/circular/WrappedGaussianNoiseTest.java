@@ -5,7 +5,7 @@
 
 package pubsim.distributions.circular;
 
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.distributions.circular.WrappedGaussian;
 import org.junit.After;
 import org.junit.AfterClass;

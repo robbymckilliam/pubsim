@@ -5,7 +5,7 @@
  */
 package pubsim.distributions.circular;
 
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 
 /**
  * Gaussian noise wrapped into the interval [-0.5, 0.5]
@@ -25,7 +25,7 @@ public class WrappedGaussian extends WrappedCircularRandomVariable {
      * intrinsicVariance() member function.
      */
     public WrappedGaussian(double mean, double var) {
-        super(new GaussianNoise(mean, var));
+        super(new Gaussian(mean, var));
         thismean = mean;
         thisvar = var;
     }

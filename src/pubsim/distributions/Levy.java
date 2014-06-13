@@ -1,5 +1,8 @@
 package pubsim.distributions;
 
+import pubsim.optimisation.Bisection;
+import pubsim.optimisation.SingleVariateFunction;
+
 /**
  * Class implements a Levy distribution.  This distribution is heavy tailed and a member of
  * the class of alpha-Stable distributions.
@@ -61,6 +64,28 @@ public class Levy extends AbstractRealRandomVariable {
         if(x <= mu) return 0.0;
         double p = Math.sqrt(c/2/(x-mu));
         return pubsim.Util.erfc(p);
+    }
+    
+    /**
+     * Bisection method is used to inverse cdf by default.  Tweaked to accommodate that
+     * the cdf is zero for all x < mu
+     */
+    @Override
+    public Double icdf(final double v){
+                
+        //function representing the cdf (Java is horrible at this!)
+        SingleVariateFunction f = new SingleVariateFunction() {
+            @Override
+            public double value(double x) {
+                return cdf(x) - v;
+            }
+        };
+        
+        //find starting point for bisection.  Move out from the origin in exponentially increasing steps.
+        double b = 1.0;
+        while( f.value(b) < 0 ) b *= 10;
+        
+        return Bisection.zero(f, 0.0, b, 1e-8); //1e-8 tolerance by default (hopefully accurate enough for most purposes
     }
     
 }

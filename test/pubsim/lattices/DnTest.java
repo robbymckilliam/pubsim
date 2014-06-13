@@ -8,7 +8,7 @@ package pubsim.lattices;
 import pubsim.lattices.Dn;
 import Jama.Matrix;
 import junit.framework.TestCase;
-import pubsim.distributions.GaussianNoise;
+import pubsim.distributions.Gaussian;
 import pubsim.lattices.decoder.SphereDecoder;
 import pubsim.distributions.processes.NoiseVector;
 import pubsim.VectorFunctions;
@@ -32,7 +32,7 @@ public class DnTest extends TestCase {
         int n = 7;
         int iters = 100;
         
-        GaussianNoise noise = new GaussianNoise(0.0, 1000.0);
+        Gaussian noise = new Gaussian(0.0, 1000.0);
         NoiseVector siggen = new NoiseVector(noise, n);
         
         Dn instance = new Dn(n);

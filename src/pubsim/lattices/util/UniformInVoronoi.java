@@ -1,7 +1,7 @@
 package pubsim.lattices.util;
 
 import Jama.Matrix;
-import pubsim.distributions.UniformNoise;
+import pubsim.distributions.Uniform;
 import pubsim.lattices.LatticeInterface;
 import pubsim.lattices.LatticeAndNearestPointAlgorithmInterface;
 import pubsim.lattices.NearestPointAlgorithmInterface;
@@ -70,7 +70,7 @@ public class UniformInVoronoi
 
     protected void initNoiseVector(int N) {
         //System.out.println("N = " + N);
-        UniformNoise noise =UniformNoise.constructFromMeanAndRange(0,1.0);
+        Uniform noise =Uniform.constructFromMeanAndRange(0,1.0);
         noise.randomSeed();
         nv = new NoiseVector(noise, N);
     }

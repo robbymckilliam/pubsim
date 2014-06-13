@@ -37,7 +37,7 @@ public class AbstractRealRandomVariableTest {
     public void testIcdf() {
         System.out.println("icdf");
 
-        GaussianNoise instance = new GaussianNoise(0, 1);
+        Gaussian instance = new Gaussian(0, 1);
 
         System.out.println(instance.icdf(0.5));
         assertEquals(0.0, instance.icdf(0.5), 0.00001);
@@ -60,7 +60,7 @@ public class AbstractRealRandomVariableTest {
         final double mean = 0.2;
         final double var = 1;
         
-        GaussianNoise test = new GaussianNoise(mean, var);
+        Gaussian test = new Gaussian(mean, var);
         
         AbstractRealRandomVariable inst = new AbstractRealRandomVariable() {
             public Double mean() {  return mean; }

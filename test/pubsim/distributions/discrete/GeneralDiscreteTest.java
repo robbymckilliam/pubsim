@@ -45,7 +45,7 @@ public class GeneralDiscreteTest {
         System.out.println("test mean and variance");
         Map<Integer, Double> pdf = new HashMap<Integer, Double>(2);
         pdf.put(1, 0.5); pdf.put(3, 0.5);
-        GeneralDiscrete dist = new GeneralDiscrete(pdf);
+        GeneralDiscreteRandomVariable dist = new GeneralDiscreteRandomVariable(pdf);
         assertEquals(2.0, dist.mean(), 0.000001);
         assertEquals(1.0, dist.variance(), 0.000001);
     }
@@ -58,7 +58,7 @@ public class GeneralDiscreteTest {
         System.out.println("test pdf");
         Map<Integer, Double> pdf = new HashMap<Integer, Double>(2);
         pdf.put(1, 0.5); pdf.put(3, 0.5);
-        GeneralDiscrete dist = new GeneralDiscrete(pdf);
+        GeneralDiscreteRandomVariable dist = new GeneralDiscreteRandomVariable(pdf);
         assertEquals(0.5, dist.pmf(1), 0.000001);
         assertEquals(0.5, dist.pmf(3), 0.000001);
         assertEquals(0, dist.pmf(2), 0.000001);
@@ -75,7 +75,7 @@ public class GeneralDiscreteTest {
         System.out.println("test cdf");
         Map<Integer, Double> pdf = new HashMap<Integer, Double>(2);
         pdf.put(1, 0.5); pdf.put(3, 0.5);
-        GeneralDiscrete dist = new GeneralDiscrete(pdf);
+        GeneralDiscreteRandomVariable dist = new GeneralDiscreteRandomVariable(pdf);
         assertEquals(0.5, dist.cmf(1), 0.000001);
         assertEquals(1.0, dist.cmf(3), 0.000001);
         assertEquals(0.5, dist.cmf(2), 0.000001);
@@ -93,7 +93,7 @@ public class GeneralDiscreteTest {
         System.out.println("test noise");
         Map<Integer, Double> pdf = new HashMap<Integer, Double>(2);
         pdf.put(1, 0.7); pdf.put(3, 0.3);
-        GeneralDiscrete dist = new GeneralDiscrete(pdf);
+        GeneralDiscreteRandomVariable dist = new GeneralDiscreteRandomVariable(pdf);
 
         int iters = 100000;
         double count1s = 0; double count3s = 0;
