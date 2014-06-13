@@ -54,6 +54,13 @@ public final class VectorFunctions {
         }
     }
 
+    /** Convert and integer array to a double array */
+    public static double[] intArrayToDoubleArray(int[] x){
+        double[] y = new double[x.length];
+        for(int n = 0; n < x.length; n++) y[n] = x[n];
+        return y;
+    }
+    
     /**
      * Zero padded Fourier Transform. Pads so that the resulting transform is p times
      * the length of x.

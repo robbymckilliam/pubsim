@@ -1,5 +1,3 @@
-/*
- */
 package pubsim.optimisation;
 
 /**
@@ -17,15 +15,23 @@ package pubsim.optimisation;
  */
 public class Brent {
 
-    private double x;
-    private double fx;
-    private static final double ZEPS = 1e-10; //close to machine precision
-    private static final double C = (3.0 - Math.sqrt(5.0)) / 2.0;
+    protected double x;
+    protected double fx;
+    protected int iters;
     
-    public final double sign(double a, double b) { return Math.abs(a)*Math.signum(b); }
+    protected static final double ZEPS = 1e-10; //close to machine precision
+    protected static final double C = (3.0 - Math.sqrt(5.0)) / 2.0;
     
-    public final double fmin() { return fx; }
-    public final double xmin() { return x; }
+    public static double sign(double a, double b) { return Math.abs(a)*Math.signum(b); }
+    
+    /** @return the minimum value of f, i.e., f(xmin()). */
+    public double fmin() { return fx; }
+    
+    /** @return x such that f(x) is minimised */
+    public double xmin() { return x; }
+    
+    /** @return the number of iterations performed during the procedure */
+    public int numberOfIterations() { return iters; }
     
     public Brent(SingleVariateFunction f, double ax, double bx, double cx){
         this(f,ax,bx,cx,1e-7,100);
