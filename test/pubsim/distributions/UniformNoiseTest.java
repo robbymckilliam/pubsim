@@ -5,10 +5,9 @@
  * Created on 7 May 2007, 13:38
  */
 
-package pubsim;
+package pubsim.distributions;
 
 import junit.framework.TestCase;
-import pubsim.distributions.UniformNoise;
 
 /**
  *

@@ -11,6 +11,8 @@ import flanagan.integration.Integration;
 import pubsim.Complex;
 import pubsim.distributions.circular.CircularRandomVariable;
 import pubsim.distributions.circular.WrappedCircularRandomVariable;
+import pubsim.optimisation.Bisection;
+import pubsim.optimisation.SingleVariateFunction;
 import rngpack.RandomElement;
 import rngpack.Ranmar;
 
@@ -52,38 +54,28 @@ public abstract class AbstractRealRandomVariable
     }
 
     /**
-     * Default is a binary search of the cdf to find the inverse cdf.
-     * This might fail for really weird looking cdfs and is highly non
-     * optimised.
+     * Bistection method is used to inverse cdf by default.
+     * This might fail for really weird looking cdfs.
      */
     @Override
-    public Double icdf(double x){
-        double TOL = 1e-8;
-        double mean = mean(); 
-        double stdDeviation = Math.sqrt(variance());
-        double high = mean + 10*stdDeviation + 0.5;
-        double low = mean - 10*stdDeviation - 0.5;
-        double cdfhigh = cdf(high);
-        double cdflow = cdf(low);
-        while(Math.abs(high - low) > TOL){
-         
-            double half = (high + low)/2.0;
-            double cdfhalf = cdf(half);
-
-            //System.out.println("half = " + half + ", cdfhalf = " + cdfhalf);
-
-            if(Math.abs(cdfhalf - x) < TOL ) return half;
-            else if(cdfhalf <= x){
-                low = half;
-                cdflow = cdfhalf;
+    public Double icdf(final double v){
+                
+        //function representing the cdf (Java is horrible at this!)
+        SingleVariateFunction f = new SingleVariateFunction() {
+            @Override
+            public double value(double x) {
+                return cdf(x) - v;
             }
-            else{
-               high = half;
-               cdfhigh = cdfhalf;
-            }
-            
+        };
+        
+        //find starting point for bisection.  More out from the origin in exponentially increasing steps.
+        double a = -1.0, b = 1.0;
+        while( Math.signum(f.value(a)) == Math.signum(f.value(b))) {
+            a *= 10;
+            b *= 10;
         }
-        return (high + low)/2.0;
+        
+        return Bisection.zero(f, a, b, 1e-8); //1e-8 tolerance by default (hopefully accurate enough for most purposes
     }
     
     /** Randomise the seed for the internal Random */ 

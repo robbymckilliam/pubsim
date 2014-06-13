@@ -34,7 +34,7 @@ public class Levy extends AbstractRealRandomVariable {
      */
     @Override
     public Double mean() {
-        return Double.POSITIVE_INFINITY;
+        throw new RuntimeException("The mean of the Levy distribution undefined (infinite).");
     }
 
     /** 
@@ -43,7 +43,7 @@ public class Levy extends AbstractRealRandomVariable {
      */
     @Override
     public Double variance() {
-        return Double.POSITIVE_INFINITY;
+        throw new RuntimeException("The mean of the Levy distribution undefined (infinite).");
     }
 
     @Override

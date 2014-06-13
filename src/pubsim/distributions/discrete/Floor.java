@@ -1,6 +1,5 @@
 package pubsim.distributions.discrete;
 
-import flanagan.integration.Integration;
 import pubsim.distributions.RealRandomVariable;
 
 /**

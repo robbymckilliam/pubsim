@@ -22,6 +22,6 @@ public interface GenericRandomVariable<T> extends NoiseGenerator<T> {
      * However, you don't have to implement this if you have a better
      * way of generating the noise.
      */
-    public T icdf(double x);
+    public T icdf(final double v);
 
 }
