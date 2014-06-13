@@ -54,7 +54,7 @@ public abstract class AbstractRealRandomVariable
     }
 
     /**
-     * Bistection method is used to inverse cdf by default.
+     * Bisection method is used to inverse cdf by default.
      * This might fail for really weird looking cdfs.
      */
     @Override
@@ -68,7 +68,7 @@ public abstract class AbstractRealRandomVariable
             }
         };
         
-        //find starting point for bisection.  More out from the origin in exponentially increasing steps.
+        //find starting point for bisection.  Move out from the origin in exponentially increasing steps.
         double a = -1.0, b = 1.0;
         while( Math.signum(f.value(a)) == Math.signum(f.value(b))) {
             a *= 10;
