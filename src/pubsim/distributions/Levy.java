@@ -48,7 +48,7 @@ public class Levy extends AbstractRealRandomVariable {
 
     @Override
     public double pdf(Double x) {
-        double DELTA = c/30;
+        double DELTA = c/30; //avoid divide by zero
         if(x <= mu + DELTA) return 0.0;
         double p1 = Math.sqrt(c/2/Math.PI);
         double p2 = Math.exp(-c/2/(x-mu));
