@@ -1,12 +1,10 @@
-/*
- */
-
 package pubsim.optimisation;
 
 import Jama.Matrix;
 
 /**
- *
+ * General purpose implementation of the Newton-Raphson methods.  Attempts to
+ * converge to a nearby stationary point of the function f.
  * @author Robby McKilliam
  */
 public class NewtonRaphson {
