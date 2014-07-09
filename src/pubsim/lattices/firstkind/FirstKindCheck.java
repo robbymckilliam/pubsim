@@ -27,7 +27,7 @@ public class FirstKindCheck extends FirstKindCheckSlow {
         super(L);        
     }
     
-    ///Given a set R containingatleast k vectors, decide whether the set contains an obtuse super basis
+    ///Given a set R containing atleast k vectors, decide whether the set contains an obtuse super basis
     @Override
     protected boolean containsObtuseSuperBasis() {
         Set<Matrix> R = new HashSet(); 

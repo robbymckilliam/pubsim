@@ -1,6 +1,5 @@
 package pubsim.lattices.firstkind.shortvector;
 
-import pubsim.lattices.firstkind.shortvector.MinCutShortVector;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 import pubsim.VectorFunctions;

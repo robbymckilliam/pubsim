@@ -17,10 +17,8 @@ import pubsim.lattices.An.AnFastSelect;
 import pubsim.lattices.Anstar.AnstarLinear;
 import pubsim.lattices.Dn;
 import pubsim.lattices.E6;
-import pubsim.lattices.E8;
 import pubsim.lattices.LatticeAndNearestPointAlgorithm;
 import pubsim.lattices.LatticeInterface;
-import static pubsim.lattices.firstkind.FirstKindCheckSlow.isObtuse;
 import static pubsim.lattices.firstkind.FirstKindCheckSlow.isObtuse;
 
 /**
