@@ -85,7 +85,7 @@ public class ScaledLattice extends AbstractLattice implements LatticeAndNearestP
         if(yDoubletoy == null || yDoubletoy.length != y.length)
             yDoubletoy = new double[y.length];
         for(int i = 0; i < y.length; i++) yDoubletoy[i] = y[i];
-        this.nearestPoint(y);
+        this.nearestPoint(yDoubletoy);
     }
 
     @Override
