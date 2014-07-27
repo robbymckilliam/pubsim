@@ -742,22 +742,6 @@ public class VectorFunctionsTest extends TestCase {
         assertVectorsEqual(exp, out);
     }
 
-    public void testrandomBandedMatrix(){
-        System.out.println("testrandomBandedMatrix");
-        int m = 10; int n = 8;
-        int rb = 2; int cb = 2;
-        Matrix M = VectorFunctions.randomBandedMatrix(m, n, rb, cb);
-        System.out.println(VectorFunctions.print(M));
-
-        //QRDecomposition QR = new QRDecomposition(M);
-        //System.out.println(VectorFunctions.print(QR.getR()));
-        //System.out.println(VectorFunctions.print(QR.getQ()));
-
-        M = VectorFunctions.randomBandedMatrix(n, cb);
-        System.out.println(VectorFunctions.print(M));
-
-    }
-
 
     /**
      * Returns polynomials of the for 1 - x^d
@@ -825,13 +809,6 @@ public class VectorFunctionsTest extends TestCase {
         Set<Matrix> S = VectorFunctions.splitColumns(M);
         for(Matrix v : S) System.out.println(print(v));
        
-    }
-    
-    public void testrandomMIMObasis() {
-        System.out.println("print some random MIMO bases");
-        System.out.println(print(randomMIMObasis(2)));
-        System.out.println(print(randomMIMObasis(3)));
-        System.out.println(print(randomMIMObasis(4)));
     }
         
     public void testIsUnimodular() {

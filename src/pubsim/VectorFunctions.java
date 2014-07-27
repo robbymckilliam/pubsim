@@ -12,9 +12,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import static pubsim.Range.range;
-import pubsim.distributions.Gaussian;
-import pubsim.distributions.RealRandomVariable;
-import rngpack.Ranlux;
 
 /**
  * Miscellaneous functions to run on arrays/vectors/matrices.
@@ -162,19 +159,6 @@ public final class VectorFunctions {
             out += x[i].minus(s[i]).abs2();
         }
         return out;
-    }
-
-    /**
-     * Generate m x n matrix with random elements taken from given distribution.
-     */
-    public static Matrix randomMatrix(int m, int n, RealRandomVariable noise){
-        Matrix M = new Matrix(m, n);
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                M.set(i,j, noise.noise());
-            }
-        }
-        return M;
     }
 
     /**
@@ -1494,38 +1478,6 @@ public final class VectorFunctions {
         return M;
     }
     
-     /**
-      * Generate a banded matrix with random elements.  The
-      * elements are Gaussian distributed zero mean and
-      * variance 1.
-      * @param m Number of rows
-      * @param n Number of columns
-      * @param rb Length of the band along rows
-      * @param cb length of the band along columns
-      * @return Banded matrix
-      */
-    public static Matrix randomBandedMatrix(int m, int n, int rb, int cb){
-        rngpack.Ranlux rand = new Ranlux(new Date());
-        Matrix M = new Matrix(m, n);
-        for(int j = -cb; j <= rb; j++){
-            for(int i = 0; i < Math.min(m,n); i++){
-                if(i+j >= 0 && i+j < m)
-                    M.set(i+j, i, rand.gaussian());
-            }
-        }
-        return M;
-    }
-    
-    /**
-     * Returns a square upper triangular banded matrix
-     * @param n Number of rows
-     * @param band Length of the band along rows
-     * @return upper triangular banded matrix
-     */
-    public static Matrix randomBandedMatrix(int n, int band){
-        return randomBandedMatrix(n, n, 0, band - 1);
-    }
-    
     /** Split matrix B into a set of column vectors */
     public static Set<Matrix> splitColumns(Matrix B){
         int M = B.getColumnDimension();
@@ -1535,29 +1487,7 @@ public final class VectorFunctions {
         return S;
     }
 
-    /** Returns a real valued n by n Matrix with entries that model an n/2 by n/2 MIMO matrix */
-   public static Matrix randomMIMObasis(int n){
-       RealRandomVariable noise = new Gaussian(0,1);
-       int h = (int)Math.ceil(n/2.0);
-       double[][] R = new double[h][h];
-       double[][] C = new double[h][h];
-       for(int i = 0; i < h; i++){
-           for(int j = 0; j < h; j++){
-               R[i][j] = noise.noise();
-               C[i][j] = noise.noise();
-           }
-       }
-       Matrix B = new Matrix(n,n);
-       for(int i = 0; i < h; i++){
-           for(int j = 0; j < h; j++) B.set(i,j,R[i][j]);
-           for(int j = h; j < n; j++) B.set(i,j,C[i][j-h]);
-       }
-       for(int i = h; i < n; i++){
-           for(int j = 0; j < h; j++) B.set(i,j,-C[i-h][j]);
-           for(int j = h; j < n; j++) B.set(i,j,R[i-h][j-h]);
-       }
-       return B;
-   }
+
    
    /** Tests whether a matrix U is unimodular.  TOL determines what counts as zero. */
    public static boolean isUnimodular(Matrix U, double TOL) {

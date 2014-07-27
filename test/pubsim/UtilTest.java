@@ -460,9 +460,6 @@ public class UtilTest {
 
     }
     
-    /**
-     * Test of Bessel method, of class Util.
-     */
     @Test
     public void testSetRemove() {
         System.out.println("test remove from Set");
