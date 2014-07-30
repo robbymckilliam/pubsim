@@ -1258,17 +1258,7 @@ public final class VectorFunctions {
         }
         return d;
     }
-
-    /**
-     * Convert and array of simulator.Complex into an array of complex
-     * complex numbers from the flanagan library.
-     */
-    public static flanagan.complex.Complex[] simComplexArrayToFlanComplexArray(pubsim.Complex[] sc){
-        flanagan.complex.Complex[] fc = new flanagan.complex.Complex[sc.length];
-        for(int i = 0; i < fc.length; i++) fc[i] = sc[i].toFlanComplex();
-        return fc;
-    }
-
+    
     /**
      * Copies f into x starting at start.  This modifies x.
      * @param start must be >= 0

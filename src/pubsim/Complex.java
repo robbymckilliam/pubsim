@@ -115,14 +115,6 @@ public class Complex extends Object implements Serializable, Field<Complex>, Com
 //        return set(alpha * real, alpha * imag);
 //    }
 
-    /** 
-     * Convert this complex number into a complex number from the 
-     * flanagan library.
-     */
-    public flanagan.complex.Complex toFlanComplex(){
-        return new flanagan.complex.Complex(real, imag);
-    }
-
     /** return a new Complex object whose value is the conjugate of this */
     public Complex conjugate() {  return new Complex(real, -imag); }
     
