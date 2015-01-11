@@ -192,19 +192,27 @@ public class VectorFunctionsTest extends TestCase {
         double[] r = {2,0,0};
         double[] expResult = {-1,2,3};
         double[] result = VectorFunctions.reflect(r, x);
-
-        System.out.println("ref = " + print(result));
-
         VectorFunctionsTest.assertVectorsEqual(expResult,result);
 
         double[] x1 = {1,0};
         double[] r1 = {1,1};
         double[] expResult1 = {0,-1};
         double[] result1 = VectorFunctions.reflect(r1, x1);
-
-        System.out.println("ref = " + print(result1));
-
         VectorFunctionsTest.assertVectorsEqual(expResult1,result1);
+        
+        //test reflect u into v
+        double[] u = {2,0,0};
+        double[] v = {1,2,3};
+        double um = magnitude(u);
+        double vm = magnitude(v);
+        double[] r3 = new double[3];
+        for(int i = 0; i < r.length; i++) r3[i] = u[i]*vm - v[i]*um;
+        //test reflection of u is v
+        double[] ru = VectorFunctions.reflect(r3, u);
+        for(int i = 0; i < u.length; i++) assertEquals(ru[i]/um, v[i]/vm, 0.000001);
+        //test reflection of v is u
+        double[] rv = VectorFunctions.reflect(r3, v);
+        for(int i = 0; i < u.length; i++) assertEquals(rv[i]/vm, u[i]/um, 0.000001);
     }
 
     /**

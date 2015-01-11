@@ -436,7 +436,7 @@ public final class VectorFunctions {
     }
 
     /**
-     * Householder reflection of x about r.  Stores result in y.
+     * Householder reflection of x about r.  Allocates memory and returns.
      * Requires
      */
     public static double[] reflect(double[] r, double[] x){
