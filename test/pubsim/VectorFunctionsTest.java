@@ -846,4 +846,31 @@ public class VectorFunctionsTest extends TestCase {
          assertTrue(isUnimodular(B.times(A)));
     }
     
+    public void testreadPARIGPFormat() {
+        System.out.println("test read PARI/GP");
+        {
+            String mat = "[1,2;3,4]";
+            Matrix M = readPARIGPFormat(mat);
+            double tol = 1e-9;
+            assertEquals(M.get(0, 0), 1, tol);
+            assertEquals(M.get(0, 1), 2, tol);
+            assertEquals(M.get(1, 0), 3, tol);
+            assertEquals(M.get(1, 1), 4, tol);
+            M.print(10, 10);
+        }
+        {
+            Matrix M = readPARIGPFormatFromFile("tdata/parimattest");
+            double tol = 1e-9;
+            M.print(10, 10);
+            assertTrue(M.getColumnDimension() == 3);
+            assertTrue(M.getRowDimension() == 2);
+            assertEquals(M.get(0, 0), 0.5, tol);
+            assertEquals(M.get(0, 1), 1.0, tol);
+            assertEquals(M.get(0, 2), 1.5, tol);
+            assertEquals(M.get(1, 0), 2.3, tol);
+            assertEquals(M.get(1, 1), 1, tol);      
+            assertEquals(M.get(1, 2), 5, tol); 
+        }
+    }
+    
 }

@@ -6,11 +6,18 @@
 package pubsim;
 
 import Jama.Matrix;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static pubsim.Range.range;
 
 /**
@@ -1491,5 +1498,54 @@ public final class VectorFunctions {
    }
    ///Default TOL = 10e-9
    public static boolean isUnimodular(Matrix U) { return isUnimodular(U,1e-9); }
+   
+   /** 
+    * Reads PARI/GP or Matlab format from a string. Row elements separated by commas, 
+    * columns by semicolons and the whole matrix delimited by square brackets 
+    */
+   public static Jama.Matrix readPARIGPFormat(String mat) {
+       String nosquarebrakets = mat.substring(mat.indexOf("[")+1, mat.indexOf("]")); //remove square backects surrounding matrix
+       String[] rows = nosquarebrakets.split(";"); //split on semicolon to get rows
+       final int m = rows.length; //the number of rows
+       if(m <= 0) throw new ArrayIndexOutOfBoundsException("Number of row must be positive");
+       final int n = rows[0].split(",").length; //split the first row to get number of columns
+       if(n <= 0) throw new ArrayIndexOutOfBoundsException("Number of columns must be positive");
+       Matrix M = new Matrix(m,n); //allocate Jama matrix
+       for(int i = 0; i < m; i++){
+           String[] cols = rows[i].split(",");
+           if( cols.length != n ) throw new ArrayIndexOutOfBoundsException("All columns must have equal length");
+           for(int j = 0; j < n; j++) {
+               double v = Double.parseDouble(cols[j]);
+               M.set(i, j, v);
+           }
+       }
+       return M;
+   }
+   
+    /** 
+    * Reads PARI/GP or Matlab format from a file. Row elements separated by commas, 
+    * columns by semicolons and the whole matrix delimited by square brackets 
+    */
+   public static  Jama.Matrix readPARIGPFormatFromFile(String filename) {
+       String mat; 
+       try {
+            mat = readFile(filename);
+        } catch (IOException ex) {
+            throw new RuntimeException("Fail to read file");
+        }
+       return readPARIGPFormat(mat);
+   }
+   
+   /** Read entire file into string with StandardCharsets.UTF_8. */
+   static String readFile(String path) throws IOException {
+    byte[] encoded = Files.readAllBytes(Paths.get(path));
+    return new String(encoded, StandardCharsets.UTF_8);
+   }
+   
+   /** Read entire file into string with specified charset. */
+   static String readFile(String path, Charset encoding) throws IOException {
+    byte[] encoded = Files.readAllBytes(Paths.get(path));
+    return new String(encoded, encoding);
+   }
     
 }
