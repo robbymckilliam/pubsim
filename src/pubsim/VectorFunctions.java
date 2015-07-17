@@ -1515,7 +1515,9 @@ public final class VectorFunctions {
            String[] cols = rows[i].split(",");
            if( cols.length != n ) throw new ArrayIndexOutOfBoundsException("All columns must have equal length");
            for(int j = 0; j < n; j++) {
-               double v = Double.parseDouble(cols[j]);
+               String c = cols[j].replaceAll("\\s+",""); //remove any remaining whitespace (in particular pari puts a space before E in scientific notation
+               double v = Double.parseDouble(c);
+               //System.out.println(c + ", " + v);
                M.set(i, j, v);
            }
        }
@@ -1526,13 +1528,8 @@ public final class VectorFunctions {
     * Reads PARI/GP or Matlab format from a file. Row elements separated by commas, 
     * columns by semicolons and the whole matrix delimited by square brackets 
     */
-   public static  Jama.Matrix readPARIGPFormatFromFile(String filename) {
-       String mat; 
-       try {
-            mat = readFile(filename);
-        } catch (IOException ex) {
-            throw new RuntimeException("Fail to read file");
-        }
+   public static  Jama.Matrix readPARIGPFormatFromFile(String filename) throws IOException {
+       String mat = readFile(filename);
        return readPARIGPFormat(mat);
    }
    

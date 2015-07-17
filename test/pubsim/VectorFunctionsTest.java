@@ -8,7 +8,10 @@
 package pubsim;
 
 import Jama.Matrix;
+import java.io.IOException;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import junit.framework.*;
 import static org.junit.Assert.*;
 import static pubsim.VectorFunctions.*;
@@ -845,7 +848,7 @@ public class VectorFunctionsTest extends TestCase {
         assertTrue(isUnimodular(A.times(B)));
          assertTrue(isUnimodular(B.times(A)));
     }
-    
+
     public void testreadPARIGPFormat() {
         System.out.println("test read PARI/GP");
         {
@@ -858,18 +861,21 @@ public class VectorFunctionsTest extends TestCase {
             assertEquals(M.get(1, 1), 4, tol);
             M.print(10, 10);
         }
-        {
+        try {
             Matrix M = readPARIGPFormatFromFile("tdata/parimattest");
-            double tol = 1e-9;
             M.print(10, 10);
             assertTrue(M.getColumnDimension() == 3);
             assertTrue(M.getRowDimension() == 2);
+            double tol = 1e-9;
             assertEquals(M.get(0, 0), 0.5, tol);
             assertEquals(M.get(0, 1), 1.0, tol);
             assertEquals(M.get(0, 2), 1.5, tol);
             assertEquals(M.get(1, 0), 2.3, tol);
-            assertEquals(M.get(1, 1), 1, tol);      
-            assertEquals(M.get(1, 2), 5, tol); 
+            assertEquals(M.get(1, 1), 1e-6, tol);
+            assertEquals(M.get(1, 2), 5e7, tol);
+
+        } catch (IOException ex) {
+            Logger.getLogger(VectorFunctionsTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
