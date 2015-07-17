@@ -6,6 +6,14 @@
 package pubsim;
 
 import Jama.Matrix;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -131,6 +139,29 @@ public class QRDecompositionTest {
         }
         
         assertTrue(Q.transpose().times(Q).minus(Matrix.identity(n, n)).normF() < 0.00001);
+        
+    }
+    
+    @Test 
+    public void jamaWriteAndRead() {
+        System.out.println("test Jama write");
+        int n = 2;
+        int m = 3;
+        Matrix B = Matrix.random(m, n).times(100);
+        try {
+            String filename = "jamatestwrite";
+            PrintWriter pw = new PrintWriter(new File(filename));
+            B.print(20,20);
+            B.print(pw, 20, 20);
+            pw.close();
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            Matrix C = Jama.Matrix.read(br);
+            C.print(20,20);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(QRDecompositionTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(QRDecompositionTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
